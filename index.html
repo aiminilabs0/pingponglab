@@ -357,6 +357,9 @@
 
         let selectedRubbers = [];
         let hasPlotted = false;
+        let isInternalUpdate = false;
+        let currentFilteredData = [];
+        let relayoutTimer = null;
 
         function getCurrentAxisRanges() {
             const chart = document.getElementById('chart');
@@ -565,6 +568,72 @@
             });
         }
 
+        // Compute which rubbers to display based on overlap & priority
+        function computeVisibleRubbers(filteredData) {
+            if (filteredData.length === 0) return [];
+
+            const chartEl = document.getElementById('chart');
+            let xRange, yRange, plotWidth, plotHeight;
+
+            if (chartEl._fullLayout && chartEl._fullLayout.xaxis && chartEl._fullLayout.yaxis) {
+                const xa = chartEl._fullLayout.xaxis;
+                const ya = chartEl._fullLayout.yaxis;
+                xRange = [xa.range[0], xa.range[1]];
+                yRange = [ya.range[0], ya.range[1]];
+                const size = chartEl._fullLayout._size;
+                plotWidth = size.w;
+                plotHeight = size.h;
+            } else {
+                // First render — estimate from data bounds and container size
+                const xs = filteredData.map(r => r.x);
+                const ys = filteredData.map(r => r.y);
+                const pad = 2;
+                xRange = [Math.min(...xs) - pad, Math.max(...xs) + pad];
+                yRange = [Math.min(...ys) - pad, Math.max(...ys) + pad];
+                const rect = chartEl.getBoundingClientRect();
+                plotWidth = rect.width * 0.82;
+                plotHeight = rect.height * 0.82;
+            }
+
+            const xSpan = xRange[1] - xRange[0];
+            const ySpan = yRange[1] - yRange[0];
+            if (xSpan <= 0 || ySpan <= 0) return filteredData;
+
+            function toPixel(dataX, dataY) {
+                const px = ((dataX - xRange[0]) / xSpan) * plotWidth;
+                const py = ((dataY - yRange[0]) / ySpan) * plotHeight;
+                return { px, py };
+            }
+
+            // Sort by priority descending — higher priority dots are placed first
+            const sorted = [...filteredData].sort((a, b) => b.priority - a.priority);
+            const visible = [];
+            const occupied = []; // pixel positions already taken
+
+            // Minimum pixel distance thresholds (accounts for dot + text label)
+            const MIN_DIST_X = 55;
+            const MIN_DIST_Y = 24;
+
+            for (const rubber of sorted) {
+                const { px, py } = toPixel(rubber.x, rubber.y);
+
+                let overlaps = false;
+                for (const occ of occupied) {
+                    if (Math.abs(px - occ.px) < MIN_DIST_X && Math.abs(py - occ.py) < MIN_DIST_Y) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+
+                if (!overlaps) {
+                    visible.push(rubber);
+                    occupied.push({ px, py });
+                }
+            }
+
+            return visible;
+        }
+
         // Initialize chart with Plotly
         function initChart() {
             updateChart();
@@ -573,6 +642,8 @@
         // Update chart
         function updateChart() {
             const filteredData = getFilteredData();
+            currentFilteredData = filteredData;
+            const visibleData = computeVisibleRubbers(filteredData);
             const controlValues = filteredData
                 .map(getControlValue)
                 .filter(value => Number.isFinite(value));
@@ -597,7 +668,7 @@
             const traces = [];
             const groups = {};
             
-            filteredData.forEach(rubber => {
+            visibleData.forEach(rubber => {
                 const key = `${rubber.company}-${rubber.tackiness}`;
                 if (!groups[key]) {
                     groups[key] = {
@@ -714,12 +785,36 @@
             }
 
             // Add click handler
-            document.getElementById('chart').on('plotly_click', function(data) {
+            const chartEl = document.getElementById('chart');
+            chartEl.on('plotly_click', function(data) {
                 const point = data.points[0];
                 const pointIndex = point.pointIndex;
                 const rubber = point.data.customdata[pointIndex];
                 handleRubberClick(rubber);
             });
+
+            // Add relayout handler (once) to recalculate visibility on zoom/pan
+            if (!chartEl._hasRelayoutHandler) {
+                chartEl._hasRelayoutHandler = true;
+                chartEl.on('plotly_relayout', function(eventData) {
+                    if (isInternalUpdate) return;
+                    const rangesChanged =
+                        eventData['xaxis.range[0]'] !== undefined ||
+                        eventData['xaxis.range'] !== undefined ||
+                        eventData['yaxis.range[0]'] !== undefined ||
+                        eventData['yaxis.range'] !== undefined ||
+                        eventData['xaxis.autorange'] !== undefined ||
+                        eventData['yaxis.autorange'] !== undefined;
+                    if (rangesChanged) {
+                        clearTimeout(relayoutTimer);
+                        relayoutTimer = setTimeout(function() {
+                            isInternalUpdate = true;
+                            updateChart();
+                            setTimeout(function() { isInternalUpdate = false; }, 300);
+                        }, 120);
+                    }
+                });
+            }
         }
 
         // Handle rubber click
