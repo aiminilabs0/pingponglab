@@ -1,0 +1,97 @@
+[
+  {
+    "name": "Mark V",
+    "url": "https://revspin.net/rubber/yasaka-mark-v.html",
+    "manufacturer": "Yasaka",
+    "price": "Approx. $ 37 USD",
+    "user_ratings": {
+      "overall": 8.7,
+      "speed": 8,
+      "spin": 8.1,
+      "control": 8.7,
+      "tackiness": "2.6 (Slightly tacky)",
+      "weight": "4.0 (Average)",
+      "sponge_hardness": "4.5 (Medium)",
+      "gears": "7.6 (Above average gears)",
+      "throw_angle": "4.4 (Medium)",
+      "consistency": 9.4,
+      "durability": "8.7 (Lasts a long time!)"
+    }
+  },
+  {
+    "name": "Rakza 7",
+    "url": "https://revspin.net/rubber/yasaka-rakza-7.html",
+    "manufacturer": "Yasaka",
+    "price": "Approx. $ 52 USD",
+    "user_ratings": {
+      "overall": 9.4,
+      "speed": 8.9,
+      "spin": 9.2,
+      "control": 8.9,
+      "tackiness": "2.6 (Slightly tacky)",
+      "weight": "4.9 (Average)",
+      "sponge_hardness": "6.1 (Medium hard)",
+      "gears": "8.5 (Many gears)",
+      "throw_angle": "5.5 (Medium high)",
+      "consistency": 9.6,
+      "durability": "8.0 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Rakza 7 Soft",
+    "url": "https://revspin.net/rubber/yasaka-rakza-7-soft.html",
+    "manufacturer": "Yasaka",
+    "price": "Approx. $ 53 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 8.6,
+      "spin": 9.2,
+      "control": 9.1,
+      "tackiness": "2.4 (Slightly tacky)",
+      "weight": "3.7 (Average)",
+      "sponge_hardness": "2.5 (Medium soft)",
+      "gears": "7.6 (Above average gears)",
+      "throw_angle": "5.5 (Medium high)",
+      "consistency": 9.7,
+      "durability": "7.6 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Rakza Z",
+    "url": "https://revspin.net/rubber/yasaka-rakza-z.html",
+    "manufacturer": "Yasaka",
+    "price": "Approx. $ 43 USD",
+    "user_ratings": {
+      "overall": 9.4,
+      "speed": 8.7,
+      "spin": 9.5,
+      "control": 9.2,
+      "tackiness": "6.6 (Tacky)",
+      "weight": "6.7 (Medium heavy)",
+      "sponge_hardness": "7.7 (Medium hard)",
+      "gears": "8.7 (Many gears)",
+      "throw_angle": "6.5 (Medium high)",
+      "consistency": 9.4,
+      "durability": "8.3 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Rakza 9",
+    "url": "https://revspin.net/rubber/yasaka-rakza-9.html",
+    "manufacturer": "Yasaka",
+    "price": "Approx. $ 53 USD",
+    "user_ratings": {
+      "overall": 9.4,
+      "speed": 9.4,
+      "spin": 9.3,
+      "control": 8.9,
+      "tackiness": "2.3 (Slightly tacky)",
+      "weight": "4.6 (Average)",
+      "sponge_hardness": "6.3 (Medium hard)",
+      "gears": "8.8 (Many gears)",
+      "throw_angle": "4.3 (Medium)",
+      "consistency": 9.3,
+      "durability": "8.7 (Lasts a long time!)"
+    }
+  }
+]

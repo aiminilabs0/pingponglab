@@ -1,0 +1,143 @@
+[
+  {
+    "name": "Baracuda",
+    "url": "https://revspin.net/rubber/donic-baracuda.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 60 USD",
+    "user_ratings": {
+      "overall": 9.3,
+      "speed": 8.7,
+      "spin": 9.5,
+      "control": 8.6,
+      "tackiness": "2.3 (Slightly tacky)",
+      "weight": "5.5 (Medium heavy)",
+      "sponge_hardness": "4.9 (Medium)",
+      "gears": "7.8 (Above average gears)",
+      "throw_angle": "7.3 (High)",
+      "consistency": 8.8,
+      "durability": "7.7 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 45,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ]
+    }
+  },
+  {
+    "name": "Bluefire M2",
+    "url": "https://revspin.net/rubber/donic-bluefire-m2.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 55 USD",
+    "user_ratings": {
+      "overall": 8.9,
+      "speed": 8.7,
+      "spin": 9,
+      "control": 8.5,
+      "tackiness": "1.8 (Slightly tacky)",
+      "weight": "5.6 (Medium heavy)",
+      "sponge_hardness": "5.4 (Medium)",
+      "gears": "7.7 (Above average gears)",
+      "throw_angle": "6.4 (Medium high)",
+      "consistency": 9.2,
+      "durability": "6.3 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Acuda S2",
+    "url": "https://revspin.net/rubber/donic-acuda-s2.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 37 USD",
+    "user_ratings": {
+      "overall": 9.1,
+      "speed": 8.8,
+      "spin": 9,
+      "control": 8.6,
+      "tackiness": "2.6 (Slightly tacky)",
+      "weight": "4.4 (Average)",
+      "sponge_hardness": "4.5 (Medium)",
+      "gears": "7.9 (Above average gears)",
+      "throw_angle": "5.1 (Medium high)",
+      "consistency": 9.1,
+      "durability": "7.5 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Bluefire M3",
+    "url": "https://revspin.net/rubber/donic-bluefire-m3.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 55 USD",
+    "user_ratings": {
+      "overall": 8.9,
+      "speed": 8.4,
+      "spin": 9.1,
+      "control": 8.9,
+      "tackiness": "1.8 (Slightly tacky)",
+      "weight": "5.3 (Medium heavy)",
+      "sponge_hardness": "3.1 (Medium soft)",
+      "gears": "8.1 (Above average gears)",
+      "throw_angle": "7.2 (High)",
+      "consistency": 8.9,
+      "durability": "7.9 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Bluefire JP 03",
+    "url": "https://revspin.net/rubber/donic-bluefire-jp-03.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 54 USD",
+    "user_ratings": {
+      "overall": 9.3,
+      "speed": 8.6,
+      "spin": 9.1,
+      "control": 9.4,
+      "tackiness": "2.0 (Slightly tacky)",
+      "weight": "5.1 (Medium heavy)",
+      "sponge_hardness": "3.4 (Medium soft)",
+      "gears": "7.5 (Above average gears)",
+      "throw_angle": "5.4 (Medium high)",
+      "consistency": 9.3,
+      "durability": "6.7 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Acuda S3",
+    "url": "https://revspin.net/rubber/donic-acuda-s3.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 52 USD",
+    "user_ratings": {
+      "overall": 9,
+      "speed": 8.4,
+      "spin": 9,
+      "control": 8.7,
+      "tackiness": "1.8 (Slightly tacky)",
+      "weight": "3.6 (Average)",
+      "sponge_hardness": "1.9 (Medium soft)",
+      "gears": "7.8 (Above average gears)",
+      "throw_angle": "5.5 (Medium high)",
+      "consistency": 9.5,
+      "durability": "7.4 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Bluefire M1",
+    "url": "https://revspin.net/rubber/donic-bluefire-m1.html",
+    "manufacturer": "Donic",
+    "price": "Approx. $ 55 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 9.3,
+      "spin": 9.2,
+      "control": 8.4,
+      "tackiness": "2.7 (Slightly tacky)",
+      "weight": "5.9 (Medium heavy)",
+      "sponge_hardness": "7.2 (Medium hard)",
+      "gears": "8.0 (Above average gears)",
+      "throw_angle": "6.3 (Medium high)",
+      "consistency": 9.2,
+      "durability": "7.3 (Lasts longer than average)"
+    }
+  }
+]

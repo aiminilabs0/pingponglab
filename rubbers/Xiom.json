@@ -1,0 +1,203 @@
+[
+  {
+    "name": "Vega Europe",
+    "url": "https://revspin.net/rubber/xiom-vega-europe.html",
+    "manufacturer": "Xiom",
+    "price": "Approx. $ 42 USD",
+    "user_ratings": {
+      "overall": 9.1,
+      "speed": 8.7,
+      "spin": 8.9,
+      "control": 9.1,
+      "tackiness": "1.9 (Slightly tacky)",
+      "weight": "3.4 (Average)",
+      "sponge_hardness": "2.8 (Medium soft)",
+      "gears": "7.8 (Above average gears)",
+      "throw_angle": "4.7 (Medium)",
+      "consistency": 9.3,
+      "durability": "6.8 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 42.5,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ]
+    }
+  },
+  {
+    "name": "Vega Asia",
+    "url": "https://revspin.net/rubber/xiom-vega-asia.html",
+    "manufacturer": "Xiom",
+    "price": null,
+    "user_ratings": {
+      "overall": 8.9,
+      "speed": 8.9,
+      "spin": 8.4,
+      "control": null,
+      "tackiness": "2.5 (Slightly tacky)",
+      "weight": null,
+      "sponge_hardness": null,
+      "gears": null,
+      "throw_angle": null,
+      "consistency": null,
+      "durability": null
+    },
+    "manufacturer_details": {
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ]
+    }
+  },
+  {
+    "name": "Vega Pro",
+    "url": "https://revspin.net/rubber/xiom-vega-pro.html",
+    "manufacturer": "Xiom",
+    "price": "Approx. $ 38 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 9.1,
+      "spin": 9.2,
+      "control": 8.7,
+      "tackiness": "2.1 (Slightly tacky)",
+      "weight": "5.5 (Medium heavy)",
+      "sponge_hardness": "7.0 (Medium hard)",
+      "gears": "8.0 (Above average gears)",
+      "throw_angle": "5.8 (Medium high)",
+      "consistency": 9.3,
+      "durability": "7.5 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ]
+    }
+  },
+  {
+    "name": "Vega X",
+    "url": "https://revspin.net/rubber/xiom-vega-x.html",
+    "manufacturer": "Xiom",
+    "price": null,
+    "user_ratings": {
+      "overall": 9.3,
+      "speed": 9.0,
+      "spin": 9.0,
+      "control": 8.7,
+      "tackiness": "5.0 (Medium tacky)",
+      "weight": "6.0 (Medium heavy)",
+      "sponge_hardness": "10.0 (Hard)",
+      "gears": 1.0,
+      "throw_angle": "8.0 (High)",
+      "consistency": 10.0,
+      "durability": "7.0 (Above average)"
+    },
+    "manufacturer_details": {
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ]
+    }
+  },
+  {
+    "name": "Jekyll & Hyde C55.0",
+    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c550.html",
+    "manufacturer": "Xiom",
+    "user_ratings": {
+      "overall": 9.4,
+      "speed": 9.0,
+      "spin": 10.0,
+      "control": 10.0,
+      "tackiness": "5.0 (Medium tacky)",
+      "weight": "8.0 (Heavy)",
+      "sponge_hardness": "10.0 (Hard)",
+      "gears": 10.0,
+      "throw_angle": "0.0 (Low)",
+      "consistency": 10.0,
+      "durability": "5.0 (Average)"
+    },
+    "manufacturer_details": {
+      "hardness": 55,
+      "thickness": [
+        "max",
+        "2.1"
+      ]
+    }
+  },
+  {
+    "name": "Jekyll & Hyde V47.5",
+    "url": "https://revspin.net/rubber/xiom-jekyll-hyde-v475.html",
+    "manufacturer": "Xiom",
+    "price": "Approx. $54.95 USD",
+    "user_ratings": {
+      "overall": 9.4,
+      "speed": 9.3,
+      "spin": 8.9,
+      "control": 8.8
+    },
+    "manufacturer_details": {
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.1"
+      ]
+    }
+  },
+  {
+    "name": "Jekyll & Hyde Z52.5",
+    "url": "https://revspin.net/rubber/xiom-jekyll-hyde-z525.html",
+    "manufacturer": "Xiom",
+    "user_ratings": {
+      "overall": 9.7,
+      "speed": 9.7,
+      "spin": 9.3,
+      "control": 9.5,
+      "tackiness": "2.0 (Slightly tacky)",
+      "weight": "8.0 (Heavy)",
+      "sponge_hardness": "10.0 (Hard)",
+      "gears": 10.0,
+      "throw_angle": "6.0 (Medium‑high)",
+      "consistency": 10.0,
+      "durability": null
+    },
+    "manufacturer_details": {
+      "hardness": 52.5,
+      "thickness": [
+        "2.1"
+      ]
+    }
+  },
+  {
+    "name": "Omega VII Pro",
+    "url": "https://revspin.net/rubber/xiom-omega-vii-pro.html",
+    "manufacturer": "Xiom",
+    "user_ratings": {
+      "overall": 9.1,
+      "speed": 9.2,
+      "spin": 9.1,
+      "control": 8.7,
+      "tackiness": "1.6 (Slightly tacky)",
+      "weight": "4.3 (Average)",
+      "sponge_hardness": "6.2 (Medium hard)",
+      "gears": 8.2,
+      "throw_angle": "5.2 (Medium‑high)",
+      "consistency": 8.8,
+      "durability": "6.7 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.0"
+      ]
+    }
+  }
+]

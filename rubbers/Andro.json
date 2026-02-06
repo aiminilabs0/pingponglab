@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Rasanter R42",
+    "url": "https://revspin.net/rubber/andro-rasanter-r42.html",
+    "manufacturer": "Andro",
+    "price": "Approx. $ 41 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 9,
+      "spin": 9.2,
+      "control": 9.2,
+      "tackiness": "2.1 (Slightly tacky)",
+      "weight": "3.6 (Average)",
+      "sponge_hardness": "4.1 (Medium)",
+      "gears": "8.0 (Above average gears)",
+      "throw_angle": "6.1 (Medium high)",
+      "consistency": 9,
+      "durability": "7.7 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 42,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.7"
+      ]
+    }
+  },
+  {
+    "name": "Rasanter R47",
+    "url": "https://revspin.net/rubber/andro-rasanter-r47.html",
+    "manufacturer": "Andro",
+    "price": "Approx. $ 41 USD",
+    "user_ratings": {
+      "overall": 9.3,
+      "speed": 9.4,
+      "spin": 9.3,
+      "control": 8.9,
+      "tackiness": "1.8 (Slightly tacky)",
+      "weight": "5.6 (Medium heavy)",
+      "sponge_hardness": "6.5 (Medium hard)",
+      "gears": "8.8 (Many gears)",
+      "throw_angle": "5.9 (Medium high)",
+      "consistency": 9.3,
+      "durability": "7.6 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "hardness": 47,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.7"
+      ]
+    }
+  },
+  {
+    "name": "Rasanter R48",
+    "url": "https://revspin.net/rubber/andro-rasanter-r48.html",
+    "manufacturer": "Andro",
+    "price": "Approx. $ 58 USD",
+    "user_ratings": {
+      "overall": 9.3,
+      "speed": 8.9,
+      "spin": 9.4,
+      "control": 8.9,
+      "tackiness": "1.9 (Slightly tacky)",
+      "weight": "5.4 (Medium heavy)",
+      "sponge_hardness": "6.6 (Medium hard)",
+      "gears": "8.1 (Above average gears)",
+      "throw_angle": "5.9 (Medium high)",
+      "consistency": 8.2,
+      "durability": "7.4 (Lasts longer than average)"
+    }
+  },
+  {
+    "name": "Andro Rasanter C53",
+    "url": "https://revspin.net/rubber/andro-rasanter-c53.html",
+    "manufacturer": "Andro",
+    "price": "Approx. $60 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 8.8,
+      "spin": 9.0,
+      "control": 9.5,
+      "tackiness": "5.0 (Medium tacky)",
+      "weight": null,
+      "sponge_hardness": null,
+      "gears": null,
+      "throw_angle": null,
+      "consistency": null,
+      "durability": null
+    },
+    "manufacturer_details": {
+      "hardness": 48,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.7"
+      ]
+    }
+  }
+]
