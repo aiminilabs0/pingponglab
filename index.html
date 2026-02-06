@@ -785,7 +785,7 @@
                     }
                 }],
                 displaylogo: false,
-                scrollZoom: true
+                scrollZoom: false
             };
 
             if (hasPlotted) {
@@ -882,6 +882,66 @@
         function hideComparison() {
             document.getElementById('comparisonBar').style.display = 'none';
         }
+
+        // Trackpad pinch-to-zoom (blocks regular scroll zoom)
+        (function() {
+            const chartEl = document.getElementById('chart');
+
+            chartEl.addEventListener('wheel', function(e) {
+                // ctrlKey is true for trackpad pinch gestures
+                if (!e.ctrlKey) return; // ignore regular scroll — do nothing
+
+                e.preventDefault();
+
+                const gd = chartEl;
+                if (!gd._fullLayout) return;
+
+                const xa = gd._fullLayout.xaxis;
+                const ya = gd._fullLayout.yaxis;
+                const plotArea = gd._fullLayout._size;
+                const rect = gd.getBoundingClientRect();
+
+                const plotLeft = rect.left + plotArea.l;
+                const plotTop = rect.top + plotArea.t;
+                const plotWidth = plotArea.w;
+                const plotHeight = plotArea.h;
+
+                // Fraction of cursor within plot area
+                const fx = Math.max(0, Math.min(1, (e.clientX - plotLeft) / plotWidth));
+                const fy = Math.max(0, Math.min(1, 1 - (e.clientY - plotTop) / plotHeight));
+
+                // Zoom factor: positive deltaY = zoom out, negative = zoom in
+                const zoomSpeed = 0.01;
+                const scale = 1 + e.deltaY * zoomSpeed;
+
+                const xRange = [xa.range[0], xa.range[1]];
+                const yRange = [ya.range[0], ya.range[1]];
+                const xSpan = xRange[1] - xRange[0];
+                const ySpan = yRange[1] - yRange[0];
+
+                const newXSpan = xSpan * scale;
+                const newYSpan = ySpan * scale;
+
+                const xCenter = xRange[0] + fx * xSpan;
+                const yCenter = yRange[0] + fy * ySpan;
+
+                const newXRange = [
+                    xCenter - fx * newXSpan,
+                    xCenter + (1 - fx) * newXSpan
+                ];
+                const newYRange = [
+                    yCenter - fy * newYSpan,
+                    yCenter + (1 - fy) * newYSpan
+                ];
+
+                Plotly.relayout(chartEl, {
+                    'xaxis.range': newXRange,
+                    'yaxis.range': newYRange,
+                    'xaxis.autorange': false,
+                    'yaxis.autorange': false
+                });
+            }, { passive: false });
+        })();
 
         // Pinch-to-zoom for mobile
         (function() {
