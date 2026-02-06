@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubber</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .filter-group label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+        }
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .filter-actions button {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .filter-actions button:hover {
+            background: #f5f5f5;
+        }
+        .filter-search {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            min-width: 200px;
+        }
+        .filter-options {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            min-width: 200px;
+            max-height: 160px;
+            overflow: auto;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #333;
+        }
+        .filter-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+        .custom-check {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid #999;
+            background: #fff;
+            display: inline-block;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .filter-option input[type="checkbox"]:focus-visible + .custom-check {
+            outline: 2px solid #4c9ffe;
+            outline-offset: 2px;
+        }
+        .filter-option input[type="checkbox"]:checked + .custom-check::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 2px;
+            background: #333;
+        }
+        .custom-check.color-check {
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        .custom-check.color-check::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 2px;
+        }
+        .filter-option input[type="checkbox"]:checked + .custom-check.color-check::after {
+            box-shadow: 0 0 0 1px #333;
+        }
+        .custom-check.shape-check {
+            border: 1px solid #333;
+            background: #fff;
+        }
+        .custom-check.shape-check.circle {
+            border-radius: 50%;
+        }
+        .custom-check.shape-check.square {
+            border-radius: 2px;
+        }
+        .custom-check.shape-check.diamond {
+            transform: rotate(45deg);
+        }
+        .filter-option input[type="checkbox"]:checked + .custom-check.shape-check::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #333;
+        }
+        .custom-check.shape-check.diamond::after {
+            transform: rotate(-45deg);
+        }
+        .color-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            flex-shrink: 0;
+        }
+        .shape-swatch {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #333;
+            background: #fff;
+            flex-shrink: 0;
+        }
+        .shape-swatch.circle {
+            border-radius: 50%;
+        }
+        .shape-swatch.square {
+            border-radius: 2px;
+        }
+        .shape-swatch.diamond {
+            transform: rotate(45deg);
+        }
+        .filter-instructions {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+        #chart {
+            width: 100%;
+            height: 600px;
+            margin-bottom: 20px;
+        }
+        .details-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .detail-panel {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            min-height: 200px;
+        }
+        .detail-panel h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 18px;
+        }
+        .detail-panel .content {
+            color: #666;
+            line-height: 1.6;
+        }
+        .detail-panel a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .detail-panel a:hover {
+            text-decoration: underline;
+        }
+        .comparison-bar {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        @media (max-width: 768px) {
+            .details-container {
+                flex-direction: column;
+            }
+            .detail-panel:nth-child(2) {
+                display: none;
+            }
+            #chart {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏓 Rubber</h1>
+
+        <div id="chart"></div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label>Company:</label>
+                <div class="filter-actions">
+                    <button type="button" data-filter="company" data-action="all">All</button>
+                    <button type="button" data-filter="company" data-action="none">None</button>
+                </div>
+                <input id="companySearch" class="filter-search" type="search" placeholder="Search company">
+                <div id="companyFilter" class="filter-options"></div>
+            </div>
+            <div class="filter-group">
+                <label>Rubber:</label>
+                <div class="filter-actions">
+                    <button type="button" data-filter="name" data-action="all">All</button>
+                    <button type="button" data-filter="name" data-action="none">None</button>
+                </div>
+                <input id="nameSearch" class="filter-search" type="search" placeholder="Search rubber">
+                <div id="nameFilter" class="filter-options"></div>
+            </div>
+            <div class="filter-group">
+                <label>Tackiness:</label>
+                <div class="filter-actions">
+                    <button type="button" data-filter="tackiness" data-action="all">All</button>
+                    <button type="button" data-filter="tackiness" data-action="none">None</button>
+                </div>
+                <div id="tackinessFilter" class="filter-options"></div>
+            </div>
+        </div>
+
+        
+
+        <div class="details-container">
+            <div class="detail-panel" id="detail1">
+                <h3>Select a rubber</h3>
+                <div class="content">Click on any dot to see details</div>
+            </div>
+            <div class="detail-panel" id="detail2">
+                <h3>Select another rubber</h3>
+                <div class="content">Click on another dot to compare</div>
+            </div>
+        </div>
+
+        <div id="comparisonBar" style="display: none;" class="comparison-bar"></div>
+    </div>
+
+    <script>
+        // Rubber data
+        const rubberData = [
+            {name: "Tenergy 05", company: "Butterfly", x: 94.0, y: 93.0, weight: 6.4, hardness: 6.1, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05.html"},
+            {name: "Tenergy 05 FX", company: "Butterfly", x: 92.0, y: 91.0, weight: 5.3, hardness: 4.1, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05-fx.html"},
+            {name: "Tenergy 64", company: "Butterfly", x: 88.0, y: 93.0, weight: 5.5, hardness: 5.1, tackiness: "Non-tacky", priority: 88.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-64.html"},
+            {name: "Dignics 09C", company: "Butterfly", x: 95.0, y: 88.0, weight: 6.8, hardness: 8.1, tackiness: "Hybrid", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-09c.html"},
+            {name: "Dignics 05", company: "Butterfly", x: 94.0, y: 91.0, weight: 4.9, hardness: 7.0, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-05.html"},
+            {name: "Dignics 64", company: "Butterfly", x: 91.0, y: 95.0, weight: 4.8, hardness: 6.8, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-64.html"},
+            {name: "Dignics 80", company: "Butterfly", x: 95.0, y: 93.0, weight: 5.0, hardness: 6.5, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-80.html"},
+            {name: "Tenergy 80", company: "Butterfly", x: 94.0, y: 93.0, weight: 5.5, hardness: 5.4, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-80.html"},
+            {name: "Rozena", company: "Butterfly", x: 84.0, y: 87.0, weight: 4.5, hardness: 5.0, tackiness: "Non-tacky", priority: 84.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-rozena.html"},
+            {name: "Tenergy 80 FX", company: "Butterfly", x: 89.0, y: 89.0, weight: 4.4, hardness: 3.6, tackiness: "Non-tacky", priority: 89.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-80-fx.html"},
+            {name: "Tenergy 19", company: "Butterfly", x: 92.0, y: 90.0, weight: 4.5, hardness: 5.8, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-19.html"},
+            {name: "Tenergy 05 Hard", company: "Butterfly", x: 95.0, y: 96.0, weight: 7.8, hardness: 8.9, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05-hard.html"},
+            {name: "Zyre 03", company: "Butterfly", x: 96.0, y: 92.0, weight: 5.0, hardness: 7.3, tackiness: "Non-tacky", priority: 96.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-zyre-03.html"},
+            {name: "Evolution EL-P", company: "Tibhar", x: 92.0, y: 91.0, weight: 5.8, hardness: 5.0, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-el-p.html"},
+            {name: "Evolution MX-P", company: "Tibhar", x: 93.0, y: 95.0, weight: 6.5, hardness: 7.0, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-mx-p.html"},
+            {name: "Evolution MX-S", company: "Tibhar", x: 95.0, y: 92.0, weight: 6.6, hardness: 7.6, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-mx-s.html"},
+            {name: "Evolution FX-P", company: "Tibhar", x: 91.0, y: 86.0, weight: 5.1, hardness: 2.9, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-fx-p.html"},
+            {name: "Vega Europe", company: "Xiom", x: 87.0, y: 89.0, weight: 3.4, hardness: 2.8, tackiness: "Non-tacky", priority: 87.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-vega-europe.html"},
+            {name: "Vega Pro", company: "Xiom", x: 91.0, y: 92.0, weight: 5.5, hardness: 7.0, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-vega-pro.html"},
+            {name: "Omega IV Pro", company: "Xiom", x: 93.0, y: 92.0, weight: 5.5, hardness: 6.8, tackiness: "Non-tacky", priority: 93.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-omega-iv-pro.html"},
+        ];
+
+        // Mock descriptions
+        const descriptions = {
+            "Tenergy 05": "# Butterfly Tenergy 05\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 9.4\n**Control:** 8.3\n**Tackiness:** 2.3 (Slightly tacky)\n**Weight:** 6.4 (Medium heavy)\n**Sponge hardness:** 6.1 (Medium hard)",
+            "Tenergy 05 FX": "# Butterfly Tenergy 05 FX\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 8.9\n**Tackiness:** 2.9 (Slightly tacky)\n**Weight:** 5.3 (Medium heavy)\n**Sponge hardness:** 4.1 (Medium)",
+            "Tenergy 64": "# Butterfly Tenergy 64\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 8.8\n**Control:** 8.5\n**Tackiness:** 2.5 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 5.1 (Medium)",
+            "Dignics 09C": "# Butterfly Dignics 09C\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.3\n**Speed:** 8.8\n**Spin:** 9.5\n**Control:** 9.0\n**Tackiness:** 5.5 (Medium tacky)\n**Weight:** 6.8 (Medium heavy)\n**Sponge hardness:** 8.1 (Medium hard)",
+            "Dignics 05": "# Butterfly Dignics 05\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.4\n**Control:** 8.8\n**Tackiness:** 1.8 (Slightly tacky)\n**Weight:** 4.9 (Average)\n**Sponge hardness:** 7.0 (Medium hard)",
+            "Dignics 64": "# Butterfly Dignics 64\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.4\n**Speed:** 9.5\n**Spin:** 9.1\n**Control:** 9.0\n**Tackiness:** 1.7 (Slightly tacky)\n**Weight:** 4.8 (Average)\n**Sponge hardness:** 6.8 (Medium hard)",
+            "Dignics 80": "# Butterfly Dignics 80\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.5\n**Speed:** 9.3\n**Spin:** 9.5\n**Control:** 9.2\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 5.0 (Average)\n**Sponge hardness:** 6.5 (Medium hard)",
+            "Tenergy 80": "# Butterfly Tenergy 80\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.4\n**Speed:** 9.3\n**Spin:** 9.4\n**Control:** 9.0\n**Tackiness:** 2.1 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 5.4 (Medium)",
+            "Rozena": "# Butterfly Rozena\n**Company:** Butterfly\n**Price:** Approx. $ 40 USD\n**Overall:** 8.8\n**Speed:** 8.7\n**Spin:** 8.4\n**Control:** 8.7\n**Tackiness:** 1.5 (Slightly tacky)\n**Weight:** 4.5 (Average)\n**Sponge hardness:** 5.0 (Medium)",
+            "Tenergy 80 FX": "# Butterfly Tenergy 80 FX\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 8.8\n**Speed:** 8.9\n**Spin:** 8.9\n**Control:** 8.5\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 4.4 (Average)\n**Sponge hardness:** 3.6 (Medium soft)",
+            "Tenergy 19": "# Butterfly Tenergy 19\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.0\n**Spin:** 9.2\n**Control:** 9.2\n**Tackiness:** 1.6 (Slightly tacky)\n**Weight:** 4.5 (Average)\n**Sponge hardness:** 5.8 (Medium)",
+            "Tenergy 05 Hard": "# Butterfly Tenergy 05 Hard\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.4\n**Speed:** 9.6\n**Spin:** 9.5\n**Control:** 8.7\n**Tackiness:** 1.8 (Slightly tacky)\n**Weight:** 7.8 (Heavy)\n**Sponge hardness:** 8.9 (Hard)",
+            "Zyre 03": "# Butterfly Zyre 03\n**Company:** Butterfly\n**Price:** Approx. $120 USD\n**Overall:** 9.3\n**Speed:** 9.2\n**Spin:** 9.6\n**Control:** 8.9\n**Tackiness:** 2.5 (Slightly tacky)\n**Weight:** 5.0 (Medium heavy)\n**Sponge hardness:** 7.3 (Medium hard)",
+            "Evolution EL-P": "# Tibhar Evolution EL-P\n**Company:** Tibhar\n**Price:** Approx. $ 40 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 9.0\n**Tackiness:** 2.2 (Slightly tacky)\n**Weight:** 5.8 (Medium heavy)\n**Sponge hardness:** 5.0 (Medium)",
+            "Evolution MX-P": "# Tibhar Evolution MX-P\n**Company:** Tibhar\n**Price:** Approx. $ 60 USD\n**Overall:** 9.4\n**Speed:** 9.5\n**Spin:** 9.3\n**Control:** 8.7\n**Tackiness:** 2.3 (Slightly tacky)\n**Weight:** 6.5 (Medium heavy)\n**Sponge hardness:** 7.0 (Medium hard)",
+            "Evolution MX-S": "# Tibhar Evolution MX-S\n**Company:** Tibhar\n**Price:** Approx. $ 59 USD\n**Overall:** 9.4\n**Speed:** 9.2\n**Spin:** 9.5\n**Control:** 9.1\n**Tackiness:** 2.4 (Slightly tacky)\n**Weight:** 6.6 (Medium heavy)\n**Sponge hardness:** 7.6 (Medium hard)",
+            "Evolution FX-P": "# Tibhar Evolution FX-P\n**Company:** Tibhar\n**Price:** Approx. $ 60 USD\n**Overall:** 9.1\n**Speed:** 8.6\n**Spin:** 9.1\n**Control:** 8.9\n**Tackiness:** 2.0 (Slightly tacky)\n**Weight:** 5.1 (Medium heavy)\n**Sponge hardness:** 2.9 (Medium soft)",
+            "Vega Europe": "# Xiom Vega Europe\n**Company:** Xiom\n**Price:** Approx. $ 42 USD\n**Overall:** 9.1\n**Speed:** 8.7\n**Spin:** 8.9\n**Control:** 9.1\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 3.4 (Average)\n**Sponge hardness:** 2.8 (Medium soft)",
+            "Vega Pro": "# Xiom Vega Pro\n**Company:** Xiom\n**Price:** Approx. $ 38 USD\n**Overall:** 9.2\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 8.7\n**Tackiness:** 2.1 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 7.0 (Medium hard)",
+            "Omega IV Pro": "# Xiom Omega IV Pro\n**Company:** Xiom\n**Price:** Approx. $ 60 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 9.2\n**Control:** 8.8\n**Tackiness:** 2.4 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 6.8 (Medium hard)",
+        };
+
+        // Company colors
+        const companyColors = {
+            "Butterfly": "#FF6B6B",
+            "DHS": "#4ECDC4",
+            "Andro": "#95E1D3",
+            "Xiom": "#FFD93D",
+            "Tibhar": "#A8E6CF",
+            "Nittaku": "#FF8B94",
+            "Donic": "#C7CEEA"
+        };
+
+        // Tackiness markers
+        const tackinessMarkers = {
+            "Non-tacky": "circle",
+            "Tacky": "square",
+            "Hybrid": "diamond"
+        };
+
+        let selectedRubbers = [];
+        let hasPlotted = false;
+
+        function getCurrentAxisRanges() {
+            const chart = document.getElementById('chart');
+            if (!chart || !chart.layout || !chart.layout.xaxis || !chart.layout.yaxis) {
+                return null;
+            }
+            const { xaxis, yaxis } = chart.layout;
+            if (!Array.isArray(xaxis.range) || !Array.isArray(yaxis.range)) {
+                return null;
+            }
+            return {
+                xaxis: [...xaxis.range],
+                yaxis: [...yaxis.range]
+            };
+        }
+
+        function getControlValue(rubber) {
+            if (typeof rubber.control === 'number') {
+                return rubber.control;
+            }
+            const description = descriptions[rubber.name];
+            if (!description) {
+                return null;
+            }
+            const match = description.match(/\*\*Control:\*\*\s*([0-9.]+)/);
+            if (!match) {
+                return null;
+            }
+            const value = Number.parseFloat(match[1]);
+            return Number.isFinite(value) ? value : null;
+        }
+
+        function buildCheckboxOptions(container, values, checkedValues) {
+            container.innerHTML = '';
+            values.forEach(item => {
+                const value = typeof item === 'string' ? item : item.value;
+                const labelText = typeof item === 'string' ? item : item.label;
+                const swatchColor = typeof item === 'string' ? null : item.swatchColor;
+                const shapeSymbol = typeof item === 'string' ? null : item.shapeSymbol;
+
+                const label = document.createElement('label');
+                label.className = 'filter-option';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = value;
+                checkbox.checked = checkedValues ? checkedValues.has(value) : true;
+                label.appendChild(checkbox);
+
+                const indicator = document.createElement('span');
+                indicator.className = 'custom-check';
+                if (swatchColor) {
+                    indicator.classList.add('color-check');
+                    indicator.style.setProperty('--swatch-color', swatchColor);
+                    indicator.style.backgroundColor = swatchColor;
+                }
+                if (shapeSymbol) {
+                    indicator.classList.add('shape-check', shapeSymbol);
+                }
+                label.appendChild(indicator);
+
+                const text = document.createElement('span');
+                text.textContent = labelText;
+                label.appendChild(text);
+                container.appendChild(label);
+            });
+        }
+
+        function setAllChecked(container, checked) {
+            Array.from(container.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                cb.checked = checked;
+            });
+        }
+
+        function filterOptions(container, query) {
+            const q = query.trim().toLowerCase();
+            Array.from(container.querySelectorAll('.filter-option')).forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(q) ? 'flex' : 'none';
+            });
+        }
+
+        function getCheckedValues(containerId) {
+            return Array.from(document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`))
+                .map(cb => cb.value);
+        }
+
+        function buildNameOptionsFromCompanies() {
+            const nameFilter = document.getElementById('nameFilter');
+            const selectedCompanies = getCheckedValues('companyFilter');
+            const previousSelections = new Set(getCheckedValues('nameFilter'));
+            const previousNames = new Set(
+                Array.from(nameFilter.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value)
+            );
+
+            if (selectedCompanies.length === 0) {
+                nameFilter.innerHTML = '<div class="filter-instructions">Select a company first.</div>';
+                return;
+            }
+
+            const names = rubberData
+                .filter(rubber => selectedCompanies.includes(rubber.company))
+                .map(rubber => rubber.name);
+            const uniqueNames = [...new Set(names)].sort();
+            const nameOptions = uniqueNames.map(name => {
+                const rubber = rubberData.find(item => item.name === name);
+                const company = rubber ? rubber.company : null;
+                return {
+                    value: name,
+                    label: name,
+                    swatchColor: company ? getCompanyColor(company) : null
+                };
+            });
+
+            buildCheckboxOptions(
+                nameFilter,
+                nameOptions,
+                new Set(
+                    uniqueNames.filter(name => {
+                        if (previousSelections.has(name)) return true;
+                        if (previousNames.has(name)) return false;
+                        return true;
+                    })
+                )
+            );
+        }
+
+        function getCompanyColor(company) {
+            return companyColors[company] || '#999999';
+        }
+
+        function getTackinessSymbol(tackiness) {
+            return tackinessMarkers[tackiness] || 'circle';
+        }
+
+        // Initialize filters
+        function initFilters() {
+            const companies = [...new Set(rubberData.map(r => r.company))].sort();
+            const tackinessValues = ["Non-tacky", "Tacky", "Hybrid"];
+            const companyOptions = companies.map(company => ({
+                value: company,
+                label: company,
+                swatchColor: getCompanyColor(company)
+            }));
+            const tackinessOptions = tackinessValues.map(tackiness => ({
+                value: tackiness,
+                label: tackiness,
+                shapeSymbol: getTackinessSymbol(tackiness)
+            }));
+
+            const companyFilter = document.getElementById('companyFilter');
+            const nameFilter = document.getElementById('nameFilter');
+            const tackinessFilter = document.getElementById('tackinessFilter');
+
+            buildCheckboxOptions(companyFilter, companyOptions);
+            buildCheckboxOptions(tackinessFilter, tackinessOptions);
+            buildNameOptionsFromCompanies();
+
+            companyFilter.addEventListener('change', () => {
+                buildNameOptionsFromCompanies();
+                updateChart();
+            });
+            nameFilter.addEventListener('change', updateChart);
+            tackinessFilter.addEventListener('change', updateChart);
+
+            document.getElementById('companySearch').addEventListener('input', (e) => {
+                filterOptions(companyFilter, e.target.value);
+            });
+            document.getElementById('nameSearch').addEventListener('input', (e) => {
+                filterOptions(nameFilter, e.target.value);
+            });
+
+            document.querySelectorAll('.filter-actions button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    const action = button.dataset.action;
+                    const container = document.getElementById(`${filter}Filter`);
+                    setAllChecked(container, action === 'all');
+                    if (filter === 'company') {
+                        buildNameOptionsFromCompanies();
+                    }
+                    updateChart();
+                });
+            });
+        }
+
+        // Get filtered data
+        function getFilteredData() {
+            const selectedCompanies = getCheckedValues('companyFilter');
+            const selectedNames = getCheckedValues('nameFilter');
+            const selectedTackiness = getCheckedValues('tackinessFilter');
+
+            if (
+                selectedCompanies.length === 0 ||
+                selectedNames.length === 0 ||
+                selectedTackiness.length === 0
+            ) {
+                return [];
+            }
+
+            return rubberData.filter(rubber => {
+                if (selectedCompanies.length > 0 && !selectedCompanies.includes(rubber.company)) return false;
+                if (selectedNames.length > 0 && !selectedNames.includes(rubber.name)) return false;
+                if (selectedTackiness.length > 0 && !selectedTackiness.includes(rubber.tackiness)) return false;
+                return true;
+            });
+        }
+
+        // Initialize chart with Plotly
+        function initChart() {
+            updateChart();
+        }
+
+        // Update chart
+        function updateChart() {
+            const filteredData = getFilteredData();
+            const controlValues = filteredData
+                .map(getControlValue)
+                .filter(value => Number.isFinite(value));
+            const minControl = controlValues.length > 0 ? Math.min(...controlValues) : null;
+            const maxControl = controlValues.length > 0 ? Math.max(...controlValues) : null;
+            const minMarkerSize = 10;
+            const maxMarkerSize = 15;
+
+            function getMarkerSize(rubber) {
+                const control = getControlValue(rubber);
+                if (!Number.isFinite(control) || minControl === null || maxControl === null) {
+                    return 12;
+                }
+                if (maxControl === minControl) {
+                    return (minMarkerSize + maxMarkerSize) / 2;
+                }
+                const t = (control - minControl) / (maxControl - minControl);
+                return minMarkerSize + t * (maxMarkerSize - minMarkerSize);
+            }
+            
+            // Group data by company and tackiness
+            const traces = [];
+            const groups = {};
+            
+            filteredData.forEach(rubber => {
+                const key = `${rubber.company}-${rubber.tackiness}`;
+                if (!groups[key]) {
+                    groups[key] = {
+                        company: rubber.company,
+                        tackiness: rubber.tackiness,
+                        rubbers: []
+                    };
+                }
+                groups[key].rubbers.push(rubber);
+            });
+
+            // Create traces for each group
+            Object.values(groups).forEach(group => {
+                const trace = {
+                    x: group.rubbers.map(r => r.x),
+                    y: group.rubbers.map(r => r.y),
+                    mode: 'markers+text',
+                    type: 'scatter',
+                    name: `${group.company} (${group.tackiness})`,
+                    marker: {
+                        size: group.rubbers.map(r => getMarkerSize(r)),
+                        color: getCompanyColor(group.company),
+                        symbol: getTackinessSymbol(group.tackiness),
+                        line: {
+                            width: 1,
+                            color: '#fff'
+                        }
+                    },
+                    text: group.rubbers.map(r => r.name),
+                    textposition: 'top center',
+                    textfont: {
+                        size: 11,
+                        color: '#333',
+                        family: 'Arial, sans-serif'
+                    },
+                    hovertemplate: '<b>%{text}</b><br>' +
+                        'Company: ' + group.company + '<br>' +
+                        'Speed: %{x}<br>' +
+                        'Spin: %{y}<br>' +
+                        'Tackiness: ' + group.tackiness +
+                        '<extra></extra>',
+                    customdata: group.rubbers
+                };
+                traces.push(trace);
+            });
+
+            const currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
+            const layout = {
+                title: '',
+                dragmode: 'pan',
+                xaxis: {
+                    title: 'Spin →',
+                    autorange: currentRanges ? false : true,
+                    range: currentRanges ? currentRanges.xaxis : undefined,
+                    zeroline: false,
+                    gridcolor: '#eee'
+                },
+                yaxis: {
+                    title: 'Speed →',
+                    autorange: currentRanges ? false : true,
+                    range: currentRanges ? currentRanges.yaxis : undefined,
+                    zeroline: false,
+                    gridcolor: '#eee'
+                },
+                hovermode: 'closest',
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white',
+                margin: { l: 60, r: 40, t: 40, b: 60 },
+                showlegend: false,
+                legend: {
+                    x: 1,
+                    y: 1,
+                    xanchor: 'right',
+                    bgcolor: 'rgba(255,255,255,0.8)',
+                    bordercolor: '#ddd',
+                    borderwidth: 1
+                }
+            };
+
+            const config = {
+                responsive: true,
+                displayModeBar: true,
+                modeBarButtonsToRemove: [
+                    'lasso2d',
+                    'select2d',
+                    'autoscale2d',
+                    'resetScale2d',
+                    'toImage',
+                    'zoom2d'
+                ],
+                modeBarButtonsToAdd: [{
+                    name: 'Home',
+                    title: 'Home',
+                    icon: Plotly.Icons.home,
+                    click: function(gd) {
+                        Plotly.relayout(gd, {
+                            'xaxis.autorange': true,
+                            'yaxis.autorange': true
+                        });
+                    }
+                }],
+                displaylogo: false,
+                scrollZoom: false
+            };
+
+            if (hasPlotted) {
+                Plotly.react('chart', traces, layout, config);
+            } else {
+                Plotly.newPlot('chart', traces, layout, config);
+                hasPlotted = true;
+            }
+
+            // Add click handler
+            document.getElementById('chart').on('plotly_click', function(data) {
+                const point = data.points[0];
+                const pointIndex = point.pointIndex;
+                const rubber = point.data.customdata[pointIndex];
+                handleRubberClick(rubber);
+            });
+        }
+
+        // Handle rubber click
+        function handleRubberClick(rubber) {
+            if (selectedRubbers.length === 0) {
+                selectedRubbers.push(rubber);
+                updateDetailPanel(1, rubber);
+            } else if (selectedRubbers.length === 1) {
+                if (selectedRubbers[0].name === rubber.name) {
+                    return;
+                }
+                selectedRubbers.push(rubber);
+                updateDetailPanel(2, rubber);
+                showComparison();
+            } else {
+                selectedRubbers = [rubber];
+                updateDetailPanel(1, rubber);
+                clearDetailPanel(2);
+                hideComparison();
+            }
+        }
+
+        // Update detail panel
+        function updateDetailPanel(panelNum, rubber) {
+            const panel = document.getElementById(`detail${panelNum}`);
+            const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
+            const html = marked.parse(markdown);
+            
+            const linksHtml = `
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+                    <strong>Links:</strong><br/>
+                    <a href="${rubber.youtubeUrl}" target="_blank" style="margin-right: 15px;">📺 Watch Review</a>
+                    <a href="${rubber.productUrl}" target="_blank">🔗 Product Page</a>
+                </div>
+            `;
+            
+            panel.innerHTML = html + linksHtml;
+        }
+
+        // Clear detail panel
+        function clearDetailPanel(panelNum) {
+            const panel = document.getElementById(`detail${panelNum}`);
+            panel.innerHTML = `<h3>Select another rubber</h3><div class="content">Click on another dot to compare</div>`;
+        }
+
+        // Show comparison
+        function showComparison() {
+            const bar = document.getElementById('comparisonBar');
+            bar.textContent = `${selectedRubbers[0].name} vs ${selectedRubbers[1].name}`;
+            bar.style.display = 'block';
+        }
+
+        // Hide comparison
+        function hideComparison() {
+            document.getElementById('comparisonBar').style.display = 'none';
+        }
+
+        // Initialize
+        window.addEventListener('resize', function() {
+            Plotly.Plots.resize('chart');
+        });
+
+        initFilters();
+        initChart();
+    </script>
+</body>
+</html>
