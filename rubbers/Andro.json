@@ -23,7 +23,8 @@
         "max",
         "2.0",
         "1.7"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -50,7 +51,8 @@
         "max",
         "2.0",
         "1.7"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -70,10 +72,13 @@
       "throw_angle": "5.9 (Medium high)",
       "consistency": 8.2,
       "durability": "7.4 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
-    "name": "Andro Rasanter C53",
+    "name": "Rasanter C53",
     "url": "https://revspin.net/rubber/andro-rasanter-c53.html",
     "manufacturer": "Andro",
     "price": "Approx. $60 USD",
@@ -96,7 +101,8 @@
         "max",
         "2.0",
         "1.7"
-      ]
+      ],
+      "tackiness": "Hybrid"
     }
   }
 ]

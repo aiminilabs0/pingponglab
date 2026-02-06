@@ -23,7 +23,8 @@
         "max",
         "2.0",
         "1.8"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -50,7 +51,8 @@
         "max",
         "2.0",
         "1.8"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -77,7 +79,8 @@
         "max",
         "2.0",
         "1.8"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -104,7 +107,8 @@
         "max",
         "2.0",
         "1.8"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -129,7 +133,8 @@
       "thickness": [
         "max",
         "2.1"
-      ]
+      ],
+      "tackiness": "Hybrid"
     }
   },
   {
@@ -148,7 +153,8 @@
       "thickness": [
         "max",
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -172,7 +178,8 @@
       "hardness": 52.5,
       "thickness": [
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -197,7 +204,8 @@
       "thickness": [
         "max",
         "2.0"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   }
 ]

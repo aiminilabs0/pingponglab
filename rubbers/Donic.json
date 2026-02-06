@@ -23,7 +23,8 @@
         "max",
         "2.0",
         "1.8"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -43,6 +44,9 @@
       "throw_angle": "6.4 (Medium high)",
       "consistency": 9.2,
       "durability": "6.3 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -62,6 +66,9 @@
       "throw_angle": "5.1 (Medium high)",
       "consistency": 9.1,
       "durability": "7.5 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -81,6 +88,9 @@
       "throw_angle": "7.2 (High)",
       "consistency": 8.9,
       "durability": "7.9 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -100,6 +110,9 @@
       "throw_angle": "5.4 (Medium high)",
       "consistency": 9.3,
       "durability": "6.7 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -119,6 +132,9 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
       "durability": "7.4 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -138,6 +154,9 @@
       "throw_angle": "6.3 (Medium high)",
       "consistency": 9.2,
       "durability": "7.3 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   }
 ]

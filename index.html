@@ -315,6 +315,13 @@
         }
 
         function normalizeTackiness(value) {
+            if (typeof value === 'string') {
+                const trimmed = value.trim();
+                const lower = trimmed.toLowerCase();
+                if (lower === 'non-tacky') return 'Non-tacky';
+                if (lower === 'tacky') return 'Tacky';
+                if (lower === 'hybrid') return 'Hybrid';
+            }
             const numeric = parseRatingNumber(value);
             if (Number.isFinite(numeric)) {
                 if (numeric >= 6) return 'Tacky';
@@ -390,6 +397,7 @@
                 const overall = parseRatingNumber(ratings.overall);
                 const control = parseRatingNumber(ratings.control);
 
+                const manufacturerTackiness = raw.manufacturer_details && raw.manufacturer_details.tackiness;
                 const rubber = {
                     name: raw.name,
                     company: raw.manufacturer,
@@ -398,7 +406,7 @@
                     weight: parseRatingNumber(ratings.weight),
                     hardness: parseRatingNumber(ratings.sponge_hardness),
                     control: control,
-                    tackiness: normalizeTackiness(ratings.tackiness),
+                    tackiness: normalizeTackiness(manufacturerTackiness),
                     priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
                     youtubeUrl: raw.youtube_url || '',
                     productUrl: raw.url || ''

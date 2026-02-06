@@ -16,6 +16,9 @@
       "throw_angle": "4.4 (Medium)",
       "consistency": 9.4,
       "durability": "8.7 (Lasts a long time!)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -35,6 +38,9 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.6,
       "durability": "8.0 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -54,6 +60,9 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.7,
       "durability": "7.6 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -73,6 +82,9 @@
       "throw_angle": "6.5 (Medium high)",
       "consistency": 9.4,
       "durability": "8.3 (Lasts longer than average)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Hybrid"
     }
   },
   {
@@ -92,6 +104,9 @@
       "throw_angle": "4.3 (Medium)",
       "consistency": 9.3,
       "durability": "8.7 (Lasts a long time!)"
+    },
+    "manufacturer_details": {
+      "tackiness": "Non-tacky"
     }
   }
 ]

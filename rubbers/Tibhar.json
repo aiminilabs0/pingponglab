@@ -24,7 +24,8 @@
         "1.7",
         "1.9",
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -52,7 +53,8 @@
         "1.7",
         "1.9",
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -80,7 +82,8 @@
         "1.7",
         "1.9",
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -107,7 +110,8 @@
         "1.7",
         "1.9",
         "2.1"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   },
   {
@@ -133,7 +137,8 @@
       "thickness": [
         "max",
         "2.0"
-      ]
+      ],
+      "tackiness": "Hybrid"
     }
   },
   {
@@ -159,7 +164,8 @@
       "thickness": [
         "2.1",
         "2.0"
-      ]
+      ],
+      "tackiness": "Non-tacky"
     }
   }
 ]
