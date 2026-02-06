@@ -289,73 +289,135 @@
     </div>
 
     <script>
-        // Rubber data
-        const rubberData = [
-            {name: "Tenergy 05", company: "Butterfly", x: 94.0, y: 93.0, weight: 6.4, hardness: 6.1, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05.html"},
-            {name: "Tenergy 05 FX", company: "Butterfly", x: 92.0, y: 91.0, weight: 5.3, hardness: 4.1, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05-fx.html"},
-            {name: "Tenergy 64", company: "Butterfly", x: 88.0, y: 93.0, weight: 5.5, hardness: 5.1, tackiness: "Non-tacky", priority: 88.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-64.html"},
-            {name: "Dignics 09C", company: "Butterfly", x: 95.0, y: 88.0, weight: 6.8, hardness: 8.1, tackiness: "Hybrid", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-09c.html"},
-            {name: "Dignics 05", company: "Butterfly", x: 94.0, y: 91.0, weight: 4.9, hardness: 7.0, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-05.html"},
-            {name: "Dignics 64", company: "Butterfly", x: 91.0, y: 95.0, weight: 4.8, hardness: 6.8, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-64.html"},
-            {name: "Dignics 80", company: "Butterfly", x: 95.0, y: 93.0, weight: 5.0, hardness: 6.5, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-dignics-80.html"},
-            {name: "Tenergy 80", company: "Butterfly", x: 94.0, y: 93.0, weight: 5.5, hardness: 5.4, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-80.html"},
-            {name: "Rozena", company: "Butterfly", x: 84.0, y: 87.0, weight: 4.5, hardness: 5.0, tackiness: "Non-tacky", priority: 84.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-rozena.html"},
-            {name: "Tenergy 80 FX", company: "Butterfly", x: 89.0, y: 89.0, weight: 4.4, hardness: 3.6, tackiness: "Non-tacky", priority: 89.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-80-fx.html"},
-            {name: "Tenergy 19", company: "Butterfly", x: 92.0, y: 90.0, weight: 4.5, hardness: 5.8, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-19.html"},
-            {name: "Tenergy 05 Hard", company: "Butterfly", x: 95.0, y: 96.0, weight: 7.8, hardness: 8.9, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-tenergy-05-hard.html"},
-            {name: "Zyre 03", company: "Butterfly", x: 96.0, y: 92.0, weight: 5.0, hardness: 7.3, tackiness: "Non-tacky", priority: 96.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/butterfly-zyre-03.html"},
-            {name: "Evolution EL-P", company: "Tibhar", x: 92.0, y: 91.0, weight: 5.8, hardness: 5.0, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-el-p.html"},
-            {name: "Evolution MX-P", company: "Tibhar", x: 93.0, y: 95.0, weight: 6.5, hardness: 7.0, tackiness: "Non-tacky", priority: 94.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-mx-p.html"},
-            {name: "Evolution MX-S", company: "Tibhar", x: 95.0, y: 92.0, weight: 6.6, hardness: 7.6, tackiness: "Non-tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-mx-s.html"},
-            {name: "Evolution FX-P", company: "Tibhar", x: 91.0, y: 86.0, weight: 5.1, hardness: 2.9, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-evolution-fx-p.html"},
-            {name: "Hybrid K3", company: "Tibhar", x: 92.0, y: 87.0, weight: 5.9, hardness: 8.3, tackiness: "Hybrid", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-hybrid-k3.html"},
-            {name: "MX-K", company: "Tibhar", x: 92.0, y: 90.0, weight: 8.0, hardness: 7.0, tackiness: "Tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/tibhar-mx-k.html"},
-            {name: "Vega Europe", company: "Xiom", x: 87.0, y: 89.0, weight: 3.4, hardness: 2.8, tackiness: "Non-tacky", priority: 87.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-vega-europe.html"},
-            {name: "Vega Pro", company: "Xiom", x: 91.0, y: 92.0, weight: 5.5, hardness: 7.0, tackiness: "Non-tacky", priority: 91.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-vega-pro.html"},
-            {name: "Omega IV Pro", company: "Xiom", x: 93.0, y: 92.0, weight: 5.5, hardness: 6.8, tackiness: "Non-tacky", priority: 93.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/xiom-omega-iv-pro.html"},
-            {name: "Mark V", company: "Yasaka", x: 81.0, y: 80.0, weight: 4.0, hardness: 4.5, tackiness: "Non-tacky", priority: 81.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/yasaka-mark-v.html"},
-            {name: "Rakza 7", company: "Yasaka", x: 92.0, y: 89.0, weight: 4.9, hardness: 6.1, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/yasaka-rakza-7.html"},
-            {name: "Rakza 7 Soft", company: "Yasaka", x: 92.0, y: 86.0, weight: 3.7, hardness: 2.5, tackiness: "Non-tacky", priority: 92.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/yasaka-rakza-7-soft.html"},
-            {name: "Rakza Z", company: "Yasaka", x: 95.0, y: 87.0, weight: 6.7, hardness: 7.7, tackiness: "Tacky", priority: 95.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/yasaka-rakza-z.html"},
-            {name: "Rakza 9", company: "Yasaka", x: 93.0, y: 94.0, weight: 4.6, hardness: 6.3, tackiness: "Non-tacky", priority: 93.0, youtubeUrl: "", productUrl: "https://revspin.net/rubber/yasaka-rakza-9.html"},
+        // Rubber data (loaded from /rubbers/*.json)
+        let rubberData = [];
+        let descriptions = {};
+
+        const rubberFiles = [
+            'rubbers/Andro.json',
+            'rubbers/Butterfly.json',
+            'rubbers/DHS.json',
+            'rubbers/Donic.json',
+            'rubbers/JOOLA.json',
+            'rubbers/Nittaku.json',
+            'rubbers/Tibhar.json',
+            'rubbers/Xiom.json',
+            'rubbers/Yasaka.json'
         ];
 
-        // Mock descriptions
-        const descriptions = {
-            "Tenergy 05": "# Butterfly Tenergy 05\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 9.4\n**Control:** 8.3\n**Tackiness:** 2.3 (Slightly tacky)\n**Weight:** 6.4 (Medium heavy)\n**Sponge hardness:** 6.1 (Medium hard)",
-            "Tenergy 05 FX": "# Butterfly Tenergy 05 FX\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 8.9\n**Tackiness:** 2.9 (Slightly tacky)\n**Weight:** 5.3 (Medium heavy)\n**Sponge hardness:** 4.1 (Medium)",
-            "Tenergy 64": "# Butterfly Tenergy 64\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 8.8\n**Control:** 8.5\n**Tackiness:** 2.5 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 5.1 (Medium)",
-            "Dignics 09C": "# Butterfly Dignics 09C\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.3\n**Speed:** 8.8\n**Spin:** 9.5\n**Control:** 9.0\n**Tackiness:** 5.5 (Medium tacky)\n**Weight:** 6.8 (Medium heavy)\n**Sponge hardness:** 8.1 (Medium hard)",
-            "Dignics 05": "# Butterfly Dignics 05\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.4\n**Control:** 8.8\n**Tackiness:** 1.8 (Slightly tacky)\n**Weight:** 4.9 (Average)\n**Sponge hardness:** 7.0 (Medium hard)",
-            "Dignics 64": "# Butterfly Dignics 64\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.4\n**Speed:** 9.5\n**Spin:** 9.1\n**Control:** 9.0\n**Tackiness:** 1.7 (Slightly tacky)\n**Weight:** 4.8 (Average)\n**Sponge hardness:** 6.8 (Medium hard)",
-            "Dignics 80": "# Butterfly Dignics 80\n**Company:** Butterfly\n**Price:** Approx. $ 94 USD\n**Overall:** 9.5\n**Speed:** 9.3\n**Spin:** 9.5\n**Control:** 9.2\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 5.0 (Average)\n**Sponge hardness:** 6.5 (Medium hard)",
-            "Tenergy 80": "# Butterfly Tenergy 80\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.4\n**Speed:** 9.3\n**Spin:** 9.4\n**Control:** 9.0\n**Tackiness:** 2.1 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 5.4 (Medium)",
-            "Rozena": "# Butterfly Rozena\n**Company:** Butterfly\n**Price:** Approx. $ 40 USD\n**Overall:** 8.8\n**Speed:** 8.7\n**Spin:** 8.4\n**Control:** 8.7\n**Tackiness:** 1.5 (Slightly tacky)\n**Weight:** 4.5 (Average)\n**Sponge hardness:** 5.0 (Medium)",
-            "Tenergy 80 FX": "# Butterfly Tenergy 80 FX\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 8.8\n**Speed:** 8.9\n**Spin:** 8.9\n**Control:** 8.5\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 4.4 (Average)\n**Sponge hardness:** 3.6 (Medium soft)",
-            "Tenergy 19": "# Butterfly Tenergy 19\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.3\n**Speed:** 9.0\n**Spin:** 9.2\n**Control:** 9.2\n**Tackiness:** 1.6 (Slightly tacky)\n**Weight:** 4.5 (Average)\n**Sponge hardness:** 5.8 (Medium)",
-            "Tenergy 05 Hard": "# Butterfly Tenergy 05 Hard\n**Company:** Butterfly\n**Price:** Approx. $ 80 USD\n**Overall:** 9.4\n**Speed:** 9.6\n**Spin:** 9.5\n**Control:** 8.7\n**Tackiness:** 1.8 (Slightly tacky)\n**Weight:** 7.8 (Heavy)\n**Sponge hardness:** 8.9 (Hard)",
-            "Zyre 03": "# Butterfly Zyre 03\n**Company:** Butterfly\n**Price:** Approx. $120 USD\n**Overall:** 9.3\n**Speed:** 9.2\n**Spin:** 9.6\n**Control:** 8.9\n**Tackiness:** 2.5 (Slightly tacky)\n**Weight:** 5.0 (Medium heavy)\n**Sponge hardness:** 7.3 (Medium hard)",
-            "Evolution EL-P": "# Tibhar Evolution EL-P\n**Company:** Tibhar\n**Price:** Approx. $ 40 USD\n**Overall:** 9.3\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 9.0\n**Tackiness:** 2.2 (Slightly tacky)\n**Weight:** 5.8 (Medium heavy)\n**Sponge hardness:** 5.0 (Medium)",
-            "Evolution MX-P": "# Tibhar Evolution MX-P\n**Company:** Tibhar\n**Price:** Approx. $ 60 USD\n**Overall:** 9.4\n**Speed:** 9.5\n**Spin:** 9.3\n**Control:** 8.7\n**Tackiness:** 2.3 (Slightly tacky)\n**Weight:** 6.5 (Medium heavy)\n**Sponge hardness:** 7.0 (Medium hard)",
-            "Evolution MX-S": "# Tibhar Evolution MX-S\n**Company:** Tibhar\n**Price:** Approx. $ 59 USD\n**Overall:** 9.4\n**Speed:** 9.2\n**Spin:** 9.5\n**Control:** 9.1\n**Tackiness:** 2.4 (Slightly tacky)\n**Weight:** 6.6 (Medium heavy)\n**Sponge hardness:** 7.6 (Medium hard)",
-            "Evolution FX-P": "# Tibhar Evolution FX-P\n**Company:** Tibhar\n**Price:** Approx. $ 60 USD\n**Overall:** 9.1\n**Speed:** 8.6\n**Spin:** 9.1\n**Control:** 8.9\n**Tackiness:** 2.0 (Slightly tacky)\n**Weight:** 5.1 (Medium heavy)\n**Sponge hardness:** 2.9 (Medium soft)",
-            "Hybrid K3": "# Tibhar Hybrid K3\n**Company:** Tibhar\n**Price:** Approx. $ 49 USD\n**Overall:** 9.2\n**Speed:** 8.7\n**Spin:** 9.2\n**Control:** 8.9\n**Tackiness:** 4.8 (Medium tacky)\n**Weight:** 5.9 (Medium heavy)\n**Sponge hardness:** 8.3 (Medium hard)",
-            "MX-K": "# Tibhar MX-K\n**Company:** Tibhar\n**Price:** Approx. $ 55 USD\n**Overall:** 9.0\n**Speed:** 9.0\n**Spin:** 9.2\n**Control:** 9.4\n**Tackiness:** 8.0 (Tacky)\n**Weight:** 8.0 (Heavy)\n**Sponge hardness:** 7.0 (Medium hard)",
-            "Vega Europe": "# Xiom Vega Europe\n**Company:** Xiom\n**Price:** Approx. $ 42 USD\n**Overall:** 9.1\n**Speed:** 8.7\n**Spin:** 8.9\n**Control:** 9.1\n**Tackiness:** 1.9 (Slightly tacky)\n**Weight:** 3.4 (Average)\n**Sponge hardness:** 2.8 (Medium soft)",
-            "Vega Pro": "# Xiom Vega Pro\n**Company:** Xiom\n**Price:** Approx. $ 38 USD\n**Overall:** 9.2\n**Speed:** 9.1\n**Spin:** 9.2\n**Control:** 8.7\n**Tackiness:** 2.1 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 7.0 (Medium hard)",
-            "Omega IV Pro": "# Xiom Omega IV Pro\n**Company:** Xiom\n**Price:** Approx. $ 60 USD\n**Overall:** 9.3\n**Speed:** 9.3\n**Spin:** 9.2\n**Control:** 8.8\n**Tackiness:** 2.4 (Slightly tacky)\n**Weight:** 5.5 (Medium heavy)\n**Sponge hardness:** 6.8 (Medium hard)",
-            "Mark V": "# Yasaka Mark V\n**Company:** Yasaka\n**Price:** Approx. $ 37 USD\n**Overall:** 8.7\n**Speed:** 8.0\n**Spin:** 8.1\n**Control:** 8.7\n**Tackiness:** 2.6 (Slightly tacky)\n**Weight:** 4.0 (Average)\n**Sponge hardness:** 4.5 (Medium)",
-            "Rakza 7": "# Yasaka Rakza 7\n**Company:** Yasaka\n**Price:** Approx. $ 52 USD\n**Overall:** 9.4\n**Speed:** 8.9\n**Spin:** 9.2\n**Control:** 8.9\n**Tackiness:** 2.6 (Slightly tacky)\n**Weight:** 4.9 (Average)\n**Sponge hardness:** 6.1 (Medium hard)",
-            "Rakza 7 Soft": "# Yasaka Rakza 7 Soft\n**Company:** Yasaka\n**Price:** Approx. $ 53 USD\n**Overall:** 9.2\n**Speed:** 8.6\n**Spin:** 9.2\n**Control:** 9.1\n**Tackiness:** 2.4 (Slightly tacky)\n**Weight:** 3.7 (Average)\n**Sponge hardness:** 2.5 (Medium soft)",
-            "Rakza Z": "# Yasaka Rakza Z\n**Company:** Yasaka\n**Price:** Approx. $ 43 USD\n**Overall:** 9.4\n**Speed:** 8.7\n**Spin:** 9.5\n**Control:** 9.2\n**Tackiness:** 6.6 (Tacky)\n**Weight:** 6.7 (Medium heavy)\n**Sponge hardness:** 7.7 (Medium hard)",
-            "Rakza 9": "# Yasaka Rakza 9\n**Company:** Yasaka\n**Price:** Approx. $ 53 USD\n**Overall:** 9.4\n**Speed:** 9.4\n**Spin:** 9.3\n**Control:** 8.9\n**Tackiness:** 2.3 (Slightly tacky)\n**Weight:** 4.6 (Average)\n**Sponge hardness:** 6.3 (Medium hard)",
-        };
+        function parseRatingNumber(value) {
+            if (typeof value === 'number') return value;
+            if (typeof value !== 'string') return null;
+            const match = value.match(/[\d.]+/);
+            if (!match) return null;
+            const parsed = Number.parseFloat(match[0]);
+            return Number.isFinite(parsed) ? parsed : null;
+        }
+
+        function normalizeTackiness(value) {
+            const numeric = parseRatingNumber(value);
+            if (Number.isFinite(numeric)) {
+                if (numeric >= 6) return 'Tacky';
+                if (numeric >= 4) return 'Hybrid';
+                return 'Non-tacky';
+            }
+            return 'Non-tacky';
+        }
+
+        function buildDescriptionMarkdown(raw) {
+            const ratings = raw.user_ratings || {};
+            const lines = [
+                `# ${raw.manufacturer} ${raw.name}`,
+                `**Company:** ${raw.manufacturer}`,
+                raw.price ? `**Price:** ${raw.price}` : null,
+                ratings.overall !== undefined ? `**Overall:** ${ratings.overall}` : null,
+                ratings.speed !== undefined ? `**Speed:** ${ratings.speed}` : null,
+                ratings.spin !== undefined ? `**Spin:** ${ratings.spin}` : null,
+                ratings.control !== undefined ? `**Control:** ${ratings.control}` : null,
+                ratings.tackiness ? `**Tackiness:** ${ratings.tackiness}` : null,
+                ratings.weight ? `**Weight:** ${ratings.weight}` : null,
+                ratings.sponge_hardness ? `**Sponge hardness:** ${ratings.sponge_hardness}` : null
+            ].filter(Boolean);
+            return lines.join('\n');
+        }
+
+        function loadJsonFile(url) {
+            return new Promise(function(resolve, reject) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200 || xhr.status === 0) {
+                        try {
+                            resolve(JSON.parse(xhr.responseText));
+                        } catch (e) {
+                            reject(new Error('Invalid JSON in ' + url));
+                        }
+                    } else {
+                        reject(new Error('HTTP ' + xhr.status + ' for ' + url));
+                    }
+                };
+                xhr.onerror = function() {
+                    reject(new Error('Network error loading ' + url));
+                };
+                xhr.send();
+            });
+        }
+
+        async function loadRubberData() {
+            const results = await Promise.allSettled(
+                rubberFiles.map(function(file) { return loadJsonFile(file); })
+            );
+
+            const rawItems = results.flatMap(result => {
+                if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+                    return result.value;
+                }
+                console.warn('Skipping rubber data file:', result.reason);
+                return [];
+            });
+
+            const data = [];
+            const descriptionMap = {};
+
+            rawItems.forEach(raw => {
+                const ratings = raw.user_ratings || {};
+                const spin = parseRatingNumber(ratings.spin);
+                const speed = parseRatingNumber(ratings.speed);
+                if (!Number.isFinite(spin) || !Number.isFinite(speed)) {
+                    return;
+                }
+
+                const overall = parseRatingNumber(ratings.overall);
+                const control = parseRatingNumber(ratings.control);
+
+                const rubber = {
+                    name: raw.name,
+                    company: raw.manufacturer,
+                    x: spin * 10,
+                    y: speed * 10,
+                    weight: parseRatingNumber(ratings.weight),
+                    hardness: parseRatingNumber(ratings.sponge_hardness),
+                    control: control,
+                    tackiness: normalizeTackiness(ratings.tackiness),
+                    priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
+                    youtubeUrl: raw.youtube_url || '',
+                    productUrl: raw.url || ''
+                };
+
+                data.push(rubber);
+                descriptionMap[rubber.name] = buildDescriptionMarkdown(raw);
+            });
+
+            rubberData = data;
+            descriptions = descriptionMap;
+        }
 
         // Company colors
         const companyColors = {
             "Butterfly": "#FF6B6B",
             "DHS": "#4ECDC4",
             "Andro": "#95E1D3",
+            "JOOLA": "#FFB347",
             "Xiom": "#FFD93D",
             "Tibhar": "#A8E6CF",
             "Nittaku": "#FF8B94",
@@ -857,15 +919,22 @@
             const panel = document.getElementById(`detail${panelNum}`);
             const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
             const html = marked.parse(markdown);
-            
-            const linksHtml = `
+
+            const links = [];
+            if (rubber.youtubeUrl) {
+                links.push(`<a href="${rubber.youtubeUrl}" target="_blank" style="margin-right: 15px;">📺 Watch Review</a>`);
+            }
+            if (rubber.productUrl) {
+                links.push(`<a href="${rubber.productUrl}" target="_blank">🔗 Product Page</a>`);
+            }
+
+            const linksHtml = links.length > 0 ? `
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
                     <strong>Links:</strong><br/>
-                    <a href="${rubber.youtubeUrl}" target="_blank" style="margin-right: 15px;">📺 Watch Review</a>
-                    <a href="${rubber.productUrl}" target="_blank">🔗 Product Page</a>
+                    ${links.join('')}
                 </div>
-            `;
-            
+            ` : '';
+
             panel.innerHTML = html + linksHtml;
         }
 
@@ -1062,8 +1131,43 @@
             Plotly.Plots.resize('chart');
         });
 
-        initFilters();
-        initChart();
+        async function initializeApp() {
+            const chart = document.getElementById('chart');
+            if (chart) {
+                chart.innerHTML = '<div style="padding: 20px; color: #888;">Loading rubber data…</div>';
+            }
+
+            try {
+                await loadRubberData();
+            } catch (error) {
+                console.error('Failed to load rubber data:', error);
+            }
+
+            if (rubberData.length === 0) {
+                const isFileProtocol = window.location.protocol === 'file:';
+                const msg = isFileProtocol
+                    ? 'Could not load rubber data from JSON files.<br><br>' +
+                      'Opening this page via <code>file://</code> blocks file loading in most browsers.<br>' +
+                      'Start a local server instead:<br>' +
+                      '<pre style="margin-top:8px;background:#f5f5f5;padding:8px;border-radius:4px;">cd ' +
+                      window.location.pathname.replace(/\/[^/]*$/, '') +
+                      '\npython3 -m http.server</pre>' +
+                      'Then open <a href="http://localhost:8000">http://localhost:8000</a>'
+                    : 'Failed to load rubber data. Check the browser console for details.';
+                if (chart) {
+                    chart.innerHTML = '<div style="padding: 20px; color: #c00; line-height: 1.6;">' + msg + '</div>';
+                }
+                return;
+            }
+
+            if (chart) {
+                chart.innerHTML = '';
+            }
+            initFilters();
+            initChart();
+        }
+
+        initializeApp();
     </script>
 </body>
 </html>
