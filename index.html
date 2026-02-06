@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rubber</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
@@ -182,7 +182,7 @@
             width: 100%;
             height: 600px;
             margin-bottom: 20px;
-            touch-action: pinch-zoom;
+            touch-action: none;
         }
         .details-container {
             display: flex;
@@ -776,6 +776,116 @@
         function hideComparison() {
             document.getElementById('comparisonBar').style.display = 'none';
         }
+
+        // Pinch-to-zoom for mobile
+        (function() {
+            const chartEl = document.getElementById('chart');
+            let pinchStartDist = null;
+            let pinchStartRanges = null;
+            let pinchCenter = null;
+
+            function getTouchDist(t1, t2) {
+                const dx = t1.clientX - t2.clientX;
+                const dy = t1.clientY - t2.clientY;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            function getTouchCenter(t1, t2) {
+                return {
+                    x: (t1.clientX + t2.clientX) / 2,
+                    y: (t1.clientY + t2.clientY) / 2
+                };
+            }
+
+            function getPlotFraction(clientX, clientY) {
+                // Convert client coordinates to fraction within the plot area
+                const gd = chartEl;
+                const xa = gd._fullLayout.xaxis;
+                const ya = gd._fullLayout.yaxis;
+                const plotArea = gd._fullLayout._size;
+                const rect = gd.getBoundingClientRect();
+
+                const plotLeft = rect.left + plotArea.l;
+                const plotTop = rect.top + plotArea.t;
+                const plotWidth = plotArea.w;
+                const plotHeight = plotArea.h;
+
+                const fx = (clientX - plotLeft) / plotWidth;
+                const fy = 1 - (clientY - plotTop) / plotHeight; // invert y
+                return { fx: Math.max(0, Math.min(1, fx)), fy: Math.max(0, Math.min(1, fy)) };
+            }
+
+            chartEl.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 2) {
+                    e.preventDefault();
+                    const t1 = e.touches[0];
+                    const t2 = e.touches[1];
+                    pinchStartDist = getTouchDist(t1, t2);
+                    pinchCenter = getTouchCenter(t1, t2);
+
+                    const gd = chartEl;
+                    if (gd._fullLayout) {
+                        const xa = gd._fullLayout.xaxis;
+                        const ya = gd._fullLayout.yaxis;
+                        pinchStartRanges = {
+                            x: [xa.range[0], xa.range[1]],
+                            y: [ya.range[0], ya.range[1]]
+                        };
+                    }
+                }
+            }, { passive: false });
+
+            chartEl.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 2 && pinchStartDist && pinchStartRanges) {
+                    e.preventDefault();
+                    const t1 = e.touches[0];
+                    const t2 = e.touches[1];
+                    const currentDist = getTouchDist(t1, t2);
+
+                    // zoom factor: >1 means zooming in, <1 means zooming out
+                    const scale = pinchStartDist / currentDist;
+
+                    // Get the fractional position of the pinch center within the plot
+                    const frac = getPlotFraction(pinchCenter.x, pinchCenter.y);
+
+                    const xRange = pinchStartRanges.x;
+                    const yRange = pinchStartRanges.y;
+                    const xSpan = xRange[1] - xRange[0];
+                    const ySpan = yRange[1] - yRange[0];
+
+                    const newXSpan = xSpan * scale;
+                    const newYSpan = ySpan * scale;
+
+                    // Keep the pinch center point fixed
+                    const xCenter = xRange[0] + frac.fx * xSpan;
+                    const yCenter = yRange[0] + frac.fy * ySpan;
+
+                    const newXRange = [
+                        xCenter - frac.fx * newXSpan,
+                        xCenter + (1 - frac.fx) * newXSpan
+                    ];
+                    const newYRange = [
+                        yCenter - frac.fy * newYSpan,
+                        yCenter + (1 - frac.fy) * newYSpan
+                    ];
+
+                    Plotly.relayout(chartEl, {
+                        'xaxis.range': newXRange,
+                        'yaxis.range': newYRange,
+                        'xaxis.autorange': false,
+                        'yaxis.autorange': false
+                    });
+                }
+            }, { passive: false });
+
+            chartEl.addEventListener('touchend', function(e) {
+                if (e.touches.length < 2) {
+                    pinchStartDist = null;
+                    pinchStartRanges = null;
+                    pinchCenter = null;
+                }
+            });
+        })();
 
         // Initialize
         window.addEventListener('resize', function() {
