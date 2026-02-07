@@ -865,15 +865,15 @@
 
         // Company colors
         const companyColors = {
-            "Butterfly": "#FF6B6B",
-            "DHS": "#4ECDC4",
-            "Andro": "#95E1D3",
-            "JOOLA": "#FFB347",
-            "Xiom": "#FFD93D",
-            "Tibhar": "#A8E6CF",
-            "Nittaku": "#FF8B94",
-            "Donic": "#C7CEEA",
-            "Yasaka": "#9B59B6"
+            "Butterfly": "#E41A1C",
+            "DHS": "#377EB8",
+            "Andro": "#4DAF4A",
+            "JOOLA": "#984EA3",
+            "Xiom": "#FF7F00",
+            "Tibhar": "#A65628",
+            "Nittaku": "#F781BF",
+            "Donic": "#999999",
+            "Yasaka": "#FFFF33"
         };
 
         // Tackiness markers
@@ -1051,7 +1051,15 @@
             openFilterId = filterId;
             // Focus search input if it exists
             const search = dropdown.querySelector('.dropdown-search');
-            if (search) setTimeout(() => search.focus(), 60);
+            if (search) {
+                setTimeout(() => {
+                    try {
+                        search.focus({ preventScroll: true });
+                    } catch (err) {
+                        search.focus();
+                    }
+                }, 60);
+            }
         }
 
         function closeAllDropdowns() {
