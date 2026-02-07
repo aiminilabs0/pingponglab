@@ -809,6 +809,18 @@
             return lines.join('\n');
         }
 
+        function buildFullName(company, name) {
+            const companyName = (company || '').trim();
+            const rubberName = (name || '').trim();
+            if (!companyName) return rubberName;
+            const lowerCompany = companyName.toLowerCase();
+            const lowerName = rubberName.toLowerCase();
+            if (lowerName.startsWith(lowerCompany)) {
+                return rubberName;
+            }
+            return `${companyName} ${rubberName}`.trim();
+        }
+
         function loadJsonFile(url) {
             return new Promise(function(resolve, reject) {
                 const xhr = new XMLHttpRequest();
@@ -885,8 +897,10 @@
                 const manufacturerTopsheet = manufacturerDetails.topsheet;
                 const manufacturerHardness = parseRatingNumber(manufacturerDetails.hardness);
                 const manufacturerCountry = manufacturerDetails.country;
+                const fullName = buildFullName(raw.manufacturer, raw.name);
                 const rubber = {
                     name: raw.name,
+                    fullName: fullName,
                     abbr: raw.abbr || raw.name,
                     company: raw.manufacturer,
                     x: spin * 10,
@@ -1070,10 +1084,10 @@
 
             const names = rubberData
                 .filter(rubber => selectedCompanies.includes(rubber.company))
-                .map(rubber => rubber.name);
+                .map(rubber => rubber.fullName);
             const uniqueNames = [...new Set(names)].sort();
             const nameOptions = uniqueNames.map(name => {
-                const rubber = rubberData.find(item => item.name === name);
+                const rubber = rubberData.find(item => item.fullName === name);
                 const company = rubber ? rubber.company : null;
                 return {
                     value: name,
@@ -1446,7 +1460,7 @@
 
             return rubberData.filter(rubber => {
                 if (selectedCompanies.length > 0 && !selectedCompanies.includes(rubber.company)) return false;
-                if (selectedNames.length > 0 && !selectedNames.includes(rubber.name)) return false;
+                if (selectedNames.length > 0 && !selectedNames.includes(rubber.fullName)) return false;
                 if (selectedTopsheet.length > 0 && !selectedTopsheet.includes(rubber.topsheet)) return false;
                 if (selectedHardness.length > 0 && !selectedHardness.includes(rubber.hardnessCategory)) return false;
                 return true;
@@ -1590,7 +1604,7 @@
                         color: '#f8f8f2',
                         family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'
                     },
-                    hovertemplate: '<b>%{customdata.name}</b><br>' +
+                    hovertemplate: '<b>%{customdata.fullName}</b><br>' +
                         'Company: ' + group.company + '<br>' +
                         'Speed: %{x:.1f}<br>' +
                         'Spin: %{y:.1f}<br>' +
