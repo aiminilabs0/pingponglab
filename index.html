@@ -44,7 +44,8 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
         .chart-bleed {
-            margin: 0 -24px 20px;
+            margin: 0 -24px;
+            padding: 0;
         }
         h1 {
             margin-bottom: 20px;
@@ -504,7 +505,7 @@
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { padding: 14px; border-radius: 12px; }
-            .chart-bleed { margin: 0 -14px 16px; }
+            .chart-bleed { margin: 0 -14px; padding: 0; }
             .details-container { flex-direction: column; }
             #chart { height: 400px; }
             .filter-dropdown {
@@ -1571,8 +1572,6 @@
                 currentRanges = null;
             }
             const chartEl = document.getElementById('chart');
-            const chartWidth = chartEl ? chartEl.getBoundingClientRect().width : window.innerWidth;
-            const hideWideAxisTicks = chartWidth >= 900;
             const layout = {
                 title: '',
                 dragmode: 'pan',
@@ -1584,7 +1583,7 @@
                     gridcolor: '#44475a',
                     tickfont: { color: '#6272a4' },
                     linecolor: '#44475a',
-                    showticklabels: !hideWideAxisTicks,
+                    showticklabels: false,
                     tickformat: '.1f'
                 },
                 yaxis: {
@@ -1595,7 +1594,7 @@
                     gridcolor: '#44475a',
                     tickfont: { color: '#6272a4' },
                     linecolor: '#44475a',
-                    showticklabels: !hideWideAxisTicks,
+                    showticklabels: false,
                     tickformat: '.1f'
                 },
                 hovermode: 'closest',
