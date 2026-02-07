@@ -314,6 +314,48 @@
             return Number.isFinite(parsed) ? parsed : null;
         }
 
+        function buildManufacturerRatingRanges(rawItems) {
+            const ranges = {};
+            rawItems.forEach(raw => {
+                const manufacturer = raw.manufacturer;
+                const ratings = raw.manufacturer_ratings || {};
+                if (!manufacturer || typeof ratings !== 'object') {
+                    return;
+                }
+
+                const speed = parseRatingNumber(ratings.speed);
+                const spin = parseRatingNumber(ratings.spin);
+                if (!ranges[manufacturer]) {
+                    ranges[manufacturer] = {
+                        speed: { min: Infinity, max: -Infinity },
+                        spin: { min: Infinity, max: -Infinity }
+                    };
+                }
+                const range = ranges[manufacturer];
+                if (Number.isFinite(speed)) {
+                    range.speed.min = Math.min(range.speed.min, speed);
+                    range.speed.max = Math.max(range.speed.max, speed);
+                }
+                if (Number.isFinite(spin)) {
+                    range.spin.min = Math.min(range.spin.min, spin);
+                    range.spin.max = Math.max(range.spin.max, spin);
+                }
+            });
+            return ranges;
+        }
+
+        function normalizeManufacturerRating(value, range) {
+            if (!Number.isFinite(value) || !range) {
+                return null;
+            }
+            const min = range.min;
+            const max = range.max;
+            if (!Number.isFinite(min) || !Number.isFinite(max) || max <= min) {
+                return null;
+            }
+            return ((value - min) / (max - min)) * 10;
+        }
+
         function normalizeTackiness(value) {
             if (typeof value === 'string') {
                 const trimmed = value.trim();
@@ -385,17 +427,38 @@
 
             const data = [];
             const descriptionMap = {};
+            const manufacturerRanges = buildManufacturerRatingRanges(rawItems);
+            const USER_WEIGHT = 0.85;
+            const MANUFACTURER_WEIGHT = 0.15;
 
             rawItems.forEach(raw => {
                 const ratings = raw.user_ratings || {};
-                const spin = parseRatingNumber(ratings.spin);
-                const speed = parseRatingNumber(ratings.speed);
-                if (!Number.isFinite(spin) || !Number.isFinite(speed)) {
+                const userSpin = parseRatingNumber(ratings.spin);
+                const userSpeed = parseRatingNumber(ratings.speed);
+                if (!Number.isFinite(userSpin) || !Number.isFinite(userSpeed)) {
                     return;
                 }
 
                 const overall = parseRatingNumber(ratings.overall);
                 const control = parseRatingNumber(ratings.control);
+                const manufacturerRatings = raw.manufacturer_ratings || {};
+                const manufacturerRange = manufacturerRanges[raw.manufacturer] || null;
+                const manufacturerSpinRaw = parseRatingNumber(manufacturerRatings.spin);
+                const manufacturerSpeedRaw = parseRatingNumber(manufacturerRatings.speed);
+                const manufacturerSpin = normalizeManufacturerRating(
+                    manufacturerSpinRaw,
+                    manufacturerRange ? manufacturerRange.spin : null
+                );
+                const manufacturerSpeed = normalizeManufacturerRating(
+                    manufacturerSpeedRaw,
+                    manufacturerRange ? manufacturerRange.speed : null
+                );
+                const spin = Number.isFinite(manufacturerSpin)
+                    ? (userSpin * USER_WEIGHT + manufacturerSpin * MANUFACTURER_WEIGHT)
+                    : userSpin;
+                const speed = Number.isFinite(manufacturerSpeed)
+                    ? (userSpeed * USER_WEIGHT + manufacturerSpeed * MANUFACTURER_WEIGHT)
+                    : userSpeed;
 
                 const manufacturerTackiness = raw.manufacturer_details && raw.manufacturer_details.tackiness;
                 const rubber = {
