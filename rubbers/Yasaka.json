@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "Mark V",
     "name": "Mark V",
     "url": "https://revspin.net/rubber/yasaka-mark-v.html",
     "manufacturer": "Yasaka",
@@ -37,6 +38,7 @@
     }
   },
   {
+    "abbr": "Rakza 7",
     "name": "Rakza 7",
     "url": "https://revspin.net/rubber/yasaka-rakza-7.html",
     "manufacturer": "Yasaka",
@@ -72,6 +74,7 @@
     }
   },
   {
+    "abbr": "Rakza 7 Soft",
     "name": "Rakza 7 Soft",
     "url": "https://revspin.net/rubber/yasaka-rakza-7-soft.html",
     "manufacturer": "Yasaka",
@@ -107,6 +110,7 @@
     }
   },
   {
+    "abbr": "Rakza Z",
     "name": "Rakza Z",
     "url": "https://revspin.net/rubber/yasaka-rakza-z.html",
     "manufacturer": "Yasaka",
@@ -145,6 +149,7 @@
     }
   },
   {
+    "abbr": "Rakza 9",
     "name": "Rakza 9",
     "url": "https://revspin.net/rubber/yasaka-rakza-9.html",
     "manufacturer": "Yasaka",

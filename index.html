@@ -463,6 +463,7 @@
                 const manufacturerTackiness = raw.manufacturer_details && raw.manufacturer_details.tackiness;
                 const rubber = {
                     name: raw.name,
+                    abbr: raw.abbr || raw.name,
                     company: raw.manufacturer,
                     x: spin * 10,
                     y: speed * 10,
@@ -860,14 +861,14 @@
                             color: '#fff'
                         }
                     },
-                    text: group.rubbers.map(r => r.name),
+                    text: group.rubbers.map(r => r.abbr),
                     textposition: 'top center',
                     textfont: {
                         size: 11,
                         color: '#333',
                         family: 'Arial, sans-serif'
                     },
-                    hovertemplate: '<b>%{text}</b><br>' +
+                    hovertemplate: '<b>%{customdata.name}</b><br>' +
                         'Company: ' + group.company + '<br>' +
                         'Speed: %{x}<br>' +
                         'Spin: %{y}<br>' +

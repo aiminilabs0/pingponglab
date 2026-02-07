@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "Tenergy 05",
     "name": "Tenergy 05",
     "url": "https://revspin.net/rubber/butterfly-tenergy-05.html",
     "manufacturer": "Butterfly",
@@ -33,6 +34,7 @@
     }
   },
   {
+    "abbr": "Tenergy 05 FX",
     "name": "Tenergy 05 FX",
     "url": "https://revspin.net/rubber/butterfly-tenergy-05-fx.html",
     "manufacturer": "Butterfly",
@@ -66,6 +68,7 @@
     }
   },
   {
+    "abbr": "Tenergy 64",
     "name": "Tenergy 64",
     "url": "https://revspin.net/rubber/butterfly-tenergy-64.html",
     "manufacturer": "Butterfly",
@@ -99,6 +102,7 @@
     }
   },
   {
+    "abbr": "Dignics 09C",
     "name": "Dignics 09C",
     "url": "https://revspin.net/rubber/butterfly-dignics-09c.html",
     "manufacturer": "Butterfly",
@@ -131,6 +135,7 @@
     }
   },
   {
+    "abbr": "Dignics 05",
     "name": "Dignics 05",
     "url": "https://revspin.net/rubber/butterfly-dignics-05.html",
     "manufacturer": "Butterfly",
@@ -163,6 +168,7 @@
     }
   },
   {
+    "abbr": "Tenergy 80",
     "name": "Tenergy 80",
     "url": "https://revspin.net/rubber/butterfly-tenergy-80.html",
     "manufacturer": "Butterfly",
@@ -196,6 +202,7 @@
     }
   },
   {
+    "abbr": "Rozena",
     "name": "Rozena",
     "url": "https://revspin.net/rubber/butterfly-rozena.html",
     "manufacturer": "Butterfly",
@@ -229,7 +236,8 @@
     }
   },
   {
-    "name": "Tenergy 80 FX",
+    "abbr": "Tenergy 80FX",
+    "name": "Tenergy 80FX",
     "url": "https://revspin.net/rubber/butterfly-tenergy-80-fx.html",
     "manufacturer": "Butterfly",
     "price": "Approx. $ 80 USD",
@@ -262,6 +270,7 @@
     }
   },
   {
+    "abbr": "Tenergy 19",
     "name": "Tenergy 19",
     "url": "https://revspin.net/rubber/butterfly-tenergy-19.html",
     "manufacturer": "Butterfly",
@@ -295,6 +304,7 @@
     }
   },
   {
+    "abbr": "Dignics 64",
     "name": "Dignics 64",
     "url": "https://revspin.net/rubber/butterfly-dignics-64.html",
     "manufacturer": "Butterfly",
@@ -327,6 +337,7 @@
     }
   },
   {
+    "abbr": "Dignics 80",
     "name": "Dignics 80",
     "url": "https://revspin.net/rubber/butterfly-dignics-80.html",
     "manufacturer": "Butterfly",
@@ -359,6 +370,7 @@
     }
   },
   {
+    "abbr": "Tenergy 05H",
     "name": "Tenergy 05 Hard",
     "url": "https://revspin.net/rubber/butterfly-tenergy-05-hard.html",
     "manufacturer": "Butterfly",
@@ -391,6 +403,7 @@
     }
   },
   {
+    "abbr": "Zyre 03",
     "name": "Zyre 03",
     "url": "https://revspin.net/rubber/butterfly-zyre-03.html",
     "manufacturer": "Butterfly",

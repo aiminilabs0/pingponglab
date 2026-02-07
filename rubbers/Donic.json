@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "Baracuda",
     "name": "Baracuda",
     "url": "https://revspin.net/rubber/donic-baracuda.html",
     "manufacturer": "Donic",
@@ -26,7 +27,7 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
-    }, 
+    },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-baracuda",
       "speed": 91,
@@ -35,6 +36,7 @@
     }
   },
   {
+    "abbr": "Bluefire M2",
     "name": "Bluefire M2",
     "url": "https://revspin.net/rubber/donic-bluefire-m2.html",
     "manufacturer": "Donic",
@@ -70,6 +72,7 @@
     }
   },
   {
+    "abbr": "Acuda S2",
     "name": "Acuda S2",
     "url": "https://revspin.net/rubber/donic-acuda-s2.html",
     "manufacturer": "Donic",
@@ -105,6 +108,7 @@
     }
   },
   {
+    "abbr": "Bluefire M3",
     "name": "Bluefire M3",
     "url": "https://revspin.net/rubber/donic-bluefire-m3.html",
     "manufacturer": "Donic",
@@ -140,6 +144,7 @@
     }
   },
   {
+    "abbr": "Acuda S3",
     "name": "Acuda S3",
     "url": "https://revspin.net/rubber/donic-acuda-s3.html",
     "manufacturer": "Donic",
@@ -175,6 +180,7 @@
     }
   },
   {
+    "abbr": "Bluefire M1",
     "name": "Bluefire M1",
     "url": "https://revspin.net/rubber/donic-bluefire-m1.html",
     "manufacturer": "Donic",
@@ -209,6 +215,7 @@
     }
   },
   {
+    "abbr": "BlueGrip C2",
     "name": "BlueGrip C2",
     "url": "https://revspin.net/rubber/donic-bluegrip-c2.html",
     "manufacturer": "Donic",
@@ -244,6 +251,7 @@
     }
   },
   {
+    "abbr": "BlueGrip J1",
     "name": "BlueGrip J1",
     "url": "https://revspin.net/rubber/donic-bluegrip-j1.html",
     "manufacturer": "Donic",

@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "R42",
     "name": "Rasanter R42",
     "url": "https://revspin.net/rubber/andro-rasanter-r42.html",
     "manufacturer": "Andro",
@@ -29,6 +30,7 @@
     }
   },
   {
+    "abbr": "R47",
     "name": "Rasanter R47",
     "url": "https://revspin.net/rubber/andro-rasanter-r47.html",
     "manufacturer": "Andro",
@@ -58,6 +60,7 @@
     }
   },
   {
+    "abbr": "R48",
     "name": "Rasanter R48",
     "url": "https://revspin.net/rubber/andro-rasanter-r48.html",
     "manufacturer": "Andro",
@@ -81,6 +84,7 @@
     }
   },
   {
+    "abbr": "C53",
     "name": "Rasanter C53",
     "url": "https://revspin.net/rubber/andro-rasanter-c53.html",
     "manufacturer": "Andro",

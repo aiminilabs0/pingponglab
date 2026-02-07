@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "Vega Europe",
     "name": "Vega Europe",
     "url": "https://revspin.net/rubber/xiom-vega-europe.html",
     "manufacturer": "Xiom",
@@ -34,6 +35,7 @@
     }
   },
   {
+    "abbr": "Vega Asia",
     "name": "Vega Asia",
     "url": "https://revspin.net/rubber/xiom-vega-asia.html",
     "manufacturer": "Xiom",
@@ -68,6 +70,7 @@
     }
   },
   {
+    "abbr": "Vega Pro",
     "name": "Vega Pro",
     "url": "https://revspin.net/rubber/xiom-vega-pro.html",
     "manufacturer": "Xiom",
@@ -102,6 +105,7 @@
     }
   },
   {
+    "abbr": "Vega X",
     "name": "Vega X",
     "url": "https://revspin.net/rubber/xiom-vega-x.html",
     "manufacturer": "Xiom",
@@ -136,6 +140,7 @@
     }
   },
   {
+    "abbr": "J&H C55.0",
     "name": "Jekyll & Hyde C55.0",
     "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c550.html",
     "manufacturer": "Xiom",
@@ -168,6 +173,7 @@
     }
   },
   {
+    "abbr": "J&H V47.5",
     "name": "Jekyll & Hyde V47.5",
     "url": "https://revspin.net/rubber/xiom-jekyll-hyde-v475.html",
     "manufacturer": "Xiom",
@@ -194,6 +200,7 @@
     }
   },
   {
+    "abbr": "J&H Z52.5",
     "name": "Jekyll & Hyde Z52.5",
     "url": "https://revspin.net/rubber/xiom-jekyll-hyde-z525.html",
     "manufacturer": "Xiom",
@@ -225,7 +232,8 @@
     }
   },
   {
-    "name": "Omega VII Pro",
+    "abbr": "Omega7 Pro",
+    "name": "Omega7 Pro",
     "url": "https://revspin.net/rubber/xiom-omega-vii-pro.html",
     "manufacturer": "Xiom",
     "user_ratings": {
@@ -237,7 +245,7 @@
       "weight": "4.3 (Average)",
       "sponge_hardness": "6.2 (Medium hard)",
       "gears": 8.2,
-      "throw_angle": "5.2 (Medium‑high)",
+      "throw_angle": "5.2 (Medium high)",
       "consistency": 8.8,
       "durability": "6.7 (Lasts longer than average)"
     },

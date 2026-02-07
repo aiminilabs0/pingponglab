@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "G-1",
     "name": "Fastarc G-1",
     "url": "https://revspin.net/rubber/nittaku-fastarc-g-1.html",
     "manufacturer": "Nittaku",
@@ -34,17 +35,18 @@
     }
   },
   {
+    "abbr": "C-1",
     "name": "Nittaku Fastarc C-1",
     "url": "https://revspin.net/rubber/nittaku-fastarc-c-1.html",
     "manufacturer": "Nittaku",
-    "price": "Approx. $45–50 USD",
+    "price": "Approx. $50 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9.0,
       "spin": 9.1,
       "control": 9.2,
       "tackiness": "2.0 (Slightly tacky)",
-      "weight": "4.5 (Light‑medium)",
+      "weight": "4.5 (Light medium)",
       "sponge_hardness": "5.0 (Medium soft)",
       "gears": 7.7,
       "throw_angle": "5.4 (Medium)",
@@ -68,6 +70,7 @@
     }
   },
   {
+    "abbr": "S-1",
     "name": "Nittaku Fastarc S-1",
     "url": "https://revspin.net/rubber/nittaku-fastarc-s-1.html",
     "manufacturer": "Nittaku",

@@ -1,6 +1,7 @@
 [
   {
-    "name": "MX-P",
+    "abbr": "MX-P",
+    "name": "Evolution MX-P",
     "url": "https://revspin.net/rubber/tibhar-evolution-mx-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 60 USD",
@@ -35,7 +36,8 @@
     }
   },
   {
-    "name": "EL-P",
+    "abbr": "EL-P",
+    "name": "Evolution EL-P",
     "url": "https://revspin.net/rubber/tibhar-evolution-el-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 40 USD",
@@ -70,7 +72,8 @@
     }
   },
   {
-    "name": "MX-S",
+    "abbr": "MX-S",
+    "name": "Evolution MX-S",
     "url": "https://revspin.net/rubber/tibhar-evolution-mx-s.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 59 USD",
@@ -105,7 +108,8 @@
     }
   },
   {
-    "name": "FX-P",
+    "abbr": "FX-P",
+    "name": "Evolution FX-P",
     "url": "https://revspin.net/rubber/tibhar-evolution-fx-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 60 USD",
@@ -139,7 +143,8 @@
     }
   },
   {
-    "name": "K3",
+    "abbr": "K3",
+    "name": "Hybrid K3",
     "url": "https://revspin.net/rubber/tibhar-hybrid-k3.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 49 USD",
@@ -172,7 +177,8 @@
     }
   },
   {
-    "name": "MX-K",
+    "abbr": "MX-K",
+    "name": "Evolution MX-K",
     "url": "https://revspin.net/rubber/tibhar-mx-k.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 55 USD",

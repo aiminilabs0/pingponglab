@@ -1,5 +1,6 @@
 [
   {
+    "abbr": "H3",
     "name": "Hurricane 3",
     "url": "https://revspin.net/rubber/dhs-hurricane-3.html",
     "manufacturer": "DHS",
@@ -28,6 +29,7 @@
     }
   },
   {
+    "abbr": "NEO H3",
     "name": "NEO Hurricane 3",
     "url": "https://revspin.net/rubber/dhs-neo-hurricane-3.html",
     "manufacturer": "DHS",
@@ -57,6 +59,7 @@
     }
   },
   {
+    "abbr": "Gold Arc 8",
     "name": "Gold Arc 8",
     "url": "https://revspin.net/rubber/dhs-gold-arc-8.html",
     "manufacturer": "DHS",
@@ -87,7 +90,8 @@
     }
   },
   {
-    "name": "NEO Hurricane 3 Provincial (Orange)",
+    "abbr": "NEO H3 Prov O",
+    "name": "NEO Hurricane 3 Provincial Orange Sponge",
     "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-orange-sponge.html",
     "manufacturer": "DHS",
     "price": "Approx. $ 55 USD",
@@ -116,7 +120,8 @@
     }
   },
   {
-    "name": "DHS Hurricane 3 National (Orange)",
+    "abbr": "H3 Nat O",
+    "name": "Hurricane 3 National Orange Sponge",
     "url": "https://revspin.net/rubber/dhs-hurricane-3-national-orange-sponge.html",
     "manufacturer": "DHS",
     "price": "Approx. $ 77 USD",
@@ -145,7 +150,8 @@
     }
   },
   {
-    "name": "NEO H3 Provincial (Blue)",
+    "abbr": "NEO H3 Prov B",
+    "name": "NEO H3 Provincial Blue Sponge",
     "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-blue-sponge.html",
     "manufacturer": "DHS",
     "price": "Approx. $ 100 USD",
@@ -174,7 +180,8 @@
     }
   },
   {
-    "name": "Hurricane 3 National (Blue)",
+    "abbr": "H3 Nat B",
+    "name": "Hurricane 3 National Blue Sponge",
     "url": "https://revspin.net/rubber/dhs-hurricane-3-national-blue-sponge.html",
     "manufacturer": "DHS",
     "price": "Approx. $ 96 USD",
@@ -202,6 +209,7 @@
     }
   },
   {
+    "abbr": "DHS H8-80",
     "name": "DHS Hurricane 8-80",
     "url": "https://revspin.net/rubber/dhs-hurricane-8-80.html",
     "manufacturer": "DHS",
