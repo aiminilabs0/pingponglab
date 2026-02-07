@@ -348,12 +348,11 @@
             if (!Number.isFinite(value) || !range) {
                 return null;
             }
-            const min = range.min;
             const max = range.max;
-            if (!Number.isFinite(min) || !Number.isFinite(max) || max <= min) {
+            if (!Number.isFinite(max) || max <= 0) {
                 return null;
             }
-            return ((value - min) / (max - min)) * 10;
+            return (value / max) * 10;
         }
 
         function normalizeTackiness(value) {
@@ -373,7 +372,7 @@
             return 'Non-tacky';
         }
 
-        function buildDescriptionMarkdown(raw) {
+        function buildDescriptionMarkdown(raw, debugInfo) {
             const ratings = raw.user_ratings || {};
             const lines = [
                 `# ${raw.manufacturer} ${raw.name}`,
@@ -387,6 +386,29 @@
                 ratings.weight ? `**Weight:** ${ratings.weight}` : null,
                 ratings.sponge_hardness ? `**Sponge hardness:** ${ratings.sponge_hardness}` : null
             ].filter(Boolean);
+            if (debugInfo) {
+                const fmt = value => (Number.isFinite(value) ? value.toFixed(2) : 'n/a');
+                const fmtRange = range => {
+                    if (!range || !Number.isFinite(range.min) || !Number.isFinite(range.max)) return 'n/a';
+                    return `${range.min.toFixed(2)} → ${range.max.toFixed(2)}`;
+                };
+                lines.push(
+                    '',
+                    '---',
+                    '**Debug: speed/spin calculation**',
+                    `User spin: ${fmt(debugInfo.userSpin)}`,
+                    `User speed: ${fmt(debugInfo.userSpeed)}`,
+                    `Manufacturer spin (raw): ${fmt(debugInfo.manufacturerSpinRaw)}`,
+                    `Manufacturer speed (raw): ${fmt(debugInfo.manufacturerSpeedRaw)}`,
+                    `Manufacturer spin range: ${fmtRange(debugInfo.manufacturerSpinRange)}`,
+                    `Manufacturer speed range: ${fmtRange(debugInfo.manufacturerSpeedRange)}`,
+                    `Manufacturer spin (normalized): ${fmt(debugInfo.manufacturerSpinNormalized)}`,
+                    `Manufacturer speed (normalized): ${fmt(debugInfo.manufacturerSpeedNormalized)}`,
+                    `Weights: user ${fmt(debugInfo.userWeight)}, manufacturer ${fmt(debugInfo.manufacturerWeight)}`,
+                    `Final spin: ${fmt(debugInfo.spinFinal)}`,
+                    `Final speed: ${fmt(debugInfo.speedFinal)}`
+                );
+            }
             return lines.join('\n');
         }
 
@@ -411,6 +433,8 @@
                 xhr.send();
             });
         }
+
+        const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
         async function loadRubberData() {
             const results = await Promise.allSettled(
@@ -476,8 +500,23 @@
                     productUrl: raw.url || ''
                 };
 
+                const debugInfo = DEBUG_MODE ? {
+                    userSpin,
+                    userSpeed,
+                    manufacturerSpinRaw,
+                    manufacturerSpeedRaw,
+                    manufacturerSpinNormalized: manufacturerSpin,
+                    manufacturerSpeedNormalized: manufacturerSpeed,
+                    manufacturerSpinRange: manufacturerRange ? manufacturerRange.spin : null,
+                    manufacturerSpeedRange: manufacturerRange ? manufacturerRange.speed : null,
+                    spinFinal: spin,
+                    speedFinal: speed,
+                    userWeight: USER_WEIGHT,
+                    manufacturerWeight: MANUFACTURER_WEIGHT
+                } : null;
+
                 data.push(rubber);
-                descriptionMap[rubber.name] = buildDescriptionMarkdown(raw);
+                descriptionMap[rubber.name] = buildDescriptionMarkdown(raw, debugInfo);
             });
 
             rubberData = data;
