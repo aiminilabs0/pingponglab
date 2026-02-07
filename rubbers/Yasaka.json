@@ -18,6 +18,7 @@
       "durability": "8.7 (Lasts a long time!)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 42.5,
       "thickness": [
         "max",
@@ -26,7 +27,7 @@
         "1.5",
         "1.0"
       ],
-      "tackiness": "Non-tacky" 
+      "tackiness": "Non-tacky"
     },
     "manufacturer_ratings": {
       "speed": 80,
@@ -54,6 +55,7 @@
       "durability": "8.0 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "tackiness": "Non-tacky",
       "thickness": [
         "max",
@@ -88,6 +90,7 @@
       "durability": "7.6 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "tackiness": "Non-tacky",
       "thickness": [
         "max",
@@ -122,6 +125,7 @@
       "durability": "8.3 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "tackiness": "Hybrid",
       "thickness": [
         "max",
@@ -159,6 +163,7 @@
       "durability": "8.7 (Lasts a long time!)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "tackiness": "Non-tacky",
       "thickness": [
         "max",

@@ -18,6 +18,7 @@
       "durability": "6.8 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 42.5,
       "thickness": [
         "max",
@@ -51,6 +52,7 @@
       "durability": null
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",
@@ -84,6 +86,7 @@
       "durability": "7.5 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",
@@ -117,6 +120,7 @@
       "durability": "7.0 (Above average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",
@@ -149,6 +153,7 @@
       "durability": "6.1 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 55,
       "thickness": [
         "max",
@@ -174,6 +179,7 @@
       "control": 8.8
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",
@@ -200,11 +206,12 @@
       "weight": "8.0 (Heavy)",
       "sponge_hardness": "10.0 (Hard)",
       "gears": 10.0,
-      "throw_angle": "6.0 (Medium‑high)",
+      "throw_angle": "6.0 (Medium high)",
       "consistency": 10.0,
       "durability": null
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 52.5,
       "thickness": [
         "2.1"
@@ -235,6 +242,7 @@
       "durability": "6.7 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",

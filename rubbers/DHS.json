@@ -18,6 +18,7 @@
       "durability": "7.5 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "China",
       "hardness": 39,
       "thickness": [
         "2.2",
@@ -46,6 +47,7 @@
       "durability": "7.7 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "China",
       "hardness": 39,
       "thickness": [
         "2.2",
@@ -73,6 +75,7 @@
       "durability": "8.3 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "China",
       "hardness": 47.5,
       "thickness": [
         "2.1",
@@ -102,6 +105,7 @@
       "durability": "8.0 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "China",
       "tackiness": "Tacky"
     }
   },
@@ -124,6 +128,7 @@
       "durability": "8.4 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "China",
       "tackiness": "Tacky"
     }
   },
@@ -146,6 +151,7 @@
       "durability": "8.7 (Lasts a long time!)"
     },
     "manufacturer_details": {
+      "country": "China",
       "tackiness": "Tacky"
     }
   }

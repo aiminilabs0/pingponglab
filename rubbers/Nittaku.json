@@ -18,6 +18,7 @@
       "durability": "8.8 (Lasts a long time!)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 47.5,
       "thickness": [
         "max",
@@ -51,6 +52,7 @@
       "durability": "8.4 (Longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 43,
       "thickness": [
         "max",
@@ -84,6 +86,7 @@
       "durability": "7.9 (Lasts longer than average)"
     },
     "manufacturer_details": {
+      "country": "Germany",
       "hardness": 45,
       "thickness": [
         "max",
