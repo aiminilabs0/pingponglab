@@ -270,6 +270,14 @@
                 </div>
                 <div id="tackinessFilter" class="filter-options"></div>
             </div>
+            <div class="filter-group">
+                <label>Hardness:</label>
+                <div class="filter-actions">
+                    <button type="button" data-filter="hardness" data-action="all">All</button>
+                    <button type="button" data-filter="hardness" data-action="none">None</button>
+                </div>
+                <div id="hardnessFilter" class="filter-options"></div>
+            </div>
         </div>
 
         
@@ -370,6 +378,22 @@
                 return 'Non-tacky';
             }
             return 'Non-tacky';
+        }
+
+        const HARDNESS_AVERAGES = {
+            Germany: 47.5,
+            Japan: 36,
+            China: 39
+        };
+        const HARDNESS_MEDIUM_RANGE = 2;
+
+        function normalizeHardnessCategory(hardnessValue, country) {
+            if (!Number.isFinite(hardnessValue)) return null;
+            const average = HARDNESS_AVERAGES[country];
+            if (!Number.isFinite(average)) return null;
+            if (hardnessValue <= average - HARDNESS_MEDIUM_RANGE) return 'Soft';
+            if (hardnessValue >= average + HARDNESS_MEDIUM_RANGE) return 'Hard';
+            return 'Medium';
         }
 
         function buildDescriptionMarkdown(raw, debugInfo) {
@@ -484,7 +508,10 @@
                     ? (userSpeed * USER_WEIGHT + manufacturerSpeed * MANUFACTURER_WEIGHT)
                     : userSpeed;
 
-                const manufacturerTackiness = raw.manufacturer_details && raw.manufacturer_details.tackiness;
+                const manufacturerDetails = raw.manufacturer_details || {};
+                const manufacturerTackiness = manufacturerDetails.tackiness;
+                const manufacturerHardness = parseRatingNumber(manufacturerDetails.hardness);
+                const manufacturerCountry = manufacturerDetails.country;
                 const rubber = {
                     name: raw.name,
                     abbr: raw.abbr || raw.name,
@@ -493,6 +520,7 @@
                     y: speed * 10,
                     weight: parseRatingNumber(ratings.weight),
                     hardness: parseRatingNumber(ratings.sponge_hardness),
+                    hardnessCategory: normalizeHardnessCategory(manufacturerHardness, manufacturerCountry),
                     control: control,
                     tackiness: normalizeTackiness(manufacturerTackiness),
                     priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
@@ -701,6 +729,7 @@
         function initFilters() {
             const companies = [...new Set(rubberData.map(r => r.company))].sort();
             const tackinessValues = ["Non-tacky", "Tacky", "Hybrid"];
+            const hardnessValues = ["Soft", "Medium", "Hard"];
             const companyOptions = companies.map(company => ({
                 value: company,
                 label: company,
@@ -711,13 +740,19 @@
                 label: tackiness,
                 shapeSymbol: getTackinessSymbol(tackiness)
             }));
+            const hardnessOptions = hardnessValues.map(hardness => ({
+                value: hardness,
+                label: hardness
+            }));
 
             const companyFilter = document.getElementById('companyFilter');
             const nameFilter = document.getElementById('nameFilter');
             const tackinessFilter = document.getElementById('tackinessFilter');
+            const hardnessFilter = document.getElementById('hardnessFilter');
 
             buildCheckboxOptions(companyFilter, companyOptions);
             buildCheckboxOptions(tackinessFilter, tackinessOptions);
+            buildCheckboxOptions(hardnessFilter, hardnessOptions);
             buildNameOptionsFromCompanies();
 
             companyFilter.addEventListener('change', () => {
@@ -726,6 +761,7 @@
             });
             nameFilter.addEventListener('change', updateChart);
             tackinessFilter.addEventListener('change', updateChart);
+            hardnessFilter.addEventListener('change', updateChart);
 
             document.getElementById('companySearch').addEventListener('input', (e) => {
                 filterOptions(companyFilter, e.target.value);
@@ -753,11 +789,13 @@
             const selectedCompanies = getCheckedValues('companyFilter');
             const selectedNames = getCheckedValues('nameFilter');
             const selectedTackiness = getCheckedValues('tackinessFilter');
+            const selectedHardness = getCheckedValues('hardnessFilter');
 
             if (
                 selectedCompanies.length === 0 ||
                 selectedNames.length === 0 ||
-                selectedTackiness.length === 0
+                selectedTackiness.length === 0 ||
+                selectedHardness.length === 0
             ) {
                 return [];
             }
@@ -766,6 +804,7 @@
                 if (selectedCompanies.length > 0 && !selectedCompanies.includes(rubber.company)) return false;
                 if (selectedNames.length > 0 && !selectedNames.includes(rubber.name)) return false;
                 if (selectedTackiness.length > 0 && !selectedTackiness.includes(rubber.tackiness)) return false;
+                if (selectedHardness.length > 0 && !selectedHardness.includes(rubber.hardnessCategory)) return false;
                 return true;
             });
         }
