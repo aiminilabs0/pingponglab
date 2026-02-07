@@ -1883,7 +1883,7 @@
                     const t2 = e.touches[1];
                     const currentDist = getTouchDist(t1, t2);
 
-                    // zoom factor: >1 means zooming in, <1 means zooming out
+                    // zoom factor: >1 means zooming out, <1 means zooming in
                     const scale = pinchStartDist / currentDist;
 
                     // Get the fractional position of the pinch center within the plot
@@ -1897,7 +1897,7 @@
                     const newXSpan = xSpan * scale;
                     const newYSpan = ySpan * scale;
                     const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
-                    if (scale < 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
+                    if (scale > 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
                         return;
                     }
 
@@ -1913,7 +1913,7 @@
                         yCenter - frac.fy * newYSpan,
                         yCenter + (1 - frac.fy) * newYSpan
                     ];
-                    if (scale < 1 && autoscaleBounds) {
+                    if (scale > 1 && autoscaleBounds) {
                         newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
                         newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
                     }
