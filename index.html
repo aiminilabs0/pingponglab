@@ -35,12 +35,16 @@
             color: var(--drac-fg);
         }
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
+            width: 100%;
             margin: 0 auto;
             background: var(--drac-bg);
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .chart-bleed {
+            margin: 0 -24px 20px;
         }
         h1 {
             margin-bottom: 20px;
@@ -55,7 +59,7 @@
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin: 18px 0 16px;
         }
         .filter-chip {
             position: relative;
@@ -203,6 +207,21 @@
         }
         .dropdown-header .dd-actions button:hover {
             background: rgba(189,147,249,0.15);
+        }
+        .dropdown-close {
+            border: none;
+            background: transparent;
+            color: var(--drac-comment);
+            font-size: 16px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 6px;
+            transition: background 0.12s, color 0.12s;
+        }
+        .dropdown-close:hover {
+            color: var(--drac-fg);
+            background: var(--drac-current);
         }
         .dropdown-search {
             display: block;
@@ -403,7 +422,7 @@
         #chart {
             width: 100%;
             height: 600px;
-            margin-bottom: 20px;
+            margin: 0;
             touch-action: none;
         }
 
@@ -485,6 +504,7 @@
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { padding: 14px; border-radius: 12px; }
+            .chart-bleed { margin: 0 -14px 16px; }
             .details-container { flex-direction: column; }
             #chart { height: 400px; }
             .filter-dropdown {
@@ -512,6 +532,10 @@
 
         <div class="filter-backdrop" id="filterBackdrop"></div>
 
+        <div class="chart-bleed">
+            <div id="chart"></div>
+        </div>
+
         <div class="filter-bar" id="filterBar">
             <!-- Company chip -->
             <div class="filter-chip" data-filter="company" id="companyChip">
@@ -524,6 +548,7 @@
                             <button type="button" data-filter="company" data-action="all">All</button>
                             <button type="button" data-filter="company" data-action="none">None</button>
                         </div>
+                        <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
                     <input class="dropdown-search" id="companySearch" type="search" placeholder="Search company...">
                     <div class="dropdown-options" id="companyFilter"></div>
@@ -541,6 +566,7 @@
                             <button type="button" data-filter="name" data-action="all">All</button>
                             <button type="button" data-filter="name" data-action="none">None</button>
                         </div>
+                        <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
                     <input class="dropdown-search" id="nameSearch" type="search" placeholder="Search rubber...">
                     <div class="dropdown-options" id="nameFilter"></div>
@@ -558,6 +584,7 @@
                             <button type="button" data-filter="tackiness" data-action="all">All</button>
                             <button type="button" data-filter="tackiness" data-action="none">None</button>
                         </div>
+                        <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
                     <div class="dropdown-options" id="tackinessFilter"></div>
                 </div>
@@ -574,12 +601,19 @@
                             <button type="button" data-filter="hardness" data-action="all">All</button>
                             <button type="button" data-filter="hardness" data-action="none">None</button>
                         </div>
+                        <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
                     <div class="dropdown-options" id="hardnessFilter"></div>
                 </div>
             </div>
 
             <span class="filter-separator"></span>
+            <button class="filter-action-btn" id="zoomInBtn" title="Zoom in">
+                +
+            </button>
+            <button class="filter-action-btn" id="zoomOutBtn" title="Zoom out">
+                −
+            </button>
             <button class="filter-action-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
                 <svg viewBox="0 0 1000 1000"><path d="m250 850l-187 0-63 0 0-63 0-187 125 0 0 125 125 0 0 125z m688 0l-188 0 0-125 125 0 0-125 125 0 0 187 0 63-62 0z m-875-938l0 188 125 0 0-125 125 0 0-125-187 0-63 0 0 62z m875 0l-187 0 0 125 125 0 0 125 125 0 0-188 0-62-63 0z"/></svg>
                 Fit
@@ -588,8 +622,6 @@
         </div>
 
         <div class="active-tags" id="activeTags"></div>
-
-        <div id="chart"></div>
 
         
 
@@ -1105,6 +1137,32 @@
             ['company', 'name', 'tackiness', 'hardness'].forEach(refreshBadge);
         }
 
+        function zoomChart(scale) {
+            const chartEl = document.getElementById('chart');
+            if (!chartEl || !chartEl._fullLayout) return;
+            const xa = chartEl._fullLayout.xaxis;
+            const ya = chartEl._fullLayout.yaxis;
+            if (!xa || !ya || !Array.isArray(xa.range) || !Array.isArray(ya.range)) return;
+
+            const xRange = [xa.range[0], xa.range[1]];
+            const yRange = [ya.range[0], ya.range[1]];
+            const xSpan = xRange[1] - xRange[0];
+            const ySpan = yRange[1] - yRange[0];
+            if (xSpan <= 0 || ySpan <= 0) return;
+
+            const xCenter = (xRange[0] + xRange[1]) / 2;
+            const yCenter = (yRange[0] + yRange[1]) / 2;
+            const newXSpan = xSpan * scale;
+            const newYSpan = ySpan * scale;
+
+            Plotly.relayout(chartEl, {
+                'xaxis.range': [xCenter - newXSpan / 2, xCenter + newXSpan / 2],
+                'yaxis.range': [yCenter - newYSpan / 2, yCenter + newYSpan / 2],
+                'xaxis.autorange': false,
+                'yaxis.autorange': false
+            });
+        }
+
         // ── Active tags (removable pills below filter bar) ──
         function renderActiveTags() {
             const container = document.getElementById('activeTags');
@@ -1224,6 +1282,14 @@
                 });
             });
 
+            // Close buttons inside dropdown headers
+            document.querySelectorAll('.dropdown-close').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeAllDropdowns();
+                });
+            });
+
             // Chip click → toggle dropdown
             document.querySelectorAll('.filter-chip').forEach(chip => {
                 chip.addEventListener('click', (e) => {
@@ -1256,6 +1322,14 @@
                         'yaxis.autorange': true
                     });
                 }
+            });
+
+            // Zoom buttons
+            document.getElementById('zoomInBtn').addEventListener('click', () => {
+                zoomChart(0.85);
+            });
+            document.getElementById('zoomOutBtn').addEventListener('click', () => {
+                zoomChart(1.15);
             });
 
             // Clear all filters → reset to all selected
@@ -1453,7 +1527,7 @@
                 title: '',
                 dragmode: 'pan',
                 xaxis: {
-                    title: { text: 'Spin →', font: { color: '#6272a4' } },
+                    title: { text: '' },
                     autorange: currentRanges ? false : true,
                     range: currentRanges ? currentRanges.xaxis : undefined,
                     zeroline: false,
@@ -1462,7 +1536,7 @@
                     linecolor: '#44475a'
                 },
                 yaxis: {
-                    title: { text: 'Speed →', font: { color: '#6272a4' } },
+                    title: { text: '' },
                     autorange: currentRanges ? false : true,
                     range: currentRanges ? currentRanges.yaxis : undefined,
                     zeroline: false,
@@ -1473,7 +1547,31 @@
                 hovermode: 'closest',
                 plot_bgcolor: '#282a36',
                 paper_bgcolor: '#282a36',
-                margin: { l: 60, r: 40, t: 40, b: 60 },
+                margin: { l: 46, r: 20, t: 26, b: 40 },
+                annotations: [
+                    {
+                        x: 0.99,
+                        y: 0.03,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: 'Spin →',
+                        showarrow: false,
+                        xanchor: 'right',
+                        yanchor: 'bottom',
+                        font: { color: '#6272a4' }
+                    },
+                    {
+                        x: 0.02,
+                        y: 0.98,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: 'Speed ↑',
+                        showarrow: false,
+                        xanchor: 'left',
+                        yanchor: 'top',
+                        font: { color: '#6272a4' }
+                    }
+                ],
                 showlegend: false,
                 legend: {
                     x: 1,
