@@ -739,7 +739,8 @@
         }
 
         // Update chart
-        function updateChart() {
+        function updateChart(options) {
+            const settings = options || {};
             const filteredData = getFilteredData();
             currentFilteredData = filteredData;
             const visibleData = computeVisibleRubbers(filteredData);
@@ -815,7 +816,7 @@
             });
 
             let currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
-            if (shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
+            if (!settings.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
                 currentRanges = null;
             }
             const layout = {
@@ -911,7 +912,7 @@
                         clearTimeout(relayoutTimer);
                         relayoutTimer = setTimeout(function() {
                             isInternalUpdate = true;
-                            updateChart();
+                            updateChart({ preserveRanges: true });
                             setTimeout(function() { isInternalUpdate = false; }, 300);
                         }, 120);
                     }
