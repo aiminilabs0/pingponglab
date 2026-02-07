@@ -256,6 +256,42 @@
             border-radius: 10px;
         }
 
+        /* ── Toggle button group (hardness) ── */
+        .toggle-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .toggle-group .filter-option {
+            padding: 0;
+            background: transparent;
+        }
+        .toggle-group .custom-check {
+            display: none;
+        }
+        .toggle-group .toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1.5px solid var(--drac-current);
+            background: transparent;
+            color: var(--drac-fg);
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.12s ease;
+        }
+        .toggle-group .filter-option:hover .toggle-pill {
+            border-color: var(--drac-comment);
+            background: var(--drac-current);
+        }
+        .toggle-group .filter-option input[type="checkbox"]:checked + .custom-check + .toggle-pill {
+            border-color: var(--drac-purple);
+            color: var(--drac-purple);
+            background: rgba(189,147,249,0.15);
+        }
+
         /* ── Option rows ── */
         .filter-option {
             display: flex;
@@ -538,9 +574,9 @@
         </div>
 
         <div class="filter-bar" id="filterBar">
-            <!-- Company chip -->
+            <!-- Brand chip -->
             <div class="filter-chip" data-filter="company" id="companyChip">
-                <span>Company</span>
+                <span>Brand</span>
                 <span class="filter-badge all-selected" id="companyBadge">All</span>
                 <span class="chip-arrow"></span>
                 <div class="filter-dropdown" id="companyDropdown">
@@ -551,14 +587,14 @@
                         </div>
                         <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
-                    <input class="dropdown-search" id="companySearch" type="search" placeholder="Search company...">
+                    <input class="dropdown-search" id="companySearch" type="search" placeholder="Search brand…">
                     <div class="dropdown-options" id="companyFilter"></div>
                 </div>
             </div>
 
             <!-- Rubber chip -->
             <div class="filter-chip" data-filter="name" id="nameChip">
-                <span>Rubber</span>
+                <span>🏓 Rubber</span>
                 <span class="filter-badge all-selected" id="nameBadge">All</span>
                 <span class="chip-arrow"></span>
                 <div class="filter-dropdown" id="nameDropdown">
@@ -569,12 +605,12 @@
                         </div>
                         <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
-                    <input class="dropdown-search" id="nameSearch" type="search" placeholder="Search rubber...">
+                    <input class="dropdown-search" id="nameSearch" type="search" placeholder="Search rubber…">
                     <div class="dropdown-options" id="nameFilter"></div>
                 </div>
             </div>
 
-            <!-- Tackiness chip -->
+            <!-- Tack chip -->
             <div class="filter-chip" data-filter="tackiness" id="tackinessChip">
                 <span>Tackiness</span>
                 <span class="filter-badge all-selected" id="tackinessBadge">All</span>
@@ -593,7 +629,7 @@
 
             <!-- Hardness chip -->
             <div class="filter-chip" data-filter="hardness" id="hardnessChip">
-                <span>Hardness</span>
+                <span>🧽 Sponge</span>
                 <span class="filter-badge all-selected" id="hardnessBadge">All</span>
                 <span class="chip-arrow"></span>
                 <div class="filter-dropdown" id="hardnessDropdown">
@@ -604,22 +640,21 @@
                         </div>
                         <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
-                    <div class="dropdown-options" id="hardnessFilter"></div>
+                    <div class="dropdown-options toggle-group" id="hardnessFilter"></div>
                 </div>
             </div>
 
             <span class="filter-separator"></span>
             <button class="filter-action-btn" id="zoomInBtn" title="Zoom in">
-                +
+                🔍+
             </button>
             <button class="filter-action-btn" id="zoomOutBtn" title="Zoom out">
-                −
+                🔍−
             </button>
             <button class="filter-action-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
-                <svg viewBox="0 0 1000 1000"><path d="m250 850l-187 0-63 0 0-63 0-187 125 0 0 125 125 0 0 125z m688 0l-188 0 0-125 125 0 0-125 125 0 0 187 0 63-62 0z m-875-938l0 188 125 0 0-125 125 0 0-125-187 0-63 0 0 62z m875 0l-187 0 0 125 125 0 0 125 125 0 0-188 0-62-63 0z"/></svg>
-                Fit
+                ⊞ Fit
             </button>
-            <button class="filter-action-btn reset-btn" id="clearAllFilters" title="Reset all filters">Reset</button>
+            <button class="filter-action-btn reset-btn" id="clearAllFilters" title="Reset all filters">↺ Reset</button>
         </div>
 
         <div class="active-tags" id="activeTags"></div>
@@ -969,6 +1004,7 @@
 
         function buildCheckboxOptions(container, values, checkedValues) {
             container.innerHTML = '';
+            const isToggleGroup = container.classList.contains('toggle-group');
             values.forEach(item => {
                 const value = typeof item === 'string' ? item : item.value;
                 const labelText = typeof item === 'string' ? item : item.label;
@@ -998,6 +1034,9 @@
 
                 const text = document.createElement('span');
                 text.textContent = labelText;
+                if (isToggleGroup) {
+                    text.classList.add('toggle-pill');
+                }
                 label.appendChild(text);
                 container.appendChild(label);
             });
@@ -1272,6 +1311,7 @@
             const companies = [...new Set(rubberData.map(r => r.company))].sort();
             const tackinessValues = ["Non-tacky", "Tacky", "Hybrid"];
             const hardnessValues = ["Soft", "Medium", "Hard"];
+            const hardnessEmoji = { "Soft": "🟢", "Medium": "🟡", "Hard": "🔴" };
             const companyOptions = companies.map(company => ({
                 value: company,
                 label: company,
@@ -1284,7 +1324,7 @@
             }));
             const hardnessOptions = hardnessValues.map(hardness => ({
                 value: hardness,
-                label: hardness
+                label: `${hardnessEmoji[hardness] || ''} ${hardness}`
             }));
 
             const companyFilter = document.getElementById('companyFilter');
