@@ -7,6 +7,22 @@
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
+        /* ── Dracula palette ── */
+        :root {
+            --drac-bg: #282a36;
+            --drac-bg-dark: #1e1f29;
+            --drac-current: #44475a;
+            --drac-fg: #f8f8f2;
+            --drac-comment: #6272a4;
+            --drac-cyan: #8be9fd;
+            --drac-green: #50fa7b;
+            --drac-orange: #ffb86c;
+            --drac-pink: #ff79c6;
+            --drac-purple: #bd93f9;
+            --drac-red: #ff5555;
+            --drac-yellow: #f1fa8c;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,19 +31,20 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             padding: 20px;
-            background: #f0f2f5;
+            background: var(--drac-bg-dark);
+            color: var(--drac-fg);
         }
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
+            background: var(--drac-bg);
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
         h1 {
             margin-bottom: 20px;
-            color: #1a1a2e;
+            color: var(--drac-purple);
             font-size: 24px;
             font-weight: 700;
         }
@@ -46,25 +63,25 @@
             align-items: center;
             gap: 6px;
             padding: 7px 14px;
-            border: 1.5px solid #dde1e6;
+            border: 1.5px solid var(--drac-current);
             border-radius: 100px;
-            background: #fff;
+            background: var(--drac-bg);
             font-size: 13px;
             font-weight: 500;
-            color: #3a3f47;
+            color: var(--drac-fg);
             cursor: pointer;
             user-select: none;
             transition: all 0.15s ease;
             white-space: nowrap;
         }
         .filter-chip:hover {
-            border-color: #b0b8c4;
-            background: #f7f8fa;
+            border-color: var(--drac-comment);
+            background: var(--drac-current);
         }
         .filter-chip.active {
-            border-color: #4361ee;
-            background: #eef1ff;
-            color: #4361ee;
+            border-color: var(--drac-purple);
+            background: rgba(189,147,249,0.15);
+            color: var(--drac-purple);
         }
         .filter-chip .chip-arrow {
             display: inline-block;
@@ -88,35 +105,54 @@
             height: 18px;
             padding: 0 5px;
             border-radius: 100px;
-            background: #4361ee;
-            color: #fff;
+            background: var(--drac-purple);
+            color: var(--drac-bg);
             font-size: 10px;
             font-weight: 700;
             line-height: 1;
         }
         .filter-badge.all-selected {
-            background: #c5cdd8;
-            color: #fff;
+            background: var(--drac-comment);
+            color: var(--drac-fg);
         }
 
-        .filter-clear-btn {
+        .filter-action-btn {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             padding: 7px 12px;
-            border: 1.5px dashed #dde1e6;
+            border: 1.5px solid var(--drac-current);
             border-radius: 100px;
             background: transparent;
             font-size: 12px;
             font-weight: 500;
-            color: #8b95a5;
+            color: var(--drac-comment);
             cursor: pointer;
             transition: all 0.15s ease;
         }
-        .filter-clear-btn:hover {
-            border-color: #e74c3c;
-            color: #e74c3c;
-            background: #fef2f2;
+        .filter-action-btn:hover {
+            border-color: var(--drac-comment);
+            color: var(--drac-fg);
+            background: var(--drac-current);
+        }
+        .filter-action-btn.autoscale-btn:hover {
+            border-color: var(--drac-cyan);
+            color: var(--drac-cyan);
+        }
+        .filter-action-btn.reset-btn:hover {
+            border-color: var(--drac-red);
+            color: var(--drac-red);
+        }
+        .filter-action-btn svg {
+            width: 13px;
+            height: 13px;
+            fill: currentColor;
+        }
+        .filter-separator {
+            width: 1px;
+            height: 22px;
+            background: var(--drac-current);
+            margin: 0 2px;
         }
 
         /* ── Dropdown panel ── */
@@ -127,10 +163,10 @@
             z-index: 100;
             min-width: 240px;
             max-width: 320px;
-            background: #fff;
-            border: 1px solid #e2e5ea;
+            background: var(--drac-bg);
+            border: 1px solid var(--drac-current);
             border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
             opacity: 0;
             transform: translateY(-4px);
             pointer-events: none;
@@ -148,7 +184,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 14px 6px;
-            border-bottom: 1px solid #f0f1f3;
+            border-bottom: 1px solid var(--drac-current);
         }
         .dropdown-header .dd-actions {
             display: flex;
@@ -161,33 +197,33 @@
             background: transparent;
             font-size: 11px;
             font-weight: 600;
-            color: #4361ee;
+            color: var(--drac-purple);
             cursor: pointer;
             transition: background 0.12s;
         }
         .dropdown-header .dd-actions button:hover {
-            background: #eef1ff;
+            background: rgba(189,147,249,0.15);
         }
         .dropdown-search {
             display: block;
             width: 100%;
             padding: 9px 14px;
             border: none;
-            border-bottom: 1px solid #f0f1f3;
+            border-bottom: 1px solid var(--drac-current);
             font-size: 13px;
-            color: #333;
-            background: #fafbfc;
+            color: var(--drac-fg);
+            background: var(--drac-bg-dark);
             outline: none;
         }
         .dropdown-search::placeholder {
-            color: #aab2bf;
+            color: var(--drac-comment);
         }
         .dropdown-options {
             max-height: 220px;
             overflow-y: auto;
             padding: 6px;
             scrollbar-width: thin;
-            scrollbar-color: #d0d5dd transparent;
+            scrollbar-color: var(--drac-current) transparent;
         }
         .dropdown-options::-webkit-scrollbar {
             width: 5px;
@@ -196,7 +232,7 @@
             background: transparent;
         }
         .dropdown-options::-webkit-scrollbar-thumb {
-            background: #d0d5dd;
+            background: var(--drac-current);
             border-radius: 10px;
         }
 
@@ -208,12 +244,12 @@
             padding: 6px 8px;
             border-radius: 8px;
             font-size: 13px;
-            color: #3a3f47;
+            color: var(--drac-fg);
             cursor: pointer;
             transition: background 0.1s;
         }
         .filter-option:hover {
-            background: #f4f5f7;
+            background: var(--drac-current);
         }
         .filter-option input[type="checkbox"] {
             position: absolute;
@@ -227,8 +263,8 @@
             width: 16px;
             height: 16px;
             border-radius: 4px;
-            border: 1.5px solid #c5cdd8;
-            background: #fff;
+            border: 1.5px solid var(--drac-comment);
+            background: transparent;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -237,24 +273,24 @@
             transition: all 0.12s ease;
         }
         .filter-option:hover .custom-check {
-            border-color: #a0aab8;
+            border-color: var(--drac-fg);
         }
         .filter-option input[type="checkbox"]:checked + .custom-check {
-            background: #4361ee;
-            border-color: #4361ee;
+            background: var(--drac-purple);
+            border-color: var(--drac-purple);
         }
         .filter-option input[type="checkbox"]:checked + .custom-check::after {
             content: '';
             display: block;
             width: 4px;
             height: 7px;
-            border: solid #fff;
+            border: solid var(--drac-bg);
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
             margin-top: -1px;
         }
         .filter-option input[type="checkbox"]:focus-visible + .custom-check {
-            outline: 2px solid #4361ee;
+            outline: 2px solid var(--drac-purple);
             outline-offset: 2px;
         }
 
@@ -263,8 +299,8 @@
             border-radius: 4px;
         }
         .filter-option input[type="checkbox"]:checked + .custom-check.color-check {
-            border-color: #4361ee;
-            box-shadow: inset 0 0 0 2px #fff;
+            border-color: var(--drac-purple);
+            box-shadow: inset 0 0 0 2px var(--drac-bg);
         }
         .filter-option input[type="checkbox"]:checked + .custom-check.color-check::after {
             border-color: #fff;
@@ -273,22 +309,22 @@
 
         /* Shape variants */
         .custom-check.shape-check {
-            border: 1.5px solid #888;
-            background: #fff;
+            border: 1.5px solid var(--drac-comment);
+            background: transparent;
         }
         .custom-check.shape-check.circle { border-radius: 50%; }
         .custom-check.shape-check.square { border-radius: 3px; }
         .custom-check.shape-check.diamond { transform: rotate(45deg); border-radius: 2px; }
         .filter-option input[type="checkbox"]:checked + .custom-check.shape-check {
-            background: #3a3f47;
-            border-color: #3a3f47;
+            background: var(--drac-fg);
+            border-color: var(--drac-fg);
         }
         .filter-option input[type="checkbox"]:checked + .custom-check.shape-check::after {
             content: '';
             display: block;
             width: 4px;
             height: 7px;
-            border: solid #fff;
+            border: solid var(--drac-bg);
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
             margin-top: -1px;
@@ -303,12 +339,12 @@
             height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
-            border: 1px solid rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .filter-instructions {
             font-size: 12px;
-            color: #aab2bf;
+            color: var(--drac-comment);
             padding: 12px 14px;
             text-align: center;
         }
@@ -330,10 +366,10 @@
             gap: 5px;
             padding: 4px 10px;
             border-radius: 100px;
-            background: #f0f2f5;
+            background: var(--drac-current);
             font-size: 11.5px;
             font-weight: 500;
-            color: #555d6b;
+            color: var(--drac-fg);
             transition: background 0.12s;
         }
         .active-tag .tag-dot {
@@ -353,14 +389,14 @@
             border: none;
             font-size: 12px;
             line-height: 1;
-            color: #8b95a5;
+            color: var(--drac-comment);
             cursor: pointer;
             padding: 0;
             transition: all 0.12s;
         }
         .active-tag .tag-remove:hover {
-            background: #dde1e6;
-            color: #e74c3c;
+            background: rgba(255,85,85,0.2);
+            color: var(--drac-red);
         }
 
         /* ── Chart ── */
@@ -381,37 +417,55 @@
             flex: 1;
             min-width: 300px;
             padding: 18px;
-            border: 1.5px solid #e2e5ea;
+            border: 1.5px solid var(--drac-current);
             border-radius: 12px;
-            background: #fafbfc;
+            background: var(--drac-bg-dark);
             min-height: 200px;
         }
         .detail-panel h3 {
             margin-bottom: 10px;
-            color: #1a1a2e;
+            color: var(--drac-purple);
             font-size: 17px;
             font-weight: 600;
         }
         .detail-panel .content {
-            color: #555d6b;
+            color: var(--drac-fg);
             line-height: 1.6;
         }
+        .detail-panel p {
+            color: var(--drac-fg);
+        }
+        .detail-panel strong {
+            color: var(--drac-cyan);
+        }
         .detail-panel a {
-            color: #4361ee;
+            color: var(--drac-cyan);
             text-decoration: none;
         }
         .detail-panel a:hover {
             text-decoration: underline;
+            color: var(--drac-green);
+        }
+        .detail-panel h1 {
+            color: var(--drac-pink);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .detail-panel hr {
+            border: none;
+            border-top: 1px solid var(--drac-current);
+            margin: 12px 0;
         }
         .comparison-bar {
             margin-top: 20px;
             padding: 14px;
-            background: linear-gradient(135deg, #eef1ff 0%, #e3ecff 100%);
+            background: linear-gradient(135deg, rgba(189,147,249,0.15) 0%, rgba(139,233,253,0.10) 100%);
+            border: 1px solid var(--drac-current);
             border-radius: 12px;
             text-align: center;
             font-size: 17px;
             font-weight: 600;
-            color: #4361ee;
+            color: var(--drac-purple);
         }
 
         /* ── Backdrop for closing dropdowns ── */
@@ -424,6 +478,9 @@
         .filter-backdrop.visible {
             display: block;
         }
+
+        /* ── Hide Plotly modebar ── */
+        .modebar { display: none !important; }
 
         @media (max-width: 768px) {
             body { padding: 10px; }
@@ -523,7 +580,12 @@
                 </div>
             </div>
 
-            <button class="filter-clear-btn" id="clearAllFilters" title="Reset all filters">Reset</button>
+            <span class="filter-separator"></span>
+            <button class="filter-action-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
+                <svg viewBox="0 0 1000 1000"><path d="m250 850l-187 0-63 0 0-63 0-187 125 0 0 125 125 0 0 125z m688 0l-188 0 0-125 125 0 0-125 125 0 0 187 0 63-62 0z m-875-938l0 188 125 0 0-125 125 0 0-125-187 0-63 0 0 62z m875 0l-187 0 0 125 125 0 0 125 125 0 0-188 0-62-63 0z"/></svg>
+                Fit
+            </button>
+            <button class="filter-action-btn reset-btn" id="clearAllFilters" title="Reset all filters">Reset</button>
         </div>
 
         <div class="active-tags" id="activeTags"></div>
@@ -1177,6 +1239,17 @@
                 input.addEventListener('click', (e) => e.stopPropagation());
             });
 
+            // Autoscale button
+            document.getElementById('autoscaleBtn').addEventListener('click', () => {
+                const chartEl = document.getElementById('chart');
+                if (chartEl && hasPlotted) {
+                    Plotly.relayout(chartEl, {
+                        'xaxis.autorange': true,
+                        'yaxis.autorange': true
+                    });
+                }
+            });
+
             // Clear all filters → reset to all selected
             document.getElementById('clearAllFilters').addEventListener('click', () => {
                 [companyFilter, tackinessFilter, hardnessFilter].forEach(c => setAllChecked(c, true));
@@ -1343,15 +1416,15 @@
                         symbol: getTackinessSymbol(group.tackiness),
                         line: {
                             width: 1,
-                            color: '#fff'
+                            color: '#282a36'
                         }
                     },
                     text: group.rubbers.map(r => r.abbr),
                     textposition: 'top center',
                     textfont: {
                         size: 11,
-                        color: '#333',
-                        family: 'Arial, sans-serif'
+                        color: '#f8f8f2',
+                        family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'
                     },
                     hovertemplate: '<b>%{customdata.name}</b><br>' +
                         'Company: ' + group.company + '<br>' +
@@ -1372,59 +1445,47 @@
                 title: '',
                 dragmode: 'pan',
                 xaxis: {
-                    title: 'Spin →',
+                    title: { text: 'Spin →', font: { color: '#6272a4' } },
                     autorange: currentRanges ? false : true,
                     range: currentRanges ? currentRanges.xaxis : undefined,
                     zeroline: false,
-                    gridcolor: '#eee'
+                    gridcolor: '#44475a',
+                    tickfont: { color: '#6272a4' },
+                    linecolor: '#44475a'
                 },
                 yaxis: {
-                    title: 'Speed →',
+                    title: { text: 'Speed →', font: { color: '#6272a4' } },
                     autorange: currentRanges ? false : true,
                     range: currentRanges ? currentRanges.yaxis : undefined,
                     zeroline: false,
-                    gridcolor: '#eee'
+                    gridcolor: '#44475a',
+                    tickfont: { color: '#6272a4' },
+                    linecolor: '#44475a'
                 },
                 hovermode: 'closest',
-                plot_bgcolor: 'white',
-                paper_bgcolor: 'white',
+                plot_bgcolor: '#282a36',
+                paper_bgcolor: '#282a36',
                 margin: { l: 60, r: 40, t: 40, b: 60 },
                 showlegend: false,
                 legend: {
                     x: 1,
                     y: 1,
                     xanchor: 'right',
-                    bgcolor: 'rgba(255,255,255,0.8)',
-                    bordercolor: '#ddd',
-                    borderwidth: 1
+                    bgcolor: 'rgba(40,42,54,0.9)',
+                    bordercolor: '#44475a',
+                    borderwidth: 1,
+                    font: { color: '#f8f8f2' }
+                },
+                hoverlabel: {
+                    bgcolor: '#44475a',
+                    bordercolor: '#6272a4',
+                    font: { color: '#f8f8f2', family: '-apple-system, BlinkMacSystemFont, sans-serif' }
                 }
             };
 
             const config = {
                 responsive: true,
-                displayModeBar: true,
-                modeBarButtonsToRemove: [
-                    'lasso2d',
-                    'select2d',
-                    'pan2d',
-                    'autoscale2d',
-                    'resetScale2d',
-                    'toImage',
-                    'zoom2d',
-                    'zoomIn2d',
-                    'zoomOut2d'
-                ],
-                modeBarButtonsToAdd: [{
-                    name: 'Autoscale',
-                    title: 'Autoscale',
-                    icon: Plotly.Icons.autoscale,
-                    click: function(gd) {
-                        Plotly.relayout(gd, {
-                            'xaxis.autorange': true,
-                            'yaxis.autorange': true
-                        });
-                    }
-                }],
+                displayModeBar: false,
                 displaylogo: false,
                 scrollZoom: false
             };
@@ -1504,7 +1565,7 @@
             }
 
             const linksHtml = links.length > 0 ? `
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #44475a;">
                     <strong>Links:</strong><br/>
                     ${links.join('')}
                 </div>
@@ -1709,7 +1770,7 @@
         async function initializeApp() {
             const chart = document.getElementById('chart');
             if (chart) {
-                chart.innerHTML = '<div style="padding: 20px; color: #888;">Loading rubber data…</div>';
+                chart.innerHTML = '<div style="padding: 20px; color: #6272a4;">Loading rubber data…</div>';
             }
 
             try {
@@ -1724,13 +1785,13 @@
                     ? 'Could not load rubber data from JSON files.<br><br>' +
                       'Opening this page via <code>file://</code> blocks file loading in most browsers.<br>' +
                       'Start a local server instead:<br>' +
-                      '<pre style="margin-top:8px;background:#f5f5f5;padding:8px;border-radius:4px;">cd ' +
+                      '<pre style="margin-top:8px;background:#1e1f29;padding:8px;border-radius:4px;color:#f8f8f2;">cd ' +
                       window.location.pathname.replace(/\/[^/]*$/, '') +
                       '\npython3 -m http.server</pre>' +
                       'Then open <a href="http://localhost:8000">http://localhost:8000</a>'
                     : 'Failed to load rubber data. Check the browser console for details.';
                 if (chart) {
-                    chart.innerHTML = '<div style="padding: 20px; color: #c00; line-height: 1.6;">' + msg + '</div>';
+                    chart.innerHTML = '<div style="padding: 20px; color: #ff5555; line-height: 1.6;">' + msg + '</div>';
                 }
                 return;
             }
