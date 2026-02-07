@@ -2,7 +2,6 @@
   {
     "abbr": "G-1",
     "name": "Fastarc G-1",
-    "url": "https://revspin.net/rubber/nittaku-fastarc-g-1.html",
     "manufacturer": "Nittaku",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "6.1 (Medium high)",
       "consistency": 9.7,
       "durability": "8.8 (Lasts a long time!)",
-      "tackiness": "2.3 (Slightly tacky)"
+      "tackiness": "2.3 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/nittaku-fastarc-g-1.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -37,7 +37,6 @@
   {
     "abbr": "C-1",
     "name": "Fastarc C-1",
-    "url": "https://revspin.net/rubber/nittaku-fastarc-c-1.html",
     "manufacturer": "Nittaku",
     "price": "Approx. $50 USD",
     "user_ratings": {
@@ -51,7 +50,8 @@
       "throw_angle": "5.4 (Medium)",
       "consistency": 9.5,
       "durability": "8.4 (Longer than average)",
-      "tackiness": "2.0 (Slightly tacky)"
+      "tackiness": "2.0 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/nittaku-fastarc-c-1.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -72,7 +72,6 @@
   {
     "abbr": "S-1",
     "name": "Fastarc S-1",
-    "url": "https://revspin.net/rubber/nittaku-fastarc-s-1.html",
     "manufacturer": "Nittaku",
     "price": "Approx. $42 USD",
     "user_ratings": {
@@ -86,7 +85,8 @@
       "throw_angle": "5.3 (Medium high)",
       "consistency": 9.4,
       "durability": "7.9 (Lasts longer than average)",
-      "tackiness": "1.9 (Slightly tacky)"
+      "tackiness": "1.9 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/nittaku-fastarc-s-1.html"
     },
     "manufacturer_details": {
       "country": "Germany",

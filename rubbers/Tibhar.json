@@ -2,7 +2,6 @@
   {
     "abbr": "MX-P",
     "name": "Evolution MX-P",
-    "url": "https://revspin.net/rubber/tibhar-evolution-mx-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 8.9,
       "durability": "7.0 (Lasts longer than average)",
-      "tackiness": "2.3 (Slightly tacky)"
+      "tackiness": "2.3 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/tibhar-evolution-mx-p.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -38,7 +38,6 @@
   {
     "abbr": "EL-P",
     "name": "Evolution EL-P",
-    "url": "https://revspin.net/rubber/tibhar-evolution-el-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 40 USD",
     "user_ratings": {
@@ -52,7 +51,8 @@
       "throw_angle": "5.3 (Medium high)",
       "consistency": 9.5,
       "durability": "8.1 (Lasts longer than average)",
-      "tackiness": "2.2 (Slightly tacky)"
+      "tackiness": "2.2 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/tibhar-evolution-el-p.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -74,7 +74,6 @@
   {
     "abbr": "MX-S",
     "name": "Evolution MX-S",
-    "url": "https://revspin.net/rubber/tibhar-evolution-mx-s.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 59 USD",
     "user_ratings": {
@@ -88,7 +87,8 @@
       "throw_angle": "5.1 (Medium high)",
       "consistency": 9.2,
       "durability": "7.5 (Lasts longer than average)",
-      "tackiness": "2.4 (Slightly tacky)"
+      "tackiness": "2.4 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/tibhar-evolution-mx-s.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -110,7 +110,6 @@
   {
     "abbr": "FX-P",
     "name": "Evolution FX-P",
-    "url": "https://revspin.net/rubber/tibhar-evolution-fx-p.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -124,7 +123,8 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
       "durability": "7.1 (Lasts longer than average)",
-      "tackiness": "2.0 (Slightly tacky)"
+      "tackiness": "2.0 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/tibhar-evolution-fx-p.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -145,7 +145,6 @@
   {
     "abbr": "K3",
     "name": "Hybrid K3",
-    "url": "https://revspin.net/rubber/tibhar-hybrid-k3.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 49 USD",
     "user_ratings": {
@@ -159,7 +158,8 @@
       "throw_angle": "6.2 (Medium high)",
       "consistency": 9.5,
       "durability": "5.1 (Average durability)",
-      "tackiness": "4.8 (Medium tacky)"
+      "tackiness": "4.8 (Medium tacky)",
+      "url": "https://revspin.net/rubber/tibhar-hybrid-k3.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -179,7 +179,6 @@
   {
     "abbr": "MX-K",
     "name": "Evolution MX-K",
-    "url": "https://revspin.net/rubber/tibhar-mx-k.html",
     "manufacturer": "Tibhar",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -193,7 +192,8 @@
       "throw_angle": "8.0 (High)",
       "consistency": 5.0,
       "durability": "10.0 (Lasts a long time!)",
-      "tackiness": "8.0 (Tacky)"
+      "tackiness": "8.0 (Tacky)",
+      "url": "https://revspin.net/rubber/tibhar-mx-k.html"
     },
     "manufacturer_details": {
       "country": "Germany",

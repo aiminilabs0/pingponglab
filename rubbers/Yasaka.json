@@ -2,7 +2,6 @@
   {
     "abbr": "Mark V",
     "name": "Mark V",
-    "url": "https://revspin.net/rubber/yasaka-mark-v.html",
     "manufacturer": "Yasaka",
     "price": "Approx. $ 37 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "4.4 (Medium)",
       "consistency": 9.4,
       "durability": "8.7 (Lasts a long time!)",
-      "tackiness": "2.6 (Slightly tacky)"
+      "tackiness": "2.6 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/yasaka-mark-v.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -40,7 +40,6 @@
   {
     "abbr": "Rakza 7",
     "name": "Rakza 7",
-    "url": "https://revspin.net/rubber/yasaka-rakza-7.html",
     "manufacturer": "Yasaka",
     "price": "Approx. $ 52 USD",
     "user_ratings": {
@@ -54,7 +53,8 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.6,
       "durability": "8.0 (Lasts longer than average)",
-      "tackiness": "2.6 (Slightly tacky)"
+      "tackiness": "2.6 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/yasaka-rakza-7.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -76,7 +76,6 @@
   {
     "abbr": "Rakza 7 Soft",
     "name": "Rakza 7 Soft",
-    "url": "https://revspin.net/rubber/yasaka-rakza-7-soft.html",
     "manufacturer": "Yasaka",
     "price": "Approx. $ 53 USD",
     "user_ratings": {
@@ -90,7 +89,8 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.7,
       "durability": "7.6 (Lasts longer than average)",
-      "tackiness": "2.4 (Slightly tacky)"
+      "tackiness": "2.4 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/yasaka-rakza-7-soft.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -112,7 +112,6 @@
   {
     "abbr": "Rakza Z",
     "name": "Rakza Z",
-    "url": "https://revspin.net/rubber/yasaka-rakza-z.html",
     "manufacturer": "Yasaka",
     "price": "Approx. $ 43 USD",
     "user_ratings": {
@@ -126,7 +125,8 @@
       "throw_angle": "6.5 (Medium high)",
       "consistency": 9.4,
       "durability": "8.3 (Lasts longer than average)",
-      "tackiness": "6.6 (Tacky)"
+      "tackiness": "6.6 (Tacky)",
+      "url": "https://revspin.net/rubber/yasaka-rakza-z.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -151,7 +151,6 @@
   {
     "abbr": "Rakza 9",
     "name": "Rakza 9",
-    "url": "https://revspin.net/rubber/yasaka-rakza-9.html",
     "manufacturer": "Yasaka",
     "price": "Approx. $ 53 USD",
     "user_ratings": {
@@ -165,7 +164,8 @@
       "throw_angle": "4.3 (Medium)",
       "consistency": 9.3,
       "durability": "8.7 (Lasts a long time!)",
-      "tackiness": "2.3 (Slightly tacky)"
+      "tackiness": "2.3 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/yasaka-rakza-9.html"
     },
     "manufacturer_details": {
       "country": "Germany",

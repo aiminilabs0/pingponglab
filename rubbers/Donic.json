@@ -2,7 +2,6 @@
   {
     "abbr": "Baracuda",
     "name": "Baracuda",
-    "url": "https://revspin.net/rubber/donic-baracuda.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "7.3 (High)",
       "consistency": 8.8,
       "durability": "7.7 (Lasts longer than average)",
-      "tackiness": "2.3 (Slightly tacky)"
+      "tackiness": "2.3 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-baracuda.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -38,7 +38,6 @@
   {
     "abbr": "Bluefire M2",
     "name": "Bluefire M2",
-    "url": "https://revspin.net/rubber/donic-bluefire-m2.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -52,7 +51,8 @@
       "throw_angle": "6.4 (Medium high)",
       "consistency": 9.2,
       "durability": "6.3 (Lasts longer than average)",
-      "tackiness": "1.8 (Slightly tacky)"
+      "tackiness": "1.8 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-bluefire-m2.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -74,7 +74,6 @@
   {
     "abbr": "Acuda S2",
     "name": "Acuda S2",
-    "url": "https://revspin.net/rubber/donic-acuda-s2.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 37 USD",
     "user_ratings": {
@@ -88,7 +87,8 @@
       "throw_angle": "5.1 (Medium high)",
       "consistency": 9.1,
       "durability": "7.5 (Lasts longer than average)",
-      "tackiness": "2.6 (Slightly tacky)"
+      "tackiness": "2.6 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-acuda-s2.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -110,7 +110,6 @@
   {
     "abbr": "Bluefire M3",
     "name": "Bluefire M3",
-    "url": "https://revspin.net/rubber/donic-bluefire-m3.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -124,7 +123,8 @@
       "throw_angle": "7.2 (High)",
       "consistency": 8.9,
       "durability": "7.9 (Lasts longer than average)",
-      "tackiness": "1.8 (Slightly tacky)"
+      "tackiness": "1.8 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-bluefire-m3.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -146,7 +146,6 @@
   {
     "abbr": "Acuda S3",
     "name": "Acuda S3",
-    "url": "https://revspin.net/rubber/donic-acuda-s3.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 52 USD",
     "user_ratings": {
@@ -160,7 +159,8 @@
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
       "durability": "7.4 (Lasts longer than average)",
-      "tackiness": "1.8 (Slightly tacky)"
+      "tackiness": "1.8 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-acuda-s3.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -182,7 +182,6 @@
   {
     "abbr": "Bluefire M1",
     "name": "Bluefire M1",
-    "url": "https://revspin.net/rubber/donic-bluefire-m1.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -196,7 +195,8 @@
       "throw_angle": "6.3 (Medium high)",
       "consistency": 9.2,
       "durability": "7.3 (Lasts longer than average)",
-      "tackiness": "2.7 (Slightly tacky)"
+      "tackiness": "2.7 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/donic-bluefire-m1.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -217,7 +217,6 @@
   {
     "abbr": "BlueGrip C2",
     "name": "BlueGrip C2",
-    "url": "https://revspin.net/rubber/donic-bluegrip-c2.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -231,7 +230,8 @@
       "throw_angle": "7.3 (High)",
       "consistency": 9.7,
       "durability": "7.6 (Lasts longer than average)",
-      "tackiness": "5.6 (Medium tacky)"
+      "tackiness": "5.6 (Medium tacky)",
+      "url": "https://revspin.net/rubber/donic-bluegrip-c2.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -253,7 +253,6 @@
   {
     "abbr": "BlueGrip J1",
     "name": "BlueGrip J1",
-    "url": "https://revspin.net/rubber/donic-bluegrip-j1.html",
     "manufacturer": "Donic",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -267,7 +266,8 @@
       "throw_angle": "4.0 (Medium)",
       "consistency": 10.0,
       "durability": "9.0 (Lasts a long time!)",
-      "tackiness": "5.6 (Medium tacky)"
+      "tackiness": "5.6 (Medium tacky)",
+      "url": "https://revspin.net/rubber/donic-bluegrip-j1.html"
     },
     "manufacturer_details": {
       "country": "Germany",

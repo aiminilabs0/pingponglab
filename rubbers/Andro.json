@@ -2,7 +2,6 @@
   {
     "abbr": "R42",
     "name": "Rasanter R42",
-    "url": "https://revspin.net/rubber/andro-rasanter-r42.html",
     "manufacturer": "Andro",
     "price": "Approx. $ 41 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "6.1 (Medium high)",
       "consistency": 9,
       "durability": "7.7 (Lasts longer than average)",
-      "tackiness": "2.1 (Slightly tacky)"
+      "tackiness": "2.1 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/andro-rasanter-r42.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -32,7 +32,6 @@
   {
     "abbr": "R47",
     "name": "Rasanter R47",
-    "url": "https://revspin.net/rubber/andro-rasanter-r47.html",
     "manufacturer": "Andro",
     "price": "Approx. $ 41 USD",
     "user_ratings": {
@@ -46,7 +45,8 @@
       "throw_angle": "5.9 (Medium high)",
       "consistency": 9.3,
       "durability": "7.6 (Lasts longer than average)",
-      "tackiness": "1.8 (Slightly tacky)"
+      "tackiness": "1.8 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/andro-rasanter-r47.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -62,7 +62,6 @@
   {
     "abbr": "R48",
     "name": "Rasanter R48",
-    "url": "https://revspin.net/rubber/andro-rasanter-r48.html",
     "manufacturer": "Andro",
     "price": "Approx. $ 58 USD",
     "user_ratings": {
@@ -76,7 +75,8 @@
       "throw_angle": "5.9 (Medium high)",
       "consistency": 8.2,
       "durability": "7.4 (Lasts longer than average)",
-      "tackiness": "1.9 (Slightly tacky)"
+      "tackiness": "1.9 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/andro-rasanter-r48.html"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -86,7 +86,6 @@
   {
     "abbr": "C53",
     "name": "Rasanter C53",
-    "url": "https://revspin.net/rubber/andro-rasanter-c53.html",
     "manufacturer": "Andro",
     "price": "Approx. $60 USD",
     "user_ratings": {
@@ -100,7 +99,8 @@
       "throw_angle": null,
       "consistency": null,
       "durability": null,
-      "tackiness": "5.0 (Medium tacky)"
+      "tackiness": "5.0 (Medium tacky)",
+      "url": "https://revspin.net/rubber/andro-rasanter-c53.html"
     },
     "manufacturer_details": {
       "country": "Germany",

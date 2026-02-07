@@ -2,7 +2,6 @@
   {
     "abbr": "Dynaryz ACC",
     "name": "Dynaryz ACC",
-    "url": "https://revspin.net/rubber/joola-dynaryz-acc.html",
     "manufacturer": "JOOLA",
     "price": "Approx. $ 60 USD",
     "user_ratings": {
@@ -16,7 +15,8 @@
       "throw_angle": "5.0 (Medium high)",
       "consistency": 9.4,
       "durability": "6.8 (Lasts longer than average)",
-      "tackiness": "2.1 (Slightly tacky)"
+      "tackiness": "2.1 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/joola-dynaryz-acc.html"
     },
     "manufacturer_details": {
       "country": "Japan",
