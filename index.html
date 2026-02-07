@@ -1760,23 +1760,7 @@
             const panel = document.getElementById(`detail${panelNum}`);
             const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
             const html = marked.parse(markdown);
-
-            const links = [];
-            if (rubber.youtubeUrl) {
-                links.push(`<a href="${rubber.youtubeUrl}" target="_blank" style="margin-right: 15px;">📺 Watch Review</a>`);
-            }
-            if (rubber.productUrl) {
-                links.push(`<a href="${rubber.productUrl}" target="_blank">🔗 Product Page</a>`);
-            }
-
-            const linksHtml = links.length > 0 ? `
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #44475a;">
-                    <strong>Links:</strong><br/>
-                    ${links.join('')}
-                </div>
-            ` : '';
-
-            panel.innerHTML = html + linksHtml;
+            panel.innerHTML = html;
         }
 
         // Clear detail panel
