@@ -13,79 +13,207 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             padding: 20px;
-            background: #f5f5f5;
+            background: #f0f2f5;
         }
         .container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
         }
         h1 {
             margin-bottom: 20px;
-            color: #333;
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 700;
         }
-        .filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .filter-group label {
-            font-weight: bold;
-            font-size: 14px;
-            color: #555;
-        }
-        .filter-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-        .filter-actions button {
-            padding: 4px 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
-            background: #fff;
-            cursor: pointer;
-        }
-        .filter-actions button:hover {
-            background: #f5f5f5;
-        }
-        .filter-search {
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 13px;
-            min-width: 200px;
-        }
-        .filter-options {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #fff;
-            min-width: 200px;
-            max-height: 160px;
-            overflow: auto;
-            padding: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .filter-option {
+
+        /* ── Filter bar ── */
+        .filter-bar {
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .filter-chip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border: 1.5px solid #dde1e6;
+            border-radius: 100px;
+            background: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            color: #3a3f47;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+        .filter-chip:hover {
+            border-color: #b0b8c4;
+            background: #f7f8fa;
+        }
+        .filter-chip.active {
+            border-color: #4361ee;
+            background: #eef1ff;
+            color: #4361ee;
+        }
+        .filter-chip .chip-arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4.5px solid currentColor;
+            opacity: 0.5;
+            transition: transform 0.2s ease;
+        }
+        .filter-chip.active .chip-arrow {
+            transform: rotate(180deg);
+            opacity: 0.8;
+        }
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 100px;
+            background: #4361ee;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .filter-badge.all-selected {
+            background: #c5cdd8;
+            color: #fff;
+        }
+
+        .filter-clear-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 12px;
+            border: 1.5px dashed #dde1e6;
+            border-radius: 100px;
+            background: transparent;
+            font-size: 12px;
+            font-weight: 500;
+            color: #8b95a5;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .filter-clear-btn:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            background: #fef2f2;
+        }
+
+        /* ── Dropdown panel ── */
+        .filter-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            z-index: 100;
+            min-width: 240px;
+            max-width: 320px;
+            background: #fff;
+            border: 1px solid #e2e5ea;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: translateY(-4px);
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            overflow: hidden;
+        }
+        .filter-dropdown.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px 6px;
+            border-bottom: 1px solid #f0f1f3;
+        }
+        .dropdown-header .dd-actions {
+            display: flex;
+            gap: 2px;
+        }
+        .dropdown-header .dd-actions button {
+            padding: 3px 8px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            font-size: 11px;
+            font-weight: 600;
+            color: #4361ee;
+            cursor: pointer;
+            transition: background 0.12s;
+        }
+        .dropdown-header .dd-actions button:hover {
+            background: #eef1ff;
+        }
+        .dropdown-search {
+            display: block;
+            width: 100%;
+            padding: 9px 14px;
+            border: none;
+            border-bottom: 1px solid #f0f1f3;
             font-size: 13px;
             color: #333;
+            background: #fafbfc;
+            outline: none;
+        }
+        .dropdown-search::placeholder {
+            color: #aab2bf;
+        }
+        .dropdown-options {
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: #d0d5dd transparent;
+        }
+        .dropdown-options::-webkit-scrollbar {
+            width: 5px;
+        }
+        .dropdown-options::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dropdown-options::-webkit-scrollbar-thumb {
+            background: #d0d5dd;
+            border-radius: 10px;
+        }
+
+        /* ── Option rows ── */
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #3a3f47;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .filter-option:hover {
+            background: #f4f5f7;
         }
         .filter-option input[type="checkbox"] {
             position: absolute;
@@ -94,96 +222,156 @@
             height: 0;
             pointer-events: none;
         }
+        /* Custom checkbox */
         .custom-check {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-            border: 1px solid #999;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1.5px solid #c5cdd8;
             background: #fff;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             flex-shrink: 0;
+            transition: all 0.12s ease;
         }
-        .filter-option input[type="checkbox"]:focus-visible + .custom-check {
-            outline: 2px solid #4c9ffe;
-            outline-offset: 2px;
+        .filter-option:hover .custom-check {
+            border-color: #a0aab8;
+        }
+        .filter-option input[type="checkbox"]:checked + .custom-check {
+            background: #4361ee;
+            border-color: #4361ee;
         }
         .filter-option input[type="checkbox"]:checked + .custom-check::after {
             content: '';
-            position: absolute;
-            inset: 3px;
-            border-radius: 2px;
-            background: #333;
+            display: block;
+            width: 4px;
+            height: 7px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-top: -1px;
         }
+        .filter-option input[type="checkbox"]:focus-visible + .custom-check {
+            outline: 2px solid #4361ee;
+            outline-offset: 2px;
+        }
+
+        /* Color swatch in options */
         .custom-check.color-check {
-            border-radius: 3px;
-            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        .custom-check.color-check::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            border-radius: 2px;
+        .filter-option input[type="checkbox"]:checked + .custom-check.color-check {
+            border-color: #4361ee;
+            box-shadow: inset 0 0 0 2px #fff;
         }
         .filter-option input[type="checkbox"]:checked + .custom-check.color-check::after {
-            box-shadow: 0 0 0 1px #333;
+            border-color: #fff;
+            mix-blend-mode: normal;
         }
+
+        /* Shape variants */
         .custom-check.shape-check {
-            border: 1px solid #333;
+            border: 1.5px solid #888;
             background: #fff;
         }
-        .custom-check.shape-check.circle {
-            border-radius: 50%;
-        }
-        .custom-check.shape-check.square {
-            border-radius: 2px;
-        }
-        .custom-check.shape-check.diamond {
-            transform: rotate(45deg);
+        .custom-check.shape-check.circle { border-radius: 50%; }
+        .custom-check.shape-check.square { border-radius: 3px; }
+        .custom-check.shape-check.diamond { transform: rotate(45deg); border-radius: 2px; }
+        .filter-option input[type="checkbox"]:checked + .custom-check.shape-check {
+            background: #3a3f47;
+            border-color: #3a3f47;
         }
         .filter-option input[type="checkbox"]:checked + .custom-check.shape-check::after {
             content: '';
-            position: absolute;
-            inset: 3px;
-            background: #333;
+            display: block;
+            width: 4px;
+            height: 7px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-top: -1px;
         }
         .custom-check.shape-check.diamond::after {
-            transform: rotate(-45deg);
+            transform: rotate(0deg) !important;
         }
-        .color-swatch {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-            border: 1px solid #ccc;
-            flex-shrink: 0;
-        }
-        .shape-swatch {
-            width: 12px;
-            height: 12px;
-            border: 1px solid #333;
-            background: #fff;
-            flex-shrink: 0;
-        }
-        .shape-swatch.circle {
+
+        /* Inline color dot next to option text */
+        .opt-color-dot {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.08);
         }
-        .shape-swatch.square {
-            border-radius: 2px;
-        }
-        .shape-swatch.diamond {
-            transform: rotate(45deg);
-        }
+
         .filter-instructions {
             font-size: 12px;
-            color: #888;
-            font-style: italic;
+            color: #aab2bf;
+            padding: 12px 14px;
+            text-align: center;
         }
+
+        /* ── Active filter tags ── */
+        .active-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+            min-height: 0;
+        }
+        .active-tags:empty {
+            display: none;
+        }
+        .active-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: #f0f2f5;
+            font-size: 11.5px;
+            font-weight: 500;
+            color: #555d6b;
+            transition: background 0.12s;
+        }
+        .active-tag .tag-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .active-tag .tag-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            font-size: 12px;
+            line-height: 1;
+            color: #8b95a5;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.12s;
+        }
+        .active-tag .tag-remove:hover {
+            background: #dde1e6;
+            color: #e74c3c;
+        }
+
+        /* ── Chart ── */
         #chart {
             width: 100%;
             height: 600px;
             margin-bottom: 20px;
             touch-action: none;
         }
+
+        /* ── Detail panels ── */
         .details-container {
             display: flex;
             gap: 20px;
@@ -192,23 +380,24 @@
         .detail-panel {
             flex: 1;
             min-width: 300px;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background: #fafafa;
+            padding: 18px;
+            border: 1.5px solid #e2e5ea;
+            border-radius: 12px;
+            background: #fafbfc;
             min-height: 200px;
         }
         .detail-panel h3 {
             margin-bottom: 10px;
-            color: #333;
-            font-size: 18px;
+            color: #1a1a2e;
+            font-size: 17px;
+            font-weight: 600;
         }
         .detail-panel .content {
-            color: #666;
+            color: #555d6b;
             line-height: 1.6;
         }
         .detail-panel a {
-            color: #0066cc;
+            color: #4361ee;
             text-decoration: none;
         }
         .detail-panel a:hover {
@@ -216,24 +405,48 @@
         }
         .comparison-bar {
             margin-top: 20px;
-            padding: 15px;
-            background: #e3f2fd;
-            border-radius: 8px;
+            padding: 14px;
+            background: linear-gradient(135deg, #eef1ff 0%, #e3ecff 100%);
+            border-radius: 12px;
             text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            color: #1976d2;
+            font-size: 17px;
+            font-weight: 600;
+            color: #4361ee;
         }
+
+        /* ── Backdrop for closing dropdowns ── */
+        .filter-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+        }
+        .filter-backdrop.visible {
+            display: block;
+        }
+
         @media (max-width: 768px) {
-            .details-container {
-                flex-direction: column;
+            body { padding: 10px; }
+            .container { padding: 14px; border-radius: 12px; }
+            .details-container { flex-direction: column; }
+            .detail-panel:nth-child(2) { display: none; }
+            #chart { height: 400px; }
+            .filter-dropdown {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 100%;
+                min-width: 100%;
+                border-radius: 16px 16px 0 0;
+                max-height: 60vh;
+                transform: translateY(10px);
             }
-            .detail-panel:nth-child(2) {
-                display: none;
+            .filter-dropdown.open {
+                transform: translateY(0);
             }
-            #chart {
-                height: 400px;
-            }
+            .dropdown-options { max-height: 40vh; }
         }
     </style>
 </head>
@@ -241,44 +454,81 @@
     <div class="container">
         <h1>🏓 Rubber</h1>
 
-        <div id="chart"></div>
-        
-        <div class="filters">
-            <div class="filter-group">
-                <label>Company:</label>
-                <div class="filter-actions">
-                    <button type="button" data-filter="company" data-action="all">All</button>
-                    <button type="button" data-filter="company" data-action="none">None</button>
+        <div class="filter-backdrop" id="filterBackdrop"></div>
+
+        <div class="filter-bar" id="filterBar">
+            <!-- Company chip -->
+            <div class="filter-chip" data-filter="company" id="companyChip">
+                <span>Company</span>
+                <span class="filter-badge all-selected" id="companyBadge">All</span>
+                <span class="chip-arrow"></span>
+                <div class="filter-dropdown" id="companyDropdown">
+                    <div class="dropdown-header">
+                        <div class="dd-actions">
+                            <button type="button" data-filter="company" data-action="all">All</button>
+                            <button type="button" data-filter="company" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <input class="dropdown-search" id="companySearch" type="search" placeholder="Search company...">
+                    <div class="dropdown-options" id="companyFilter"></div>
                 </div>
-                <input id="companySearch" class="filter-search" type="search" placeholder="Search company">
-                <div id="companyFilter" class="filter-options"></div>
             </div>
-            <div class="filter-group">
-                <label>Rubber:</label>
-                <div class="filter-actions">
-                    <button type="button" data-filter="name" data-action="all">All</button>
-                    <button type="button" data-filter="name" data-action="none">None</button>
+
+            <!-- Rubber chip -->
+            <div class="filter-chip" data-filter="name" id="nameChip">
+                <span>Rubber</span>
+                <span class="filter-badge all-selected" id="nameBadge">All</span>
+                <span class="chip-arrow"></span>
+                <div class="filter-dropdown" id="nameDropdown">
+                    <div class="dropdown-header">
+                        <div class="dd-actions">
+                            <button type="button" data-filter="name" data-action="all">All</button>
+                            <button type="button" data-filter="name" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <input class="dropdown-search" id="nameSearch" type="search" placeholder="Search rubber...">
+                    <div class="dropdown-options" id="nameFilter"></div>
                 </div>
-                <input id="nameSearch" class="filter-search" type="search" placeholder="Search rubber">
-                <div id="nameFilter" class="filter-options"></div>
             </div>
-            <div class="filter-group">
-                <label>Tackiness:</label>
-                <div class="filter-actions">
-                    <button type="button" data-filter="tackiness" data-action="all">All</button>
-                    <button type="button" data-filter="tackiness" data-action="none">None</button>
+
+            <!-- Tackiness chip -->
+            <div class="filter-chip" data-filter="tackiness" id="tackinessChip">
+                <span>Tackiness</span>
+                <span class="filter-badge all-selected" id="tackinessBadge">All</span>
+                <span class="chip-arrow"></span>
+                <div class="filter-dropdown" id="tackinessDropdown">
+                    <div class="dropdown-header">
+                        <div class="dd-actions">
+                            <button type="button" data-filter="tackiness" data-action="all">All</button>
+                            <button type="button" data-filter="tackiness" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <div class="dropdown-options" id="tackinessFilter"></div>
                 </div>
-                <div id="tackinessFilter" class="filter-options"></div>
             </div>
-            <div class="filter-group">
-                <label>Hardness:</label>
-                <div class="filter-actions">
-                    <button type="button" data-filter="hardness" data-action="all">All</button>
-                    <button type="button" data-filter="hardness" data-action="none">None</button>
+
+            <!-- Hardness chip -->
+            <div class="filter-chip" data-filter="hardness" id="hardnessChip">
+                <span>Hardness</span>
+                <span class="filter-badge all-selected" id="hardnessBadge">All</span>
+                <span class="chip-arrow"></span>
+                <div class="filter-dropdown" id="hardnessDropdown">
+                    <div class="dropdown-header">
+                        <div class="dd-actions">
+                            <button type="button" data-filter="hardness" data-action="all">All</button>
+                            <button type="button" data-filter="hardness" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <div class="dropdown-options" id="hardnessFilter"></div>
                 </div>
-                <div id="hardnessFilter" class="filter-options"></div>
             </div>
+
+            <button class="filter-clear-btn" id="clearAllFilters" title="Reset all filters">Reset</button>
         </div>
+
+        <div class="active-tags" id="activeTags"></div>
+
+        <div id="chart"></div>
 
         
 
@@ -725,6 +975,122 @@
             return tackinessMarkers[tackiness] || 'circle';
         }
 
+        // ── Dropdown open/close logic ──
+        let openFilterId = null;
+
+        function openDropdown(filterId) {
+            closeAllDropdowns();
+            const chip = document.getElementById(filterId + 'Chip');
+            const dropdown = document.getElementById(filterId + 'Dropdown');
+            if (!chip || !dropdown) return;
+            chip.classList.add('active');
+            dropdown.classList.add('open');
+            document.getElementById('filterBackdrop').classList.add('visible');
+            openFilterId = filterId;
+            // Focus search input if it exists
+            const search = dropdown.querySelector('.dropdown-search');
+            if (search) setTimeout(() => search.focus(), 60);
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+            document.getElementById('filterBackdrop').classList.remove('visible');
+            openFilterId = null;
+        }
+
+        function toggleDropdown(filterId) {
+            if (openFilterId === filterId) {
+                closeAllDropdowns();
+            } else {
+                openDropdown(filterId);
+            }
+        }
+
+        // ── Badge updaters ──
+        function updateBadge(filterId, checkedCount, totalCount) {
+            const badge = document.getElementById(filterId + 'Badge');
+            if (!badge) return;
+            if (checkedCount === totalCount) {
+                badge.textContent = 'All';
+                badge.classList.add('all-selected');
+            } else if (checkedCount === 0) {
+                badge.textContent = '0';
+                badge.classList.remove('all-selected');
+            } else {
+                badge.textContent = checkedCount;
+                badge.classList.remove('all-selected');
+            }
+        }
+
+        function refreshBadge(filterId) {
+            const container = document.getElementById(filterId + 'Filter');
+            if (!container) return;
+            const all = container.querySelectorAll('input[type="checkbox"]');
+            const checked = container.querySelectorAll('input[type="checkbox"]:checked');
+            updateBadge(filterId, checked.length, all.length);
+        }
+
+        function refreshAllBadges() {
+            ['company', 'name', 'tackiness', 'hardness'].forEach(refreshBadge);
+        }
+
+        // ── Active tags (removable pills below filter bar) ──
+        function renderActiveTags() {
+            const container = document.getElementById('activeTags');
+            container.innerHTML = '';
+
+            // Only show tags for companies that are NOT all-selected
+            const companyFilter = document.getElementById('companyFilter');
+            const companyAll = companyFilter.querySelectorAll('input[type="checkbox"]');
+            const companyChecked = companyFilter.querySelectorAll('input[type="checkbox"]:checked');
+            if (companyChecked.length < companyAll.length && companyChecked.length > 0) {
+                companyChecked.forEach(cb => {
+                    const tag = document.createElement('span');
+                    tag.className = 'active-tag';
+                    const dot = document.createElement('span');
+                    dot.className = 'tag-dot';
+                    dot.style.backgroundColor = getCompanyColor(cb.value);
+                    tag.appendChild(dot);
+                    tag.appendChild(document.createTextNode(cb.value));
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'tag-remove';
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        cb.checked = false;
+                        cb.dispatchEvent(new Event('change', { bubbles: true }));
+                    };
+                    tag.appendChild(removeBtn);
+                    container.appendChild(tag);
+                });
+            }
+
+            // Show deselected tackiness / hardness as negative tags? No — show selected non-all.
+            ['tackiness', 'hardness'].forEach(filterId => {
+                const filterEl = document.getElementById(filterId + 'Filter');
+                const all = filterEl.querySelectorAll('input[type="checkbox"]');
+                const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
+                if (checked.length < all.length && checked.length > 0) {
+                    checked.forEach(cb => {
+                        const tag = document.createElement('span');
+                        tag.className = 'active-tag';
+                        tag.appendChild(document.createTextNode(cb.value));
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'tag-remove';
+                        removeBtn.innerHTML = '&times;';
+                        removeBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            cb.checked = false;
+                            cb.dispatchEvent(new Event('change', { bubbles: true }));
+                        };
+                        tag.appendChild(removeBtn);
+                        container.appendChild(tag);
+                    });
+                }
+            });
+        }
+
         // Initialize filters
         function initFilters() {
             const companies = [...new Set(rubberData.map(r => r.company))].sort();
@@ -755,13 +1121,19 @@
             buildCheckboxOptions(hardnessFilter, hardnessOptions);
             buildNameOptionsFromCompanies();
 
-            companyFilter.addEventListener('change', () => {
-                buildNameOptionsFromCompanies();
+            function onFilterChange(filterId) {
+                if (filterId === 'company') {
+                    buildNameOptionsFromCompanies();
+                }
+                refreshAllBadges();
+                renderActiveTags();
                 updateChart();
-            });
-            nameFilter.addEventListener('change', updateChart);
-            tackinessFilter.addEventListener('change', updateChart);
-            hardnessFilter.addEventListener('change', updateChart);
+            }
+
+            companyFilter.addEventListener('change', () => onFilterChange('company'));
+            nameFilter.addEventListener('change', () => onFilterChange('name'));
+            tackinessFilter.addEventListener('change', () => onFilterChange('tackiness'));
+            hardnessFilter.addEventListener('change', () => onFilterChange('hardness'));
 
             document.getElementById('companySearch').addEventListener('input', (e) => {
                 filterOptions(companyFilter, e.target.value);
@@ -770,18 +1142,53 @@
                 filterOptions(nameFilter, e.target.value);
             });
 
-            document.querySelectorAll('.filter-actions button').forEach(button => {
-                button.addEventListener('click', () => {
+            // All/None buttons inside dropdown headers
+            document.querySelectorAll('.dd-actions button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const filter = button.dataset.filter;
                     const action = button.dataset.action;
                     const container = document.getElementById(`${filter}Filter`);
                     setAllChecked(container, action === 'all');
-                    if (filter === 'company') {
-                        buildNameOptionsFromCompanies();
-                    }
-                    updateChart();
+                    onFilterChange(filter);
                 });
             });
+
+            // Chip click → toggle dropdown
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', (e) => {
+                    // Don't toggle if clicking inside the dropdown itself
+                    if (e.target.closest('.filter-dropdown')) return;
+                    const filterId = chip.dataset.filter;
+                    toggleDropdown(filterId);
+                });
+            });
+
+            // Backdrop closes dropdowns
+            document.getElementById('filterBackdrop').addEventListener('click', closeAllDropdowns);
+
+            // Escape key closes
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeAllDropdowns();
+            });
+
+            // Prevent dropdown search clicks from closing
+            document.querySelectorAll('.dropdown-search').forEach(input => {
+                input.addEventListener('click', (e) => e.stopPropagation());
+            });
+
+            // Clear all filters → reset to all selected
+            document.getElementById('clearAllFilters').addEventListener('click', () => {
+                [companyFilter, tackinessFilter, hardnessFilter].forEach(c => setAllChecked(c, true));
+                buildNameOptionsFromCompanies();
+                refreshAllBadges();
+                renderActiveTags();
+                updateChart();
+            });
+
+            // Initial badge state
+            refreshAllBadges();
+            renderActiveTags();
         }
 
         // Get filtered data
