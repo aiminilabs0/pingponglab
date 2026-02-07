@@ -18,7 +18,21 @@
       "durability": "8.7 (Lasts a long time!)"
     },
     "manufacturer_details": {
-      "tackiness": "Non-tacky"
+      "hardness": 42.5,
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8",
+        "1.5",
+        "1.0"
+      ],
+      "tackiness": "Non-tacky" 
+    },
+    "manufacturer_ratings": {
+      "speed": 80,
+      "spin": 60,
+      "control": 70,
+      "arc": "Medium"
     }
   },
   {
@@ -40,7 +54,19 @@
       "durability": "8.0 (Lasts longer than average)"
     },
     "manufacturer_details": {
-      "tackiness": "Non-tacky"
+      "tackiness": "Non-tacky",
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ],
+      "hardness": 45
+    },
+    "manufacturer_ratings": {
+      "speed": 87,
+      "spin": 88,
+      "control": 63,
+      "arc": "Medium"
     }
   },
   {
@@ -62,7 +88,19 @@
       "durability": "7.6 (Lasts longer than average)"
     },
     "manufacturer_details": {
-      "tackiness": "Non-tacky"
+      "tackiness": "Non-tacky",
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ],
+      "hardness": 40
+    },
+    "manufacturer_ratings": {
+      "speed": 84,
+      "spin": 88,
+      "control": 67,
+      "arc": "High"
     }
   },
   {
@@ -84,7 +122,22 @@
       "durability": "8.3 (Lasts longer than average)"
     },
     "manufacturer_details": {
-      "tackiness": "Hybrid"
+      "tackiness": "Hybrid",
+      "thickness": [
+        "max",
+        "2.0"
+      ],
+      "hardness": 50
+    },
+    "manufacturer_ratings": {
+      "speed": 84,
+      "spin": 92,
+      "control": 63,
+      "arc": "High",
+      "thickness": [
+        "max",
+        "2.0"
+      ]
     }
   },
   {
@@ -106,7 +159,19 @@
       "durability": "8.7 (Lasts a long time!)"
     },
     "manufacturer_details": {
-      "tackiness": "Non-tacky"
+      "tackiness": "Non-tacky",
+      "thickness": [
+        "max",
+        "2.0",
+        "1.8"
+      ],
+      "hardness": 42.5
+    },
+    "manufacturer_ratings": {
+      "speed": 91,
+      "spin": 85,
+      "control": 60,
+      "arc": "Low"
     }
   }
 ]
