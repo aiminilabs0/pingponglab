@@ -26,6 +26,10 @@
         "1.4"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 12.3,
+      "spin": 11.8
     }
   },
   {
@@ -47,7 +51,7 @@
       "durability": "8.4 (Longer than average)"
     },
     "manufacturer_details": {
-      "hardness": 45,
+      "hardness": 43,
       "thickness": [
         "max",
         "2.0",
@@ -55,6 +59,10 @@
         "1.4"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 12.3,
+      "spin": 11.8
     }
   },
   {
@@ -84,6 +92,10 @@
         "1.4"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 15.5,
+      "spin": 11.75
     }
   }
 ]

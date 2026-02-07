@@ -25,6 +25,11 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 4.6,
+      "spin": 3.4,
+      "speed": 6.0
     }
   },
   {
@@ -53,6 +58,11 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 5.0,
+      "spin": 5.0,
+      "speed": 5.0
     }
   },
   {
@@ -81,6 +91,11 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 4.6,
+      "spin": 5.0,
+      "speed": 6.0
     }
   },
   {
@@ -109,6 +124,11 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 5.0,
+      "spin": 5.7,
+      "speed": 5.0
     }
   },
   {
@@ -118,15 +138,15 @@
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.0,
-      "spin": 10.0,
-      "control": 10.0,
-      "tackiness": "5.0 (Medium tacky)",
-      "weight": "8.0 (Heavy)",
-      "sponge_hardness": "10.0 (Hard)",
-      "gears": 10.0,
-      "throw_angle": "0.0 (Low)",
-      "consistency": 10.0,
-      "durability": "5.0 (Average)"
+      "spin": 9.7,
+      "control": 9.1,
+      "tackiness": "5.7 (Medium tacky)",
+      "weight": "7.5 (Heavy)",
+      "sponge_hardness": "8.9 (Hard)",
+      "gears": 8.9,
+      "throw_angle": "4.9 (Medium)",
+      "consistency": 8.9,
+      "durability": "6.1 (Lasts longer than average)"
     },
     "manufacturer_details": {
       "hardness": 55,
@@ -135,6 +155,11 @@
         "2.1"
       ],
       "tackiness": "Hybrid"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 8.0,
+      "spin": 7.7,
+      "speed": 6.0
     }
   },
   {
@@ -155,6 +180,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 5.6,
+      "spin": 5.4,
+      "speed": 7.0
     }
   },
   {
@@ -180,6 +210,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 6.0,
+      "spin": 6.0,
+      "speed": 5.0
     }
   },
   {
@@ -206,6 +241,11 @@
         "2.0"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "catapult & click": 5.6,
+      "spin": 5.4,
+      "speed": 6.0
     }
   }
 ]

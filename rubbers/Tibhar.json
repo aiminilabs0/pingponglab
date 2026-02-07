@@ -26,6 +26,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 126,
+      "spin": 122,
+      "control": 86
     }
   },
   {
@@ -47,7 +52,7 @@
       "durability": "8.1 (Lasts longer than average)"
     },
     "manufacturer_details": {
-      "hardness": 42.5,
+      "hardness": 44,
       "thickness": [
         "1.5",
         "1.7",
@@ -55,6 +60,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 121,
+      "spin": 122,
+      "control": 98
     }
   },
   {
@@ -84,6 +94,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 122,
+      "spin": 126,
+      "control": 90
     }
   },
   {
@@ -112,6 +127,11 @@
         "2.1"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "speed": 115,
+      "spin": 122,
+      "control": 102
     }
   },
   {
@@ -139,6 +159,11 @@
         "2.0"
       ],
       "tackiness": "Hybrid"
+    },
+    "manufacturer_ratings": {
+      "speed": 118,
+      "spin": 130,
+      "control": 100
     }
   },
   {
@@ -166,6 +191,7 @@
         "2.0"
       ],
       "tackiness": "Non-tacky"
-    }
+    },
+    "manufacturer_ratings": {}
   }
 ]
