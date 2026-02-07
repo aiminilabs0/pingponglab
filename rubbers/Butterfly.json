@@ -31,6 +31,16 @@
     "manufacturer_ratings": {
       "speed": 83,
       "spin": 76
+    },
+    "urls": {
+      "us": {
+        "product": "https://www.amazon.com/Butterfly-2-1-Tenergy-Rubber-Black/dp/B0018LMC9C/ref=sr_1_1?crid=2GT84PTP4SREU&dib=eyJ2IjoiMSJ9.LipPUoRPG3IUAnbR6WG2OEaD5RGNR3ykblpma6WFfQw0hclqD7zKsjJ0JuO3DeoxwWwphOm-MsrbFUQY0H3pts85663obxnhp93ukq-0ZkUW2J8qD0Q1bI6DF5P7BiKwkAVe-tmcfn2SnEWo5toUfBgcAePef22I1M0zB9lPGbDeo8S-2_zfDkQnBnzdCzb-Vjxi8tgB1-1oj9RPGfUgKVviDV5L8N7IzcAUPfCU-EMCq8u-esDflXn3OCpVidips3EN5t-ccq8J24azeRD1z3rfqS7j0mvQKOXj3nR8M5A.Wcoe_1nF1hAu2enI-B8mRptRnICCX9LBWf1KAY0xb98&dib_tag=se&keywords=tenergy+05&qid=1767466196&sprefix=tenergy+05%2Caps%2C204&sr=8-1",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "https://www.coupang.com/vp/products/8414405864?itemId=24331707549&vendorItemId=92706240298&q=%ED%85%8C%EB%84%88%EC%A7%8005&searchId=d10be3d818557427&sourceType=search&itemsCount=36&searchRank=0&rank=0&traceId=mjxipwjc",
+        "youtube": ""
+      }
     }
   },
   {
@@ -65,6 +75,16 @@
     "manufacturer_ratings": {
       "speed": 81,
       "spin": 64
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -99,6 +119,16 @@
     "manufacturer_ratings": {
       "speed": 87,
       "spin": 70
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -132,6 +162,16 @@
     "manufacturer_ratings": {
       "speed": 79,
       "spin": 96
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -165,6 +205,16 @@
     "manufacturer_ratings": {
       "speed": 86,
       "spin": 85
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -199,6 +249,16 @@
     "manufacturer_ratings": {
       "speed": 85,
       "spin": 73
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -233,6 +293,16 @@
     "manufacturer_ratings": {
       "speed": 83,
       "spin": 70
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -267,6 +337,16 @@
     "manufacturer_ratings": {
       "speed": 83,
       "spin": 61
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -301,6 +381,16 @@
     "manufacturer_ratings": {
       "speed": 84,
       "spin": 75
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -334,6 +424,16 @@
     "manufacturer_ratings": {
       "speed": 90,
       "spin": 79
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -367,6 +467,16 @@
     "manufacturer_ratings": {
       "speed": 88,
       "spin": 82
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -400,6 +510,16 @@
     "manufacturer_ratings": {
       "speed": 82,
       "spin": 96
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -433,6 +553,16 @@
     "manufacturer_ratings": {
       "speed": 88,
       "spin": 100
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=8CAntgKhKO8"
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=_U0m4EtsgZk"
+      }
     }
   }
 ]

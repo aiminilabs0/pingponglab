@@ -31,7 +31,17 @@
     "manufacturer_ratings": {
       "catapult & click": 4.6,
       "spin": 3.4,
-      "speed": 6.0
+      "speed": 6
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -64,9 +74,19 @@
       "topsheet": "Classic"
     },
     "manufacturer_ratings": {
-      "catapult & click": 5.0,
-      "spin": 5.0,
-      "speed": 5.0
+      "catapult & click": 5,
+      "spin": 5,
+      "speed": 5
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -100,8 +120,18 @@
     },
     "manufacturer_ratings": {
       "catapult & click": 4.6,
-      "spin": 5.0,
-      "speed": 6.0
+      "spin": 5,
+      "speed": 6
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -111,14 +141,14 @@
     "price": null,
     "user_ratings": {
       "overall": 9.3,
-      "speed": 9.0,
-      "spin": 9.0,
+      "speed": 9,
+      "spin": 9,
       "control": 8.7,
       "weight": "6.0 (Medium heavy)",
       "sponge_hardness": "10.0 (Hard)",
-      "gears": 1.0,
+      "gears": 1,
       "throw_angle": "8.0 (High)",
-      "consistency": 10.0,
+      "consistency": 10,
       "durability": "7.0 (Above average)",
       "tackiness": "5.0 (Medium tacky)",
       "url": "https://revspin.net/rubber/xiom-vega-x.html"
@@ -134,9 +164,9 @@
       "topsheet": "Classic"
     },
     "manufacturer_ratings": {
-      "catapult & click": 5.0,
+      "catapult & click": 5,
       "spin": 5.7,
-      "speed": 5.0
+      "speed": 5
     }
   },
   {
@@ -145,7 +175,7 @@
     "manufacturer": "Xiom",
     "user_ratings": {
       "overall": 9.4,
-      "speed": 9.0,
+      "speed": 9,
       "spin": 9.7,
       "control": 9.1,
       "weight": "7.5 (Heavy)",
@@ -167,9 +197,19 @@
       "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
-      "catapult & click": 8.0,
+      "catapult & click": 8,
       "spin": 7.7,
-      "speed": 6.0
+      "speed": 6
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -196,7 +236,17 @@
     "manufacturer_ratings": {
       "catapult & click": 5.6,
       "spin": 5.4,
-      "speed": 7.0
+      "speed": 7
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=5lKpiFIH5FY"
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=7ZZFFb38RK0"
+      }
     }
   },
   {
@@ -210,9 +260,9 @@
       "control": 9.5,
       "weight": "8.0 (Heavy)",
       "sponge_hardness": "10.0 (Hard)",
-      "gears": 10.0,
+      "gears": 10,
       "throw_angle": "6.0 (Medium high)",
-      "consistency": 10.0,
+      "consistency": 10,
       "durability": null,
       "tackiness": "2.0 (Slightly tacky)",
       "url": "https://revspin.net/rubber/xiom-jekyll-hyde-z525.html"
@@ -226,9 +276,19 @@
       "topsheet": "Classic"
     },
     "manufacturer_ratings": {
-      "catapult & click": 6.0,
-      "spin": 6.0,
-      "speed": 5.0
+      "catapult & click": 6,
+      "spin": 6,
+      "speed": 5
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=iRWkjUaIZGI"
+      }
     }
   },
   {
@@ -261,7 +321,17 @@
     "manufacturer_ratings": {
       "catapult & click": 5.6,
       "spin": 5.4,
-      "speed": 6.0
+      "speed": 6
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   }
 ]

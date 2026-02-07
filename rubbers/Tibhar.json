@@ -1,5 +1,49 @@
 [
   {
+    "abbr": "MX-D",
+    "name": "Evolution MX-D",
+    "manufacturer": "Tibhar",
+    "price": "Approx. $ 65 USD",
+    "user_ratings": {
+      "overall": 9.2,
+      "speed": 9.3,
+      "spin": 9.1,
+      "control": 8.6,
+      "weight": "6.8 (Medium heavy)",
+      "sponge_hardness": "8.6 (Hard)",
+      "gears": "8.7 (Many gears)",
+      "throw_angle": "4.6 (Medium)",
+      "consistency": 8.9,
+      "durability": "7.1 (Lasts longer than average)",
+      "tackiness": "1.8 (Slightly tacky)",
+      "url": "https://revspin.net/rubber/tibhar-evolution-mx-d.html"
+    },
+    "manufacturer_details": {
+      "country": "Germany",
+      "hardness": 51.5,
+      "thickness": [
+        "2.2",
+        "2.0"
+      ],
+      "topsheet": "Classic"
+    },
+    "manufacturer_ratings": {
+      "speed": 130,
+      "spin": 123,
+      "control": 83
+    },
+    "urls": {
+      "us": {
+        "product": "https://www.paddlepalace.com/Tibhar-Evolution-MX-D/productinfo/RTEVMD/",
+        "youtube": "https://www.youtube.com/watch?v=uqEat6_r-1A"
+      },
+      "kr": {
+        "product": "coupang.com/vp/products/1986144567?itemId=3379589275&vendorItemId=5587610207&pickType=COU_PICK&q=tibhar%20evolution%20mx-d&searchId=d927fd9c15598415&sourceType=search&itemsCount=36&searchRank=1&rank=1&traceId=mlcymu1t",
+        "youtube": "https://www.youtube.com/watch?v=haxt_8BOEoo"
+      }
+    }
+  },
+  {
     "abbr": "MX-P",
     "name": "Evolution MX-P",
     "manufacturer": "Tibhar",
@@ -33,6 +77,16 @@
       "speed": 126,
       "spin": 122,
       "control": 86
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=WU8gNr9XIcU"
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=63MWAt7NNfo"
+      }
     }
   },
   {
@@ -69,6 +123,16 @@
       "speed": 121,
       "spin": 122,
       "control": 98
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -105,6 +169,16 @@
       "speed": 122,
       "spin": 126,
       "control": 90
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -140,6 +214,16 @@
       "speed": 115,
       "spin": 122,
       "control": 102
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -174,6 +258,16 @@
       "speed": 118,
       "spin": 130,
       "control": 100
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=vzi45Pn2AsU"
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=uY9VcVM2lnE&pp=ygUJ7Yuw67CUIGsz"
+      }
     }
   },
   {
@@ -182,15 +276,15 @@
     "manufacturer": "Tibhar",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
-      "overall": 9.0,
-      "speed": 9.0,
+      "overall": 9,
+      "speed": 9,
       "spin": 9.2,
       "control": 9.4,
       "weight": "8.0 (Heavy)",
       "sponge_hardness": "7.0 (Medium hard)",
       "gears": null,
       "throw_angle": "8.0 (High)",
-      "consistency": 5.0,
+      "consistency": 5,
       "durability": "10.0 (Lasts a long time!)",
       "tackiness": "8.0 (Tacky)",
       "url": "https://revspin.net/rubber/tibhar-mx-k.html"
@@ -204,6 +298,16 @@
       ],
       "topsheet": "Classic"
     },
-    "manufacturer_ratings": {}
+    "manufacturer_ratings": {},
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": "https://www.youtube.com/watch?v=5YHcPv98mOo"
+      }
+    }
   }
 ]
