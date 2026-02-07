@@ -1,25 +1,37 @@
 [
   {
-    "name": "Rhyzm-P",
-    "url": "https://revspin.net/rubber/joola-rhyzm-p.html",
+    "name": "Dynaryz ACC",
+    "url": "https://revspin.net/rubber/joola-dynaryz-acc.html",
     "manufacturer": "JOOLA",
-    "price": "Approx. $ 42 USD",
+    "price": "Approx. $ 60 USD",
     "user_ratings": {
-      "overall": 9.4,
+      "overall": 9.1,
       "speed": 9.2,
-      "spin": 9.4,
-      "control": 9.3,
-      "tackiness": "2.3 (Slightly tacky)",
-      "weight": "4.4 (Average)",
-      "sponge_hardness": "5.9 (Medium)",
-      "gears": "8.8 (Many gears)",
-      "throw_angle": "5.5 (Medium high)",
-      "consistency": 9.6,
-      "durability": "8.6 (Lasts a long time!)"
+      "spin": 9.1,
+      "control": 9.1,
+      "tackiness": "2.1 (Slightly tacky)",
+      "weight": "5.3 (Medium heavy)",
+      "sponge_hardness": "6.6 (Medium hard)",
+      "gears": "6.5 (Above average gears)",
+      "throw_angle": "5.0 (Medium high)",
+      "consistency": 9.4,
+      "durability": "6.8 (Lasts longer than average)"
     },
     "manufacturer_details": {
-      "country": "Germany",
+      "country": "Japan",
+      "hardness": 47.5,
+      "thickness": [
+        "max",
+        "2.0"
+      ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.joola.com/products/dynaryz-acc-rubber",
+      "speed": 10,
+      "spin": 10,
+      "trajectory": 7.5,
+      "precision": 10.5
     }
   }
 ]
