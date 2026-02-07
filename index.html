@@ -1069,6 +1069,42 @@
             return tackinessMarkers[tackiness] || 'circle';
         }
 
+        function getAutoscaleBounds(rubbers) {
+            if (!Array.isArray(rubbers) || rubbers.length === 0) {
+                return null;
+            }
+            const xs = rubbers.map(rubber => rubber.x);
+            const ys = rubbers.map(rubber => rubber.y);
+            const minX = Math.min(...xs);
+            const maxX = Math.max(...xs);
+            const minY = Math.min(...ys);
+            const maxY = Math.max(...ys);
+            const padX = Math.max(0.5, (maxX - minX) * 0.05);
+            const padY = Math.max(0.5, (maxY - minY) * 0.05);
+            return {
+                x: [minX - padX, maxX + padX],
+                y: [minY - padY, maxY + padY]
+            };
+        }
+
+        function viewCoversDataBounds(rubbers, xRange, yRange) {
+            const bounds = getAutoscaleBounds(rubbers);
+            if (!bounds) return true;
+            return (
+                xRange[0] <= bounds.x[0] &&
+                xRange[1] >= bounds.x[1] &&
+                yRange[0] <= bounds.y[0] &&
+                yRange[1] >= bounds.y[1]
+            );
+        }
+
+        function clampRangeToBounds(range, bounds) {
+            return [
+                Math.max(range[0], bounds[0]),
+                Math.min(range[1], bounds[1])
+            ];
+        }
+
         // ── Dropdown open/close logic ──
         let openFilterId = null;
 
@@ -1149,15 +1185,26 @@
             const xSpan = xRange[1] - xRange[0];
             const ySpan = yRange[1] - yRange[0];
             if (xSpan <= 0 || ySpan <= 0) return;
+            const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
+            if (scale > 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
+                return;
+            }
 
             const xCenter = (xRange[0] + xRange[1]) / 2;
             const yCenter = (yRange[0] + yRange[1]) / 2;
             const newXSpan = xSpan * scale;
             const newYSpan = ySpan * scale;
 
+            let nextXRange = [xCenter - newXSpan / 2, xCenter + newXSpan / 2];
+            let nextYRange = [yCenter - newYSpan / 2, yCenter + newYSpan / 2];
+            if (scale > 1 && autoscaleBounds) {
+                nextXRange = clampRangeToBounds(nextXRange, autoscaleBounds.x);
+                nextYRange = clampRangeToBounds(nextYRange, autoscaleBounds.y);
+            }
+
             Plotly.relayout(chartEl, {
-                'xaxis.range': [xCenter - newXSpan / 2, xCenter + newXSpan / 2],
-                'yaxis.range': [yCenter - newYSpan / 2, yCenter + newYSpan / 2],
+                'xaxis.range': nextXRange,
+                'yaxis.range': nextYRange,
                 'xaxis.autorange': false,
                 'yaxis.autorange': false
             });
@@ -1510,8 +1557,8 @@
                     },
                     hovertemplate: '<b>%{customdata.name}</b><br>' +
                         'Company: ' + group.company + '<br>' +
-                        'Speed: %{x}<br>' +
-                        'Spin: %{y}<br>' +
+                        'Speed: %{x:.1f}<br>' +
+                        'Spin: %{y:.1f}<br>' +
                         'Tackiness: ' + group.tackiness +
                         '<extra></extra>',
                     customdata: group.rubbers
@@ -1523,6 +1570,9 @@
             if (!settings.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
                 currentRanges = null;
             }
+            const chartEl = document.getElementById('chart');
+            const chartWidth = chartEl ? chartEl.getBoundingClientRect().width : window.innerWidth;
+            const hideWideAxisTicks = chartWidth >= 900;
             const layout = {
                 title: '',
                 dragmode: 'pan',
@@ -1533,7 +1583,9 @@
                     zeroline: false,
                     gridcolor: '#44475a',
                     tickfont: { color: '#6272a4' },
-                    linecolor: '#44475a'
+                    linecolor: '#44475a',
+                    showticklabels: !hideWideAxisTicks,
+                    tickformat: '.1f'
                 },
                 yaxis: {
                     title: { text: '' },
@@ -1542,7 +1594,9 @@
                     zeroline: false,
                     gridcolor: '#44475a',
                     tickfont: { color: '#6272a4' },
-                    linecolor: '#44475a'
+                    linecolor: '#44475a',
+                    showticklabels: !hideWideAxisTicks,
+                    tickformat: '.1f'
                 },
                 hovermode: 'closest',
                 plot_bgcolor: '#282a36',
@@ -1558,7 +1612,7 @@
                         showarrow: false,
                         xanchor: 'right',
                         yanchor: 'bottom',
-                        font: { color: '#6272a4' }
+                        font: { color: '#f1fa8c', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
                     },
                     {
                         x: 0.02,
@@ -1569,7 +1623,7 @@
                         showarrow: false,
                         xanchor: 'left',
                         yanchor: 'top',
-                        font: { color: '#6272a4' }
+                        font: { color: '#f1fa8c', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
                     }
                 ],
                 showlegend: false,
@@ -1604,7 +1658,6 @@
             }
 
             // Add click handler
-            const chartEl = document.getElementById('chart');
             chartEl.on('plotly_click', function(data) {
                 const point = data.points[0];
                 const pointIndex = point.pointIndex;
@@ -1733,18 +1786,26 @@
 
                 const newXSpan = xSpan * scale;
                 const newYSpan = ySpan * scale;
+                const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
+                if (scale > 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
+                    return;
+                }
 
                 const xCenter = xRange[0] + fx * xSpan;
                 const yCenter = yRange[0] + fy * ySpan;
 
-                const newXRange = [
+                let newXRange = [
                     xCenter - fx * newXSpan,
                     xCenter + (1 - fx) * newXSpan
                 ];
-                const newYRange = [
+                let newYRange = [
                     yCenter - fy * newYSpan,
                     yCenter + (1 - fy) * newYSpan
                 ];
+                if (scale > 1 && autoscaleBounds) {
+                    newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
+                    newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
+                }
 
                 Plotly.relayout(chartEl, {
                     'xaxis.range': newXRange,
@@ -1833,19 +1894,27 @@
 
                     const newXSpan = xSpan * scale;
                     const newYSpan = ySpan * scale;
+                    const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
+                    if (scale < 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
+                        return;
+                    }
 
                     // Keep the pinch center point fixed
                     const xCenter = xRange[0] + frac.fx * xSpan;
                     const yCenter = yRange[0] + frac.fy * ySpan;
 
-                    const newXRange = [
+                    let newXRange = [
                         xCenter - frac.fx * newXSpan,
                         xCenter + (1 - frac.fx) * newXSpan
                     ];
-                    const newYRange = [
+                    let newYRange = [
                         yCenter - frac.fy * newYSpan,
                         yCenter + (1 - frac.fy) * newYSpan
                     ];
+                    if (scale < 1 && autoscaleBounds) {
+                        newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
+                        newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
+                    }
 
                     Plotly.relayout(chartEl, {
                         'xaxis.range': newXRange,
@@ -1868,6 +1937,9 @@
         // Initialize
         window.addEventListener('resize', function() {
             Plotly.Plots.resize('chart');
+            if (hasPlotted) {
+                updateChart({ preserveRanges: true });
+            }
         });
 
         async function initializeApp() {
