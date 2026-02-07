@@ -1656,13 +1656,16 @@
                 hasPlotted = true;
             }
 
-            // Add click handler
-            chartEl.on('plotly_click', function(data) {
-                const point = data.points[0];
-                const pointIndex = point.pointIndex;
-                const rubber = point.data.customdata[pointIndex];
-                handleRubberClick(rubber);
-            });
+            // Add click handler (once)
+            if (!chartEl._hasClickHandler) {
+                chartEl._hasClickHandler = true;
+                chartEl.on('plotly_click', function(data) {
+                    const point = data.points[0];
+                    const pointIndex = point.pointIndex;
+                    const rubber = point.data.customdata[pointIndex];
+                    handleRubberClick(rubber);
+                });
+            }
 
             // Add relayout handler (once) to recalculate visibility on zoom/pan
             if (!chartEl._hasRelayoutHandler) {
