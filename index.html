@@ -461,6 +461,20 @@
             };
         }
 
+        function shouldAutoscaleForFilteredData(filteredData, currentRanges) {
+            if (!currentRanges || filteredData.length === 0) {
+                return false;
+            }
+            const xMin = currentRanges.xaxis[0];
+            const xMax = currentRanges.xaxis[1];
+            const yMin = currentRanges.yaxis[0];
+            const yMax = currentRanges.yaxis[1];
+
+            return filteredData.some(rubber =>
+                rubber.x < xMin || rubber.x > xMax || rubber.y < yMin || rubber.y > yMax
+            );
+        }
+
         function getControlValue(rubber) {
             if (typeof rubber.control === 'number') {
                 return rubber.control;
@@ -800,7 +814,10 @@
                 traces.push(trace);
             });
 
-            const currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
+            let currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
+            if (shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
+                currentRanges = null;
+            }
             const layout = {
                 title: '',
                 dragmode: 'pan',
