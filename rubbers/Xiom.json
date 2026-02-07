@@ -10,13 +10,13 @@
       "speed": 8.7,
       "spin": 8.9,
       "control": 9.1,
-      "tackiness": "1.9 (Slightly tacky)",
       "weight": "3.4 (Average)",
       "sponge_hardness": "2.8 (Medium soft)",
       "gears": "7.8 (Above average gears)",
       "throw_angle": "4.7 (Medium)",
       "consistency": 9.3,
-      "durability": "6.8 (Lasts longer than average)"
+      "durability": "6.8 (Lasts longer than average)",
+      "tackiness": "1.9 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -26,7 +26,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 4.6,
@@ -45,13 +45,13 @@
       "speed": 8.9,
       "spin": 8.4,
       "control": null,
-      "tackiness": "2.5 (Slightly tacky)",
       "weight": null,
       "sponge_hardness": null,
       "gears": null,
       "throw_angle": null,
       "consistency": null,
-      "durability": null
+      "durability": null,
+      "tackiness": "2.5 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -61,7 +61,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 5.0,
@@ -80,13 +80,13 @@
       "speed": 9.1,
       "spin": 9.2,
       "control": 8.7,
-      "tackiness": "2.1 (Slightly tacky)",
       "weight": "5.5 (Medium heavy)",
       "sponge_hardness": "7.0 (Medium hard)",
       "gears": "8.0 (Above average gears)",
       "throw_angle": "5.8 (Medium high)",
       "consistency": 9.3,
-      "durability": "7.5 (Lasts longer than average)"
+      "durability": "7.5 (Lasts longer than average)",
+      "tackiness": "2.1 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -96,7 +96,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 4.6,
@@ -115,13 +115,13 @@
       "speed": 9.0,
       "spin": 9.0,
       "control": 8.7,
-      "tackiness": "5.0 (Medium tacky)",
       "weight": "6.0 (Medium heavy)",
       "sponge_hardness": "10.0 (Hard)",
       "gears": 1.0,
       "throw_angle": "8.0 (High)",
       "consistency": 10.0,
-      "durability": "7.0 (Above average)"
+      "durability": "7.0 (Above average)",
+      "tackiness": "5.0 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -131,7 +131,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 5.0,
@@ -149,13 +149,13 @@
       "speed": 9.0,
       "spin": 9.7,
       "control": 9.1,
-      "tackiness": "5.7 (Medium tacky)",
       "weight": "7.5 (Heavy)",
       "sponge_hardness": "8.9 (Hard)",
       "gears": 8.9,
       "throw_angle": "4.9 (Medium)",
       "consistency": 8.9,
-      "durability": "6.1 (Lasts longer than average)"
+      "durability": "6.1 (Lasts longer than average)",
+      "tackiness": "5.7 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -164,7 +164,7 @@
         "max",
         "2.1"
       ],
-      "tackiness": "Hybrid"
+      "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
       "catapult & click": 8.0,
@@ -191,7 +191,7 @@
         "max",
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 5.6,
@@ -209,13 +209,13 @@
       "speed": 9.7,
       "spin": 9.3,
       "control": 9.5,
-      "tackiness": "2.0 (Slightly tacky)",
       "weight": "8.0 (Heavy)",
       "sponge_hardness": "10.0 (Hard)",
       "gears": 10.0,
       "throw_angle": "6.0 (Medium high)",
       "consistency": 10.0,
-      "durability": null
+      "durability": null,
+      "tackiness": "2.0 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -223,7 +223,7 @@
       "thickness": [
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 6.0,
@@ -241,13 +241,13 @@
       "speed": 9.2,
       "spin": 9.1,
       "control": 8.7,
-      "tackiness": "1.6 (Slightly tacky)",
       "weight": "4.3 (Average)",
       "sponge_hardness": "6.2 (Medium hard)",
       "gears": 8.2,
       "throw_angle": "5.2 (Medium high)",
       "consistency": 8.8,
-      "durability": "6.7 (Lasts longer than average)"
+      "durability": "6.7 (Lasts longer than average)",
+      "tackiness": "1.6 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -256,7 +256,7 @@
         "max",
         "2.0"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "catapult & click": 5.6,

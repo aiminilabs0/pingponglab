@@ -10,13 +10,13 @@
       "speed": 8.1,
       "spin": 8.9,
       "control": 8.7,
-      "tackiness": "8.2 (Tacky)",
       "weight": "7.0 (Heavy)",
       "sponge_hardness": "8.5 (Hard)",
       "gears": "7.4 (Above average gears)",
       "throw_angle": "5.4 (Medium high)",
       "consistency": 6.8,
-      "durability": "7.7 (Lasts longer than average)"
+      "durability": "7.7 (Lasts longer than average)",
+      "tackiness": "8.2 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -25,7 +25,7 @@
         "2.2",
         "2.15"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
@@ -39,13 +39,13 @@
       "speed": 8.4,
       "spin": 9.3,
       "control": 8.7,
-      "tackiness": "8.1 (Tacky)",
       "weight": "6.6 (Medium heavy)",
       "sponge_hardness": "8.0 (Medium hard)",
       "gears": "8.7 (Many gears)",
       "throw_angle": "5.8 (Medium high)",
       "consistency": 7.4,
-      "durability": "7.5 (Lasts longer than average)"
+      "durability": "7.5 (Lasts longer than average)",
+      "tackiness": "8.1 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -55,7 +55,7 @@
         "2.15",
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
@@ -69,13 +69,13 @@
       "speed": 9.4,
       "spin": 9.3,
       "control": 9.1,
-      "tackiness": "2.0 (Slightly tacky)",
       "weight": "5.9 (Medium heavy)",
       "sponge_hardness": "6.7 (Medium hard)",
       "gears": "8.7 (Many gears)",
       "throw_angle": "5.7 (Medium high)",
       "consistency": 9.4,
-      "durability": "8.3 (Lasts longer than average)"
+      "durability": "8.3 (Lasts longer than average)",
+      "tackiness": "2.0 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -86,7 +86,7 @@
         "1.8",
         "1.6"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     }
   },
   {
@@ -100,13 +100,13 @@
       "speed": 8.6,
       "spin": 9.4,
       "control": 9,
-      "tackiness": "7.8 (Tacky)",
       "weight": "6.5 (Medium heavy)",
       "sponge_hardness": "7.3 (Medium hard)",
       "gears": "9.0 (Many gears)",
       "throw_angle": "5.6 (Medium high)",
       "consistency": 8,
-      "durability": "8.0 (Lasts longer than average)"
+      "durability": "8.0 (Lasts longer than average)",
+      "tackiness": "7.8 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -116,7 +116,7 @@
         "2.15",
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
@@ -130,13 +130,13 @@
       "speed": 8.4,
       "spin": 9.3,
       "control": 8.7,
-      "tackiness": "7.7 (Tacky)",
       "weight": "6.8 (Medium heavy)",
       "sponge_hardness": "7.3 (Medium hard)",
       "gears": "8.7 (Many gears)",
       "throw_angle": "7.1 (High)",
       "consistency": 9.3,
-      "durability": "8.1 (Lasts longer than average)"
+      "durability": "8.1 (Lasts longer than average)",
+      "tackiness": "7.7 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -146,7 +146,7 @@
         "2.15",
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
@@ -160,13 +160,13 @@
       "speed": 8.3,
       "spin": 9.3,
       "control": 8.6,
-      "tackiness": "8.3 (Tacky)",
       "weight": "6.6 (Medium heavy)",
       "sponge_hardness": "8.1 (Medium hard)",
       "gears": "8.0 (Above average gears)",
       "throw_angle": "4.2 (Medium)",
       "consistency": 8.0,
-      "durability": "8.0 (Lasts longer than average)"
+      "durability": "8.0 (Lasts longer than average)",
+      "tackiness": "8.3 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -176,7 +176,7 @@
         "2.15",
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
@@ -190,13 +190,13 @@
       "speed": 9.2,
       "spin": 9.6,
       "control": 9.2,
-      "tackiness": "8.5 (Tacky)",
       "weight": "6.3 (Medium heavy)",
       "sponge_hardness": "8.1 (Medium hard)",
       "gears": "9.4 (Many gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.3,
-      "durability": "8.4 (Lasts longer than average)"
+      "durability": "8.4 (Lasts longer than average)",
+      "tackiness": "8.5 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -205,12 +205,12 @@
         "2.15",
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   },
   {
-    "abbr": "DHS H8-80",
-    "name": "DHS Hurricane 8-80",
+    "abbr": "H8-80",
+    "name": "Hurricane 8-80",
     "url": "https://revspin.net/rubber/dhs-hurricane-8-80.html",
     "manufacturer": "DHS",
     "price": "Approx. $ 45 USD",
@@ -219,13 +219,13 @@
       "speed": 8.1,
       "spin": 9.3,
       "control": 9.1,
-      "tackiness": "8.1 (Tacky)",
       "weight": "6.8 (Medium heavy)",
       "sponge_hardness": "6.4 (Medium hard)",
       "gears": "9.1 (Many gears)",
       "throw_angle": "5.0 (Medium high)",
       "consistency": 8.5,
-      "durability": "8.3 (Lasts longer than average)"
+      "durability": "8.3 (Lasts longer than average)",
+      "tackiness": "8.1 (Tacky)"
     },
     "manufacturer_details": {
       "country": "China",
@@ -233,7 +233,7 @@
       "thickness": [
         "2.1"
       ],
-      "tackiness": "Tacky"
+      "topsheet": "Chinese"
     }
   }
 ]

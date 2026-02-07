@@ -611,19 +611,19 @@
             </div>
 
             <!-- Tack chip -->
-            <div class="filter-chip" data-filter="tackiness" id="tackinessChip">
-                <span>Tackiness</span>
-                <span class="filter-badge all-selected" id="tackinessBadge">All</span>
+            <div class="filter-chip" data-filter="topsheet" id="topsheetChip">
+                <span>Topsheet</span>
+                <span class="filter-badge all-selected" id="topsheetBadge">All</span>
                 <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="tackinessDropdown">
+                <div class="filter-dropdown" id="topsheetDropdown">
                     <div class="dropdown-header">
                         <div class="dd-actions">
-                            <button type="button" data-filter="tackiness" data-action="all">All</button>
-                            <button type="button" data-filter="tackiness" data-action="none">None</button>
+                            <button type="button" data-filter="topsheet" data-action="all">All</button>
+                            <button type="button" data-filter="topsheet" data-action="none">None</button>
                         </div>
                         <button type="button" class="dropdown-close" title="Close">×</button>
                     </div>
-                    <div class="dropdown-options" id="tackinessFilter"></div>
+                    <div class="dropdown-options" id="topsheetFilter"></div>
                 </div>
             </div>
 
@@ -742,21 +742,15 @@
             return (value / max) * 10;
         }
 
-        function normalizeTackiness(value) {
+        function normalizeTopsheet(value) {
             if (typeof value === 'string') {
                 const trimmed = value.trim();
                 const lower = trimmed.toLowerCase();
-                if (lower === 'non-tacky') return 'Non-tacky';
-                if (lower === 'tacky') return 'Tacky';
+                if (lower === 'classic') return 'Classic';
+                if (lower === 'chinese') return 'Chinese';
                 if (lower === 'hybrid') return 'Hybrid';
             }
-            const numeric = parseRatingNumber(value);
-            if (Number.isFinite(numeric)) {
-                if (numeric >= 6) return 'Tacky';
-                if (numeric >= 4) return 'Hybrid';
-                return 'Non-tacky';
-            }
-            return 'Non-tacky';
+            return 'Classic';
         }
 
         const HARDNESS_AVERAGES = {
@@ -785,7 +779,7 @@
                 ratings.speed !== undefined ? `**Speed:** ${ratings.speed}` : null,
                 ratings.spin !== undefined ? `**Spin:** ${ratings.spin}` : null,
                 ratings.control !== undefined ? `**Control:** ${ratings.control}` : null,
-                ratings.tackiness ? `**Tackiness:** ${ratings.tackiness}` : null,
+                ratings.topsheet ? `**Topsheet:** ${ratings.topsheet}` : null,
                 ratings.weight ? `**Weight:** ${ratings.weight}` : null,
                 ratings.sponge_hardness ? `**Sponge hardness:** ${ratings.sponge_hardness}` : null
             ].filter(Boolean);
@@ -888,7 +882,7 @@
                     : userSpeed;
 
                 const manufacturerDetails = raw.manufacturer_details || {};
-                const manufacturerTackiness = manufacturerDetails.tackiness;
+                const manufacturerTopsheet = manufacturerDetails.topsheet;
                 const manufacturerHardness = parseRatingNumber(manufacturerDetails.hardness);
                 const manufacturerCountry = manufacturerDetails.country;
                 const rubber = {
@@ -901,7 +895,7 @@
                     hardness: parseRatingNumber(ratings.sponge_hardness),
                     hardnessCategory: normalizeHardnessCategory(manufacturerHardness, manufacturerCountry),
                     control: control,
-                    tackiness: normalizeTackiness(manufacturerTackiness),
+                    topsheet: normalizeTopsheet(manufacturerTopsheet),
                     priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
                     youtubeUrl: raw.youtube_url || '',
                     productUrl: raw.url || ''
@@ -943,10 +937,10 @@
             "Yasaka": "#FFFF33"
         };
 
-        // Tackiness markers
-        const tackinessMarkers = {
-            "Non-tacky": "circle",
-            "Tacky": "square",
+        // Topsheet markers
+        const topsheetMarkers = {
+            "Classic": "circle",
+            "Chinese": "square",
             "Hybrid": "diamond"
         };
 
@@ -1105,8 +1099,8 @@
             return companyColors[company] || '#999999';
         }
 
-        function getTackinessSymbol(tackiness) {
-            return tackinessMarkers[tackiness] || 'circle';
+        function getTopsheetSymbol(topsheet) {
+            return topsheetMarkers[topsheet] || 'circle';
         }
 
         function getAutoscaleBounds(rubbers) {
@@ -1210,7 +1204,7 @@
         }
 
         function refreshAllBadges() {
-            ['company', 'name', 'tackiness', 'hardness'].forEach(refreshBadge);
+            ['company', 'name', 'topsheet', 'hardness'].forEach(refreshBadge);
         }
 
         function zoomChart(scale) {
@@ -1281,8 +1275,8 @@
                 });
             }
 
-            // Show deselected tackiness / hardness as negative tags? No — show selected non-all.
-            ['tackiness', 'hardness'].forEach(filterId => {
+            // Show deselected topsheet / hardness as negative tags? No — show selected non-all.
+            ['topsheet', 'hardness'].forEach(filterId => {
                 const filterEl = document.getElementById(filterId + 'Filter');
                 const all = filterEl.querySelectorAll('input[type="checkbox"]');
                 const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
@@ -1309,7 +1303,7 @@
         // Initialize filters
         function initFilters() {
             const companies = [...new Set(rubberData.map(r => r.company))].sort();
-            const tackinessValues = ["Non-tacky", "Tacky", "Hybrid"];
+            const topsheetValues = ["Classic", "Chinese", "Hybrid"];
             const hardnessValues = ["Soft", "Medium", "Hard"];
             const hardnessEmoji = { "Soft": "🟢", "Medium": "🟡", "Hard": "🔴" };
             const companyOptions = companies.map(company => ({
@@ -1317,10 +1311,10 @@
                 label: company,
                 swatchColor: getCompanyColor(company)
             }));
-            const tackinessOptions = tackinessValues.map(tackiness => ({
-                value: tackiness,
-                label: tackiness,
-                shapeSymbol: getTackinessSymbol(tackiness)
+            const topsheetOptions = topsheetValues.map(topsheet => ({
+                value: topsheet,
+                label: topsheet,
+                shapeSymbol: getTopsheetSymbol(topsheet)
             }));
             const hardnessOptions = hardnessValues.map(hardness => ({
                 value: hardness,
@@ -1329,11 +1323,11 @@
 
             const companyFilter = document.getElementById('companyFilter');
             const nameFilter = document.getElementById('nameFilter');
-            const tackinessFilter = document.getElementById('tackinessFilter');
+            const topsheetFilter = document.getElementById('topsheetFilter');
             const hardnessFilter = document.getElementById('hardnessFilter');
 
             buildCheckboxOptions(companyFilter, companyOptions);
-            buildCheckboxOptions(tackinessFilter, tackinessOptions);
+            buildCheckboxOptions(topsheetFilter, topsheetOptions);
             buildCheckboxOptions(hardnessFilter, hardnessOptions);
             buildNameOptionsFromCompanies();
 
@@ -1348,7 +1342,7 @@
 
             companyFilter.addEventListener('change', () => onFilterChange('company'));
             nameFilter.addEventListener('change', () => onFilterChange('name'));
-            tackinessFilter.addEventListener('change', () => onFilterChange('tackiness'));
+            topsheetFilter.addEventListener('change', () => onFilterChange('topsheet'));
             hardnessFilter.addEventListener('change', () => onFilterChange('hardness'));
 
             document.getElementById('companySearch').addEventListener('input', (e) => {
@@ -1422,7 +1416,7 @@
 
             // Clear all filters → reset to all selected
             document.getElementById('clearAllFilters').addEventListener('click', () => {
-                [companyFilter, tackinessFilter, hardnessFilter].forEach(c => setAllChecked(c, true));
+                [companyFilter, topsheetFilter, hardnessFilter].forEach(c => setAllChecked(c, true));
                 buildNameOptionsFromCompanies();
                 refreshAllBadges();
                 renderActiveTags();
@@ -1438,13 +1432,13 @@
         function getFilteredData() {
             const selectedCompanies = getCheckedValues('companyFilter');
             const selectedNames = getCheckedValues('nameFilter');
-            const selectedTackiness = getCheckedValues('tackinessFilter');
+            const selectedTopsheet = getCheckedValues('topsheetFilter');
             const selectedHardness = getCheckedValues('hardnessFilter');
 
             if (
                 selectedCompanies.length === 0 ||
                 selectedNames.length === 0 ||
-                selectedTackiness.length === 0 ||
+                selectedTopsheet.length === 0 ||
                 selectedHardness.length === 0
             ) {
                 return [];
@@ -1453,7 +1447,7 @@
             return rubberData.filter(rubber => {
                 if (selectedCompanies.length > 0 && !selectedCompanies.includes(rubber.company)) return false;
                 if (selectedNames.length > 0 && !selectedNames.includes(rubber.name)) return false;
-                if (selectedTackiness.length > 0 && !selectedTackiness.includes(rubber.tackiness)) return false;
+                if (selectedTopsheet.length > 0 && !selectedTopsheet.includes(rubber.topsheet)) return false;
                 if (selectedHardness.length > 0 && !selectedHardness.includes(rubber.hardnessCategory)) return false;
                 return true;
             });
@@ -1556,16 +1550,16 @@
                 return minMarkerSize + t * (maxMarkerSize - minMarkerSize);
             }
             
-            // Group data by company and tackiness
+            // Group data by company and topsheet
             const traces = [];
             const groups = {};
             
             visibleData.forEach(rubber => {
-                const key = `${rubber.company}-${rubber.tackiness}`;
+                const key = `${rubber.company}-${rubber.topsheet}`;
                 if (!groups[key]) {
                     groups[key] = {
                         company: rubber.company,
-                        tackiness: rubber.tackiness,
+                        topsheet: rubber.topsheet,
                         rubbers: []
                     };
                 }
@@ -1579,11 +1573,11 @@
                     y: group.rubbers.map(r => r.y),
                     mode: 'markers+text',
                     type: 'scatter',
-                    name: `${group.company} (${group.tackiness})`,
+                    name: `${group.company} (${group.topsheet})`,
                     marker: {
                         size: group.rubbers.map(r => getMarkerSize(r)),
                         color: getCompanyColor(group.company),
-                        symbol: getTackinessSymbol(group.tackiness),
+                        symbol: getTopsheetSymbol(group.topsheet),
                         line: {
                             width: 1,
                             color: '#282a36'
@@ -1600,7 +1594,7 @@
                         'Company: ' + group.company + '<br>' +
                         'Speed: %{x:.1f}<br>' +
                         'Spin: %{y:.1f}<br>' +
-                        'Tackiness: ' + group.tackiness +
+                        'Topsheet: ' + group.topsheet +
                         '<extra></extra>',
                     customdata: group.rubbers
                 };

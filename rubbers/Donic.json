@@ -10,13 +10,13 @@
       "speed": 8.7,
       "spin": 9.5,
       "control": 8.6,
-      "tackiness": "2.3 (Slightly tacky)",
       "weight": "5.5 (Medium heavy)",
       "sponge_hardness": "4.9 (Medium)",
       "gears": "7.8 (Above average gears)",
       "throw_angle": "7.3 (High)",
       "consistency": 8.8,
-      "durability": "7.7 (Lasts longer than average)"
+      "durability": "7.7 (Lasts longer than average)",
+      "tackiness": "2.3 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -26,7 +26,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-baracuda",
@@ -46,13 +46,13 @@
       "speed": 8.7,
       "spin": 9,
       "control": 8.5,
-      "tackiness": "1.8 (Slightly tacky)",
       "weight": "5.6 (Medium heavy)",
       "sponge_hardness": "5.4 (Medium)",
       "gears": "7.7 (Above average gears)",
       "throw_angle": "6.4 (Medium high)",
       "consistency": 9.2,
-      "durability": "6.3 (Lasts longer than average)"
+      "durability": "6.3 (Lasts longer than average)",
+      "tackiness": "1.8 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -62,7 +62,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m2",
@@ -82,13 +82,13 @@
       "speed": 8.8,
       "spin": 9,
       "control": 8.6,
-      "tackiness": "2.6 (Slightly tacky)",
       "weight": "4.4 (Average)",
       "sponge_hardness": "4.5 (Medium)",
       "gears": "7.9 (Above average gears)",
       "throw_angle": "5.1 (Medium high)",
       "consistency": 9.1,
-      "durability": "7.5 (Lasts longer than average)"
+      "durability": "7.5 (Lasts longer than average)",
+      "tackiness": "2.6 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -98,7 +98,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-acuda-s2",
@@ -118,13 +118,13 @@
       "speed": 8.4,
       "spin": 9.1,
       "control": 8.9,
-      "tackiness": "1.8 (Slightly tacky)",
       "weight": "5.3 (Medium heavy)",
       "sponge_hardness": "3.1 (Medium soft)",
       "gears": "8.1 (Above average gears)",
       "throw_angle": "7.2 (High)",
       "consistency": 8.9,
-      "durability": "7.9 (Lasts longer than average)"
+      "durability": "7.9 (Lasts longer than average)",
+      "tackiness": "1.8 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -134,7 +134,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m3",
@@ -154,13 +154,13 @@
       "speed": 8.4,
       "spin": 9,
       "control": 8.7,
-      "tackiness": "1.8 (Slightly tacky)",
       "weight": "3.6 (Average)",
       "sponge_hardness": "1.9 (Medium soft)",
       "gears": "7.8 (Above average gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
-      "durability": "7.4 (Lasts longer than average)"
+      "durability": "7.4 (Lasts longer than average)",
+      "tackiness": "1.8 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -170,7 +170,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-acuda-s3",
@@ -190,13 +190,13 @@
       "speed": 9.3,
       "spin": 9.2,
       "control": 8.4,
-      "tackiness": "2.7 (Slightly tacky)",
       "weight": "5.9 (Medium heavy)",
       "sponge_hardness": "7.2 (Medium hard)",
       "gears": "8.0 (Above average gears)",
       "throw_angle": "6.3 (Medium high)",
       "consistency": 9.2,
-      "durability": "7.3 (Lasts longer than average)"
+      "durability": "7.3 (Lasts longer than average)",
+      "tackiness": "2.7 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -205,7 +205,7 @@
         "max",
         "2.0"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m1",
@@ -225,13 +225,13 @@
       "speed": 9.2,
       "spin": 9.4,
       "control": 9.1,
-      "tackiness": "5.6 (Medium tacky)",
       "weight": "6.5 (Medium heavy)",
       "sponge_hardness": "9.2 (Hard)",
       "gears": "9.0 (Many gears)",
       "throw_angle": "7.3 (High)",
       "consistency": 9.7,
-      "durability": "7.6 (Lasts longer than average)"
+      "durability": "7.6 (Lasts longer than average)",
+      "tackiness": "5.6 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -241,7 +241,7 @@
         "2.0",
         "1.8"
       ],
-      "tackiness": "Hybrid"
+      "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-c2",
@@ -261,13 +261,13 @@
       "speed": 9.2,
       "spin": 9.4,
       "control": 8.9,
-      "tackiness": "5.6 (Medium tacky)",
       "weight": "7.5 (Heavy)",
       "sponge_hardness": "10.0 (Hard)",
       "gears": "10.0 (Many gears)",
       "throw_angle": "4.0 (Medium)",
       "consistency": 10.0,
-      "durability": "9.0 (Lasts a long time!)"
+      "durability": "9.0 (Lasts a long time!)",
+      "tackiness": "5.6 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -276,7 +276,7 @@
         "max",
         "2.0"
       ],
-      "tackiness": "Hybrid"
+      "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
       "url": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-j1",

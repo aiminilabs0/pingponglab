@@ -10,13 +10,13 @@
       "speed": 9,
       "spin": 9.3,
       "control": 9.1,
-      "tackiness": "2.3 (Slightly tacky)",
       "weight": "5.5 (Medium heavy)",
       "sponge_hardness": "6.7 (Medium hard)",
       "gears": "9.1 (Many gears)",
       "throw_angle": "6.1 (Medium high)",
       "consistency": 9.7,
-      "durability": "8.8 (Lasts a long time!)"
+      "durability": "8.8 (Lasts a long time!)",
+      "tackiness": "2.3 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -27,7 +27,7 @@
         "1.8",
         "1.4"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 12.3,
@@ -45,13 +45,13 @@
       "speed": 9.0,
       "spin": 9.1,
       "control": 9.2,
-      "tackiness": "2.0 (Slightly tacky)",
       "weight": "4.5 (Light medium)",
       "sponge_hardness": "5.0 (Medium soft)",
       "gears": 7.7,
       "throw_angle": "5.4 (Medium)",
       "consistency": 9.5,
-      "durability": "8.4 (Longer than average)"
+      "durability": "8.4 (Longer than average)",
+      "tackiness": "2.0 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -62,7 +62,7 @@
         "1.8",
         "1.4"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 12.3,
@@ -80,13 +80,13 @@
       "speed": 9.1,
       "spin": 8.9,
       "control": 9.0,
-      "tackiness": "1.9 (Slightly tacky)",
       "weight": "3.3 (Average)",
       "sponge_hardness": "4.4 (Medium)",
       "gears": 8.5,
       "throw_angle": "5.3 (Medium high)",
       "consistency": 9.4,
-      "durability": "7.9 (Lasts longer than average)"
+      "durability": "7.9 (Lasts longer than average)",
+      "tackiness": "1.9 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -97,7 +97,7 @@
         "1.8",
         "1.4"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 15.5,

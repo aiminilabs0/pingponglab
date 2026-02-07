@@ -10,13 +10,13 @@
       "speed": 9.5,
       "spin": 9.3,
       "control": 8.7,
-      "tackiness": "2.3 (Slightly tacky)",
       "weight": "6.5 (Medium heavy)",
       "sponge_hardness": "7.0 (Medium hard)",
       "gears": "8.7 (Many gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 8.9,
-      "durability": "7.0 (Lasts longer than average)"
+      "durability": "7.0 (Lasts longer than average)",
+      "tackiness": "2.3 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -27,7 +27,7 @@
         "1.9",
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 126,
@@ -46,13 +46,13 @@
       "speed": 9.1,
       "spin": 9.2,
       "control": 9,
-      "tackiness": "2.2 (Slightly tacky)",
       "weight": "5.8 (Medium heavy)",
       "sponge_hardness": "5.0 (Medium)",
       "gears": "8.2 (Above average gears)",
       "throw_angle": "5.3 (Medium high)",
       "consistency": 9.5,
-      "durability": "8.1 (Lasts longer than average)"
+      "durability": "8.1 (Lasts longer than average)",
+      "tackiness": "2.2 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -63,7 +63,7 @@
         "1.9",
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 121,
@@ -82,13 +82,13 @@
       "speed": 9.2,
       "spin": 9.5,
       "control": 9.1,
-      "tackiness": "2.4 (Slightly tacky)",
       "weight": "6.6 (Medium heavy)",
       "sponge_hardness": "7.6 (Medium hard)",
       "gears": "9.0 (Many gears)",
       "throw_angle": "5.1 (Medium high)",
       "consistency": 9.2,
-      "durability": "7.5 (Lasts longer than average)"
+      "durability": "7.5 (Lasts longer than average)",
+      "tackiness": "2.4 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -99,7 +99,7 @@
         "1.9",
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 122,
@@ -118,13 +118,13 @@
       "speed": 8.6,
       "spin": 9.1,
       "control": 8.9,
-      "tackiness": "2.0 (Slightly tacky)",
       "weight": "5.1 (Medium heavy)",
       "sponge_hardness": "2.9 (Medium soft)",
       "gears": "8.6 (Many gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
-      "durability": "7.1 (Lasts longer than average)"
+      "durability": "7.1 (Lasts longer than average)",
+      "tackiness": "2.0 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -134,7 +134,7 @@
         "1.9",
         "2.1"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 115,
@@ -153,13 +153,13 @@
       "speed": 8.7,
       "spin": 9.2,
       "control": 8.9,
-      "tackiness": "4.8 (Medium tacky)",
       "weight": "5.9 (Medium heavy)",
       "sponge_hardness": "8.3 (Medium hard)",
       "gears": "8.9 (Many gears)",
       "throw_angle": "6.2 (Medium high)",
       "consistency": 9.5,
-      "durability": "5.1 (Average durability)"
+      "durability": "5.1 (Average durability)",
+      "tackiness": "4.8 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -168,7 +168,7 @@
         "max",
         "2.0"
       ],
-      "tackiness": "Hybrid"
+      "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
       "speed": 118,
@@ -187,13 +187,13 @@
       "speed": 9.0,
       "spin": 9.2,
       "control": 9.4,
-      "tackiness": "8.0 (Tacky)",
       "weight": "8.0 (Heavy)",
       "sponge_hardness": "7.0 (Medium hard)",
       "gears": null,
       "throw_angle": "8.0 (High)",
       "consistency": 5.0,
-      "durability": "10.0 (Lasts a long time!)"
+      "durability": "10.0 (Lasts a long time!)",
+      "tackiness": "8.0 (Tacky)"
     },
     "manufacturer_details": {
       "country": "Germany",
@@ -202,7 +202,7 @@
         "2.1",
         "2.0"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {}
   }

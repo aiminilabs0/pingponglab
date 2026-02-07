@@ -10,13 +10,13 @@
       "speed": 9.3,
       "spin": 9.4,
       "control": 8.3,
-      "tackiness": "2.3 (Slightly tacky)",
       "weight": "6.4 (Medium heavy)",
       "sponge_hardness": "6.1 (Medium hard)",
       "gears": "8.6 (Many gears)",
       "throw_angle": "7.6 (High)",
       "consistency": 9.3,
-      "durability": "7.7 (Lasts longer than average)"
+      "durability": "7.7 (Lasts longer than average)",
+      "tackiness": "2.3 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -26,7 +26,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -44,13 +44,13 @@
       "speed": 9.1,
       "spin": 9.2,
       "control": 8.9,
-      "tackiness": "2.9 (Slightly tacky)",
       "weight": "5.3 (Medium heavy)",
       "sponge_hardness": "4.1 (Medium)",
       "gears": "8.4 (Above average gears)",
       "throw_angle": "6.0 (Medium high)",
       "consistency": 9.3,
-      "durability": "7.7 (Lasts longer than average)"
+      "durability": "7.7 (Lasts longer than average)",
+      "tackiness": "2.9 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -60,7 +60,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 81,
@@ -78,13 +78,13 @@
       "speed": 9.3,
       "spin": 8.8,
       "control": 8.5,
-      "tackiness": "2.5 (Slightly tacky)",
       "weight": "5.5 (Medium heavy)",
       "sponge_hardness": "5.1 (Medium)",
       "gears": "8.5 (Many gears)",
       "throw_angle": "5.4 (Medium high)",
       "consistency": 9.2,
-      "durability": "8.0 (Lasts longer than average)"
+      "durability": "8.0 (Lasts longer than average)",
+      "tackiness": "2.5 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -94,7 +94,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 87,
@@ -112,13 +112,13 @@
       "speed": 8.8,
       "spin": 9.5,
       "control": 9,
-      "tackiness": "5.5 (Medium tacky)",
       "weight": "6.8 (Medium heavy)",
       "sponge_hardness": "8.1 (Medium hard)",
       "gears": "9.0 (Many gears)",
       "throw_angle": "8.3 (High)",
       "consistency": 9.6,
-      "durability": "7.8 (Lasts longer than average)"
+      "durability": "7.8 (Lasts longer than average)",
+      "tackiness": "5.5 (Medium tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -127,7 +127,7 @@
         "2.1",
         "1.9"
       ],
-      "tackiness": "Hybrid"
+      "topsheet": "Hybrid"
     },
     "manufacturer_ratings": {
       "speed": 79,
@@ -145,13 +145,13 @@
       "speed": 9.1,
       "spin": 9.4,
       "control": 8.8,
-      "tackiness": "1.8 (Slightly tacky)",
       "weight": "4.9 (Average)",
       "sponge_hardness": "7.0 (Medium hard)",
       "gears": "8.4 (Above average gears)",
       "throw_angle": "6.3 (Medium high)",
       "consistency": 8.7,
-      "durability": "8.5 (Lasts a long time!)"
+      "durability": "8.5 (Lasts a long time!)",
+      "tackiness": "1.8 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -160,7 +160,7 @@
         "2.1",
         "1.9"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 86,
@@ -178,13 +178,13 @@
       "speed": 9.3,
       "spin": 9.4,
       "control": 9,
-      "tackiness": "2.1 (Slightly tacky)",
       "weight": "5.5 (Medium heavy)",
       "sponge_hardness": "5.4 (Medium)",
       "gears": "8.9 (Many gears)",
       "throw_angle": "5.9 (Medium high)",
       "consistency": 9.2,
-      "durability": "7.8 (Lasts longer than average)"
+      "durability": "7.8 (Lasts longer than average)",
+      "tackiness": "2.1 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -194,7 +194,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 85,
@@ -212,13 +212,13 @@
       "speed": 8.7,
       "spin": 8.4,
       "control": 8.7,
-      "tackiness": "1.5 (Slightly tacky)",
       "weight": "4.5 (Average)",
       "sponge_hardness": "5.0 (Medium)",
       "gears": "6.9 (Above average gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9,
-      "durability": "6.8 (Lasts longer than average)"
+      "durability": "6.8 (Lasts longer than average)",
+      "tackiness": "1.5 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -228,7 +228,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -246,13 +246,13 @@
       "speed": 8.9,
       "spin": 8.9,
       "control": 8.5,
-      "tackiness": "1.9 (Slightly tacky)",
       "weight": "4.4 (Average)",
       "sponge_hardness": "3.6 (Medium soft)",
       "gears": "7.9 (Above average gears)",
       "throw_angle": "5.2 (Medium high)",
       "consistency": 8.7,
-      "durability": "7.5 (Lasts longer than average)"
+      "durability": "7.5 (Lasts longer than average)",
+      "tackiness": "1.9 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -262,7 +262,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -280,13 +280,13 @@
       "speed": 9,
       "spin": 9.2,
       "control": 9.2,
-      "tackiness": "1.6 (Slightly tacky)",
       "weight": "4.5 (Average)",
       "sponge_hardness": "5.8 (Medium)",
       "gears": "8.3 (Above average gears)",
       "throw_angle": "5.8 (Medium high)",
       "consistency": 9.3,
-      "durability": "7.7 (Lasts longer than average)"
+      "durability": "7.7 (Lasts longer than average)",
+      "tackiness": "1.6 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -296,7 +296,7 @@
         "1.9",
         "1.7"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 84,
@@ -314,13 +314,13 @@
       "speed": 9.5,
       "spin": 9.1,
       "control": 9,
-      "tackiness": "1.7 (Slightly tacky)",
       "weight": "4.8 (Average)",
       "sponge_hardness": "6.8 (Medium hard)",
       "gears": "8.7 (Many gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.5,
-      "durability": "8.6 (Lasts a long time!)"
+      "durability": "8.6 (Lasts a long time!)",
+      "tackiness": "1.7 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -329,7 +329,7 @@
         "2.1",
         "1.9"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 90,
@@ -347,13 +347,13 @@
       "speed": 9.3,
       "spin": 9.5,
       "control": 9.2,
-      "tackiness": "1.9 (Slightly tacky)",
       "weight": "5.0 (Average)",
       "sponge_hardness": "6.5 (Medium hard)",
       "gears": "9.0 (Many gears)",
       "throw_angle": "6.2 (Medium high)",
       "consistency": 9.6,
-      "durability": "8.5 (Lasts a long time!)"
+      "durability": "8.5 (Lasts a long time!)",
+      "tackiness": "1.9 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -362,7 +362,7 @@
         "2.1",
         "1.9"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 88,
@@ -380,13 +380,13 @@
       "speed": 9.6,
       "spin": 9.5,
       "control": 8.7,
-      "tackiness": "1.8 (Slightly tacky)",
       "weight": "7.8 (Heavy)",
       "sponge_hardness": "8.9 (Hard)",
       "gears": "9.2 (Many gears)",
       "throw_angle": "6.8 (High)",
       "consistency": 9.5,
-      "durability": "8.2 (Lasts longer than average)"
+      "durability": "8.2 (Lasts longer than average)",
+      "tackiness": "1.8 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -395,7 +395,7 @@
         "2.1",
         "1.9"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 82,
@@ -413,13 +413,13 @@
       "speed": 9.2,
       "spin": 9.6,
       "control": 8.9,
-      "tackiness": "2.5 (Slightly tacky)",
       "weight": "5.0 (Medium heavy)",
       "sponge_hardness": "7.3 (Medium hard)",
       "gears": "8.9 (Many gears)",
       "throw_angle": "5.5 (Medium high)",
       "consistency": 9.4,
-      "durability": "7.8 (Lasts longer than average)"
+      "durability": "7.8 (Lasts longer than average)",
+      "tackiness": "2.5 (Slightly tacky)"
     },
     "manufacturer_details": {
       "country": "Japan",
@@ -428,7 +428,7 @@
         "2.7",
         "2.5"
       ],
-      "tackiness": "Non-tacky"
+      "topsheet": "Classic"
     },
     "manufacturer_ratings": {
       "speed": 88,
