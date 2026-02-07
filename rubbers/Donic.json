@@ -26,6 +26,12 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    }, 
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-baracuda",
+      "speed": 91,
+      "spin": 98,
+      "control": 71
     }
   },
   {
@@ -55,6 +61,12 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m2",
+      "speed": 97,
+      "spin": 107,
+      "control": 70
     }
   },
   {
@@ -84,6 +96,12 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-acuda-s2",
+      "speed": 92,
+      "spin": 98,
+      "control": 69
     }
   },
   {
@@ -113,6 +131,12 @@
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m3",
+      "speed": 90,
+      "spin": 107,
+      "control": 77
     }
   },
   {
@@ -135,13 +159,19 @@
     },
     "manufacturer_details": {
       "country": "Germany",
-      "hardness": 42.5,
+      "hardness": 47.5,
       "thickness": [
         "max",
         "2.0",
         "1.8"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-acuda-s3",
+      "speed": 100,
+      "spin": 100,
+      "control": 60
     }
   },
   {
@@ -170,6 +200,12 @@
         "2.0"
       ],
       "tackiness": "Non-tacky"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m1",
+      "speed": 107,
+      "spin": 107,
+      "control": 60
     }
   },
   {
@@ -199,6 +235,12 @@
         "1.8"
       ],
       "tackiness": "Hybrid"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-c2",
+      "speed": 94,
+      "spin": 98,
+      "control": 68
     }
   },
   {
@@ -227,6 +269,12 @@
         "2.0"
       ],
       "tackiness": "Hybrid"
+    },
+    "manufacturer_ratings": {
+      "url": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-j1",
+      "speed": 98,
+      "spin": 99,
+      "control": 68
     }
   }
 ]
