@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rubber</title>
+    <title>Rubber Map</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
@@ -486,7 +486,6 @@
             body { padding: 10px; }
             .container { padding: 14px; border-radius: 12px; }
             .details-container { flex-direction: column; }
-            .detail-panel:nth-child(2) { display: none; }
             #chart { height: 400px; }
             .filter-dropdown {
                 position: fixed;
@@ -509,7 +508,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🏓 Rubber</h1>
+        <h1>🏓 Rubber Map</h1>
 
         <div class="filter-backdrop" id="filterBackdrop"></div>
 
@@ -883,7 +882,8 @@
             "Hybrid": "diamond"
         };
 
-        let selectedRubbers = [];
+        let selectedRubbers = [null, null];
+        let nextDetailPanel = 1;
         let hasPlotted = false;
         let isInternalUpdate = false;
         let currentFilteredData = [];
@@ -1540,22 +1540,18 @@
 
         // Handle rubber click
         function handleRubberClick(rubber) {
-            if (selectedRubbers.length === 0) {
-                selectedRubbers.push(rubber);
+            const panelNum = nextDetailPanel;
+            nextDetailPanel = panelNum === 1 ? 2 : 1;
+
+            if (panelNum === 1) {
+                selectedRubbers[0] = rubber;
                 updateDetailPanel(1, rubber);
-            } else if (selectedRubbers.length === 1) {
-                if (selectedRubbers[0].name === rubber.name) {
-                    return;
-                }
-                selectedRubbers.push(rubber);
-                updateDetailPanel(2, rubber);
-                showComparison();
             } else {
-                selectedRubbers = [rubber];
-                updateDetailPanel(1, rubber);
-                clearDetailPanel(2);
-                hideComparison();
+                selectedRubbers[1] = rubber;
+                updateDetailPanel(2, rubber);
             }
+
+            updateComparisonBar();
         }
 
         // Update detail panel
@@ -1588,16 +1584,17 @@
             panel.innerHTML = `<h3>Select another rubber</h3><div class="content">Click on another dot to compare</div>`;
         }
 
-        // Show comparison
-        function showComparison() {
+        // Show/hide comparison
+        function updateComparisonBar() {
             const bar = document.getElementById('comparisonBar');
-            bar.textContent = `${selectedRubbers[0].name} vs ${selectedRubbers[1].name}`;
-            bar.style.display = 'block';
-        }
-
-        // Hide comparison
-        function hideComparison() {
-            document.getElementById('comparisonBar').style.display = 'none';
+            const left = selectedRubbers[0];
+            const right = selectedRubbers[1];
+            if (left && right) {
+                bar.textContent = `${left.name} vs ${right.name}`;
+                bar.style.display = 'block';
+                return;
+            }
+            bar.style.display = 'none';
         }
 
         // Trackpad pinch-to-zoom (blocks regular scroll zoom)
