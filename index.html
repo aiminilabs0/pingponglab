@@ -6,6 +6,7 @@
     <title>Rubber Map</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <style>
         /* ── Dracula palette ── */
         :root {
@@ -616,6 +617,44 @@
                 transform: translateY(0);
             }
             .dropdown-options { max-height: 40vh; }
+        }
+
+        /* YouTube pseudo-fullscreen in landscape */
+        .youtube-embed-wrapper.landscape-fs {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            padding-bottom: 0 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            z-index: 99999 !important;
+            background: #000 !important;
+        }
+        .youtube-embed-wrapper.landscape-fs iframe {
+            border-radius: 0 !important;
+        }
+        .youtube-embed-wrapper .landscape-fs-close {
+            display: none;
+        }
+        .youtube-embed-wrapper.landscape-fs .landscape-fs-close {
+            display: block;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 100000;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 20px;
+            line-height: 36px;
+            text-align: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -1839,59 +1878,96 @@
             return match ? match[1] : null;
         }
 
+        // YouTube IFrame API readiness
+        let ytApiReady = false;
+        let ytPlayers = {};
+        let ytPlayerIdCounter = 0;
+        window.onYouTubeIframeAPIReady = function() {
+            ytApiReady = true;
+        };
+
         // Toggle embedded YouTube player in a detail panel
         function toggleYouTubeEmbed(link, videoId) {
             const container = link.closest('.rubber-links');
             let embedWrapper = container.querySelector('.youtube-embed-wrapper');
             if (embedWrapper) {
+                // Destroy player & clean up
+                const pid = embedWrapper.dataset.playerId;
+                if (pid && ytPlayers[pid]) {
+                    try { ytPlayers[pid].destroy(); } catch(e) {}
+                    delete ytPlayers[pid];
+                }
                 embedWrapper.remove();
                 link.textContent = '▶ YouTube Review';
                 return;
             }
+
             embedWrapper = document.createElement('div');
             embedWrapper.className = 'youtube-embed-wrapper';
             embedWrapper.style.cssText = 'margin-top: 10px; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;';
-            embedWrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+
+            // Close button for landscape pseudo-fullscreen
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'landscape-fs-close';
+            closeBtn.textContent = '✕';
+            closeBtn.onclick = function() { embedWrapper.classList.remove('landscape-fs'); };
+            embedWrapper.appendChild(closeBtn);
+
+            const playerDiv = document.createElement('div');
+            const playerId = 'yt-player-' + (++ytPlayerIdCounter);
+            playerDiv.id = playerId;
+            playerDiv.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;';
+            embedWrapper.appendChild(playerDiv);
+            embedWrapper.dataset.playerId = playerId;
+
             container.appendChild(embedWrapper);
+
+            if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {
+                // Use IFrame API — playVideo() called in onReady is allowed
+                // because this whole chain started from a user tap
+                ytPlayers[playerId] = new YT.Player(playerId, {
+                    videoId: videoId,
+                    playerVars: {
+                        autoplay: 1,
+                        playsinline: 1,
+                        rel: 0
+                    },
+                    events: {
+                        onReady: function(event) {
+                            event.target.playVideo();
+                        }
+                    }
+                });
+            } else {
+                // Fallback: plain iframe (muted autoplay so it works on mobile)
+                playerDiv.outerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+            }
+
             link.textContent = '⏹ Close Video';
         }
 
-        // Auto-fullscreen YouTube iframe when device rotates to landscape
+        // Landscape pseudo-fullscreen (CSS-based, no user gesture required)
         function handleOrientationFullscreen() {
-            const orientation = screen.orientation || {};
-            const type = orientation.type || '';
-            const isLandscape = type.startsWith('landscape') ||
-                (window.innerWidth > window.innerHeight);
-            const iframe = document.querySelector('.youtube-embed-wrapper iframe');
-            if (!iframe) return;
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const wrapper = document.querySelector('.youtube-embed-wrapper');
+            if (!wrapper) return;
 
             if (isLandscape) {
-                // Request fullscreen on the iframe
-                const requestFs = iframe.requestFullscreen
-                    || iframe.webkitRequestFullscreen
-                    || iframe.mozRequestFullScreen
-                    || iframe.msRequestFullscreen;
-                if (requestFs) {
-                    requestFs.call(iframe).catch(() => {});
-                }
+                wrapper.classList.add('landscape-fs');
             } else {
-                // Exit fullscreen when returning to portrait
-                if (document.fullscreenElement || document.webkitFullscreenElement) {
-                    const exitFs = document.exitFullscreen
-                        || document.webkitExitFullscreen
-                        || document.mozCancelFullScreen
-                        || document.msExitFullscreen;
-                    if (exitFs) {
-                        exitFs.call(document).catch(() => {});
-                    }
-                }
+                wrapper.classList.remove('landscape-fs');
             }
         }
 
         if (screen.orientation) {
-            screen.orientation.addEventListener('change', handleOrientationFullscreen);
+            screen.orientation.addEventListener('change', function() {
+                // Small delay to let dimensions settle after rotation
+                setTimeout(handleOrientationFullscreen, 150);
+            });
         }
-        window.addEventListener('orientationchange', handleOrientationFullscreen);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(handleOrientationFullscreen, 150);
+        });
 
         // Build URL links HTML for a rubber based on selected country
         function buildUrlLinksHtml(rubber) {
