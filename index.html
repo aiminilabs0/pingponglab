@@ -1832,13 +1832,42 @@
             updateComparisonBar();
         }
 
+        // Extract YouTube video ID from a URL
+        function extractYouTubeVideoId(url) {
+            if (!url) return null;
+            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+            return match ? match[1] : null;
+        }
+
+        // Toggle embedded YouTube player in a detail panel
+        function toggleYouTubeEmbed(link, videoId) {
+            const container = link.closest('.rubber-links');
+            let embedWrapper = container.querySelector('.youtube-embed-wrapper');
+            if (embedWrapper) {
+                embedWrapper.remove();
+                link.textContent = '▶ YouTube Review';
+                return;
+            }
+            embedWrapper = document.createElement('div');
+            embedWrapper.className = 'youtube-embed-wrapper';
+            embedWrapper.style.cssText = 'margin-top: 10px; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;';
+            embedWrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            container.appendChild(embedWrapper);
+            link.textContent = '⏹ Close Video';
+        }
+
         // Build URL links HTML for a rubber based on selected country
         function buildUrlLinksHtml(rubber) {
             if (!rubber || !rubber.urls) return '';
             const countryUrls = rubber.urls[selectedCountry] || {};
             const parts = [];
             if (countryUrls.youtube) {
-                parts.push(`<a href="${countryUrls.youtube}" target="_blank" rel="noopener">▶ YouTube Review</a>`);
+                const videoId = extractYouTubeVideoId(countryUrls.youtube);
+                if (videoId) {
+                    parts.push(`<a href="#" onclick="event.preventDefault(); toggleYouTubeEmbed(this, '${videoId}');">▶ YouTube Review</a>`);
+                } else {
+                    parts.push(`<a href="${countryUrls.youtube}" target="_blank" rel="noopener">▶ YouTube Review</a>`);
+                }
             }
             if (countryUrls.product) {
                 parts.push(`<a href="${countryUrls.product}" target="_blank" rel="noopener">🛒 Buy Product</a>`);
