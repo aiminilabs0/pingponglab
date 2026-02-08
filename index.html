@@ -502,6 +502,26 @@
             text-decoration: underline;
             color: var(--drac-green);
         }
+        .rubber-links {
+            padding: 8px 0 2px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .rubber-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: rgba(139,233,253,0.08);
+            border: 1px solid rgba(139,233,253,0.2);
+            transition: all 0.15s ease;
+        }
+        .rubber-links a:hover {
+            background: rgba(139,233,253,0.18);
+            border-color: var(--drac-cyan);
+            text-decoration: none;
+        }
         .detail-panel h1 {
             color: var(--drac-pink);
             font-size: 20px;
@@ -535,6 +555,42 @@
             display: block;
         }
 
+        /* ── Country selector ── */
+        .country-selector {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--drac-bg-dark);
+            border: 1.5px solid var(--drac-current);
+            border-radius: 100px;
+            padding: 3px;
+            margin-left: auto;
+        }
+        .country-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border: none;
+            border-radius: 100px;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--drac-comment);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+        .country-btn:hover {
+            color: var(--drac-fg);
+            background: var(--drac-current);
+        }
+        .country-btn.active {
+            background: rgba(189,147,249,0.2);
+            color: var(--drac-purple);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
         /* ── Hide Plotly modebar ── */
         .modebar { display: none !important; }
 
@@ -565,7 +621,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>🏓 Rubber Map</h1>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <h1 style="margin-bottom:0;">🏓 Rubber Map</h1>
+            <div class="country-selector" id="countrySelector">
+                <button type="button" class="country-btn active" data-country="us">🇺🇸 USA</button>
+                <button type="button" class="country-btn" data-country="kr">🇰🇷 Korea</button>
+                <button type="button" class="country-btn" data-country="cn">🇨🇳 China</button>
+            </div>
+        </div>
 
         <div class="filter-backdrop" id="filterBackdrop"></div>
 
@@ -898,6 +961,7 @@
                 const manufacturerHardness = parseRatingNumber(manufacturerDetails.hardness);
                 const manufacturerCountry = manufacturerDetails.country;
                 const fullName = buildFullName(raw.manufacturer, raw.name);
+                const urls = raw.urls || {};
                 const rubber = {
                     name: raw.name,
                     fullName: fullName,
@@ -911,8 +975,20 @@
                     control: control,
                     topsheet: normalizeTopsheet(manufacturerTopsheet),
                     priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
-                    youtubeUrl: raw.youtube_url || '',
-                    productUrl: raw.url || ''
+                    urls: {
+                        us: {
+                            product: (urls.us && urls.us.product) || '',
+                            youtube: (urls.us && urls.us.youtube) || ''
+                        },
+                        kr: {
+                            product: (urls.kr && urls.kr.product) || '',
+                            youtube: (urls.kr && urls.kr.youtube) || ''
+                        },
+                        cn: {
+                            product: (urls.cn && urls.cn.product) || '',
+                            youtube: (urls.cn && urls.cn.youtube) || ''
+                        }
+                    }
                 };
 
                 const debugInfo = DEBUG_MODE ? {
@@ -964,6 +1040,7 @@
         let isInternalUpdate = false;
         let currentFilteredData = [];
         let relayoutTimer = null;
+        let selectedCountry = 'us';
 
         function getCurrentAxisRanges() {
             const chart = document.getElementById('chart');
@@ -1755,12 +1832,28 @@
             updateComparisonBar();
         }
 
+        // Build URL links HTML for a rubber based on selected country
+        function buildUrlLinksHtml(rubber) {
+            if (!rubber || !rubber.urls) return '';
+            const countryUrls = rubber.urls[selectedCountry] || {};
+            const parts = [];
+            if (countryUrls.youtube) {
+                parts.push(`<a href="${countryUrls.youtube}" target="_blank" rel="noopener">▶ YouTube Review</a>`);
+            }
+            if (countryUrls.product) {
+                parts.push(`<a href="${countryUrls.product}" target="_blank" rel="noopener">🛒 Buy Product</a>`);
+            }
+            if (parts.length === 0) return '';
+            return '<hr><div class="rubber-links">' + parts.join('&nbsp;&nbsp;·&nbsp;&nbsp;') + '</div>';
+        }
+
         // Update detail panel
         function updateDetailPanel(panelNum, rubber) {
             const panel = document.getElementById(`detail${panelNum}`);
             const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
             const html = marked.parse(markdown);
-            panel.innerHTML = html;
+            const linksHtml = buildUrlLinksHtml(rubber);
+            panel.innerHTML = html + linksHtml;
         }
 
         // Clear detail panel
@@ -1976,6 +2069,23 @@
             }
         });
 
+        // Country selector logic
+        function initCountrySelector() {
+            const selector = document.getElementById('countrySelector');
+            selector.addEventListener('click', (e) => {
+                const btn = e.target.closest('.country-btn');
+                if (!btn) return;
+                const country = btn.dataset.country;
+                if (country === selectedCountry) return;
+                selectedCountry = country;
+                selector.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Re-render detail panels if rubbers are selected
+                if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
+                if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
+            });
+        }
+
         async function initializeApp() {
             const chart = document.getElementById('chart');
             if (chart) {
@@ -2008,6 +2118,7 @@
             if (chart) {
                 chart.innerHTML = '';
             }
+            initCountrySelector();
             initFilters();
             initChart();
         }

@@ -41,6 +41,10 @@
       "kr": {
         "product": "",
         "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
       }
     }
   },
@@ -84,6 +88,10 @@
         "youtube": ""
       },
       "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
         "product": "",
         "youtube": ""
       }
@@ -131,6 +139,10 @@
       "kr": {
         "product": "",
         "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
       }
     }
   },
@@ -167,6 +179,20 @@
       "catapult & click": 5,
       "spin": 5.7,
       "speed": 5
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -209,6 +235,10 @@
       "kr": {
         "product": "",
         "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
       }
     }
   },
@@ -246,6 +276,10 @@
       "kr": {
         "product": "",
         "youtube": "https://www.youtube.com/watch?v=7ZZFFb38RK0"
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
       }
     }
   },
@@ -288,6 +322,10 @@
       "kr": {
         "product": "",
         "youtube": "https://www.youtube.com/watch?v=iRWkjUaIZGI"
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
       }
     }
   },
@@ -329,6 +367,10 @@
         "youtube": ""
       },
       "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
         "product": "",
         "youtube": ""
       }

@@ -35,6 +35,20 @@
       "spin": 60,
       "control": 70,
       "arc": "Medium"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -71,6 +85,20 @@
       "spin": 88,
       "control": 63,
       "arc": "Medium"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -107,6 +135,20 @@
       "spin": 88,
       "control": 67,
       "arc": "High"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -146,6 +188,20 @@
         "max",
         "2.0"
       ]
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -182,6 +238,20 @@
       "spin": 85,
       "control": 60,
       "arc": "Low"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   }
 ]

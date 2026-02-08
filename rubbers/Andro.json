@@ -27,6 +27,20 @@
         "1.7"
       ],
       "topsheet": "Classic"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -57,6 +71,20 @@
         "1.7"
       ],
       "topsheet": "Classic"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -81,6 +109,20 @@
     "manufacturer_details": {
       "country": "Germany",
       "topsheet": "Classic"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -91,7 +133,7 @@
     "user_ratings": {
       "overall": 9.2,
       "speed": 8.8,
-      "spin": 9.0,
+      "spin": 9,
       "control": 9.5,
       "weight": null,
       "sponge_hardness": null,
@@ -111,6 +153,20 @@
         "1.7"
       ],
       "topsheet": "Hybrid"
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   }
 ]

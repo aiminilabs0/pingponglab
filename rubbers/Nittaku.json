@@ -32,6 +32,20 @@
     "manufacturer_ratings": {
       "speed": 12.3,
       "spin": 11.8
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -41,7 +55,7 @@
     "price": "Approx. $50 USD",
     "user_ratings": {
       "overall": 9.2,
-      "speed": 9.0,
+      "speed": 9,
       "spin": 9.1,
       "control": 9.2,
       "weight": "4.5 (Light medium)",
@@ -67,6 +81,20 @@
     "manufacturer_ratings": {
       "speed": 12.3,
       "spin": 11.8
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   },
   {
@@ -78,7 +106,7 @@
       "overall": 9.3,
       "speed": 9.1,
       "spin": 8.9,
-      "control": 9.0,
+      "control": 9,
       "weight": "3.3 (Average)",
       "sponge_hardness": "4.4 (Medium)",
       "gears": 8.5,
@@ -102,6 +130,20 @@
     "manufacturer_ratings": {
       "speed": 15.5,
       "spin": 11.75
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   }
 ]

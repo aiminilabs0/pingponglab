@@ -33,6 +33,20 @@
       "spin": 10,
       "trajectory": 7.5,
       "precision": 10.5
+    },
+    "urls": {
+      "us": {
+        "product": "",
+        "youtube": ""
+      },
+      "kr": {
+        "product": "",
+        "youtube": ""
+      },
+      "cn": {
+        "product": "",
+        "youtube": ""
+      }
     }
   }
 ]
