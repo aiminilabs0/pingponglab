@@ -1376,6 +1376,147 @@
             });
         }
 
+        // ── URL filter state sync ──
+        function pushFiltersToUrl() {
+            const params = new URLSearchParams();
+
+            // Preserve debug param if present
+            if (DEBUG_MODE) params.set('debug', '');
+
+            // Brand
+            const brandFilter = document.getElementById('brandFilter');
+            const allBrands = Array.from(brandFilter.querySelectorAll('input[type="checkbox"]'));
+            const checkedBrands = allBrands.filter(cb => cb.checked).map(cb => cb.value);
+            if (checkedBrands.length > 0 && checkedBrands.length < allBrands.length) {
+                params.set('brands', checkedBrands.join(','));
+            }
+
+            // Rubbers (names)
+            const nameFilter = document.getElementById('nameFilter');
+            const allNames = Array.from(nameFilter.querySelectorAll('input[type="checkbox"]'));
+            const checkedNames = allNames.filter(cb => cb.checked).map(cb => cb.value);
+            if (allNames.length > 0 && checkedNames.length > 0 && checkedNames.length < allNames.length) {
+                params.set('rubbers', checkedNames.join(','));
+            }
+
+            // Topsheet
+            const topsheetFilter = document.getElementById('topsheetFilter');
+            const allTopsheet = Array.from(topsheetFilter.querySelectorAll('input[type="checkbox"]'));
+            const checkedTopsheet = allTopsheet.filter(cb => cb.checked).map(cb => cb.value);
+            if (checkedTopsheet.length > 0 && checkedTopsheet.length < allTopsheet.length) {
+                params.set('topsheet', checkedTopsheet.join(','));
+            }
+
+            // Hardness
+            const hardnessFilter = document.getElementById('hardnessFilter');
+            const allHardness = Array.from(hardnessFilter.querySelectorAll('input[type="checkbox"]'));
+            const checkedHardness = allHardness.filter(cb => cb.checked).map(cb => cb.value);
+            if (checkedHardness.length > 0 && checkedHardness.length < allHardness.length) {
+                params.set('hardness', checkedHardness.join(','));
+            }
+
+            // Country
+            if (selectedCountry !== 'us') {
+                params.set('country', selectedCountry);
+            }
+
+            // Selected rubbers (detail panels)
+            if (selectedRubbers[0]) {
+                params.set('left', selectedRubbers[0].fullName);
+            }
+            if (selectedRubbers[1]) {
+                params.set('right', selectedRubbers[1].fullName);
+            }
+
+            const queryString = params.toString();
+            const newUrl = window.location.pathname + (queryString ? '?' + queryString : '');
+            history.replaceState(null, '', newUrl);
+        }
+
+        function applyFiltersFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            let hasFilterParams = params.has('brands') || params.has('rubbers') ||
+                params.has('topsheet') || params.has('hardness') || params.has('country');
+            if (!hasFilterParams) return;
+
+            // Country
+            if (params.has('country')) {
+                const country = params.get('country');
+                if (['us', 'kr', 'cn'].includes(country)) {
+                    selectedCountry = country;
+                    const selector = document.getElementById('countrySelector');
+                    selector.querySelectorAll('.country-btn').forEach(b => {
+                        b.classList.toggle('active', b.dataset.country === country);
+                    });
+                }
+            }
+
+            // Brand
+            if (params.has('brands')) {
+                const brands = params.get('brands').split(',').filter(Boolean);
+                const brandFilter = document.getElementById('brandFilter');
+                Array.from(brandFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                    cb.checked = brands.includes(cb.value);
+                });
+                // Rebuild name options after brand change
+                buildNameOptionsFromBrands();
+            }
+
+            // Rubbers (names)
+            if (params.has('rubbers')) {
+                const rubbers = params.get('rubbers').split(',').filter(Boolean);
+                const nameFilter = document.getElementById('nameFilter');
+                Array.from(nameFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                    cb.checked = rubbers.includes(cb.value);
+                });
+            }
+
+            // Topsheet
+            if (params.has('topsheet')) {
+                const topsheets = params.get('topsheet').split(',').filter(Boolean);
+                const topsheetFilter = document.getElementById('topsheetFilter');
+                Array.from(topsheetFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                    cb.checked = topsheets.includes(cb.value);
+                });
+            }
+
+            // Hardness
+            if (params.has('hardness')) {
+                const hardnesses = params.get('hardness').split(',').filter(Boolean);
+                const hardnessFilter = document.getElementById('hardnessFilter');
+                Array.from(hardnessFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                    cb.checked = hardnesses.includes(cb.value);
+                });
+            }
+
+            // Selected rubbers (detail panels)
+            if (params.has('left')) {
+                const leftName = params.get('left');
+                const leftRubber = rubberData.find(r => r.fullName === leftName);
+                if (leftRubber) {
+                    selectedRubbers[0] = leftRubber;
+                    updateDetailPanel(1, leftRubber);
+                }
+            }
+            if (params.has('right')) {
+                const rightName = params.get('right');
+                const rightRubber = rubberData.find(r => r.fullName === rightName);
+                if (rightRubber) {
+                    selectedRubbers[1] = rightRubber;
+                    updateDetailPanel(2, rightRubber);
+                    nextDetailPanel = 1;
+                }
+            }
+            // If only left was set, next click goes to right panel
+            if (params.has('left') && !params.has('right')) {
+                nextDetailPanel = 2;
+            }
+
+            updateComparisonBar();
+            refreshAllBadges();
+            renderActiveTags();
+        }
+
         // ── Active tags (removable pills below filter bar) ──
         function renderActiveTags() {
             const container = document.getElementById('activeTags');
@@ -1469,6 +1610,7 @@
                 }
                 refreshAllBadges();
                 renderActiveTags();
+                pushFiltersToUrl();
                 updateChart();
             }
 
@@ -1552,6 +1694,7 @@
                 buildNameOptionsFromBrands();
                 refreshAllBadges();
                 renderActiveTags();
+                pushFiltersToUrl();
                 updateChart();
             });
 
@@ -1871,6 +2014,7 @@
             }
 
             updateComparisonBar();
+            pushFiltersToUrl();
         }
 
         // Extract YouTube video ID from a URL
@@ -2224,6 +2368,7 @@
                 selectedCountry = country;
                 selector.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                pushFiltersToUrl();
                 // Re-render detail panels if rubbers are selected
                 if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
                 if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
@@ -2264,6 +2409,7 @@
             }
             initCountrySelector();
             initFilters();
+            applyFiltersFromUrl();
             initChart();
         }
 
