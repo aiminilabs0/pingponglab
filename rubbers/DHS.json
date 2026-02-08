@@ -69,7 +69,8 @@
         "2.15",
         "2.1"
       ],
-      "topsheet": "Chinese"
+      "topsheet": "Chinese",
+      "weight": "53g"
     },
     "urls": {
       "us": {
@@ -114,7 +115,8 @@
         "1.8",
         "1.6"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "50g"
     },
     "urls": {
       "us": {

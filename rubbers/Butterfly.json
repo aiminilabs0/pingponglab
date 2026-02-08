@@ -26,7 +26,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "49g"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -74,7 +75,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "45g"
     },
     "manufacturer_ratings": {
       "speed": 81,
@@ -122,7 +124,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "48g"
     },
     "manufacturer_ratings": {
       "speed": 87,
@@ -169,7 +172,8 @@
         "2.1",
         "1.9"
       ],
-      "topsheet": "Hybrid"
+      "topsheet": "Hybrid",
+      "weight": "50g"
     },
     "manufacturer_ratings": {
       "speed": 79,
@@ -216,7 +220,8 @@
         "2.1",
         "1.9"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "48g"
     },
     "manufacturer_ratings": {
       "speed": 86,
@@ -264,7 +269,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "48g"
     },
     "manufacturer_ratings": {
       "speed": 85,
@@ -312,7 +318,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "47g"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -334,8 +341,8 @@
     }
   },
   {
-    "abbr": "Tenergy 80FX",
-    "name": "Tenergy 80FX",
+    "abbr": "Tenergy 80 FX",
+    "name": "Tenergy 80 FX",
     "manufacturer": "Butterfly",
     "price": "Approx. $ 80 USD",
     "user_ratings": {
@@ -360,7 +367,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "45g"
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -408,7 +416,8 @@
         "1.9",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "49g"
     },
     "manufacturer_ratings": {
       "speed": 84,
@@ -455,7 +464,8 @@
         "2.1",
         "1.9"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "45g"
     },
     "manufacturer_ratings": {
       "speed": 90,
@@ -549,7 +559,8 @@
         "2.1",
         "1.9"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "52g"
     },
     "manufacturer_ratings": {
       "speed": 82,
@@ -596,7 +607,8 @@
         "2.7",
         "2.5"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "47g"
     },
     "manufacturer_ratings": {
       "speed": 88,

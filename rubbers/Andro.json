@@ -26,7 +26,8 @@
         "2.0",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "46g"
     },
     "urls": {
       "us": {
@@ -70,7 +71,8 @@
         "2.0",
         "1.7"
       ],
-      "topsheet": "Classic"
+      "topsheet": "Classic",
+      "weight": "49g"
     },
     "urls": {
       "us": {
@@ -108,7 +110,13 @@
     },
     "manufacturer_details": {
       "country": "Germany",
-      "topsheet": "Classic"
+      "thickness": [
+        "max",
+        "2.0",
+        "1.7"
+      ],
+      "topsheet": "Classic",
+      "weight": "48g"
     },
     "urls": {
       "us": {
@@ -152,7 +160,8 @@
         "2.0",
         "1.7"
       ],
-      "topsheet": "Hybrid"
+      "topsheet": "Hybrid",
+      "weight": "50g"
     },
     "urls": {
       "us": {
