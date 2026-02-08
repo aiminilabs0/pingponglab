@@ -47,7 +47,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Vega Asia",
@@ -97,7 +98,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Vega Pro",
@@ -147,7 +149,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Vega X",
@@ -197,7 +200,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "J&H C55.0",
@@ -245,7 +249,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "J&H V47.5",
@@ -287,7 +292,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "J&H Z52.5",
@@ -334,7 +340,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Omega7 Pro",
@@ -382,6 +389,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   }
 ]

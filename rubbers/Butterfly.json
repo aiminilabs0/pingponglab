@@ -46,7 +46,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Tenergy 05 FX",
@@ -95,7 +96,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Tenergy 64",
@@ -144,7 +146,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Dignics 09C",
@@ -192,7 +195,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Dignics 05",
@@ -240,7 +244,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Tenergy 80",
@@ -289,7 +294,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Rozena",
@@ -338,7 +344,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Tenergy 80 FX",
@@ -387,7 +394,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Tenergy 19",
@@ -436,7 +444,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Dignics 64",
@@ -484,7 +493,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Dignics 80",
@@ -531,7 +541,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Tenergy 05H",
@@ -579,7 +590,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Zyre 03",
@@ -627,6 +639,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   }
 ]

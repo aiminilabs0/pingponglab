@@ -47,7 +47,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Bluefire M2",
@@ -97,7 +98,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Acuda S2",
@@ -147,7 +149,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Bluefire M3",
@@ -197,7 +200,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Acuda S3",
@@ -247,7 +251,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Bluefire M1",
@@ -296,7 +301,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "BlueGrip C2",
@@ -346,7 +352,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "BlueGrip J1",
@@ -395,6 +402,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   }
 ]

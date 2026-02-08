@@ -1041,7 +1041,7 @@
                     hardnessCategory: normalizeHardnessCategory(manufacturerHardness, manufacturerCountry),
                     control: control,
                     topsheet: normalizeTopsheet(manufacturerTopsheet),
-                    priority: Number.isFinite(overall) ? overall * 10 : ((spin + speed) / 2) * 10,
+                    priority: Number.isFinite(raw.priority) ? raw.priority : 50,
                     urls: {
                         us: {
                             product: (urls.us && urls.us.product) || '',
@@ -1825,8 +1825,8 @@
                 return { px, py };
             }
 
-            // Sort by priority descending — higher priority dots are placed first
-            const sorted = [...filteredData].sort((a, b) => b.priority - a.priority);
+            // Sort by priority ascending — lower priority number = higher importance, placed first
+            const sorted = [...filteredData].sort((a, b) => a.priority - b.priority);
             const visible = [];
             const occupied = []; // pixel positions already taken
 

@@ -40,11 +40,12 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
-    "abbr": "NEO H3",
-    "name": "NEO Hurricane 3",
+    "abbr": "Neo H3",
+    "name": "Neo Hurricane 3",
     "manufacturer": "DHS",
     "price": "Approx. $ 20 USD",
     "user_ratings": {
@@ -85,7 +86,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Gold Arc 8",
@@ -131,11 +133,12 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
-    "abbr": "NEO H3 Prov O",
-    "name": "NEO Hurricane 3 Provincial Orange",
+    "abbr": "Neo H3 Prov O",
+    "name": "Neo Hurricane 3 Provincial Orange",
     "manufacturer": "DHS",
     "price": "Approx. $ 55 USD",
     "user_ratings": {
@@ -175,7 +178,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "H3 Nat O",
@@ -219,11 +223,12 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
-    "abbr": "NEO H3 Prov B",
-    "name": "NEO H3 Provincial Blue",
+    "abbr": "Neo H3 Prov B",
+    "name": "Neo H3 Provincial Blue",
     "manufacturer": "DHS",
     "price": "Approx. $ 100 USD",
     "user_ratings": {
@@ -263,7 +268,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "H3 Nat B",
@@ -306,7 +312,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "H8-80",
@@ -348,6 +355,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   }
 ]

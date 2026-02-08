@@ -46,7 +46,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 20
   },
   {
     "abbr": "MX-P",
@@ -97,7 +98,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "EL-P",
@@ -148,7 +150,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "MX-S",
@@ -199,7 +202,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "FX-P",
@@ -249,7 +253,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "K3",
@@ -298,7 +303,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "MX-K",
@@ -343,6 +349,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   }
 ]

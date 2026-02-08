@@ -42,7 +42,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "R47",
@@ -87,7 +88,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "R48",
@@ -131,7 +133,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "C53",
@@ -176,6 +179,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   }
 ]

@@ -47,7 +47,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "C-1",
@@ -97,7 +98,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "S-1",
@@ -147,6 +149,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   }
 ]

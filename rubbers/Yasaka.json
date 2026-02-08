@@ -49,7 +49,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   },
   {
     "abbr": "Rakza 7",
@@ -99,7 +100,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Rakza 7 Soft",
@@ -149,7 +151,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Rakza Z",
@@ -202,7 +205,8 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 10
   },
   {
     "abbr": "Rakza 9",
@@ -252,6 +256,7 @@
         "product": "",
         "youtube": ""
       }
-    }
+    },
+    "priority": 50
   }
 ]
