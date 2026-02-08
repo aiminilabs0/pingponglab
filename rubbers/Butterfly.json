@@ -27,7 +27,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "49g"
+      "weight": 49
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -76,7 +76,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "45g"
+      "weight": 45
     },
     "manufacturer_ratings": {
       "speed": 81,
@@ -125,7 +125,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "48g"
+      "weight": 48
     },
     "manufacturer_ratings": {
       "speed": 87,
@@ -173,7 +173,7 @@
         "1.9"
       ],
       "topsheet": "Hybrid",
-      "weight": "50g"
+      "weight": 50
     },
     "manufacturer_ratings": {
       "speed": 79,
@@ -221,7 +221,7 @@
         "1.9"
       ],
       "topsheet": "Classic",
-      "weight": "48g"
+      "weight": 48
     },
     "manufacturer_ratings": {
       "speed": 86,
@@ -270,7 +270,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "48g"
+      "weight": 48
     },
     "manufacturer_ratings": {
       "speed": 85,
@@ -319,7 +319,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "47g"
+      "weight": 47
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -368,7 +368,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "45g"
+      "weight": 45
     },
     "manufacturer_ratings": {
       "speed": 83,
@@ -417,7 +417,7 @@
         "1.7"
       ],
       "topsheet": "Classic",
-      "weight": "49g"
+      "weight": 49
     },
     "manufacturer_ratings": {
       "speed": 84,
@@ -465,7 +465,7 @@
         "1.9"
       ],
       "topsheet": "Classic",
-      "weight": "45g"
+      "weight": 45
     },
     "manufacturer_ratings": {
       "speed": 90,
@@ -560,7 +560,7 @@
         "1.9"
       ],
       "topsheet": "Classic",
-      "weight": "52g"
+      "weight": 52
     },
     "manufacturer_ratings": {
       "speed": 82,
@@ -608,7 +608,7 @@
         "2.5"
       ],
       "topsheet": "Classic",
-      "weight": "47g"
+      "weight": 47
     },
     "manufacturer_ratings": {
       "speed": 88,

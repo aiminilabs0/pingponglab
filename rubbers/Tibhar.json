@@ -26,7 +26,7 @@
         "2.0"
       ],
       "topsheet": "Classic",
-      "weight": "52g"
+      "weight": 52
     },
     "manufacturer_ratings": {
       "speed": 130,
@@ -77,7 +77,7 @@
         "2.1"
       ],
       "topsheet": "Classic",
-      "weight": "51g"
+      "weight": 51
     },
     "manufacturer_ratings": {
       "speed": 126,
@@ -128,7 +128,7 @@
         "2.1"
       ],
       "topsheet": "Classic",
-      "weight": "47g"
+      "weight": 47
     },
     "manufacturer_ratings": {
       "speed": 121,
@@ -179,7 +179,7 @@
         "2.1"
       ],
       "topsheet": "Classic",
-      "weight": "51g"
+      "weight": 51
     },
     "manufacturer_ratings": {
       "speed": 122,
@@ -229,7 +229,7 @@
         "2.1"
       ],
       "topsheet": "Classic",
-      "weight": "49g"
+      "weight": 49
     },
     "manufacturer_ratings": {
       "speed": 115,
@@ -278,7 +278,7 @@
         "2.0"
       ],
       "topsheet": "Hybrid",
-      "weight": "50g"
+      "weight": 50
     },
     "manufacturer_ratings": {
       "speed": 118,
@@ -327,7 +327,7 @@
         "2.0"
       ],
       "topsheet": "Classic",
-      "weight": "48g"
+      "weight": 48
     },
     "manufacturer_ratings": {},
     "urls": {

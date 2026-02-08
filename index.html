@@ -742,6 +742,23 @@
                 </div>
             </div>
 
+            <!-- Weight chip -->
+            <div class="filter-chip" data-filter="weight" id="weightChip">
+                <span>⚖️ Weight</span>
+                <span class="filter-badge all-selected" id="weightBadge">All</span>
+                <span class="chip-arrow"></span>
+                <div class="filter-dropdown" id="weightDropdown">
+                    <div class="dropdown-header">
+                        <div class="dd-actions">
+                            <button type="button" data-filter="weight" data-action="all">All</button>
+                            <button type="button" data-filter="weight" data-action="none">None</button>
+                        </div>
+                        <button type="button" class="dropdown-close" title="Close">×</button>
+                    </div>
+                    <div class="dropdown-options toggle-group" id="weightFilter"></div>
+                </div>
+            </div>
+
             <div class="country-selector" id="countrySelector">
                 <button type="button" class="country-btn active" data-country="us" title="USA" aria-label="USA">🇺🇸</button>
                 <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
@@ -873,6 +890,13 @@
             return 'Medium';
         }
 
+        function normalizeWeightCategory(weightValue) {
+            if (!Number.isFinite(weightValue)) return null;
+            if (weightValue < 48) return 'Light';
+            if (weightValue <= 50) return 'Medium';
+            return 'Heavy';
+        }
+
         function buildDescriptionMarkdown(raw, debugInfo) {
             const ratings = raw.user_ratings || {};
             const lines = [
@@ -1001,6 +1025,7 @@
                 const manufacturerTopsheet = manufacturerDetails.topsheet;
                 const manufacturerHardness = parseRatingNumber(manufacturerDetails.hardness);
                 const manufacturerCountry = manufacturerDetails.country;
+                const weightValue = parseRatingNumber(manufacturerDetails.weight);
                 const fullName = buildFullName(raw.manufacturer, raw.name);
                 const urls = raw.urls || {};
                 const rubber = {
@@ -1010,7 +1035,8 @@
                     brand: raw.manufacturer,
                     x: spin * 10,
                     y: speed * 10,
-                    weight: parseRatingNumber(ratings.weight),
+                    weight: weightValue,
+                    weightCategory: normalizeWeightCategory(weightValue),
                     hardness: parseRatingNumber(ratings.sponge_hardness),
                     hardnessCategory: normalizeHardnessCategory(manufacturerHardness, manufacturerCountry),
                     control: control,
@@ -1336,7 +1362,7 @@
         }
 
         function refreshAllBadges() {
-            ['brand', 'name', 'topsheet', 'hardness'].forEach(refreshBadge);
+            ['brand', 'name', 'topsheet', 'hardness', 'weight'].forEach(refreshBadge);
         }
 
         function zoomChart(scale) {
@@ -1415,6 +1441,14 @@
                 params.set('hardness', checkedHardness.join(','));
             }
 
+            // Weight
+            const weightFilter = document.getElementById('weightFilter');
+            const allWeights = Array.from(weightFilter.querySelectorAll('input[type="checkbox"]'));
+            const checkedWeights = allWeights.filter(cb => cb.checked).map(cb => cb.value);
+            if (checkedWeights.length > 0 && checkedWeights.length < allWeights.length) {
+                params.set('weight', checkedWeights.join(','));
+            }
+
             // Country
             if (selectedCountry !== 'us') {
                 params.set('country', selectedCountry);
@@ -1436,7 +1470,7 @@
         function applyFiltersFromUrl() {
             const params = new URLSearchParams(window.location.search);
             let hasFilterParams = params.has('brands') || params.has('rubbers') ||
-                params.has('topsheet') || params.has('hardness') || params.has('country');
+                params.has('topsheet') || params.has('hardness') || params.has('weight') || params.has('country');
             if (!hasFilterParams) return;
 
             // Country
@@ -1486,6 +1520,15 @@
                 const hardnessFilter = document.getElementById('hardnessFilter');
                 Array.from(hardnessFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
                     cb.checked = hardnesses.includes(cb.value);
+                });
+            }
+
+            // Weight
+            if (params.has('weight')) {
+                const weights = params.get('weight').split(',').filter(Boolean);
+                const weightFilter = document.getElementById('weightFilter');
+                Array.from(weightFilter.querySelectorAll('input[type="checkbox"]')).forEach(cb => {
+                    cb.checked = weights.includes(cb.value);
                 });
             }
 
@@ -1549,7 +1592,7 @@
             }
 
             // Show deselected topsheet / hardness as negative tags? No — show selected non-all.
-            ['topsheet', 'hardness'].forEach(filterId => {
+            ['topsheet', 'hardness', 'weight'].forEach(filterId => {
                 const filterEl = document.getElementById(filterId + 'Filter');
                 const all = filterEl.querySelectorAll('input[type="checkbox"]');
                 const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
@@ -1579,6 +1622,7 @@
             const topsheetValues = ["Classic", "Chinese", "Hybrid"];
             const hardnessValues = ["Soft", "Medium", "Hard"];
             const hardnessEmoji = { "Soft": "🟢", "Medium": "🟡", "Hard": "🔴" };
+            const weightValues = ["Light", "Medium", "Heavy"];
             const brandOptions = brands.map(brand => ({
                 value: brand,
                 label: brand,
@@ -1593,15 +1637,21 @@
                 value: hardness,
                 label: `${hardnessEmoji[hardness] || ''} ${hardness}`
             }));
+            const weightOptions = weightValues.map(weight => ({
+                value: weight,
+                label: weight
+            }));
 
             const brandFilter = document.getElementById('brandFilter');
             const nameFilter = document.getElementById('nameFilter');
             const topsheetFilter = document.getElementById('topsheetFilter');
             const hardnessFilter = document.getElementById('hardnessFilter');
+            const weightFilter = document.getElementById('weightFilter');
 
             buildCheckboxOptions(brandFilter, brandOptions);
             buildCheckboxOptions(topsheetFilter, topsheetOptions);
             buildCheckboxOptions(hardnessFilter, hardnessOptions);
+            buildCheckboxOptions(weightFilter, weightOptions);
             buildNameOptionsFromBrands();
 
             function onFilterChange(filterId) {
@@ -1618,6 +1668,7 @@
             nameFilter.addEventListener('change', () => onFilterChange('name'));
             topsheetFilter.addEventListener('change', () => onFilterChange('topsheet'));
             hardnessFilter.addEventListener('change', () => onFilterChange('hardness'));
+            weightFilter.addEventListener('change', () => onFilterChange('weight'));
 
             document.getElementById('brandSearch').addEventListener('input', (e) => {
                 filterOptions(brandFilter, e.target.value);
@@ -1690,7 +1741,7 @@
 
             // Clear all filters → reset to all selected
             document.getElementById('clearAllFilters').addEventListener('click', () => {
-                [brandFilter, topsheetFilter, hardnessFilter].forEach(c => setAllChecked(c, true));
+                [brandFilter, topsheetFilter, hardnessFilter, weightFilter].forEach(c => setAllChecked(c, true));
                 buildNameOptionsFromBrands();
                 refreshAllBadges();
                 renderActiveTags();
@@ -1709,12 +1760,17 @@
             const selectedNames = getCheckedValues('nameFilter');
             const selectedTopsheet = getCheckedValues('topsheetFilter');
             const selectedHardness = getCheckedValues('hardnessFilter');
+            const selectedWeights = getCheckedValues('weightFilter');
+            const weightFilterEl = document.getElementById('weightFilter');
+            const allWeights = weightFilterEl ? Array.from(weightFilterEl.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value) : [];
+            const shouldFilterWeights = selectedWeights.length > 0 && selectedWeights.length < allWeights.length;
 
             if (
                 selectedBrands.length === 0 ||
                 selectedNames.length === 0 ||
                 selectedTopsheet.length === 0 ||
-                selectedHardness.length === 0
+                selectedHardness.length === 0 ||
+                selectedWeights.length === 0
             ) {
                 return [];
             }
@@ -1724,6 +1780,10 @@
                 if (selectedNames.length > 0 && !selectedNames.includes(rubber.fullName)) return false;
                 if (selectedTopsheet.length > 0 && !selectedTopsheet.includes(rubber.topsheet)) return false;
                 if (selectedHardness.length > 0 && !selectedHardness.includes(rubber.hardnessCategory)) return false;
+                if (shouldFilterWeights) {
+                    if (!rubber.weightCategory) return false;
+                    if (!selectedWeights.includes(rubber.weightCategory)) return false;
+                }
                 return true;
             });
         }

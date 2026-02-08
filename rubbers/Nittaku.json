@@ -28,7 +28,7 @@
         "1.4"
       ],
       "topsheet": "Classic",
-      "weight": "49g"
+      "weight": 49
     },
     "manufacturer_ratings": {
       "speed": 12.3,
@@ -78,7 +78,7 @@
         "1.4"
       ],
       "topsheet": "Classic",
-      "weight": "46g"
+      "weight": 46
     },
     "manufacturer_ratings": {
       "speed": 12.3,
@@ -128,7 +128,7 @@
         "1.4"
       ],
       "topsheet": "Classic",
-      "weight": "43g"
+      "weight": 43
     },
     "manufacturer_ratings": {
       "speed": 15.5,
