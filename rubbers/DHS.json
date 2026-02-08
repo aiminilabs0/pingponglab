@@ -313,7 +313,8 @@
         "youtube": ""
       }
     },
-    "priority": 50
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "H8-80",

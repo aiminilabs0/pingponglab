@@ -47,7 +47,8 @@
         "youtube": ""
       }
     },
-    "priority": 10
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "Tenergy 05 FX",
@@ -196,7 +197,8 @@
         "youtube": ""
       }
     },
-    "priority": 10
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "Dignics 05",

@@ -493,6 +493,18 @@ h1 {
     text-decoration: underline;
     color: var(--drac-green);
 }
+.bestseller-badge {
+    display: inline-block;
+    margin: 8px 0;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #282a36;
+    background: #f1fa8c;
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+}
+
 .rubber-links {
     padding: 8px 0 2px;
     font-size: 14px;

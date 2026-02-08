@@ -101,7 +101,8 @@
         "youtube": ""
       }
     },
-    "priority": 10
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "Rakza 7 Soft",

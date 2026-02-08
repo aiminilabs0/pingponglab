@@ -99,7 +99,8 @@
         "youtube": ""
       }
     },
-    "priority": 10
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "EL-P",
@@ -304,7 +305,8 @@
         "youtube": ""
       }
     },
-    "priority": 10
+    "priority": 5,
+    "bestseller": true
   },
   {
     "abbr": "MX-K",

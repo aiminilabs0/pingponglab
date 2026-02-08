@@ -243,6 +243,7 @@ async function loadRubberData() {
             control: control,
             topsheet: normalizeTopsheet(manufacturerTopsheet),
             priority: Number.isFinite(raw.priority) ? raw.priority : 50,
+            bestseller: raw.bestseller === true,
             urls: {
                 us: {
                     product: (urls.us && urls.us.product) || '',
@@ -1107,6 +1108,29 @@ function updateChart(options) {
         groups[key].rubbers.push(rubber);
     });
 
+    // Bestseller halo trace (rendered first so it sits behind normal markers)
+    const bestsellers = visibleData.filter(r => r.bestseller);
+    if (bestsellers.length > 0) {
+        traces.push({
+            x: bestsellers.map(r => r.x),
+            y: bestsellers.map(r => r.y),
+            mode: 'markers',
+            type: 'scatter',
+            name: 'Bestseller',
+            showlegend: false,
+            hoverinfo: 'skip',
+            marker: {
+                size: bestsellers.map(r => getMarkerSize(r) + 12),
+                color: 'rgba(241,250,140,0.18)',
+                symbol: 'circle',
+                line: {
+                    width: 2,
+                    color: 'rgba(241,250,140,0.5)'
+                }
+            }
+        });
+    }
+
     // Create traces for each group
     Object.values(groups).forEach(group => {
         const trace = {
@@ -1406,8 +1430,11 @@ function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
     const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
     const html = marked.parse(markdown);
+    const bestsellerBadge = rubber.bestseller
+        ? '<span class="bestseller-badge">★ Bestseller</span>'
+        : '';
     const linksHtml = buildUrlLinksHtml(rubber);
-    panel.innerHTML = html + linksHtml;
+    panel.innerHTML = html + bestsellerBadge + linksHtml;
 }
 
 // Clear detail panel
