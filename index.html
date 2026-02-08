@@ -1851,10 +1851,47 @@
             embedWrapper = document.createElement('div');
             embedWrapper.className = 'youtube-embed-wrapper';
             embedWrapper.style.cssText = 'margin-top: 10px; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;';
-            embedWrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            embedWrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
             container.appendChild(embedWrapper);
             link.textContent = '⏹ Close Video';
         }
+
+        // Auto-fullscreen YouTube iframe when device rotates to landscape
+        function handleOrientationFullscreen() {
+            const orientation = screen.orientation || {};
+            const type = orientation.type || '';
+            const isLandscape = type.startsWith('landscape') ||
+                (window.innerWidth > window.innerHeight);
+            const iframe = document.querySelector('.youtube-embed-wrapper iframe');
+            if (!iframe) return;
+
+            if (isLandscape) {
+                // Request fullscreen on the iframe
+                const requestFs = iframe.requestFullscreen
+                    || iframe.webkitRequestFullscreen
+                    || iframe.mozRequestFullScreen
+                    || iframe.msRequestFullscreen;
+                if (requestFs) {
+                    requestFs.call(iframe).catch(() => {});
+                }
+            } else {
+                // Exit fullscreen when returning to portrait
+                if (document.fullscreenElement || document.webkitFullscreenElement) {
+                    const exitFs = document.exitFullscreen
+                        || document.webkitExitFullscreen
+                        || document.mozCancelFullScreen
+                        || document.msExitFullscreen;
+                    if (exitFs) {
+                        exitFs.call(document).catch(() => {});
+                    }
+                }
+            }
+        }
+
+        if (screen.orientation) {
+            screen.orientation.addEventListener('change', handleOrientationFullscreen);
+        }
+        window.addEventListener('orientationchange', handleOrientationFullscreen);
 
         // Build URL links HTML for a rubber based on selected country
         function buildUrlLinksHtml(rubber) {
