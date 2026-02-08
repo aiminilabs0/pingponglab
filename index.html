@@ -565,18 +565,19 @@
             border: 1.5px solid var(--drac-current);
             border-radius: 100px;
             padding: 3px;
-            margin-left: auto;
         }
         .country-btn {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 5px 12px;
+            padding: 5px 8px;
             border: none;
             border-radius: 100px;
             background: transparent;
-            font-size: 13px;
+            font-size: 18px;
             font-weight: 600;
+            line-height: 1;
+            min-width: 30px;
+            justify-content: center;
             color: var(--drac-comment);
             cursor: pointer;
             transition: all 0.15s ease;
@@ -662,11 +663,6 @@
     <div class="container">
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
             <h1 style="margin-bottom:0;">🏓 Rubber Map</h1>
-            <div class="country-selector" id="countrySelector">
-                <button type="button" class="country-btn active" data-country="us">🇺🇸 USA</button>
-                <button type="button" class="country-btn" data-country="kr">🇰🇷 Korea</button>
-                <button type="button" class="country-btn" data-country="cn">🇨🇳 China</button>
-            </div>
         </div>
 
         <div class="filter-backdrop" id="filterBackdrop"></div>
@@ -744,6 +740,12 @@
                     </div>
                     <div class="dropdown-options toggle-group" id="hardnessFilter"></div>
                 </div>
+            </div>
+
+            <div class="country-selector" id="countrySelector">
+                <button type="button" class="country-btn active" data-country="us" title="USA" aria-label="USA">🇺🇸</button>
+                <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
+                <button type="button" class="country-btn" data-country="cn" title="China" aria-label="China">🇨🇳</button>
             </div>
 
             <span class="filter-separator"></span>
