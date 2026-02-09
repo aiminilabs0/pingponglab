@@ -969,6 +969,13 @@ function zoomChart(scale) {
     if (ranges) applyZoomLayout(chartEl, ranges);
 }
 
+function triggerAutoscale() {
+    const chartEl = document.getElementById('chart');
+    if (chartEl && hasPlotted) {
+        Plotly.relayout(chartEl, { 'xaxis.autorange': true, 'yaxis.autorange': true });
+    }
+}
+
 // ════════════════════════════════════════════════════════════
 //  Detail Panels & Comparison
 // ════════════════════════════════════════════════════════════
@@ -1397,10 +1404,7 @@ function initFilters() {
 
     // Zoom controls
     document.getElementById('autoscaleBtn').addEventListener('click', () => {
-        const chartEl = document.getElementById('chart');
-        if (chartEl && hasPlotted) {
-            Plotly.relayout(chartEl, { 'xaxis.autorange': true, 'yaxis.autorange': true });
-        }
+        triggerAutoscale();
     });
     document.getElementById('zoomInBtn').addEventListener('click', () => zoomChart(0.85));
     document.getElementById('zoomOutBtn').addEventListener('click', () => zoomChart(1.15));
@@ -1640,6 +1644,10 @@ async function initializeApp() {
     initFilters();
     applyFiltersFromUrl();
     initChart();
+    // Trigger the same behavior as clicking the Fit button on first load.
+    requestAnimationFrame(() => {
+        document.getElementById('autoscaleBtn')?.click();
+    });
 }
 
 initializeApp();
