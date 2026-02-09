@@ -1059,11 +1059,10 @@ function computeVisibleRubbers(filteredData) {
 // Initialize chart with Plotly
 function initChart() {
     updateChart();
-    // First render used estimated ranges for label-overlap detection
-    // because Plotly's layout didn't exist yet. Now that newPlot has
-    // populated _fullLayout, re-render with the actual axis ranges
-    // so the visible rubbers match what the user sees after Reset.
-    updateChart({ preserveRanges: true });
+    // Do NOT use preserveRanges here — let shouldAutoscaleForFilteredData
+    // widen the view when data falls outside the initial autoranged bounds,
+    // exactly as the Reset button does.
+    updateChart();
 }
 
 // Update chart
