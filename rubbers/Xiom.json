@@ -3,7 +3,6 @@
     "abbr": "Vega Europe",
     "name": "Vega Europe",
     "manufacturer": "Xiom",
-    "price": "Approx. $ 42 USD",
     "user_ratings": {
       "overall": 9.1,
       "speed": 8.7,
@@ -36,7 +35,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Vega+Europe+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -54,7 +53,6 @@
     "abbr": "Vega Asia",
     "name": "Vega Asia",
     "manufacturer": "Xiom",
-    "price": null,
     "user_ratings": {
       "overall": 8.9,
       "speed": 8.9,
@@ -87,7 +85,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Vega+Asia+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -105,7 +103,6 @@
     "abbr": "Vega Pro",
     "name": "Vega Pro",
     "manufacturer": "Xiom",
-    "price": "Approx. $ 38 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9.1,
@@ -138,7 +135,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Vega+Pro+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -156,7 +153,6 @@
     "abbr": "Vega X",
     "name": "Vega X",
     "manufacturer": "Xiom",
-    "price": null,
     "user_ratings": {
       "overall": 9.3,
       "speed": 9,
@@ -189,7 +185,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Vega+X+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -238,7 +234,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+C55.0+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -256,7 +252,6 @@
     "abbr": "J&H V47.5",
     "name": "Jekyll & Hyde V47.5",
     "manufacturer": "Xiom",
-    "price": "Approx. $54.95 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.3,
@@ -281,7 +276,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+V47.5+table+tennis+rubber",
         "youtube": "https://www.youtube.com/watch?v=5lKpiFIH5FY"
       },
       "kr": {
@@ -329,7 +324,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+Z52.5+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -378,7 +373,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Xiom+Omega7+Pro+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

@@ -3,7 +3,6 @@
     "abbr": "R42",
     "name": "Rasanter R42",
     "manufacturer": "Andro",
-    "price": "Approx. $ 41 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9,
@@ -31,7 +30,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Andro+Rasanter+R42+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -49,7 +48,6 @@
     "abbr": "R47",
     "name": "Rasanter R47",
     "manufacturer": "Andro",
-    "price": "Approx. $ 41 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 9.4,
@@ -77,7 +75,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Andro+Rasanter+R47+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -95,7 +93,6 @@
     "abbr": "R48",
     "name": "Rasanter R48",
     "manufacturer": "Andro",
-    "price": "Approx. $ 58 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 8.9,
@@ -122,7 +119,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Andro+Rasanter+R48+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -140,7 +137,6 @@
     "abbr": "C53",
     "name": "Rasanter C53",
     "manufacturer": "Andro",
-    "price": "Approx. $60 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 8.8,
@@ -168,7 +164,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Andro+Rasanter+C53+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

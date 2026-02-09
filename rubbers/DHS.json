@@ -3,7 +3,6 @@
     "abbr": "H3",
     "name": "Hurricane 3",
     "manufacturer": "DHS",
-    "price": "Approx. $ 30 USD",
     "user_ratings": {
       "overall": 8.5,
       "speed": 8.1,
@@ -29,7 +28,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Hurricane+3+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -47,7 +46,6 @@
     "abbr": "Neo H3",
     "name": "Neo Hurricane 3",
     "manufacturer": "DHS",
-    "price": "Approx. $ 20 USD",
     "user_ratings": {
       "overall": 9,
       "speed": 8.4,
@@ -75,7 +73,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Neo+Hurricane+3+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -93,7 +91,6 @@
     "abbr": "Gold Arc 8",
     "name": "Gold Arc 8",
     "manufacturer": "DHS",
-    "price": "Approx. $ 67 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.4,
@@ -122,7 +119,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Gold+Arc+8+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -140,7 +137,6 @@
     "abbr": "Neo H3 Prov O",
     "name": "Neo Hurricane 3 Provincial Orange",
     "manufacturer": "DHS",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 8.6,
@@ -167,7 +163,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Neo+Hurricane+3+Provincial+Orange+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -185,7 +181,6 @@
     "abbr": "H3 Nat O",
     "name": "Hurricane 3 National Orange",
     "manufacturer": "DHS",
-    "price": "Approx. $ 77 USD",
     "user_ratings": {
       "overall": 9,
       "speed": 8.4,
@@ -212,7 +207,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Hurricane+3+National+Orange+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -230,7 +225,6 @@
     "abbr": "Neo H3 Prov B",
     "name": "Neo H3 Provincial Blue",
     "manufacturer": "DHS",
-    "price": "Approx. $ 100 USD",
     "user_ratings": {
       "overall": 9.1,
       "speed": 8.3,
@@ -257,7 +251,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Neo+H3+Provincial+Blue+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -275,7 +269,6 @@
     "abbr": "H3 Nat B",
     "name": "Hurricane 3 National Blue",
     "manufacturer": "DHS",
-    "price": "Approx. $ 96 USD",
     "user_ratings": {
       "overall": 9.5,
       "speed": 9.2,
@@ -301,7 +294,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Hurricane+3+National+Blue+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -320,7 +313,6 @@
     "abbr": "H8-80",
     "name": "Hurricane 8-80",
     "manufacturer": "DHS",
-    "price": "Approx. $ 45 USD",
     "user_ratings": {
       "overall": 8.9,
       "speed": 8.1,
@@ -345,7 +337,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=DHS+Hurricane+8-80+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

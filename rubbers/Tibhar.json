@@ -3,7 +3,6 @@
     "abbr": "MX-D",
     "name": "Evolution MX-D",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 65 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9.3,
@@ -53,7 +52,6 @@
     "abbr": "MX-P",
     "name": "Evolution MX-P",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.5,
@@ -87,7 +85,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-P+table+tennis+rubber",
         "youtube": "https://www.youtube.com/watch?v=WU8gNr9XIcU"
       },
       "kr": {
@@ -106,7 +104,6 @@
     "abbr": "EL-P",
     "name": "Evolution EL-P",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 40 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 9.1,
@@ -140,7 +137,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Evolution+EL-P+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -158,7 +155,6 @@
     "abbr": "MX-S",
     "name": "Evolution MX-S",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 59 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.2,
@@ -192,7 +188,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-S+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -210,7 +206,6 @@
     "abbr": "FX-P",
     "name": "Evolution FX-P",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.1,
       "speed": 8.6,
@@ -243,7 +238,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Evolution+FX-P+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -261,7 +256,6 @@
     "abbr": "K3",
     "name": "Hybrid K3",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 49 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 8.7,
@@ -293,7 +287,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Hybrid+K3+table+tennis+rubber",
         "youtube": "https://www.youtube.com/watch?v=vzi45Pn2AsU"
       },
       "kr": {
@@ -312,7 +306,6 @@
     "abbr": "MX-K",
     "name": "Evolution MX-K",
     "manufacturer": "Tibhar",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 9,
       "speed": 9,
@@ -340,7 +333,7 @@
     "manufacturer_ratings": {},
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-K+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

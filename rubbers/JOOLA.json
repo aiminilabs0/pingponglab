@@ -3,7 +3,6 @@
     "abbr": "Dynaryz ACC",
     "name": "Dynaryz ACC",
     "manufacturer": "JOOLA",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.1,
       "speed": 9.2,
@@ -37,7 +36,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=JOOLA+Dynaryz+ACC+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

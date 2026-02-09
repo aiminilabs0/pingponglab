@@ -3,7 +3,6 @@
     "abbr": "Baracuda",
     "name": "Baracuda",
     "manufacturer": "Donic",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 8.7,
@@ -36,7 +35,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Baracuda+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -54,7 +53,6 @@
     "abbr": "Bluefire M2",
     "name": "Bluefire M2",
     "manufacturer": "Donic",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 8.9,
       "speed": 8.7,
@@ -87,7 +85,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Bluefire+M2+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -105,7 +103,6 @@
     "abbr": "Acuda S2",
     "name": "Acuda S2",
     "manufacturer": "Donic",
-    "price": "Approx. $ 37 USD",
     "user_ratings": {
       "overall": 9.1,
       "speed": 8.8,
@@ -138,7 +135,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Acuda+S2+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -156,7 +153,6 @@
     "abbr": "Bluefire M3",
     "name": "Bluefire M3",
     "manufacturer": "Donic",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 8.9,
       "speed": 8.4,
@@ -189,7 +185,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Bluefire+M3+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -207,7 +203,6 @@
     "abbr": "Acuda S3",
     "name": "Acuda S3",
     "manufacturer": "Donic",
-    "price": "Approx. $ 52 USD",
     "user_ratings": {
       "overall": 9,
       "speed": 8.4,
@@ -240,7 +235,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Acuda+S3+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -258,7 +253,6 @@
     "abbr": "Bluefire M1",
     "name": "Bluefire M1",
     "manufacturer": "Donic",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9.3,
@@ -290,7 +284,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+Bluefire+M1+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -308,7 +302,6 @@
     "abbr": "BlueGrip C2",
     "name": "BlueGrip C2",
     "manufacturer": "Donic",
-    "price": "Approx. $ 55 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.2,
@@ -341,7 +334,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+BlueGrip+C2+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -359,7 +352,6 @@
     "abbr": "BlueGrip J1",
     "name": "BlueGrip J1",
     "manufacturer": "Donic",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.5,
       "speed": 9.2,
@@ -391,7 +383,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Donic+BlueGrip+J1+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

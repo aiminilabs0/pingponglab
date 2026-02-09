@@ -3,7 +3,6 @@
     "abbr": "Mark V",
     "name": "Mark V",
     "manufacturer": "Yasaka",
-    "price": "Approx. $ 37 USD",
     "user_ratings": {
       "overall": 8.7,
       "speed": 8,
@@ -38,7 +37,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Yasaka+Mark+V+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -56,7 +55,6 @@
     "abbr": "Rakza 7",
     "name": "Rakza 7",
     "manufacturer": "Yasaka",
-    "price": "Approx. $ 52 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 8.9,
@@ -89,7 +87,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Yasaka+Rakza+7+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -108,7 +106,6 @@
     "abbr": "Rakza 7 Soft",
     "name": "Rakza 7 Soft",
     "manufacturer": "Yasaka",
-    "price": "Approx. $ 53 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 8.6,
@@ -141,7 +138,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Yasaka+Rakza+7+Soft+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -159,7 +156,6 @@
     "abbr": "Rakza Z",
     "name": "Rakza Z",
     "manufacturer": "Yasaka",
-    "price": "Approx. $ 43 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 8.7,
@@ -195,7 +191,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Yasaka+Rakza+Z+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -213,7 +209,6 @@
     "abbr": "Rakza 9",
     "name": "Rakza 9",
     "manufacturer": "Yasaka",
-    "price": "Approx. $ 53 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9.4,
@@ -246,7 +241,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Yasaka+Rakza+9+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {

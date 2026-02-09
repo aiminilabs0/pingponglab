@@ -3,7 +3,6 @@
     "abbr": "G-1",
     "name": "Fastarc G-1",
     "manufacturer": "Nittaku",
-    "price": "Approx. $ 60 USD",
     "user_ratings": {
       "overall": 9.4,
       "speed": 9,
@@ -36,7 +35,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+G-1+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -55,7 +54,6 @@
     "abbr": "C-1",
     "name": "Fastarc C-1",
     "manufacturer": "Nittaku",
-    "price": "Approx. $50 USD",
     "user_ratings": {
       "overall": 9.2,
       "speed": 9,
@@ -88,7 +86,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+C-1+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
@@ -106,7 +104,6 @@
     "abbr": "S-1",
     "name": "Fastarc S-1",
     "manufacturer": "Nittaku",
-    "price": "Approx. $42 USD",
     "user_ratings": {
       "overall": 9.3,
       "speed": 9.1,
@@ -139,7 +136,7 @@
     },
     "urls": {
       "us": {
-        "product": "",
+        "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+S-1+table+tennis+rubber",
         "youtube": ""
       },
       "kr": {
