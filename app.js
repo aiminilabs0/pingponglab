@@ -1451,6 +1451,30 @@ window.addEventListener('resize', () => {
     if (hasPlotted) updateChart({ preserveRanges: true });
 });
 
+// ════════════════════════════════════════════════════════════
+//  Back-to-top FAB (helps mobile users scroll past inner panels)
+// ════════════════════════════════════════════════════════════
+
+(function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+                btn.classList.toggle('visible', window.scrollY > 300);
+                ticking = false;
+            });
+        }
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
+
 async function initializeApp() {
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data…</div>';

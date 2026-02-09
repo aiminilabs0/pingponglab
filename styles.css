@@ -812,6 +812,39 @@ h1 {
 /* ── Hide Plotly modebar ── */
 .modebar { display: none !important; }
 
+/* ── Back-to-top FAB (mobile) ── */
+.back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 9000;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--drac-purple);
+    color: #fff;
+    font-size: 22px;
+    line-height: 44px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.45);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.back-to-top.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.back-to-top:active {
+    background: var(--drac-orange);
+    transform: scale(0.92);
+}
+
 @media (max-width: 768px) {
     body { padding: 10px; }
     .container { padding: 14px; border-radius: 12px; }
@@ -839,6 +872,12 @@ h1 {
         transform: translateY(0);
     }
     .dropdown-options { max-height: 40vh; }
+
+    /* Remove internal scroll on detail panels so main page scrolls naturally */
+    .detail-panel {
+        max-height: none;
+        overflow-y: visible;
+    }
 }
 
 /* YouTube pseudo-fullscreen in landscape */
