@@ -976,6 +976,12 @@ h1 {
     background: var(--drac-orange);
     transform: scale(0.92);
 }
+.back-to-top.back-to-bottom {
+    bottom: 24px;
+}
+.back-to-top:not(.back-to-bottom) {
+    bottom: 76px;
+}
 
 @media (max-width: 768px) {
     body { padding: 10px; }

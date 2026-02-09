@@ -1490,24 +1490,42 @@ window.addEventListener('resize', () => {
 //  Back-to-top FAB (helps mobile users scroll past inner panels)
 // ════════════════════════════════════════════════════════════
 
-(function initBackToTop() {
-    const btn = document.getElementById('backToTop');
-    if (!btn) return;
+(function initScrollFabs() {
+    const upBtn = document.getElementById('backToTop');
+    const downBtn = document.getElementById('backToBottom');
+    if (!upBtn || !downBtn) return;
     let ticking = false;
+
+    function updateFabVisibility() {
+        const doc = document.documentElement;
+        const scrollTop = window.scrollY;
+        const viewportBottom = scrollTop + window.innerHeight;
+        const maxScroll = doc.scrollHeight;
+        const nearBottom = viewportBottom >= maxScroll - 120;
+
+        upBtn.classList.toggle('visible', scrollTop > 300);
+        downBtn.classList.toggle('visible', !nearBottom);
+    }
 
     window.addEventListener('scroll', () => {
         if (!ticking) {
             ticking = true;
             requestAnimationFrame(() => {
-                btn.classList.toggle('visible', window.scrollY > 300);
+                updateFabVisibility();
                 ticking = false;
             });
         }
     }, { passive: true });
 
-    btn.addEventListener('click', () => {
+    upBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    downBtn.addEventListener('click', () => {
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    });
+
+    updateFabVisibility();
 })();
 
 async function initializeApp() {
