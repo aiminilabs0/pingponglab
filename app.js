@@ -1521,12 +1521,14 @@ function updateComparisonBar() {
     }, { passive: false });
 })();
 
-// Pinch-to-zoom for mobile
+// Pinch-to-zoom for mobile (throttled with rAF for smooth performance)
 (function() {
     const chartEl = document.getElementById('chart');
     let pinchStartDist = null;
     let pinchStartRanges = null;
     let pinchCenter = null;
+    let rafId = null;          // requestAnimationFrame handle
+    let pendingLayout = null;  // latest computed ranges waiting for rAF
 
     function getTouchDist(t1, t2) {
         const dx = t1.clientX - t2.clientX;
@@ -1542,10 +1544,7 @@ function updateComparisonBar() {
     }
 
     function getPlotFraction(clientX, clientY) {
-        // Convert client coordinates to fraction within the plot area
         const gd = chartEl;
-        const xa = gd._fullLayout.xaxis;
-        const ya = gd._fullLayout.yaxis;
         const plotArea = gd._fullLayout._size;
         const rect = gd.getBoundingClientRect();
 
@@ -1557,6 +1556,20 @@ function updateComparisonBar() {
         const fx = (clientX - plotLeft) / plotWidth;
         const fy = 1 - (clientY - plotTop) / plotHeight; // invert y
         return { fx: Math.max(0, Math.min(1, fx)), fy: Math.max(0, Math.min(1, fy)) };
+    }
+
+    function flushLayout() {
+        rafId = null;
+        if (!pendingLayout) return;
+        Plotly.relayout(chartEl, pendingLayout);
+        pendingLayout = null;
+    }
+
+    function scheduleLayout(layout) {
+        pendingLayout = layout;
+        if (!rafId) {
+            rafId = requestAnimationFrame(flushLayout);
+        }
     }
 
     chartEl.addEventListener('touchstart', function(e) {
@@ -1589,8 +1602,9 @@ function updateComparisonBar() {
             // zoom factor: >1 means zooming out, <1 means zooming in
             const scale = pinchStartDist / currentDist;
 
-            // Get the fractional position of the pinch center within the plot
-            const frac = getPlotFraction(pinchCenter.x, pinchCenter.y);
+            // Use the live midpoint of the two fingers so panning feels natural
+            const liveCenter = getTouchCenter(t1, t2);
+            const frac = getPlotFraction(liveCenter.x, liveCenter.y);
 
             const xRange = pinchStartRanges.x;
             const yRange = pinchStartRanges.y;
@@ -1621,7 +1635,9 @@ function updateComparisonBar() {
                 newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
             }
 
-            Plotly.relayout(chartEl, {
+            // Schedule the relayout for the next animation frame instead of
+            // calling it synchronously on every touchmove event.
+            scheduleLayout({
                 'xaxis.range': newXRange,
                 'yaxis.range': newYRange,
                 'xaxis.autorange': false,
@@ -1632,6 +1648,15 @@ function updateComparisonBar() {
 
     chartEl.addEventListener('touchend', function(e) {
         if (e.touches.length < 2) {
+            // Flush any pending update immediately so the final state is accurate
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            if (pendingLayout) {
+                Plotly.relayout(chartEl, pendingLayout);
+                pendingLayout = null;
+            }
             pinchStartDist = null;
             pinchStartRanges = null;
             pinchCenter = null;
