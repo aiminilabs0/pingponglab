@@ -1157,8 +1157,8 @@ function updateChart(options) {
             },
             hovertemplate: '<b>%{customdata.name}</b><br>' +
                 'Brand: ' + group.brand + '<br>' +
-                'Speed: %{x:.1f}<br>' +
-                'Spin: %{y:.1f}<br>' +
+                'Spin: %{x:.1f}<br>' +
+                'Speed: %{y:.1f}<br>' +
                 'Topsheet: ' + group.topsheet +
                 '<extra></extra>',
             customdata: group.rubbers
