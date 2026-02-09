@@ -673,6 +673,44 @@ h1 {
     font-style: italic;
 }
 
+/* Tables */
+.detail-panel table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+    line-height: 1.55;
+    border: 1px solid var(--drac-current);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.detail-panel thead th {
+    background: var(--drac-current);
+    color: var(--drac-fg);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid rgba(155,148,132,0.25);
+    white-space: nowrap;
+}
+.detail-panel tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(62,58,52,0.6);
+    color: var(--drac-fg);
+    vertical-align: top;
+}
+.detail-panel tbody tr:last-child td {
+    border-bottom: none;
+}
+.detail-panel tbody tr:hover {
+    background: rgba(62,58,52,0.35);
+}
+.detail-panel tbody td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--drac-cyan);
+}
+
 /* Inline code (if any) */
 .detail-panel code {
     background: var(--drac-current);
