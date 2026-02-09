@@ -1446,6 +1446,41 @@ function initHomeLogo() {
     });
 }
 
+function initFeedbackModal() {
+    const openBtn = document.getElementById('feedbackOpenBtn');
+    const closeBtn = document.getElementById('feedbackCloseBtn');
+    const modal = document.getElementById('feedbackModal');
+    const emailInput = document.getElementById('feedbackEmail');
+    if (!openBtn || !closeBtn || !modal) return;
+
+    function closeFeedbackModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    function openFeedbackModal() {
+        closeAllDropdowns();
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            if (emailInput) {
+                try { emailInput.focus({ preventScroll: true }); } catch { emailInput.focus(); }
+            }
+        }, 50);
+    }
+
+    openBtn.addEventListener('click', openFeedbackModal);
+    closeBtn.addEventListener('click', closeFeedbackModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeFeedbackModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeFeedbackModal();
+    });
+}
+
 window.addEventListener('resize', () => {
     Plotly.Plots.resize('chart');
     if (hasPlotted) updateChart({ preserveRanges: true });
@@ -1503,6 +1538,7 @@ async function initializeApp() {
     if (chart) chart.innerHTML = '';
     initCountrySelector();
     initHomeLogo();
+    initFeedbackModal();
     initFilters();
     applyFiltersFromUrl();
     initChart();

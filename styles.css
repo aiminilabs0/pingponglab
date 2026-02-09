@@ -750,15 +750,147 @@ h1 {
     color: var(--drac-purple);
 }
 
+/* ── Feedback form ── */
+.feedback-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    background: rgba(0,0,0,0.58);
+}
+.feedback-modal.open {
+    display: flex;
+}
+.feedback-modal-card {
+    width: min(520px, 100%);
+    border: 1.5px solid var(--drac-current);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(28,26,23,0.9) 0%, rgba(43,41,38,0.9) 100%);
+    padding: 18px;
+    position: relative;
+}
+.feedback-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--drac-current);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.feedback-modal-close:hover {
+    color: var(--drac-fg);
+    background: var(--drac-current);
+}
+.feedback-modal-card h2 {
+    font-size: 20px;
+    color: var(--drac-fg);
+    margin: 0 0 6px;
+    padding-right: 34px;
+}
+.feedback-intro {
+    color: var(--drac-comment);
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+.feedback-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+.feedback-form label {
+    font-size: 12px;
+    color: var(--drac-comment);
+    font-weight: 600;
+}
+.feedback-form input,
+.feedback-form textarea {
+    width: 100%;
+    border: 1.5px solid var(--drac-current);
+    background: var(--drac-bg-dark);
+    color: var(--drac-fg);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.feedback-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder {
+    color: var(--drac-comment);
+}
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+    outline: none;
+    border-color: var(--drac-cyan);
+    box-shadow: 0 0 0 3px rgba(126,184,168,0.16);
+}
+.feedback-form button {
+    margin-top: 4px;
+    justify-self: start;
+    border: 1.5px solid transparent;
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: var(--drac-purple);
+    color: var(--drac-bg-dark);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.feedback-form button:hover {
+    background: var(--drac-orange);
+    border-color: rgba(255,255,255,0.2);
+}
+.feedback-form button:active {
+    transform: scale(0.98);
+}
+.feedback-botcheck {
+    display: none !important;
+}
+
 /* ── Footer ── */
 .site-footer {
     margin-top: 24px;
     padding: 12px 0 2px;
-    text-align: center;
     font-size: 12px;
     color: var(--drac-comment);
     letter-spacing: 0.4px;
     border-top: 1px solid var(--drac-current);
+}
+.site-footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.footer-feedback-btn {
+    border: 1.5px solid var(--drac-current);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.footer-feedback-btn:hover {
+    border-color: var(--drac-cyan);
+    color: var(--drac-fg);
+    background: rgba(126,184,168,0.12);
 }
 
 /* ── Backdrop for closing dropdowns ── */
@@ -856,6 +988,21 @@ h1 {
     .header-tagline { font-size: 11.5px; }
     .details-container { flex-direction: column; }
     #chart { height: 400px; }
+    .site-footer-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .feedback-modal-card {
+        padding: 14px;
+    }
+    .feedback-modal-card h2 {
+        font-size: 18px;
+    }
+    .feedback-form button {
+        width: 100%;
+        justify-self: stretch;
+    }
     .filter-dropdown {
         position: fixed;
         top: auto;

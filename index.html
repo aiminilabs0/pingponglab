@@ -155,8 +155,32 @@
         <div id="comparisonBar" style="display: none;" class="comparison-bar"></div>
 
         <footer class="site-footer">
-            <span>© 2026 aiMiniLabs</span>
+            <div class="site-footer-content">
+                <span>© 2026 aiMiniLabs</span>
+                <button class="footer-feedback-btn" id="feedbackOpenBtn" title="Send feedback">✉ Feedback</button>
+            </div>
         </footer>
+    </div>
+
+    <div class="feedback-modal" id="feedbackModal" aria-hidden="true">
+        <div class="feedback-modal-card" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+            <button type="button" class="feedback-modal-close" id="feedbackCloseBtn" aria-label="Close feedback form">×</button>
+            <h2 id="feedbackTitle">Share feedback</h2>
+            <p class="feedback-intro">We’ll get back to you as soon as possible.</p>
+            <form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="209c243c-c02d-4523-8587-1fe225a6cad3">
+                <input type="hidden" name="subject" value="PingPong Lab user feedback">
+                <input type="checkbox" name="botcheck" class="feedback-botcheck" tabindex="-1" autocomplete="off">
+
+                <label for="feedbackEmail">Email</label>
+                <input id="feedbackEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+
+                <label for="feedbackMessage">Message</label>
+                <textarea id="feedbackMessage" name="message" rows="5" placeholder="What should we improve or add?" required></textarea>
+
+                <button type="submit">Send feedback</button>
+            </form>
+        </div>
     </div>
 
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
