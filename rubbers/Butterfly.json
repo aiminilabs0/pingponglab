@@ -371,59 +371,6 @@
     "priority": 10
   },
   {
-    "abbr": "Tenergy 80 FX",
-    "name": "Tenergy 80 FX",
-    "manufacturer": "Butterfly",
-    "user_ratings": {
-      "overall": 8.8,
-      "speed": 8.9,
-      "spin": 8.9,
-      "control": 8.5,
-      "weight": "4.4 (Average)",
-      "sponge_hardness": "3.6 (Medium soft)",
-      "gears": "7.9 (Above average gears)",
-      "throw_angle": "5.2 (Medium high)",
-      "consistency": 8.7,
-      "durability": "7.5 (Lasts longer than average)",
-      "tackiness": "1.9 (Slightly tacky)",
-      "url": "https://revspin.net/rubber/butterfly-tenergy-80-fx.html"
-    },
-    "manufacturer_details": {
-      "country": "Japan",
-      "hardness": 32,
-      "thickness": [
-        "2.1",
-        "1.9",
-        "1.7"
-      ],
-      "topsheet": "Classic",
-      "weight": 45
-    },
-    "manufacturer_ratings": {
-      "speed": 83,
-      "spin": 61
-    },
-    "urls": {
-      "us": {
-        "product": "https://www.amazon.com/s?k=Butterfly+Tenergy+80+FX+table+tennis+rubber",
-        "youtube": ""
-      },
-      "eu": {
-        "product": "https://www.tabletennis11.com/other_eng/butterfly-tenergy-80-fx",
-        "youtube": ""
-      },
-      "kr": {
-        "product": "",
-        "youtube": ""
-      },
-      "cn": {
-        "product": "",
-        "youtube": ""
-      }
-    },
-    "priority": 50
-  },
-  {
     "abbr": "Tenergy 19",
     "name": "Tenergy 19",
     "manufacturer": "Butterfly",
