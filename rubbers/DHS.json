@@ -1,52 +1,5 @@
 [
   {
-    "abbr": "H3",
-    "name": "Hurricane 3",
-    "manufacturer": "DHS",
-    "user_ratings": {
-      "overall": 8.5,
-      "speed": 8.1,
-      "spin": 8.9,
-      "control": 8.7,
-      "weight": "7.0 (Heavy)",
-      "sponge_hardness": "8.5 (Hard)",
-      "gears": "7.4 (Above average gears)",
-      "throw_angle": "5.4 (Medium high)",
-      "consistency": 6.8,
-      "durability": "7.7 (Lasts longer than average)",
-      "tackiness": "8.2 (Tacky)",
-      "url": "https://revspin.net/rubber/dhs-hurricane-3.html"
-    },
-    "manufacturer_details": {
-      "country": "China",
-      "hardness": 39,
-      "thickness": [
-        "2.2",
-        "2.15"
-      ],
-      "topsheet": "Chinese"
-    },
-    "urls": {
-      "us": {
-        "product": "https://www.amazon.com/s?k=DHS+Hurricane+3+table+tennis+rubber",
-        "youtube": ""
-      },
-      "eu": {
-        "product": "https://www.tabletennis11.com/other_eng/dhs-hurricane-3",
-        "youtube": ""
-      },
-      "kr": {
-        "product": "",
-        "youtube": ""
-      },
-      "cn": {
-        "product": "",
-        "youtube": ""
-      }
-    },
-    "priority": 50
-  },
-  {
     "abbr": "Neo H3",
     "name": "Neo Hurricane 3",
     "manufacturer": "DHS",
