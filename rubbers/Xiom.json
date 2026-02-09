@@ -38,6 +38,10 @@
         "product": "https://www.amazon.com/s?k=Xiom+Vega+Europe+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -86,6 +90,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Xiom+Vega+Asia+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {
@@ -138,6 +146,10 @@
         "product": "https://www.amazon.com/s?k=Xiom+Vega+Pro+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -186,6 +198,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Xiom+Vega+X+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {
@@ -237,6 +253,10 @@
         "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+C55.0+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -278,6 +298,10 @@
       "us": {
         "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+V47.5+table+tennis+rubber",
         "youtube": "https://www.youtube.com/watch?v=5lKpiFIH5FY"
+      },
+      "eu": {
+        "product": "",
+        "youtube": ""
       },
       "kr": {
         "product": "",
@@ -327,6 +351,10 @@
         "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+Z52.5+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": "https://www.youtube.com/watch?v=iRWkjUaIZGI"
@@ -374,6 +402,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Xiom+Omega7+Pro+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {

@@ -39,7 +39,7 @@ const HARDNESS_MEDIUM_RANGE = 2;
 const USER_WEIGHT = 0.85;
 const MANUFACTURER_WEIGHT = 0.15;
 
-const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };
+const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
 const FILTER_IDS = ['brand', 'name', 'topsheet', 'hardness', 'weight'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
@@ -257,6 +257,7 @@ async function loadRubberData() {
             bestseller: raw.bestseller === true,
             urls: {
                 us: { product: urls.us?.product || '', youtube: urls.us?.youtube || '' },
+                eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
                 kr: { product: urls.kr?.product || '', youtube: urls.kr?.youtube || '' },
                 cn: { product: urls.cn?.product || '', youtube: urls.cn?.youtube || '' }
             }
@@ -559,7 +560,7 @@ function applyFiltersFromUrl() {
     // Country
     if (params.has('country')) {
         const country = params.get('country');
-        if (['us', 'kr', 'cn'].includes(country)) {
+        if (['us', 'eu', 'kr', 'cn'].includes(country)) {
             selectedCountry = country;
             document.querySelectorAll('#countrySelector .country-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.country === country);

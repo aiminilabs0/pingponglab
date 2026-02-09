@@ -40,6 +40,10 @@
         "product": "https://www.amazon.com/s?k=Yasaka+Mark+V+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -88,6 +92,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Yasaka+Rakza+7+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {
@@ -139,6 +147,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Yasaka+Rakza+7+Soft+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {
@@ -194,6 +206,10 @@
         "product": "https://www.amazon.com/s?k=Yasaka+Rakza+Z+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -242,6 +258,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Yasaka+Rakza+9+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {

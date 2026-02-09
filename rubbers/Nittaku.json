@@ -38,6 +38,10 @@
         "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+G-1+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -89,6 +93,10 @@
         "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+C-1+table+tennis+rubber",
         "youtube": ""
       },
+      "eu": {
+        "product": "",
+        "youtube": ""
+      },
       "kr": {
         "product": "",
         "youtube": ""
@@ -137,6 +145,10 @@
     "urls": {
       "us": {
         "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+S-1+table+tennis+rubber",
+        "youtube": ""
+      },
+      "eu": {
+        "product": "",
         "youtube": ""
       },
       "kr": {
