@@ -1468,6 +1468,76 @@ function clearDetailPanel(panelNum) {
     panel.innerHTML = `<h3>Select another rubber</h3><div class="content">Click on another dot to compare</div>`;
 }
 
+function resetDetailPanels() {
+    const panel1 = document.getElementById('detail1');
+    const panel2 = document.getElementById('detail2');
+    if (panel1) {
+        panel1.innerHTML = '<h3>Select a rubber</h3><div class="content">Click on any rubber to see details</div>';
+    }
+    if (panel2) {
+        panel2.innerHTML = '<h3>Select another rubber</h3><div class="content">Click on another rubber to compare</div>';
+    }
+}
+
+function resetFiltersToAll() {
+    const brandFilter = document.getElementById('brandFilter');
+    const nameFilter = document.getElementById('nameFilter');
+    const topsheetFilter = document.getElementById('topsheetFilter');
+    const hardnessFilter = document.getElementById('hardnessFilter');
+    const weightFilter = document.getElementById('weightFilter');
+
+    if (brandFilter) setAllChecked(brandFilter, true);
+    if (topsheetFilter) setAllChecked(topsheetFilter, true);
+    if (hardnessFilter) setAllChecked(hardnessFilter, true);
+    if (weightFilter) setAllChecked(weightFilter, true);
+
+    if (nameFilter) {
+        nameFilter.innerHTML = '';
+        buildNameOptionsFromBrands();
+    }
+}
+
+function resetYouTubePlayers() {
+    Object.keys(ytPlayers).forEach(pid => {
+        try { ytPlayers[pid].destroy(); } catch (e) {}
+    });
+    ytPlayers = {};
+    document.querySelectorAll('.youtube-embed-wrapper').forEach(wrapper => wrapper.remove());
+}
+
+function resetAppToInitialState() {
+    closeAllDropdowns();
+    resetYouTubePlayers();
+    selectedRubbers = [null, null];
+    nextDetailPanel = 1;
+
+    selectedCountry = 'us';
+    const selector = document.getElementById('countrySelector');
+    if (selector) {
+        selector.querySelectorAll('.country-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.country === 'us');
+        });
+    }
+
+    resetFiltersToAll();
+    resetDetailPanels();
+    updateComparisonBar();
+    renderActiveTags();
+    refreshAllBadges();
+    pushFiltersToUrl();
+
+    const chartEl = document.getElementById('chart');
+    if (chartEl && hasPlotted) {
+        Plotly.relayout(chartEl, {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true
+        });
+        updateChart({ preserveRanges: true });
+    } else {
+        updateChart();
+    }
+}
+
 // Show/hide comparison
 function updateComparisonBar() {
     const bar = document.getElementById('comparisonBar');
@@ -1722,6 +1792,19 @@ function initCountrySelector() {
     });
 }
 
+function initHomeLogo() {
+    const logo = document.getElementById('homeLogo');
+    if (!logo) return;
+    const handler = () => resetAppToInitialState();
+    logo.addEventListener('click', handler);
+    logo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handler();
+        }
+    });
+}
+
 async function initializeApp() {
     const chart = document.getElementById('chart');
     if (chart) {
@@ -1755,6 +1838,7 @@ async function initializeApp() {
         chart.innerHTML = '';
     }
     initCountrySelector();
+    initHomeLogo();
     initFilters();
     applyFiltersFromUrl();
     initChart();
