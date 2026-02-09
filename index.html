@@ -176,10 +176,14 @@
                 <input id="feedbackEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
 
                 <label for="feedbackMessage">Message</label>
-                <textarea id="feedbackMessage" name="message" rows="5" placeholder="What should we improve or add?" required></textarea>
+                <textarea id="feedbackMessage" name="message" rows="5" placeholder="Any ideas to make this better?" required></textarea>
 
                 <button type="submit">Send feedback</button>
             </form>
+            <div class="feedback-confirmation" id="feedbackConfirmation" hidden>
+                <p class="feedback-confirmation-icon" aria-hidden="true">✓</p>
+                <p class="feedback-confirmation-message" id="feedbackConfirmationMessage">Thank you for your feedback.</p>
+            </div>
         </div>
     </div>
 

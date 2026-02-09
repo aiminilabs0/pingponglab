@@ -1450,10 +1450,55 @@ function initFeedbackModal() {
     const openBtn = document.getElementById('feedbackOpenBtn');
     const closeBtn = document.getElementById('feedbackCloseBtn');
     const modal = document.getElementById('feedbackModal');
+    const form = modal ? modal.querySelector('.feedback-form') : null;
+    const title = document.getElementById('feedbackTitle');
+    const intro = modal ? modal.querySelector('.feedback-intro') : null;
+    const confirmation = document.getElementById('feedbackConfirmation');
+    const confirmationMessage = document.getElementById('feedbackConfirmationMessage');
     const emailInput = document.getElementById('feedbackEmail');
-    if (!openBtn || !closeBtn || !modal) return;
+    if (!openBtn || !closeBtn || !modal || !form) return;
+
+    let closeTimer = null;
+
+    function clearCloseTimer() {
+        if (closeTimer) {
+            clearTimeout(closeTimer);
+            closeTimer = null;
+        }
+    }
+
+    function setFeedbackStatus(message, color) {
+        if (intro) {
+            intro.textContent = message;
+            intro.style.color = color || '#b8b3a7';
+        }
+    }
+
+    function setSubmittingState(isSubmitting) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = isSubmitting;
+            submitBtn.textContent = isSubmitting ? 'Sending...' : 'Send feedback';
+        }
+    }
+
+    function showFormState() {
+        if (title) title.textContent = 'Share feedback';
+        if (intro) intro.hidden = false;
+        form.hidden = false;
+        if (confirmation) confirmation.hidden = true;
+    }
+
+    function showConfirmationState(message) {
+        if (title) title.textContent = 'Feedback sent';
+        if (intro) intro.hidden = true;
+        form.hidden = true;
+        if (confirmationMessage) confirmationMessage.textContent = message || 'Thank you for your feedback.';
+        if (confirmation) confirmation.hidden = false;
+    }
 
     function closeFeedbackModal() {
+        clearCloseTimer();
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
@@ -1461,9 +1506,13 @@ function initFeedbackModal() {
 
     function openFeedbackModal() {
         closeAllDropdowns();
+        clearCloseTimer();
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        showFormState();
+        setFeedbackStatus('We’ll get back to you as soon as possible.');
+        setSubmittingState(false);
         setTimeout(() => {
             if (emailInput) {
                 try { emailInput.focus({ preventScroll: true }); } catch { emailInput.focus(); }
@@ -1478,6 +1527,37 @@ function initFeedbackModal() {
     });
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeFeedbackModal();
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        setSubmittingState(true);
+        setFeedbackStatus('Sending your feedback...', '#b8b3a7');
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { Accept: 'application/json' }
+            });
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok || result.success === false) {
+                throw new Error(result.message || 'Failed to send feedback.');
+            }
+
+            showConfirmationState('We’ll get back to you as soon as possible.');
+            form.reset();
+            closeTimer = setTimeout(() => {
+                closeFeedbackModal();
+            }, 3000);
+        } catch (error) {
+            console.error('Feedback submission failed:', error);
+            showFormState();
+            setFeedbackStatus('Could not send feedback. Please try again.', '#cf5555');
+        } finally {
+            setSubmittingState(false);
+        }
     });
 }
 
