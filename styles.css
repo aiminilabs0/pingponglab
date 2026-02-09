@@ -38,6 +38,75 @@ body {
     margin: 0 -24px;
     padding: 0;
 }
+/* ── Site header ── */
+.site-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 0 0;
+    margin: -24px -24px 8px;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse 80% 60% at 10% 50%, rgba(217,119,86,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 90% 30%, rgba(126,184,168,0.08) 0%, transparent 70%),
+        linear-gradient(180deg, var(--drac-bg-dark) 0%, var(--drac-bg) 100%);
+}
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 32px 24px;
+    position: relative;
+    z-index: 1;
+}
+.header-logo {
+    height: 72px;
+    width: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.45));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.header-logo:hover {
+    transform: scale(1.08) rotate(-2deg);
+    filter: drop-shadow(0 6px 20px rgba(217,119,86,0.3));
+}
+.header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.header-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--drac-fg);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin: 0;
+    background: linear-gradient(135deg, var(--drac-fg) 0%, var(--drac-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.header-tagline {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--drac-comment);
+    letter-spacing: 0.4px;
+    margin: 0;
+    line-height: 1.4;
+}
+.header-accent {
+    height: 3px;
+    background: linear-gradient(90deg,
+        var(--drac-orange) 0%,
+        var(--drac-pink) 30%,
+        var(--drac-cyan) 70%,
+        var(--drac-green) 100%
+    );
+    opacity: 0.7;
+}
 h1 {
     margin-bottom: 20px;
     color: var(--drac-purple);
@@ -698,6 +767,11 @@ h1 {
     body { padding: 10px; }
     .container { padding: 14px; border-radius: 12px; }
     .chart-bleed { margin: 0 -14px; padding: 0; }
+    .site-header { margin: -14px -14px 8px; border-radius: 12px 12px 0 0; }
+    .header-brand { padding: 20px 18px 16px; gap: 14px; }
+    .header-logo { height: 52px; }
+    .header-title { font-size: 20px; }
+    .header-tagline { font-size: 11.5px; }
     .details-container { flex-direction: column; }
     #chart { height: 400px; }
     .filter-dropdown {
