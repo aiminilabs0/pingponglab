@@ -1,17 +1,17 @@
-/* ── Dracula palette ── */
+/* ── Claude / warm-dark palette ── */
 :root {
-    --drac-bg: #282a36;
-    --drac-bg-dark: #1e1f29;
-    --drac-current: #44475a;
-    --drac-fg: #f8f8f2;
-    --drac-comment: #6272a4;
-    --drac-cyan: #8be9fd;
-    --drac-green: #50fa7b;
-    --drac-orange: #ffb86c;
-    --drac-pink: #ff79c6;
-    --drac-purple: #bd93f9;
-    --drac-red: #ff5555;
-    --drac-yellow: #f1fa8c;
+    --drac-bg: #2b2926;
+    --drac-bg-dark: #1c1a17;
+    --drac-current: #3e3a34;
+    --drac-fg: #e8e0d0;
+    --drac-comment: #9b9484;
+    --drac-cyan: #7eb8a8;
+    --drac-green: #8bbd6e;
+    --drac-orange: #da8a52;
+    --drac-pink: #d4785e;
+    --drac-purple: #d97756;
+    --drac-red: #cf5555;
+    --drac-yellow: #d4c16a;
 }
 
 * {
@@ -76,7 +76,7 @@ h1 {
 }
 .filter-chip.active {
     border-color: var(--drac-purple);
-    background: rgba(189,147,249,0.15);
+    background: rgba(217,119,86,0.15);
     color: var(--drac-purple);
 }
 .filter-chip .chip-arrow {
@@ -198,7 +198,7 @@ h1 {
     transition: background 0.12s;
 }
 .dropdown-header .dd-actions button:hover {
-    background: rgba(189,147,249,0.15);
+    background: rgba(217,119,86,0.15);
 }
 .dropdown-close {
     border: none;
@@ -280,7 +280,7 @@ h1 {
 .toggle-group .filter-option input[type="checkbox"]:checked + .custom-check + .toggle-pill {
     border-color: var(--drac-purple);
     color: var(--drac-purple);
-    background: rgba(189,147,249,0.15);
+    background: rgba(217,119,86,0.15);
 }
 
 /* ── Option rows ── */
@@ -442,7 +442,7 @@ h1 {
     transition: all 0.12s;
 }
 .active-tag .tag-remove:hover {
-    background: rgba(255,85,85,0.2);
+    background: rgba(207,85,85,0.2);
     color: var(--drac-red);
 }
 
@@ -499,8 +499,8 @@ h1 {
     padding: 4px 12px;
     font-size: 12px;
     font-weight: 600;
-    color: #282a36;
-    background: #f1fa8c;
+    color: #1c1a17;
+    background: #d4c16a;
     border-radius: 100px;
     letter-spacing: 0.3px;
 }
@@ -516,12 +516,12 @@ h1 {
     gap: 4px;
     padding: 6px 12px;
     border-radius: 8px;
-    background: rgba(139,233,253,0.08);
-    border: 1px solid rgba(139,233,253,0.2);
+    background: rgba(126,184,168,0.10);
+    border: 1px solid rgba(126,184,168,0.2);
     transition: all 0.15s ease;
 }
 .rubber-links a:hover {
-    background: rgba(139,233,253,0.18);
+    background: rgba(126,184,168,0.18);
     border-color: var(--drac-cyan);
     text-decoration: none;
 }
@@ -538,7 +538,7 @@ h1 {
 .comparison-bar {
     margin-top: 20px;
     padding: 14px;
-    background: linear-gradient(135deg, rgba(189,147,249,0.15) 0%, rgba(139,233,253,0.10) 100%);
+    background: linear-gradient(135deg, rgba(217,119,86,0.15) 0%, rgba(126,184,168,0.10) 100%);
     border: 1px solid var(--drac-current);
     border-radius: 12px;
     text-align: center;
@@ -590,7 +590,7 @@ h1 {
     background: var(--drac-current);
 }
 .country-btn.active {
-    background: rgba(189,147,249,0.2);
+    background: rgba(217,119,86,0.2);
     color: var(--drac-purple);
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }

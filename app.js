@@ -1120,11 +1120,11 @@ function updateChart(options) {
             hoverinfo: 'skip',
             marker: {
                 size: bestsellers.map(r => getMarkerSize(r) + 12),
-                color: 'rgba(241,250,140,0.18)',
+                color: 'rgba(212,193,106,0.18)',
                 symbol: 'circle',
                 line: {
                     width: 2,
-                    color: 'rgba(241,250,140,0.5)'
+                    color: 'rgba(212,193,106,0.5)'
                 }
             }
         });
@@ -1144,14 +1144,14 @@ function updateChart(options) {
                 symbol: getTopsheetSymbol(group.topsheet),
                 line: {
                     width: 1,
-                    color: '#282a36'
+                    color: '#2b2926'
                 }
             },
             text: group.rubbers.map(r => r.abbr),
             textposition: 'top center',
             textfont: {
                 size: 11,
-                color: '#f8f8f2',
+                color: '#e8e0d0',
                 family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'
             },
             hovertemplate: '<b>%{customdata.name}</b><br>' +
@@ -1178,9 +1178,9 @@ function updateChart(options) {
             autorange: currentRanges ? false : true,
             range: currentRanges ? currentRanges.xaxis : undefined,
             zeroline: false,
-            gridcolor: '#44475a',
-            tickfont: { color: '#6272a4' },
-            linecolor: '#44475a',
+            gridcolor: '#3e3a34',
+            tickfont: { color: '#9b9484' },
+            linecolor: '#3e3a34',
             showticklabels: false,
             tickformat: '.1f'
         },
@@ -1189,15 +1189,15 @@ function updateChart(options) {
             autorange: currentRanges ? false : true,
             range: currentRanges ? currentRanges.yaxis : undefined,
             zeroline: false,
-            gridcolor: '#44475a',
-            tickfont: { color: '#6272a4' },
-            linecolor: '#44475a',
+            gridcolor: '#3e3a34',
+            tickfont: { color: '#9b9484' },
+            linecolor: '#3e3a34',
             showticklabels: false,
             tickformat: '.1f'
         },
         hovermode: 'closest',
-        plot_bgcolor: '#282a36',
-        paper_bgcolor: '#282a36',
+        plot_bgcolor: '#2b2926',
+        paper_bgcolor: '#2b2926',
         margin: { l: 10, r: 10, t: 10, b: 10 },
         annotations: [
             {
@@ -1209,7 +1209,7 @@ function updateChart(options) {
                 showarrow: false,
                 xanchor: 'right',
                 yanchor: 'bottom',
-                font: { color: '#f1fa8c', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
+                font: { color: '#d4c16a', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
             },
             {
                 x: 0.005,
@@ -1220,7 +1220,7 @@ function updateChart(options) {
                 showarrow: false,
                 xanchor: 'left',
                 yanchor: 'top',
-                font: { color: '#f1fa8c', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
+                font: { color: '#d4c16a', size: 13, family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif' }
             }
         ],
         showlegend: false,
@@ -1228,15 +1228,15 @@ function updateChart(options) {
             x: 1,
             y: 1,
             xanchor: 'right',
-            bgcolor: 'rgba(40,42,54,0.9)',
-            bordercolor: '#44475a',
+            bgcolor: 'rgba(43,41,38,0.9)',
+            bordercolor: '#3e3a34',
             borderwidth: 1,
-            font: { color: '#f8f8f2' }
+            font: { color: '#e8e0d0' }
         },
         hoverlabel: {
-            bgcolor: '#44475a',
-            bordercolor: '#6272a4',
-            font: { color: '#f8f8f2', family: '-apple-system, BlinkMacSystemFont, sans-serif' }
+            bgcolor: '#3e3a34',
+            bordercolor: '#9b9484',
+            font: { color: '#e8e0d0', family: '-apple-system, BlinkMacSystemFont, sans-serif' }
         }
     };
 
@@ -1670,7 +1670,7 @@ function initCountrySelector() {
 async function initializeApp() {
     const chart = document.getElementById('chart');
     if (chart) {
-        chart.innerHTML = '<div style="padding: 20px; color: #6272a4;">Loading rubber data…</div>';
+        chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data…</div>';
     }
 
     try {
@@ -1685,13 +1685,13 @@ async function initializeApp() {
             ? 'Could not load rubber data from JSON files.<br><br>' +
               'Opening this page via <code>file://</code> blocks file loading in most browsers.<br>' +
               'Start a local server instead:<br>' +
-              '<pre style="margin-top:8px;background:#1e1f29;padding:8px;border-radius:4px;color:#f8f8f2;">cd ' +
+              '<pre style="margin-top:8px;background:#1c1a17;padding:8px;border-radius:4px;color:#e8e0d0;">cd ' +
               window.location.pathname.replace(/\/[^/]*$/, '') +
               '\npython3 -m http.server</pre>' +
               'Then open <a href="http://localhost:8000">http://localhost:8000</a>'
             : 'Failed to load rubber data. Check the browser console for details.';
         if (chart) {
-            chart.innerHTML = '<div style="padding: 20px; color: #ff5555; line-height: 1.6;">' + msg + '</div>';
+            chart.innerHTML = '<div style="padding: 20px; color: #cf5555; line-height: 1.6;">' + msg + '</div>';
         }
         return;
     }
