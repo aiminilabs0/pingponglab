@@ -750,6 +750,17 @@ h1 {
     color: var(--drac-purple);
 }
 
+/* ── Footer ── */
+.site-footer {
+    margin-top: 24px;
+    padding: 12px 0 2px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--drac-comment);
+    letter-spacing: 0.4px;
+    border-top: 1px solid var(--drac-current);
+}
+
 /* ── Backdrop for closing dropdowns ── */
 .filter-backdrop {
     display: none;
