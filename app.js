@@ -101,7 +101,6 @@ function normalizeWeightCategory(weightValue) {
 function buildDescriptionMarkdown(raw, debugInfo) {
     const details = raw.manufacturer_details || {};
     const lines = [
-        `# ${raw.manufacturer} ${raw.name}`,
         `**Brand:** ${raw.manufacturer}`,
         raw.price ? `**Price:** ${raw.price}` : null,
         details.country ? `**Country:** ${details.country}` : null,
@@ -1422,16 +1421,45 @@ function buildUrlLinksHtml(rubber) {
     return '<hr><div class="rubber-links">' + parts.join('&nbsp;&nbsp;·&nbsp;&nbsp;') + '</div>';
 }
 
+// Country code to rubbers_details language folder mapping
+const countryToLang = { us: 'en', cn: 'cn', kr: 'ko' };
+
+// Cache for fetched rubber detail files (key: "brand/lang/name")
+const rubberDetailsCache = {};
+
+async function fetchRubberDetailMarkdown(brand, name) {
+    const lang = countryToLang[selectedCountry] || 'en';
+    const cacheKey = `${brand}/${lang}/${name}`;
+    if (cacheKey in rubberDetailsCache) return rubberDetailsCache[cacheKey];
+    try {
+        const resp = await fetch(`rubbers_details/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(name)}`);
+        if (!resp.ok) {
+            rubberDetailsCache[cacheKey] = null;
+            return null;
+        }
+        const text = await resp.text();
+        rubberDetailsCache[cacheKey] = text;
+        return text;
+    } catch {
+        rubberDetailsCache[cacheKey] = null;
+        return null;
+    }
+}
+
 // Update detail panel
-function updateDetailPanel(panelNum, rubber) {
+async function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
-    const markdown = descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
+    // Try loading a detailed rubber info file first
+    const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.name);
+    const markdown = detailMarkdown || descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
     const html = marked.parse(markdown);
     const bestsellerBadge = rubber.bestseller
-        ? '<span class="bestseller-badge">★ Bestseller</span>'
+        ? ' <span class="bestseller-badge">★ Bestseller</span>'
         : '';
+    const brandColor = getBrandColor(rubber.brand);
+    const titleHtml = `<h1 class="rubber-title" style="color:${brandColor}">${rubber.brand} ${rubber.name}${bestsellerBadge}</h1>`;
     const linksHtml = buildUrlLinksHtml(rubber);
-    panel.innerHTML = html + bestsellerBadge + linksHtml;
+    panel.innerHTML = titleHtml + html + linksHtml;
 }
 
 // Clear detail panel
