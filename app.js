@@ -99,18 +99,16 @@ function normalizeWeightCategory(weightValue) {
 }
 
 function buildDescriptionMarkdown(raw, debugInfo) {
-    const ratings = raw.user_ratings || {};
+    const details = raw.manufacturer_details || {};
     const lines = [
         `# ${raw.manufacturer} ${raw.name}`,
         `**Brand:** ${raw.manufacturer}`,
         raw.price ? `**Price:** ${raw.price}` : null,
-        ratings.overall !== undefined ? `**Overall:** ${ratings.overall}` : null,
-        ratings.speed !== undefined ? `**Speed:** ${ratings.speed}` : null,
-        ratings.spin !== undefined ? `**Spin:** ${ratings.spin}` : null,
-        ratings.control !== undefined ? `**Control:** ${ratings.control}` : null,
-        ratings.topsheet ? `**Topsheet:** ${ratings.topsheet}` : null,
-        ratings.weight ? `**Weight:** ${ratings.weight}` : null,
-        ratings.sponge_hardness ? `**Sponge hardness:** ${ratings.sponge_hardness}` : null
+        details.country ? `**Country:** ${details.country}` : null,
+        details.topsheet ? `**Topsheet:** ${details.topsheet}` : null,
+        details.hardness !== undefined ? `**Sponge Hardness:** ${details.hardness}°` : null,
+        details.weight !== undefined ? `**Weight:** ${details.weight}g` : null,
+        details.thickness ? `**Thickness:** ${Array.isArray(details.thickness) ? details.thickness.join(', ') : details.thickness}` : null
     ].filter(Boolean);
     if (debugInfo) {
         const fmt = value => (Number.isFinite(value) ? value.toFixed(2) : 'n/a');
