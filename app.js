@@ -1524,11 +1524,11 @@ function updateComparisonBar() {
 // Pinch-to-zoom for mobile (throttled with rAF for smooth performance)
 (function() {
     const chartEl = document.getElementById('chart');
-    let pinchStartDist = null;
-    let pinchStartRanges = null;
-    let pinchCenter = null;
-    let rafId = null;          // requestAnimationFrame handle
-    let pendingLayout = null;  // latest computed ranges waiting for rAF
+    let pinchStartDist = null;   // finger distance at touchstart
+    let pinchStartRanges = null; // axis ranges at touchstart
+    let dataAnchor = null;       // data-space point under initial pinch center
+    let rafId = null;
+    let pendingLayout = null;
 
     function getTouchDist(t1, t2) {
         const dx = t1.clientX - t2.clientX;
@@ -1543,19 +1543,16 @@ function updateComparisonBar() {
         };
     }
 
+    // Returns the fractional position within the Plotly plot area (0-1)
     function getPlotFraction(clientX, clientY) {
-        const gd = chartEl;
-        const plotArea = gd._fullLayout._size;
-        const rect = gd.getBoundingClientRect();
-
+        const plotArea = chartEl._fullLayout._size;
+        const rect = chartEl.getBoundingClientRect();
         const plotLeft = rect.left + plotArea.l;
-        const plotTop = rect.top + plotArea.t;
-        const plotWidth = plotArea.w;
-        const plotHeight = plotArea.h;
-
-        const fx = (clientX - plotLeft) / plotWidth;
-        const fy = 1 - (clientY - plotTop) / plotHeight; // invert y
-        return { fx: Math.max(0, Math.min(1, fx)), fy: Math.max(0, Math.min(1, fy)) };
+        const plotTop  = rect.top  + plotArea.t;
+        return {
+            fx: Math.max(0, Math.min(1, (clientX - plotLeft) / plotArea.w)),
+            fy: Math.max(0, Math.min(1, 1 - (clientY - plotTop) / plotArea.h))
+        };
     }
 
     function flushLayout() {
@@ -1578,65 +1575,72 @@ function updateComparisonBar() {
             const t1 = e.touches[0];
             const t2 = e.touches[1];
             pinchStartDist = getTouchDist(t1, t2);
-            pinchCenter = getTouchCenter(t1, t2);
 
             const gd = chartEl;
             if (gd._fullLayout) {
                 const xa = gd._fullLayout.xaxis;
                 const ya = gd._fullLayout.yaxis;
+                const xRange = [xa.range[0], xa.range[1]];
+                const yRange = [ya.range[0], ya.range[1]];
                 pinchStartRanges = {
-                    x: [xa.range[0], xa.range[1]],
-                    y: [ya.range[0], ya.range[1]]
+                    x: xRange,
+                    y: yRange,
+                    xSpan: xRange[1] - xRange[0],
+                    ySpan: yRange[1] - yRange[0]
+                };
+
+                // Convert the initial pinch center to a data-space anchor point.
+                // This is the point that should follow the user's fingers.
+                const center = getTouchCenter(t1, t2);
+                const frac = getPlotFraction(center.x, center.y);
+                dataAnchor = {
+                    x: xRange[0] + frac.fx * pinchStartRanges.xSpan,
+                    y: yRange[0] + frac.fy * pinchStartRanges.ySpan
                 };
             }
         }
     }, { passive: false });
 
     chartEl.addEventListener('touchmove', function(e) {
-        if (e.touches.length === 2 && pinchStartDist && pinchStartRanges) {
+        if (e.touches.length === 2 && pinchStartDist && pinchStartRanges && dataAnchor) {
             e.preventDefault();
             const t1 = e.touches[0];
             const t2 = e.touches[1];
             const currentDist = getTouchDist(t1, t2);
 
-            // zoom factor: >1 means zooming out, <1 means zooming in
+            // scale > 1 → zooming out, scale < 1 → zooming in
             const scale = pinchStartDist / currentDist;
 
-            // Use the live midpoint of the two fingers so panning feels natural
-            const liveCenter = getTouchCenter(t1, t2);
-            const frac = getPlotFraction(liveCenter.x, liveCenter.y);
+            const newXSpan = pinchStartRanges.xSpan * scale;
+            const newYSpan = pinchStartRanges.ySpan * scale;
 
-            const xRange = pinchStartRanges.x;
-            const yRange = pinchStartRanges.y;
-            const xSpan = xRange[1] - xRange[0];
-            const ySpan = yRange[1] - yRange[0];
-
-            const newXSpan = xSpan * scale;
-            const newYSpan = ySpan * scale;
             const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
-            if (scale > 1 && autoscaleBounds && viewCoversDataBounds(currentFilteredData, xRange, yRange)) {
+            if (scale > 1 && autoscaleBounds &&
+                viewCoversDataBounds(currentFilteredData, pinchStartRanges.x, pinchStartRanges.y)) {
                 return;
             }
 
-            // Keep the pinch center point fixed
-            const xCenter = xRange[0] + frac.fx * xSpan;
-            const yCenter = yRange[0] + frac.fy * ySpan;
+            // Where are the fingers NOW in the plot area (0-1)?
+            const liveCenter = getTouchCenter(t1, t2);
+            const liveFrac = getPlotFraction(liveCenter.x, liveCenter.y);
 
+            // Position the view so that dataAnchor appears at liveFrac.
+            // dataAnchor.x = newRange[0] + liveFrac.fx * newXSpan
+            // → newRange[0] = dataAnchor.x - liveFrac.fx * newXSpan
             let newXRange = [
-                xCenter - frac.fx * newXSpan,
-                xCenter + (1 - frac.fx) * newXSpan
+                dataAnchor.x - liveFrac.fx * newXSpan,
+                dataAnchor.x + (1 - liveFrac.fx) * newXSpan
             ];
             let newYRange = [
-                yCenter - frac.fy * newYSpan,
-                yCenter + (1 - frac.fy) * newYSpan
+                dataAnchor.y - liveFrac.fy * newYSpan,
+                dataAnchor.y + (1 - liveFrac.fy) * newYSpan
             ];
+
             if (scale > 1 && autoscaleBounds) {
                 newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
                 newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
             }
 
-            // Schedule the relayout for the next animation frame instead of
-            // calling it synchronously on every touchmove event.
             scheduleLayout({
                 'xaxis.range': newXRange,
                 'yaxis.range': newYRange,
@@ -1648,7 +1652,7 @@ function updateComparisonBar() {
 
     chartEl.addEventListener('touchend', function(e) {
         if (e.touches.length < 2) {
-            // Flush any pending update immediately so the final state is accurate
+            // Flush any pending update so the final state is accurate
             if (rafId) {
                 cancelAnimationFrame(rafId);
                 rafId = null;
@@ -1659,7 +1663,7 @@ function updateComparisonBar() {
             }
             pinchStartDist = null;
             pinchStartRanges = null;
-            pinchCenter = null;
+            dataAnchor = null;
         }
     });
 })();
