@@ -1166,6 +1166,15 @@ const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-se
 
 function updateChart(options = {}) {
     const filteredData = getFilteredData();
+
+    // Skip update when filtered data hasn't changed — avoids flicker during range slider drag.
+    // preserveRanges calls (from user pan/zoom) and force calls always proceed.
+    if (!options.preserveRanges && !options.force && currentFilteredData.length > 0
+        && filteredData.length === currentFilteredData.length
+        && filteredData.every((r, i) => r === currentFilteredData[i])) {
+        return;
+    }
+
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
@@ -1300,12 +1309,20 @@ function updateChart(options = {}) {
     const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: false };
     const chartEl = document.getElementById('chart');
 
+    // Suppress relayout handler while we programmatically update the chart,
+    // so Plotly's own relayout events don't trigger a cascading second render.
+    isInternalUpdate = true;
+    clearTimeout(relayoutTimer);
+
     if (hasPlotted) {
         Plotly.react('chart', traces, layout, config);
     } else {
         Plotly.newPlot('chart', traces, layout, config);
         hasPlotted = true;
     }
+
+    // Re-enable relayout handler for user pan/zoom after Plotly events settle
+    setTimeout(() => { isInternalUpdate = false; }, 300);
 
     // Attach Plotly event handlers once
     if (!chartEl._hasClickHandler) {
@@ -1327,9 +1344,7 @@ function updateChart(options = {}) {
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
-                isInternalUpdate = true;
                 updateChart({ preserveRanges: true });
-                setTimeout(() => { isInternalUpdate = false; }, 300);
             }, 120);
         });
     }
@@ -1339,7 +1354,7 @@ function initChart() {
     // Run twice: first to establish initial plot, second to let
     // shouldAutoscaleForFilteredData widen the view if needed
     updateChart();
-    updateChart();
+    updateChart({ force: true });
 }
 
 // ════════════════════════════════════════════════════════════
