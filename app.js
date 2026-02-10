@@ -73,6 +73,7 @@ let hasPlotted = false;
 let isInternalUpdate = false;
 let currentFilteredData = [];
 let relayoutTimer = null;
+let internalUpdateTimer = null;
 let selectedCountry = 'us';
 let openFilterId = null;
 let weightFilterState = {
@@ -1313,6 +1314,7 @@ function updateChart(options = {}) {
     // so Plotly's own relayout events don't trigger a cascading second render.
     isInternalUpdate = true;
     clearTimeout(relayoutTimer);
+    clearTimeout(internalUpdateTimer);
 
     if (hasPlotted) {
         Plotly.react('chart', traces, layout, config);
@@ -1321,8 +1323,10 @@ function updateChart(options = {}) {
         hasPlotted = true;
     }
 
-    // Re-enable relayout handler for user pan/zoom after Plotly events settle
-    setTimeout(() => { isInternalUpdate = false; }, 300);
+    // Re-enable relayout handler for user pan/zoom after Plotly events settle.
+    // Must clear-then-set so rapid calls (e.g. range slider drag) keep the guard
+    // active until 300 ms after the *last* call, not the first.
+    internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 300);
 
     // Attach Plotly event handlers once
     if (!chartEl._hasClickHandler) {
