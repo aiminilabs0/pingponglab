@@ -1633,8 +1633,9 @@ function getPlotFraction(chartEl, clientX, clientY) {
     let pinchStartRanges = null;
     let dataAnchor = null;
     let pinchStartCenter = null;
+    let pinchStartRect = null;
+    let pinchStartOriginPx = null;
     let lastScale = 1;
-    let lastCenter = null;
     let safetyTimer = null;
 
     const getTouchDist = (t1, t2) => {
@@ -1665,8 +1666,8 @@ function getPlotFraction(chartEl, clientX, clientY) {
         const [t1, t2] = e.touches;
         pinchStartDist = getTouchDist(t1, t2);
         pinchStartCenter = getTouchCenter(t1, t2);
+        pinchStartRect = chartEl.getBoundingClientRect();
         lastScale = 1;
-        lastCenter = pinchStartCenter;
 
         if (!chartEl._fullLayout) return;
         const { xaxis: xa, yaxis: ya } = chartEl._fullLayout;
@@ -1685,7 +1686,12 @@ function getPlotFraction(chartEl, clientX, clientY) {
             y: yRange[0] + frac.fy * pinchStartRanges.ySpan
         };
 
+        pinchStartOriginPx = {
+            x: pinchStartCenter.x - pinchStartRect.left,
+            y: pinchStartCenter.y - pinchStartRect.top
+        };
         chartEl.style.willChange = 'transform';
+        chartEl.style.transformOrigin = `${pinchStartOriginPx.x}px ${pinchStartOriginPx.y}px`;
     }, { passive: false });
 
     chartEl.addEventListener('touchmove', (e) => {
@@ -1696,7 +1702,6 @@ function getPlotFraction(chartEl, clientX, clientY) {
 
         const [t1, t2] = e.touches;
         const currentDist = getTouchDist(t1, t2);
-        const currentCenter = getTouchCenter(t1, t2);
 
         // visualScale > 1 → fingers apart → zoom in; < 1 → zoom out
         const visualScale = currentDist / pinchStartDist;
@@ -1709,18 +1714,11 @@ function getPlotFraction(chartEl, clientX, clientY) {
             return;
         }
 
-        const dx = currentCenter.x - pinchStartCenter.x;
-        const dy = currentCenter.y - pinchStartCenter.y;
-
-        // GPU-accelerated CSS transform — 60 fps visual feedback without Plotly relayout
-        const rect = chartEl.getBoundingClientRect();
-        const ox = pinchStartCenter.x - rect.left;
-        const oy = pinchStartCenter.y - rect.top;
-        chartEl.style.transformOrigin = `${ox}px ${oy}px`;
-        chartEl.style.transform = `translate(${dx}px, ${dy}px) scale(${visualScale})`;
+        // Keep zoom anchor fixed to pinch-start center.
+        // Recomputing origin from transformed rect causes drift/jumps on mobile.
+        chartEl.style.transform = `scale(${visualScale})`;
 
         lastScale = visualScale;
-        lastCenter = currentCenter;
     }, { passive: false });
 
     function finishPinch(e) {
@@ -1752,12 +1750,12 @@ function getPlotFraction(chartEl, clientX, clientY) {
         chartEl.style.willChange = '';
 
         // Apply final Plotly axis ranges (single relayout instead of per-frame)
-        if (pinchStartRanges && dataAnchor && lastCenter && chartEl._fullLayout) {
+        if (pinchStartRanges && dataAnchor && pinchStartCenter && chartEl._fullLayout) {
             const scale = 1 / lastScale;
             const newXSpan = pinchStartRanges.xSpan * scale;
             const newYSpan = pinchStartRanges.ySpan * scale;
 
-            const liveFrac = getPlotFraction(chartEl, lastCenter.x, lastCenter.y);
+            const liveFrac = getPlotFraction(chartEl, pinchStartCenter.x, pinchStartCenter.y);
             let newXRange = [
                 dataAnchor.x - liveFrac.fx * newXSpan,
                 dataAnchor.x + (1 - liveFrac.fx) * newXSpan
@@ -1789,8 +1787,9 @@ function getPlotFraction(chartEl, clientX, clientY) {
         pinchStartRanges = null;
         dataAnchor = null;
         pinchStartCenter = null;
+        pinchStartRect = null;
+        pinchStartOriginPx = null;
         lastScale = 1;
-        lastCenter = null;
     }
 
     chartEl.addEventListener('touchend', finishPinch, { passive: false });
