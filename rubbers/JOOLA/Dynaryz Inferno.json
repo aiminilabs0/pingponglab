@@ -16,13 +16,15 @@
     "url": "https://revspin.net/rubber/joola-dynaryz-inferno.html"
   },
   "manufacturer_details": {
+    "url": "https://www.youtube.com/watch?v=vH6gYSkDqvA",
     "country": "Germany",
     "hardness": 50,
     "thickness": [
       "max",
       "2.0"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 53
   },
   "manufacturer_ratings": {
     "url": "https://joola.com/products/dynaryz-inferno-table-tennis-rubber?variant=44995101065430",
