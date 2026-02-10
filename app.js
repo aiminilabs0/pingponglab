@@ -1165,8 +1165,120 @@ function computeVisibleRubbers(filteredData) {
 // ════════════════════════════════════════════════════════════
 
 const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+const HOVER_POPUP_ID = 'chartHoverPopup';
+
+function getChartHoverPopupEl() {
+    let popup = document.getElementById(HOVER_POPUP_ID);
+    if (popup) return popup;
+    popup = document.createElement('div');
+    popup.id = HOVER_POPUP_ID;
+    popup.className = 'chart-hover-popup';
+    document.body.appendChild(popup);
+    return popup;
+}
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
+function formatMetricValue(value, decimals = 2) {
+    return Number.isFinite(value) ? value.toFixed(decimals) : '-';
+}
+
+function positionHoverPopup(popup, hoverData, chartEl) {
+    const point = hoverData?.points?.[0];
+    if (!point || !chartEl) return;
+
+    const eventX = hoverData.event?.clientX;
+    const eventY = hoverData.event?.clientY;
+    const hasPointerCoords = Number.isFinite(eventX) && Number.isFinite(eventY);
+
+    let anchorX;
+    let anchorY;
+    if (hasPointerCoords) {
+        anchorX = eventX;
+        anchorY = eventY;
+    } else {
+        const rect = chartEl.getBoundingClientRect();
+        const xOffset = chartEl._fullLayout?._size?.l ?? 0;
+        const yOffset = chartEl._fullLayout?._size?.t ?? 0;
+        anchorX = rect.left + xOffset + point.xaxis.l2p(point.x);
+        anchorY = rect.top + yOffset + point.yaxis.l2p(point.y);
+    }
+
+    popup.style.left = '0px';
+    popup.style.top = '0px';
+    popup.classList.add('visible');
+
+    const popupRect = popup.getBoundingClientRect();
+    const edgePadding = 10;
+    let left = anchorX + 14;
+    let top = anchorY + 14;
+
+    if (left + popupRect.width > window.innerWidth - edgePadding) {
+        left = anchorX - popupRect.width - 14;
+    }
+    if (top + popupRect.height > window.innerHeight - edgePadding) {
+        top = anchorY - popupRect.height - 14;
+    }
+
+    left = Math.max(edgePadding, Math.min(left, window.innerWidth - popupRect.width - edgePadding));
+    top = Math.max(edgePadding, Math.min(top, window.innerHeight - popupRect.height - edgePadding));
+
+    popup.style.left = `${left}px`;
+    popup.style.top = `${top}px`;
+}
+
+function hideChartHoverPopup() {
+    const popup = document.getElementById(HOVER_POPUP_ID);
+    if (popup) popup.classList.remove('visible');
+}
+
+function buildHoverPopupHtml(rubber, point) {
+    const rubberName = rubber.name || rubber.fullName || '-';
+    const brandName = rubber.brand || '-';
+    const topsheet = rubber.topsheet || '-';
+    const hardness = rubber.hardnessLabel || '-';
+    const weight = rubber.weightLabel || '-';
+    const control = formatMetricValue(getControlValue(rubber), 1);
+    const spin = formatMetricValue(point.x, 2);
+    const speed = formatMetricValue(point.y, 2);
+    const brandColor = getBrandColor(brandName);
+    const bestsellerTag = rubber.bestseller
+        ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
+        : '';
+
+    return `
+        <div class="chart-hover-card">
+            <div class="chart-hover-head">
+                <span class="chart-hover-brand-dot" style="background:${brandColor};"></span>
+                <div class="chart-hover-title-wrap">
+                    <div class="chart-hover-title">${escapeHtml(rubberName)}</div>
+                    <div class="chart-hover-subtitle">${escapeHtml(brandName)}</div>
+                </div>
+                ${bestsellerTag}
+            </div>
+            <div class="chart-hover-metrics">
+                <div class="chart-hover-metric"><span>Spin</span><strong>${spin}</strong></div>
+                <div class="chart-hover-metric"><span>Speed</span><strong>${speed}</strong></div>
+                <div class="chart-hover-metric"><span>Control</span><strong>${control}</strong></div>
+                <div class="chart-hover-metric"><span>Weight</span><strong>${escapeHtml(weight)}</strong></div>
+            </div>
+            <div class="chart-hover-tags">
+                <span class="chart-hover-pill">${escapeHtml(topsheet)}</span>
+                <span class="chart-hover-pill">${escapeHtml(hardness)}</span>
+            </div>
+        </div>
+    `;
+}
 
 function updateChart(options = {}) {
+    hideChartHoverPopup();
     const filteredData = getFilteredData();
 
     // Skip update when filtered data hasn't changed — avoids flicker during range slider drag.
@@ -1241,13 +1353,7 @@ function updateChart(options = {}) {
             text: group.rubbers.map(r => r.abbr),
             textposition: 'top center',
             textfont: { size: 11, color: '#e8e0d0', family: CHART_FONT },
-            hovertemplate:
-                `<b>%{customdata.name}</b><br>${group.brand}<br>` +
-                `🔄  %{x:.2f}<br>` +
-                `⚡  %{y:.2f}<br>` +
-                `🧽  %{customdata.hardnessLabel}<br>` +
-                `⚖️  %{customdata.weightLabel}<extra></extra><br>` +
-                `🟥  ${group.topsheet}<br>`,
+            hoverinfo: 'none',
             customdata: group.rubbers
         });
     }
@@ -1340,6 +1446,19 @@ function updateChart(options = {}) {
             const point = data.points[0];
             handleRubberClick(point.data.customdata[point.pointIndex]);
         });
+    }
+
+    if (!chartEl._hasHoverHandler) {
+        chartEl._hasHoverHandler = true;
+        chartEl.on('plotly_hover', data => {
+            const point = data?.points?.[0];
+            const rubber = point?.data?.customdata?.[point.pointIndex];
+            if (!point || !rubber) return;
+            const popup = getChartHoverPopupEl();
+            popup.innerHTML = buildHoverPopupHtml(rubber, point);
+            positionHoverPopup(popup, data, chartEl);
+        });
+        chartEl.on('plotly_unhover', hideChartHoverPopup);
     }
 
     if (!chartEl._hasRelayoutHandler) {
