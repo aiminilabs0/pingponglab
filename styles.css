@@ -121,6 +121,8 @@ h1 {
     gap: 8px;
     flex-wrap: wrap;
     margin: 18px 0 16px;
+    position: relative;
+    z-index: 60;
 }
 .filter-chip {
     position: relative;
@@ -366,10 +368,14 @@ h1 {
     font-size: 13px;
     font-weight: 600;
     color: var(--drac-fg);
+    width: min(250px, 100%);
+    margin-inline: auto;
 }
 .weight-slider-container {
     position: relative;
     height: 28px;
+    width: min(250px, 100%);
+    margin-inline: auto;
 }
 .weight-slider-rail {
     position: absolute;
@@ -459,6 +465,8 @@ h1 {
 .hardness-slider-container {
     position: relative;
     height: 40px;
+    width: min(250px, 100%);
+    margin-inline: auto;
 }
 .hardness-slider-rail {
     position: absolute;
@@ -536,6 +544,8 @@ h1 {
     flex-direction: column;
     gap: 2px;
     margin-bottom: 2px;
+    width: min(250px, 100%);
+    margin-inline: auto;
 }
 .hardness-scale-row {
     display: flex;

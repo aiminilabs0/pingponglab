@@ -375,10 +375,12 @@ function updateWeightSliderTrack() {
     const minLabel = document.getElementById('weightMinLabel');
     const maxLabel = document.getElementById('weightMaxLabel');
     if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
-    const span = dataMax - dataMin;
+    const sliderMin = dataMin;
+    const sliderMax = dataMax;
+    const span = sliderMax - sliderMin;
     if (span <= 0) return;
-    const leftPct = ((selectedMin - dataMin) / span) * 100;
-    const rightPct = ((dataMax - selectedMax) / span) * 100;
+    const leftPct = ((selectedMin - sliderMin) / span) * 100;
+    const rightPct = ((sliderMax - selectedMax) / span) * 100;
     track.style.left = `${leftPct}%`;
     track.style.right = `${rightPct}%`;
     if (minLabel) minLabel.textContent = `${formatWeightValue(selectedMin)}g`;
@@ -504,10 +506,12 @@ function updateHardnessSliderTrack() {
     const { dataMin, dataMax, selectedMin, selectedMax } = hardnessFilterState;
     const track = document.getElementById('hardnessSliderTrack');
     if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
-    const span = dataMax - dataMin;
+    const sliderMin = dataMin;
+    const sliderMax = dataMax;
+    const span = sliderMax - sliderMin;
     if (span <= 0) return;
-    const leftPct = ((selectedMin - dataMin) / span) * 100;
-    const rightPct = ((dataMax - selectedMax) / span) * 100;
+    const leftPct = ((selectedMin - sliderMin) / span) * 100;
+    const rightPct = ((sliderMax - selectedMax) / span) * 100;
     track.style.left = `${leftPct}%`;
     track.style.right = `${rightPct}%`;
 
@@ -747,7 +751,11 @@ function openDropdown(filterId) {
 }
 
 function toggleDropdown(filterId) {
-    openFilterId === filterId ? closeAllDropdowns() : openDropdown(filterId);
+    if (openFilterId === filterId) {
+        closeAllDropdowns();
+        return;
+    }
+    openDropdown(filterId);
 }
 
 // ════════════════════════════════════════════════════════════
