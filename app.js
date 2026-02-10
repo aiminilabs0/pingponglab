@@ -47,6 +47,12 @@ let currentFilteredData = [];
 let relayoutTimer = null;
 let selectedCountry = 'us';
 let openFilterId = null;
+let weightFilterState = {
+    dataMin: null,
+    dataMax: null,
+    selectedMin: null,
+    selectedMax: null
+};
 
 // YouTube embed state
 let ytApiReady = false;
@@ -121,13 +127,6 @@ function normalizeHardnessCategory(hardnessValue, country) {
     if (hardnessValue <= average - HARDNESS_MEDIUM_RANGE) return 'Soft';
     if (hardnessValue >= average + HARDNESS_MEDIUM_RANGE) return 'Hard';
     return 'Medium';
-}
-
-function normalizeWeightCategory(weightValue) {
-    if (!Number.isFinite(weightValue)) return null;
-    if (weightValue < 48) return 'Light';
-    if (weightValue <= 50) return 'Medium';
-    return 'Heavy';
 }
 
 function buildFullName(brand, name) {
@@ -258,7 +257,6 @@ async function loadRubberData() {
             x: spin,
             y: speed,
             weight: weightValue,
-            weightCategory: normalizeWeightCategory(weightValue),
             hardness: parseRatingNumber(ratings.sponge_hardness),
             hardnessCategory: normalizeHardnessCategory(hardness, details.country),
             control: parseRatingNumber(ratings.control),
@@ -322,6 +320,138 @@ function getAllCheckboxValues(containerId) {
 
 function setAllChecked(container, checked) {
     container.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = checked; });
+}
+
+function getWeightBoundsFromData() {
+    const weights = rubberData.map(r => r.weight).filter(Number.isFinite);
+    if (!weights.length) return null;
+    return {
+        min: Math.min(...weights),
+        max: Math.max(...weights)
+    };
+}
+
+function formatWeightValue(value) {
+    if (!Number.isFinite(value)) return '';
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
+}
+
+function getWeightRangeInputs() {
+    return {
+        minInput: document.getElementById('weightMinSlider'),
+        maxInput: document.getElementById('weightMaxSlider')
+    };
+}
+
+function updateWeightSliderTrack() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = weightFilterState;
+    const track = document.getElementById('weightSliderTrack');
+    const minLabel = document.getElementById('weightMinLabel');
+    const maxLabel = document.getElementById('weightMaxLabel');
+    if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+    const span = dataMax - dataMin;
+    if (span <= 0) return;
+    const leftPct = ((selectedMin - dataMin) / span) * 100;
+    const rightPct = ((dataMax - selectedMax) / span) * 100;
+    track.style.left = `${leftPct}%`;
+    track.style.right = `${rightPct}%`;
+    if (minLabel) minLabel.textContent = `${formatWeightValue(selectedMin)}g`;
+    if (maxLabel) maxLabel.textContent = `${formatWeightValue(selectedMax)}g`;
+}
+
+function setWeightRange(minValue, maxValue) {
+    const { dataMin, dataMax } = weightFilterState;
+    if (!Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+
+    const safeMin = Number.isFinite(minValue) ? minValue : dataMin;
+    const safeMax = Number.isFinite(maxValue) ? maxValue : dataMax;
+    const clampedMin = Math.max(dataMin, Math.min(dataMax, safeMin));
+    const clampedMax = Math.max(dataMin, Math.min(dataMax, safeMax));
+    const selectedMin = Math.min(clampedMin, clampedMax);
+    const selectedMax = Math.max(clampedMin, clampedMax);
+
+    weightFilterState.selectedMin = selectedMin;
+    weightFilterState.selectedMax = selectedMax;
+
+    const { minInput, maxInput } = getWeightRangeInputs();
+    if (minInput) minInput.value = selectedMin;
+    if (maxInput) maxInput.value = selectedMax;
+    updateWeightSliderTrack();
+}
+
+function resetWeightRangeToDataBounds() {
+    setWeightRange(weightFilterState.dataMin, weightFilterState.dataMax);
+}
+
+function syncWeightRangeFromInputs() {
+    const { minInput, maxInput } = getWeightRangeInputs();
+    if (!minInput || !maxInput) return false;
+    const minVal = Number.parseFloat(minInput.value);
+    const maxVal = Number.parseFloat(maxInput.value);
+    // Prevent thumbs from crossing
+    if (minVal > maxVal) {
+        minInput.value = maxVal;
+        maxInput.value = minVal;
+    }
+    setWeightRange(
+        Math.min(minVal, maxVal),
+        Math.max(minVal, maxVal)
+    );
+    return true;
+}
+
+function isWeightFilterActive() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = weightFilterState;
+    if (![dataMin, dataMax, selectedMin, selectedMax].every(Number.isFinite)) return false;
+    return selectedMin > dataMin || selectedMax < dataMax;
+}
+
+function initWeightRangeFilter(onChange) {
+    const container = document.getElementById('weightFilter');
+    if (!container) return;
+
+    const bounds = getWeightBoundsFromData();
+    if (!bounds) {
+        container.innerHTML = '<div class="filter-instructions">No weight data available.</div>';
+        return;
+    }
+
+    weightFilterState.dataMin = bounds.min;
+    weightFilterState.dataMax = bounds.max;
+    weightFilterState.selectedMin = bounds.min;
+    weightFilterState.selectedMax = bounds.max;
+
+    container.classList.add('weight-range-filter');
+    container.innerHTML = `
+        <div class="weight-range-labels">
+            <span id="weightMinLabel">${formatWeightValue(bounds.min)}g</span>
+            <span id="weightMaxLabel">${formatWeightValue(bounds.max)}g</span>
+        </div>
+        <div class="weight-slider-container">
+            <div class="weight-slider-rail"></div>
+            <div class="weight-slider-track" id="weightSliderTrack"></div>
+            <input id="weightMinSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.min}" step="1">
+            <input id="weightMaxSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.max}" step="1">
+        </div>
+        <div class="weight-range-hint">${formatWeightValue(bounds.min)}g — ${formatWeightValue(bounds.max)}g</div>
+    `;
+
+    updateWeightSliderTrack();
+
+    const { minInput, maxInput } = getWeightRangeInputs();
+    [minInput, maxInput].forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            syncWeightRangeFromInputs();
+            onChange();
+        });
+    });
+
+    document.getElementById('weightResetBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        resetWeightRangeToDataBounds();
+        onChange();
+    });
 }
 
 function filterOptions(container, query) {
@@ -459,6 +589,19 @@ function updateBadge(filterId, checkedCount, totalCount) {
 }
 
 function refreshBadge(filterId) {
+    if (filterId === 'weight') {
+        const badge = document.getElementById('weightBadge');
+        if (!badge) return;
+        if (!isWeightFilterActive()) {
+            badge.textContent = 'All';
+            badge.classList.add('all-selected');
+            return;
+        }
+        badge.textContent = `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
+        badge.classList.remove('all-selected');
+        return;
+    }
+
     const container = document.getElementById(filterId + 'Filter');
     if (!container) return;
     const all = container.querySelectorAll('input[type="checkbox"]');
@@ -495,6 +638,30 @@ function createRemovableTag(labelContent, checkbox, colorDot) {
     return tag;
 }
 
+function createActionTag(labelContent, onRemove, colorDot) {
+    const tag = document.createElement('span');
+    tag.className = 'active-tag';
+
+    if (colorDot) {
+        const dot = document.createElement('span');
+        dot.className = 'tag-dot';
+        dot.style.backgroundColor = colorDot;
+        tag.appendChild(dot);
+    }
+
+    tag.appendChild(document.createTextNode(labelContent));
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'tag-remove';
+    removeBtn.innerHTML = '&times;';
+    removeBtn.onclick = (e) => {
+        e.stopPropagation();
+        onRemove();
+    };
+    tag.appendChild(removeBtn);
+    return tag;
+}
+
 function renderActiveTags() {
     const container = document.getElementById('activeTags');
     container.innerHTML = '';
@@ -510,7 +677,7 @@ function renderActiveTags() {
     }
 
     // Tags for other partially-selected filter groups
-    ['topsheet', 'hardness', 'weight'].forEach(filterId => {
+    ['topsheet', 'hardness'].forEach(filterId => {
         const filterEl = document.getElementById(filterId + 'Filter');
         const all = filterEl.querySelectorAll('input[type="checkbox"]');
         const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
@@ -520,6 +687,17 @@ function renderActiveTags() {
             });
         }
     });
+
+    if (isWeightFilterActive()) {
+        const label = `Weight ${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
+        container.appendChild(createActionTag(label, () => {
+            resetWeightRangeToDataBounds();
+            refreshAllBadges();
+            renderActiveTags();
+            pushFiltersToUrl();
+            updateChart();
+        }));
+    }
 }
 
 // ════════════════════════════════════════════════════════════
@@ -544,6 +722,21 @@ function deserializeFilterParam(params, paramName, containerId) {
     });
 }
 
+function serializeWeightRangeParam(params) {
+    if (!isWeightFilterActive()) return;
+    params.set('weight', `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}`);
+}
+
+function deserializeWeightRangeParam(params) {
+    if (!params.has('weight')) return;
+    const range = params.get('weight').trim();
+    const [minRaw, maxRaw] = range.split('-');
+    const min = Number.parseFloat(minRaw);
+    const max = Number.parseFloat(maxRaw);
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return;
+    setWeightRange(min, max);
+}
+
 function pushFiltersToUrl() {
     const params = new URLSearchParams();
     if (DEBUG_MODE) params.set('debug', '');
@@ -552,7 +745,7 @@ function pushFiltersToUrl() {
     serializeFilterParam(params, 'rubbers', 'nameFilter');
     serializeFilterParam(params, 'topsheet', 'topsheetFilter');
     serializeFilterParam(params, 'hardness', 'hardnessFilter');
-    serializeFilterParam(params, 'weight', 'weightFilter');
+    serializeWeightRangeParam(params);
 
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
     if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
@@ -587,7 +780,7 @@ function applyFiltersFromUrl() {
     deserializeFilterParam(params, 'rubbers', 'nameFilter');
     deserializeFilterParam(params, 'topsheet', 'topsheetFilter');
     deserializeFilterParam(params, 'hardness', 'hardnessFilter');
-    deserializeFilterParam(params, 'weight', 'weightFilter');
+    deserializeWeightRangeParam(params);
 
     // Restore selected rubber detail panels
     if (params.has('left')) {
@@ -663,23 +856,22 @@ function getFilteredData() {
     const selectedNames = getCheckedValues('nameFilter');
     const selectedTopsheet = getCheckedValues('topsheetFilter');
     const selectedHardness = getCheckedValues('hardnessFilter');
-    const selectedWeights = getCheckedValues('weightFilter');
 
     if (!selectedBrands.length || !selectedNames.length ||
-        !selectedTopsheet.length || !selectedHardness.length || !selectedWeights.length) {
+        !selectedTopsheet.length || !selectedHardness.length) {
         return [];
     }
 
-    // Only apply weight filter when not all weights are selected
-    const allWeights = getAllCheckboxValues('weightFilter');
-    const filterByWeight = selectedWeights.length < allWeights.length;
+    const filterByWeight = isWeightFilterActive();
+    const minWeight = weightFilterState.selectedMin;
+    const maxWeight = weightFilterState.selectedMax;
 
     return rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
         selectedNames.includes(rubber.fullName) &&
         selectedTopsheet.includes(rubber.topsheet) &&
         selectedHardness.includes(rubber.hardnessCategory) &&
-        (!filterByWeight || (rubber.weightCategory && selectedWeights.includes(rubber.weightCategory)))
+        (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight))
     );
 }
 
@@ -1293,10 +1485,11 @@ function getPlotFraction(chartEl, clientX, clientY) {
 // ════════════════════════════════════════════════════════════
 
 function resetFiltersToAll() {
-    ['brandFilter', 'topsheetFilter', 'hardnessFilter', 'weightFilter'].forEach(id => {
+    ['brandFilter', 'topsheetFilter', 'hardnessFilter'].forEach(id => {
         const el = document.getElementById(id);
         if (el) setAllChecked(el, true);
     });
+    resetWeightRangeToDataBounds();
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
@@ -1359,10 +1552,7 @@ function initFilters() {
         document.getElementById('hardnessFilter'),
         ['Soft', 'Medium', 'Hard'].map(h => ({ value: h, label: `${hardnessEmoji[h]} ${h}` }))
     );
-    buildCheckboxOptions(
-        document.getElementById('weightFilter'),
-        ['Light', 'Medium', 'Heavy'].map(w => ({ value: w, label: w }))
-    );
+    initWeightRangeFilter(() => onFilterChange('weight'));
     buildNameOptionsFromBrands();
 
     function onFilterChange(filterId) {
@@ -1374,7 +1564,7 @@ function initFilters() {
     }
 
     // Filter change listeners
-    FILTER_IDS.forEach(id => {
+    FILTER_IDS.filter(id => id !== 'weight').forEach(id => {
         document.getElementById(id + 'Filter').addEventListener('change', () => onFilterChange(id));
     });
 
@@ -1390,8 +1580,11 @@ function initFilters() {
     document.querySelectorAll('.dd-actions button').forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
-            setAllChecked(document.getElementById(`${button.dataset.filter}Filter`), button.dataset.action === 'all');
-            onFilterChange(button.dataset.filter);
+            const filterId = button.dataset.filter;
+            const filterEl = document.getElementById(`${filterId}Filter`);
+            if (!filterId || !filterEl) return;
+            setAllChecked(filterEl, button.dataset.action === 'all');
+            onFilterChange(filterId);
         });
     });
 
@@ -1426,9 +1619,10 @@ function initFilters() {
 
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
-        ['brandFilter', 'topsheetFilter', 'hardnessFilter', 'weightFilter'].forEach(id =>
+        ['brandFilter', 'topsheetFilter', 'hardnessFilter'].forEach(id =>
             setAllChecked(document.getElementById(id), true)
         );
+        resetWeightRangeToDataBounds();
         buildNameOptionsFromBrands();
         refreshAllBadges();
         renderActiveTags();
