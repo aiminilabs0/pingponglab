@@ -1623,14 +1623,19 @@ function getPlotFraction(chartEl, clientX, clientY) {
     }, { passive: false });
 })();
 
-// Mobile pinch-to-zoom (throttled with rAF for smooth performance)
+// Mobile pinch-to-zoom — smooth CSS-transform during gesture, single Plotly relayout on release.
+// Prevents page-level zoom / swipe and accidental navigation after gesture ends.
 (function initMobilePinchZoom() {
     const chartEl = document.getElementById('chart');
+    let isPinching = false;
+    let wasJustPinching = false;   // true while a residual finger remains after pinch
     let pinchStartDist = null;
     let pinchStartRanges = null;
-    let dataAnchor = null;   // data-space point under initial pinch center
-    let rafId = null;
-    let pendingLayout = null;
+    let dataAnchor = null;
+    let pinchStartCenter = null;
+    let lastScale = 1;
+    let lastCenter = null;
+    let safetyTimer = null;
 
     const getTouchDist = (t1, t2) => {
         const dx = t1.clientX - t2.clientX;
@@ -1643,23 +1648,25 @@ function getPlotFraction(chartEl, clientX, clientY) {
         y: (t1.clientY + t2.clientY) / 2
     });
 
-    function flushLayout() {
-        rafId = null;
-        if (!pendingLayout) return;
-        Plotly.relayout(chartEl, pendingLayout);
-        pendingLayout = null;
-    }
-
-    function scheduleLayout(layout) {
-        pendingLayout = layout;
-        if (!rafId) rafId = requestAnimationFrame(flushLayout);
-    }
+    // Block page-level scroll & browser zoom while a chart pinch is active
+    document.addEventListener('touchmove', (e) => {
+        if (isPinching || wasJustPinching) e.preventDefault();
+    }, { passive: false });
 
     chartEl.addEventListener('touchstart', (e) => {
+        // Absorb new touches during post-pinch cooldown
+        if (wasJustPinching) { e.preventDefault(); return; }
         if (e.touches.length !== 2) return;
         e.preventDefault();
+
+        isPinching = true;
+        if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+
         const [t1, t2] = e.touches;
         pinchStartDist = getTouchDist(t1, t2);
+        pinchStartCenter = getTouchCenter(t1, t2);
+        lastScale = 1;
+        lastCenter = pinchStartCenter;
 
         if (!chartEl._fullLayout) return;
         const { xaxis: xa, yaxis: ya } = chartEl._fullLayout;
@@ -1672,59 +1679,122 @@ function getPlotFraction(chartEl, clientX, clientY) {
         };
 
         // Convert initial pinch center to data-space anchor (this point follows the fingers)
-        const center = getTouchCenter(t1, t2);
-        const frac = getPlotFraction(chartEl, center.x, center.y);
+        const frac = getPlotFraction(chartEl, pinchStartCenter.x, pinchStartCenter.y);
         dataAnchor = {
             x: xRange[0] + frac.fx * pinchStartRanges.xSpan,
             y: yRange[0] + frac.fy * pinchStartRanges.ySpan
         };
+
+        chartEl.style.willChange = 'transform';
     }, { passive: false });
 
     chartEl.addEventListener('touchmove', (e) => {
-        if (e.touches.length !== 2 || !pinchStartDist || !pinchStartRanges || !dataAnchor) return;
+        // Swallow moves during post-pinch cooldown
+        if (wasJustPinching) { e.preventDefault(); return; }
+        if (!isPinching || e.touches.length !== 2 || !pinchStartDist || !pinchStartRanges) return;
         e.preventDefault();
+
         const [t1, t2] = e.touches;
+        const currentDist = getTouchDist(t1, t2);
+        const currentCenter = getTouchCenter(t1, t2);
 
-        // scale > 1 → zooming out, scale < 1 → zooming in
-        const scale = pinchStartDist / getTouchDist(t1, t2);
-        const newXSpan = pinchStartRanges.xSpan * scale;
-        const newYSpan = pinchStartRanges.ySpan * scale;
+        // visualScale > 1 → fingers apart → zoom in; < 1 → zoom out
+        const visualScale = currentDist / pinchStartDist;
 
+        // Block zoom-out beyond data bounds
+        const dataScale = 1 / visualScale;
         const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
-        if (scale > 1 && autoscaleBounds &&
+        if (dataScale > 1 && autoscaleBounds &&
             viewCoversDataBounds(currentFilteredData, pinchStartRanges.x, pinchStartRanges.y)) {
             return;
         }
 
-        // Position the view so the data-space anchor appears at the current finger position
-        const liveCenter = getTouchCenter(t1, t2);
-        const liveFrac = getPlotFraction(chartEl, liveCenter.x, liveCenter.y);
+        const dx = currentCenter.x - pinchStartCenter.x;
+        const dy = currentCenter.y - pinchStartCenter.y;
 
-        let newXRange = [dataAnchor.x - liveFrac.fx * newXSpan, dataAnchor.x + (1 - liveFrac.fx) * newXSpan];
-        let newYRange = [dataAnchor.y - liveFrac.fy * newYSpan, dataAnchor.y + (1 - liveFrac.fy) * newYSpan];
+        // GPU-accelerated CSS transform — 60 fps visual feedback without Plotly relayout
+        const rect = chartEl.getBoundingClientRect();
+        const ox = pinchStartCenter.x - rect.left;
+        const oy = pinchStartCenter.y - rect.top;
+        chartEl.style.transformOrigin = `${ox}px ${oy}px`;
+        chartEl.style.transform = `translate(${dx}px, ${dy}px) scale(${visualScale})`;
 
-        if (scale > 1 && autoscaleBounds) {
-            newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
-            newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
-        }
-
-        scheduleLayout({
-            'xaxis.range': newXRange,
-            'yaxis.range': newYRange,
-            'xaxis.autorange': false,
-            'yaxis.autorange': false
-        });
+        lastScale = visualScale;
+        lastCenter = currentCenter;
     }, { passive: false });
 
-    chartEl.addEventListener('touchend', (e) => {
-        if (e.touches.length >= 2) return;
-        // Flush any pending update so the final state is accurate
-        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        if (pendingLayout) { Plotly.relayout(chartEl, pendingLayout); pendingLayout = null; }
+    function finishPinch(e) {
+        // During cooldown, wait for all fingers to lift
+        if (wasJustPinching) {
+            e.preventDefault();
+            if (!e.touches || e.touches.length === 0) {
+                wasJustPinching = false;
+                if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+            }
+            return;
+        }
+
+        if (!isPinching) return;
+        if (e.touches && e.touches.length >= 2) return;
+        e.preventDefault();
+
+        isPinching = false;
+
+        // If a finger remains on screen, enter cooldown to prevent accidental swipe / page navigation
+        if (e.touches && e.touches.length > 0) {
+            wasJustPinching = true;
+            safetyTimer = setTimeout(() => { wasJustPinching = false; safetyTimer = null; }, 800);
+        }
+
+        // Remove CSS transform
+        chartEl.style.transform = '';
+        chartEl.style.transformOrigin = '';
+        chartEl.style.willChange = '';
+
+        // Apply final Plotly axis ranges (single relayout instead of per-frame)
+        if (pinchStartRanges && dataAnchor && lastCenter && chartEl._fullLayout) {
+            const scale = 1 / lastScale;
+            const newXSpan = pinchStartRanges.xSpan * scale;
+            const newYSpan = pinchStartRanges.ySpan * scale;
+
+            const liveFrac = getPlotFraction(chartEl, lastCenter.x, lastCenter.y);
+            let newXRange = [
+                dataAnchor.x - liveFrac.fx * newXSpan,
+                dataAnchor.x + (1 - liveFrac.fx) * newXSpan
+            ];
+            let newYRange = [
+                dataAnchor.y - liveFrac.fy * newYSpan,
+                dataAnchor.y + (1 - liveFrac.fy) * newYSpan
+            ];
+
+            const autoscaleBounds = getAutoscaleBounds(currentFilteredData);
+            if (scale > 1 && autoscaleBounds) {
+                newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
+                newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
+            }
+
+            isInternalUpdate = true;
+            clearTimeout(internalUpdateTimer);
+            Plotly.relayout(chartEl, {
+                'xaxis.range': newXRange,
+                'yaxis.range': newYRange,
+                'xaxis.autorange': false,
+                'yaxis.autorange': false
+            });
+            internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 300);
+        }
+
+        // Reset state
         pinchStartDist = null;
         pinchStartRanges = null;
         dataAnchor = null;
-    });
+        pinchStartCenter = null;
+        lastScale = 1;
+        lastCenter = null;
+    }
+
+    chartEl.addEventListener('touchend', finishPinch, { passive: false });
+    chartEl.addEventListener('touchcancel', finishPinch, { passive: false });
 })();
 
 // ════════════════════════════════════════════════════════════
