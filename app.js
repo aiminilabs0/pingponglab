@@ -222,6 +222,9 @@ async function loadRubberData() {
     const manufacturerRanges = buildManufacturerRatingRanges(rawItems);
 
     for (const raw of rawItems) {
+        // Exclude entries explicitly flagged as disabled in source JSON.
+        if (raw?.disabled !== undefined) continue;
+
         const ratings = raw.user_ratings || {};
         const userSpin = parseRatingNumber(ratings.spin);
         const userSpeed = parseRatingNumber(ratings.speed);
@@ -751,7 +754,7 @@ function updateChart(options = {}) {
     const minControl = controlValues.length ? Math.min(...controlValues) : null;
     const maxControl = controlValues.length ? Math.max(...controlValues) : null;
     const MIN_MARKER = 10;
-    const MAX_MARKER = 15;
+    const MAX_MARKER = 20;
 
     function getMarkerSize(rubber) {
         const control = getControlValue(rubber);
