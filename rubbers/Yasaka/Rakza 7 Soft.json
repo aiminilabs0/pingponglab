@@ -18,12 +18,12 @@
   },
   "manufacturer_details": {
     "country": "Germany",
+    "hardness": 40,
     "thickness": [
       "max",
       "2.0",
       "1.8"
     ],
-    "hardness": 40,
     "topsheet": "Classic"
   },
   "manufacturer_ratings": {
