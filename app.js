@@ -1166,6 +1166,11 @@ function computeVisibleRubbers(filteredData) {
 
 const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
 const HOVER_POPUP_ID = 'chartHoverPopup';
+const IS_TOUCH_DEVICE =
+    window.matchMedia('(hover: none)').matches ||
+    window.matchMedia('(pointer: coarse)').matches ||
+    navigator.maxTouchPoints > 0;
+let activeTappedRubberKey = null;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -1235,8 +1240,24 @@ function positionHoverPopup(popup, hoverData, chartEl) {
 }
 
 function hideChartHoverPopup() {
+    activeTappedRubberKey = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
+}
+
+function getRubberPopupKey(rubber) {
+    if (!rubber) return null;
+    return `${rubber.brand || ''}::${rubber.fullName || rubber.name || ''}`;
+}
+
+function showChartHoverPopupFromPlotlyData(data, chartEl) {
+    const point = data?.points?.[0];
+    const rubber = point?.data?.customdata?.[point.pointIndex];
+    if (!point || !rubber) return null;
+    const popup = getChartHoverPopupEl();
+    popup.innerHTML = buildHoverPopupHtml(rubber, point);
+    positionHoverPopup(popup, data, chartEl);
+    return rubber;
 }
 
 function buildHoverPopupHtml(rubber, point) {
@@ -1444,21 +1465,38 @@ function updateChart(options = {}) {
         chartEl._hasClickHandler = true;
         chartEl.on('plotly_click', data => {
             const point = data.points[0];
-            handleRubberClick(point.data.customdata[point.pointIndex]);
+            const rubber = point.data.customdata[point.pointIndex];
+            handleRubberClick(rubber);
+
+            // Mobile has no true hover; tapping a point should open the popup.
+            if (IS_TOUCH_DEVICE) {
+                const nextKey = getRubberPopupKey(rubber);
+                if (activeTappedRubberKey && activeTappedRubberKey === nextKey) {
+                    hideChartHoverPopup();
+                    return;
+                }
+                const shownRubber = showChartHoverPopupFromPlotlyData(data, chartEl);
+                activeTappedRubberKey = getRubberPopupKey(shownRubber);
+            }
         });
     }
 
     if (!chartEl._hasHoverHandler) {
         chartEl._hasHoverHandler = true;
         chartEl.on('plotly_hover', data => {
-            const point = data?.points?.[0];
-            const rubber = point?.data?.customdata?.[point.pointIndex];
-            if (!point || !rubber) return;
-            const popup = getChartHoverPopupEl();
-            popup.innerHTML = buildHoverPopupHtml(rubber, point);
-            positionHoverPopup(popup, data, chartEl);
+            if (IS_TOUCH_DEVICE) return;
+            showChartHoverPopupFromPlotlyData(data, chartEl);
         });
         chartEl.on('plotly_unhover', hideChartHoverPopup);
+    }
+
+    if (!chartEl._hasTapDismissHandler) {
+        chartEl._hasTapDismissHandler = true;
+        document.addEventListener('pointerdown', (event) => {
+            if (!IS_TOUCH_DEVICE) return;
+            if (chartEl.contains(event.target)) return;
+            hideChartHoverPopup();
+        }, { passive: true });
     }
 
     if (!chartEl._hasRelayoutHandler) {
@@ -1783,6 +1821,7 @@ function getPlotFraction(chartEl, clientX, clientY) {
 
     chartEl.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 2) return;
+        hideChartHoverPopup();
         e.preventDefault();
         const [t1, t2] = e.touches;
         pinchStartDist = getTouchDist(t1, t2);
