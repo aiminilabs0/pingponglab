@@ -1,0 +1,56 @@
+{
+  "abbr": "Tronix ACC",
+  "name": "Tronix ACC",
+  "manufacturer": "JOOLA",
+  "user_ratings": {
+    "overall": 9.5,
+    "speed": 9.0,
+    "spin": 9.4,
+    "control": 9.4,
+    "weight": "4.0 (Average)",
+    "sponge_hardness": "6.1 (Medium hard)",
+    "gears": "8.1 (Above average gears)",
+    "throw_angle": "6.2 (Medium high)",
+    "consistency": 10.0,
+    "durability": "8.7 (Lasts a long time!)",
+    "tackiness": "1.6 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/joola-tronix-acc.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 46
+  },
+  "manufacturer_ratings": {
+    "url": "https://joola.com/pages/rubber-specification?srsltid=AfmBOoo6G5Kh7eRNauE3BxGjz79iBV4u_VeVVPChuuShOZQ-seNAJWJ5",
+    "speed": 10,
+    "spin": 9,
+    "trajectory": 6.5,
+    "precision": 7.5
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=JOOLA+Tronix+ACC+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/joola-tronix-acc",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=JIxZGn6x-yg"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": false
+}

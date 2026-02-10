@@ -1,0 +1,56 @@
+{
+  "abbr": "Tronix CMD",
+  "name": "JOOLA Tronix CMD",
+  "manufacturer": "JOOLA",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 8.7,
+    "spin": 9.1,
+    "control": 9.3,
+    "weight": "3.2 (Average)",
+    "sponge_hardness": "3.3 (Medium soft)",
+    "gears": "6.4 (Above average gears)",
+    "throw_angle": "4.3 (Medium)",
+    "consistency": 10.0,
+    "durability": "6.2 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/joola-tronix-cmd.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 45,
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 45
+  },
+  "manufacturer_ratings": {
+    "url": "https://joola.com/pages/rubber-specification?srsltid=AfmBOoo6G5Kh7eRNauE3BxGjz79iBV4u_VeVVPChuuShOZQ-seNAJWJ5",
+    "speed": 8,
+    "spin": 9,
+    "trajectory": 7.5,
+    "precision": 8
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=JOOLA+Tronix+CMD+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/joola-tronix-cmd",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=JIxZGn6x-yg"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": false
+}
