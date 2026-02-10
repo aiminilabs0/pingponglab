@@ -170,11 +170,9 @@ function buildFullName(brand, name) {
 function buildDescriptionMarkdown(raw, debugInfo) {
     const details = raw.manufacturer_details || {};
     const lines = [
-        `**Brand:** ${raw.manufacturer}`,
         raw.price ? `**Price:** ${raw.price}` : null,
-        details.country ? `**Country:** ${details.country}` : null,
         details.topsheet ? `**Topsheet:** ${details.topsheet}` : null,
-        details.hardness !== undefined ? `**Sponge Hardness:** ${details.hardness}°` : null,
+        details.hardness !== undefined ? `**Hardness:** ${details.hardness}° ${COUNTRY_FLAGS[details.country]}` : null,
         details.weight !== undefined ? `**Weight:** ${details.weight}g` : null,
         details.thickness ? `**Thickness:** ${Array.isArray(details.thickness) ? details.thickness.join(', ') : details.thickness}` : null
     ].filter(Boolean);
@@ -273,6 +271,7 @@ async function loadRubberData() {
         const details = raw.manufacturer_details || {};
         const hardness = parseRatingNumber(details.hardness);
         const weightValue = parseRatingNumber(details.weight);
+        const hardnessFlag = COUNTRY_FLAGS[details.country] || '';
         const urls = raw.urls || {};
 
         const rubber = {
@@ -286,6 +285,8 @@ async function loadRubberData() {
             hardness: parseRatingNumber(ratings.sponge_hardness),
             manufacturerHardness: hardness,
             normalizedHardness: toGermanScale(hardness, details.country),
+            hardnessLabel: Number.isFinite(hardness) ? `${hardness}°${hardnessFlag ? ` ${hardnessFlag}` : ''}` : 'N/A',
+            weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
             control: parseRatingNumber(ratings.control),
             topsheet: normalizeTopsheet(details.topsheet),
             priority: Number.isFinite(raw.priority) ? raw.priority : 50,
@@ -1241,12 +1242,16 @@ function updateChart(options = {}) {
             textposition: 'top center',
             textfont: { size: 11, color: '#e8e0d0', family: CHART_FONT },
             hovertemplate:
-                `<b>%{customdata.name}</b><br>Brand: ${group.brand}<br>` +
-                `Spin: %{x:.2f}<br>Speed: %{y:.2f}<br>Topsheet: ${group.topsheet}<extra></extra>`,
+                `<b>%{customdata.name}</b><br>${group.brand}<br>` +
+                `🔄  %{x:.2f}<br>` +
+                `⚡  %{y:.2f}<br>` +
+                `🧽  %{customdata.hardnessLabel}<br>` +
+                `⚖️  %{customdata.weightLabel}<extra></extra><br>` +
+                `🟥  ${group.topsheet}<br>`,
             customdata: group.rubbers
         });
     }
-
+    
     // Determine axis ranges: autoscale or preserve current view
     let currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
     if (!options.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
