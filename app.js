@@ -1109,16 +1109,21 @@ function toggleYouTubeEmbed(link, videoId) {
     container.appendChild(embedWrapper);
 
     if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {
-        // IFrame API — playVideo() in onReady is allowed because this chain started from a user tap
+        // IFrame API — user tap allows autoplay with sound in most browsers.
         ytPlayers[playerId] = new YT.Player(playerId, {
             videoId,
-            playerVars: { autoplay: 1, playsinline: 1, rel: 0 },
-            events: { onReady: e => e.target.playVideo() }
+            playerVars: { autoplay: 1, playsinline: 1, rel: 0, mute: 0 },
+            events: {
+                onReady: e => {
+                    e.target.unMute();
+                    e.target.playVideo();
+                }
+            }
         });
     } else {
-        // Fallback: plain iframe (muted autoplay for mobile compatibility)
+        // Fallback: plain iframe starts unmuted.
         playerDiv.outerHTML =
-            `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0" ` +
+            `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0" ` +
             `style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px;" ` +
             `allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
     }
