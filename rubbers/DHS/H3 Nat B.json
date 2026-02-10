@@ -1,0 +1,48 @@
+{
+  "abbr": "H3 Nat B",
+  "name": "Hurricane 3 National Blue",
+  "manufacturer": "DHS",
+  "user_ratings": {
+    "overall": 9.5,
+    "speed": 9.2,
+    "spin": 9.6,
+    "control": 9.2,
+    "weight": "6.3 (Medium heavy)",
+    "sponge_hardness": "8.1 (Medium hard)",
+    "gears": "9.4 (Many gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 9.3,
+    "durability": "8.4 (Lasts longer than average)",
+    "tackiness": "8.5 (Tacky)",
+    "url": "https://revspin.net/rubber/dhs-hurricane-3-national-blue-sponge.html"
+  },
+  "manufacturer_details": {
+    "country": "China",
+    "hardness": 39,
+    "thickness": [
+      "2.15",
+      "2.1"
+    ],
+    "topsheet": "Chinese"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=DHS+Hurricane+3+National+Blue+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/dhs-hurricane-3-national-blue",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": true
+}

@@ -1,0 +1,55 @@
+{
+  "abbr": "G-1",
+  "name": "Fastarc G-1",
+  "manufacturer": "Nittaku",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9,
+    "spin": 9.3,
+    "control": 9.1,
+    "weight": "5.5 (Medium heavy)",
+    "sponge_hardness": "6.7 (Medium hard)",
+    "gears": "9.1 (Many gears)",
+    "throw_angle": "6.1 (Medium high)",
+    "consistency": 9.7,
+    "durability": "8.8 (Lasts a long time!)",
+    "tackiness": "2.3 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/nittaku-fastarc-g-1.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8",
+      "1.4"
+    ],
+    "topsheet": "Classic",
+    "weight": 49
+  },
+  "manufacturer_ratings": {
+    "speed": 12.3,
+    "spin": 11.8
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+G-1+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/nittaku-fastarc-g-1",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": true
+}

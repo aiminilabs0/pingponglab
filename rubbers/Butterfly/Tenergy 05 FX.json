@@ -1,0 +1,53 @@
+{
+  "abbr": "Tenergy 05 FX",
+  "name": "Tenergy 05 FX",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9.1,
+    "spin": 9.2,
+    "control": 8.9,
+    "weight": "5.3 (Medium heavy)",
+    "sponge_hardness": "4.1 (Medium)",
+    "gears": "8.4 (Above average gears)",
+    "throw_angle": "6.0 (Medium high)",
+    "consistency": 9.3,
+    "durability": "7.7 (Lasts longer than average)",
+    "tackiness": "2.9 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-tenergy-05-fx.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 32,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 45
+  },
+  "manufacturer_ratings": {
+    "speed": 81,
+    "spin": 64
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Tenergy+05+FX+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-tenergy-05-fx",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

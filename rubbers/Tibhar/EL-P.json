@@ -1,0 +1,55 @@
+{
+  "abbr": "EL-P",
+  "name": "Evolution EL-P",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9.1,
+    "spin": 9.2,
+    "control": 9,
+    "weight": "5.8 (Medium heavy)",
+    "sponge_hardness": "5.0 (Medium)",
+    "gears": "8.2 (Above average gears)",
+    "throw_angle": "5.3 (Medium high)",
+    "consistency": 9.5,
+    "durability": "8.1 (Lasts longer than average)",
+    "tackiness": "2.2 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-el-p.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 44,
+    "thickness": [
+      "1.5",
+      "1.7",
+      "1.9",
+      "2.1"
+    ],
+    "topsheet": "Classic",
+    "weight": 47
+  },
+  "manufacturer_ratings": {
+    "speed": 121,
+    "spin": 122,
+    "control": 98
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Tibhar+Evolution+EL-P+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-evolution-el-p",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

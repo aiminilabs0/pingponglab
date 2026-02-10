@@ -1,0 +1,54 @@
+{
+  "abbr": "Rakza 7 Soft",
+  "name": "Rakza 7 Soft",
+  "manufacturer": "Yasaka",
+  "user_ratings": {
+    "overall": 9.2,
+    "speed": 8.6,
+    "spin": 9.2,
+    "control": 9.1,
+    "weight": "3.7 (Average)",
+    "sponge_hardness": "2.5 (Medium soft)",
+    "gears": "7.6 (Above average gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 9.7,
+    "durability": "7.6 (Lasts longer than average)",
+    "tackiness": "2.4 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/yasaka-rakza-7-soft.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "hardness": 40,
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "speed": 84,
+    "spin": 88,
+    "control": 67,
+    "arc": "High"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Yasaka+Rakza+7+Soft+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/yasaka-rakza-7-soft",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

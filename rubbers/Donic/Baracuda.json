@@ -1,0 +1,54 @@
+{
+  "abbr": "Baracuda",
+  "name": "Baracuda",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 8.7,
+    "spin": 9.5,
+    "control": 8.6,
+    "weight": "5.5 (Medium heavy)",
+    "sponge_hardness": "4.9 (Medium)",
+    "gears": "7.8 (Above average gears)",
+    "throw_angle": "7.3 (High)",
+    "consistency": 8.8,
+    "durability": "7.7 (Lasts longer than average)",
+    "tackiness": "2.3 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-baracuda.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 45,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "url": "https://www.megaspin.net/store/default.asp?pid=d-baracuda",
+    "speed": 91,
+    "spin": 98,
+    "control": 71
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Donic+Baracuda+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/donic-baracuda",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

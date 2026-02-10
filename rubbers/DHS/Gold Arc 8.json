@@ -1,0 +1,50 @@
+{
+  "abbr": "Gold Arc 8",
+  "name": "Gold Arc 8",
+  "manufacturer": "DHS",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.4,
+    "spin": 9.3,
+    "control": 9.1,
+    "weight": "5.9 (Medium heavy)",
+    "sponge_hardness": "6.7 (Medium hard)",
+    "gears": "8.7 (Many gears)",
+    "throw_angle": "5.7 (Medium high)",
+    "consistency": 9.4,
+    "durability": "8.3 (Lasts longer than average)",
+    "tackiness": "2.0 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/dhs-gold-arc-8.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "2.1",
+      "2.0",
+      "1.8",
+      "1.6"
+    ],
+    "topsheet": "Classic",
+    "weight": 50
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=DHS+Gold+Arc+8+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/dhs-gold-arc-8",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

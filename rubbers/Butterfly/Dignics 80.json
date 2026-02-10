@@ -1,0 +1,51 @@
+{
+  "abbr": "Dignics 80",
+  "name": "Dignics 80",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.5,
+    "speed": 9.3,
+    "spin": 9.5,
+    "control": 9.2,
+    "weight": "5.0 (Average)",
+    "sponge_hardness": "6.5 (Medium hard)",
+    "gears": "9.0 (Many gears)",
+    "throw_angle": "6.2 (Medium high)",
+    "consistency": 9.6,
+    "durability": "8.5 (Lasts a long time!)",
+    "tackiness": "1.9 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-dignics-80.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 40,
+    "thickness": [
+      "2.1",
+      "1.9"
+    ],
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "speed": 88,
+    "spin": 82
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Dignics+80+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-dignics-80",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

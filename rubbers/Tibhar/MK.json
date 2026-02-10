@@ -1,0 +1,54 @@
+{
+  "abbr": "MK",
+  "name": "Hybrid MK",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.5,
+    "speed": 8.9,
+    "spin": 9.1,
+    "control": 9.3,
+    "weight": "4.1 (Average)",
+    "sponge_hardness": "6.5 (Medium hard)",
+    "gears": "8.7 (Many gears)",
+    "throw_angle": "6.0 (Medium high)",
+    "consistency": 10.0,
+    "durability": "6.5 (Lasts longer than average)",
+    "tackiness": "2.5 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-hybrid-mk.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "hardness": 48,
+    "topsheet": "Hybrid"
+  },
+  "manufacturer_ratings": {
+    "speed": 125,
+    "spin": 125,
+    "control": 110,
+    "arc": "Medium-High"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Tibhar+Hybrid+MK+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-hybrid-mk",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50,
+  "bestseller": false
+}

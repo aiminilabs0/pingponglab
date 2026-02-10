@@ -1,0 +1,58 @@
+{
+  "abbr": "Rakza Z",
+  "name": "Rakza Z",
+  "manufacturer": "Yasaka",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 8.7,
+    "spin": 9.5,
+    "control": 9.2,
+    "weight": "6.7 (Medium heavy)",
+    "sponge_hardness": "7.7 (Medium hard)",
+    "gears": "8.7 (Many gears)",
+    "throw_angle": "6.5 (Medium high)",
+    "consistency": 9.4,
+    "durability": "8.3 (Lasts longer than average)",
+    "tackiness": "6.6 (Tacky)",
+    "url": "https://revspin.net/rubber/yasaka-rakza-z.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "hardness": 50,
+    "topsheet": "Hybrid"
+  },
+  "manufacturer_ratings": {
+    "speed": 84,
+    "spin": 92,
+    "control": 63,
+    "arc": "High",
+    "thickness": [
+      "max",
+      "2.0"
+    ]
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Yasaka+Rakza+Z+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/yasaka-rakza-z",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": true
+}

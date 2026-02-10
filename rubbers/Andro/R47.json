@@ -1,0 +1,55 @@
+{
+  "abbr": "R47",
+  "name": "Rasanter R47",
+  "manufacturer": "Andro",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9.4,
+    "spin": 9.3,
+    "control": 8.9,
+    "weight": "5.6 (Medium heavy)",
+    "sponge_hardness": "6.5 (Medium hard)",
+    "gears": "8.8 (Many gears)",
+    "throw_angle": "5.9 (Medium high)",
+    "consistency": 9.3,
+    "durability": "7.6 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/andro-rasanter-r47.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 49
+  },
+  "manufacturer_ratings": {
+    "url": "https://www.paddlepalace.com/Andro-Rasanter-R47/productinfo/RAR47/",
+    "speed": 96,
+    "spin": 96,
+    "control": 68
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Andro+Rasanter+R47+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/andro-rasanter-r47",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

@@ -1,0 +1,56 @@
+{
+  "abbr": "MX-P",
+  "name": "Evolution MX-P",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.5,
+    "spin": 9.3,
+    "control": 8.7,
+    "weight": "6.5 (Medium heavy)",
+    "sponge_hardness": "7.0 (Medium hard)",
+    "gears": "8.7 (Many gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 8.9,
+    "durability": "7.0 (Lasts longer than average)",
+    "tackiness": "2.3 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-mx-p.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "1.5",
+      "1.7",
+      "1.9",
+      "2.1"
+    ],
+    "topsheet": "Classic",
+    "weight": 51
+  },
+  "manufacturer_ratings": {
+    "speed": 126,
+    "spin": 122,
+    "control": 86
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-P+table+tennis+rubber",
+      "youtube": "https://www.youtube.com/watch?v=WU8gNr9XIcU"
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-evolution-mx-p",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=63MWAt7NNfo"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": true
+}

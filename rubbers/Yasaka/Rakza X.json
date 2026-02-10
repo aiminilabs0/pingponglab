@@ -1,0 +1,55 @@
+{
+  "abbr": "Rakza X",
+  "name": "Rakza X",
+  "manufacturer": "Yasaka",
+  "user_ratings": {
+    "overall": 9.2,
+    "speed": 9.0,
+    "spin": 9.0,
+    "control": 9.0,
+    "weight": "4.9 (Average)",
+    "sponge_hardness": "6.6 (Medium hard)",
+    "gears": "8.4 (Above average gears)",
+    "throw_angle": "4.7 (Medium)",
+    "consistency": 9.6,
+    "durability": "8.0 (Lasts longer than average)",
+    "tackiness": "2.2 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/yasaka-rakza-x.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "thickness": [
+      "Max",
+      "2.0",
+      "1.8"
+    ],
+    "hardness": 47.5,
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "speed": 87,
+    "spin": 85,
+    "control": 70,
+    "arc": "Medium"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Yasaka+Rakza+X+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/yasaka-rakza-x",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50,
+  "bestseller": false
+}

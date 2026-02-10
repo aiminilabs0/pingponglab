@@ -1,0 +1,53 @@
+{
+  "abbr": "J&H C55.0",
+  "name": "Jekyll & Hyde C55.0",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9,
+    "spin": 9.7,
+    "control": 9.1,
+    "weight": "7.5 (Heavy)",
+    "sponge_hardness": "8.9 (Hard)",
+    "gears": 8.9,
+    "throw_angle": "4.9 (Medium)",
+    "consistency": 8.9,
+    "durability": "6.1 (Lasts longer than average)",
+    "tackiness": "5.7 (Medium tacky)",
+    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c550.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 55,
+    "thickness": [
+      "max",
+      "2.1"
+    ],
+    "topsheet": "Hybrid",
+    "weight": 54
+  },
+  "manufacturer_ratings": {
+    "catapult & click": 8,
+    "spin": 7.7,
+    "speed": 6
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+C55.0+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/xiom-jekyll-and-hyde-c55.0",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

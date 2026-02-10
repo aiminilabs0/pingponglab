@@ -1,0 +1,54 @@
+{
+  "abbr": "Acuda S2",
+  "name": "Acuda S2",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 9.1,
+    "speed": 8.8,
+    "spin": 9,
+    "control": 8.6,
+    "weight": "4.4 (Average)",
+    "sponge_hardness": "4.5 (Medium)",
+    "gears": "7.9 (Above average gears)",
+    "throw_angle": "5.1 (Medium high)",
+    "consistency": 9.1,
+    "durability": "7.5 (Lasts longer than average)",
+    "tackiness": "2.6 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-acuda-s2.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 42.5,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "url": "https://www.megaspin.net/store/default.asp?pid=d-acuda-s2",
+    "speed": 92,
+    "spin": 98,
+    "control": 69
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Donic+Acuda+S2+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/donic-acuda-s2",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

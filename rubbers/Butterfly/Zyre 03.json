@@ -1,0 +1,52 @@
+{
+  "abbr": "Zyre 03",
+  "name": "Zyre 03",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9.2,
+    "spin": 9.6,
+    "control": 8.9,
+    "weight": "5.0 (Medium heavy)",
+    "sponge_hardness": "7.3 (Medium hard)",
+    "gears": "8.9 (Many gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 9.4,
+    "durability": "7.8 (Lasts longer than average)",
+    "tackiness": "2.5 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-zyre-03.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 44,
+    "thickness": [
+      "2.7",
+      "2.5"
+    ],
+    "topsheet": "Classic",
+    "weight": 47
+  },
+  "manufacturer_ratings": {
+    "speed": 88,
+    "spin": 100
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Zyre+03+table+tennis+rubber",
+      "youtube": "https://www.youtube.com/watch?v=8CAntgKhKO8"
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-zyre-03",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=_U0m4EtsgZk"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

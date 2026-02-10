@@ -1,0 +1,48 @@
+{
+  "abbr": "Neo H3 Prov O",
+  "name": "Neo Hurricane 3 Provincial Orange",
+  "manufacturer": "DHS",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 8.6,
+    "spin": 9.4,
+    "control": 9,
+    "weight": "6.5 (Medium heavy)",
+    "sponge_hardness": "7.3 (Medium hard)",
+    "gears": "9.0 (Many gears)",
+    "throw_angle": "5.6 (Medium high)",
+    "consistency": 8,
+    "durability": "8.0 (Lasts longer than average)",
+    "tackiness": "7.8 (Tacky)",
+    "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-orange-sponge.html"
+  },
+  "manufacturer_details": {
+    "country": "China",
+    "hardness": 39,
+    "thickness": [
+      "2.2",
+      "2.15",
+      "2.1"
+    ],
+    "topsheet": "Chinese"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=DHS+Neo+Hurricane+3+Provincial+Orange+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/dhs-neo-hurricane-3-provincial-orange",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

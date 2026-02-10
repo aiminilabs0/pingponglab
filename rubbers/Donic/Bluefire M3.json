@@ -1,0 +1,54 @@
+{
+  "abbr": "Bluefire M3",
+  "name": "Bluefire M3",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 8.9,
+    "speed": 8.4,
+    "spin": 9.1,
+    "control": 8.9,
+    "weight": "5.3 (Medium heavy)",
+    "sponge_hardness": "3.1 (Medium soft)",
+    "gears": "8.1 (Above average gears)",
+    "throw_angle": "7.2 (High)",
+    "consistency": 8.9,
+    "durability": "7.9 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-bluefire-m3.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 40,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m3",
+    "speed": 90,
+    "spin": 107,
+    "control": 77
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Donic+Bluefire+M3+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/donic-bluefire-m3",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

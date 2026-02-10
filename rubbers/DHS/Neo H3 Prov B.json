@@ -1,0 +1,48 @@
+{
+  "abbr": "Neo H3 Prov B",
+  "name": "Neo H3 Provincial Blue",
+  "manufacturer": "DHS",
+  "user_ratings": {
+    "overall": 9.1,
+    "speed": 8.3,
+    "spin": 9.3,
+    "control": 8.6,
+    "weight": "6.6 (Medium heavy)",
+    "sponge_hardness": "8.1 (Medium hard)",
+    "gears": "8.0 (Above average gears)",
+    "throw_angle": "4.2 (Medium)",
+    "consistency": 8,
+    "durability": "8.0 (Lasts longer than average)",
+    "tackiness": "8.3 (Tacky)",
+    "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-blue-sponge.html"
+  },
+  "manufacturer_details": {
+    "country": "China",
+    "hardness": 39,
+    "thickness": [
+      "2.2",
+      "2.15",
+      "2.1"
+    ],
+    "topsheet": "Chinese"
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=DHS+Neo+H3+Provincial+Blue+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/dhs-neo-h3-provincial-blue",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

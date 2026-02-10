@@ -1,0 +1,54 @@
+{
+  "abbr": "FX-P",
+  "name": "Evolution FX-P",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.1,
+    "speed": 8.6,
+    "spin": 9.1,
+    "control": 8.9,
+    "weight": "5.1 (Medium heavy)",
+    "sponge_hardness": "2.9 (Medium soft)",
+    "gears": "8.6 (Many gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 9.5,
+    "durability": "7.1 (Lasts longer than average)",
+    "tackiness": "2.0 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-fx-p.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 40,
+    "thickness": [
+      "1.7",
+      "1.9",
+      "2.1"
+    ],
+    "topsheet": "Classic",
+    "weight": 49
+  },
+  "manufacturer_ratings": {
+    "speed": 115,
+    "spin": 122,
+    "control": 102
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Tibhar+Evolution+FX-P+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-evolution-fx-p",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

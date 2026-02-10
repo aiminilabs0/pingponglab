@@ -1,0 +1,52 @@
+{
+  "abbr": "Tenergy 05H",
+  "name": "Tenergy 05 Hard",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.6,
+    "spin": 9.5,
+    "control": 8.7,
+    "weight": "7.8 (Heavy)",
+    "sponge_hardness": "8.9 (Hard)",
+    "gears": "9.2 (Many gears)",
+    "throw_angle": "6.8 (High)",
+    "consistency": 9.5,
+    "durability": "8.2 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-tenergy-05-hard.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 43,
+    "thickness": [
+      "2.1",
+      "1.9"
+    ],
+    "topsheet": "Classic",
+    "weight": 52
+  },
+  "manufacturer_ratings": {
+    "speed": 82,
+    "spin": 96
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Tenergy+05+Hard+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-tenergy-05-hard",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

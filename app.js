@@ -2,17 +2,7 @@
 //  Constants & Configuration
 // ════════════════════════════════════════════════════════════
 
-const RUBBER_FILES = [
-    'rubbers/Andro.json',
-    'rubbers/Butterfly.json',
-    'rubbers/DHS.json',
-    'rubbers/Donic.json',
-    'rubbers/JOOLA.json',
-    'rubbers/Nittaku.json',
-    'rubbers/Tibhar.json',
-    'rubbers/Xiom.json',
-    'rubbers/Yasaka.json'
-];
+const RUBBER_INDEX_FILE = 'rubbers/index.json';
 
 const BRAND_COLORS = {
     Butterfly: '#E41A1C',
@@ -193,8 +183,18 @@ function buildDescriptionMarkdown(raw, debugInfo) {
 // ════════════════════════════════════════════════════════════
 
 async function loadRubberData() {
+    const indexResp = await fetch(RUBBER_INDEX_FILE);
+    if (!indexResp.ok) {
+        throw new Error(`HTTP ${indexResp.status} for ${RUBBER_INDEX_FILE}`);
+    }
+
+    const rubberFiles = await indexResp.json();
+    if (!Array.isArray(rubberFiles)) {
+        throw new Error(`${RUBBER_INDEX_FILE} must contain an array of file paths`);
+    }
+
     const results = await Promise.allSettled(
-        RUBBER_FILES.map(file =>
+        rubberFiles.map(file =>
             fetch(file).then(r => {
                 if (!r.ok) throw new Error(`HTTP ${r.status} for ${file}`);
                 return r.json();
@@ -203,10 +203,17 @@ async function loadRubberData() {
     );
 
     const rawItems = results.flatMap(result => {
-        if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+        if (result.status !== 'fulfilled') {
+            console.warn('Skipping rubber data file:', result.reason);
+            return [];
+        }
+        // Backward compatible with old per-brand array files.
+        if (Array.isArray(result.value)) {
             return result.value;
         }
-        console.warn('Skipping rubber data file:', result.reason);
+        if (result.value && typeof result.value === 'object') {
+            return [result.value];
+        }
         return [];
     });
 

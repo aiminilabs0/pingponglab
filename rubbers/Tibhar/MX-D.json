@@ -1,0 +1,53 @@
+{
+  "abbr": "MX-D",
+  "name": "Evolution MX-D",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.2,
+    "speed": 9.3,
+    "spin": 9.1,
+    "control": 8.6,
+    "weight": "6.8 (Medium heavy)",
+    "sponge_hardness": "8.6 (Hard)",
+    "gears": "8.7 (Many gears)",
+    "throw_angle": "4.6 (Medium)",
+    "consistency": 8.9,
+    "durability": "7.1 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-mx-d.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 51.5,
+    "thickness": [
+      "2.2",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 52
+  },
+  "manufacturer_ratings": {
+    "speed": 130,
+    "spin": 123,
+    "control": 83
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.paddlepalace.com/Tibhar-Evolution-MX-D/productinfo/RTEVMD/",
+      "youtube": "https://www.youtube.com/watch?v=uqEat6_r-1A"
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-evolution-mx-d",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "https://coupang.com/vp/products/1986144567?itemId=3379589275&vendorItemId=5587610207&pickType=COU_PICK&q=tibhar%20evolution%20mx-d&searchId=d927fd9c15598415&sourceType=search&itemsCount=36&searchRank=1&rank=1&traceId=mlcymu1t",
+      "youtube": "https://www.youtube.com/watch?v=haxt_8BOEoo"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

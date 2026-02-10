@@ -1,0 +1,46 @@
+{
+  "abbr": "J&H V47.5",
+  "name": "Jekyll & Hyde V47.5",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.3,
+    "spin": 8.9,
+    "control": 8.8,
+    "url": "https://revspin.net/rubber/xiom-jekyll-hyde-v475.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "max",
+      "2.1"
+    ],
+    "topsheet": "Classic",
+    "weight": 50
+  },
+  "manufacturer_ratings": {
+    "catapult & click": 5.6,
+    "spin": 5.4,
+    "speed": 7
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+V47.5+table+tennis+rubber",
+      "youtube": "https://www.youtube.com/watch?v=5lKpiFIH5FY"
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/xiom-jekyll-and-hyde-v47.5",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=7ZZFFb38RK0"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

@@ -1,0 +1,53 @@
+{
+  "abbr": "Tenergy 19",
+  "name": "Tenergy 19",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9,
+    "spin": 9.2,
+    "control": 9.2,
+    "weight": "4.5 (Average)",
+    "sponge_hardness": "5.8 (Medium)",
+    "gears": "8.3 (Above average gears)",
+    "throw_angle": "5.8 (Medium high)",
+    "consistency": 9.3,
+    "durability": "7.7 (Lasts longer than average)",
+    "tackiness": "1.6 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-tenergy-19.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 36,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 49
+  },
+  "manufacturer_ratings": {
+    "speed": 84,
+    "spin": 75
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Tenergy+19+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-tenergy-19",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

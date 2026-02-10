@@ -1,0 +1,54 @@
+{
+  "abbr": "C-1",
+  "name": "Fastarc C-1",
+  "manufacturer": "Nittaku",
+  "user_ratings": {
+    "overall": 9.2,
+    "speed": 9,
+    "spin": 9.1,
+    "control": 9.2,
+    "weight": "4.5 (Light medium)",
+    "sponge_hardness": "5.0 (Medium soft)",
+    "gears": 7.7,
+    "throw_angle": "5.4 (Medium)",
+    "consistency": 9.5,
+    "durability": "8.4 (Longer than average)",
+    "tackiness": "2.0 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/nittaku-fastarc-c-1.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 43,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8",
+      "1.4"
+    ],
+    "topsheet": "Classic",
+    "weight": 46
+  },
+  "manufacturer_ratings": {
+    "speed": 12.3,
+    "spin": 11.8
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Nittaku+Fastarc+C-1+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/nittaku-fastarc-c-1",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

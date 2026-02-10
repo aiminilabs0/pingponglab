@@ -1,0 +1,54 @@
+{
+  "abbr": "Bluefire M2",
+  "name": "Bluefire M2",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 8.9,
+    "speed": 8.7,
+    "spin": 9,
+    "control": 8.5,
+    "weight": "5.6 (Medium heavy)",
+    "sponge_hardness": "5.4 (Medium)",
+    "gears": "7.7 (Above average gears)",
+    "throw_angle": "6.4 (Medium high)",
+    "consistency": 9.2,
+    "durability": "6.3 (Lasts longer than average)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-bluefire-m2.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 45,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "topsheet": "Classic"
+  },
+  "manufacturer_ratings": {
+    "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m2",
+    "speed": 97,
+    "spin": 107,
+    "control": 70
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Donic+Bluefire+M2+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/donic-bluefire-m2",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

@@ -1,0 +1,49 @@
+{
+  "abbr": "MX-K",
+  "name": "Evolution MX-K",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9,
+    "speed": 9,
+    "spin": 9.2,
+    "control": 9.4,
+    "weight": "8.0 (Heavy)",
+    "sponge_hardness": "7.0 (Medium hard)",
+    "gears": null,
+    "throw_angle": "8.0 (High)",
+    "consistency": 5,
+    "durability": "10.0 (Lasts a long time!)",
+    "tackiness": "8.0 (Tacky)",
+    "url": "https://revspin.net/rubber/tibhar-mx-k.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "2.1",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 48
+  },
+  "manufacturer_ratings": {},
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-K+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/tibhar-evolution-mx-k",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=5YHcPv98mOo"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

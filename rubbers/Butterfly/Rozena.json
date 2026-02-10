@@ -1,0 +1,53 @@
+{
+  "abbr": "Rozena",
+  "name": "Rozena",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 8.8,
+    "speed": 8.7,
+    "spin": 8.4,
+    "control": 8.7,
+    "weight": "4.5 (Average)",
+    "sponge_hardness": "5.0 (Medium)",
+    "gears": "6.9 (Above average gears)",
+    "throw_angle": "5.5 (Medium high)",
+    "consistency": 9,
+    "durability": "6.8 (Lasts longer than average)",
+    "tackiness": "1.5 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-rozena.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 35,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 47
+  },
+  "manufacturer_ratings": {
+    "speed": 83,
+    "spin": 70
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Rozena+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-rozena",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}

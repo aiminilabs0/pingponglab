@@ -1,0 +1,53 @@
+{
+  "abbr": "Dignics 09C",
+  "name": "Dignics 09C",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 8.8,
+    "spin": 9.5,
+    "control": 9,
+    "weight": "6.8 (Medium heavy)",
+    "sponge_hardness": "8.1 (Medium hard)",
+    "gears": "9.0 (Many gears)",
+    "throw_angle": "8.3 (High)",
+    "consistency": 9.6,
+    "durability": "7.8 (Lasts longer than average)",
+    "tackiness": "5.5 (Medium tacky)",
+    "url": "https://revspin.net/rubber/butterfly-dignics-09c.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 44,
+    "thickness": [
+      "2.1",
+      "1.9"
+    ],
+    "topsheet": "Hybrid",
+    "weight": 50
+  },
+  "manufacturer_ratings": {
+    "speed": 79,
+    "spin": 96
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Dignics+09C+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-dignics-09c",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 5,
+  "bestseller": true
+}

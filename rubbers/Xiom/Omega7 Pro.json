@@ -1,0 +1,53 @@
+{
+  "abbr": "Omega7 Pro",
+  "name": "Omega7 Pro",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 9.1,
+    "speed": 9.2,
+    "spin": 9.1,
+    "control": 8.7,
+    "weight": "4.3 (Average)",
+    "sponge_hardness": "6.2 (Medium hard)",
+    "gears": 8.2,
+    "throw_angle": "5.2 (Medium high)",
+    "consistency": 8.8,
+    "durability": "6.7 (Lasts longer than average)",
+    "tackiness": "1.6 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/xiom-omega-vii-pro.html"
+  },
+  "manufacturer_details": {
+    "country": "Germany",
+    "hardness": 47.5,
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 50
+  },
+  "manufacturer_ratings": {
+    "catapult & click": 5.6,
+    "spin": 5.4,
+    "speed": 6
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Xiom+Omega7+Pro+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/xiom-omega7-pro",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

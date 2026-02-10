@@ -1,0 +1,53 @@
+{
+  "abbr": "Tenergy 80",
+  "name": "Tenergy 80",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.3,
+    "spin": 9.4,
+    "control": 9,
+    "weight": "5.5 (Medium heavy)",
+    "sponge_hardness": "5.4 (Medium)",
+    "gears": "8.9 (Many gears)",
+    "throw_angle": "5.9 (Medium high)",
+    "consistency": 9.2,
+    "durability": "7.8 (Lasts longer than average)",
+    "tackiness": "2.1 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-tenergy-80.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 36,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 48
+  },
+  "manufacturer_ratings": {
+    "speed": 85,
+    "spin": 73
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Tenergy+80+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-tenergy-80",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

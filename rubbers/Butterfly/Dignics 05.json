@@ -1,0 +1,52 @@
+{
+  "abbr": "Dignics 05",
+  "name": "Dignics 05",
+  "manufacturer": "Butterfly",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 9.1,
+    "spin": 9.4,
+    "control": 8.8,
+    "weight": "4.9 (Average)",
+    "sponge_hardness": "7.0 (Medium hard)",
+    "gears": "8.4 (Above average gears)",
+    "throw_angle": "6.3 (Medium high)",
+    "consistency": 8.7,
+    "durability": "8.5 (Lasts a long time!)",
+    "tackiness": "1.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/butterfly-dignics-05.html"
+  },
+  "manufacturer_details": {
+    "country": "Japan",
+    "hardness": 40,
+    "thickness": [
+      "2.1",
+      "1.9"
+    ],
+    "topsheet": "Classic",
+    "weight": 48
+  },
+  "manufacturer_ratings": {
+    "speed": 86,
+    "spin": 85
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.amazon.com/s?k=Butterfly+Dignics+05+table+tennis+rubber",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/butterfly-dignics-05",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}
