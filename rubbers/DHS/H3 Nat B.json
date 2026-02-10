@@ -7,7 +7,6 @@
     "speed": 9.2,
     "spin": 9.6,
     "control": 9.2,
-    "weight": "6.3 (Medium heavy)",
     "sponge_hardness": "8.1 (Medium hard)",
     "gears": "9.4 (Many gears)",
     "throw_angle": "5.5 (Medium high)",
@@ -17,13 +16,15 @@
     "url": "https://revspin.net/rubber/dhs-hurricane-3-national-blue-sponge.html"
   },
   "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
     "country": "China",
     "hardness": 40,
     "thickness": [
       "2.15",
       "2.1"
     ],
-    "topsheet": "Chinese"
+    "topsheet": "Chinese",
+    "weight": 52
   },
   "urls": {
     "us": {

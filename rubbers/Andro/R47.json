@@ -7,7 +7,6 @@
     "speed": 9.4,
     "spin": 9.3,
     "control": 8.9,
-    "weight": "5.6 (Medium heavy)",
     "sponge_hardness": "6.5 (Medium hard)",
     "gears": "8.8 (Many gears)",
     "throw_angle": "5.9 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/andro-rasanter-r47.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/andro-rasanter-r48/",
     "country": "Germany",
     "hardness": 47,
     "thickness": [
@@ -25,7 +25,7 @@
       "1.7"
     ],
     "topsheet": "Classic",
-    "weight": 49
+    "weight": 48
   },
   "manufacturer_ratings": {
     "url": "https://www.paddlepalace.com/Andro-Rasanter-R47/productinfo/RAR47/",

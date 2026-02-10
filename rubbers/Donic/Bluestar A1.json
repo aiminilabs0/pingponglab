@@ -1,0 +1,53 @@
+{
+  "abbr": "Bluestar A1",
+  "name": "Bluestar A1",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.4,
+    "spin": 9.4,
+    "control": 8.8,
+    "sponge_hardness": "9.6 (Hard)",
+    "gears": "9.1 (Many gears)",
+    "throw_angle": "6.1 (Medium high)",
+    "consistency": 9.4,
+    "durability": "7.7 (Lasts longer than average)",
+    "tackiness": "2.8 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-bluestar-a1.html"
+  },
+  "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/nittaku-genextion-vs-donic-bluestar-a1-the-battle-of-recently-introduced-525-degree-rubbers",
+    "country": "Germany",
+    "hardness": 52.5,
+    "thickness": [
+      "2.0",
+      "Max"
+    ],
+    "topsheet": "Classic",
+    "weight": 52
+  },
+  "manufacturer_ratings": {
+    "speed": 11,
+    "spin": 11,
+    "control": 5.0
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.paddlepalace.com/Donic-BlueStar-A1/productinfo/RDBSA1/",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/donic-bluestar",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 50
+}

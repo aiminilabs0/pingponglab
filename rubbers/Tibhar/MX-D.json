@@ -7,7 +7,6 @@
     "speed": 9.3,
     "spin": 9.1,
     "control": 8.6,
-    "weight": "6.8 (Medium heavy)",
     "sponge_hardness": "8.6 (Hard)",
     "gears": "8.7 (Many gears)",
     "throw_angle": "4.6 (Medium)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/tibhar-evolution-mx-d.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/tibhar-evolution-mx-d/",
     "country": "Germany",
     "hardness": 51.5,
     "thickness": [
@@ -24,7 +24,7 @@
       "2.0"
     ],
     "topsheet": "Classic",
-    "weight": 52
+    "weight": 53
   },
   "manufacturer_ratings": {
     "speed": 130,

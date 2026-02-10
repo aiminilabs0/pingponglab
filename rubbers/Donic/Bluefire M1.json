@@ -7,7 +7,6 @@
     "speed": 9.3,
     "spin": 9.2,
     "control": 8.4,
-    "weight": "5.9 (Medium heavy)",
     "sponge_hardness": "7.2 (Medium hard)",
     "gears": "8.0 (Above average gears)",
     "throw_angle": "6.3 (Medium high)",
@@ -17,13 +16,15 @@
     "url": "https://revspin.net/rubber/donic-bluefire-m1.html"
   },
   "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-bluefire-m1",
     "country": "Germany",
     "hardness": 47.5,
     "thickness": [
       "max",
       "2.0"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 49
   },
   "manufacturer_ratings": {
     "url": "https://www.megaspin.net/store/default.asp?pid=d-bluefire-m1",

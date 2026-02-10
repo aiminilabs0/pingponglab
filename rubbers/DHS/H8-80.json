@@ -7,7 +7,6 @@
     "speed": 8.1,
     "spin": 9.3,
     "control": 9.1,
-    "weight": "6.8 (Medium heavy)",
     "sponge_hardness": "6.4 (Medium hard)",
     "gears": "9.1 (Many gears)",
     "throw_angle": "5.0 (Medium high)",
@@ -17,12 +16,14 @@
     "url": "https://revspin.net/rubber/dhs-hurricane-8-80.html"
   },
   "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/review-hurricane-8-80",
     "country": "China",
     "hardness": 37,
     "thickness": [
       "2.1"
     ],
-    "topsheet": "Chinese"
+    "topsheet": "Chinese",
+    "weight": 49
   },
   "urls": {
     "us": {

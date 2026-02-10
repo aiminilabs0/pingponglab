@@ -7,7 +7,6 @@
     "speed": 8.9,
     "spin": 9.2,
     "control": 8.9,
-    "weight": "4.9 (Average)",
     "sponge_hardness": "6.1 (Medium hard)",
     "gears": "8.5 (Many gears)",
     "throw_angle": "5.5 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/yasaka-rakza-7.html"
   },
   "manufacturer_details": {
+    "url": "https://racketinsight.com/table-tennis/yasaka-rakza-7-review/",
     "country": "Germany",
     "hardness": 45,
     "thickness": [
@@ -24,7 +24,8 @@
       "2.0",
       "1.8"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 50
   },
   "manufacturer_ratings": {
     "speed": 87,

@@ -7,7 +7,6 @@
     "speed": 9.4,
     "spin": 9.3,
     "control": 8.9,
-    "weight": "4.6 (Average)",
     "sponge_hardness": "6.3 (Medium hard)",
     "gears": "8.8 (Many gears)",
     "throw_angle": "4.3 (Medium)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/yasaka-rakza-9.html"
   },
   "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=y-rakza-9",
     "country": "Germany",
     "hardness": 42.5,
     "thickness": [
@@ -24,7 +24,8 @@
       "2.0",
       "1.8"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 52
   },
   "manufacturer_ratings": {
     "speed": 91,

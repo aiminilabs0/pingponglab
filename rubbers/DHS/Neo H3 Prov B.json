@@ -7,7 +7,6 @@
     "speed": 8.3,
     "spin": 9.3,
     "control": 8.6,
-    "weight": "6.6 (Medium heavy)",
     "sponge_hardness": "8.1 (Medium hard)",
     "gears": "8.0 (Above average gears)",
     "throw_angle": "4.2 (Medium)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-blue-sponge.html"
   },
   "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
     "country": "China",
     "hardness": 39,
     "thickness": [
@@ -24,7 +24,8 @@
       "2.15",
       "2.1"
     ],
-    "topsheet": "Chinese"
+    "topsheet": "Chinese",
+    "weight": 50
   },
   "urls": {
     "us": {

@@ -7,7 +7,6 @@
     "speed": 8.4,
     "spin": 9.3,
     "control": 8.7,
-    "weight": "6.6 (Medium heavy)",
     "sponge_hardness": "8.0 (Medium hard)",
     "gears": "8.7 (Many gears)",
     "throw_angle": "5.8 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/dhs-neo-hurricane-3.html"
   },
   "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
     "country": "China",
     "hardness": 39,
     "thickness": [
@@ -25,7 +25,7 @@
       "2.1"
     ],
     "topsheet": "Chinese",
-    "weight": 53
+    "weight": 47
   },
   "urls": {
     "us": {

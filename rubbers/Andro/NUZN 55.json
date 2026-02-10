@@ -7,7 +7,6 @@
     "speed": 9.6,
     "spin": 9.6,
     "control": 8.9,
-    "weight": "6.9 (Medium heavy)",
     "sponge_hardness": "8.9 (Hard)",
     "gears": "8.3 (Above average gears)",
     "throw_angle": "6.3 (Medium high)",
@@ -17,13 +16,15 @@
     "url": "https://revspin.net/rubber/andro-nuzn-55.html"
   },
   "manufacturer_details": {
+    "url": "https://ttgearlab.com/2024/06/16/andro-nuzn-55-nuzn-50-photos-information/",
     "country": "Germany",
     "hardness": 55,
     "thickness": [
       "max",
       "2.0"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 52
   },
   "manufacturer_ratings": {
     "url": "https://www.paddlepalace.com/Andro-NUZN-55/productinfo/RANZ55/",

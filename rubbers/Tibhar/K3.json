@@ -7,7 +7,6 @@
     "speed": 8.7,
     "spin": 9.2,
     "control": 8.9,
-    "weight": "5.9 (Medium heavy)",
     "sponge_hardness": "8.3 (Medium hard)",
     "gears": "8.9 (Many gears)",
     "throw_angle": "6.2 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/tibhar-hybrid-k3.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/tibhar-hybrid-k3/",
     "country": "Germany",
     "hardness": 53,
     "thickness": [
@@ -24,7 +24,7 @@
       "2.0"
     ],
     "topsheet": "Hybrid",
-    "weight": 50
+    "weight": 49
   },
   "manufacturer_ratings": {
     "speed": 118,

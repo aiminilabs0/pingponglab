@@ -7,7 +7,6 @@
     "speed": 9,
     "spin": 9.2,
     "control": 9.2,
-    "weight": "3.6 (Average)",
     "sponge_hardness": "4.1 (Medium)",
     "gears": "8.0 (Above average gears)",
     "throw_angle": "6.1 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/andro-rasanter-r42.html"
   },
   "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=andro-rasanter-r42",
     "country": "Germany",
     "hardness": 42,
     "thickness": [

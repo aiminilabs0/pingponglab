@@ -7,7 +7,6 @@
     "speed": 9.3,
     "spin": 9.4,
     "control": 8.3,
-    "weight": "6.4 (Medium heavy)",
     "sponge_hardness": "6.1 (Medium hard)",
     "gears": "8.6 (Many gears)",
     "throw_angle": "7.6 (High)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/butterfly-tenergy-05.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/butterfly-tenergy-05/",
     "country": "Japan",
     "hardness": 36,
     "thickness": [

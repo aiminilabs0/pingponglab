@@ -7,7 +7,6 @@
     "speed": 8.9,
     "spin": 9.4,
     "control": 8.9,
-    "weight": "5.4 (Medium heavy)",
     "sponge_hardness": "6.6 (Medium hard)",
     "gears": "8.1 (Above average gears)",
     "throw_angle": "5.9 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/andro-rasanter-r48.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/andro-rasanter-r48/",
     "country": "Germany",
     "hardness": 48,
     "thickness": [

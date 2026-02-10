@@ -7,7 +7,6 @@
     "speed": 8.4,
     "spin": 9.3,
     "control": 8.7,
-    "weight": "6.8 (Medium heavy)",
     "sponge_hardness": "7.3 (Medium hard)",
     "gears": "8.7 (Many gears)",
     "throw_angle": "7.1 (High)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/dhs-hurricane-3-national-orange-sponge.html"
   },
   "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=dhs-h3-n",
     "country": "China",
     "hardness": 40,
     "thickness": [
@@ -24,7 +24,8 @@
       "2.15",
       "2.1"
     ],
-    "topsheet": "Chinese"
+    "topsheet": "Chinese",
+    "weight": 50
   },
   "urls": {
     "us": {

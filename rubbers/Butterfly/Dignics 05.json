@@ -7,7 +7,6 @@
     "speed": 9.1,
     "spin": 9.4,
     "control": 8.8,
-    "weight": "4.9 (Average)",
     "sponge_hardness": "7.0 (Medium hard)",
     "gears": "8.4 (Above average gears)",
     "throw_angle": "6.3 (Medium high)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/butterfly-dignics-05.html"
   },
   "manufacturer_details": {
+    "url": "https://www.tt-spin.com/butterfly-dignics-05/",
     "country": "Japan",
     "hardness": 40,
     "thickness": [

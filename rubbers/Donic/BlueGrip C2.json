@@ -7,7 +7,6 @@
     "speed": 9.2,
     "spin": 9.4,
     "control": 9.1,
-    "weight": "6.5 (Medium heavy)",
     "sponge_hardness": "9.2 (Hard)",
     "gears": "9.0 (Many gears)",
     "throw_angle": "7.3 (High)",
@@ -17,6 +16,7 @@
     "url": "https://revspin.net/rubber/donic-bluegrip-c2.html"
   },
   "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/donic-bluegrip-j-one",
     "country": "Germany",
     "hardness": 55,
     "thickness": [
@@ -24,7 +24,8 @@
       "2.0",
       "1.8"
     ],
-    "topsheet": "Hybrid"
+    "topsheet": "Hybrid",
+    "weight": 53
   },
   "manufacturer_ratings": {
     "url": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-c2",

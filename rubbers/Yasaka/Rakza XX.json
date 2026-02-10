@@ -7,7 +7,6 @@
     "speed": 9.2,
     "spin": 9.1,
     "control": 8.9,
-    "weight": "5.2 (Medium heavy)",
     "sponge_hardness": "6.8 (Medium hard)",
     "gears": "7.8 (Above average gears)",
     "throw_angle": "6.4 (Medium high)",
@@ -23,7 +22,8 @@
       "Max",
       "2.0"
     ],
-    "topsheet": "Classic"
+    "topsheet": "Classic",
+    "weight": 51
   },
   "manufacturer_ratings": {
     "speed": 91,
