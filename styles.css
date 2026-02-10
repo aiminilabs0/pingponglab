@@ -448,6 +448,125 @@ h1 {
     text-align: center;
 }
 
+/* Hardness dual-range slider filter with country reference marks */
+.hardness-range-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px 8px;
+    min-width: 200px;
+}
+.hardness-slider-container {
+    position: relative;
+    height: 40px;
+}
+.hardness-slider-rail {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--drac-current);
+    border-radius: 2px;
+    pointer-events: none;
+}
+.hardness-slider-track {
+    position: absolute;
+    top: 14px;
+    height: 4px;
+    background: var(--drac-purple);
+    border-radius: 2px;
+    pointer-events: none;
+    left: 0;
+    right: 0;
+}
+.hardness-slider-container input[type="range"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    pointer-events: none;
+    outline: none;
+}
+.hardness-slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--drac-purple);
+    border: 2px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+    cursor: grab;
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+}
+.hardness-slider-container input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+.hardness-slider-container input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--drac-purple);
+    border: 2px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+    cursor: grab;
+    pointer-events: auto;
+}
+.hardness-slider-container input[type="range"]::-moz-range-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+.hardness-slider-container input[type="range"]::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+
+/* 3-scale labels (GE / JP / CN) above slider */
+.hardness-scale-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 2px;
+}
+.hardness-scale-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+}
+.hsr-flag {
+    flex-shrink: 0;
+    width: 22px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1;
+}
+.hsr-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--drac-fg);
+    white-space: nowrap;
+    min-width: 36px;
+}
+.hsr-spacer {
+    flex: 1;
+}
+/* First row (GE = primary) slightly brighter, others dimmer */
+.hardness-scale-row:nth-child(2) .hsr-val,
+.hardness-scale-row:nth-child(3) .hsr-val {
+    color: var(--drac-comment);
+    font-weight: 500;
+}
+
 /* ── Option rows ── */
 .filter-option {
     display: flex;

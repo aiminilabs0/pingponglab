@@ -22,8 +22,36 @@ const TOPSHEET_MARKERS = {
     Hybrid: 'diamond'
 };
 
-const HARDNESS_AVERAGES = { Germany: 47.5, Japan: 36, China: 39 };
-const HARDNESS_MEDIUM_RANGE = 2;
+// Country hardness scales — GE is the global standard; JP & CN are equivalent scales.
+// GE 40 = JP 33 = CN 35 (soft), GE 47.5 = JP 36 = CN 39 (medium), GE 55 = JP 44 = CN 41 (hard)
+const HARDNESS_SCALES = {
+    Germany: [40, 47.5, 55],
+    Japan:   [33, 36,   44],
+    China:   [35, 39,   41]
+};
+
+// Piecewise-linear interpolation between two 3-point scales
+function interpolateScale(value, fromPts, toPts) {
+    for (let i = 0; i < fromPts.length - 1; i++) {
+        if (value <= fromPts[i + 1] || i === fromPts.length - 2) {
+            const t = (value - fromPts[i]) / (fromPts[i + 1] - fromPts[i]);
+            return toPts[i] + t * (toPts[i + 1] - toPts[i]);
+        }
+    }
+    return value;
+}
+
+function toGermanScale(value, country) {
+    if (!Number.isFinite(value)) return null;
+    if (country === 'Germany' || !HARDNESS_SCALES[country]) return value;
+    return interpolateScale(value, HARDNESS_SCALES[country], HARDNESS_SCALES.Germany);
+}
+
+function fromGermanScale(geValue, country) {
+    if (!Number.isFinite(geValue)) return null;
+    if (country === 'Germany' || !HARDNESS_SCALES[country]) return geValue;
+    return interpolateScale(geValue, HARDNESS_SCALES.Germany, HARDNESS_SCALES[country]);
+}
 
 // Blended rating weights: user reviews dominate, manufacturer data supplements
 const USER_WEIGHT = 0.85;
@@ -48,6 +76,12 @@ let relayoutTimer = null;
 let selectedCountry = 'us';
 let openFilterId = null;
 let weightFilterState = {
+    dataMin: null,
+    dataMax: null,
+    selectedMin: null,
+    selectedMax: null
+};
+let hardnessFilterState = {
     dataMin: null,
     dataMax: null,
     selectedMin: null,
@@ -118,15 +152,6 @@ function normalizeTopsheet(value) {
         if (lower === 'hybrid') return 'Hybrid';
     }
     return 'Classic';
-}
-
-function normalizeHardnessCategory(hardnessValue, country) {
-    if (!Number.isFinite(hardnessValue)) return null;
-    const average = HARDNESS_AVERAGES[country];
-    if (!Number.isFinite(average)) return null;
-    if (hardnessValue <= average - HARDNESS_MEDIUM_RANGE) return 'Soft';
-    if (hardnessValue >= average + HARDNESS_MEDIUM_RANGE) return 'Hard';
-    return 'Medium';
 }
 
 function buildFullName(brand, name) {
@@ -258,7 +283,8 @@ async function loadRubberData() {
             y: speed,
             weight: weightValue,
             hardness: parseRatingNumber(ratings.sponge_hardness),
-            hardnessCategory: normalizeHardnessCategory(hardness, details.country),
+            manufacturerHardness: hardness,
+            normalizedHardness: toGermanScale(hardness, details.country),
             control: parseRatingNumber(ratings.control),
             topsheet: normalizeTopsheet(details.topsheet),
             priority: Number.isFinite(raw.priority) ? raw.priority : 50,
@@ -454,6 +480,158 @@ function initWeightRangeFilter(onChange) {
     });
 }
 
+// ── Hardness range filter helpers ──
+
+function getHardnessBoundsFromData() {
+    const vals = rubberData.map(r => r.normalizedHardness).filter(Number.isFinite);
+    if (!vals.length) return null;
+    return { min: Math.min(...vals), max: Math.max(...vals) };
+}
+
+function formatHardnessValue(value) {
+    if (!Number.isFinite(value)) return '';
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
+}
+
+function getHardnessRangeInputs() {
+    return {
+        minInput: document.getElementById('hardnessMinSlider'),
+        maxInput: document.getElementById('hardnessMaxSlider')
+    };
+}
+
+function updateHardnessSliderTrack() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = hardnessFilterState;
+    const track = document.getElementById('hardnessSliderTrack');
+    if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+    const span = dataMax - dataMin;
+    if (span <= 0) return;
+    const leftPct = ((selectedMin - dataMin) / span) * 100;
+    const rightPct = ((dataMax - selectedMax) / span) * 100;
+    track.style.left = `${leftPct}%`;
+    track.style.right = `${rightPct}%`;
+
+    // Update all 3 scale labels (GE slider value → JP & CN equivalents)
+    for (const [country, scale] of Object.entries(HARDNESS_SCALES)) {
+        const key = country.slice(0, 2).toUpperCase(); // GE, JP, CN
+        const minEl = document.getElementById(`hardness${key}Min`);
+        const maxEl = document.getElementById(`hardness${key}Max`);
+        const minVal = fromGermanScale(selectedMin, country);
+        const maxVal = fromGermanScale(selectedMax, country);
+        if (minEl) minEl.textContent = formatHardnessValue(minVal) + '°';
+        if (maxEl) maxEl.textContent = formatHardnessValue(maxVal) + '°';
+    }
+}
+
+function setHardnessRange(minValue, maxValue) {
+    const { dataMin, dataMax } = hardnessFilterState;
+    if (!Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+    const safeMin = Number.isFinite(minValue) ? minValue : dataMin;
+    const safeMax = Number.isFinite(maxValue) ? maxValue : dataMax;
+    const clampedMin = Math.max(dataMin, Math.min(dataMax, safeMin));
+    const clampedMax = Math.max(dataMin, Math.min(dataMax, safeMax));
+    const selectedMin = Math.min(clampedMin, clampedMax);
+    const selectedMax = Math.max(clampedMin, clampedMax);
+
+    hardnessFilterState.selectedMin = selectedMin;
+    hardnessFilterState.selectedMax = selectedMax;
+
+    const { minInput, maxInput } = getHardnessRangeInputs();
+    if (minInput) minInput.value = selectedMin;
+    if (maxInput) maxInput.value = selectedMax;
+    updateHardnessSliderTrack();
+}
+
+function resetHardnessRangeToDataBounds() {
+    setHardnessRange(hardnessFilterState.dataMin, hardnessFilterState.dataMax);
+}
+
+function syncHardnessRangeFromInputs() {
+    const { minInput, maxInput } = getHardnessRangeInputs();
+    if (!minInput || !maxInput) return false;
+    const minVal = Number.parseFloat(minInput.value);
+    const maxVal = Number.parseFloat(maxInput.value);
+    if (minVal > maxVal) {
+        minInput.value = maxVal;
+        maxInput.value = minVal;
+    }
+    setHardnessRange(Math.min(minVal, maxVal), Math.max(minVal, maxVal));
+    return true;
+}
+
+function isHardnessFilterActive() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = hardnessFilterState;
+    if (![dataMin, dataMax, selectedMin, selectedMax].every(Number.isFinite)) return false;
+    return selectedMin > dataMin || selectedMax < dataMax;
+}
+
+const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
+
+function buildHardnessScaleLabels(dataMin, dataMax) {
+    const rows = [];
+    for (const [country, scale] of Object.entries(HARDNESS_SCALES)) {
+        const key = country.slice(0, 2).toUpperCase();
+        const flag = COUNTRY_FLAGS[country] || key;
+        const minVal = fromGermanScale(dataMin, country);
+        const maxVal = fromGermanScale(dataMax, country);
+        rows.push(
+            `<div class="hardness-scale-row">` +
+            `<span class="hsr-flag">${flag}</span>` +
+            `<span class="hsr-val" id="hardness${key}Min">${formatHardnessValue(minVal)}°</span>` +
+            `<span class="hsr-spacer"></span>` +
+            `<span class="hsr-val" id="hardness${key}Max">${formatHardnessValue(maxVal)}°</span>` +
+            `</div>`
+        );
+    }
+    return rows.join('');
+}
+
+function initHardnessRangeFilter(onChange) {
+    const container = document.getElementById('hardnessFilter');
+    if (!container) return;
+
+    const bounds = getHardnessBoundsFromData();
+    if (!bounds) {
+        container.innerHTML = '<div class="filter-instructions">No hardness data available.</div>';
+        return;
+    }
+
+    hardnessFilterState.dataMin = bounds.min;
+    hardnessFilterState.dataMax = bounds.max;
+    hardnessFilterState.selectedMin = bounds.min;
+    hardnessFilterState.selectedMax = bounds.max;
+
+    container.classList.add('hardness-range-filter');
+    container.innerHTML = `
+        <div class="hardness-scale-labels">
+            ${buildHardnessScaleLabels(bounds.min, bounds.max)}
+        </div>
+        <div class="hardness-slider-container">
+            <div class="hardness-slider-rail"></div>
+            <div class="hardness-slider-track" id="hardnessSliderTrack"></div>
+            <input id="hardnessMinSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.min}" step="0.5">
+            <input id="hardnessMaxSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.max}" step="0.5">
+        </div>
+    `;
+
+    updateHardnessSliderTrack();
+
+    const { minInput, maxInput } = getHardnessRangeInputs();
+    [minInput, maxInput].forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            syncHardnessRangeFromInputs();
+            onChange();
+        });
+    });
+
+    document.getElementById('hardnessResetBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        resetHardnessRangeToDataBounds();
+        onChange();
+    });
+}
+
 function filterOptions(container, query) {
     const q = query.trim().toLowerCase();
     container.querySelectorAll('.filter-option').forEach(option => {
@@ -595,10 +773,23 @@ function refreshBadge(filterId) {
         if (!isWeightFilterActive()) {
             badge.textContent = 'All';
             badge.classList.add('all-selected');
-            return;
+        } else {
+            badge.textContent = `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
+            badge.classList.remove('all-selected');
         }
-        badge.textContent = `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
-        badge.classList.remove('all-selected');
+        return;
+    }
+
+    if (filterId === 'hardness') {
+        const badge = document.getElementById('hardnessBadge');
+        if (!badge) return;
+        if (!isHardnessFilterActive()) {
+            badge.textContent = 'All';
+            badge.classList.add('all-selected');
+        } else {
+            badge.textContent = `${formatHardnessValue(hardnessFilterState.selectedMin)}-${formatHardnessValue(hardnessFilterState.selectedMax)}°`;
+            badge.classList.remove('all-selected');
+        }
         return;
     }
 
@@ -676,8 +867,8 @@ function renderActiveTags() {
         });
     }
 
-    // Tags for other partially-selected filter groups
-    ['topsheet', 'hardness'].forEach(filterId => {
+    // Tags for other partially-selected checkbox filter groups
+    ['topsheet'].forEach(filterId => {
         const filterEl = document.getElementById(filterId + 'Filter');
         const all = filterEl.querySelectorAll('input[type="checkbox"]');
         const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
@@ -687,6 +878,17 @@ function renderActiveTags() {
             });
         }
     });
+
+    if (isHardnessFilterActive()) {
+        const label = `Hardness ${formatHardnessValue(hardnessFilterState.selectedMin)}-${formatHardnessValue(hardnessFilterState.selectedMax)}°`;
+        container.appendChild(createActionTag(label, () => {
+            resetHardnessRangeToDataBounds();
+            refreshAllBadges();
+            renderActiveTags();
+            pushFiltersToUrl();
+            updateChart();
+        }));
+    }
 
     if (isWeightFilterActive()) {
         const label = `Weight ${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
@@ -722,6 +924,21 @@ function deserializeFilterParam(params, paramName, containerId) {
     });
 }
 
+function serializeHardnessRangeParam(params) {
+    if (!isHardnessFilterActive()) return;
+    params.set('hardness', `${formatHardnessValue(hardnessFilterState.selectedMin)}-${formatHardnessValue(hardnessFilterState.selectedMax)}`);
+}
+
+function deserializeHardnessRangeParam(params) {
+    if (!params.has('hardness')) return;
+    const range = params.get('hardness').trim();
+    const [minRaw, maxRaw] = range.split('-');
+    const min = Number.parseFloat(minRaw);
+    const max = Number.parseFloat(maxRaw);
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return;
+    setHardnessRange(min, max);
+}
+
 function serializeWeightRangeParam(params) {
     if (!isWeightFilterActive()) return;
     params.set('weight', `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}`);
@@ -744,7 +961,7 @@ function pushFiltersToUrl() {
     serializeFilterParam(params, 'brands', 'brandFilter');
     serializeFilterParam(params, 'rubbers', 'nameFilter');
     serializeFilterParam(params, 'topsheet', 'topsheetFilter');
-    serializeFilterParam(params, 'hardness', 'hardnessFilter');
+    serializeHardnessRangeParam(params);
     serializeWeightRangeParam(params);
 
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
@@ -779,7 +996,7 @@ function applyFiltersFromUrl() {
 
     deserializeFilterParam(params, 'rubbers', 'nameFilter');
     deserializeFilterParam(params, 'topsheet', 'topsheetFilter');
-    deserializeFilterParam(params, 'hardness', 'hardnessFilter');
+    deserializeHardnessRangeParam(params);
     deserializeWeightRangeParam(params);
 
     // Restore selected rubber detail panels
@@ -855,10 +1072,9 @@ function getFilteredData() {
     const selectedBrands = getCheckedValues('brandFilter');
     const selectedNames = getCheckedValues('nameFilter');
     const selectedTopsheet = getCheckedValues('topsheetFilter');
-    const selectedHardness = getCheckedValues('hardnessFilter');
 
     if (!selectedBrands.length || !selectedNames.length ||
-        !selectedTopsheet.length || !selectedHardness.length) {
+        !selectedTopsheet.length) {
         return [];
     }
 
@@ -866,11 +1082,15 @@ function getFilteredData() {
     const minWeight = weightFilterState.selectedMin;
     const maxWeight = weightFilterState.selectedMax;
 
+    const filterByHardness = isHardnessFilterActive();
+    const minHardness = hardnessFilterState.selectedMin;
+    const maxHardness = hardnessFilterState.selectedMax;
+
     return rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
         selectedNames.includes(rubber.fullName) &&
         selectedTopsheet.includes(rubber.topsheet) &&
-        selectedHardness.includes(rubber.hardnessCategory) &&
+        (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight))
     );
 }
@@ -1485,10 +1705,11 @@ function getPlotFraction(chartEl, clientX, clientY) {
 // ════════════════════════════════════════════════════════════
 
 function resetFiltersToAll() {
-    ['brandFilter', 'topsheetFilter', 'hardnessFilter'].forEach(id => {
+    ['brandFilter', 'topsheetFilter'].forEach(id => {
         const el = document.getElementById(id);
         if (el) setAllChecked(el, true);
     });
+    resetHardnessRangeToDataBounds();
     resetWeightRangeToDataBounds();
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
@@ -1538,7 +1759,6 @@ function resetAppToInitialState() {
 
 function initFilters() {
     const brands = [...new Set(rubberData.map(r => r.brand))].sort();
-    const hardnessEmoji = { Soft: '🟢', Medium: '🟡', Hard: '🔴' };
 
     buildCheckboxOptions(
         document.getElementById('brandFilter'),
@@ -1548,12 +1768,6 @@ function initFilters() {
         document.getElementById('topsheetFilter'),
         ['Classic', 'Chinese', 'Hybrid'].map(t => ({ value: t, label: t, shapeSymbol: getTopsheetSymbol(t) }))
     );
-    buildCheckboxOptions(
-        document.getElementById('hardnessFilter'),
-        ['Soft', 'Medium', 'Hard'].map(h => ({ value: h, label: `${hardnessEmoji[h]} ${h}` }))
-    );
-    initWeightRangeFilter(() => onFilterChange('weight'));
-    buildNameOptionsFromBrands();
 
     function onFilterChange(filterId) {
         if (filterId === 'brand') buildNameOptionsFromBrands();
@@ -1563,8 +1777,12 @@ function initFilters() {
         updateChart();
     }
 
-    // Filter change listeners
-    FILTER_IDS.filter(id => id !== 'weight').forEach(id => {
+    initHardnessRangeFilter(() => onFilterChange('hardness'));
+    initWeightRangeFilter(() => onFilterChange('weight'));
+    buildNameOptionsFromBrands();
+
+    // Filter change listeners (checkbox-based filters only)
+    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness').forEach(id => {
         document.getElementById(id + 'Filter').addEventListener('change', () => onFilterChange(id));
     });
 
@@ -1619,9 +1837,10 @@ function initFilters() {
 
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
-        ['brandFilter', 'topsheetFilter', 'hardnessFilter'].forEach(id =>
+        ['brandFilter', 'topsheetFilter'].forEach(id =>
             setAllChecked(document.getElementById(id), true)
         );
+        resetHardnessRangeToDataBounds();
         resetWeightRangeToDataBounds();
         buildNameOptionsFromBrands();
         refreshAllBadges();
