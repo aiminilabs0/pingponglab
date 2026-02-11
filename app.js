@@ -1699,13 +1699,13 @@ function buildUrlLinksHtml(rubber) {
     return '<hr><div class="rubber-links">' + parts.join('&nbsp;&nbsp;·&nbsp;&nbsp;') + '</div>';
 }
 
-async function fetchRubberDetailMarkdown(brand, name) {
+async function fetchRubberDetailMarkdown(brand, abbr) {
     const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
-    const cacheKey = `${brand}/${lang}/${name}`;
+    const cacheKey = `${brand}/${lang}/${abbr}`;
     if (cacheKey in rubberDetailsCache) return rubberDetailsCache[cacheKey];
     try {
         const resp = await fetch(
-            `rubbers_details/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(name)}`
+            `rubbers_details/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
         );
         if (!resp.ok) { rubberDetailsCache[cacheKey] = null; return null; }
         const text = await resp.text();
@@ -1719,7 +1719,7 @@ async function fetchRubberDetailMarkdown(brand, name) {
 
 async function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
-    const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.name);
+    const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.abbr);
     const markdown = detailMarkdown || descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
     const html = marked.parse(markdown);
     const bestsellerBadge = rubber.bestseller ? ' <span class="bestseller-badge">★ Bestseller</span>' : '';
