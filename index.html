@@ -27,6 +27,18 @@
 
         <div class="chart-bleed">
             <div id="chart"></div>
+            <div class="chart-controls" aria-label="Chart controls">
+                <button class="filter-action-btn chart-control-btn" id="zoomInBtn" title="Zoom in">
+                    🔍+
+                </button>
+                <button class="filter-action-btn chart-control-btn" id="zoomOutBtn" title="Zoom out">
+                    🔍−
+                </button>
+                <button class="filter-action-btn chart-control-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
+                    ⊞ Fit
+                </button>
+                <button class="filter-action-btn chart-control-btn reset-btn" id="clearAllFilters" title="Reset all filters">↺ Reset</button>
+            </div>
         </div>
 
         <div class="filter-bar" id="filterBar">
@@ -122,17 +134,6 @@
                 <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
             </div>
 
-            <span class="filter-separator"></span>
-            <button class="filter-action-btn" id="zoomInBtn" title="Zoom in">
-                🔍+
-            </button>
-            <button class="filter-action-btn" id="zoomOutBtn" title="Zoom out">
-                🔍−
-            </button>
-            <button class="filter-action-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
-                ⊞ Fit
-            </button>
-            <button class="filter-action-btn reset-btn" id="clearAllFilters" title="Reset all filters">↺ Reset</button>
         </div>
 
         <div class="active-tags" id="activeTags"></div>
