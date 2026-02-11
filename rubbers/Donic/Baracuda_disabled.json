@@ -51,5 +51,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "disabled": "Score is too high"
 }
