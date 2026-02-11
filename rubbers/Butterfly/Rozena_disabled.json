@@ -50,5 +50,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "disabled": "Too low spin score"
 }

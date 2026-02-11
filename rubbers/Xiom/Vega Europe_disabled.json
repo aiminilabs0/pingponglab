@@ -28,6 +28,7 @@
     "weight": 50
   },
   "manufacturer_ratings": {
+    "url": "https://xiom.tt/sub/catalog/2025_product/index.html",
     "catapult & click": 4.6,
     "spin": 3.4,
     "speed": 6
@@ -50,5 +51,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "disabled": "Too high score"
 }
