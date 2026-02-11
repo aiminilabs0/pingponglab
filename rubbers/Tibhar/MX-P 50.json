@@ -1,0 +1,55 @@
+{
+  "abbr": "MX-P 50",
+  "name": "Evolution MX-P 50",
+  "manufacturer": "Tibhar",
+"user_ratings": {
+    "overall": 9.4,
+    "speed": 9.3,
+    "spin": 9.4,
+    "control": 9.0,
+    "sponge_hardness": "9.5 (Hard)",
+    "gears": "9.0 (Many gears)",
+    "throw_angle": "4.0 (Medium)",
+    "consistency": 9.3,
+    "durability": "8.4 (Lasts longer than average)",
+    "tackiness": "2.3 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-mx-p-50.html",
+    "people": 31
+  },
+  "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=t-evolution-mx-p-50",
+    "country": "Germany",
+    "hardness": 50.0,
+    "thickness": [
+      "2.0",
+      "Max"
+    ],
+    "topsheet": "Classic",
+    "weight": 51
+  },  
+  "manufacturer_ratings": {
+    "url": "https://www.tibhar.info/Katalog/webpdf/TIBHAR_Catalogue_25_EN_web.pdf",
+    "speed": 128,
+    "spin": 120,
+    "control": 75
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=JVpgPpSdtcg"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 10
+}
