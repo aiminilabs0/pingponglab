@@ -27,6 +27,11 @@
     "topsheet": "Classic",
     "weight": 50
   },
+  "manufacturer_ratings": {
+    "url": "https://dhstabletennis.ca/products/dhs-neo-hurricane-3-national-edition-rubber",
+    "speed": 102,
+    "spin": 91
+  },
   "urls": {
     "us": {
       "product": "https://www.amazon.com/s?k=DHS+Gold+Arc+8+table+tennis+rubber",
