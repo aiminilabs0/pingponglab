@@ -13,7 +13,8 @@
     "consistency": 8.9,
     "durability": "6.1 (Lasts longer than average)",
     "tackiness": "5.7 (Medium tacky)",
-    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c550.html"
+    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c550.html",
+    "people": 13
   },
   "manufacturer_details": {
     "country": "Germany",
@@ -48,5 +49,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "scale": 0.98
 }

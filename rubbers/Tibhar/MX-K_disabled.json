@@ -13,7 +13,8 @@
     "consistency": 5,
     "durability": "10.0 (Lasts a long time!)",
     "tackiness": "8.0 (Tacky)",
-    "url": "https://revspin.net/rubber/tibhar-mx-k.html"
+    "url": "https://revspin.net/rubber/tibhar-mx-k.html",
+    "people": 2
   },
   "manufacturer_details": {
     "country": "Germany",
@@ -44,5 +45,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "disabled": "User Ratings (2)"
 }

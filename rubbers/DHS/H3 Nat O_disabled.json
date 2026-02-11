@@ -13,7 +13,8 @@
     "consistency": 9.3,
     "durability": "8.1 (Lasts longer than average)",
     "tackiness": "7.7 (Tacky)",
-    "url": "https://revspin.net/rubber/dhs-hurricane-3-national-orange-sponge.html"
+    "url": "https://revspin.net/rubber/dhs-hurricane-3-national-orange-sponge.html",
+    "people": 24
   },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=dhs-h3-n",
@@ -45,5 +46,6 @@
       "youtube": ""
     }
   },
-  "priority": 50
+  "priority": 50,
+  "disabled": "User Ratings (24)"
 }

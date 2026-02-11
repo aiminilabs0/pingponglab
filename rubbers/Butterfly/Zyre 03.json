@@ -14,7 +14,8 @@
     "consistency": 9.4,
     "durability": "7.8 (Lasts longer than average)",
     "tackiness": "2.5 (Slightly tacky)",
-    "url": "https://revspin.net/rubber/butterfly-zyre-03.html"
+    "url": "https://revspin.net/rubber/butterfly-zyre-03.html",
+    "people": 9
   },
   "manufacturer_details": {
     "country": "Japan",
@@ -48,5 +49,6 @@
       "youtube": ""
     }
   },
-  "priority": 10
+  "priority": 10,
+  "scale": 0.99
 }

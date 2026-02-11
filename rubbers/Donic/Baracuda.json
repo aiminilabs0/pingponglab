@@ -14,7 +14,8 @@
     "consistency": 8.8,
     "durability": "7.7 (Lasts longer than average)",
     "tackiness": "2.3 (Slightly tacky)",
-    "url": "https://revspin.net/rubber/donic-baracuda.html"
+    "url": "https://revspin.net/rubber/donic-baracuda.html",
+    "people": 220
   },
   "manufacturer_details": {
     "country": "Germany",
@@ -50,6 +51,5 @@
       "youtube": ""
     }
   },
-  "priority": 10,
-  "disabled": "Need to verify ratings for Spin / Control"
+  "priority": 10
 }

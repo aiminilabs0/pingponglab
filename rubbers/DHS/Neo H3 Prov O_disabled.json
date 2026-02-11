@@ -1,19 +1,20 @@
 {
-  "abbr": "Neo H3 Prov B",
-  "name": "Neo H3 Provincial Blue",
+  "abbr": "Neo H3 Prov O",
+  "name": "Neo Hurricane 3 Provincial Orange",
   "manufacturer": "DHS",
   "user_ratings": {
-    "overall": 9.1,
-    "speed": 8.3,
-    "spin": 9.3,
-    "control": 8.6,
-    "sponge_hardness": "8.1 (Medium hard)",
-    "gears": "8.0 (Above average gears)",
-    "throw_angle": "4.2 (Medium)",
+    "overall": 9.3,
+    "speed": 8.6,
+    "spin": 9.4,
+    "control": 9,
+    "sponge_hardness": "7.3 (Medium hard)",
+    "gears": "9.0 (Many gears)",
+    "throw_angle": "5.6 (Medium high)",
     "consistency": 8,
     "durability": "8.0 (Lasts longer than average)",
-    "tackiness": "8.3 (Tacky)",
-    "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-blue-sponge.html"
+    "tackiness": "7.8 (Tacky)",
+    "url": "https://revspin.net/rubber/dhs-neo-hurricane-3-provincial-orange-sponge.html",
+    "people": 51
   },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
@@ -29,11 +30,11 @@
   },
   "urls": {
     "us": {
-      "product": "https://www.amazon.com/s?k=DHS+Neo+H3+Provincial+Blue+table+tennis+rubber",
+      "product": "https://www.amazon.com/s?k=DHS+Neo+Hurricane+3+Provincial+Orange+table+tennis+rubber",
       "youtube": ""
     },
     "eu": {
-      "product": "https://www.tabletennis11.com/other_eng/dhs-neo-h3-provincial-blue",
+      "product": "https://www.tabletennis11.com/other_eng/dhs-neo-hurricane-3-provincial-orange",
       "youtube": ""
     },
     "kr": {

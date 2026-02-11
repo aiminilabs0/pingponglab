@@ -54,8 +54,8 @@ function fromGermanScale(geValue, country) {
 }
 
 // Blended rating weights: user reviews dominate, manufacturer data supplements
-const USER_WEIGHT = 0.85;
-const MANUFACTURER_WEIGHT = 0.15;
+const USER_WEIGHT = 0.15;
+const MANUFACTURER_WEIGHT = 0.85;
 
 const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
 const FILTER_IDS = ['brand', 'name', 'topsheet', 'hardness', 'weight'];
@@ -110,39 +110,75 @@ function parseRatingNumber(value) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
-// Compute per-manufacturer min/max for speed & spin to normalize across different rating scales
-function buildManufacturerRatingRanges(rawItems) {
-    const ranges = {};
+// Compute per-manufacturer min/max values for speed & spin from both user and manufacturer ratings
+function buildManufacturerRatingStats(rawItems) {
+    const statsByManufacturer = {};
     for (const raw of rawItems) {
-        const { manufacturer, manufacturer_ratings: ratings } = raw;
-        if (!manufacturer || typeof ratings !== 'object') continue;
+        const { manufacturer } = raw;
+        if (!manufacturer) continue;
 
-        const speed = parseRatingNumber(ratings.speed);
-        const spin = parseRatingNumber(ratings.spin);
-        if (!ranges[manufacturer]) {
-            ranges[manufacturer] = {
-                speed: { min: Infinity, max: -Infinity },
-                spin: { min: Infinity, max: -Infinity }
+        if (!statsByManufacturer[manufacturer]) {
+            statsByManufacturer[manufacturer] = {
+                speed: {
+                    userMin: Infinity,
+                    userMax: -Infinity,
+                    manufacturerMin: Infinity,
+                    manufacturerMax: -Infinity
+                },
+                spin: {
+                    userMin: Infinity,
+                    userMax: -Infinity,
+                    manufacturerMin: Infinity,
+                    manufacturerMax: -Infinity
+                }
             };
         }
-        const range = ranges[manufacturer];
-        if (Number.isFinite(speed)) {
-            range.speed.min = Math.min(range.speed.min, speed);
-            range.speed.max = Math.max(range.speed.max, speed);
+
+        const userRatings = raw.user_ratings || {};
+        const manufacturerRatings = raw.manufacturer_ratings || {};
+        const speedUser = parseRatingNumber(userRatings.speed);
+        const spinUser = parseRatingNumber(userRatings.spin);
+        const speedManufacturer = parseRatingNumber(manufacturerRatings.speed);
+        const spinManufacturer = parseRatingNumber(manufacturerRatings.spin);
+
+        const stats = statsByManufacturer[manufacturer];
+        if (Number.isFinite(speedUser)) {
+            stats.speed.userMin = Math.min(stats.speed.userMin, speedUser);
+            stats.speed.userMax = Math.max(stats.speed.userMax, speedUser);
         }
-        if (Number.isFinite(spin)) {
-            range.spin.min = Math.min(range.spin.min, spin);
-            range.spin.max = Math.max(range.spin.max, spin);
+        if (Number.isFinite(spinUser)) {
+            stats.spin.userMin = Math.min(stats.spin.userMin, spinUser);
+            stats.spin.userMax = Math.max(stats.spin.userMax, spinUser);
+        }
+        if (Number.isFinite(speedManufacturer)) {
+            stats.speed.manufacturerMin = Math.min(stats.speed.manufacturerMin, speedManufacturer);
+            stats.speed.manufacturerMax = Math.max(stats.speed.manufacturerMax, speedManufacturer);
+        }
+        if (Number.isFinite(spinManufacturer)) {
+            stats.spin.manufacturerMin = Math.min(stats.spin.manufacturerMin, spinManufacturer);
+            stats.spin.manufacturerMax = Math.max(stats.spin.manufacturerMax, spinManufacturer);
         }
     }
-    return ranges;
+    return statsByManufacturer;
 }
 
-function normalizeManufacturerRating(value, range) {
-    if (!Number.isFinite(value) || !range) return null;
-    const { max } = range;
-    if (!Number.isFinite(max) || max <= 0) return null;
-    return (value / max) * 10;
+function normalizeManufacturerRating(value, stats) {
+    if (!Number.isFinite(value) || !stats) return null;
+    const { userMin, userMax, manufacturerMin, manufacturerMax } = stats;
+    if (!Number.isFinite(userMin) || !Number.isFinite(userMax)) return null;
+    if (!Number.isFinite(manufacturerMin) || !Number.isFinite(manufacturerMax)) return null;
+
+    // Lowest manufacturer rating is anchored to the minimum user rating.
+    if (value <= manufacturerMin) return userMin;
+
+    // Highest manufacturer rating is anchored to the maximum user rating.
+    if (value >= manufacturerMax) return userMax;
+
+    // Linearly scale remaining values between manufacturer min/max to user min/max.
+    const manufacturerSpan = manufacturerMax - manufacturerMin;
+    if (manufacturerSpan <= 0) return userMin;
+    const ratio = (value - manufacturerMin) / manufacturerSpan;
+    return userMin + ratio * (userMax - userMin);
 }
 
 function normalizeTopsheet(value) {
@@ -179,9 +215,12 @@ function buildDescriptionMarkdown(raw, debugInfo) {
 
     if (debugInfo) {
         const fmt = v => (Number.isFinite(v) ? v.toFixed(2) : 'n/a');
-        const fmtRange = r => {
-            if (!r || !Number.isFinite(r.min) || !Number.isFinite(r.max)) return 'n/a';
-            return `${r.min.toFixed(2)} → ${r.max.toFixed(2)}`;
+        const fmtStats = s => {
+            if (!s) return 'n/a';
+            const hasUser = Number.isFinite(s.userMin) && Number.isFinite(s.userMax);
+            const hasManufacturer = Number.isFinite(s.manufacturerMin) && Number.isFinite(s.manufacturerMax);
+            if (!hasUser || !hasManufacturer) return 'n/a';
+            return `user ${s.userMin.toFixed(2)} → ${s.userMax.toFixed(2)}, manufacturer ${s.manufacturerMin.toFixed(2)} → ${s.manufacturerMax.toFixed(2)}`;
         };
         lines.push(
             '', '---', '**Debug: speed/spin calculation**',
@@ -189,10 +228,14 @@ function buildDescriptionMarkdown(raw, debugInfo) {
             `User speed: ${fmt(debugInfo.userSpeed)}`,
             `Manufacturer spin (raw): ${fmt(debugInfo.manufacturerSpinRaw)}`,
             `Manufacturer speed (raw): ${fmt(debugInfo.manufacturerSpeedRaw)}`,
-            `Manufacturer spin range: ${fmtRange(debugInfo.manufacturerSpinRange)}`,
-            `Manufacturer speed range: ${fmtRange(debugInfo.manufacturerSpeedRange)}`,
+            `Manufacturer spin stats: ${fmtStats(debugInfo.manufacturerSpinStats)}`,
+            `Manufacturer speed stats: ${fmtStats(debugInfo.manufacturerSpeedStats)}`,
             `Manufacturer spin (normalized): ${fmt(debugInfo.manufacturerSpinNormalized)}`,
             `Manufacturer speed (normalized): ${fmt(debugInfo.manufacturerSpeedNormalized)}`,
+            `Base spin (blended): ${fmt(debugInfo.spinBase)}`,
+            `Base speed (blended): ${fmt(debugInfo.speedBase)}`,
+            `Spin scale: ${fmt(debugInfo.spinScale)}`,
+            `Speed scale: ${fmt(debugInfo.speedScale)}`,
             `Weights: user ${fmt(debugInfo.userWeight)}, manufacturer ${fmt(debugInfo.manufacturerWeight)}`,
             `Final spin: ${fmt(debugInfo.spinFinal)}`,
             `Final speed: ${fmt(debugInfo.speedFinal)}`
@@ -242,7 +285,7 @@ async function loadRubberData() {
 
     const data = [];
     const descriptionMap = {};
-    const manufacturerRanges = buildManufacturerRatingRanges(rawItems);
+    const manufacturerStats = buildManufacturerRatingStats(rawItems);
 
     for (const raw of rawItems) {
         // Exclude entries explicitly flagged as disabled in source JSON.
@@ -254,19 +297,29 @@ async function loadRubberData() {
         if (!Number.isFinite(userSpin) || !Number.isFinite(userSpeed)) continue;
 
         const mfgRatings = raw.manufacturer_ratings || {};
-        const mfgRange = manufacturerRanges[raw.manufacturer] || null;
+        const mfgStats = manufacturerStats[raw.manufacturer] || null;
         const mfgSpinRaw = parseRatingNumber(mfgRatings.spin);
         const mfgSpeedRaw = parseRatingNumber(mfgRatings.speed);
-        const mfgSpin = normalizeManufacturerRating(mfgSpinRaw, mfgRange?.spin ?? null);
-        const mfgSpeed = normalizeManufacturerRating(mfgSpeedRaw, mfgRange?.speed ?? null);
+        const mfgSpin = normalizeManufacturerRating(mfgSpinRaw, mfgStats?.spin ?? null);
+        const mfgSpeed = normalizeManufacturerRating(mfgSpeedRaw, mfgStats?.speed ?? null);
 
-        // Blend user and manufacturer ratings when manufacturer data is available
-        const spin = Number.isFinite(mfgSpin)
+        // Blend user and manufacturer ratings when manufacturer data is available.
+        const spinBase = Number.isFinite(mfgSpin)
             ? userSpin * USER_WEIGHT + mfgSpin * MANUFACTURER_WEIGHT
             : userSpin;
-        const speed = Number.isFinite(mfgSpeed)
+        const speedBase = Number.isFinite(mfgSpeed)
             ? userSpeed * USER_WEIGHT + mfgSpeed * MANUFACTURER_WEIGHT
             : userSpeed;
+
+        // Optional per-rubber scale to tune final plotted values.
+        // - scale: applies to both spin and speed
+        // - spin_scale / speed_scale: axis-specific override
+        const spinScaleRaw = parseRatingNumber(raw.spin_scale ?? raw.scale);
+        const speedScaleRaw = parseRatingNumber(raw.speed_scale ?? raw.scale);
+        const spinScale = Number.isFinite(spinScaleRaw) && spinScaleRaw > 0 ? spinScaleRaw : 1;
+        const speedScale = Number.isFinite(speedScaleRaw) && speedScaleRaw > 0 ? speedScaleRaw : 1;
+        const spin = spinBase * spinScale;
+        const speed = speedBase * speedScale;
 
         const details = raw.manufacturer_details || {};
         const hardness = parseRatingNumber(details.hardness);
@@ -305,8 +358,12 @@ async function loadRubberData() {
             manufacturerSpeedRaw: mfgSpeedRaw,
             manufacturerSpinNormalized: mfgSpin,
             manufacturerSpeedNormalized: mfgSpeed,
-            manufacturerSpinRange: mfgRange?.spin ?? null,
-            manufacturerSpeedRange: mfgRange?.speed ?? null,
+            manufacturerSpinStats: mfgStats?.spin ?? null,
+            manufacturerSpeedStats: mfgStats?.speed ?? null,
+            spinBase,
+            speedBase,
+            spinScale,
+            speedScale,
             spinFinal: spin,
             speedFinal: speed,
             userWeight: USER_WEIGHT,
