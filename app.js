@@ -1195,6 +1195,24 @@ function formatMetricValue(value, decimals = 2) {
     return Number.isFinite(value) ? value.toFixed(decimals) : '-';
 }
 
+function getHardnessCategoryLabel(normalizedHardness) {
+    if (!Number.isFinite(normalizedHardness)) return null;
+    // Boundaries are midpoints between GE anchors: 40 (soft), 47.5 (medium), 55 (hard).
+    if (normalizedHardness < 46) return 'Soft';
+    if (normalizedHardness < 51) return 'Medium';
+    return 'Hard';
+}
+
+function formatHardnessPopupLabel(rubber) {
+    return rubber?.hardnessLabel || 'N/A';
+}
+
+function getHardnessToneClass(normalizedHardness) {
+    const category = getHardnessCategoryLabel(normalizedHardness);
+    if (!category) return '';
+    return `hardness-tone-${category.toLowerCase()}`;
+}
+
 function positionHoverPopup(popup, hoverData, chartEl) {
     const point = hoverData?.points?.[0];
     if (!point || !chartEl) return;
@@ -1264,7 +1282,8 @@ function buildHoverPopupHtml(rubber, point) {
     const rubberName = rubber.name || rubber.fullName || '-';
     const brandName = rubber.brand || '-';
     const topsheet = rubber.topsheet || '-';
-    const hardness = rubber.hardnessLabel || '-';
+    const hardness = formatHardnessPopupLabel(rubber);
+    const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
     const weight = rubber.weightLabel || '-';
     const control = formatMetricValue(getControlValue(rubber), 1);
     const spin = formatMetricValue(point.x, 2);
@@ -1289,10 +1308,8 @@ function buildHoverPopupHtml(rubber, point) {
                 <div class="chart-hover-metric"><span>Speed</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>Control</span><strong>${control}</strong></div>
                 <div class="chart-hover-metric"><span>Weight</span><strong>${escapeHtml(weight)}</strong></div>
-            </div>
-            <div class="chart-hover-tags">
-                <span class="chart-hover-pill">${escapeHtml(topsheet)}</span>
-                <span class="chart-hover-pill">${escapeHtml(hardness)}</span>
+                <div class="chart-hover-metric"><span>Topsheet</span><strong>${escapeHtml(topsheet)}</strong></div>
+                <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
         </div>
     `;
