@@ -5,7 +5,7 @@
   "user_ratings": {
     "overall": 9.4,
     "speed": 9.4,
-    "spin": 9.3,
+    "spin": 9.2,
     "control": 9.1,
     "sponge_hardness": "6.7 (Medium hard)",
     "gears": "8.7 (Many gears)",
@@ -14,7 +14,8 @@
     "durability": "8.3 (Lasts longer than average)",
     "tackiness": "2.0 (Slightly tacky)",
     "url": "https://revspin.net/rubber/dhs-gold-arc-8.html",
-    "people": 145
+    "people": 145,
+    "desc": "adjust spin from 9.3 to 9.2 because all DHS rubbers have same value"
   },
   "manufacturer_details": {
     "country": "Germany",
