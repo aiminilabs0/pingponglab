@@ -2,7 +2,7 @@
   "abbr": "MX-P 50",
   "name": "Evolution MX-P 50",
   "manufacturer": "Tibhar",
-"user_ratings": {
+  "user_ratings": {
     "overall": 9.4,
     "speed": 9.3,
     "spin": 9.4,
@@ -19,6 +19,7 @@
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=t-evolution-mx-p-50",
     "country": "Germany",
+    "release_year": 2019,
     "hardness": 50.0,
     "thickness": [
       "2.0",
@@ -26,7 +27,7 @@
     ],
     "topsheet": "Classic",
     "weight": 51
-  },  
+  },
   "manufacturer_ratings": {
     "url": "https://www.tibhar.info/Katalog/webpdf/TIBHAR_Catalogue_25_EN_web.pdf",
     "speed": 128,
