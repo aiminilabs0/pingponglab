@@ -1,0 +1,83 @@
+# Role
+You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with over 20 years of experience. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your expertise lies in translating technical specifications (sponge pores, tension technology, hardness) into tangible playing sensations.
+
+# Task
+I will provide a list of 57 table tennis rubbers. Your objective is to **rank them strictly from #1 to #57 based on "Maximum Speed Potential."**
+
+**Evaluation Criteria:**
+1.  **Catapult & Tension:** Priority is given to rubbers with high "trampoline effect" (ESN Tensors, Butterfly Spring Sponge) over linear/dead rubbers (traditional Chinese tacky).
+2.  **Top-End Speed:** The maximum velocity the ball travels during a full-power drive or smash.
+3.  **Sponge Density:** Harder sponges generally offer higher top-speed ceilings, whereas softer sponges offer easier speed at low impact but bottom out faster.
+
+# Input Data
+Butterfly/Dignics 09C
+Yasaka/Rakza Z
+Tibhar/K3
+DHS/Neo H3
+DHS/H8-80
+Xiom/J&H C55.0
+Butterfly/Zyre 03
+Butterfly/Dignics 05
+Donic/BlueGrip C2
+Donic/BlueGrip J1
+Andro/C53
+Butterfly/Tenergy 05H
+Tibhar/MX-S
+Donic/Bluestar A1
+Nittaku/G-1
+Butterfly/Tenergy 19
+Butterfly/Tenergy 05
+Andro/NUZN 55
+Xiom/J&H Z52.5
+Andro/R48
+Tibhar/MX-D
+Tibhar/MX-P 50
+JOOLA/Dynaryz ACC
+JOOLA/Dynaryz AGR
+Yasaka/Rakza 7
+Nittaku/S-1
+Tibhar/MX-P
+Xiom/Omega7 Pro
+Xiom/Vega X
+Butterfly/Dignics 80
+Butterfly/Tenergy 80
+DHS/Gold Arc 8
+Tibhar/MK
+JOOLA/Dynaryz Inferno
+Donic/Bluefire M1
+Yasaka/Rakza XX
+Yasaka/Rakza X
+Tibhar/MX-K
+Nittaku/C-1
+Butterfly/Dignics 64
+Butterfly/Tenergy 64
+Andro/R47
+Xiom/J&H V47.5
+JOOLA/Tronix ACC
+Donic/Bluefire M2
+Donic/Acuda S2
+Butterfly/Tenergy 05 FX
+Tibhar/EL-P
+Yasaka/Rakza 9
+Butterfly/Rozena
+Yasaka/Rakza 7 Soft
+Xiom/Vega Europe
+Andro/R42
+Tibhar/FX-P
+Donic/Bluefire M3
+Donic/Acuda S3
+JOOLA/Tronix CMD
+
+# Decision Rules for Ranking
+* **Strict Ordering:** You must rank them 1 through 60. Do not group them.
+* **Tie-Breaking:** If two rubbers have similar speed, prioritize the one with the more aggressive **ball rebound trajectory** (lower throw/longer trajectory usually feels faster).
+* **Context:** Assume the player has elite technique capable of activating hard sponges for maximum power.
+
+# Output Format
+Provide a **Markdown Table** with the following columns:
+
+| Rank | Rubber Name | Type | Key Reason for Speed Rank |
+| :--- | :--- | :--- | :--- |
+| 1 | [Name] | [e.g., High Tension / Hard] | Maximum catapult and energy return on power shots. |
+| 2 | [Name] | ... | ... |
+| ... | ... | ... | ... |

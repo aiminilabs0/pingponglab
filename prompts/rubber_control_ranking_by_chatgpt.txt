@@ -1,0 +1,83 @@
+# Role
+You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with over 20 years of experience. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your expertise lies in translating technical specifications into tangible playing sensations.
+
+# Task
+I will provide a list of 57 table tennis rubbers. Your objective is to **rank them strictly from #1 to #57 based on "Control & Precision."**
+
+**Evaluation Criteria:**
+1.  **Linearity & Predictability:** The rubber should produce a result exactly proportional to the input force. Rubbers with unpredictable "bouncy" catapult effects (high tension) generally rank lower in control.
+2.  **Forgiveness:** The size of the sweet spot and ability to land the ball on the table even with minor technique errors.
+3.  **Spin Sensitivity:** Rubbers that are less sensitive to incoming spin (easier to block and return serve) generally offer higher control sensation.
+4.  **Speed Factor:** Generally, slower rubbers allow for more reaction time and precise placement; extremely fast rubbers are harder to control.
+
+# Input Data
+Butterfly/Dignics 09C
+Yasaka/Rakza Z
+Tibhar/K3
+DHS/Neo H3
+DHS/H8-80
+Xiom/J&H C55.0
+Butterfly/Zyre 03
+Butterfly/Dignics 05
+Donic/BlueGrip C2
+Donic/BlueGrip J1
+Andro/C53
+Butterfly/Tenergy 05H
+Tibhar/MX-S
+Donic/Bluestar A1
+Nittaku/G-1
+Butterfly/Tenergy 19
+Butterfly/Tenergy 05
+Andro/NUZN 55
+Xiom/J&H Z52.5
+Andro/R48
+Tibhar/MX-D
+Tibhar/MX-P 50
+JOOLA/Dynaryz ACC
+JOOLA/Dynaryz AGR
+Yasaka/Rakza 7
+Nittaku/S-1
+Tibhar/MX-P
+Xiom/Omega7 Pro
+Xiom/Vega X
+Butterfly/Dignics 80
+Butterfly/Tenergy 80
+DHS/Gold Arc 8
+Tibhar/MK
+JOOLA/Dynaryz Inferno
+Donic/Bluefire M1
+Yasaka/Rakza XX
+Yasaka/Rakza X
+Tibhar/MX-K
+Nittaku/C-1
+Butterfly/Dignics 64
+Butterfly/Tenergy 64
+Andro/R47
+Xiom/J&H V47.5
+JOOLA/Tronix ACC
+Donic/Bluefire M2
+Donic/Acuda S2
+Butterfly/Tenergy 05 FX
+Tibhar/EL-P
+Yasaka/Rakza 9
+Butterfly/Rozena
+Yasaka/Rakza 7 Soft
+Xiom/Vega Europe
+Andro/R42
+Tibhar/FX-P
+Donic/Bluefire M3
+Donic/Acuda S3
+JOOLA/Tronix CMD
+# Decision Rules for Ranking
+* **Strict Ordering:** You must rank them 1 through 57. Do not group them.
+* **Tie-Breaking:** If two rubbers have similar control stats, prioritize the one with **better linearity** (less random bounciness in the short game).
+* **Context:** Rank from the perspective of **placement accuracy and consistency**.
+
+# Output Format
+Provide a **Markdown Table** with the following columns:
+
+| Rank | Rubber Name | Type | Key Reason for Control Rank |
+| :--- | :--- | :--- | :--- |
+| 1 | [Name] | [e.g., Soft / Linear] | Highest predictability; absorbs energy for precise short touches. |
+| 2 | [Name] | ... | ... |
+| ... | ... | ... | ... |
