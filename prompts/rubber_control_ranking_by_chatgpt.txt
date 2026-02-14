@@ -68,6 +68,37 @@ Tibhar/FX-P
 Donic/Bluefire M3
 Donic/Acuda S3
 JOOLA/Tronix CMD
+Andro/R50
+Andro/R53
+Andro/C48
+Andro/NUZN 50
+Andro/NUZN 48
+Andro/NUZN 45
+Andro/Baracuda
+Donic/BlueGrip J2
+Donic/BlueGrip J3
+Donic/BlueStorm Z1
+Donic/BlueStorm Z2
+Donic/BlueStorm Z3
+Donic/Acuda S1
+Donic/BlueStorm Pro AM
+Donic/Desto F1
+JOOLA/Dynaryz ZGR
+JOOLA/Dynaryz ZGX
+JOOLA/Dynaryz CMD
+JOOLA/Tronix ZGR
+Tibhar/EL-S
+Tibhar/FX-S
+Xiom/J&H C52.5
+Xiom/J&H C57.5
+Xiom/Omega 8 China
+Xiom/Omega 8 Pro
+Xiom/Vega Pro
+Xiom/J&H X47.5
+Xiom/Omega VII China Guang
+Xiom/Omega 8 Hybrid
+
+
 # Decision Rules for Ranking
 * **Strict Ordering:** You must rank them 1 through 57. Do not group them.
 * **Tie-Breaking:** If two rubbers have similar control stats, prioritize the one with **better linearity** (less random bounciness in the short game).
