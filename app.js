@@ -3,6 +3,11 @@
 // ════════════════════════════════════════════════════════════
 
 const RUBBER_INDEX_FILE = 'rubbers/index.json';
+const RANKING_FILES = {
+    spin: 'rubbers/rankings/spin.json',
+    speed: 'rubbers/rankings/speed.json',
+    control: 'rubbers/rankings/control.json'
+};
 
 const BRAND_COLORS = {
     Butterfly: '#E41A1C',
@@ -245,6 +250,39 @@ function buildDescriptionMarkdown(raw, debugInfo) {
 }
 
 // ════════════════════════════════════════════════════════════
+//  Ranking Data
+// ════════════════════════════════════════════════════════════
+async function loadRankings() {
+    const results = await Promise.all(
+        Object.entries(RANKING_FILES).map(([key, url]) =>
+            fetch(url).then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+                return r.json();
+            }).then(data => [key, data])
+        )
+    );
+    return Object.fromEntries(results);
+}
+
+// Find a rubber's 0-based position in a ranking array.
+// Tries matching the ranking entry name against both rubber.name and rubber.abbr.
+function findRubberRank(rubber, rankingArray) {
+    const rubberBrand = (rubber.brand || '').trim().toLowerCase();
+    const rubberNameNorm = rubber.name;
+    const rubberAbbrNorm = rubber.abbr;
+
+    for (let i = 0; i < rankingArray.length; i++) {
+        const entry = rankingArray[i];
+        const entryBrand = (entry.brand || '').trim().toLowerCase();
+        if (entryBrand !== rubberBrand) continue;
+
+        const entryNameNorm = entry.name;
+        if (entryNameNorm === rubberNameNorm || entryNameNorm === rubberAbbrNorm) return i;
+    }
+    return -1;
+}
+
+// ════════════════════════════════════════════════════════════
 //  Data Loading
 // ════════════════════════════════════════════════════════════
 
@@ -374,7 +412,30 @@ async function loadRubberData() {
         descriptionMap[rubber.name] = buildDescriptionMarkdown(raw, debugInfo);
     }
 
-    rubberData = data;
+    // ── Override chart positions with ranking data ──
+    const rankings = await loadRankings();
+    const spinTotal = rankings.spin.length;
+    const speedTotal = rankings.speed.length;
+    const controlTotal = rankings.control.length;
+
+    for (const rubber of data) {
+        const spinIdx = findRubberRank(rubber, rankings.spin);
+        const speedIdx = findRubberRank(rubber, rankings.speed);
+        const controlIdx = findRubberRank(rubber, rankings.control);
+
+        // Chart axes: higher value = more spin / more speed (rank 0 → highest value)
+        rubber.x = spinIdx >= 0 ? spinTotal - spinIdx : null;
+        rubber.y = speedIdx >= 0 ? speedTotal - speedIdx : null;
+
+        // Store 1-based ranks for display
+        rubber.spinRank = spinIdx >= 0 ? spinIdx + 1 : null;
+        rubber.speedRank = speedIdx >= 0 ? speedIdx + 1 : null;
+        rubber.controlRank = controlIdx >= 0 ? controlIdx + 1 : null;
+        rubber.controlTotal = controlTotal;
+    }
+
+    // Only show rubbers that appear in both spin and speed rankings
+    rubberData = data.filter(r => r.x !== null && r.y !== null);
     descriptions = descriptionMap;
 }
 
@@ -386,7 +447,7 @@ const getBrandColor = brand => BRAND_COLORS[brand] || '#999999';
 const getTopsheetSymbol = topsheet => TOPSHEET_MARKERS[topsheet] || 'circle';
 
 function getControlValue(rubber) {
-    return typeof rubber.control === 'number' ? rubber.control : null;
+    return typeof rubber.controlRank === 'number' ? rubber.controlRank : null;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1350,9 +1411,9 @@ function buildHoverPopupHtml(rubber, point) {
     const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
     const weight = rubber.weightLabel || '-';
     const weightToneClass = getWeightToneClass(rubber?.weight);
-    const control = formatMetricValue(getControlValue(rubber), 1);
-    const spin = formatMetricValue(point.x, 2);
-    const speed = formatMetricValue(point.y, 2);
+    const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
+    const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
+    const control = typeof rubber.controlRank === 'number' ? `#${rubber.controlRank}` : '-';
     const brandColor = getBrandColor(brandName);
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
@@ -1369,9 +1430,9 @@ function buildHoverPopupHtml(rubber, point) {
                 ${bestsellerTag}
             </div>
             <div class="chart-hover-metrics">
-                <div class="chart-hover-metric"><span>Spin</span><strong>${spin}</strong></div>
-                <div class="chart-hover-metric"><span>Speed</span><strong>${speed}</strong></div>
-                <div class="chart-hover-metric"><span>Control</span><strong>${control}</strong></div>
+                <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
+                <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
+                <div class="chart-hover-metric"><span>Control Rank</span><strong>${control}</strong></div>
                 <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>Topsheet</span><strong>${escapeHtml(topsheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
@@ -1395,19 +1456,20 @@ function updateChart(options = {}) {
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
-    // Scale marker size by control rating
-    const controlValues = filteredData.map(getControlValue).filter(Number.isFinite);
-    const minControl = controlValues.length ? Math.min(...controlValues) : null;
-    const maxControl = controlValues.length ? Math.max(...controlValues) : null;
-    const MIN_MARKER = 10;
-    const MAX_MARKER = 20;
+    // 3 discrete marker sizes based on control ranking
+    // Rank 1 (most controllable) → biggest, last rank → smallest
+    const MARKER_BIG = 15;
+    const MARKER_MED = 13;
+    const MARKER_SMALL = 11;
 
     function getMarkerSize(rubber) {
-        const control = getControlValue(rubber);
-        if (!Number.isFinite(control) || minControl === null || maxControl === null) return 12;
-        if (maxControl === minControl) return (MIN_MARKER + MAX_MARKER) / 2;
-        const t = (control - minControl) / (maxControl - minControl);
-        return MIN_MARKER + t * (MAX_MARKER - MIN_MARKER);
+        const rank = rubber.controlRank;
+        const total = rubber.controlTotal;
+        if (typeof rank !== 'number' || typeof total !== 'number') return MARKER_MED;
+        const third = total / 3;
+        if (rank <= third) return MARKER_BIG;
+        if (rank <= third * 2) return MARKER_MED;
+        return MARKER_SMALL;
     }
 
     // Group by brand × topsheet for trace creation
