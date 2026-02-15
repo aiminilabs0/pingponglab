@@ -9,6 +9,7 @@ const RANKING_FILES = {
     control: 'stats/rubbers/ranking/control.json'
 };
 const POPULARITY_FILE = 'stats/rubbers/ranking/priority.json';
+const BESTSELLER_FILE = 'stats/rubbers/ranking/bestseller.json';
 
 const BRAND_COLORS = {
     Butterfly: '#E41A1C',
@@ -247,7 +248,7 @@ async function loadRubberData() {
             control: parseRatingNumber(ratings.control),
             topsheet: normalizeTopsheet(details.topsheet),
             priority: 999, // will be overridden by popularity ranking
-            bestseller: raw.bestseller === true,
+            bestseller: false, // will be overridden by bestseller ranking
             urls: {
                 us: { product: urls.us?.product || '', youtube: urls.us?.youtube || '' },
                 eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
@@ -269,6 +270,8 @@ async function loadRubberData() {
     // ── Override priority with popularity ranking ──
     const popularityResp = await fetch(POPULARITY_FILE);
     const popularityRanking = popularityResp.ok ? await popularityResp.json() : [];
+    const bestsellerResp = await fetch(BESTSELLER_FILE);
+    const bestsellerRanking = bestsellerResp.ok ? await bestsellerResp.json() : [];
 
     for (const rubber of data) {
         const spinIdx = findRubberRank(rubber, rankings.spin);
@@ -288,6 +291,7 @@ async function loadRubberData() {
         // Priority from popularity ranking (lower = more important)
         const popIdx = findRubberRank(rubber, popularityRanking);
         if (popIdx >= 0) rubber.priority = popIdx + 1;
+        rubber.bestseller = findRubberRank(rubber, bestsellerRanking) >= 0;
     }
 
     // Only show rubbers that appear in both spin and speed rankings
