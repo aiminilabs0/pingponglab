@@ -1393,6 +1393,19 @@ function updateChart(options = {}) {
     if (!options.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
         currentRanges = null;
     }
+    const inViewCount = (() => {
+        if (!currentRanges?.xaxis || !currentRanges?.yaxis) return filteredData.length;
+        const [x0, x1] = currentRanges.xaxis;
+        const [y0, y1] = currentRanges.yaxis;
+        const minX = Math.min(x0, x1);
+        const maxX = Math.max(x0, x1);
+        const minY = Math.min(y0, y1);
+        const maxY = Math.max(y0, y1);
+        return filteredData.filter(r =>
+            r.x >= minX && r.x <= maxX &&
+            r.y >= minY && r.y <= maxY
+        ).length;
+    })();
 
     const axisBase = {
         zeroline: false,
@@ -1434,6 +1447,14 @@ function updateChart(options = {}) {
                 text: '⚡ Speed ↑', showarrow: false,
                 xanchor: 'left', yanchor: 'top',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
+            },
+            {
+                x: 0.995, y: 1.00, xref: 'paper', yref: 'paper',
+                text: `Rubbers: ${inViewCount}`,
+                showarrow: false,
+                xanchor: 'right',
+                yanchor: 'top',
+                font: { color: '#9b9484', size: 12, family: CHART_FONT }
             }
         ],
         showlegend: false,
