@@ -43,7 +43,7 @@ body {
 .chart-topbar {
     display: flex;
     justify-content: flex-end;   /* right-aligned on desktop */
-    margin: 0 0 -40px;
+    margin: -4px 0 -40px;
     padding: 0 8px;              /* small padding so buttons don't hug the edge */
     position: relative;
     z-index: 25;
@@ -1539,7 +1539,7 @@ h1 {
     .container { padding: 14px; border-radius: 12px; }
     .chart-bleed { margin: 0 -14px; padding: 0; }
     .chart-topbar {
-        margin: 0 -14px -40px;
+        margin: -4px -14px -40px;
         padding: 0 6px;
         justify-content: flex-end;
     }
