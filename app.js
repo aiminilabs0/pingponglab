@@ -2,11 +2,11 @@
 //  Constants & Configuration
 // ════════════════════════════════════════════════════════════
 
-const RUBBER_INDEX_FILE = 'rubbers/index.json';
+const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
 const RANKING_FILES = {
-    spin: 'rubbers/rankings/spin.json',
-    speed: 'rubbers/rankings/speed.json',
-    control: 'rubbers/rankings/control.json'
+    spin: 'stats/rubbers/ranking/spin.json',
+    speed: 'stats/rubbers/ranking/speed.json',
+    control: 'stats/rubbers/ranking/control.json'
 };
 
 const BRAND_COLORS = {
