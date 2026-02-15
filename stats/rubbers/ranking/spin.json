@@ -1,506 +1,86 @@
 [
-  {
-    "brand": "DHS",
-    "name": "Neo H3",
-    "type": "Hard Chinese Tacky",
-    "reason": "True tack + firm Chinese sponge = max serve/push + brush-loop RPM."
-  },
-  {
-    "brand": "DHS",
-    "name": "H8-80",
-    "type": "Tacky Chinese Hybrid",
-    "reason": "Sticky with more elasticity = huge loop RPM while keeping tack bite."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Omega8 China",
-    "type": "Sticky Chinese-Style",
-    "reason": "Modern sticky “Chinese” feel with very high traction on contact."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Omega7 Guang",
-    "type": "High-Tension Sticky Hybrid",
-    "reason": "Sticky hybrid power + heavy short-game spin and loaded openers."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Dignics 09C",
-    "type": "Hard Tacky Hybrid",
-    "reason": "Ultra-high friction hybrid: heavy openers + reliable spin in short game."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "K3",
-    "type": "Hard Tacky Hybrid",
-    "reason": "Hybrid grab at high impact: massive 3rd-ball + counterloop rotation."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H C57.5",
-    "type": "Ultra-Hard Sticky Hybrid",
-    "reason": "Extra-hard sticky ceiling: huge brush/drive spin once engaged."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H C55.0",
-    "type": "Extra-Hard Sticky Hybrid",
-    "reason": "Very hard sticky hybrid: enormous spin when compressed cleanly."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz ZGR",
-    "type": "Tacky-Grippy Hybrid",
-    "reason": "“Tacky + grippy” build gives big bite on openers/counters."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueGrip C2",
-    "type": "Hard Tacky Hybrid",
-    "reason": "Tacky + very hard sponge: heavy serve/receive and high-RPM openings."
-  },
-  {
-    "brand": "Andro",
-    "name": "C53",
-    "type": "Hard Tacky Hybrid",
-    "reason": "Hard sticky hybrid: elite counterspin + opening-loop rotation."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Omega8 Hybrid",
-    "type": "Tacky Hybrid",
-    "reason": "Sticky topsheet + tension sponge: high loop RPM with strong kick."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H C52.5",
-    "type": "Sticky Hybrid",
-    "reason": "Sticky BH-style hybrid: excellent spin load with easier access than C55+."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueGrip J1",
-    "type": "Hard Semi-Tacky Hybrid",
-    "reason": "Extreme grip + hint of tack: big spin at speed, slightly less “dead tack.”"
-  },
-  {
-    "brand": "Andro",
-    "name": "C48",
-    "type": "Medium-Hard Tacky Hybrid",
-    "reason": "Sticky geometry but softer than C53: strong spin with more dwell/ease."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza Z",
-    "type": "Hard Tacky Hybrid",
-    "reason": "Sticky-grippy hybrid dwell = heavy serve/open spin; lower peak than top hard hybrids."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueGrip J2",
-    "type": "Semi-Tacky Hybrid",
-    "reason": "J1-like grip with softer base: slightly less peak, still very spinny."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueGrip J3",
-    "type": "Semi-Tacky Hybrid",
-    "reason": "Softest BlueGrip J: easy spin, lower absolute ceiling vs J1/J2."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Dignics 05",
-    "type": "Hard Grippy Tensor",
-    "reason": "Best-in-class mechanical grip + stability: absurd loop RPM retention."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 05H",
-    "type": "Hard Grippy Tensor",
-    "reason": "Harder base raises peak brush/loop spin when swung hard."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H Z52.5",
-    "type": "Hard Grippy Tensor",
-    "reason": "High-density geometry: near-flagship loop spin; less tack bite in short game."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MX-S",
-    "type": "Hard Grippy Tensor",
-    "reason": "Spin-specialist pairing: high dwell + heavy opener rotation."
-  },
-  {
-    "brand": "Andro",
-    "name": "NUZN 55",
-    "type": "Extra-Hard Grippy Tensor",
-    "reason": "Very grippy hard-sponge ceiling: huge spin in power topspin/counters."
-  },
-  {
-    "brand": "Andro",
-    "name": "R53",
-    "type": "Extra-Hard Grippy Tensor",
-    "reason": "Spin-focused hard ESN feel: high RPM when you fully accelerate."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "EL-S",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "“Spin-first” Evolution feel: strong grip + easy heavy topspin arcs."
-  },
-  {
-    "brand": "Andro",
-    "name": "NUZN 50",
-    "type": "Hard Grippy Tensor",
-    "reason": "High-grip modern sheet: big loop spin with more forgiveness than NUZN 55."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 19",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "High dwell + grip: heavy, safe high-RPM loops."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 05",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Classic spin reference; edged by newer max-friction designs."
-  },
-  {
-    "brand": "Donic",
-    "name": "Bluestar A1",
-    "type": "Hard Grippy Tensor",
-    "reason": "Very grippy + lively: strong spin on power loops and flicks."
-  },
-  {
-    "brand": "Nittaku",
-    "name": "G-1",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "High-arc workhorse with strong grip retention; slightly less peak than top tier."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz Inferno",
-    "type": "Hard Grippy Tensor",
-    "reason": "Elastic + dwell = very high counterloop/topspin rotation."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz AGR",
-    "type": "Hard Grippy Tensor",
-    "reason": "Hard/direct feel: high RPM at full stroke, a touch less dwell than Inferno."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MX-D",
-    "type": "Hard Grippy Tensor",
-    "reason": "Big dwell and rotation; just under the top “spin specialist” sheets."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Dignics 80",
-    "type": "Hard Grippy Tensor",
-    "reason": "Springy-but-stable grip: high spin, less “bitey” than D05/05-family."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Zyre 03",
-    "type": "Hard Grippy High-Tension",
-    "reason": "Explosive at full engagement; less low-speed grab than tacky hybrids."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz ZGX",
-    "type": "Hard Grippy Tensor",
-    "reason": "ZGR-like concept but more dynamic: very high loop/counter spin."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz ACC",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Stable, spinny modern tensor; slightly lower peak than harder variants."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Dynaryz CMD",
-    "type": "Medium Grippy Tensor",
-    "reason": "Control-tuned Dynaryz: easy spin, lower “max rip” ceiling than ACC/AGR."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Tronix ZGR",
-    "type": "Semi-Tacky Hybrid",
-    "reason": "Slight sticky + firm base: strong opening/counter spin, not top-hybrid peak."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueStorm Pro AM",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Premium grip + catapult balance: heavy topspin without losing control."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 80",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Balanced continuous topspin; lower peak than D80 due to hold/stability."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MX-P 50",
-    "type": "Hard Grippy Tensor",
-    "reason": "Harder variant stabilizes contact under big accel: excellent peak topspin."
-  },
-  {
-    "brand": "Andro",
-    "name": "NUZN 48",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Slightly softer NUZN: easy heavy spin, modestly lower peak than 50/55."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Omega8 Pro",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Modern high-tension feel: strong spin at pace, less bite in slow game."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Omega7 Pro",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Very grippy with strong arc; a step below the very top Japanese flagships."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Vega X",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Strong grip for class; top-end spin under Omega/flagship tier."
-  },
-  {
-    "brand": "Andro",
-    "name": "R50",
-    "type": "Hard Grippy Tensor",
-    "reason": "Spin-focused hard ESN: big loop RPM, slightly below newest max-friction."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Vega Pro",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Classic spinny tensor: consistent heavy loops, lower ceiling than newer designs."
-  },
-  {
-    "brand": "Donic",
-    "name": "Bluefire M1",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "High arc + strong grip; typically trails top tier in peak/retention."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueStorm Z1",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Dynamic, grippy topspin rubber: strong spin, speed-leaning."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza XX",
-    "type": "Hard Grippy Tensor",
-    "reason": "Very spinny, but more speed-forward than the spin-monsters above."
-  },
-  {
-    "brand": "Andro",
-    "name": "R48",
-    "type": "Hard Grippy Tensor",
-    "reason": "Hard lively tensor: good RPM, more speed-oriented overall."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueStorm Z2",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Balanced Z-series: good spin and arc, lower ceiling than Z1."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MX-P",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Classic high-grip tensor; big spin, but less ceiling than newer max-friction."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza X",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Strong grip + arc; less peak bite than hardest flagships."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Tronix ACC",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Elastic topsheet: consistent spin; lower peak than top hard tensors."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MX-K",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Needs deeper engagement for max rotation; less “easy bite” than MX-P."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Dignics 64",
-    "type": "Hard Grippy Tensor",
-    "reason": "Speed-biased: lower arc/rotation ceiling than D05/D80 geometries."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 64",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Fast + grippy, but lower throw limits max spin vs 05/19-type."
-  },
-  {
-    "brand": "Andro",
-    "name": "R47",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Solid grip and arc; slightly lower peak rotation than harder spin geometries."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H V47.5",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Precise/control-leaning: good spin but capped vs C/Z hybrids."
-  },
-  {
-    "brand": "Xiom",
-    "name": "J&H X47.5",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Catapult-driven topspin: strong spin, but not a “max friction” sheet."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza 9",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Speed-oriented with solid grip; lower hold at absolute peak."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "EL-P",
-    "type": "Medium Grippy Tensor",
-    "reason": "Reliable grippy classic; less ceiling than MX/flagship tiers."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "FX-S",
-    "type": "Medium-Soft Grippy Tensor",
-    "reason": "Easy heavy spin access; softer base caps the very top-end RPM."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Tenergy 05 FX",
-    "type": "Soft Grippy Tensor",
-    "reason": "05 topsheet spins big, but sponge bottoms sooner under elite acceleration."
-  },
-  {
-    "brand": "Donic",
-    "name": "Acuda S1",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "More direct/harder than S2: better peak brush spin, still not top tier."
-  },
-  {
-    "brand": "Donic",
-    "name": "Baracuda",
-    "type": "Medium-Hard Grippy Tensor",
-    "reason": "Classic high-arc “spin rubber”: great bite, but older-gen ceiling."
-  },
-  {
-    "brand": "Andro",
-    "name": "NUZN 45",
-    "type": "Medium Hybrid",
-    "reason": "Slightly sticky + controlled tensor: strong usable spin, lower peak than NUZN 50+."
-  },
-  {
-    "brand": "Donic",
-    "name": "BlueStorm Z3",
-    "type": "Medium Grippy Tensor",
-    "reason": "Softer Z-series: good spin, reduced peak vs harder Z1/Z2."
-  },
-  {
-    "brand": "DHS",
-    "name": "Gold Arc 8",
-    "type": "Medium Grippy Inverted",
-    "reason": "Linear, grippy feel: decent dwell, lacks top-tier bite."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "MK",
-    "type": "Medium Hybrid",
-    "reason": "Slight hybrid grab: good short game/opens, controlled peak rotation."
-  },
-  {
-    "brand": "Nittaku",
-    "name": "C-1",
-    "type": "Medium Grippy Tensor",
-    "reason": "Catch-first control bias: easy spin, less max than harder sheets."
-  },
-  {
-    "brand": "Donic",
-    "name": "Bluefire M2",
-    "type": "Medium Grippy Tensor",
-    "reason": "Softer than M1: reduced peak spin, still good arc."
-  },
-  {
-    "brand": "Donic",
-    "name": "Acuda S2",
-    "type": "Medium Grippy Tensor",
-    "reason": "Balanced medium sponge: decent spin, less bite than M1/MX-level."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza 7",
-    "type": "Medium Grippy Tensor",
-    "reason": "Classic grippy tensor: very usable, lower ceiling than modern high-friction."
-  },
-  {
-    "brand": "Nittaku",
-    "name": "S-1",
-    "type": "Medium Grippy Tensor",
-    "reason": "Speed-leaning Fastarc: still spins well, prioritizes pace."
-  },
-  {
-    "brand": "Butterfly",
-    "name": "Rozena",
-    "type": "Medium-Soft Grippy Tensor",
-    "reason": "Forgiving and consistent; clearly less bite than Tenergy/Dignics tier."
-  },
-  {
-    "brand": "Yasaka",
-    "name": "Rakza 7 Soft",
-    "type": "Medium-Soft Grippy Tensor",
-    "reason": "Softer boosts ease, reduces peak/stability at full power."
-  },
-  {
-    "brand": "Xiom",
-    "name": "Vega Europe",
-    "type": "Medium-Soft Grippy Tensor",
-    "reason": "Control-focused easy spin; capped max RPM vs firmer sheets."
-  },
-  {
-    "brand": "Andro",
-    "name": "R42",
-    "type": "Medium-Soft Grippy Tensor",
-    "reason": "Control emphasis: good spin generation, lower peak due to saturation."
-  },
-  {
-    "brand": "Tibhar",
-    "name": "FX-P",
-    "type": "Soft Grippy Tensor",
-    "reason": "High dwell for openers; limited top-end as sponge compresses early."
-  },
-  {
-    "brand": "JOOLA",
-    "name": "Tronix CMD",
-    "type": "Soft Control Tensor",
-    "reason": "Easy spin/control; lower ceiling vs harder offensive rubbers."
-  },
-  {
-    "brand": "Donic",
-    "name": "Bluefire M3",
-    "type": "Soft Control Tensor",
-    "reason": "Very soft/bouncy: good dwell, peak drops when sponge saturates."
-  }
+  {"brand": "DHS", "name": "Neo H3"},
+  {"brand": "DHS", "name": "H8-80"},
+  {"brand": "Xiom", "name": "Omega8 China"},
+  {"brand": "Xiom", "name": "Omega7 Guang"},
+  {"brand": "Butterfly", "name": "Dignics 09C"},
+  {"brand": "Tibhar", "name": "K3"},
+  {"brand": "Xiom", "name": "J&H C57.5"},
+  {"brand": "Xiom", "name": "J&H C55.0"},
+  {"brand": "JOOLA", "name": "Dynaryz ZGR"},
+  {"brand": "Donic", "name": "BlueGrip C2"},
+  {"brand": "Andro", "name": "C53"},
+  {"brand": "Xiom", "name": "Omega8 Hybrid"},
+  {"brand": "Xiom", "name": "J&H C52.5"},
+  {"brand": "Donic", "name": "BlueGrip J1"},
+  {"brand": "Andro", "name": "C48"},
+  {"brand": "Yasaka", "name": "Rakza Z"},
+  {"brand": "Donic", "name": "BlueGrip J2"},
+  {"brand": "Donic", "name": "BlueGrip J3"},
+  {"brand": "Butterfly", "name": "Dignics 05"},
+  {"brand": "Butterfly", "name": "Tenergy 05H"},
+  {"brand": "Xiom", "name": "J&H Z52.5"},
+  {"brand": "Tibhar", "name": "MX-S"},
+  {"brand": "Andro", "name": "NUZN 55"},
+  {"brand": "Andro", "name": "R53"},
+  {"brand": "Tibhar", "name": "EL-S"},
+  {"brand": "Andro", "name": "NUZN 50"},
+  {"brand": "Butterfly", "name": "Tenergy 19"},
+  {"brand": "Butterfly", "name": "Tenergy 05"},
+  {"brand": "Donic", "name": "Bluestar A1"},
+  {"brand": "Nittaku", "name": "G-1"},
+  {"brand": "JOOLA", "name": "Dynaryz Inferno"},
+  {"brand": "JOOLA", "name": "Dynaryz AGR"},
+  {"brand": "Tibhar", "name": "MX-D"},
+  {"brand": "Butterfly", "name": "Dignics 80"},
+  {"brand": "Butterfly", "name": "Zyre 03"},
+  {"brand": "JOOLA", "name": "Dynaryz ZGX"},
+  {"brand": "JOOLA", "name": "Dynaryz ACC"},
+  {"brand": "JOOLA", "name": "Dynaryz CMD"},
+  {"brand": "JOOLA", "name": "Tronix ZGR"},
+  {"brand": "Donic", "name": "BlueStorm Pro AM"},
+  {"brand": "Butterfly", "name": "Tenergy 80"},
+  {"brand": "Tibhar", "name": "MX-P 50"},
+  {"brand": "Andro", "name": "NUZN 48"},
+  {"brand": "Xiom", "name": "Omega8 Pro"},
+  {"brand": "Xiom", "name": "Omega7 Pro"},
+  {"brand": "Xiom", "name": "Vega X"},
+  {"brand": "Andro", "name": "R50"},
+  {"brand": "Xiom", "name": "Vega Pro"},
+  {"brand": "Donic", "name": "Bluefire M1"},
+  {"brand": "Donic", "name": "BlueStorm Z1"},
+  {"brand": "Yasaka", "name": "Rakza XX"},
+  {"brand": "Andro", "name": "R48"},
+  {"brand": "Donic", "name": "BlueStorm Z2"},
+  {"brand": "Tibhar", "name": "MX-P"},
+  {"brand": "Yasaka", "name": "Rakza X"},
+  {"brand": "JOOLA", "name": "Tronix ACC"},
+  {"brand": "Tibhar", "name": "MX-K"},
+  {"brand": "Butterfly", "name": "Dignics 64"},
+  {"brand": "Butterfly", "name": "Tenergy 64"},
+  {"brand": "Andro", "name": "R47"},
+  {"brand": "Xiom", "name": "J&H V47.5"},
+  {"brand": "Xiom", "name": "J&H X47.5"},
+  {"brand": "Yasaka", "name": "Rakza 9"},
+  {"brand": "Tibhar", "name": "EL-P"},
+  {"brand": "Tibhar", "name": "FX-S"},
+  {"brand": "Butterfly", "name": "Tenergy 05 FX"},
+  {"brand": "Donic", "name": "Acuda S1"},
+  {"brand": "Donic", "name": "Baracuda"},
+  {"brand": "Andro", "name": "NUZN 45"},
+  {"brand": "Donic", "name": "BlueStorm Z3"},
+  {"brand": "DHS", "name": "Gold Arc 8"},
+  {"brand": "Tibhar", "name": "MK"},
+  {"brand": "Nittaku", "name": "C-1"},
+  {"brand": "Donic", "name": "Bluefire M2"},
+  {"brand": "Donic", "name": "Acuda S2"},
+  {"brand": "Yasaka", "name": "Rakza 7"},
+  {"brand": "Nittaku", "name": "S-1"},
+  {"brand": "Butterfly", "name": "Rozena"},
+  {"brand": "Yasaka", "name": "Rakza 7 Soft"},
+  {"brand": "Xiom", "name": "Vega Europe"},
+  {"brand": "Andro", "name": "R42"},
+  {"brand": "Tibhar", "name": "FX-P"},
+  {"brand": "JOOLA", "name": "Tronix CMD"},
+  {"brand": "Donic", "name": "Bluefire M3"}
 ]
