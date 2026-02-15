@@ -596,15 +596,6 @@ h1 {
     padding: 10px 12px 8px;
     min-width: 220px;
 }
-.control-range-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--drac-fg);
-    width: min(250px, 100%);
-    margin-inline: auto;
-}
 .control-slider-container {
     position: relative;
     height: 28px;

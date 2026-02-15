@@ -676,8 +676,6 @@ function getControlRangeInputs() {
 function updateControlSliderTrack() {
     const { dataMin, dataMax, selectedMin, selectedMax } = controlFilterState;
     const track = document.getElementById('controlSliderTrack');
-    const minLabel = document.getElementById('controlMinLabel');
-    const maxLabel = document.getElementById('controlMaxLabel');
     
     if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
     
@@ -691,9 +689,6 @@ function updateControlSliderTrack() {
         track.style.left = `${leftPercent}%`;
         track.style.right = `${rightPercent}%`;
     }
-    
-    if (minLabel) minLabel.textContent = `L${Math.round(selectedMin)}`;
-    if (maxLabel) maxLabel.textContent = `L${Math.round(selectedMax)}`;
 }
 
 function setControlRange(minValue, maxValue) {
@@ -754,10 +749,6 @@ function initControlRangeFilter(onChange) {
     
     container.classList.add('control-range-filter');
     container.innerHTML = `
-        <div class="control-range-labels">
-            <span id="controlMinLabel">L1</span>
-            <span id="controlMaxLabel">L${CONTROL_LEVEL_COUNT}</span>
-        </div>
         <div class="control-slider-container">
             <div class="control-slider-rail"></div>
             <div class="control-slider-track" id="controlSliderTrack"></div>
