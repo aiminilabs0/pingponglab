@@ -502,11 +502,5 @@
     "name": "Bluefire M3",
     "type": "Soft Control Tensor",
     "reason": "Very soft/bouncy: good dwell, peak drops when sponge saturates."
-  },
-  {
-    "brand": "Donic",
-    "name": "Acuda S3",
-    "type": "Soft Control Tensor",
-    "reason": "Control-leaning: lowest bite/peak in Acuda S line here."
   }
 ]
