@@ -588,6 +588,127 @@ h1 {
     font-weight: 500;
 }
 
+/* Control dual-range slider filter with visual marker scale */
+.control-range-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px 8px;
+    min-width: 220px;
+}
+.control-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--drac-fg);
+    width: min(250px, 100%);
+    margin-inline: auto;
+}
+.control-slider-container {
+    position: relative;
+    height: 28px;
+    width: min(250px, 100%);
+    margin-inline: auto;
+}
+.control-slider-rail {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transform: translateY(-50%);
+    background: var(--drac-current);
+    border-radius: 2px;
+    pointer-events: none;
+}
+.control-slider-track {
+    position: absolute;
+    top: 50%;
+    height: 4px;
+    transform: translateY(-50%);
+    background: var(--drac-purple);
+    border-radius: 2px;
+    pointer-events: none;
+    left: 0;
+    right: 0;
+}
+.control-slider-container input[type="range"] {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.control-slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--drac-purple);
+    border: 3px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+    cursor: grab;
+    pointer-events: auto;
+    transition: transform 0.1s ease;
+}
+.control-slider-container input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+.control-slider-container input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--drac-purple);
+    border: 3px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+    cursor: grab;
+    pointer-events: auto;
+}
+.control-slider-container input[type="range"]::-moz-range-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+.control-slider-container #controlMinSlider::-webkit-slider-thumb {
+    /* Keep 22px hit target, with a visible smaller inner dot */
+    background: var(--drac-purple);
+    border: 7px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+}
+.control-slider-container #controlMinSlider::-moz-range-thumb {
+    /* Keep 22px hit target, with a visible smaller inner dot */
+    background: var(--drac-purple);
+    border: 7px solid var(--drac-bg);
+    box-shadow: 0 0 0 1px var(--drac-purple);
+}
+.control-slider-container input[type="range"]::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+.control-visual-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    width: min(250px, 100%);
+    margin-inline: auto;
+}
+
+.control-scale-labels-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--drac-comment);
+}
+
 /* ── Option rows ── */
 .filter-option {
     display: flex;

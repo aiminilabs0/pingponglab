@@ -69,7 +69,7 @@ function fromGermanScale(geValue, country) {
 }
 
 const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
-const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight'];
+const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
 // ════════════════════════════════════════════════════════════
@@ -95,6 +95,14 @@ let weightFilterState = {
     selectedMax: null
 };
 let hardnessFilterState = {
+    dataMin: null,
+    dataMax: null,
+    selectedMin: null,
+    selectedMax: null
+};
+let controlFilterState = {
+    rankMin: null,
+    rankMax: null,
     dataMin: null,
     dataMax: null,
     selectedMin: null,
@@ -622,6 +630,167 @@ function initHardnessRangeFilter(onChange) {
     });
 }
 
+// ════════════════════════════════════════════════════════════
+//  Control Range Filter
+// ════════════════════════════════════════════════════════════
+
+const CONTROL_LEVEL_COUNT = 7;
+
+function getControlBoundsFromData() {
+    const ranks = rubberData
+        .map(r => r.controlRank)
+        .filter(rank => Number.isFinite(rank));
+    
+    if (ranks.length === 0) return null;
+    
+    return {
+        min: Math.min(...ranks),
+        max: Math.max(...ranks)
+    };
+}
+
+function getControlLevelFromRank(rank) {
+    const { rankMin, rankMax } = controlFilterState;
+    if (![rank, rankMin, rankMax].every(Number.isFinite)) return null;
+
+    const totalRanks = rankMax - rankMin + 1;
+    if (totalRanks <= 0) return null;
+
+    const zeroBasedRank = Math.max(0, Math.min(totalRanks - 1, rank - rankMin));
+    const bucketBestFirst = Math.min(
+        CONTROL_LEVEL_COUNT - 1,
+        Math.floor((zeroBasedRank * CONTROL_LEVEL_COUNT) / totalRanks)
+    );
+
+    // Level 7 = most controllable (best ranks), Level 1 = least controllable.
+    return CONTROL_LEVEL_COUNT - bucketBestFirst;
+}
+
+function getControlRangeInputs() {
+    return {
+        minInput: document.getElementById('controlMinSlider'),
+        maxInput: document.getElementById('controlMaxSlider')
+    };
+}
+
+function updateControlSliderTrack() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = controlFilterState;
+    const track = document.getElementById('controlSliderTrack');
+    const minLabel = document.getElementById('controlMinLabel');
+    const maxLabel = document.getElementById('controlMaxLabel');
+    
+    if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+    
+    const sliderMin = dataMin;
+    const sliderMax = dataMax;
+    const span = sliderMax - sliderMin;
+    
+    if (span > 0) {
+        const leftPercent = ((selectedMin - sliderMin) / span) * 100;
+        const rightPercent = ((sliderMax - selectedMax) / span) * 100;
+        track.style.left = `${leftPercent}%`;
+        track.style.right = `${rightPercent}%`;
+    }
+    
+    if (minLabel) minLabel.textContent = `L${Math.round(selectedMin)}`;
+    if (maxLabel) maxLabel.textContent = `L${Math.round(selectedMax)}`;
+}
+
+function setControlRange(minValue, maxValue) {
+    const { dataMin, dataMax } = controlFilterState;
+    if (!Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
+    
+    const safeMin = Number.isFinite(minValue) ? Math.round(minValue) : dataMin;
+    const safeMax = Number.isFinite(maxValue) ? Math.round(maxValue) : dataMax;
+    const clampedMin = Math.max(dataMin, Math.min(dataMax, safeMin));
+    const clampedMax = Math.max(dataMin, Math.min(dataMax, safeMax));
+    const selectedMin = Math.min(clampedMin, clampedMax);
+    const selectedMax = Math.max(clampedMin, clampedMax);
+    
+    controlFilterState.selectedMin = selectedMin;
+    controlFilterState.selectedMax = selectedMax;
+    
+    const { minInput, maxInput } = getControlRangeInputs();
+    if (minInput) minInput.value = selectedMin;
+    if (maxInput) maxInput.value = selectedMax;
+    updateControlSliderTrack();
+}
+
+function resetControlRangeToDataBounds() {
+    setControlRange(controlFilterState.dataMin, controlFilterState.dataMax);
+}
+
+function syncControlRangeFromInputs() {
+    const { minInput, maxInput } = getControlRangeInputs();
+    if (!minInput || !maxInput) return false;
+    const minVal = parseFloat(minInput.value);
+    const maxVal = parseFloat(maxInput.value);
+    setControlRange(Math.min(minVal, maxVal), Math.max(minVal, maxVal));
+    return true;
+}
+
+function isControlFilterActive() {
+    const { dataMin, dataMax, selectedMin, selectedMax } = controlFilterState;
+    if (![dataMin, dataMax, selectedMin, selectedMax].every(Number.isFinite)) return false;
+    return selectedMin > dataMin || selectedMax < dataMax;
+}
+
+function initControlRangeFilter(onChange) {
+    const container = document.getElementById('controlFilter');
+    if (!container) return;
+    
+    const bounds = getControlBoundsFromData();
+    if (!bounds) {
+        container.innerHTML = '<div class="filter-instructions">No control ranking data available.</div>';
+        return;
+    }
+    
+    controlFilterState.rankMin = bounds.min;
+    controlFilterState.rankMax = bounds.max;
+    controlFilterState.dataMin = 1;
+    controlFilterState.dataMax = CONTROL_LEVEL_COUNT;
+    controlFilterState.selectedMin = 1;
+    controlFilterState.selectedMax = CONTROL_LEVEL_COUNT;
+    
+    container.classList.add('control-range-filter');
+    container.innerHTML = `
+        <div class="control-range-labels">
+            <span id="controlMinLabel">L1</span>
+            <span id="controlMaxLabel">L${CONTROL_LEVEL_COUNT}</span>
+        </div>
+        <div class="control-slider-container">
+            <div class="control-slider-rail"></div>
+            <div class="control-slider-track" id="controlSliderTrack"></div>
+            <input id="controlMinSlider" type="range" min="1" max="${CONTROL_LEVEL_COUNT}" value="1" step="1">
+            <input id="controlMaxSlider" type="range" min="1" max="${CONTROL_LEVEL_COUNT}" value="${CONTROL_LEVEL_COUNT}" step="1">
+        </div>
+        <div class="control-visual-scale">
+            <div class="control-scale-labels-bottom">
+                <span>Easy</span>
+                <span>Hard</span>
+            </div>
+        </div>
+    `;
+    
+    updateControlSliderTrack();
+    
+    const debouncedChange = debounce(onChange, 40);
+    const { minInput, maxInput } = getControlRangeInputs();
+    [minInput, maxInput].forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            syncControlRangeFromInputs();
+            debouncedChange();
+        });
+    });
+    
+    document.getElementById('controlResetBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        resetControlRangeToDataBounds();
+        onChange();
+    });
+}
+
 function filterOptions(container, query) {
     const q = query.trim().toLowerCase();
     container.querySelectorAll('.filter-option').forEach(option => {
@@ -787,6 +956,19 @@ function refreshBadge(filterId) {
         return;
     }
 
+    if (filterId === 'control') {
+        const badge = document.getElementById('controlBadge');
+        if (!badge) return;
+        if (!isControlFilterActive()) {
+            badge.textContent = 'All';
+            badge.classList.add('all-selected');
+        } else {
+            badge.textContent = `L${Math.round(controlFilterState.selectedMin)}-L${Math.round(controlFilterState.selectedMax)}`;
+            badge.classList.remove('all-selected');
+        }
+        return;
+    }
+
     const container = document.getElementById(filterId + 'Filter');
     if (!container) return;
     const all = container.querySelectorAll('input[type="checkbox"]');
@@ -894,6 +1076,17 @@ function renderActiveTags() {
             updateChart();
         }));
     }
+
+    if (isControlFilterActive()) {
+        const label = `Control L${Math.round(controlFilterState.selectedMin)}-L${Math.round(controlFilterState.selectedMax)}`;
+        container.appendChild(createActionTag(label, () => {
+            resetControlRangeToDataBounds();
+            refreshAllBadges();
+            renderActiveTags();
+            pushFiltersToUrl();
+            updateChart();
+        }));
+    }
 }
 
 // ════════════════════════════════════════════════════════════
@@ -948,6 +1141,21 @@ function deserializeWeightRangeParam(params) {
     setWeightRange(min, max);
 }
 
+function serializeControlRangeParam(params) {
+    if (!isControlFilterActive()) return;
+    params.set('control', `${Math.round(controlFilterState.selectedMin)}-${Math.round(controlFilterState.selectedMax)}`);
+}
+
+function deserializeControlRangeParam(params) {
+    if (!params.has('control')) return;
+    const range = params.get('control').trim();
+    const [minRaw, maxRaw] = range.split('-');
+    const min = Number.parseFloat(minRaw);
+    const max = Number.parseFloat(maxRaw);
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return;
+    setControlRange(min, max);
+}
+
 function pushFiltersToUrl() {
     const params = new URLSearchParams();
     if (DEBUG_MODE) params.set('debug', '');
@@ -957,6 +1165,7 @@ function pushFiltersToUrl() {
     serializeFilterParam(params, 'sheet', 'sheetFilter');
     serializeHardnessRangeParam(params);
     serializeWeightRangeParam(params);
+    serializeControlRangeParam(params);
 
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
     if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
@@ -968,7 +1177,7 @@ function pushFiltersToUrl() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'country'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -992,6 +1201,7 @@ function applyFiltersFromUrl() {
     deserializeFilterParam(params, 'sheet', 'sheetFilter');
     deserializeHardnessRangeParam(params);
     deserializeWeightRangeParam(params);
+    deserializeControlRangeParam(params);
 
     // Restore selected rubber detail panels
     if (params.has('left')) {
@@ -1082,12 +1292,20 @@ function getFilteredData() {
     const minHardness = hardnessFilterState.selectedMin;
     const maxHardness = hardnessFilterState.selectedMax;
 
+    const filterByControl = isControlFilterActive();
+    const minControlLevel = controlFilterState.selectedMin;
+    const maxControlLevel = controlFilterState.selectedMax;
+
     return rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
         selectedNames.includes(rubber.fullName) &&
         selectedSheet.includes(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
-        (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight))
+        (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
+        (!filterByControl || (() => {
+            const level = getControlLevelFromRank(rubber.controlRank);
+            return Number.isFinite(level) && level >= minControlLevel && level <= maxControlLevel;
+        })())
     );
 }
 
@@ -1320,20 +1538,22 @@ function updateChart(options = {}) {
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
-    // 3 discrete marker sizes based on control ranking
-    // Rank 1 (most controllable) → biggest, last rank → smallest
-    const MARKER_BIG = 15;
-    const MARKER_MED = 13;
-    const MARKER_SMALL = 11;
+    // 7 discrete marker sizes based on control ranking
+    // Rank 1 (most controllable) → biggest (20), last rank → smallest (8)
+    const MARKER_SIZES = [20, 18, 16, 14, 12, 10, 8];
 
     function getMarkerSize(rubber) {
         const rank = rubber.controlRank;
         const total = rubber.controlTotal;
-        if (typeof rank !== 'number' || typeof total !== 'number') return MARKER_MED;
-        const third = total / 3;
-        if (rank <= third) return MARKER_BIG;
-        if (rank <= third * 2) return MARKER_MED;
-        return MARKER_SMALL;
+        if (typeof rank !== 'number' || typeof total !== 'number') return 14; // default medium
+        
+        const seventh = total / 7;
+        for (let i = 0; i < 7; i++) {
+            if (rank <= seventh * (i + 1)) {
+                return MARKER_SIZES[i]; // Lower rank (better control) gets bigger marker
+            }
+        }
+        return MARKER_SIZES[6]; // fallback to smallest
     }
 
     // Group by brand × sheet for trace creation
@@ -1956,6 +2176,7 @@ function resetFiltersToAll() {
     });
     resetHardnessRangeToDataBounds();
     resetWeightRangeToDataBounds();
+    resetControlRangeToDataBounds();
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
@@ -2024,10 +2245,11 @@ function initFilters() {
 
     initHardnessRangeFilter(() => onFilterChange('hardness'));
     initWeightRangeFilter(() => onFilterChange('weight'));
+    initControlRangeFilter(() => onFilterChange('control'));
     buildNameOptionsFromBrands();
 
     // Filter change listeners (checkbox-based filters only)
-    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness').forEach(id => {
+    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control').forEach(id => {
         document.getElementById(id + 'Filter').addEventListener('change', () => onFilterChange(id));
     });
 
@@ -2087,6 +2309,7 @@ function initFilters() {
         );
         resetHardnessRangeToDataBounds();
         resetWeightRangeToDataBounds();
+        resetControlRangeToDataBounds();
         buildNameOptionsFromBrands();
         refreshAllBadges();
         renderActiveTags();
