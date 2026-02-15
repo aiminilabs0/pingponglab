@@ -633,7 +633,7 @@ function initHardnessRangeFilter(onChange) {
 //  Control Range Filter
 // ════════════════════════════════════════════════════════════
 
-const CONTROL_LEVEL_COUNT = 7;
+const CONTROL_LEVEL_COUNT = 5;
 
 function getControlBoundsFromData() {
     const ranks = rubberData
@@ -661,8 +661,8 @@ function getControlLevelFromRank(rank) {
         Math.floor((zeroBasedRank * CONTROL_LEVEL_COUNT) / totalRanks)
     );
 
-    // Level 7 = most controllable (best ranks), Level 1 = least controllable.
-    return CONTROL_LEVEL_COUNT - bucketBestFirst;
+    // Level 1 = most controllable (best ranks), Level 5 = least controllable.
+    return bucketBestFirst + 1;
 }
 
 function getControlRangeInputs() {
@@ -1475,6 +1475,21 @@ function showChartHoverPopupFromPlotlyData(data, chartEl) {
     return rubber;
 }
 
+function buildControlLevelIndicatorHtml(rank) {
+    const controlLevel = getControlLevelFromRank(rank);
+    if (!Number.isFinite(controlLevel)) return '-';
+
+    const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
+    const filledBoxes = CONTROL_LEVEL_COUNT - clampedLevel + 1;
+    const boxHtml = Array.from({ length: CONTROL_LEVEL_COUNT }, (_, index) => (
+        `<span class="chart-control-box${index < filledBoxes ? ' is-filled' : ''}" aria-hidden="true"></span>`
+    )).join('');
+
+    return `
+        <span class="chart-control-boxes" aria-label="Control level L${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
+    `.trim();
+}
+
 function buildHoverPopupHtml(rubber, point) {
     const rubberName = rubber.name || rubber.fullName || '-';
     const brandName = rubber.brand || '-';
@@ -1485,7 +1500,7 @@ function buildHoverPopupHtml(rubber, point) {
     const weightToneClass = getWeightToneClass(rubber?.weight);
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
-    const control = typeof rubber.controlRank === 'number' ? `#${rubber.controlRank}` : '-';
+    const control = buildControlLevelIndicatorHtml(rubber?.controlRank);
     const brandColor = getBrandColor(brandName);
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
@@ -1504,7 +1519,7 @@ function buildHoverPopupHtml(rubber, point) {
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
                 <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
-                <div class="chart-hover-metric"><span>Control Rank</span><strong>${control}</strong></div>
+                <div class="chart-hover-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>

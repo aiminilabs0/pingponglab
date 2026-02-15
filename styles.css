@@ -995,6 +995,30 @@ h1 {
 .chart-hover-metric strong.weight-tone-red {
     color: var(--drac-red);
 }
+.chart-hover-metric strong.chart-control-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: none;
+    overflow: visible;
+    white-space: nowrap;
+}
+.chart-control-boxes {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+.chart-control-box {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    border: 1px solid rgba(155,148,132,0.5);
+    background: rgba(62,58,52,0.2);
+}
+.chart-control-box.is-filled {
+    border-color: rgba(126,184,168,0.85);
+    background: rgba(126,184,168,0.95);
+}
 .chart-hover-tags {
     display: flex;
     gap: 6px;
