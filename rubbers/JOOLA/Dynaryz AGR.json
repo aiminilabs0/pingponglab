@@ -6,7 +6,7 @@
     "overall": 9.4,
     "speed": 9.3,
     "spin": 9.4,
-    "control": 9.0,
+    "control": 9,
     "sponge_hardness": "6.9 (Medium hard)",
     "gears": "7.4 (Above average gears)",
     "throw_angle": "5.5 (Medium high)",
@@ -53,6 +53,5 @@
       "youtube": ""
     }
   },
-  "priority": 5,
   "bestseller": false
 }

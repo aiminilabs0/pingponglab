@@ -5,7 +5,7 @@
   "user_ratings": {
     "overall": 8.9,
     "speed": 8.7,
-    "spin": 9.0,
+    "spin": 9,
     "control": 8.9,
     "sponge_hardness": "6.0 (Medium hard)",
     "gears": "8.5 (Many gears)",
@@ -20,7 +20,7 @@
     "url": "https://www.tabletennisdaily.com/equipment/evolution-el-s.1835/",
     "country": "Germany",
     "release_year": 2013,
-    "hardness": 45.0,
+    "hardness": 45,
     "thickness": [
       "2.1",
       "1.9",
@@ -46,6 +46,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

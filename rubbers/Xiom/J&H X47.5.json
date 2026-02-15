@@ -3,7 +3,7 @@
   "name": "Xiom Jekyll & Hyde X47.5",
   "manufacturer": "Xiom",
   "user_ratings": {
-    "overall": 10.0,
+    "overall": 10,
     "speed": 0,
     "spin": 0,
     "control": 0,
@@ -45,6 +45,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

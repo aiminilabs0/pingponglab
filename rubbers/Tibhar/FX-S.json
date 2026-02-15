@@ -10,7 +10,7 @@
     "sponge_hardness": "3.2 (Medium soft)",
     "gears": "7.4 (Above average gears)",
     "throw_angle": "5.3 (Medium high)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "7.5 (Lasts longer than average)",
     "tackiness": "1.3 (Slightly tacky)",
     "url": "https://revspin.net/rubber/tibhar-evolution-fx-s.html",
@@ -46,6 +46,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

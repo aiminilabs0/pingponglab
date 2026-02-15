@@ -4,13 +4,13 @@
   "manufacturer": "JOOLA",
   "user_ratings": {
     "overall": 9.5,
-    "speed": 9.0,
+    "speed": 9,
     "spin": 9.4,
     "control": 9.4,
     "sponge_hardness": "6.1 (Medium hard)",
     "gears": "8.1 (Above average gears)",
     "throw_angle": "6.2 (Medium high)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "8.7 (Lasts a long time!)",
     "tackiness": "1.6 (Slightly tacky)",
     "url": "https://revspin.net/rubber/joola-tronix-acc.html",
@@ -53,6 +53,5 @@
       "youtube": ""
     }
   },
-  "priority": 5,
   "bestseller": false
 }

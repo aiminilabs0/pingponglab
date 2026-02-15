@@ -6,7 +6,7 @@
     "overall": 9.4,
     "speed": 9.3,
     "spin": 9.4,
-    "control": 9.0,
+    "control": 9,
     "sponge_hardness": "9.5 (Hard)",
     "gears": "9.0 (Many gears)",
     "throw_angle": "4.0 (Medium)",
@@ -20,7 +20,7 @@
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=t-evolution-mx-p-50",
     "country": "Germany",
     "release_year": 2019,
-    "hardness": 50.0,
+    "hardness": 50,
     "thickness": [
       "2.1"
     ],
@@ -50,6 +50,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 10
+  }
 }

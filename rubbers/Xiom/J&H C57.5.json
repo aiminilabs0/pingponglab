@@ -10,7 +10,7 @@
     "sponge_hardness": "10.0 (Hard)",
     "gears": "10.0 (Many gears)",
     "throw_angle": "4.0 (Medium)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "not rated",
     "tackiness": "2.0 (Slightly tacky)",
     "url": "https://revspin.net/rubber/xiom-jekyll-hyde-c575.html",
@@ -45,6 +45,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

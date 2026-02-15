@@ -30,7 +30,7 @@
   },
   "manufacturer_ratings": {
     "url": "https://www.donic.com/en/DONIC-Bluefire-M1/000294220",
-    "speed": 9.0,
+    "speed": 9,
     "spin": 9.5,
     "control": 8.5
   },
@@ -51,6 +51,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 50
+  }
 }

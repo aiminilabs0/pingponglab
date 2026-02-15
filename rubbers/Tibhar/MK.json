@@ -10,7 +10,7 @@
     "sponge_hardness": "6.5 (Medium hard)",
     "gears": "8.7 (Many gears)",
     "throw_angle": "6.0 (Medium high)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "6.5 (Lasts longer than average)",
     "tackiness": "2.5 (Slightly tacky)",
     "url": "https://revspin.net/rubber/tibhar-hybrid-mk.html",
@@ -52,6 +52,5 @@
       "youtube": ""
     }
   },
-  "priority": 50,
   "bestseller": false
 }

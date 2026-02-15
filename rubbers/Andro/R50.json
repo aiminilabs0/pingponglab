@@ -29,8 +29,7 @@
     "topsheet": "Classic",
     "weight": 51
   },
-  "manufacturer_ratings": {
-  },
+  "manufacturer_ratings": {},
   "urls": {
     "us": {
       "product": "",
@@ -48,6 +47,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

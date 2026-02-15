@@ -10,7 +10,7 @@
     "sponge_hardness": "3.3 (Medium soft)",
     "gears": "6.4 (Above average gears)",
     "throw_angle": "4.3 (Medium)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "6.2 (Lasts longer than average)",
     "tackiness": "1.8 (Slightly tacky)",
     "url": "https://revspin.net/rubber/joola-tronix-cmd.html",
@@ -53,6 +53,5 @@
       "youtube": ""
     }
   },
-  "priority": 5,
   "bestseller": false
 }

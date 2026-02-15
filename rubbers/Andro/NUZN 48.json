@@ -10,7 +10,7 @@
     "sponge_hardness": "3.0 (Medium soft)",
     "gears": "4.0 (Average)",
     "throw_angle": "4.0 (Medium)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "n/a",
     "tackiness": "0.0 (Completely non-tacky)",
     "url": "https://revspin.net/rubber/andro-nuzn-48.html",
@@ -45,6 +45,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

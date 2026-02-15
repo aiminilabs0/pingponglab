@@ -3,9 +3,9 @@
   "name": "Donic Bluestorm Z2",
   "manufacturer": "Donic",
   "user_ratings": {
-    "overall": 9.0,
+    "overall": 9,
     "speed": 9.2,
-    "spin": 9.0,
+    "spin": 9,
     "control": 8.7,
     "sponge_hardness": "6.4 (Medium hard)",
     "gears": "8.0 (Above average gears)",
@@ -46,6 +46,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

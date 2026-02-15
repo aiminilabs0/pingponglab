@@ -10,7 +10,7 @@
     "sponge_hardness": "6.8 (Medium hard)",
     "gears": "7.8 (Above average gears)",
     "throw_angle": "6.4 (Medium high)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "7.3 (Lasts longer than average)",
     "tackiness": "1.6 (Slightly tacky)",
     "url": "https://revspin.net/rubber/yasaka-rakza-xx.html",
@@ -50,6 +50,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 50
+  }
 }

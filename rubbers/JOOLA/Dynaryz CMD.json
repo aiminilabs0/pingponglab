@@ -10,7 +10,7 @@
     "sponge_hardness": "5.2 (Medium)",
     "gears": "6.5 (Above average gears)",
     "throw_angle": "5.7 (Medium high)",
-    "consistency": 10.0,
+    "consistency": 10,
     "durability": "6.4 (Lasts longer than average)",
     "tackiness": "4.0 (Medium tacky)",
     "url": "https://revspin.net/rubber/joola-dynaryz-cmd.html",
@@ -45,6 +45,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 20
+  }
 }

@@ -30,9 +30,9 @@
   },
   "manufacturer_ratings": {
     "url": "https://www.donic.com/en/Rubbers/4274/DONIC-BlueStar-A1-available-November-2022",
-    "speed": 9.0,
-    "spin": 10.0,
-    "control": 10.0
+    "speed": 9,
+    "spin": 10,
+    "control": 10
   },
   "urls": {
     "us": {
@@ -51,6 +51,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 50
+  }
 }

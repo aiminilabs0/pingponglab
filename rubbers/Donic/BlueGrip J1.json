@@ -31,8 +31,8 @@
   "manufacturer_ratings": {
     "url": "https://www.donic.com/en/DONIC-BLUEGRIP-J1/000231220",
     "speed": 9.5,
-    "spin": 10.0,
-    "control": 10.0
+    "spin": 10,
+    "control": 10
   },
   "urls": {
     "us": {
@@ -51,6 +51,5 @@
       "product": "",
       "youtube": ""
     }
-  },
-  "priority": 10
+  }
 }
