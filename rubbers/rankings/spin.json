@@ -508,11 +508,5 @@
     "name": "Acuda S3",
     "type": "Soft Control Tensor",
     "reason": "Control-leaning: lowest bite/peak in Acuda S line here."
-  },
-  {
-    "brand": "Donic",
-    "name": "Desto F1",
-    "type": "Classic Formula Tensor",
-    "reason": "Speed-glue era: respectable, but outgunned in peak spin by modern friction sheets."
   }
 ]
