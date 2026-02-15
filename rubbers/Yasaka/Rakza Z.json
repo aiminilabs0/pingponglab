@@ -32,11 +32,7 @@
     "speed": 84,
     "spin": 92,
     "control": 63,
-    "arc": "High",
-    "thickness": [
-      "max",
-      "2.0"
-    ]
+    "arc": "High"
   },
   "urls": {
     "us": {

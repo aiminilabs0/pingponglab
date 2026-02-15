@@ -22,9 +22,9 @@
     "release_year": 2009,
     "hardness": 47.5,
     "thickness": [
-      "1.8",
+      "max",
       "2.0",
-      "max"
+      "1.8"
     ],
     "sheet": "Classic",
     "weight": 50

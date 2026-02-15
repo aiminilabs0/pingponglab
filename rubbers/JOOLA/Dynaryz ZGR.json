@@ -22,8 +22,8 @@
     "release_year": 2020,
     "hardness": 57,
     "thickness": [
-      "2.0",
-      "Max"
+      "max",
+      "2.0"
     ],
     "sheet": "Hybrid",
     "weight": 56
