@@ -61,7 +61,7 @@ function fromGermanScale(geValue, country) {
 }
 
 const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
-const FILTER_IDS = ['brand', 'name', 'topsheet', 'hardness', 'weight'];
+const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
 // ════════════════════════════════════════════════════════════
@@ -113,7 +113,7 @@ function parseRatingNumber(value) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
-function normalizeTopsheet(value) {
+function normalizeSheet(value) {
     if (typeof value === 'string') {
         const lower = value.trim().toLowerCase();
         if (lower === 'classic') return 'Classic';
@@ -139,7 +139,7 @@ function buildDescriptionMarkdown(raw) {
     const details = raw.manufacturer_details || {};
     const lines = [
         raw.price ? `**Price:** ${raw.price}` : null,
-        details.topsheet ? `**Topsheet:** ${details.topsheet}` : null,
+        details.sheet ? `**Sheet:** ${details.sheet}` : null,
         details.hardness !== undefined ? `**Hardness:** ${details.hardness}° ${COUNTRY_FLAGS[details.country]}` : null,
         details.weight !== undefined ? `**Weight:** ${details.weight}g` : null,
         details.thickness ? `**Thickness:** ${Array.isArray(details.thickness) ? details.thickness.join(', ') : details.thickness}` : null
@@ -246,7 +246,7 @@ async function loadRubberData() {
             hardnessLabel: Number.isFinite(hardness) ? `${hardness}°${hardnessFlag ? ` ${hardnessFlag}` : ''}` : 'N/A',
             weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
             control: parseRatingNumber(ratings.control),
-            topsheet: normalizeTopsheet(details.topsheet),
+            sheet: normalizeSheet(details.sheet),
             priority: 999, // will be overridden by popularity ranking
             bestseller: false, // will be overridden by bestseller ranking
             urls: {
@@ -304,7 +304,7 @@ async function loadRubberData() {
 // ════════════════════════════════════════════════════════════
 
 const getBrandColor = brand => BRAND_COLORS[brand] || '#999999';
-const getTopsheetSymbol = topsheet => TOPSHEET_MARKERS[topsheet] || 'circle';
+const getSheetSymbol = sheet => TOPSHEET_MARKERS[sheet] || 'circle';
 
 // ════════════════════════════════════════════════════════════
 //  DOM / Filter Helpers
@@ -856,7 +856,7 @@ function renderActiveTags() {
     }
 
     // Tags for other partially-selected checkbox filter groups
-    ['topsheet'].forEach(filterId => {
+    ['sheet'].forEach(filterId => {
         const filterEl = document.getElementById(filterId + 'Filter');
         const all = filterEl.querySelectorAll('input[type="checkbox"]');
         const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
@@ -948,7 +948,7 @@ function pushFiltersToUrl() {
 
     serializeFilterParam(params, 'brands', 'brandFilter');
     serializeFilterParam(params, 'rubbers', 'nameFilter');
-    serializeFilterParam(params, 'topsheet', 'topsheetFilter');
+    serializeFilterParam(params, 'sheet', 'sheetFilter');
     serializeHardnessRangeParam(params);
     serializeWeightRangeParam(params);
 
@@ -962,7 +962,7 @@ function pushFiltersToUrl() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'topsheet', 'hardness', 'weight', 'country'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'country'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -983,7 +983,7 @@ function applyFiltersFromUrl() {
     }
 
     deserializeFilterParam(params, 'rubbers', 'nameFilter');
-    deserializeFilterParam(params, 'topsheet', 'topsheetFilter');
+    deserializeFilterParam(params, 'sheet', 'sheetFilter');
     deserializeHardnessRangeParam(params);
     deserializeWeightRangeParam(params);
 
@@ -1059,10 +1059,10 @@ function clampRangeToBounds(range, bounds) {
 function getFilteredData() {
     const selectedBrands = getCheckedValues('brandFilter');
     const selectedNames = getCheckedValues('nameFilter');
-    const selectedTopsheet = getCheckedValues('topsheetFilter');
+    const selectedSheet = getCheckedValues('sheetFilter');
 
     if (!selectedBrands.length || !selectedNames.length ||
-        !selectedTopsheet.length) {
+        !selectedSheet.length) {
         return [];
     }
 
@@ -1077,7 +1077,7 @@ function getFilteredData() {
     return rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
         selectedNames.includes(rubber.fullName) &&
-        selectedTopsheet.includes(rubber.topsheet) &&
+        selectedSheet.includes(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight))
     );
@@ -1262,7 +1262,7 @@ function showChartHoverPopupFromPlotlyData(data, chartEl) {
 function buildHoverPopupHtml(rubber, point) {
     const rubberName = rubber.name || rubber.fullName || '-';
     const brandName = rubber.brand || '-';
-    const topsheet = rubber.topsheet || '-';
+    const sheet = rubber.sheet || '-';
     const hardness = formatHardnessPopupLabel(rubber);
     const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
     const weight = rubber.weightLabel || '-';
@@ -1290,7 +1290,7 @@ function buildHoverPopupHtml(rubber, point) {
                 <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>Control Rank</span><strong>${control}</strong></div>
                 <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>Topsheet</span><strong>${escapeHtml(topsheet)}</strong></div>
+                <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
         </div>
@@ -1328,11 +1328,11 @@ function updateChart(options = {}) {
         return MARKER_SMALL;
     }
 
-    // Group by brand × topsheet for trace creation
+    // Group by brand × sheet for trace creation
     const groups = {};
     for (const rubber of visibleData) {
-        const key = `${rubber.brand}-${rubber.topsheet}`;
-        (groups[key] ??= { brand: rubber.brand, topsheet: rubber.topsheet, rubbers: [] })
+        const key = `${rubber.brand}-${rubber.sheet}`;
+        (groups[key] ??= { brand: rubber.brand, sheet: rubber.sheet, rubbers: [] })
             .rubbers.push(rubber);
     }
 
@@ -1364,11 +1364,11 @@ function updateChart(options = {}) {
             y: group.rubbers.map(r => r.y),
             mode: 'markers+text',
             type: 'scatter',
-            name: `${group.brand} (${group.topsheet})`,
+            name: `${group.brand} (${group.sheet})`,
             marker: {
                 size: group.rubbers.map(getMarkerSize),
                 color: getBrandColor(group.brand),
-                symbol: getTopsheetSymbol(group.topsheet),
+                symbol: getSheetSymbol(group.sheet),
                 line: { width: 1, color: '#2b2926' }
             },
             text: group.rubbers.map(r => r.abbr),
@@ -1915,7 +1915,7 @@ function getPlotFraction(chartEl, clientX, clientY) {
 // ════════════════════════════════════════════════════════════
 
 function resetFiltersToAll() {
-    ['brandFilter', 'topsheetFilter'].forEach(id => {
+    ['brandFilter', 'sheetFilter'].forEach(id => {
         const el = document.getElementById(id);
         if (el) setAllChecked(el, true);
     });
@@ -1975,8 +1975,8 @@ function initFilters() {
         brands.map(b => ({ value: b, label: b, swatchColor: getBrandColor(b) }))
     );
     buildCheckboxOptions(
-        document.getElementById('topsheetFilter'),
-        ['Classic', 'Chinese', 'Hybrid'].map(t => ({ value: t, label: t, shapeSymbol: getTopsheetSymbol(t) }))
+        document.getElementById('sheetFilter'),
+        ['Classic', 'Chinese', 'Hybrid'].map(t => ({ value: t, label: t, shapeSymbol: getSheetSymbol(t) }))
     );
 
     function onFilterChange(filterId) {
@@ -2047,7 +2047,7 @@ function initFilters() {
 
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
-        ['brandFilter', 'topsheetFilter'].forEach(id =>
+        ['brandFilter', 'sheetFilter'].forEach(id =>
             setAllChecked(document.getElementById(id), true)
         );
         resetHardnessRangeToDataBounds();

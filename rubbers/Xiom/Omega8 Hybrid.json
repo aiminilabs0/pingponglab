@@ -24,7 +24,7 @@
     "thickness": [
       "max"
     ],
-    "topsheet": "Sticky",
+    "sheet": "Sticky",
     "weight": 50
   },
   "urls": {
