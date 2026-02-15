@@ -1648,16 +1648,16 @@ function updateChart(options = {}) {
         hovermode: 'closest',
         plot_bgcolor: '#2b2926',
         paper_bgcolor: '#2b2926',
-        margin: { l: 10, r: 10, t: 10, b: 10 },
+        margin: { l: 10, r: 10, t: 30, b: 30 },
         annotations: [
             {
-                x: 0.995, y: 0.01, xref: 'paper', yref: 'paper',
+                x: 0.995, y: -0.04, xref: 'paper', yref: 'paper',
                 text: '🔄 Spin →', showarrow: false,
                 xanchor: 'right', yanchor: 'bottom',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
             },
             {
-                x: 0.005, y: 1.00, xref: 'paper', yref: 'paper',
+                x: 0.005, y: 1.04, xref: 'paper', yref: 'paper',
                 text: '⚡ Speed ↑', showarrow: false,
                 xanchor: 'left', yanchor: 'top',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
