@@ -8,7 +8,7 @@ const RANKING_FILES = {
     speed: 'stats/rubbers/ranking/speed.json',
     control: 'stats/rubbers/ranking/control.json'
 };
-const POPULARITY_FILE = 'stats/rubbers/ranking/priority.json';
+const PRIORITY_FILE = 'stats/rubbers/ranking/priority.json';
 const BESTSELLER_FILE = 'stats/rubbers/ranking/bestseller.json';
 
 const BRAND_COLORS = {
@@ -23,7 +23,7 @@ const BRAND_COLORS = {
     Yasaka: '#FFFF33'
 };
 
-const TOPSHEET_MARKERS = {
+const SHEET_MARKERS = {
     Classic: 'circle',
     Chinese: 'square',
     Hybrid: 'diamond'
@@ -247,7 +247,7 @@ async function loadRubberData() {
             weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
-            priority: 999, // will be overridden by popularity ranking
+            priority: 999, // will be overridden by priority ranking
             bestseller: false, // will be overridden by bestseller ranking
             urls: {
                 us: { product: urls.us?.product || '', youtube: urls.us?.youtube || '' },
@@ -267,9 +267,9 @@ async function loadRubberData() {
     const speedTotal = rankings.speed.length;
     const controlTotal = rankings.control.length;
 
-    // ── Override priority with popularity ranking ──
-    const popularityResp = await fetch(POPULARITY_FILE);
-    const popularityRanking = popularityResp.ok ? await popularityResp.json() : [];
+    // ── Override priority with priority ranking ──
+    const priorityResp = await fetch(PRIORITY_FILE);
+    const priorityRanking = priorityResp.ok ? await priorityResp.json() : [];
     const bestsellerResp = await fetch(BESTSELLER_FILE);
     const bestsellerRanking = bestsellerResp.ok ? await bestsellerResp.json() : [];
 
@@ -288,8 +288,8 @@ async function loadRubberData() {
         rubber.controlRank = controlIdx >= 0 ? controlIdx + 1 : null;
         rubber.controlTotal = controlTotal;
 
-        // Priority from popularity ranking (lower = more important)
-        const popIdx = findRubberRank(rubber, popularityRanking);
+        // Priority from priority ranking (lower = more important)
+        const popIdx = findRubberRank(rubber, priorityRanking);
         if (popIdx >= 0) rubber.priority = popIdx + 1;
         rubber.bestseller = findRubberRank(rubber, bestsellerRanking) >= 0;
     }
@@ -304,7 +304,7 @@ async function loadRubberData() {
 // ════════════════════════════════════════════════════════════
 
 const getBrandColor = brand => BRAND_COLORS[brand] || '#999999';
-const getSheetSymbol = sheet => TOPSHEET_MARKERS[sheet] || 'circle';
+const getSheetSymbol = sheet => SHEET_MARKERS[sheet] || 'circle';
 
 // ════════════════════════════════════════════════════════════
 //  DOM / Filter Helpers
