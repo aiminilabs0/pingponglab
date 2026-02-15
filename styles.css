@@ -21,7 +21,8 @@
 }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    padding: 20px;
+    font-size: 17px;
+    padding: 24px;
     background: var(--drac-bg-dark);
     color: var(--drac-fg);
 }
@@ -31,11 +32,11 @@ body {
     margin: 0 auto;
     background: var(--drac-bg);
     border-radius: 16px;
-    padding: 24px;
+    padding: 32px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .chart-bleed {
-    margin: 0 -24px;
+    margin: 0 -32px;
     padding: 0;
     overflow: hidden;
     position: relative;
@@ -55,7 +56,7 @@ body {
     flex-direction: column;
     align-items: stretch;
     padding: 0 0 0;
-    margin: -24px -24px 8px;
+    margin: -32px -32px 12px;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
     background:
@@ -66,13 +67,13 @@ body {
 .header-brand {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 28px 32px 24px;
+    gap: 24px;
+    padding: 36px 40px 30px;
     position: relative;
     z-index: 1;
 }
 .header-logo {
-    height: 72px;
+    height: 90px;
     width: auto;
     flex-shrink: 0;
     filter: drop-shadow(0 4px 16px rgba(0,0,0,0.45));
@@ -85,10 +86,10 @@ body {
 .header-text {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 .header-title {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 800;
     color: var(--drac-fg);
     letter-spacing: -0.5px;
@@ -100,7 +101,7 @@ body {
     background-clip: text;
 }
 .header-tagline {
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 500;
     color: var(--drac-comment);
     letter-spacing: 0.4px;
@@ -138,12 +139,12 @@ h1 {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
+    gap: 8px;
+    padding: 10px 18px;
     border: 1.5px solid var(--drac-current);
     border-radius: 100px;
     background: var(--drac-bg);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--drac-fg);
     cursor: pointer;
@@ -178,13 +179,13 @@ h1 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
     border-radius: 100px;
     background: var(--drac-purple);
     color: var(--drac-bg);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1;
 }
@@ -196,12 +197,12 @@ h1 {
 .filter-action-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 7px 12px;
+    gap: 6px;
+    padding: 10px 16px;
     border: 1.5px solid var(--drac-current);
     border-radius: 100px;
     background: transparent;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--drac-comment);
     cursor: pointer;
@@ -235,14 +236,14 @@ h1 {
 /* ── Dropdown panel ── */
 .filter-dropdown {
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + 8px);
     left: 0;
     z-index: 100;
-    min-width: 240px;
-    max-width: 320px;
+    min-width: 280px;
+    max-width: 360px;
     background: var(--drac-bg);
     border: 1px solid var(--drac-current);
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
     opacity: 0;
     transform: translateY(-4px);
@@ -260,19 +261,19 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px 6px;
+    padding: 12px 16px 8px;
     border-bottom: 1px solid var(--drac-current);
 }
 .dropdown-header .dd-actions {
     display: flex;
-    gap: 2px;
+    gap: 4px;
 }
 .dropdown-header .dd-actions button {
-    padding: 3px 8px;
+    padding: 5px 12px;
     border: none;
     border-radius: 6px;
     background: transparent;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--drac-purple);
     cursor: pointer;
@@ -285,10 +286,10 @@ h1 {
     border: none;
     background: transparent;
     color: var(--drac-comment);
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1;
     cursor: pointer;
-    padding: 2px 4px;
+    padding: 4px 6px;
     border-radius: 6px;
     transition: background 0.12s, color 0.12s;
 }
@@ -299,10 +300,10 @@ h1 {
 .dropdown-search {
     display: block;
     width: 100%;
-    padding: 9px 14px;
+    padding: 11px 16px;
     border: none;
     border-bottom: 1px solid var(--drac-current);
-    font-size: 13px;
+    font-size: 15px;
     color: var(--drac-fg);
     background: var(--drac-bg-dark);
     outline: none;
@@ -311,9 +312,9 @@ h1 {
     color: var(--drac-comment);
 }
 .dropdown-options {
-    max-height: 220px;
+    max-height: 280px;
     overflow-y: auto;
-    padding: 6px;
+    padding: 8px;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
 }
@@ -345,12 +346,12 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 10px;
+    padding: 8px 14px;
     border-radius: 999px;
     border: 1.5px solid var(--drac-current);
     background: transparent;
     color: var(--drac-fg);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     transition: all 0.12s ease;
 }
@@ -375,16 +376,16 @@ h1 {
 .weight-range-labels {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--drac-fg);
-    width: min(250px, 100%);
+    width: min(280px, 100%);
     margin-inline: auto;
 }
 .weight-slider-container {
     position: relative;
-    height: 28px;
-    width: min(250px, 100%);
+    height: 32px;
+    width: min(280px, 100%);
     margin-inline: auto;
 }
 .weight-slider-rail {
@@ -459,7 +460,7 @@ h1 {
     border: none;
 }
 .weight-range-hint {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--drac-comment);
     text-align: center;
 }
@@ -474,8 +475,8 @@ h1 {
 }
 .hardness-slider-container {
     position: relative;
-    height: 40px;
-    width: min(250px, 100%);
+    height: 44px;
+    width: min(280px, 100%);
     margin-inline: auto;
 }
 .hardness-slider-rail {
@@ -550,9 +551,9 @@ h1 {
 .hardness-range-labels {
     display: flex;
     justify-content: space-between;
-    width: min(250px, 100%);
+    width: min(280px, 100%);
     margin-inline: auto;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--drac-comment);
 }
@@ -563,28 +564,28 @@ h1 {
     flex-direction: column;
     gap: 2px;
     margin-bottom: 2px;
-    width: min(250px, 100%);
+    width: min(280px, 100%);
     margin-inline: auto;
 }
 .hardness-scale-row {
     display: flex;
     align-items: center;
     gap: 6px;
-    height: 20px;
+    height: 24px;
 }
 .hsr-flag {
     flex-shrink: 0;
-    width: 22px;
-    font-size: 13px;
+    width: 26px;
+    font-size: 16px;
     text-align: center;
     line-height: 1;
 }
 .hsr-val {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--drac-fg);
     white-space: nowrap;
-    min-width: 36px;
+    min-width: 40px;
 }
 .hsr-spacer {
     flex: 1;
@@ -703,7 +704,7 @@ h1 {
 .control-scale-labels-bottom {
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--drac-comment);
 }
@@ -712,10 +713,10 @@ h1 {
 .filter-option {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 6px 8px;
+    gap: 12px;
+    padding: 9px 10px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 15px;
     color: var(--drac-fg);
     cursor: pointer;
     transition: background 0.1s;
@@ -732,9 +733,9 @@ h1 {
 }
 /* Custom checkbox */
 .custom-check {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
     border: 1.5px solid var(--drac-comment);
     background: transparent;
     display: inline-flex;
@@ -815,9 +816,9 @@ h1 {
 }
 
 .filter-instructions {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--drac-comment);
-    padding: 12px 14px;
+    padding: 14px 16px;
     text-align: center;
 }
 
@@ -835,11 +836,11 @@ h1 {
 .active-tag {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
+    gap: 6px;
+    padding: 6px 13px;
     border-radius: 100px;
     background: var(--drac-current);
-    font-size: 11.5px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--drac-fg);
     transition: background 0.12s;
@@ -874,7 +875,7 @@ h1 {
 /* ── Chart ── */
 #chart {
     width: 100%;
-    height: 600px;
+    height: 680px;
     margin: 0;
     overscroll-behavior: none;
 }
@@ -886,8 +887,8 @@ h1 {
     z-index: 25;
 }
 .chart-control-btn {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: 12px 18px;
+    font-size: 16px;
     font-weight: 600;
     background: rgba(28,26,23,0.78);
     border-color: rgba(155,148,132,0.45);
@@ -904,8 +905,8 @@ h1 {
 .chart-hover-popup {
     position: fixed;
     z-index: 9200;
-    min-width: 210px;
-    max-width: min(300px, calc(100vw - 16px));
+    min-width: 250px;
+    max-width: min(340px, calc(100vw - 16px));
     opacity: 0;
     transform: translateY(6px) scale(0.98);
     pointer-events: none;
@@ -945,13 +946,13 @@ h1 {
 }
 .chart-hover-title {
     color: var(--drac-fg);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
 }
 .chart-hover-subtitle {
     color: var(--drac-comment);
-    font-size: 11.5px;
+    font-size: 13px;
     line-height: 1.3;
     margin-top: 1px;
 }
@@ -974,11 +975,11 @@ h1 {
 }
 .chart-hover-metric span {
     color: var(--drac-comment);
-    font-size: 11px;
+    font-size: 12.5px;
 }
 .chart-hover-metric strong {
     color: var(--drac-fg);
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 700;
     min-width: 0;
     max-width: 118px;
@@ -1037,12 +1038,12 @@ h1 {
 .chart-hover-pill {
     display: inline-flex;
     align-items: center;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 999px;
     border: 1px solid rgba(155,148,132,0.3);
     background: rgba(62,58,52,0.6);
     color: var(--drac-fg);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
 }
 .chart-hover-pill-bestseller {
@@ -1055,17 +1056,17 @@ h1 {
 /* ── Detail panels ── */
 .details-container {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     flex-wrap: wrap;
 }
 .detail-panel {
     flex: 1;
-    min-width: 300px;
-    padding: 18px;
+    min-width: 320px;
+    padding: 24px;
     border: 1.5px solid var(--drac-current);
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--drac-bg-dark);
-    min-height: 200px;
+    min-height: 220px;
 }
 .detail-panel .content {
     color: var(--drac-fg);
@@ -1125,33 +1126,33 @@ h1 {
 /* ── Rich markdown inside detail panels ── */
 .detail-panel h1 {
     color: var(--drac-pink);
-    font-size: 21px;
+    font-size: 25px;
     font-weight: 700;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
     border-bottom: 2px solid var(--drac-current);
     line-height: 1.3;
 }
 .detail-panel h2 {
     color: var(--drac-orange);
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 700;
-    margin: 20px 0 10px;
-    padding-bottom: 6px;
+    margin: 22px 0 12px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(62,58,52,0.6);
     letter-spacing: 0.2px;
 }
 .detail-panel h3 {
     color: var(--drac-purple);
-    font-size: 14.5px;
+    font-size: 17px;
     font-weight: 600;
-    margin: 16px 0 6px;
+    margin: 18px 0 8px;
 }
 .detail-panel p {
     color: var(--drac-fg);
-    margin: 8px 0;
-    line-height: 1.65;
-    font-size: 13.5px;
+    margin: 10px 0;
+    line-height: 1.7;
+    font-size: 15.5px;
 }
 .detail-panel hr {
     border: none;
@@ -1161,15 +1162,15 @@ h1 {
 
 /* Blockquotes */
 .detail-panel blockquote {
-    margin: 12px 0;
-    padding: 10px 16px;
+    margin: 14px 0;
+    padding: 12px 18px;
     border-left: 3px solid var(--drac-orange);
     background: rgba(218,138,82,0.07);
     border-radius: 0 8px 8px 0;
     font-style: italic;
     color: var(--drac-fg);
-    font-size: 13.5px;
-    line-height: 1.6;
+    font-size: 15.5px;
+    line-height: 1.65;
 }
 .detail-panel blockquote p {
     margin: 0;
@@ -1178,14 +1179,14 @@ h1 {
 /* Unordered & ordered lists */
 .detail-panel ul,
 .detail-panel ol {
-    margin: 8px 0 8px 8px;
-    padding-left: 16px;
-    font-size: 13.5px;
-    line-height: 1.65;
+    margin: 10px 0 10px 8px;
+    padding-left: 18px;
+    font-size: 15.5px;
+    line-height: 1.7;
     color: var(--drac-fg);
 }
 .detail-panel li {
-    margin: 4px 0;
+    margin: 6px 0;
     padding-left: 4px;
 }
 .detail-panel li::marker {
@@ -1206,8 +1207,8 @@ h1 {
 .detail-panel table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 13px;
+    margin: 14px 0;
+    font-size: 15px;
     line-height: 1.55;
     border: 1px solid var(--drac-current);
     border-radius: 8px;
@@ -1218,12 +1219,12 @@ h1 {
     color: var(--drac-fg);
     font-weight: 700;
     text-align: left;
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-bottom: 2px solid rgba(155,148,132,0.25);
     white-space: nowrap;
 }
 .detail-panel tbody td {
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-bottom: 1px solid rgba(62,58,52,0.6);
     color: var(--drac-fg);
     vertical-align: top;
@@ -1244,9 +1245,9 @@ h1 {
 .detail-panel code {
     background: var(--drac-current);
     color: var(--drac-green);
-    padding: 1px 6px;
+    padding: 2px 7px;
     border-radius: 4px;
-    font-size: 12.5px;
+    font-size: 14px;
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
@@ -1268,13 +1269,13 @@ h1 {
     border-radius: 10px;
 }
 .comparison-bar {
-    margin-top: 20px;
-    padding: 14px;
+    margin-top: 24px;
+    padding: 18px;
     background: linear-gradient(135deg, rgba(217,119,86,0.15) 0%, rgba(126,184,168,0.10) 100%);
     border: 1px solid var(--drac-current);
-    border-radius: 12px;
+    border-radius: 14px;
     text-align: center;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 600;
     color: var(--drac-purple);
 }
@@ -1303,15 +1304,15 @@ h1 {
 }
 .feedback-modal-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 28px;
-    height: 28px;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
     border: 1px solid var(--drac-current);
     border-radius: 999px;
     background: transparent;
     color: var(--drac-comment);
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -1321,23 +1322,23 @@ h1 {
     background: var(--drac-current);
 }
 .feedback-modal-card h2 {
-    font-size: 20px;
+    font-size: 24px;
     color: var(--drac-fg);
-    margin: 0 0 6px;
-    padding-right: 34px;
+    margin: 0 0 8px;
+    padding-right: 38px;
 }
 .feedback-intro {
     color: var(--drac-comment);
-    font-size: 13px;
-    margin-bottom: 14px;
+    font-size: 15px;
+    margin-bottom: 16px;
 }
 .feedback-form {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 10px;
 }
 .feedback-form label {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--drac-comment);
     font-weight: 600;
 }
@@ -1348,8 +1349,8 @@ h1 {
     background: var(--drac-bg-dark);
     color: var(--drac-fg);
     border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
+    padding: 12px 14px;
+    font-size: 16px;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .feedback-form textarea {
@@ -1367,14 +1368,14 @@ h1 {
     box-shadow: 0 0 0 3px rgba(126,184,168,0.16);
 }
 .feedback-form button {
-    margin-top: 4px;
+    margin-top: 6px;
     justify-self: start;
     border: 1.5px solid transparent;
     border-radius: 999px;
-    padding: 10px 16px;
+    padding: 12px 20px;
     background: var(--drac-purple);
     color: var(--drac-bg-dark);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
@@ -1413,14 +1414,14 @@ h1 {
 .feedback-confirmation-message {
     margin: 0;
     color: var(--drac-fg);
-    font-size: 15px;
+    font-size: 17px;
 }
 
 /* ── Footer ── */
 .site-footer {
-    margin-top: 24px;
-    padding: 12px 0 2px;
-    font-size: 12px;
+    margin-top: 28px;
+    padding: 16px 0 4px;
+    font-size: 14px;
     color: var(--drac-comment);
     letter-spacing: 0.4px;
     border-top: 1px solid var(--drac-current);
@@ -1436,9 +1437,9 @@ h1 {
     border-radius: 999px;
     background: transparent;
     color: var(--drac-comment);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 6px 11px;
+    padding: 8px 14px;
     cursor: pointer;
     transition: all 0.15s ease;
 }
@@ -1467,19 +1468,19 @@ h1 {
     background: var(--drac-bg-dark);
     border: 1.5px solid var(--drac-current);
     border-radius: 100px;
-    padding: 3px;
+    padding: 4px;
 }
 .country-btn {
     display: inline-flex;
     align-items: center;
-    padding: 5px 8px;
+    padding: 7px 10px;
     border: none;
     border-radius: 100px;
     background: transparent;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
     line-height: 1;
-    min-width: 30px;
+    min-width: 36px;
     justify-content: center;
     color: var(--drac-comment);
     cursor: pointer;
@@ -1506,14 +1507,14 @@ h1 {
     bottom: 24px;
     right: 20px;
     z-index: 9000;
-    width: 44px;
-    height: 44px;
+    width: 54px;
+    height: 54px;
     border: none;
     border-radius: 50%;
     background: var(--drac-purple);
     color: #fff;
-    font-size: 22px;
-    line-height: 44px;
+    font-size: 26px;
+    line-height: 54px;
     text-align: center;
     box-shadow: 0 3px 12px rgba(0,0,0,0.45);
     cursor: pointer;
@@ -1540,24 +1541,24 @@ h1 {
 
 @media (max-width: 768px) {
     body { padding: 10px; }
-    .container { padding: 14px; border-radius: 12px; }
-    .chart-bleed { margin: 0 -14px; padding: 0; }
+    .container { padding: 16px; border-radius: 12px; }
+    .chart-bleed { margin: 0 -16px; padding: 0; }
     .chart-topbar {
-        margin: -4px -14px -20px;
+        margin: -4px -16px -20px;
         padding: 0 6px;
         justify-content: flex-end;
     }
-    .site-header { margin: -14px -14px 8px; border-radius: 12px 12px 0 0; }
-    .header-brand { padding: 20px 18px 16px; gap: 14px; }
-    .header-logo { height: 52px; }
-    .header-title { font-size: 20px; }
-    .header-tagline { font-size: 11.5px; }
+    .site-header { margin: -16px -16px 10px; border-radius: 12px 12px 0 0; }
+    .header-brand { padding: 22px 20px 18px; gap: 14px; }
+    .header-logo { height: 60px; }
+    .header-title { font-size: 24px; }
+    .header-tagline { font-size: 14px; }
     .details-container { flex-direction: column; }
-    #chart { height: 400px; }
+    #chart { height: 440px; }
     .chart-controls { gap: 6px; }
     .chart-control-btn {
-        padding: 8px 12px;
-        font-size: 12.5px;
+        padding: 10px 14px;
+        font-size: 14px;
     }
     .site-footer-content {
         flex-direction: column;
@@ -1565,10 +1566,10 @@ h1 {
         justify-content: center;
     }
     .feedback-modal-card {
-        padding: 14px;
+        padding: 16px;
     }
     .feedback-modal-card h2 {
-        font-size: 18px;
+        font-size: 20px;
     }
     .feedback-form button {
         width: 100%;
