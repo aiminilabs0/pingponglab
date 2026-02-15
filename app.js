@@ -1482,7 +1482,7 @@ function buildControlLevelIndicatorHtml(rank) {
     const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
     const filledBoxes = CONTROL_LEVEL_COUNT - clampedLevel + 1;
     const boxHtml = Array.from({ length: CONTROL_LEVEL_COUNT }, (_, index) => (
-        `<span class="chart-control-box${index < filledBoxes ? ' is-filled' : ''}" aria-hidden="true"></span>`
+        `<span class="chart-control-box${index >= CONTROL_LEVEL_COUNT - filledBoxes ? ' is-filled' : ''}" aria-hidden="true"></span>`
     )).join('');
 
     return `
