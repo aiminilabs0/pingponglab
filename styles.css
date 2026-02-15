@@ -893,6 +893,10 @@ h1 {
     border-color: rgba(155,148,132,0.45);
     color: var(--drac-fg);
     backdrop-filter: blur(2px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 .chart-control-btn:hover {
     background: rgba(62,58,52,0.95);
