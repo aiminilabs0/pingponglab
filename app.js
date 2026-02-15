@@ -2,6 +2,14 @@
 //  Constants & Configuration
 // ════════════════════════════════════════════════════════════
 
+function debounce(fn, ms) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), ms);
+    };
+}
+
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
 const RANKING_FILES = {
     spin: 'stats/rubbers/ranking/spin.json',
@@ -399,15 +407,8 @@ function syncWeightRangeFromInputs() {
     if (!minInput || !maxInput) return false;
     const minVal = Number.parseFloat(minInput.value);
     const maxVal = Number.parseFloat(maxInput.value);
-    // Prevent thumbs from crossing
-    if (minVal > maxVal) {
-        minInput.value = maxVal;
-        maxInput.value = minVal;
-    }
-    setWeightRange(
-        Math.min(minVal, maxVal),
-        Math.max(minVal, maxVal)
-    );
+    // Clamp without mutating .value (avoids spurious input events on mobile)
+    setWeightRange(Math.min(minVal, maxVal), Math.max(minVal, maxVal));
     return true;
 }
 
@@ -449,12 +450,13 @@ function initWeightRangeFilter(onChange) {
 
     updateWeightSliderTrack();
 
+    const debouncedChange = debounce(onChange, 40);
     const { minInput, maxInput } = getWeightRangeInputs();
     [minInput, maxInput].forEach(input => {
         if (!input) return;
         input.addEventListener('input', () => {
             syncWeightRangeFromInputs();
-            onChange();
+            debouncedChange();
         });
     });
 
@@ -538,10 +540,6 @@ function syncHardnessRangeFromInputs() {
     if (!minInput || !maxInput) return false;
     const minVal = Number.parseFloat(minInput.value);
     const maxVal = Number.parseFloat(maxInput.value);
-    if (minVal > maxVal) {
-        minInput.value = maxVal;
-        maxInput.value = minVal;
-    }
     setHardnessRange(Math.min(minVal, maxVal), Math.max(minVal, maxVal));
     return true;
 }
@@ -607,12 +605,13 @@ function initHardnessRangeFilter(onChange) {
 
     updateHardnessSliderTrack();
 
+    const debouncedChange = debounce(onChange, 40);
     const { minInput, maxInput } = getHardnessRangeInputs();
     [minInput, maxInput].forEach(input => {
         if (!input) return;
         input.addEventListener('input', () => {
             syncHardnessRangeFromInputs();
-            onChange();
+            debouncedChange();
         });
     });
 
