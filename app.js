@@ -1407,6 +1407,11 @@ function updateChart(options = {}) {
         ).length;
     })();
 
+    const headerTagline = document.querySelector('.header-tagline');
+    if (headerTagline) {
+        headerTagline.textContent = `Showing ${inViewCount} Rubbers`;
+    }
+
     const axisBase = {
         zeroline: false,
         gridcolor: '#3e3a34',
@@ -1447,14 +1452,6 @@ function updateChart(options = {}) {
                 text: '⚡ Speed ↑', showarrow: false,
                 xanchor: 'left', yanchor: 'top',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
-            },
-            {
-                x: 0.995, y: 1.00, xref: 'paper', yref: 'paper',
-                text: `Rubbers: ${inViewCount}`,
-                showarrow: false,
-                xanchor: 'right',
-                yanchor: 'top',
-                font: { color: '#9b9484', size: 12, family: CHART_FONT }
             }
         ],
         showlegend: false,

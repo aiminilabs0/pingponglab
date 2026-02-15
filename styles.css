@@ -92,7 +92,7 @@ body {
     background-clip: text;
 }
 .header-tagline {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--drac-comment);
     letter-spacing: 0.4px;
