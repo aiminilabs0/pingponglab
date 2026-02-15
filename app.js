@@ -58,10 +58,6 @@ function fromGermanScale(geValue, country) {
     return interpolateScale(geValue, HARDNESS_SCALES.Germany, HARDNESS_SCALES[country]);
 }
 
-// Blended rating weights: user reviews dominate, manufacturer data supplements
-const USER_WEIGHT = 0.15;
-const MANUFACTURER_WEIGHT = 0.85;
-
 const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
 const FILTER_IDS = ['brand', 'name', 'topsheet', 'hardness', 'weight'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
@@ -115,77 +111,6 @@ function parseRatingNumber(value) {
     return Number.isFinite(parsed) ? parsed : null;
 }
 
-// Compute per-manufacturer min/max values for speed & spin from both user and manufacturer ratings
-function buildManufacturerRatingStats(rawItems) {
-    const statsByManufacturer = {};
-    for (const raw of rawItems) {
-        const { manufacturer } = raw;
-        if (!manufacturer) continue;
-
-        if (!statsByManufacturer[manufacturer]) {
-            statsByManufacturer[manufacturer] = {
-                speed: {
-                    userMin: Infinity,
-                    userMax: -Infinity,
-                    manufacturerMin: Infinity,
-                    manufacturerMax: -Infinity
-                },
-                spin: {
-                    userMin: Infinity,
-                    userMax: -Infinity,
-                    manufacturerMin: Infinity,
-                    manufacturerMax: -Infinity
-                }
-            };
-        }
-
-        const userRatings = raw.user_ratings || {};
-        const manufacturerRatings = raw.manufacturer_ratings || {};
-        const speedUser = parseRatingNumber(userRatings.speed);
-        const spinUser = parseRatingNumber(userRatings.spin);
-        const speedManufacturer = parseRatingNumber(manufacturerRatings.speed);
-        const spinManufacturer = parseRatingNumber(manufacturerRatings.spin);
-
-        const stats = statsByManufacturer[manufacturer];
-        if (Number.isFinite(speedUser)) {
-            stats.speed.userMin = Math.min(stats.speed.userMin, speedUser);
-            stats.speed.userMax = Math.max(stats.speed.userMax, speedUser);
-        }
-        if (Number.isFinite(spinUser)) {
-            stats.spin.userMin = Math.min(stats.spin.userMin, spinUser);
-            stats.spin.userMax = Math.max(stats.spin.userMax, spinUser);
-        }
-        if (Number.isFinite(speedManufacturer)) {
-            stats.speed.manufacturerMin = Math.min(stats.speed.manufacturerMin, speedManufacturer);
-            stats.speed.manufacturerMax = Math.max(stats.speed.manufacturerMax, speedManufacturer);
-        }
-        if (Number.isFinite(spinManufacturer)) {
-            stats.spin.manufacturerMin = Math.min(stats.spin.manufacturerMin, spinManufacturer);
-            stats.spin.manufacturerMax = Math.max(stats.spin.manufacturerMax, spinManufacturer);
-        }
-    }
-    return statsByManufacturer;
-}
-
-function normalizeManufacturerRating(value, stats) {
-    if (!Number.isFinite(value) || !stats) return null;
-    const { userMin, userMax, manufacturerMin, manufacturerMax } = stats;
-    if (!Number.isFinite(userMin) || !Number.isFinite(userMax)) return null;
-    if (!Number.isFinite(manufacturerMin) || !Number.isFinite(manufacturerMax)) return null;
-
-    // Lowest manufacturer rating is anchored to the minimum user rating.
-    if (value <= manufacturerMin) return userMin;
-
-    // Highest manufacturer rating is anchored to the maximum user rating.
-    if (value >= manufacturerMax) return userMax;
-
-    // Linearly scale remaining values between manufacturer min/max to user min/max.
-    const manufacturerSpan = manufacturerMax - manufacturerMin;
-    if (manufacturerSpan <= 0) return userMin;
-    const ratio = (value - manufacturerMin) / manufacturerSpan;
-    return userMin + ratio * (userMax - userMin);
-}
-
 function normalizeTopsheet(value) {
     if (typeof value === 'string') {
         const lower = value.trim().toLowerCase();
@@ -208,7 +133,7 @@ function buildFullName(brand, name) {
 //  Description Markdown
 // ════════════════════════════════════════════════════════════
 
-function buildDescriptionMarkdown(raw, debugInfo) {
+function buildDescriptionMarkdown(raw) {
     const details = raw.manufacturer_details || {};
     const lines = [
         raw.price ? `**Price:** ${raw.price}` : null,
@@ -217,35 +142,6 @@ function buildDescriptionMarkdown(raw, debugInfo) {
         details.weight !== undefined ? `**Weight:** ${details.weight}g` : null,
         details.thickness ? `**Thickness:** ${Array.isArray(details.thickness) ? details.thickness.join(', ') : details.thickness}` : null
     ].filter(Boolean);
-
-    if (debugInfo) {
-        const fmt = v => (Number.isFinite(v) ? v.toFixed(2) : 'n/a');
-        const fmtStats = s => {
-            if (!s) return 'n/a';
-            const hasUser = Number.isFinite(s.userMin) && Number.isFinite(s.userMax);
-            const hasManufacturer = Number.isFinite(s.manufacturerMin) && Number.isFinite(s.manufacturerMax);
-            if (!hasUser || !hasManufacturer) return 'n/a';
-            return `user ${s.userMin.toFixed(2)} → ${s.userMax.toFixed(2)}, manufacturer ${s.manufacturerMin.toFixed(2)} → ${s.manufacturerMax.toFixed(2)}`;
-        };
-        lines.push(
-            '', '---', '**Debug: speed/spin calculation**',
-            `User spin: ${fmt(debugInfo.userSpin)}`,
-            `User speed: ${fmt(debugInfo.userSpeed)}`,
-            `Manufacturer spin (raw): ${fmt(debugInfo.manufacturerSpinRaw)}`,
-            `Manufacturer speed (raw): ${fmt(debugInfo.manufacturerSpeedRaw)}`,
-            `Manufacturer spin stats: ${fmtStats(debugInfo.manufacturerSpinStats)}`,
-            `Manufacturer speed stats: ${fmtStats(debugInfo.manufacturerSpeedStats)}`,
-            `Manufacturer spin (normalized): ${fmt(debugInfo.manufacturerSpinNormalized)}`,
-            `Manufacturer speed (normalized): ${fmt(debugInfo.manufacturerSpeedNormalized)}`,
-            `Base spin (blended): ${fmt(debugInfo.spinBase)}`,
-            `Base speed (blended): ${fmt(debugInfo.speedBase)}`,
-            `Spin scale: ${fmt(debugInfo.spinScale)}`,
-            `Speed scale: ${fmt(debugInfo.speedScale)}`,
-            `Weights: user ${fmt(debugInfo.userWeight)}, manufacturer ${fmt(debugInfo.manufacturerWeight)}`,
-            `Final spin: ${fmt(debugInfo.spinFinal)}`,
-            `Final speed: ${fmt(debugInfo.speedFinal)}`
-        );
-    }
     return lines.join('\n');
 }
 
@@ -323,42 +219,11 @@ async function loadRubberData() {
 
     const data = [];
     const descriptionMap = {};
-    const manufacturerStats = buildManufacturerRatingStats(rawItems);
-
     for (const raw of rawItems) {
         // Exclude entries explicitly flagged as disabled in source JSON.
         if (raw?.disabled !== undefined) continue;
 
         const ratings = raw.user_ratings || {};
-        const userSpin = parseRatingNumber(ratings.spin);
-        const userSpeed = parseRatingNumber(ratings.speed);
-        if (!Number.isFinite(userSpin) || !Number.isFinite(userSpeed)) continue;
-
-        const mfgRatings = raw.manufacturer_ratings || {};
-        const mfgStats = manufacturerStats[raw.manufacturer] || null;
-        const mfgSpinRaw = parseRatingNumber(mfgRatings.spin);
-        const mfgSpeedRaw = parseRatingNumber(mfgRatings.speed);
-        const mfgSpin = normalizeManufacturerRating(mfgSpinRaw, mfgStats?.spin ?? null);
-        const mfgSpeed = normalizeManufacturerRating(mfgSpeedRaw, mfgStats?.speed ?? null);
-
-        // Blend user and manufacturer ratings when manufacturer data is available.
-        const spinBase = Number.isFinite(mfgSpin)
-            ? userSpin * USER_WEIGHT + mfgSpin * MANUFACTURER_WEIGHT
-            : userSpin;
-        const speedBase = Number.isFinite(mfgSpeed)
-            ? userSpeed * USER_WEIGHT + mfgSpeed * MANUFACTURER_WEIGHT
-            : userSpeed;
-
-        // Optional per-rubber scale to tune final plotted values.
-        // - scale: applies to both spin and speed
-        // - spin_scale / speed_scale: axis-specific override
-        const spinScaleRaw = parseRatingNumber(raw.spin_scale ?? raw.scale);
-        const speedScaleRaw = parseRatingNumber(raw.speed_scale ?? raw.scale);
-        const spinScale = Number.isFinite(spinScaleRaw) && spinScaleRaw > 0 ? spinScaleRaw : 1;
-        const speedScale = Number.isFinite(speedScaleRaw) && speedScaleRaw > 0 ? speedScaleRaw : 1;
-        const spin = spinBase * spinScale;
-        const speed = speedBase * speedScale;
-
         const details = raw.manufacturer_details || {};
         const hardness = parseRatingNumber(details.hardness);
         const weightValue = parseRatingNumber(details.weight);
@@ -370,8 +235,8 @@ async function loadRubberData() {
             fullName: buildFullName(raw.manufacturer, raw.name),
             abbr: raw.abbr || raw.name,
             brand: raw.manufacturer,
-            x: spin,
-            y: speed,
+            x: null,
+            y: null,
             weight: weightValue,
             hardness: parseRatingNumber(ratings.sponge_hardness),
             manufacturerHardness: hardness,
@@ -390,26 +255,8 @@ async function loadRubberData() {
             }
         };
 
-        const debugInfo = DEBUG_MODE ? {
-            userSpin, userSpeed,
-            manufacturerSpinRaw: mfgSpinRaw,
-            manufacturerSpeedRaw: mfgSpeedRaw,
-            manufacturerSpinNormalized: mfgSpin,
-            manufacturerSpeedNormalized: mfgSpeed,
-            manufacturerSpinStats: mfgStats?.spin ?? null,
-            manufacturerSpeedStats: mfgStats?.speed ?? null,
-            spinBase,
-            speedBase,
-            spinScale,
-            speedScale,
-            spinFinal: spin,
-            speedFinal: speed,
-            userWeight: USER_WEIGHT,
-            manufacturerWeight: MANUFACTURER_WEIGHT
-        } : null;
-
         data.push(rubber);
-        descriptionMap[rubber.name] = buildDescriptionMarkdown(raw, debugInfo);
+        descriptionMap[rubber.name] = buildDescriptionMarkdown(raw);
     }
 
     // ── Override chart positions with ranking data ──
@@ -445,10 +292,6 @@ async function loadRubberData() {
 
 const getBrandColor = brand => BRAND_COLORS[brand] || '#999999';
 const getTopsheetSymbol = topsheet => TOPSHEET_MARKERS[topsheet] || 'circle';
-
-function getControlValue(rubber) {
-    return typeof rubber.controlRank === 'number' ? rubber.controlRank : null;
-}
 
 // ════════════════════════════════════════════════════════════
 //  DOM / Filter Helpers
@@ -1307,10 +1150,6 @@ function escapeHtml(value) {
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#39;');
-}
-
-function formatMetricValue(value, decimals = 2) {
-    return Number.isFinite(value) ? value.toFixed(decimals) : '-';
 }
 
 function getHardnessCategoryLabel(normalizedHardness) {
