@@ -288,10 +288,16 @@ async function loadRubberData() {
         rubber.controlRank = controlIdx >= 0 ? controlIdx + 1 : null;
         rubber.controlTotal = controlTotal;
 
-        // Priority from priority ranking (lower = more important)
+        // Display order: bestseller first, then priority ranking.
         const popIdx = findRubberRank(rubber, priorityRanking);
-        if (popIdx >= 0) rubber.priority = popIdx + 1;
-        rubber.bestseller = findRubberRank(rubber, bestsellerRanking) >= 0;
+        const bestsellerIdx = findRubberRank(rubber, bestsellerRanking);
+        rubber.bestseller = bestsellerIdx >= 0;
+
+        if (rubber.bestseller) {
+            rubber.priority = bestsellerIdx + 1;
+        } else if (popIdx >= 0) {
+            rubber.priority = bestsellerRanking.length + popIdx + 1;
+        }
     }
 
     // Only show rubbers that appear in both spin and speed rankings
