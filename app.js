@@ -592,6 +592,10 @@ function initHardnessRangeFilter(onChange) {
             <input id="hardnessMinSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.min}" step="0.5">
             <input id="hardnessMaxSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.max}" step="0.5">
         </div>
+        <div class="hardness-range-labels">
+            <span>Soft</span>
+            <span>Hard</span>
+        </div>
     `;
 
     updateHardnessSliderTrack();
