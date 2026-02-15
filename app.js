@@ -74,6 +74,7 @@ let selectedRubbers = [null, null];
 let nextDetailPanel = 1;
 let hasPlotted = false;
 let isInternalUpdate = false;
+let isPinchZooming = false;
 let currentFilteredData = [];
 let relayoutTimer = null;
 let internalUpdateTimer = null;
@@ -1023,11 +1024,13 @@ function applyFiltersFromUrl() {
 // ════════════════════════════════════════════════════════════
 
 function getCurrentAxisRanges() {
-    const chart = document.getElementById('chart');
-    const { xaxis, yaxis } = chart?.layout ?? {};
-    if (!Array.isArray(xaxis?.range) || !Array.isArray(yaxis?.range)) return null;
-    return { xaxis: [...xaxis.range], yaxis: [...yaxis.range] };
-}
+    const chartEl = document.getElementById('chart');
+    const xa = chartEl?._fullLayout?.xaxis;
+    const ya = chartEl?._fullLayout?.yaxis;
+    if (!Array.isArray(xa?.range) || !Array.isArray(ya?.range)) return null;
+    return { xaxis: [xa.range[0], xa.range[1]], yaxis: [ya.range[0], ya.range[1]] };
+  }
+  
 
 function shouldAutoscaleForFilteredData(filteredData, currentRanges) {
     if (!currentRanges || filteredData.length === 0) return false;
@@ -1509,16 +1512,19 @@ function updateChart(options = {}) {
         chartEl._hasRelayoutHandler = true;
         chartEl.on('plotly_relayout', eventData => {
             if (isInternalUpdate) return;
+            if (isPinchZooming) return;
+          
             const rangeKeys = [
-                'xaxis.range[0]', 'xaxis.range', 'yaxis.range[0]',
-                'yaxis.range', 'xaxis.autorange', 'yaxis.autorange'
+              'xaxis.range[0]', 'xaxis.range', 'yaxis.range[0]',
+              'yaxis.range', 'xaxis.autorange', 'yaxis.autorange'
             ];
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
+          
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
-                updateChart({ preserveRanges: true });
+              updateChart({ preserveRanges: true });
             }, 120);
-        });
+          });
     }
 }
 
@@ -1827,6 +1833,7 @@ function getPlotFraction(chartEl, clientX, clientY) {
 
     chartEl.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 2) return;
+        isPinchZooming = true;
         hideChartHoverPopup();
         e.preventDefault();
         const [t1, t2] = e.touches;
@@ -1913,6 +1920,11 @@ function getPlotFraction(chartEl, clientX, clientY) {
         pinchStartRanges = null;
         pinchStartCenter = null;
         dataAnchor = null;
+        isPinchZooming = false;
+    }, { passive: false });
+
+    chartEl.addEventListener('touchcancel', () => {
+        isPinchZooming = false;
     });
 })();
 

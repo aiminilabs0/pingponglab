@@ -757,6 +757,7 @@ h1 {
     height: 600px;
     margin: 0;
     touch-action: none;
+    overscroll-behavior: none;
 }
 .chart-controls {
     position: absolute;
