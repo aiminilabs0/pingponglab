@@ -25,8 +25,7 @@
 
         <div class="filter-backdrop" id="filterBackdrop"></div>
 
-        <div class="chart-bleed">
-            <div id="chart"></div>
+        <div class="chart-topbar">
             <div class="chart-controls" aria-label="Chart controls">
                 <button class="filter-action-btn chart-control-btn" id="zoomInBtn" title="Zoom in">
                     🔍+
@@ -37,8 +36,10 @@
                 <button class="filter-action-btn chart-control-btn autoscale-btn" id="autoscaleBtn" title="Fit all points in view">
                     ⊞ Fit
                 </button>
-                <button class="filter-action-btn chart-control-btn reset-btn" id="clearAllFilters" title="Reset all filters">↺ Reset</button>
             </div>
+        </div>
+        <div class="chart-bleed">
+            <div id="chart"></div>
         </div>
 
         <div class="filter-bar" id="filterBar">
@@ -149,6 +150,9 @@
                 <button type="button" class="country-btn" data-country="cn" title="China" aria-label="China">🇨🇳</button>
                 <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
             </div>
+            <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
+                ↺ Reset
+            </button>
 
         </div>
 
