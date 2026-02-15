@@ -1,0 +1,52 @@
+{
+  "abbr": "R53",
+  "name": "Rasanter R53",
+  "manufacturer": "Andro",
+  "user_ratings": {
+    "overall": 9.4,
+    "speed": 9.5,
+    "spin": 9.4,
+    "control": 8.9,
+    "sponge_hardness": "9.1 (Hard)",
+    "gears": "9.4 (Many gears)",
+    "throw_angle": "6.2 (Medium high)",
+    "consistency": 9.2,
+    "durability": "9.2 (Lasts a long time!)",
+    "tackiness": "1.4 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/andro-rasanter-r53.html",
+    "people": 38
+  },
+  "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/review-stiga-dna-h-vs-andro-r53",
+    "country": "Germany",
+    "release_year": 2019,
+    "hardness": 53,
+    "thickness": [
+      "1.7",
+      "2.0",
+      "max"
+    ],
+    "topsheet": "Classic",
+    "weight": 51
+  },
+  "manufacturer_ratings": {},
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

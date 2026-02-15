@@ -1,0 +1,51 @@
+{
+  "abbr": "Z3",
+  "name": "Donic Bluestorm Z3",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 8.2,
+    "speed": 8.5,
+    "spin": 8.5,
+    "control": 8.6,
+    "sponge_hardness": "2.6 (Medium soft)",
+    "gears": "6.8 (Above average gears)",
+    "throw_angle": "4.1 (Medium)",
+    "consistency": 8.2,
+    "durability": "5.2 (Average durability)",
+    "tackiness": "2.6 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-bluestorm-z3.html",
+    "people": 17
+  },
+  "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-acuda-s1",
+    "country": "Germany",
+    "release_year": 2017,
+    "hardness": 42.5,
+    "thickness": [
+      "max",
+      "2.0",
+      "1.8"
+    ],
+    "topsheet": "Classic",
+    "weight": 50
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

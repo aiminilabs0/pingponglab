@@ -1,0 +1,51 @@
+{
+  "abbr": "S1",
+  "name": "Donic Acuda S1",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 9.1,
+    "speed": 9.2,
+    "spin": 9.1,
+    "control": 8.2,
+    "sponge_hardness": "6.7 (Medium hard)",
+    "gears": "8.3 (Above average gears)",
+    "throw_angle": "5.1 (Medium high)",
+    "consistency": 8.9,
+    "durability": "7.0 (Lasts longer than average)",
+    "tackiness": "1.9 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/donic-acuda-s1.html",
+    "people": 58
+  },
+  "manufacturer_details": {
+    "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-acuda-s1",
+    "country": "Germany",
+    "release_year": 2009,
+    "hardness": 47.5,
+    "thickness": [
+      "1.8",
+      "2.0",
+      "max"
+    ],
+    "topsheet": "Classic",
+    "weight": 50
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

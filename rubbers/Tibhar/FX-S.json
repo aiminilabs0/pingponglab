@@ -1,0 +1,51 @@
+{
+  "abbr": "FX-S",
+  "name": "Tibhar Evolution FX-S",
+  "manufacturer": "Tibhar",
+  "user_ratings": {
+    "overall": 9.2,
+    "speed": 8.7,
+    "spin": 9.2,
+    "control": 9.2,
+    "sponge_hardness": "3.2 (Medium soft)",
+    "gears": "7.4 (Above average gears)",
+    "throw_angle": "5.3 (Medium high)",
+    "consistency": 10.0,
+    "durability": "7.5 (Lasts longer than average)",
+    "tackiness": "1.3 (Slightly tacky)",
+    "url": "https://revspin.net/rubber/tibhar-evolution-fx-s.html",
+    "people": 23
+  },
+  "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/tibhar-evolution-series-table-tennis-rubbers-review",
+    "country": "Germany",
+    "release_year": 2013,
+    "hardness": 42,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "topsheet": "Classic",
+    "weight": 48
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

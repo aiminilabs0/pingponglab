@@ -1,0 +1,50 @@
+{
+  "abbr": "X47.5",
+  "name": "Xiom Jekyll & Hyde X47.5",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 10.0,
+    "speed": 0,
+    "spin": 0,
+    "control": 0,
+    "sponge_hardness": "0 (Not rated)",
+    "gears": "0 (Not rated)",
+    "throw_angle": "0 (Not rated)",
+    "consistency": 0,
+    "durability": "0 (Not rated)",
+    "tackiness": "0 (Not rated)",
+    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-x475.html",
+    "people": 1
+  },
+  "manufacturer_details": {
+    "url": "https://www.tabletennisdaily.com/forum/topics/xiom-jekyll-hyde-rubbers.27504/",
+    "country": "Germany",
+    "release_year": 2022,
+    "hardness": 47.5,
+    "thickness": [
+      "max",
+      "2.1"
+    ],
+    "topsheet": "Classic",
+    "weight": 51
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

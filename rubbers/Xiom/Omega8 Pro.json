@@ -1,0 +1,49 @@
+{
+  "abbr": "Omega VIII Pro",
+  "name": "Xiom Omega VIII Pro",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 0,
+    "speed": 0,
+    "spin": 0,
+    "control": 0,
+    "sponge_hardness": "N/A",
+    "gears": "N/A",
+    "throw_angle": "N/A",
+    "consistency": 0,
+    "durability": "N/A",
+    "tackiness": "N/A",
+    "url": "https://revspin.net/rubber/xiom-omega-viii-pro.html",
+    "people": 0
+  },
+  "manufacturer_details": {
+    "url": "https://blog.tabletennis11.com/rubber-review-xiom-omega-viii-rubbers",
+    "country": "Germany",
+    "release_year": 2025,
+    "hardness": 47.5,
+    "thickness": [
+      "max"
+    ],
+    "topsheet": "Classic",
+    "weight": 48
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

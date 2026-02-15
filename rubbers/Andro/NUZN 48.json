@@ -1,0 +1,50 @@
+{
+  "abbr": "NUZN 48",
+  "name": "NUZN 48",
+  "manufacturer": "Andro",
+  "user_ratings": {
+    "overall": 8.6,
+    "speed": 8.6,
+    "spin": 8.6,
+    "control": 9.5,
+    "sponge_hardness": "3.0 (Medium soft)",
+    "gears": "4.0 (Average)",
+    "throw_angle": "4.0 (Medium)",
+    "consistency": 10.0,
+    "durability": "n/a",
+    "tackiness": "0.0 (Completely non-tacky)",
+    "url": "https://revspin.net/rubber/andro-nuzn-48.html",
+    "people": 1
+  },
+  "manufacturer_details": {
+    "url": "https://www.tabletennis11.com/other_eng/andro-nuzn-48",
+    "country": "Germany",
+    "release_year": 2023,
+    "hardness": 48,
+    "thickness": [
+      "2.1",
+      "1.9"
+    ],
+    "topsheet": "Classic",
+    "weight": 47
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

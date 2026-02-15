@@ -1,0 +1,49 @@
+{
+  "abbr": "Omega 8 Hybrid",
+  "name": "Xiom Omega 8 Hybrid",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 0,
+    "speed": 0,
+    "spin": 0,
+    "control": 0,
+    "sponge_hardness": "Not rated",
+    "gears": "Not rated",
+    "throw_angle": "Not rated",
+    "consistency": 0,
+    "durability": "Not rated",
+    "tackiness": "Not rated",
+    "url": "https://revspin.net/rubber/xiom-omega-viii-hybrid.html",
+    "people": 0
+  },
+  "manufacturer_details": {
+    "url": "https://www.tabletennisdaily.com/forum/topics/xiom-omega-8.36597/page-9",
+    "country": "Germany",
+    "release_year": 2023,
+    "hardness": 52.5,
+    "thickness": [
+      "max"
+    ],
+    "topsheet": "Sticky",
+    "weight": 50
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

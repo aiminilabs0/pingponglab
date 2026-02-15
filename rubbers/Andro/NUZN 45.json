@@ -1,0 +1,47 @@
+{
+  "abbr": "NUZN 45",
+  "name": "NUZN 45",
+  "manufacturer": "Andro",
+  "user_ratings": {
+    "overall": 0,
+    "speed": 0,
+    "spin": 0,
+    "control": 0,
+    "sponge_hardness": "0 (Not rated)",
+    "gears": "0 (Not rated)",
+    "throw_angle": "0 (Not rated)",
+    "consistency": 0,
+    "durability": "0 (Not rated)",
+    "tackiness": "0 (Not rated)",
+    "url": "https://revspin.net/rubber/andro-nuzn-45.html",
+    "people": 0
+  },
+  "manufacturer_details": {
+    "url": "https://www.tabletennisdaily.com/forum/topics/new-andro-nuzn-48-and-45.37237/page-5",
+    "country": "Germany",
+    "release_year": 2023,
+    "hardness": 45,
+    "thickness": [],
+    "topsheet": "Classic",
+    "weight": 45
+  },
+  "urls": {
+    "us": {
+      "product": "https://www.megaspin.net/store/default.asp?pid=andro-nuzn-45",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "https://www.tabletennis11.com/other_eng/andro-nuzn-45",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

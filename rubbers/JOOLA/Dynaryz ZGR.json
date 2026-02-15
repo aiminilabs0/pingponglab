@@ -1,0 +1,50 @@
+{
+  "abbr": "ZGR",
+  "name": "JOOLA Dynaryz ZGR",
+  "manufacturer": "JOOLA",
+  "user_ratings": {
+    "overall": 9.3,
+    "speed": 8.9,
+    "spin": 9.5,
+    "control": 9.2,
+    "sponge_hardness": "9.6 (Hard)",
+    "gears": "8.3 (Above average gears)",
+    "throw_angle": "6.2 (Medium high)",
+    "consistency": 8.7,
+    "durability": "7.7 (Lasts longer than average)",
+    "tackiness": "6.5 (Tacky)",
+    "url": "https://revspin.net/rubber/joola-dynaryz-zgr.html",
+    "people": 18
+  },
+  "manufacturer_details": {
+    "url": "https://www.tabletennisdaily.com/forum/topics/dynaryz-zgr-vs-rakza-z-extra-hard.27760/",
+    "country": "Germany",
+    "release_year": 2020,
+    "hardness": 57,
+    "thickness": [
+      "2.0",
+      "Max"
+    ],
+    "topsheet": "Hybrid",
+    "weight": 56
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

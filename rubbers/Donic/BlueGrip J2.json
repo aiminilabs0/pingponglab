@@ -1,0 +1,50 @@
+{
+  "abbr": "J2",
+  "name": "Donic BlueGrip J2",
+  "manufacturer": "Donic",
+  "user_ratings": {
+    "overall": 9.7,
+    "speed": 9.0,
+    "spin": 9.5,
+    "control": 8.7,
+    "sponge_hardness": "10.0 (Hard)",
+    "gears": "10.0 (Many gears)",
+    "throw_angle": "6.0 (Medium high)",
+    "consistency": 10.0,
+    "durability": "10.0 (Lasts a long time!)",
+    "tackiness": "5.0 (Medium tacky)",
+    "url": "https://revspin.net/rubber/donic-bluegrip-j2.html",
+    "people": 2
+  },
+  "manufacturer_details": {
+    "url": "https://ttgearlab.com/2025/07/16/donic-bluegrip-j1-j2-photos-information/",
+    "country": "Germany",
+    "release_year": 2025,
+    "hardness": 52.5,
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "topsheet": "Hybrid",
+    "weight": 48
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

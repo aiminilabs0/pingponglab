@@ -1,0 +1,50 @@
+{
+  "abbr": "CMD",
+  "name": "JOOLA Dynaryz CMD",
+  "manufacturer": "JOOLA",
+  "user_ratings": {
+    "overall": 8.7,
+    "speed": 8.7,
+    "spin": 8.8,
+    "control": 8.6,
+    "sponge_hardness": "5.2 (Medium)",
+    "gears": "6.5 (Above average gears)",
+    "throw_angle": "5.7 (Medium high)",
+    "consistency": 10.0,
+    "durability": "6.4 (Lasts longer than average)",
+    "tackiness": "4.0 (Medium tacky)",
+    "url": "https://revspin.net/rubber/joola-dynaryz-cmd.html",
+    "people": 7
+  },
+  "manufacturer_details": {
+    "url": "https://www.ttmode.com/joola-dynaryz-cmd",
+    "country": "Germany",
+    "release_year": 2020,
+    "hardness": 42.5,
+    "thickness": [
+      "max",
+      "2.0"
+    ],
+    "topsheet": "Classic",
+    "weight": 44
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}

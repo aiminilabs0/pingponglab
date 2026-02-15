@@ -21,10 +21,10 @@
     "release_year": 2013,
     "hardness": 47.5,
     "thickness": [
-      "1.5",
-      "1.7",
+      "2.1",
       "1.9",
-      "2.1"
+      "1.7",
+      "1.5"
     ],
     "topsheet": "Classic",
     "weight": 51

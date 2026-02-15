@@ -1,0 +1,50 @@
+{
+  "abbr": "C52.5",
+  "name": "Xiom Jekyll & Hyde C52.5",
+  "manufacturer": "Xiom",
+  "user_ratings": {
+    "overall": 9.5,
+    "speed": 9.1,
+    "spin": 9.3,
+    "control": 9.5,
+    "sponge_hardness": "7.0 (Medium hard)",
+    "gears": "8.5 (Many gears)",
+    "throw_angle": "7.0 (High)",
+    "consistency": 10.0,
+    "durability": "7.0 (Lasts longer than average)",
+    "tackiness": "5.0 (Medium tacky)",
+    "url": "https://revspin.net/rubber/xiom-jekyll--amp-hyde-c525.html",
+    "people": 2
+  },
+  "manufacturer_details": {
+    "url": "https://xiom.store/product/%ED%9C%B4%EA%B3%A0-%EC%82%AC%EC%9A%A9-c525-%EC%A7%80%ED%82%AC%EC%95%A4%ED%95%98%EC%9D%B4%EB%93%9C-%ED%9C%B4%EA%B3%A0%EC%97%90%EB%94%94%EC%85%98/1254/category/133/display/1/",
+    "country": "Germany",
+    "release_year": 2025,
+    "hardness": 52.5,
+    "thickness": [
+      "max",
+      "2.1"
+    ],
+    "topsheet": "Hybrid",
+    "weight": 51
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "eu": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
+  "priority": 20
+}
