@@ -1,0 +1,40 @@
+You are a master Table Tennis Equipment Expert (specializing in ESN, Butterfly, and Chinese rubbers). Compare the following two rubbers objectively, avoiding marketing fluff.
+
+**Rubber A:** {RUBBER_1}
+**Rubber B:** {RUBBER_2}
+
+### 1. One-Line Summary
+Provide a 1–2 sentence executive summary defining the core difference (e.g., "A is a linear speedster, while B is a high-arc spin machine").
+
+### 2. Head-to-Head Breakdown
+*Compare A vs B using short, punchy bullets. Use ">" symbols where helpful (e.g., Speed: A > B).*
+
+* **Speed & Gears:**
+    * **Low Impact:** (Bounciness in short game)
+    * **Top End:** (Power away from table)
+    * **Linearity:** (Predictable vs. strong catapult effect)
+* **Spin Mechanics:**
+    * **Opening Loop:** (Ease of lifting backspin)
+    * **Max Spin:** (Ceiling when fully engaged)
+    * **Topsheet Grip:** (Mechanical grip vs. Tacky adhesion)
+* **Flight Path (Throw Angle):**
+    * Arc height (Low/Medium/High) and safety over the net.
+* **Feel & Feedback:**
+    * Crisp/Clicky vs. Muted/Dampened.
+    * Ball dwell time.
+* **Control & Short Game:**
+    * Sensitivity to incoming spin.
+    * Touch play (push/drop) stability.
+* **Blocking & Countering:**
+    * Passive block stability vs. Active counter-loop punch.
+
+### 3. Setup Synergy
+* **Blade Compatibility:** Best blade pairings for each (e.g., "Rubber A needs a stiff Outer Carbon blade to activate," "Rubber B pairs well with flexible wood").
+* **Forehand vs. Backhand:** Which side is each rubber best suited for and why?
+
+### 4. The Recommendation
+* **Choose Rubber A if:** (3 distinct bullets focusing on player needs)
+* **Choose Rubber B if:** (3 distinct bullets focusing on player needs)
+* **"Tuning" / Optimization:** Advice on sponge thickness (Max vs 2.0mm) or boosting requirements (if applicable to this rubber type).
+
+**Constraint:** If exact specs are unknown, make a logical estimate based on the rubber's series/generation but label it "Estimate."
