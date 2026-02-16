@@ -125,18 +125,17 @@ h1 {
     font-weight: 700;
 }
 
-/* ── Filter bar ── */
-.filter-bar {
+/* ── Filter toolbar & panel ── */
+.filter-toolbar {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin: 0 0 16px;
+    margin: 0 0 8px;
     position: relative;
     z-index: 60;
 }
-.filter-chip {
-    position: relative;
+.filter-trigger {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -145,54 +144,204 @@ h1 {
     border-radius: 100px;
     background: var(--drac-bg);
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--drac-fg);
     cursor: pointer;
     user-select: none;
     transition: all 0.15s ease;
     white-space: nowrap;
 }
-.filter-chip:hover {
+.filter-trigger:hover {
     border-color: var(--drac-comment);
     background: var(--drac-current);
 }
-.filter-chip.active {
+.filter-trigger[aria-expanded="true"] {
     border-color: var(--drac-purple);
     background: rgba(217,119,86,0.15);
     color: var(--drac-purple);
 }
-.filter-chip .chip-arrow {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4.5px solid currentColor;
-    opacity: 0.5;
-    transition: transform 0.2s ease;
-}
-.filter-chip.active .chip-arrow {
-    transform: rotate(180deg);
-    opacity: 0.8;
-}
-.filter-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 22px;
-    height: 22px;
-    padding: 0 6px;
-    border-radius: 100px;
-    background: var(--drac-purple);
-    color: var(--drac-bg);
-    font-size: 12px;
-    font-weight: 700;
+.filter-trigger-icon {
+    font-size: 17px;
     line-height: 1;
 }
-.filter-badge.all-selected {
-    background: var(--drac-comment);
-    color: var(--drac-fg);
+.filter-trigger-summary {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--drac-comment);
 }
+.filter-trigger[aria-expanded="true"] .filter-trigger-summary {
+    color: var(--drac-purple);
+}
+
+/* Collapsible filter panel */
+.filter-panel {
+    overflow: hidden;
+    margin: 0 0 16px;
+    border: 1.5px solid var(--drac-current);
+    border-radius: 14px;
+    background: var(--drac-bg-dark);
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    max-height: 0;
+    opacity: 0;
+}
+.filter-panel[hidden] {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    border-color: transparent;
+    pointer-events: none;
+}
+.filter-panel.open {
+    max-height: 600px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.filter-panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    padding: 12px;
+}
+.fp-section {
+    padding: 8px 12px;
+    min-width: 0;
+}
+.fp-section + .fp-section {
+    border-left: 1px solid var(--drac-current);
+}
+.fp-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--drac-comment);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.fp-section-header-sub {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--drac-current);
+}
+.fp-section-actions {
+    display: flex;
+    gap: 4px;
+}
+.fp-section-actions button {
+    padding: 3px 10px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--drac-purple);
+    cursor: pointer;
+    transition: background 0.12s;
+}
+.fp-section-actions button:hover {
+    background: rgba(217,119,86,0.15);
+}
+.fp-search {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--drac-current);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--drac-fg);
+    background: var(--drac-bg);
+    outline: none;
+    margin-bottom: 6px;
+    transition: border-color 0.15s;
+}
+.fp-search::placeholder {
+    color: var(--drac-comment);
+}
+.fp-search:focus {
+    border-color: var(--drac-purple);
+}
+.fp-options.fp-options-no-scroll {
+    max-height: none;
+    overflow-y: visible;
+}
+.fp-options {
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--drac-current) transparent;
+}
+.fp-options::-webkit-scrollbar {
+    width: 5px;
+}
+.fp-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+.fp-options::-webkit-scrollbar-thumb {
+    background: var(--drac-current);
+    border-radius: 10px;
+}
+
+/* Toggle pill groups (shared by Sheet & Control) */
+.fp-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px 0;
+}
+.fp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--drac-current);
+    background: transparent;
+    color: var(--drac-fg);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.12s ease;
+}
+.fp-pill:hover {
+    border-color: var(--drac-comment);
+    background: var(--drac-current);
+}
+.fp-pill input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+.fp-pill .fp-pill-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--drac-comment);
+}
+.fp-pill.active .fp-pill-dot {
+    border-color: var(--drac-purple);
+}
+.fp-pill.active {
+    border-color: var(--drac-purple);
+    background: rgba(217,119,86,0.15);
+    color: var(--drac-purple);
+}
+
+/* Control tier colors */
+.fp-pill.easy .fp-pill-dot { background: #6fbf73; border-color: #6fbf73; border-radius: 50%; }
+.fp-pill.med .fp-pill-dot  { background: #d4c16a; border-color: #d4c16a; border-radius: 50%; }
+.fp-pill.hard .fp-pill-dot { background: #cf5555; border-color: #cf5555; border-radius: 50%; }
+
+/* Sheet type shapes */
+.fp-pill .fp-pill-dot.dot-circle  { border-radius: 50%; background: var(--drac-fg); }
+.fp-pill .fp-pill-dot.dot-square  { border-radius: 2px; background: var(--drac-fg); }
+.fp-pill .fp-pill-dot.dot-diamond { border-radius: 2px; background: var(--drac-fg); transform: rotate(45deg); width: 7px; height: 7px; }
 
 .filter-action-btn {
     display: inline-flex;
@@ -233,104 +382,6 @@ h1 {
     margin: 0 2px;
 }
 
-/* ── Dropdown panel ── */
-.filter-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 100;
-    min-width: 280px;
-    max-width: 360px;
-    background: var(--drac-bg);
-    border: 1px solid var(--drac-current);
-    border-radius: 14px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
-    opacity: 0;
-    transform: translateY(-4px);
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0.18s;
-    overflow: hidden;
-}
-.filter-dropdown.open {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    visibility: visible;
-    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
-}
-
-.dropdown-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px 8px;
-    border-bottom: 1px solid var(--drac-current);
-}
-.dropdown-header .dd-actions {
-    display: flex;
-    gap: 4px;
-}
-.dropdown-header .dd-actions button {
-    padding: 5px 12px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--drac-purple);
-    cursor: pointer;
-    transition: background 0.12s;
-}
-.dropdown-header .dd-actions button:hover {
-    background: rgba(217,119,86,0.15);
-}
-.dropdown-close {
-    border: none;
-    background: transparent;
-    color: var(--drac-comment);
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 6px;
-    transition: background 0.12s, color 0.12s;
-}
-.dropdown-close:hover {
-    color: var(--drac-fg);
-    background: var(--drac-current);
-}
-.dropdown-search {
-    display: block;
-    width: 100%;
-    padding: 11px 16px;
-    border: none;
-    border-bottom: 1px solid var(--drac-current);
-    font-size: 15px;
-    color: var(--drac-fg);
-    background: var(--drac-bg-dark);
-    outline: none;
-}
-.dropdown-search::placeholder {
-    color: var(--drac-comment);
-}
-.dropdown-options {
-    max-height: 280px;
-    overflow-y: auto;
-    padding: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--drac-current) transparent;
-}
-.dropdown-options::-webkit-scrollbar {
-    width: 5px;
-}
-.dropdown-options::-webkit-scrollbar-track {
-    background: transparent;
-}
-.dropdown-options::-webkit-scrollbar-thumb {
-    background: var(--drac-current);
-    border-radius: 10px;
-}
 
 /* ── Toggle button group (hardness) ── */
 .toggle-group {
@@ -600,117 +651,6 @@ h1 {
     font-weight: 500;
 }
 
-/* Control dual-range slider filter with visual marker scale */
-.control-range-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px 12px 8px;
-    min-width: 220px;
-}
-.control-slider-container {
-    position: relative;
-    height: 28px;
-    width: min(250px, 100%);
-    margin-inline: auto;
-}
-.control-slider-rail {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 4px;
-    transform: translateY(-50%);
-    background: var(--drac-current);
-    border-radius: 2px;
-    pointer-events: none;
-}
-.control-slider-track {
-    position: absolute;
-    top: 50%;
-    height: 4px;
-    transform: translateY(-50%);
-    background: var(--drac-purple);
-    border-radius: 2px;
-    pointer-events: none;
-    left: 0;
-    right: 0;
-}
-.control-slider-container input[type="range"] {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    pointer-events: none;
-    background: transparent;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-.control-slider-container input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--drac-purple);
-    border: 3px solid var(--drac-bg);
-    box-shadow: 0 0 0 1px var(--drac-purple);
-    cursor: grab;
-    pointer-events: auto;
-    transition: transform 0.1s ease;
-}
-.control-slider-container input[type="range"]::-webkit-slider-thumb:active {
-    cursor: grabbing;
-    transform: scale(1.2);
-}
-.control-slider-container input[type="range"]::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--drac-purple);
-    border: 3px solid var(--drac-bg);
-    box-shadow: 0 0 0 1px var(--drac-purple);
-    cursor: grab;
-    pointer-events: auto;
-}
-.control-slider-container input[type="range"]::-moz-range-thumb:active {
-    cursor: grabbing;
-    transform: scale(1.2);
-}
-.control-slider-container #controlMinSlider::-webkit-slider-thumb {
-    /* Keep 22px hit target, with a visible smaller inner dot */
-    background: var(--drac-purple);
-    border: 7px solid var(--drac-bg);
-    box-shadow: 0 0 0 1px var(--drac-purple);
-}
-.control-slider-container #controlMinSlider::-moz-range-thumb {
-    /* Keep 22px hit target, with a visible smaller inner dot */
-    background: var(--drac-purple);
-    border: 7px solid var(--drac-bg);
-    box-shadow: 0 0 0 1px var(--drac-purple);
-}
-.control-slider-container input[type="range"]::-moz-range-track {
-    background: transparent;
-    border: none;
-}
-.control-visual-scale {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 8px;
-    width: min(250px, 100%);
-    margin-inline: auto;
-}
-
-.control-scale-labels-bottom {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--drac-comment);
-}
 
 /* ── Option rows ── */
 .filter-option {
@@ -825,55 +765,6 @@ h1 {
     text-align: center;
 }
 
-/* ── Active filter tags ── */
-.active-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-    min-height: 0;
-}
-.active-tags:empty {
-    display: none;
-}
-.active-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 13px;
-    border-radius: 100px;
-    background: var(--drac-current);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--drac-fg);
-    transition: background 0.12s;
-}
-.active-tag .tag-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.active-tag .tag-remove {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: transparent;
-    border: none;
-    font-size: 12px;
-    line-height: 1;
-    color: var(--drac-comment);
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.12s;
-}
-.active-tag .tag-remove:hover {
-    background: rgba(207,85,85,0.2);
-    color: var(--drac-red);
-}
 
 /* ── Chart ── */
 #chart {
@@ -1804,16 +1695,6 @@ h1 {
     background: rgba(126,184,168,0.12);
 }
 
-/* ── Backdrop for closing dropdowns ── */
-.filter-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-}
-.filter-backdrop.visible {
-    display: block;
-}
 
 /* ── Country selector ── */
 .country-selector {
@@ -1891,22 +1772,18 @@ h1 {
         width: 100%;
         justify-self: stretch;
     }
-    .filter-dropdown {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        max-width: 100%;
-        min-width: 100%;
-        border-radius: 16px 16px 0 0;
-        max-height: 60vh;
-        transform: translateY(10px);
+    .filter-panel-grid {
+        grid-template-columns: 1fr;
     }
-    .filter-dropdown.open {
-        transform: translateY(0);
+    .fp-section + .fp-section {
+        border-left: none;
+        border-top: 1px solid var(--drac-current);
+        padding-top: 12px;
     }
-    .dropdown-options { max-height: 40vh; }
+    .filter-panel.open {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
 
     /* Remove internal scroll on detail panels so main page scrolls naturally */
     .detail-panel,

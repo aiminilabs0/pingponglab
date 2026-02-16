@@ -86,7 +86,7 @@ let currentFilteredData = [];
 let relayoutTimer = null;
 let internalUpdateTimer = null;
 let selectedCountry = 'us';
-let openFilterId = null;
+let filterPanelOpen = false;
 let weightFilterState = {
     dataMin: null,
     dataMax: null,
@@ -102,10 +102,7 @@ let hardnessFilterState = {
 let controlFilterState = {
     rankMin: null,
     rankMax: null,
-    dataMin: null,
-    dataMax: null,
-    selectedMin: null,
-    selectedMax: null
+    selectedTiers: new Set(['Easy', 'Med', 'Hard'])
 };
 
 // YouTube embed state
@@ -381,7 +378,11 @@ function getAllCheckboxValues(containerId) {
 }
 
 function setAllChecked(container, checked) {
-    container.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = checked; });
+    container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = checked;
+        const pill = cb.closest('.fp-pill');
+        if (pill) pill.classList.toggle('active', checked);
+    });
 }
 
 function getWeightBoundsFromData() {
@@ -490,7 +491,6 @@ function initWeightRangeFilter(onChange) {
             <input id="weightMinSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.min}" step="1">
             <input id="weightMaxSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.max}" step="1">
         </div>
-        <div class="weight-range-hint">${formatWeightValue(bounds.min)}g — ${formatWeightValue(bounds.max)}g</div>
     `;
 
     updateWeightSliderTrack();
@@ -668,24 +668,42 @@ function initHardnessRangeFilter(onChange) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  Control Range Filter
+//  Control Toggle Filter (3 tiers: Easy / Med / Hard)
 // ════════════════════════════════════════════════════════════
 
 const CONTROL_LEVEL_COUNT = 5;
+const CONTROL_TIERS = ['Easy', 'Med', 'Hard'];
 
 function getControlBoundsFromData() {
     const ranks = rubberData
         .map(r => r.controlRank)
         .filter(rank => Number.isFinite(rank));
-    
+
     if (ranks.length === 0) return null;
-    
+
     return {
         min: Math.min(...ranks),
         max: Math.max(...ranks)
     };
 }
 
+function getControlTierFromRank(rank) {
+    const { rankMin, rankMax } = controlFilterState;
+    if (![rank, rankMin, rankMax].every(Number.isFinite)) return null;
+
+    const totalRanks = rankMax - rankMin + 1;
+    if (totalRanks <= 0) return null;
+
+    const zeroBasedRank = Math.max(0, Math.min(totalRanks - 1, rank - rankMin));
+    const pct = zeroBasedRank / totalRanks;
+
+    // Easy = top 40% of control ranks, Med = middle 20%, Hard = bottom 40%
+    if (pct < 0.4) return 'Easy';
+    if (pct < 0.6) return 'Med';
+    return 'Hard';
+}
+
+// Keep the old 5-level function for the hover popup indicator
 function getControlLevelFromRank(rank) {
     const { rankMin, rankMax } = controlFilterState;
     if (![rank, rankMin, rankMax].every(Number.isFinite)) return null;
@@ -699,124 +717,112 @@ function getControlLevelFromRank(rank) {
         Math.floor((zeroBasedRank * CONTROL_LEVEL_COUNT) / totalRanks)
     );
 
-    // Level 1 = most controllable (best ranks), Level 5 = least controllable.
     return bucketBestFirst + 1;
 }
 
-function getControlRangeInputs() {
-    return {
-        minInput: document.getElementById('controlMinSlider'),
-        maxInput: document.getElementById('controlMaxSlider')
-    };
+function resetControlToAllTiers() {
+    controlFilterState.selectedTiers = new Set(['Easy', 'Med', 'Hard']);
+    syncControlPillUI();
 }
 
-function updateControlSliderTrack() {
-    const { dataMin, dataMax, selectedMin, selectedMax } = controlFilterState;
-    const track = document.getElementById('controlSliderTrack');
-    
-    if (!track || !Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
-    
-    const sliderMin = dataMin;
-    const sliderMax = dataMax;
-    const span = sliderMax - sliderMin;
-    
-    if (span > 0) {
-        const leftPercent = ((selectedMin - sliderMin) / span) * 100;
-        const rightPercent = ((sliderMax - selectedMax) / span) * 100;
-        track.style.left = `${leftPercent}%`;
-        track.style.right = `${rightPercent}%`;
-    }
-}
-
-function setControlRange(minValue, maxValue) {
-    const { dataMin, dataMax } = controlFilterState;
-    if (!Number.isFinite(dataMin) || !Number.isFinite(dataMax)) return;
-    
-    const safeMin = Number.isFinite(minValue) ? Math.round(minValue) : dataMin;
-    const safeMax = Number.isFinite(maxValue) ? Math.round(maxValue) : dataMax;
-    const clampedMin = Math.max(dataMin, Math.min(dataMax, safeMin));
-    const clampedMax = Math.max(dataMin, Math.min(dataMax, safeMax));
-    const selectedMin = Math.min(clampedMin, clampedMax);
-    const selectedMax = Math.max(clampedMin, clampedMax);
-    
-    controlFilterState.selectedMin = selectedMin;
-    controlFilterState.selectedMax = selectedMax;
-    
-    const { minInput, maxInput } = getControlRangeInputs();
-    if (minInput) minInput.value = selectedMin;
-    if (maxInput) maxInput.value = selectedMax;
-    updateControlSliderTrack();
-}
-
-function resetControlRangeToDataBounds() {
-    setControlRange(controlFilterState.dataMin, controlFilterState.dataMax);
-}
-
-function syncControlRangeFromInputs() {
-    const { minInput, maxInput } = getControlRangeInputs();
-    if (!minInput || !maxInput) return false;
-    const minVal = parseFloat(minInput.value);
-    const maxVal = parseFloat(maxInput.value);
-    setControlRange(Math.min(minVal, maxVal), Math.max(minVal, maxVal));
-    return true;
+function syncControlPillUI() {
+    document.querySelectorAll('#controlFilter .fp-pill').forEach(pill => {
+        const tier = pill.dataset.tier;
+        const cb = pill.querySelector('input[type="checkbox"]');
+        const isActive = controlFilterState.selectedTiers.has(tier);
+        if (cb) cb.checked = isActive;
+        pill.classList.toggle('active', isActive);
+    });
 }
 
 function isControlFilterActive() {
-    const { dataMin, dataMax, selectedMin, selectedMax } = controlFilterState;
-    if (![dataMin, dataMax, selectedMin, selectedMax].every(Number.isFinite)) return false;
-    return selectedMin > dataMin || selectedMax < dataMax;
+    return controlFilterState.selectedTiers.size < 3;
 }
 
-function initControlRangeFilter(onChange) {
+function initControlToggleFilter(onChange) {
     const container = document.getElementById('controlFilter');
     if (!container) return;
-    
+
     const bounds = getControlBoundsFromData();
     if (!bounds) {
         container.innerHTML = '<div class="filter-instructions">No control ranking data available.</div>';
         return;
     }
-    
+
     controlFilterState.rankMin = bounds.min;
     controlFilterState.rankMax = bounds.max;
-    controlFilterState.dataMin = 1;
-    controlFilterState.dataMax = CONTROL_LEVEL_COUNT;
-    controlFilterState.selectedMin = 1;
-    controlFilterState.selectedMax = CONTROL_LEVEL_COUNT;
-    
-    container.classList.add('control-range-filter');
-    container.innerHTML = `
-        <div class="control-slider-container">
-            <div class="control-slider-rail"></div>
-            <div class="control-slider-track" id="controlSliderTrack"></div>
-            <input id="controlMinSlider" type="range" min="1" max="${CONTROL_LEVEL_COUNT}" value="1" step="1">
-            <input id="controlMaxSlider" type="range" min="1" max="${CONTROL_LEVEL_COUNT}" value="${CONTROL_LEVEL_COUNT}" step="1">
-        </div>
-        <div class="control-visual-scale">
-            <div class="control-scale-labels-bottom">
-                <span>Easy</span>
-                <span>Hard</span>
-            </div>
-        </div>
-    `;
-    
-    updateControlSliderTrack();
-    
-    const debouncedChange = debounce(onChange, 40);
-    const { minInput, maxInput } = getControlRangeInputs();
-    [minInput, maxInput].forEach(input => {
-        if (!input) return;
-        input.addEventListener('input', () => {
-            syncControlRangeFromInputs();
-            debouncedChange();
+    controlFilterState.selectedTiers = new Set(['Easy', 'Med', 'Hard']);
+
+    container.innerHTML = '';
+    const group = document.createElement('div');
+    group.className = 'fp-pill-group';
+
+    CONTROL_TIERS.forEach(tier => {
+        const pill = document.createElement('label');
+        pill.className = `fp-pill ${tier.toLowerCase()} active`;
+        pill.dataset.tier = tier;
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = true;
+        cb.value = tier;
+        pill.appendChild(cb);
+
+        const dot = document.createElement('span');
+        dot.className = 'fp-pill-dot';
+        pill.appendChild(dot);
+
+        pill.appendChild(document.createTextNode(tier));
+        group.appendChild(pill);
+
+        cb.addEventListener('change', () => {
+            if (cb.checked) {
+                controlFilterState.selectedTiers.add(tier);
+            } else {
+                controlFilterState.selectedTiers.delete(tier);
+            }
+            pill.classList.toggle('active', cb.checked);
+            onChange();
         });
     });
-    
-    document.getElementById('controlResetBtn')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        resetControlRangeToDataBounds();
-        onChange();
+
+    container.appendChild(group);
+}
+
+const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
+
+function initSheetToggleFilter(onChange) {
+    const container = document.getElementById('sheetFilter');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const group = document.createElement('div');
+    group.className = 'fp-pill-group';
+
+    ['Classic', 'Chinese', 'Hybrid'].forEach(sheet => {
+        const pill = document.createElement('label');
+        pill.className = 'fp-pill active';
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = true;
+        cb.value = sheet;
+        pill.appendChild(cb);
+
+        const dot = document.createElement('span');
+        dot.className = `fp-pill-dot ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}`;
+        pill.appendChild(dot);
+
+        pill.appendChild(document.createTextNode(sheet));
+        group.appendChild(pill);
+
+        cb.addEventListener('change', () => {
+            pill.classList.toggle('active', cb.checked);
+            onChange();
+        });
     });
+
+    container.appendChild(group);
 }
 
 function filterOptions(container, query) {
@@ -887,8 +893,7 @@ function buildNameOptionsFromFilters() {
     const maxHardness = hardnessFilterState.selectedMax;
 
     const filterByControl = isControlFilterActive();
-    const minControlLevel = controlFilterState.selectedMin;
-    const maxControlLevel = controlFilterState.selectedMax;
+    const selectedTiers = controlFilterState.selectedTiers;
 
     const filtered = rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
@@ -896,8 +901,8 @@ function buildNameOptionsFromFilters() {
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
         (!filterByControl || (() => {
-            const level = getControlLevelFromRank(rubber.controlRank);
-            return Number.isFinite(level) && level >= minControlLevel && level <= maxControlLevel;
+            const tier = getControlTierFromRank(rubber.controlRank);
+            return tier !== null && selectedTiers.has(tier);
         })())
     );
 
@@ -924,220 +929,54 @@ function buildNameOptionsFromFilters() {
 }
 
 // ════════════════════════════════════════════════════════════
-//  Dropdown Management
+//  Filter Panel Management
 // ════════════════════════════════════════════════════════════
 
-function closeAllDropdowns() {
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
-    document.getElementById('filterBackdrop').classList.remove('visible');
-    openFilterId = null;
-}
+function toggleFilterPanel() {
+    filterPanelOpen = !filterPanelOpen;
+    const panel = document.getElementById('filterPanel');
+    const trigger = document.getElementById('filterTrigger');
+    if (!panel || !trigger) return;
 
-function openDropdown(filterId) {
-    closeAllDropdowns();
-    const chip = document.getElementById(filterId + 'Chip');
-    const dropdown = document.getElementById(filterId + 'Dropdown');
-    if (!chip || !dropdown) return;
-
-    chip.classList.add('active');
-    dropdown.classList.add('open');
-    document.getElementById('filterBackdrop').classList.add('visible');
-    openFilterId = filterId;
-
-    const search = dropdown.querySelector('.dropdown-search');
-    if (search) {
-        setTimeout(() => {
-            try { search.focus({ preventScroll: true }); } catch { search.focus(); }
-        }, 60);
-    }
-}
-
-function toggleDropdown(filterId) {
-    if (openFilterId === filterId) {
-        closeAllDropdowns();
-        return;
-    }
-    openDropdown(filterId);
-}
-
-// ════════════════════════════════════════════════════════════
-//  Badges & Active Tags
-// ════════════════════════════════════════════════════════════
-
-function updateBadge(filterId, checkedCount, totalCount) {
-    const badge = document.getElementById(filterId + 'Badge');
-    if (!badge) return;
-    if (filterId === 'name') {
-        badge.textContent = checkedCount || '0';
-        badge.classList.toggle('all-selected', checkedCount === totalCount);
-    } else if (checkedCount === totalCount) {
-        badge.textContent = 'All';
-        badge.classList.add('all-selected');
+    if (filterPanelOpen) {
+        panel.removeAttribute('hidden');
+        // Force reflow so the transition from max-height:0 works
+        void panel.offsetHeight;
+        panel.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
     } else {
-        badge.textContent = checkedCount || '0';
-        badge.classList.remove('all-selected');
-    }
-}
-
-function refreshBadge(filterId) {
-    if (filterId === 'weight') {
-        const badge = document.getElementById('weightBadge');
-        if (!badge) return;
-        if (!isWeightFilterActive()) {
-            badge.textContent = 'All';
-            badge.classList.add('all-selected');
-        } else {
-            badge.textContent = `${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
-            badge.classList.remove('all-selected');
-        }
-        return;
-    }
-
-    if (filterId === 'hardness') {
-        const badge = document.getElementById('hardnessBadge');
-        if (!badge) return;
-        if (!isHardnessFilterActive()) {
-            badge.textContent = 'All';
-            badge.classList.add('all-selected');
-        } else {
-            badge.textContent = `${formatHardnessValue(hardnessFilterState.selectedMin)}-${formatHardnessValue(hardnessFilterState.selectedMax)}°`;
-            badge.classList.remove('all-selected');
-        }
-        return;
-    }
-
-    if (filterId === 'control') {
-        const badge = document.getElementById('controlBadge');
-        if (!badge) return;
-        if (!isControlFilterActive()) {
-            badge.textContent = 'All';
-            badge.classList.add('all-selected');
-        } else {
-            badge.textContent = `L${Math.round(controlFilterState.selectedMin)}-L${Math.round(controlFilterState.selectedMax)}`;
-            badge.classList.remove('all-selected');
-        }
-        return;
-    }
-
-    const container = document.getElementById(filterId + 'Filter');
-    if (!container) return;
-    const all = container.querySelectorAll('input[type="checkbox"]');
-    const checked = container.querySelectorAll('input[type="checkbox"]:checked');
-    updateBadge(filterId, checked.length, all.length);
-}
-
-function refreshAllBadges() {
-    FILTER_IDS.forEach(refreshBadge);
-}
-
-function createRemovableTag(labelContent, checkbox, colorDot) {
-    const tag = document.createElement('span');
-    tag.className = 'active-tag';
-
-    if (colorDot) {
-        const dot = document.createElement('span');
-        dot.className = 'tag-dot';
-        dot.style.backgroundColor = colorDot;
-        tag.appendChild(dot);
-    }
-
-    tag.appendChild(document.createTextNode(labelContent));
-
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'tag-remove';
-    removeBtn.innerHTML = '&times;';
-    removeBtn.onclick = (e) => {
-        e.stopPropagation();
-        checkbox.checked = false;
-        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
-    };
-    tag.appendChild(removeBtn);
-    return tag;
-}
-
-function createActionTag(labelContent, onRemove, colorDot) {
-    const tag = document.createElement('span');
-    tag.className = 'active-tag';
-
-    if (colorDot) {
-        const dot = document.createElement('span');
-        dot.className = 'tag-dot';
-        dot.style.backgroundColor = colorDot;
-        tag.appendChild(dot);
-    }
-
-    tag.appendChild(document.createTextNode(labelContent));
-
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'tag-remove';
-    removeBtn.innerHTML = '&times;';
-    removeBtn.onclick = (e) => {
-        e.stopPropagation();
-        onRemove();
-    };
-    tag.appendChild(removeBtn);
-    return tag;
-}
-
-function renderActiveTags() {
-    const container = document.getElementById('activeTags');
-    container.innerHTML = '';
-
-    // Brand tags with color dots (only when partially selected)
-    const brandFilter = document.getElementById('brandFilter');
-    const brandAll = brandFilter.querySelectorAll('input[type="checkbox"]');
-    const brandChecked = brandFilter.querySelectorAll('input[type="checkbox"]:checked');
-    if (brandChecked.length > 0 && brandChecked.length < brandAll.length) {
-        brandChecked.forEach(cb => {
-            container.appendChild(createRemovableTag(cb.value, cb, getBrandColor(cb.value)));
+        panel.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        panel.addEventListener('transitionend', function onEnd() {
+            panel.removeEventListener('transitionend', onEnd);
+            if (!filterPanelOpen) panel.setAttribute('hidden', '');
         });
     }
+}
 
-    // Tags for other partially-selected checkbox filter groups
-    ['sheet'].forEach(filterId => {
-        const filterEl = document.getElementById(filterId + 'Filter');
-        const all = filterEl.querySelectorAll('input[type="checkbox"]');
-        const checked = filterEl.querySelectorAll('input[type="checkbox"]:checked');
-        if (checked.length > 0 && checked.length < all.length) {
-            checked.forEach(cb => {
-                container.appendChild(createRemovableTag(cb.value, cb));
-            });
-        }
+function closeFilterPanel() {
+    if (!filterPanelOpen) return;
+    toggleFilterPanel();
+}
+
+function updateFilterSummary() {
+    const summary = document.getElementById('filterSummary');
+    if (!summary) return;
+
+    let count = 0;
+    // Check checkbox-based filters for partial selection
+    ['brandFilter', 'sheetFilter'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const all = el.querySelectorAll('input[type="checkbox"]');
+        const checked = el.querySelectorAll('input[type="checkbox"]:checked');
+        if (checked.length > 0 && checked.length < all.length) count++;
     });
+    if (isWeightFilterActive()) count++;
+    if (isHardnessFilterActive()) count++;
+    if (isControlFilterActive()) count++;
 
-    if (isHardnessFilterActive()) {
-        const label = `Hardness ${formatHardnessValue(hardnessFilterState.selectedMin)}-${formatHardnessValue(hardnessFilterState.selectedMax)}°`;
-        container.appendChild(createActionTag(label, () => {
-            resetHardnessRangeToDataBounds();
-            refreshAllBadges();
-            renderActiveTags();
-            pushFiltersToUrl();
-            updateChart();
-        }));
-    }
-
-    if (isWeightFilterActive()) {
-        const label = `Weight ${formatWeightValue(weightFilterState.selectedMin)}-${formatWeightValue(weightFilterState.selectedMax)}g`;
-        container.appendChild(createActionTag(label, () => {
-            resetWeightRangeToDataBounds();
-            refreshAllBadges();
-            renderActiveTags();
-            pushFiltersToUrl();
-            updateChart();
-        }));
-    }
-
-    if (isControlFilterActive()) {
-        const label = `Control L${Math.round(controlFilterState.selectedMin)}-L${Math.round(controlFilterState.selectedMax)}`;
-        container.appendChild(createActionTag(label, () => {
-            resetControlRangeToDataBounds();
-            refreshAllBadges();
-            renderActiveTags();
-            pushFiltersToUrl();
-            updateChart();
-        }));
-    }
+    summary.textContent = count > 0 ? `(${count} active)` : '';
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1159,6 +998,8 @@ function deserializeFilterParam(params, paramName, containerId) {
     const values = params.get(paramName).split(',').filter(Boolean);
     document.querySelectorAll(`#${containerId} input[type="checkbox"]`).forEach(cb => {
         cb.checked = values.includes(cb.value);
+        const pill = cb.closest('.fp-pill');
+        if (pill) pill.classList.toggle('active', cb.checked);
     });
 }
 
@@ -1194,17 +1035,15 @@ function deserializeWeightRangeParam(params) {
 
 function serializeControlRangeParam(params) {
     if (!isControlFilterActive()) return;
-    params.set('control', `${Math.round(controlFilterState.selectedMin)}-${Math.round(controlFilterState.selectedMax)}`);
+    params.set('control', [...controlFilterState.selectedTiers].join(','));
 }
 
 function deserializeControlRangeParam(params) {
     if (!params.has('control')) return;
-    const range = params.get('control').trim();
-    const [minRaw, maxRaw] = range.split('-');
-    const min = Number.parseFloat(minRaw);
-    const max = Number.parseFloat(maxRaw);
-    if (!Number.isFinite(min) || !Number.isFinite(max)) return;
-    setControlRange(min, max);
+    const tiers = params.get('control').split(',').filter(t => CONTROL_TIERS.includes(t));
+    if (tiers.length === 0) return;
+    controlFilterState.selectedTiers = new Set(tiers);
+    syncControlPillUI();
 }
 
 function pushFiltersToUrl() {
@@ -1274,8 +1113,7 @@ function applyFiltersFromUrl() {
     }
 
     updateComparisonBar();
-    refreshAllBadges();
-    renderActiveTags();
+    updateFilterSummary();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1343,8 +1181,7 @@ function getFilteredData() {
     const maxHardness = hardnessFilterState.selectedMax;
 
     const filterByControl = isControlFilterActive();
-    const minControlLevel = controlFilterState.selectedMin;
-    const maxControlLevel = controlFilterState.selectedMax;
+    const selectedTiers = controlFilterState.selectedTiers;
 
     return rubberData.filter(rubber =>
         selectedBrands.includes(rubber.brand) &&
@@ -1353,8 +1190,8 @@ function getFilteredData() {
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
         (!filterByControl || (() => {
-            const level = getControlLevelFromRank(rubber.controlRank);
-            return Number.isFinite(level) && level >= minControlLevel && level <= maxControlLevel;
+            const tier = getControlTierFromRank(rubber.controlRank);
+            return tier !== null && selectedTiers.has(tier);
         })())
     );
 }
@@ -2215,7 +2052,7 @@ function resetFiltersToAll() {
     });
     resetHardnessRangeToDataBounds();
     resetWeightRangeToDataBounds();
-    resetControlRangeToDataBounds();
+    resetControlToAllTiers();
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
@@ -2232,7 +2069,7 @@ function resetYouTubePlayers() {
 }
 
 function resetAppToInitialState() {
-    closeAllDropdowns();
+    closeFilterPanel();
     resetYouTubePlayers();
     selectedRubbers = [null, null];
     nextDetailPanel = 1;
@@ -2245,8 +2082,7 @@ function resetAppToInitialState() {
     resetFiltersToAll();
     resetDetailPanels();
     updateComparisonBar();
-    renderActiveTags();
-    refreshAllBadges();
+    updateFilterSummary();
     pushFiltersToUrl();
 
     const chartEl = document.getElementById('chart');
@@ -2269,39 +2105,32 @@ function initFilters() {
         document.getElementById('brandFilter'),
         brands.map(b => ({ value: b, label: b, swatchColor: getBrandColor(b) }))
     );
-    buildCheckboxOptions(
-        document.getElementById('sheetFilter'),
-        ['Classic', 'Chinese', 'Hybrid'].map(t => ({ value: t, label: t, shapeSymbol: getSheetSymbol(t) }))
-    );
 
     function onFilterChange(filterId) {
         if (filterId !== 'name') buildNameOptionsFromFilters();
-        refreshAllBadges();
-        renderActiveTags();
+        updateFilterSummary();
         pushFiltersToUrl();
         updateChart();
     }
 
+    initSheetToggleFilter(() => onFilterChange('sheet'));
     initHardnessRangeFilter(() => onFilterChange('hardness'));
     initWeightRangeFilter(() => onFilterChange('weight'));
-    initControlRangeFilter(() => onFilterChange('control'));
+    initControlToggleFilter(() => onFilterChange('control'));
     buildNameOptionsFromFilters();
 
     // Filter change listeners (checkbox-based filters only)
-    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control').forEach(id => {
+    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control' && id !== 'sheet').forEach(id => {
         document.getElementById(id + 'Filter').addEventListener('change', () => onFilterChange(id));
     });
 
     // Search inputs
-    document.getElementById('brandSearch').addEventListener('input', e =>
-        filterOptions(document.getElementById('brandFilter'), e.target.value)
-    );
     document.getElementById('nameSearch').addEventListener('input', e =>
         filterOptions(document.getElementById('nameFilter'), e.target.value)
     );
 
-    // All/None buttons inside dropdown headers
-    document.querySelectorAll('.dd-actions button').forEach(button => {
+    // All/None buttons inside filter panel sections
+    document.querySelectorAll('.fp-section-actions button').forEach(button => {
         button.addEventListener('click', (e) => {
             e.stopPropagation();
             const filterId = button.dataset.filter;
@@ -2312,27 +2141,11 @@ function initFilters() {
         });
     });
 
-    // Dropdown close buttons
-    document.querySelectorAll('.dropdown-close').forEach(btn => {
-        btn.addEventListener('click', (e) => { e.stopPropagation(); closeAllDropdowns(); });
-    });
+    // Filter panel trigger
+    document.getElementById('filterTrigger').addEventListener('click', toggleFilterPanel);
 
-    // Chip click → toggle dropdown
-    document.querySelectorAll('.filter-chip').forEach(chip => {
-        chip.addEventListener('click', (e) => {
-            if (e.target.closest('.filter-dropdown')) return;
-            toggleDropdown(chip.dataset.filter);
-        });
-    });
-
-    // Close on backdrop click or Escape key
-    document.getElementById('filterBackdrop').addEventListener('click', closeAllDropdowns);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllDropdowns(); });
-
-    // Prevent dropdown search clicks from closing
-    document.querySelectorAll('.dropdown-search').forEach(input => {
-        input.addEventListener('click', e => e.stopPropagation());
-    });
+    // Close panel on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilterPanel(); });
 
     // Zoom controls
     document.getElementById('autoscaleBtn').addEventListener('click', () => {
@@ -2348,16 +2161,14 @@ function initFilters() {
         );
         resetHardnessRangeToDataBounds();
         resetWeightRangeToDataBounds();
-        resetControlRangeToDataBounds();
+        resetControlToAllTiers();
         buildNameOptionsFromFilters();
-        refreshAllBadges();
-        renderActiveTags();
+        updateFilterSummary();
         pushFiltersToUrl();
         updateChart();
     });
 
-    refreshAllBadges();
-    renderActiveTags();
+    updateFilterSummary();
 }
 
 function initCountrySelector() {
@@ -2445,7 +2256,7 @@ function initFeedbackModal() {
     }
 
     function openFeedbackModal() {
-        closeAllDropdowns();
+        closeFilterPanel();
         clearCloseTimer();
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');

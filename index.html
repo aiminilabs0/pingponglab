@@ -23,8 +23,6 @@
             <div class="header-accent"></div>
         </header>
 
-        <div class="filter-backdrop" id="filterBackdrop"></div>
-
         <div class="chart-topbar">
             <div class="chart-controls" aria-label="Chart controls">
                 <button class="filter-action-btn chart-control-btn" id="zoomInBtn" title="Zoom in">
@@ -42,108 +40,12 @@
             <div id="chart"></div>
         </div>
 
-        <div class="filter-bar" id="filterBar">
-            <!-- Rubber chip -->
-            <div class="filter-chip" data-filter="name" id="nameChip">
-                <span>🏓 Rubber</span>
-                <span class="filter-badge all-selected" id="nameBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="nameDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions">
-                            <button type="button" data-filter="name" data-action="all">All</button>
-                            <button type="button" data-filter="name" data-action="none">None</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <input class="dropdown-search" id="nameSearch" type="search" placeholder="Search rubber…">
-                    <div class="dropdown-options" id="nameFilter"></div>
-                </div>
-            </div>
-
-            <!-- Brand chip -->
-            <div class="filter-chip" data-filter="brand" id="brandChip">
-                <span>Brand</span>
-                <span class="filter-badge all-selected" id="brandBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="brandDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions">
-                            <button type="button" data-filter="brand" data-action="all">All</button>
-                            <button type="button" data-filter="brand" data-action="none">None</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <input class="dropdown-search" id="brandSearch" type="search" placeholder="Search brand…">
-                    <div class="dropdown-options" id="brandFilter"></div>
-                </div>
-            </div>
-
-            <!-- Tack chip -->
-            <div class="filter-chip" data-filter="sheet" id="sheetChip">
-                <span>🟥 Sheet</span>
-                <span class="filter-badge all-selected" id="sheetBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="sheetDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions">
-                            <button type="button" data-filter="sheet" data-action="all">All</button>
-                            <button type="button" data-filter="sheet" data-action="none">None</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <div class="dropdown-options" id="sheetFilter"></div>
-                </div>
-            </div>
-
-            <!-- Weight chip -->
-            <div class="filter-chip" data-filter="weight" id="weightChip">
-                <span>⚖️ Weight</span>
-                <span class="filter-badge all-selected" id="weightBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="weightDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions weight-actions">
-                            <button type="button" id="weightResetBtn">Reset</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <div class="dropdown-options" id="weightFilter"></div>
-                </div>
-            </div>
-
-            <!-- Hardness chip -->
-            <div class="filter-chip" data-filter="hardness" id="hardnessChip">
-                <span>🧽 Hardness</span>
-                <span class="filter-badge all-selected" id="hardnessBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="hardnessDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions">
-                            <button type="button" id="hardnessResetBtn">Reset</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <div class="dropdown-options" id="hardnessFilter"></div>
-                </div>
-            </div>
-
-            <!-- Control chip -->
-            <div class="filter-chip" data-filter="control" id="controlChip">
-                <span>🎯 Control</span>
-                <span class="filter-badge all-selected" id="controlBadge">All</span>
-                <span class="chip-arrow"></span>
-                <div class="filter-dropdown" id="controlDropdown">
-                    <div class="dropdown-header">
-                        <div class="dd-actions">
-                            <button type="button" id="controlResetBtn">Reset</button>
-                        </div>
-                        <button type="button" class="dropdown-close" title="Close">×</button>
-                    </div>
-                    <div class="dropdown-options" id="controlFilter"></div>
-                </div>
-            </div>
-
+        <div class="filter-toolbar" id="filterToolbar">
+            <button type="button" class="filter-trigger" id="filterTrigger" aria-expanded="false" aria-controls="filterPanel">
+                <span class="filter-trigger-icon">≡</span>
+                <span class="filter-trigger-label">Filters</span>
+                <span class="filter-trigger-summary" id="filterSummary"></span>
+            </button>
             <div class="country-selector" id="countrySelector">
                 <button type="button" class="country-btn active" data-country="us" title="USA" aria-label="USA">🇺🇸</button>
                 <button type="button" class="country-btn" data-country="eu" title="Europe" aria-label="Europe">🇪🇺</button>
@@ -153,10 +55,61 @@
             <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
                 ↺ Reset
             </button>
-
         </div>
 
-        <div class="active-tags" id="activeTags"></div>
+        <div class="filter-panel" id="filterPanel" hidden>
+            <div class="filter-panel-grid">
+                <!-- Column 1: Weight, Hardness, Sheet, Control -->
+                <div class="fp-section fp-section-sliders">
+                    <div class="fp-section-header">
+                        <span>Weight</span>
+                        <div class="fp-section-actions">
+                            <button type="button" id="weightResetBtn">Reset</button>
+                        </div>
+                    </div>
+                    <div class="fp-options" id="weightFilter"></div>
+
+                    <div class="fp-section-header fp-section-header-sub">
+                        <span>Hardness</span>
+                        <div class="fp-section-actions">
+                            <button type="button" id="hardnessResetBtn">Reset</button>
+                        </div>
+                    </div>
+                    <div class="fp-options" id="hardnessFilter"></div>
+
+                    <div class="fp-section-header fp-section-header-sub"><span>Sheet</span></div>
+                    <div class="fp-options" id="sheetFilter"></div>
+
+                    <div class="fp-section-header fp-section-header-sub"><span>Control</span></div>
+                    <div class="fp-options" id="controlFilter"></div>
+                </div>
+
+                <!-- Column 2: Brand -->
+                <div class="fp-section fp-section-brand">
+                    <div class="fp-section-header">
+                        <span>Brand</span>
+                        <div class="fp-section-actions">
+                            <button type="button" data-filter="brand" data-action="all">All</button>
+                            <button type="button" data-filter="brand" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <div class="fp-options fp-options-no-scroll" id="brandFilter"></div>
+                </div>
+
+                <!-- Column 3: Rubber -->
+                <div class="fp-section fp-section-rubber">
+                    <div class="fp-section-header">
+                        <span>Rubber</span>
+                        <div class="fp-section-actions">
+                            <button type="button" data-filter="name" data-action="all">All</button>
+                            <button type="button" data-filter="name" data-action="none">None</button>
+                        </div>
+                    </div>
+                    <input class="fp-search" id="nameSearch" type="search" placeholder="Search rubber…">
+                    <div class="fp-options" id="nameFilter"></div>
+                </div>
+            </div>
+        </div>
 
         
 
