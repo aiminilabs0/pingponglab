@@ -2302,48 +2302,6 @@ window.addEventListener('resize', () => {
     if (hasPlotted) updateChart({ preserveRanges: true });
 });
 
-// ════════════════════════════════════════════════════════════
-//  Back-to-top FAB (helps mobile users scroll past inner panels)
-// ════════════════════════════════════════════════════════════
-
-(function initScrollFabs() {
-    const upBtn = document.getElementById('backToTop');
-    const downBtn = document.getElementById('backToBottom');
-    if (!upBtn || !downBtn) return;
-    let ticking = false;
-
-    function updateFabVisibility() {
-        const doc = document.documentElement;
-        const scrollTop = window.scrollY;
-        const viewportBottom = scrollTop + window.innerHeight;
-        const maxScroll = doc.scrollHeight;
-        const nearBottom = viewportBottom >= maxScroll - 120;
-
-        upBtn.classList.toggle('visible', scrollTop > 300);
-        downBtn.classList.toggle('visible', !nearBottom);
-    }
-
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            ticking = true;
-            requestAnimationFrame(() => {
-                updateFabVisibility();
-                ticking = false;
-            });
-        }
-    }, { passive: true });
-
-    upBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    downBtn.addEventListener('click', () => {
-        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-    });
-
-    updateFabVisibility();
-})();
-
 async function initializeApp() {
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data…</div>';
