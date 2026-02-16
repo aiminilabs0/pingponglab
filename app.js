@@ -1892,7 +1892,15 @@ function extractYouTubeVideoId(url) {
     return match ? match[1] : null;
 }
 
-function buildUrlLinksHtml(rubber) {
+const PRODUCT_ICON = {
+    us: 'images/product/amazon.ico',
+    eu: 'images/product/amazon.ico',
+    cn: 'images/product/taobao.ico',
+    kr: 'images/product/coupang.ico'
+};
+const YOUTUBE_ICON = 'images/youtube.ico';
+
+function buildTitleLinkIconsHtml(rubber) {
     if (!rubber?.urls) return '';
     const countryUrls = rubber.urls[selectedCountry] || {};
     const parts = [];
@@ -1900,17 +1908,30 @@ function buildUrlLinksHtml(rubber) {
     if (countryUrls.youtube) {
         const videoId = extractYouTubeVideoId(countryUrls.youtube);
         if (videoId) {
-            parts.push(`<a href="#" onclick="event.preventDefault(); toggleYouTubeEmbed(this, '${videoId}');">▶ YouTube Review</a>`);
+            parts.push(
+                `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${videoId}" title="YouTube Review" aria-label="YouTube Review">` +
+                `<img src="${YOUTUBE_ICON}" class="rubber-title-icon" alt="YouTube">` +
+                `</a>`
+            );
         } else {
-            parts.push(`<a href="${countryUrls.youtube}" target="_blank" rel="noopener">▶ YouTube Review</a>`);
+            parts.push(
+                `<a class="rubber-title-icon-link" href="${countryUrls.youtube}" target="_blank" rel="noopener" title="YouTube Review" aria-label="YouTube Review">` +
+                `<img src="${YOUTUBE_ICON}" class="rubber-title-icon" alt="YouTube">` +
+                `</a>`
+            );
         }
     }
     if (countryUrls.product) {
-        parts.push(`<a href="${countryUrls.product}" target="_blank" rel="noopener">🛒 Buy Product</a>`);
+        const icon = PRODUCT_ICON[selectedCountry] || PRODUCT_ICON.us;
+        parts.push(
+            `<a class="rubber-title-icon-link" href="${countryUrls.product}" target="_blank" rel="noopener" title="Buy Product" aria-label="Buy Product">` +
+            `<img src="${icon}" class="rubber-title-icon" alt="Buy">` +
+            `</a>`
+        );
     }
-    if (parts.length === 0) return '';
-    return '<hr><div class="rubber-links">' + parts.join('&nbsp;&nbsp;·&nbsp;&nbsp;') + '</div>';
+    return parts.join('');
 }
+
 
 async function fetchRubberDetailMarkdown(brand, abbr) {
     const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
@@ -1986,6 +2007,7 @@ async function updateDetailPanel(panelNum, rubber) {
         ? '<span class="bestseller-badge">★ Bestseller</span>'
         : '';
     const brandColor = getBrandColor(rubber.brand);
+    const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
     panel.innerHTML =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -1995,9 +2017,12 @@ async function updateDetailPanel(panelNum, rubber) {
                 `</span>` +
                 (rubber.bestseller ? `<span class="bestseller-badge">★ Bestseller</span>` : '') +
             `</div>` +
-            `<h1 class="rubber-title" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
+            `<div class="rubber-title-row">` +
+                `<h1 class="rubber-title" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
+                (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
+            `</div>` +
         `</div>` +
-        `<div class="detail-panel-scroll">${html}${buildUrlLinksHtml(rubber)}</div>`;
+        `<div class="detail-panel-scroll">${html}</div>`;
 }
 
 function resetDetailPanels() {
@@ -2069,10 +2094,12 @@ async function updateComparisonBar() {
 //  YouTube Embed
 // ════════════════════════════════════════════════════════════
 
-function toggleYouTubeEmbed(link, videoId) {
-    const container = link.closest('.rubber-links');
-    let embedWrapper = container.querySelector('.youtube-embed-wrapper');
+function toggleYouTubeEmbed(iconLink, videoId) {
+    const panel = iconLink.closest('.detail-panel');
+    if (!panel) return;
 
+    // Toggle off if embed already exists in this panel
+    let embedWrapper = panel.querySelector('.youtube-embed-wrapper');
     if (embedWrapper) {
         const pid = embedWrapper.dataset.playerId;
         if (pid && ytPlayers[pid]) {
@@ -2080,13 +2107,15 @@ function toggleYouTubeEmbed(link, videoId) {
             delete ytPlayers[pid];
         }
         embedWrapper.remove();
-        link.textContent = '▶ YouTube Review';
+        iconLink.classList.remove('yt-active');
         return;
     }
 
+    // Insert embed wrapper immediately after the title header
+    const titleHeader = panel.querySelector('.rubber-title-header');
     embedWrapper = document.createElement('div');
     embedWrapper.className = 'youtube-embed-wrapper';
-    embedWrapper.style.cssText = 'margin-top:10px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;';
+    embedWrapper.style.cssText = 'position:relative;padding-bottom:56.25%;height:0;overflow:hidden;';
 
     // Close button for landscape pseudo-fullscreen
     const closeBtn = document.createElement('button');
@@ -2101,10 +2130,16 @@ function toggleYouTubeEmbed(link, videoId) {
     playerDiv.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
-    container.appendChild(embedWrapper);
+
+    if (titleHeader && titleHeader.nextSibling) {
+        panel.insertBefore(embedWrapper, titleHeader.nextSibling);
+    } else {
+        panel.appendChild(embedWrapper);
+    }
+
+    iconLink.classList.add('yt-active');
 
     if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {
-        // IFrame API — user tap allows autoplay with sound in most browsers.
         ytPlayers[playerId] = new YT.Player(playerId, {
             videoId,
             playerVars: { autoplay: 1, playsinline: 1, rel: 0, mute: 0 },
@@ -2116,14 +2151,11 @@ function toggleYouTubeEmbed(link, videoId) {
             }
         });
     } else {
-        // Fallback: plain iframe starts unmuted.
         playerDiv.outerHTML =
             `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0" ` +
-            `style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:8px;" ` +
+            `style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" ` +
             `allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
     }
-
-    link.textContent = '⏹ Close Video';
 }
 
 // Landscape pseudo-fullscreen for embedded videos (CSS-based, no user gesture required)
@@ -2137,6 +2169,16 @@ if (screen.orientation) {
     screen.orientation.addEventListener('change', () => setTimeout(handleOrientationFullscreen, 150));
 }
 window.addEventListener('orientationchange', () => setTimeout(handleOrientationFullscreen, 150));
+
+// Event delegation: YouTube title icon clicks toggle the embed below the title header.
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-yt-videoid]');
+    if (!link) return;
+    e.preventDefault();
+    const videoId = link.dataset.ytVideoid;
+    if (!videoId) return;
+    toggleYouTubeEmbed(link, videoId);
+});
 
 // ════════════════════════════════════════════════════════════
 // ════════════════════════════════════════════════════════════

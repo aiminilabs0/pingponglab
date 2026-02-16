@@ -1162,6 +1162,67 @@ h1 {
     line-height: 1.2;
     letter-spacing: -0.3px;
 }
+/* Title row: name + icon links side by side */
+.rubber-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+.rubber-title-row .rubber-title {
+    flex: 1;
+    min-width: 0;
+}
+.rubber-title-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.rubber-title-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(155,148,132,0.25);
+    background: rgba(62,58,52,0.4);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    text-decoration: none !important;
+    flex-shrink: 0;
+}
+.rubber-title-icon-link:hover {
+    background: rgba(126,184,168,0.15);
+    border-color: var(--drac-cyan);
+    transform: translateY(-1px);
+    text-decoration: none !important;
+}
+.rubber-title-icon-link.yt-active {
+    background: rgba(207,85,85,0.18);
+    border-color: rgba(207,85,85,0.6);
+}
+.rubber-title-icon-link.yt-active:hover {
+    background: rgba(207,85,85,0.28);
+    border-color: var(--drac-red);
+}
+.rubber-title-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+    image-rendering: auto;
+}
+/* YouTube embed sits flush between title header and scroll content */
+.detail-panel .youtube-embed-wrapper {
+    flex-shrink: 0;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-bottom: 2px solid var(--drac-current);
+}
 .detail-panel-scroll {
     overflow-y: auto;
     flex: 1;
@@ -1201,26 +1262,6 @@ h1 {
     white-space: nowrap;
 }
 
-.rubber-links {
-    padding: 8px 0 2px;
-    font-size: 14px;
-    font-weight: 500;
-}
-.rubber-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(126,184,168,0.10);
-    border: 1px solid rgba(126,184,168,0.2);
-    transition: all 0.15s ease;
-}
-.rubber-links a:hover {
-    background: rgba(126,184,168,0.18);
-    border-color: var(--drac-cyan);
-    text-decoration: none;
-}
 /* ── Rich markdown inside detail panels ── */
 .detail-panel-scroll h1 {
     color: var(--drac-pink);
