@@ -114,7 +114,7 @@ let ytPlayers = {};
 let ytPlayerIdCounter = 0;
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; };
 
-const rubberDetailsCache = {};
+const rubberDescriptionsCache = {};
 const rubberComparisonCache = {};
 let comparisonRenderToken = 0;
 
@@ -1933,20 +1933,20 @@ function buildTitleLinkIconsHtml(rubber) {
 }
 
 
-async function fetchRubberDetailMarkdown(brand, abbr) {
+async function fetchRubberDescriptionMarkdown(brand, abbr) {
     const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
     const cacheKey = `${brand}/${lang}/${abbr}`;
-    if (cacheKey in rubberDetailsCache) return rubberDetailsCache[cacheKey];
+    if (cacheKey in rubberDescriptionsCache) return rubberDescriptionsCache[cacheKey];
     try {
         const resp = await fetch(
-            `rubbers_details/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
+            `rubbers_description/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
         );
-        if (!resp.ok) { rubberDetailsCache[cacheKey] = null; return null; }
+        if (!resp.ok) { rubberDescriptionsCache[cacheKey] = null; return null; }
         const text = await resp.text();
-        rubberDetailsCache[cacheKey] = text;
+        rubberDescriptionsCache[cacheKey] = text;
         return text;
     } catch {
-        rubberDetailsCache[cacheKey] = null;
+        rubberDescriptionsCache[cacheKey] = null;
         return null;
     }
 }
@@ -2000,7 +2000,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
 async function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
-    const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.abbr);
+    const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
     const markdown = detailMarkdown || descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
     const html = marked.parse(markdown);
     const bestsellerBadge = rubber.bestseller
@@ -2028,7 +2028,7 @@ async function updateDetailPanel(panelNum, rubber) {
 function resetDetailPanels() {
     const panel1 = document.getElementById('detail1');
     const panel2 = document.getElementById('detail2');
-    if (panel1) panel1.innerHTML = '<h3>Select a rubber</h3><div class="content">Click on any rubber to see details</div>';
+    if (panel1) panel1.innerHTML = '<h3>Select a rubber</h3><div class="content">Click on any rubber to see description</div>';
     if (panel2) panel2.innerHTML = '<h3>Select another rubber</h3><div class="content">Click on another rubber to compare</div>';
 }
 
