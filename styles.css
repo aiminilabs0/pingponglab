@@ -248,13 +248,16 @@ h1 {
     opacity: 0;
     transform: translateY(-4px);
     pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
+    visibility: hidden;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0.18s;
     overflow: hidden;
 }
 .filter-dropdown.open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    visibility: visible;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
 }
 
 .dropdown-header {
