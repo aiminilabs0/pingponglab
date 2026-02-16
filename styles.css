@@ -41,21 +41,13 @@ body {
     overflow: hidden;
     position: relative;
 }
-.chart-topbar {
-    display: flex;
-    justify-content: flex-end;   /* right-aligned on desktop */
-    margin: -4px 0 -20px;
-    padding: 0 8px;              /* small padding so buttons don't hug the edge */
-    position: relative;
-    z-index: 25;
-}
 /* ── Site header ── */
 .site-header {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 0 0 0;
+    padding: 0;
     margin: -32px -32px 12px;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
@@ -64,16 +56,23 @@ body {
         radial-gradient(ellipse 50% 80% at 90% 30%, rgba(126,184,168,0.08) 0%, transparent 70%),
         linear-gradient(180deg, var(--drac-bg-dark) 0%, var(--drac-bg) 100%);
 }
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 32px 22px;
+    position: relative;
+    z-index: 1;
+    gap: 16px;
+}
 .header-brand {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 36px 40px 30px;
-    position: relative;
-    z-index: 1;
+    gap: 20px;
+    min-width: 0;
 }
 .header-logo {
-    height: 90px;
+    height: 72px;
     width: auto;
     flex-shrink: 0;
     filter: drop-shadow(0 4px 16px rgba(0,0,0,0.45));
@@ -86,10 +85,11 @@ body {
 .header-text {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
+    min-width: 0;
 }
 .header-title {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 800;
     color: var(--drac-fg);
     letter-spacing: -0.5px;
@@ -99,14 +99,63 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .header-tagline {
-    font-size: 19px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--drac-comment);
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
     margin: 0;
     line-height: 1.4;
+}
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.header-ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid rgba(155,148,132,0.3);
+    border-radius: 10px;
+    background: rgba(28,26,23,0.5);
+    color: var(--drac-comment);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.header-ctrl-btn:hover {
+    border-color: var(--drac-comment);
+    color: var(--drac-fg);
+    background: rgba(62,58,52,0.8);
+}
+.header-ctrl-btn:active {
+    transform: scale(0.93);
+}
+.header-ctrl-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+.header-ctrl-fit {
+    width: auto;
+    padding: 0 14px;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.header-ctrl-fit:hover {
+    border-color: var(--drac-cyan);
+    color: var(--drac-cyan);
 }
 .header-accent {
     height: 3px;
@@ -362,10 +411,7 @@ h1 {
     color: var(--drac-fg);
     background: var(--drac-current);
 }
-.filter-action-btn.autoscale-btn:hover {
-    border-color: var(--drac-cyan);
-    color: var(--drac-cyan);
-}
+/* autoscale-btn hover moved to .header-ctrl-fit:hover */
 .filter-action-btn.reset-btn:hover {
     border-color: var(--drac-red);
     color: var(--drac-red);
@@ -782,29 +828,7 @@ h1 {
     margin: 0;
     overscroll-behavior: none;
 }
-.chart-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: nowrap;
-    z-index: 25;
-}
-.chart-control-btn {
-    padding: 12px 18px;
-    font-size: 16px;
-    font-weight: 600;
-    background: rgba(28,26,23,0.78);
-    border-color: rgba(155,148,132,0.45);
-    color: var(--drac-fg);
-    backdrop-filter: blur(2px);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-}
-.chart-control-btn:hover {
-    background: rgba(62,58,52,0.95);
-}
+/* chart-controls and chart-control-btn removed – now in header */
 .chart-hover-popup {
     position: fixed;
     z-index: 9200;
@@ -1749,23 +1773,18 @@ h1 {
     body { padding: 10px; }
     .container { padding: 16px; border-radius: 12px; }
     .chart-bleed { margin: 0 -16px; padding: 0; }
-    .chart-topbar {
-        margin: -4px -16px -20px;
-        padding: 0 6px;
-        justify-content: flex-end;
-    }
     .site-header { margin: -16px -16px 10px; border-radius: 12px 12px 0 0; }
-    .header-brand { padding: 22px 20px 18px; gap: 14px; }
-    .header-logo { height: 60px; }
-    .header-title { font-size: 24px; }
-    .header-tagline { font-size: 14px; }
+    .header-row { padding: 16px 16px 14px; gap: 10px; }
+    .header-brand { gap: 12px; }
+    .header-logo { height: 44px; }
+    .header-title { font-size: 20px; }
+    .header-tagline { font-size: 12px; }
+    .header-controls { gap: 4px; }
+    .header-ctrl-btn { width: 34px; height: 34px; border-radius: 8px; }
+    .header-ctrl-btn svg { width: 14px; height: 14px; }
+    .header-ctrl-fit { padding: 0 12px; font-size: 13px; min-width: 60px; }
     .details-container { flex-direction: column; }
     #chart { height: 440px; }
-    .chart-controls { gap: 6px; }
-    .chart-control-btn {
-        padding: 10px 14px;
-        font-size: 14px;
-    }
     .site-footer-content {
         flex-direction: column;
         align-items: center;
