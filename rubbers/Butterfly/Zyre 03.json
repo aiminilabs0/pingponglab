@@ -38,21 +38,20 @@
   },
   "urls": {
     "us": {
-      "product": "https://www.amazon.com/s?k=Butterfly+Zyre+03+table+tennis+rubber",
+      "product": "https://www.amazon.com/Butterfly-ZY03-Zyre-03/dp/B0FSR7TPGX/ref=sr_1_1?crid=1U9NF2RUB7S6E&dib=eyJ2IjoiMSJ9._N-Pcffq_5hMEceloXZZp4b-EFfRu5_6hNBlwBHlQnyB9vencncAj3YnijJrhahr.KsG_QNxrBGL5TKDYAWyn4yXpQyeMDYePrlqKbG3VgOA&dib_tag=se&keywords=zyre+03&qid=1771227434&sprefix=zyre+03%2Caps%2C203&sr=8-1",
       "youtube": "https://www.youtube.com/watch?v=8CAntgKhKO8"
     },
     "eu": {
-      "product": "https://www.tabletennis11.com/other_eng/butterfly-zyre-03",
+      "product": "",
       "youtube": ""
     },
     "kr": {
-      "product": "",
+      "product": "coupang.com/vp/products/9084772385?itemId=26655643302&vendorItemId=93877635618&q=자이어%2003&searchId=cffba5c630325185&sourceType=search&itemsCount=36&searchRank=0&rank=0&traceId=mlov40ak",
       "youtube": "https://www.youtube.com/watch?v=_U0m4EtsgZk"
     },
     "cn": {
       "product": "",
       "youtube": ""
     }
-  },
-  "scale": 0.99
+  }
 }
