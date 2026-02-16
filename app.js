@@ -866,9 +866,10 @@ function buildCheckboxOptions(container, values, checkedValues) {
     }
 }
 
-function buildNameOptionsFromBrands() {
+function buildNameOptionsFromFilters() {
     const nameFilter = document.getElementById('nameFilter');
     const selectedBrands = getCheckedValues('brandFilter');
+    const selectedSheet = getCheckedValues('sheetFilter');
     const previousSelections = new Set(getCheckedValues('nameFilter'));
     const previousNames = new Set(getAllCheckboxValues('nameFilter'));
 
@@ -877,11 +878,30 @@ function buildNameOptionsFromBrands() {
         return;
     }
 
-    const uniqueNames = [...new Set(
-        rubberData
-            .filter(r => selectedBrands.includes(r.brand))
-            .map(r => r.fullName)
-    )].sort();
+    const filterByWeight = isWeightFilterActive();
+    const minWeight = weightFilterState.selectedMin;
+    const maxWeight = weightFilterState.selectedMax;
+
+    const filterByHardness = isHardnessFilterActive();
+    const minHardness = hardnessFilterState.selectedMin;
+    const maxHardness = hardnessFilterState.selectedMax;
+
+    const filterByControl = isControlFilterActive();
+    const minControlLevel = controlFilterState.selectedMin;
+    const maxControlLevel = controlFilterState.selectedMax;
+
+    const filtered = rubberData.filter(rubber =>
+        selectedBrands.includes(rubber.brand) &&
+        (selectedSheet.length === 0 || selectedSheet.includes(rubber.sheet)) &&
+        (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
+        (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
+        (!filterByControl || (() => {
+            const level = getControlLevelFromRank(rubber.controlRank);
+            return Number.isFinite(level) && level >= minControlLevel && level <= maxControlLevel;
+        })())
+    );
+
+    const uniqueNames = [...new Set(filtered.map(r => r.fullName))].sort();
 
     const nameOptions = uniqueNames.map(name => {
         const rubber = rubberData.find(r => r.fullName === name);
@@ -948,7 +968,10 @@ function toggleDropdown(filterId) {
 function updateBadge(filterId, checkedCount, totalCount) {
     const badge = document.getElementById(filterId + 'Badge');
     if (!badge) return;
-    if (checkedCount === totalCount) {
+    if (filterId === 'name') {
+        badge.textContent = checkedCount || '0';
+        badge.classList.toggle('all-selected', checkedCount === totalCount);
+    } else if (checkedCount === totalCount) {
         badge.textContent = 'All';
         badge.classList.add('all-selected');
     } else {
@@ -1219,17 +1242,16 @@ function applyFiltersFromUrl() {
         }
     }
 
-    // Brands (must rebuild name options afterward)
-    if (params.has('brands')) {
-        deserializeFilterParam(params, 'brands', 'brandFilter');
-        buildNameOptionsFromBrands();
-    }
-
-    deserializeFilterParam(params, 'rubbers', 'nameFilter');
+    // Deserialize all filters that affect rubber options first
+    if (params.has('brands')) deserializeFilterParam(params, 'brands', 'brandFilter');
     deserializeFilterParam(params, 'sheet', 'sheetFilter');
     deserializeHardnessRangeParam(params);
     deserializeWeightRangeParam(params);
     deserializeControlRangeParam(params);
+
+    // Rebuild rubber options from all filters, then restore rubber selections
+    buildNameOptionsFromFilters();
+    deserializeFilterParam(params, 'rubbers', 'nameFilter');
 
     // Restore selected rubber detail panels
     if (params.has('left')) {
@@ -2197,7 +2219,7 @@ function resetFiltersToAll() {
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
-        buildNameOptionsFromBrands();
+        buildNameOptionsFromFilters();
     }
 }
 
@@ -2253,7 +2275,7 @@ function initFilters() {
     );
 
     function onFilterChange(filterId) {
-        if (filterId === 'brand') buildNameOptionsFromBrands();
+        if (filterId !== 'name') buildNameOptionsFromFilters();
         refreshAllBadges();
         renderActiveTags();
         pushFiltersToUrl();
@@ -2263,7 +2285,7 @@ function initFilters() {
     initHardnessRangeFilter(() => onFilterChange('hardness'));
     initWeightRangeFilter(() => onFilterChange('weight'));
     initControlRangeFilter(() => onFilterChange('control'));
-    buildNameOptionsFromBrands();
+    buildNameOptionsFromFilters();
 
     // Filter change listeners (checkbox-based filters only)
     FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control').forEach(id => {
@@ -2327,7 +2349,7 @@ function initFilters() {
         resetHardnessRangeToDataBounds();
         resetWeightRangeToDataBounds();
         resetControlRangeToDataBounds();
-        buildNameOptionsFromBrands();
+        buildNameOptionsFromFilters();
         refreshAllBadges();
         renderActiveTags();
         pushFiltersToUrl();
