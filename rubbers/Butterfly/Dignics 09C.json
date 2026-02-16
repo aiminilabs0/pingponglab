@@ -2,6 +2,10 @@
   "abbr": "Dignics 09C",
   "name": "Dignics 09C",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["Sora Matsushima", "Dimitrij Ovtcharov", "Sora Matsushima", "Oh Jun-sung"],
+    "backhand": ["LIN Shidong", "Oh Jun-sung"]
+  },
   "user_ratings": {
     "overall": 9.3,
     "speed": 8.8,

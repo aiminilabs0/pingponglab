@@ -2,6 +2,10 @@
   "abbr": "Zyre 03",
   "name": "Zyre 03",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["Amy Wang", "Kanak Jha", "Miwa Harimoto"],
+    "backhand": ["Amy Wang", "Tomokazu Harimoto", "Dimitrij Ovtcharov", "Sora Matsushima"]
+  },
   "user_ratings": {
     "overall": 9.3,
     "speed": 9.2,

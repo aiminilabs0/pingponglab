@@ -2,6 +2,10 @@
   "abbr": "MX-D",
   "name": "Evolution MX-D",
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": [],
+    "backhand": ["Tomislav Pucar"]
+  },
   "user_ratings": {
     "overall": 9.2,
     "speed": 9.3,

@@ -2,6 +2,10 @@
   "abbr": "Tenergy 05",
   "name": "Tenergy 05",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["Elizabeta Samara"],
+    "backhand": []
+  },
   "user_ratings": {
     "overall": 9.3,
     "speed": 9.3,

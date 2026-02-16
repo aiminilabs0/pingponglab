@@ -2,6 +2,10 @@
   "abbr": "MK",
   "name": "Hybrid MK",
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": ["Yūto Muramatsu"],
+    "backhand": []
+  },
   "user_ratings": {
     "overall": 9.5,
     "speed": 8.9,

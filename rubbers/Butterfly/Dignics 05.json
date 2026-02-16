@@ -2,6 +2,10 @@
   "abbr": "Dignics 05",
   "name": "Dignics 05",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["Tomokazu Harimoto"],
+    "backhand": ["Kanak Jha", "Chen Xingtong", "Miwa Harimoto", "Miyu Nagasaki"]
+  },
   "user_ratings": {
     "overall": 9.3,
     "speed": 9.1,

@@ -1,6 +1,10 @@
 {
   "abbr": "Neo H3",
   "name": "Neo Hurricane 3",
+  "players": {
+    "forehand": ["Jaehyun Ahn", "Cho Dae-seong"],
+    "backhand": []
+  },
   "manufacturer": "DHS",
   "user_ratings": {
     "overall": 9,

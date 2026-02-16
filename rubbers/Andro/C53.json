@@ -2,6 +2,10 @@
   "abbr": "C53",
   "name": "Rasanter C53",
   "manufacturer": "Andro",
+  "players": {
+    "forehand": [],
+    "backhand": ["André Bertelsmeier"]
+  },
   "user_ratings": {
     "overall": 9.2,
     "speed": 9.2,

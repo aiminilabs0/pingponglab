@@ -2,6 +2,10 @@
   "abbr": "Omega7 Pro",
   "name": "Omega7 Pro",
   "manufacturer": "Xiom",
+  "players": {
+    "forehand": [],
+    "backhand": ["Jeoung Young-sik", "Ahn Jae-hyun", "Cho Dae-seong"]
+  },
   "user_ratings": {
     "overall": 9.1,
     "speed": 9.2,

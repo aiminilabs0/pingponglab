@@ -2,6 +2,10 @@
   "abbr": "H8-80",
   "name": "Hurricane 8-80",
   "manufacturer": "DHS",
+  "players": {
+    "forehand": [],
+    "backhand": ["Chen Meng", "Saki Shibata"]
+  },
   "user_ratings": {
     "overall": 8.9,
     "speed": 8.1,

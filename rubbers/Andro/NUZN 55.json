@@ -2,6 +2,10 @@
   "abbr": "NUZN 55",
   "name": "NUZN 55",
   "manufacturer": "Andro",
+  "players": {
+    "forehand": ["Gauzy Simon", "Bruna Takahashi", "Sabine Winter"],
+    "backhand": ["Gauzy Simon", "Bruna Takahashi"]
+  },
   "user_ratings": {
     "overall": 9.5,
     "speed": 9.6,

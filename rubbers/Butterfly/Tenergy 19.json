@@ -1,6 +1,10 @@
 {
   "abbr": "Tenergy 19",
   "name": "Tenergy 19",
+  "players": {
+    "forehand": ["Ricardo Walther"],
+    "backhand": ["Ricardo Walther", "Elizabeta Samara"]
+  },
   "manufacturer": "Butterfly",
   "user_ratings": {
     "overall": 9.3,

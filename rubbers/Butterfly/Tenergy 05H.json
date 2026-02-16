@@ -2,6 +2,10 @@
   "abbr": "Tenergy 05H",
   "name": "Tenergy 05 Hard",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["LIN Yun-Ju", "Miyu Nagasaki"],
+    "backhand": ["YANG Haeun"]
+  },
   "user_ratings": {
     "overall": 9.4,
     "speed": 9.6,

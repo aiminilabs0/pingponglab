@@ -2,6 +2,10 @@
   "abbr": "J&H C57.5",
   "name": "Jekyll & Hyde C57.5",
   "manufacturer": "Xiom",
+  "players": {
+    "forehand": ["Hugo Calderano"],
+    "backhand": []
+  },
   "user_ratings": {
     "overall": 9.5,
     "speed": 9.5,

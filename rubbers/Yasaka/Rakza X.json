@@ -2,6 +2,10 @@
   "abbr": "Rakza X",
   "name": "Rakza X",
   "manufacturer": "Yasaka",
+  "players": {
+    "forehand": ["Liang Jingkun"],
+    "backhand": []
+  },
   "user_ratings": {
     "overall": 9.2,
     "speed": 9,

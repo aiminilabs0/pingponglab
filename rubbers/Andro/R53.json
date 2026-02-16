@@ -2,6 +2,10 @@
   "abbr": "R53",
   "name": "Rasanter R53",
   "manufacturer": "Andro",
+  "players": {
+    "forehand": [],
+    "backhand": ["Sabine Winter"]
+  },
   "user_ratings": {
     "overall": 9.4,
     "speed": 9.5,

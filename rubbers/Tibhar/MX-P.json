@@ -2,6 +2,10 @@
   "abbr": "MX-P",
   "name": "Evolution MX-P",
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": ["Manav Thakkar"],
+    "backhand": ["Darko Jorgić"]
+  },
   "user_ratings": {
     "overall": 9.4,
     "speed": 9.5,

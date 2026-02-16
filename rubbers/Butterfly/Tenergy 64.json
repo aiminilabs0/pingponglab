@@ -2,6 +2,10 @@
   "abbr": "Tenergy 64",
   "name": "Tenergy 64",
   "manufacturer": "Butterfly",
+  "players": {
+    "forehand": ["Yang Ha-eun"],
+    "backhand": ["Yang Ha-eun"]
+  },
   "user_ratings": {
     "overall": 9.3,
     "speed": 9.3,
