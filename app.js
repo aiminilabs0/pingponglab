@@ -714,7 +714,7 @@ function getControlTierFromRank(rank) {
 
     // Easy = top 40% of control ranks, Med = middle 20%, Hard = bottom 40%
     if (pct < 0.4) return 'Easy';
-    if (pct < 0.6) return 'Med';
+    if (pct < 0.8) return 'Med';
     return 'Hard';
 }
 
