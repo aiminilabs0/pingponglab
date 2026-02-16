@@ -399,6 +399,13 @@ function formatWeightValue(value) {
     return Number.isInteger(value) ? String(value) : value.toFixed(1);
 }
 
+function getWeightTone(weight) {
+    if (!Number.isFinite(weight)) return '';
+    if (weight <= 48) return 'green';
+    if (weight <= 51) return 'yellow';
+    return 'red';
+}
+
 function getWeightRangeInputs() {
     return {
         minInput: document.getElementById('weightMinSlider'),
@@ -420,8 +427,14 @@ function updateWeightSliderTrack() {
     const rightPct = ((sliderMax - selectedMax) / span) * 100;
     track.style.left = `${leftPct}%`;
     track.style.right = `${rightPct}%`;
-    if (minLabel) minLabel.textContent = `${formatWeightValue(selectedMin)}g`;
-    if (maxLabel) maxLabel.textContent = `${formatWeightValue(selectedMax)}g`;
+    if (minLabel) {
+        minLabel.textContent = `${formatWeightValue(selectedMin)}g`;
+        minLabel.dataset.tone = getWeightTone(selectedMin);
+    }
+    if (maxLabel) {
+        maxLabel.textContent = `${formatWeightValue(selectedMax)}g`;
+        maxLabel.dataset.tone = getWeightTone(selectedMax);
+    }
 }
 
 function setWeightRange(minValue, maxValue) {

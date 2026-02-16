@@ -436,6 +436,9 @@ h1 {
     width: min(280px, 100%);
     margin-inline: auto;
 }
+.weight-range-labels span[data-tone="green"]  { color: var(--drac-green); }
+.weight-range-labels span[data-tone="yellow"] { color: var(--drac-yellow); }
+.weight-range-labels span[data-tone="red"]    { color: var(--drac-red); }
 .weight-slider-container {
     position: relative;
     height: 32px;
@@ -449,7 +452,8 @@ h1 {
     right: 0;
     height: 4px;
     transform: translateY(-50%);
-    background: var(--drac-current);
+    background: linear-gradient(90deg, var(--drac-green), var(--drac-yellow) 50%, var(--drac-red));
+    opacity: 0.4;
     border-radius: 2px;
     pointer-events: none;
 }
