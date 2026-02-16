@@ -20,15 +20,15 @@ const PRIORITY_FILE = 'stats/rubbers/ranking/priority.json';
 const BESTSELLER_FILE = 'stats/rubbers/ranking/bestseller.json';
 
 const BRAND_COLORS = {
-    Butterfly: '#E41A1C',
-    DHS: '#377EB8',
-    Andro: '#4DAF4A',
-    JOOLA: '#984EA3',
+    Butterfly: '#f11b85',
+    DHS: '#43d1d9',
+    Andro: '#4bad33',
+    JOOLA: '#d4da03',
     Xiom: '#FF7F00',
-    Tibhar: '#A65628',
-    Nittaku: '#F781BF',
-    Donic: '#999999',
-    Yasaka: '#FFFF33'
+    Tibhar: '#e3000b',
+    Nittaku: '#272e79',
+    Donic: '#4468b5',
+    Yasaka: '#7e67ff'
 };
 
 const SHEET_MARKERS = {
