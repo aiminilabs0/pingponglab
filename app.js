@@ -139,6 +139,39 @@ function normalizeSheet(value) {
     return 'Classic';
 }
 
+function formatPlayerLabel(raw) {
+    const uniquePlayers = new Set();
+
+    const collectPlayer = (value) => {
+        if (typeof value !== 'string') return;
+        const trimmed = value.trim();
+        if (trimmed) uniquePlayers.add(trimmed);
+    };
+
+    const collectPlayersFromValue = (value) => {
+        if (!value) return;
+        if (typeof value === 'string') {
+            collectPlayer(value);
+            return;
+        }
+        if (Array.isArray(value)) {
+            value.forEach(collectPlayersFromValue);
+            return;
+        }
+        if (typeof value === 'object') {
+            Object.values(value).forEach(collectPlayersFromValue);
+        }
+    };
+
+    collectPlayersFromValue(raw.player);
+    collectPlayersFromValue(raw.players);
+
+    if (uniquePlayers.size === 0) return 'N/A';
+    const names = Array.from(uniquePlayers);
+    if (names.length <= 2) return names.join(', ');
+    return `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
+}
+
 function buildFullName(brand, name) {
     const b = (brand || '').trim();
     const n = (name || '').trim();
@@ -245,6 +278,7 @@ async function loadRubberData() {
         const details = raw.manufacturer_details || {};
         const hardness = parseRatingNumber(details.hardness);
         const weightValue = parseRatingNumber(details.weight);
+        const releaseYear = parseRatingNumber(details.release_year);
         const hardnessFlag = COUNTRY_FLAGS[details.country] || '';
         const urls = raw.urls || {};
 
@@ -261,6 +295,8 @@ async function loadRubberData() {
             normalizedHardness: toGermanScale(hardness, details.country),
             hardnessLabel: Number.isFinite(hardness) ? `${hardness}°${hardnessFlag ? ` ${hardnessFlag}` : ''}` : 'N/A',
             weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
+            releaseYearLabel: Number.isFinite(releaseYear) ? String(Math.round(releaseYear)) : 'N/A',
+            playerLabel: formatPlayerLabel(raw),
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
             priority: 999, // will be overridden by priority ranking
@@ -1502,6 +1538,8 @@ function buildHoverPopupHtml(rubber, point) {
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
     const control = buildControlLevelIndicatorHtml(rubber?.controlRank);
     const brandColor = getBrandColor(brandName);
+    const releaseYear = rubber.releaseYearLabel || 'N/A';
+    const player = rubber.playerLabel || 'N/A';
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
         : '';
@@ -1523,6 +1561,8 @@ function buildHoverPopupHtml(rubber, point) {
                 <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+                <div class="chart-hover-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
+                <div class="chart-hover-metric"><span>Player</span><strong>${escapeHtml(player)}</strong></div>
             </div>
         </div>
     `;
