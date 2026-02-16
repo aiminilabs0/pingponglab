@@ -539,7 +539,8 @@ h1 {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--drac-current);
+    background: linear-gradient(90deg, var(--drac-green), var(--drac-yellow) 50%, var(--drac-red));
+    opacity: 0.4;
     border-radius: 2px;
     pointer-events: none;
 }
@@ -602,16 +603,6 @@ h1 {
     background: transparent;
     border: none;
 }
-.hardness-range-labels {
-    display: flex;
-    justify-content: space-between;
-    width: min(280px, 100%);
-    margin-inline: auto;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--drac-comment);
-}
-
 /* 3-scale labels (GE / JP / CN) above slider */
 .hardness-scale-labels {
     display: flex;
@@ -644,10 +635,24 @@ h1 {
 .hsr-spacer {
     flex: 1;
 }
-/* First row (GE = primary) slightly brighter, others dimmer */
-.hardness-scale-row:nth-child(2) .hsr-val,
-.hardness-scale-row:nth-child(3) .hsr-val {
-    color: var(--drac-comment);
+/* Hardness value tone colors (green / yellow / red) driven by data-tone */
+.hsr-val[data-tone="Soft"]   { color: var(--drac-green); }
+.hsr-val[data-tone="Medium"] { color: var(--drac-yellow); }
+.hsr-val[data-tone="Hard"]   { color: var(--drac-red); }
+/* Secondary rows (JP / CN) are dimmer */
+.hardness-scale-row:nth-child(2) .hsr-val[data-tone="Soft"],
+.hardness-scale-row:nth-child(3) .hsr-val[data-tone="Soft"] {
+    color: rgba(139,189,110,0.6);
+    font-weight: 500;
+}
+.hardness-scale-row:nth-child(2) .hsr-val[data-tone="Medium"],
+.hardness-scale-row:nth-child(3) .hsr-val[data-tone="Medium"] {
+    color: rgba(212,193,106,0.6);
+    font-weight: 500;
+}
+.hardness-scale-row:nth-child(2) .hsr-val[data-tone="Hard"],
+.hardness-scale-row:nth-child(3) .hsr-val[data-tone="Hard"] {
+    color: rgba(207,85,85,0.6);
     font-weight: 500;
 }
 

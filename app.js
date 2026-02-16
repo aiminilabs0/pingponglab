@@ -552,8 +552,14 @@ function updateHardnessSliderTrack() {
         const maxEl = document.getElementById(`hardness${key}Max`);
         const minVal = fromGermanScale(selectedMin, country);
         const maxVal = fromGermanScale(selectedMax, country);
-        if (minEl) minEl.textContent = formatHardnessValue(minVal) + '°';
-        if (maxEl) maxEl.textContent = formatHardnessValue(maxVal) + '°';
+        if (minEl) {
+            minEl.textContent = formatHardnessValue(minVal) + '°';
+            minEl.dataset.tone = getHardnessCategoryLabel(selectedMin) || '';
+        }
+        if (maxEl) {
+            maxEl.textContent = formatHardnessValue(maxVal) + '°';
+            maxEl.dataset.tone = getHardnessCategoryLabel(selectedMax) || '';
+        }
     }
 }
 
@@ -641,10 +647,6 @@ function initHardnessRangeFilter(onChange) {
             <div class="hardness-slider-track" id="hardnessSliderTrack"></div>
             <input id="hardnessMinSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.min}" step="0.5">
             <input id="hardnessMaxSlider" type="range" min="${bounds.min}" max="${bounds.max}" value="${bounds.max}" step="0.5">
-        </div>
-        <div class="hardness-range-labels">
-            <span>Soft</span>
-            <span>Hard</span>
         </div>
     `;
 
