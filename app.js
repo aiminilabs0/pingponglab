@@ -115,6 +115,8 @@ let ytPlayerIdCounter = 0;
 window.onYouTubeIframeAPIReady = () => { ytApiReady = true; };
 
 const rubberDetailsCache = {};
+const rubberComparisonCache = {};
+let comparisonRenderToken = 0;
 
 // ════════════════════════════════════════════════════════════
 //  Data Parsing & Normalization
@@ -1203,7 +1205,7 @@ function pushFiltersToUrl() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -1928,6 +1930,41 @@ async function fetchRubberDetailMarkdown(brand, abbr) {
     }
 }
 
+function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
+    const leftName = (leftRubber?.name || '').trim();
+    const rightName = (rightRubber?.name || '').trim();
+    return [leftName, rightName].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+}
+
+async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
+    const [nameA, nameB] = getAlphabeticalComparisonNames(leftRubber, rightRubber);
+    if (!nameA || !nameB) return null;
+    const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
+
+    const cacheKey = `${lang}/${nameA}_${nameB}`;
+    if (cacheKey in rubberComparisonCache) return rubberComparisonCache[cacheKey];
+
+    try {
+        const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(nameA)}_${encodeURIComponent(nameB)}`;
+        let resp = await fetch(localizedPath);
+        if (!resp.ok) {
+            // Backward compatibility for legacy files outside language directories.
+            const legacyPath = `rubbers_comparison/${encodeURIComponent(nameA)}_${encodeURIComponent(nameB)}`;
+            resp = await fetch(legacyPath);
+        }
+        if (!resp.ok) {
+            rubberComparisonCache[cacheKey] = null;
+            return null;
+        }
+        const text = await resp.text();
+        rubberComparisonCache[cacheKey] = text;
+        return text;
+    } catch {
+        rubberComparisonCache[cacheKey] = null;
+        return null;
+    }
+}
+
 async function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
     const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.abbr);
@@ -1956,13 +1993,26 @@ function handleRubberClick(rubber) {
     pushFiltersToUrl();
 }
 
-function updateComparisonBar() {
+async function updateComparisonBar() {
     const bar = document.getElementById('comparisonBar');
     const [left, right] = selectedRubbers;
     if (left && right) {
-        bar.textContent = `${left.name} vs ${right.name}`;
+        const renderToken = ++comparisonRenderToken;
+        const [nameA, nameB] = getAlphabeticalComparisonNames(left, right);
+        bar.innerHTML = `<div class="comparison-title">${nameA} vs ${nameB}</div>`;
         bar.style.display = 'block';
+
+        const markdown = await fetchRubberComparisonMarkdown(left, right);
+        if (renderToken !== comparisonRenderToken) return;
+
+        if (markdown) {
+            bar.innerHTML =
+                `<div class="comparison-title">${nameA} vs ${nameB}</div>` +
+                `<div class="comparison-content">${marked.parse(markdown)}</div>`;
+        }
     } else {
+        comparisonRenderToken++;
+        bar.innerHTML = '';
         bar.style.display = 'none';
     }
 }
@@ -2207,6 +2257,7 @@ function initCountrySelector() {
         pushFiltersToUrl();
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
+        updateComparisonBar();
     });
 }
 
