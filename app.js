@@ -1982,10 +1982,21 @@ async function updateDetailPanel(panelNum, rubber) {
     const detailMarkdown = await fetchRubberDetailMarkdown(rubber.brand, rubber.abbr);
     const markdown = detailMarkdown || descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
     const html = marked.parse(markdown);
-    const bestsellerBadge = rubber.bestseller ? ' <span class="bestseller-badge">★ Bestseller</span>' : '';
+    const bestsellerBadge = rubber.bestseller
+        ? '<span class="bestseller-badge">★ Bestseller</span>'
+        : '';
     const brandColor = getBrandColor(rubber.brand);
     panel.innerHTML =
-        `<h1 class="rubber-title" style="color:${brandColor}">${rubber.brand} ${rubber.name}${bestsellerBadge}</h1>` +
+        `<div class="rubber-title-header">` +
+            `<div class="rubber-title-top">` +
+                `<span class="rubber-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">` +
+                    `<span class="rubber-brand-dot" style="background:${brandColor}"></span>` +
+                    `${escapeHtml(rubber.brand)}` +
+                `</span>` +
+                (rubber.bestseller ? `<span class="bestseller-badge">★ Bestseller</span>` : '') +
+            `</div>` +
+            `<h1 class="rubber-title" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
+        `</div>` +
         `<div class="detail-panel-scroll">${html}${buildUrlLinksHtml(rubber)}</div>`;
 }
 
@@ -2005,14 +2016,38 @@ function handleRubberClick(rubber) {
     pushFiltersToUrl();
 }
 
+function buildComparisonTitleHtml(leftRubber, rightRubber) {
+    const leftColor = getBrandColor(leftRubber?.brand);
+    const rightColor = getBrandColor(rightRubber?.brand);
+    const leftBrand = escapeHtml(leftRubber?.brand || '');
+    const leftName  = escapeHtml(leftRubber?.name  || '');
+    const rightBrand = escapeHtml(rightRubber?.brand || '');
+    const rightName  = escapeHtml(rightRubber?.name  || '');
+
+    return `
+        <div class="comp-title-side">
+            <span class="comp-brand-pill" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
+                <span class="comp-brand-dot" style="background:${leftColor}"></span>${leftBrand}
+            </span>
+            <span class="comp-rubber-name" style="color:${leftColor}">${leftName}</span>
+        </div>
+        <div class="comp-title-vs">vs</div>
+        <div class="comp-title-side comp-title-side-right">
+            <span class="comp-brand-pill" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
+                <span class="comp-brand-dot" style="background:${rightColor}"></span>${rightBrand}
+            </span>
+            <span class="comp-rubber-name" style="color:${rightColor}">${rightName}</span>
+        </div>
+    `;
+}
+
 async function updateComparisonBar() {
     const bar = document.getElementById('comparisonBar');
     const [left, right] = selectedRubbers;
     if (left && right) {
         const renderToken = ++comparisonRenderToken;
-        const [nameA, nameB] = getAlphabeticalComparisonNames(left, right);
-        const titleStyle = buildComparisonTitleStyle(left, right);
-        bar.innerHTML = `<div class="comparison-title" ${titleStyle}>${nameA} vs ${nameB}</div>`;
+        const compTitleHtml = buildComparisonTitleHtml(left, right);
+        bar.innerHTML = `<div class="comparison-title">${compTitleHtml}</div>`;
         bar.style.display = 'flex';
 
         const markdown = await fetchRubberComparisonMarkdown(left, right);
@@ -2020,7 +2055,7 @@ async function updateComparisonBar() {
 
         if (markdown) {
             bar.innerHTML =
-                `<div class="comparison-title" ${titleStyle}>${nameA} vs ${nameB}</div>` +
+                `<div class="comparison-title">${compTitleHtml}</div>` +
                 `<div class="comparison-content-scroll"><div class="comparison-content">${marked.parse(markdown)}</div></div>`;
         }
     } else {
