@@ -1894,7 +1894,7 @@ function extractYouTubeVideoId(url) {
 
 const PRODUCT_ICON = {
     us: 'images/product/amazon.ico',
-    eu: 'images/product/amazon.ico',
+    eu: 'images/product/sale.ico',
     cn: 'images/product/taobao.ico',
     kr: 'images/product/coupang.ico'
 };
@@ -1921,7 +1921,8 @@ function buildTitleLinkIconsHtml(rubber) {
             );
         }
     }
-    if (countryUrls.product) {
+    // TODO: enable later
+    if (false) { // if (countryUrls.product) {
         const icon = PRODUCT_ICON[selectedCountry] || PRODUCT_ICON.us;
         parts.push(
             `<a class="rubber-title-icon-link" href="${countryUrls.product}" target="_blank" rel="noopener" title="Buy Product" aria-label="Buy Product">` +
