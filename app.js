@@ -1486,7 +1486,7 @@ function buildControlLevelIndicatorHtml(rank) {
     )).join('');
 
     return `
-        <span class="chart-control-boxes" aria-label="Control level L${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
+        <span class="chart-control-boxes control-level-${clampedLevel}" aria-label="Control level L${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
     `.trim();
 }
 

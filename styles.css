@@ -1030,6 +1030,35 @@ h1 {
     border-color: rgba(126,184,168,0.85);
     background: rgba(126,184,168,0.95);
 }
+.chart-control-level-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+.chart-control-boxes.control-level-1 .chart-control-box.is-filled {
+    border-color: #6fbf73;
+    background: #6fbf73;
+}
+.chart-control-boxes.control-level-2 .chart-control-box.is-filled {
+    border-color: #a3d977;
+    background: #a3d977;
+}
+.chart-control-boxes.control-level-3 .chart-control-box.is-filled {
+    border-color: #d4c16a;
+    background: #d4c16a;
+}
+.chart-control-boxes.control-level-4 .chart-control-box.is-filled {
+    border-color: #ff7f7f;
+    background: #ff7f7f;
+}
+.chart-control-boxes.control-level-5 .chart-control-box.is-filled {
+    border-color: #cf5555;
+    background: #cf5555;
+}
 .chart-hover-tags {
     display: flex;
     gap: 6px;
