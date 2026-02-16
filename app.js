@@ -1936,6 +1936,18 @@ function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
     return [leftName, rightName].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 }
 
+function buildComparisonTitleStyle(leftRubber, rightRubber) {
+    const leftColor = getBrandColor(leftRubber?.brand);
+    const rightColor = getBrandColor(rightRubber?.brand);
+
+    if (leftColor === rightColor) {
+        return `style="color:${leftColor}"`;
+    }
+
+    // Use both rubber brand colors when comparing different brands.
+    return `style="color:${leftColor};background:linear-gradient(90deg,${leftColor} 0%,${rightColor} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"`;
+}
+
 async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
     const [nameA, nameB] = getAlphabeticalComparisonNames(leftRubber, rightRubber);
     if (!nameA || !nameB) return null;
@@ -1974,7 +1986,7 @@ async function updateDetailPanel(panelNum, rubber) {
     const brandColor = getBrandColor(rubber.brand);
     panel.innerHTML =
         `<h1 class="rubber-title" style="color:${brandColor}">${rubber.brand} ${rubber.name}${bestsellerBadge}</h1>` +
-        html + buildUrlLinksHtml(rubber);
+        `<div class="detail-panel-scroll">${html}${buildUrlLinksHtml(rubber)}</div>`;
 }
 
 function resetDetailPanels() {
@@ -1999,16 +2011,17 @@ async function updateComparisonBar() {
     if (left && right) {
         const renderToken = ++comparisonRenderToken;
         const [nameA, nameB] = getAlphabeticalComparisonNames(left, right);
-        bar.innerHTML = `<div class="comparison-title">${nameA} vs ${nameB}</div>`;
-        bar.style.display = 'block';
+        const titleStyle = buildComparisonTitleStyle(left, right);
+        bar.innerHTML = `<div class="comparison-title" ${titleStyle}>${nameA} vs ${nameB}</div>`;
+        bar.style.display = 'flex';
 
         const markdown = await fetchRubberComparisonMarkdown(left, right);
         if (renderToken !== comparisonRenderToken) return;
 
         if (markdown) {
             bar.innerHTML =
-                `<div class="comparison-title">${nameA} vs ${nameB}</div>` +
-                `<div class="comparison-content">${marked.parse(markdown)}</div>`;
+                `<div class="comparison-title" ${titleStyle}>${nameA} vs ${nameB}</div>` +
+                `<div class="comparison-content-scroll"><div class="comparison-content">${marked.parse(markdown)}</div></div>`;
         }
     } else {
         comparisonRenderToken++;
