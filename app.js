@@ -2053,6 +2053,7 @@ function updateRadarChart() {
     const leftPanel = document.getElementById('radarInfoLeft');
     const rightPanel = document.getElementById('radarInfoRight');
     const [left, right] = selectedRubbers;
+    const isMobile = window.innerWidth <= 768;
 
     leftPanel.innerHTML = '';
     rightPanel.innerHTML = '';
@@ -2090,13 +2091,13 @@ function updateRadarChart() {
                 categoryarray: radarCategories,
                 gridcolor: 'rgba(158,150,137,0.18)',
                 linecolor: 'rgba(158,150,137,0.25)',
-                tickfont: { color: '#e8e0d0', size: 11 },
+                tickfont: { color: '#e8e0d0', size: isMobile ? 9 : 11 },
             },
         },
         showlegend: false,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        margin: { t: 25, b: 30, l: 30, r: 30 },
+        margin: isMobile ? { t: 35, b: 35, l: 45, r: 45 } : { t: 25, b: 30, l: 30, r: 30 },
     };
 
     const config = {
