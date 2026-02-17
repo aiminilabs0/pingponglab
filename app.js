@@ -2436,8 +2436,9 @@ function initFilters() {
     document.getElementById('autoscaleBtn').addEventListener('click', () => {
         triggerAutoscale();
     });
-    document.getElementById('zoomInBtn').addEventListener('click', () => zoomChart(0.6));
-    document.getElementById('zoomOutBtn').addEventListener('click', () => zoomChart(1.4));
+    const ZOOM_IN = 0.6;
+    document.getElementById('zoomInBtn').addEventListener('click', () => zoomChart(ZOOM_IN));
+    document.getElementById('zoomOutBtn').addEventListener('click', () => zoomChart(1 / ZOOM_IN));
 
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
