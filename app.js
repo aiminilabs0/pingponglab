@@ -176,6 +176,18 @@ function formatPlayerLabel(raw) {
     return `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
 }
 
+function formatThicknessLabel(value) {
+    if (Array.isArray(value)) {
+        const entries = value
+            .map(item => (item == null ? '' : String(item).trim()))
+            .filter(Boolean);
+        return entries.length ? entries.join(', ') : 'N/A';
+    }
+    if (value == null) return 'N/A';
+    const normalized = String(value).trim();
+    return normalized || 'N/A';
+}
+
 function buildFullName(brand, name) {
     const b = (brand || '').trim();
     const n = (name || '').trim();
@@ -300,6 +312,7 @@ async function loadRubberData() {
             hardnessLabel: Number.isFinite(hardness) ? `${hardness}°${hardnessFlag ? ` ${hardnessFlag}` : ''}` : 'N/A',
             weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
             releaseYearLabel: Number.isFinite(releaseYear) ? String(Math.round(releaseYear)) : 'N/A',
+            thicknessLabel: formatThicknessLabel(details.thickness),
             playerLabel: formatPlayerLabel(raw),
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
@@ -1425,8 +1438,6 @@ function buildHoverPopupHtml(rubber, point) {
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
     const control = buildControlLevelIndicatorHtml(rubber?.controlRank);
     const brandColor = getBrandColor(brandName);
-    const releaseYear = rubber.releaseYearLabel || 'N/A';
-    const player = rubber.playerLabel || 'N/A';
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
         : '';
@@ -1448,8 +1459,6 @@ function buildHoverPopupHtml(rubber, point) {
                 <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
-                <div class="chart-hover-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
-                <div class="chart-hover-metric"><span>Player</span><strong>${escapeHtml(player)}</strong></div>
             </div>
         </div>
     `;
@@ -2137,6 +2146,9 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
     const weightToneClass = getWeightToneClass(rubber.weight);
     const hardness = formatHardnessPopupLabel(rubber);
     const hardnessToneClass = getHardnessToneClass(rubber.normalizedHardness);
+    const releaseYear = rubber.releaseYearLabel || 'N/A';
+    const thickness = rubber.thicknessLabel || 'N/A';
+    const player = rubber.playerLabel || 'N/A';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
 
     return `
@@ -2151,6 +2163,9 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
             <div class="radar-info-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
             <div class="radar-info-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
             <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+            <div class="radar-info-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
+            <div class="radar-info-metric"><span>Thickness</span><strong>${escapeHtml(thickness)}</strong></div>
+            <div class="radar-info-metric"><span>Player</span><strong>${escapeHtml(player)}</strong></div>
         </div>
     `;
 }
