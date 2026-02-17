@@ -1014,36 +1014,73 @@ h1 {
     color: #eadc9e;
 }
 
-/* ── Detail panels ── */
-.details-container {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-.detail-panel {
-    flex: 1;
-    min-width: 320px;
-    padding: 0;
-    border: 1.5px solid var(--drac-current);
-    border-radius: 14px;
+/* ── Content card (tabbed detail/comparison) ── */
+.content-card {
     background: var(--drac-bg-dark);
-    min-height: 220px;
+    border-left: 1.5px solid var(--drac-current);
+    border-right: 1.5px solid var(--drac-current);
+    border-bottom: 1.5px solid var(--drac-current);
+    border-top: 1px solid var(--drac-current);
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
-.detail-panel .content {
+
+/* Tab bar */
+.content-tabs {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--drac-current);
+    padding: 0 16px;
+    gap: 0;
+    flex-shrink: 0;
+}
+.content-tabs:empty { display: none; }
+
+.content-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s ease;
+}
+.content-tab:hover { color: var(--drac-fg); }
+.content-tab--active { color: var(--drac-fg); }
+.content-tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.content-tab--vs { margin-left: auto; font-size: 12px; letter-spacing: 0.3px; }
+.content-tab--vs.content-tab--active { border-bottom-color: var(--drac-comment); }
+
+/* Content body */
+.content-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; max-height: 75vh; }
+.content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.content-pane--empty { align-items: center; justify-content: center; min-height: 60px; }
+.content-pane-placeholder { color: var(--drac-comment); font-size: 12px; font-weight: 500; opacity: 0.6; }
+
+.content-pane .content {
     color: var(--drac-fg);
     line-height: 1.6;
 }
-.detail-panel strong {
+.content-pane strong {
     color: var(--drac-cyan);
 }
-.detail-panel a {
+.content-pane a {
     color: var(--drac-cyan);
     text-decoration: none;
 }
-.detail-panel a:hover {
+.content-pane a:hover {
     text-decoration: underline;
     color: var(--drac-green);
 }
@@ -1053,10 +1090,10 @@ h1 {
     flex-direction: column;
     gap: 6px;
     flex-shrink: 0;
-    padding: 20px 24px 14px;
-    border-bottom: 2px solid var(--drac-current);
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--drac-current);
     background: var(--drac-bg-dark);
-    border-radius: 14px 14px 0 0;
+    border-radius: 0;
     z-index: 2;
 }
 .rubber-title-top {
@@ -1084,7 +1121,7 @@ h1 {
     border-radius: 50%;
     flex-shrink: 0;
 }
-.detail-panel h1.rubber-title {
+.content-pane h1.rubber-title {
     margin: 0;
     font-size: 26px;
     font-weight: 800;
@@ -1144,38 +1181,30 @@ h1 {
     image-rendering: auto;
 }
 /* YouTube embed sits flush between title header and scroll content */
-.detail-panel .youtube-embed-wrapper {
+.content-pane .youtube-embed-wrapper {
     flex-shrink: 0;
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    border-bottom: 2px solid var(--drac-current);
+    border-bottom: 1px solid var(--drac-current);
 }
-.detail-panel-scroll {
+.content-pane-scroll {
     overflow-y: auto;
     flex: 1;
-    padding: 16px 24px 24px;
+    padding: 14px 20px 20px;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
 }
-.detail-panel-scroll::-webkit-scrollbar {
+.content-pane-scroll::-webkit-scrollbar {
     width: 5px;
 }
-.detail-panel-scroll::-webkit-scrollbar-track {
+.content-pane-scroll::-webkit-scrollbar-track {
     background: transparent;
 }
-.detail-panel-scroll::-webkit-scrollbar-thumb {
+.content-pane-scroll::-webkit-scrollbar-thumb {
     background: var(--drac-current);
     border-radius: 10px;
-}
-/* Placeholder state (no rubber selected) */
-.detail-panel > h3 {
-    padding: 24px 24px 0;
-    margin: 0;
-}
-.detail-panel > .content {
-    padding: 8px 24px 24px;
 }
 .bestseller-badge {
     display: inline-flex;
@@ -1191,88 +1220,88 @@ h1 {
     white-space: nowrap;
 }
 
-/* ── Rich markdown inside detail panels ── */
-.detail-panel-scroll h1 {
+/* ── Rich markdown inside content pane ── */
+.content-pane-scroll h1 {
     color: var(--drac-pink);
     font-size: 25px;
     font-weight: 700;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--drac-current);
+    border-bottom: 1px solid var(--drac-current);
     line-height: 1.3;
 }
-.detail-panel h2 {
+.content-pane h2 {
     color: var(--drac-orange);
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 700;
-    margin: 22px 0 12px;
+    margin: 18px 0 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(62,58,52,0.6);
+    border-bottom: 1px solid rgba(62,58,52,0.5);
     letter-spacing: 0.2px;
 }
-.detail-panel h3 {
+.content-pane h3 {
     color: var(--drac-purple);
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
-    margin: 18px 0 8px;
+    margin: 14px 0 6px;
 }
-.detail-panel p {
+.content-pane p {
     color: var(--drac-fg);
-    margin: 10px 0;
+    margin: 8px 0;
     line-height: 1.7;
-    font-size: 15.5px;
+    font-size: 14.5px;
 }
-.detail-panel hr {
+.content-pane hr {
     border: none;
     border-top: 1px solid var(--drac-current);
     margin: 16px 0;
 }
 
 /* Blockquotes */
-.detail-panel blockquote {
+.content-pane blockquote {
     margin: 14px 0;
-    padding: 12px 18px;
-    border-left: 3px solid var(--drac-orange);
+    padding: 10px 16px;
+    border-left: 2px solid var(--drac-orange);
     background: rgba(218,138,82,0.07);
     border-radius: 0 8px 8px 0;
     font-style: italic;
     color: var(--drac-fg);
-    font-size: 15.5px;
+    font-size: 14.5px;
     line-height: 1.65;
 }
-.detail-panel blockquote p {
+.content-pane blockquote p {
     margin: 0;
 }
 
 /* Unordered & ordered lists */
-.detail-panel ul,
-.detail-panel ol {
+.content-pane ul,
+.content-pane ol {
     margin: 10px 0 10px 8px;
     padding-left: 18px;
-    font-size: 15.5px;
+    font-size: 14.5px;
     line-height: 1.7;
     color: var(--drac-fg);
 }
-.detail-panel li {
+.content-pane li {
     margin: 6px 0;
     padding-left: 4px;
 }
-.detail-panel li::marker {
+.content-pane li::marker {
     color: var(--drac-comment);
 }
-.detail-panel ol li::marker {
+.content-pane ol li::marker {
     color: var(--drac-orange);
     font-weight: 600;
 }
 
 /* Emphasis / italic */
-.detail-panel em {
+.content-pane em {
     color: var(--drac-comment);
     font-style: italic;
 }
 
 /* Tables */
-.detail-panel table {
+.content-pane table {
     width: 100%;
     border-collapse: collapse;
     margin: 14px 0;
@@ -1282,35 +1311,35 @@ h1 {
     border-radius: 8px;
     overflow: hidden;
 }
-.detail-panel thead th {
+.content-pane thead th {
     background: var(--drac-current);
     color: var(--drac-fg);
     font-weight: 700;
     text-align: left;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-bottom: 2px solid rgba(155,148,132,0.25);
     white-space: nowrap;
 }
-.detail-panel tbody td {
-    padding: 12px 16px;
+.content-pane tbody td {
+    padding: 10px 14px;
     border-bottom: 1px solid rgba(62,58,52,0.6);
     color: var(--drac-fg);
     vertical-align: top;
 }
-.detail-panel tbody tr:last-child td {
+.content-pane tbody tr:last-child td {
     border-bottom: none;
 }
-.detail-panel tbody tr:hover {
+.content-pane tbody tr:hover {
     background: rgba(62,58,52,0.35);
 }
-.detail-panel tbody td:first-child {
+.content-pane tbody td:first-child {
     white-space: nowrap;
     font-weight: 600;
     color: var(--drac-cyan);
 }
 
 /* Inline code (if any) */
-.detail-panel code {
+.content-pane code {
     background: var(--drac-current);
     color: var(--drac-green);
     padding: 2px 7px;
@@ -1324,7 +1353,8 @@ h1 {
     margin-top: 24px;
     background: var(--drac-bg-dark);
     border: 1.5px solid var(--drac-current);
-    border-radius: 14px;
+    border-bottom: none;
+    border-radius: 14px 14px 0 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1431,42 +1461,17 @@ h1 {
     }
 }
 
-/* Scrollable detail panels for long content */
-.detail-panel {
-    max-height: 75vh;
-}
-.comparison-bar {
-    margin-top: 24px;
-    padding: 0;
-    background: var(--drac-bg-dark);
-    border: 1.5px solid var(--drac-current);
-    border-radius: 14px;
-    color: var(--drac-fg);
-    max-height: 75vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-.comparison-bar::-webkit-scrollbar {
-    width: 5px;
-}
-.comparison-bar::-webkit-scrollbar-track {
-    background: transparent;
-}
-.comparison-bar::-webkit-scrollbar-thumb {
-    background: var(--drac-current);
-    border-radius: 10px;
-}
+/* Comparison title header (used inside content pane) */
 .comparison-title {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 18px 24px 14px;
+    padding: 14px 20px 10px;
     margin-bottom: 0;
-    border-bottom: 2px solid var(--drac-current);
+    border-bottom: 1px solid var(--drac-current);
     flex-shrink: 0;
     background: var(--drac-bg-dark);
-    border-radius: 14px 14px 0 0;
+    border-radius: 0;
     z-index: 2;
     flex-wrap: wrap;
 }
@@ -1523,157 +1528,6 @@ h1 {
     border-radius: 8px;
     line-height: 1;
     background: rgba(62,58,52,0.4);
-}
-.comparison-content-scroll {
-    overflow-y: auto;
-    flex: 1;
-    padding: 16px 24px 24px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--drac-current) transparent;
-}
-.comparison-content-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-.comparison-content-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-.comparison-content-scroll::-webkit-scrollbar-thumb {
-    background: var(--drac-current);
-    border-radius: 10px;
-}
-.comparison-content {
-    text-align: left;
-    color: var(--drac-fg);
-}
-.comparison-content strong {
-    color: var(--drac-cyan);
-}
-.comparison-content a {
-    color: var(--drac-cyan);
-    text-decoration: none;
-}
-.comparison-content a:hover {
-    text-decoration: underline;
-    color: var(--drac-green);
-}
-.comparison-content h1,
-.comparison-content h2,
-.comparison-content h3 {
-    color: var(--drac-orange);
-}
-.comparison-content h1 {
-    font-size: 25px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--drac-current);
-    line-height: 1.3;
-}
-.comparison-content h2 {
-    font-size: 19px;
-    font-weight: 700;
-    margin: 22px 0 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(62,58,52,0.6);
-    letter-spacing: 0.2px;
-}
-.comparison-content h3 {
-    color: var(--drac-purple);
-    font-size: 17px;
-    font-weight: 600;
-    margin: 18px 0 8px;
-}
-.comparison-content p {
-    color: var(--drac-fg);
-    margin: 10px 0;
-    line-height: 1.7;
-    font-size: 15.5px;
-}
-.comparison-content hr {
-    border: none;
-    border-top: 1px solid var(--drac-current);
-    margin: 16px 0;
-}
-.comparison-content blockquote {
-    margin: 14px 0;
-    padding: 12px 18px;
-    border-left: 3px solid var(--drac-orange);
-    background: rgba(218,138,82,0.07);
-    border-radius: 0 8px 8px 0;
-    font-style: italic;
-    color: var(--drac-fg);
-    font-size: 15.5px;
-    line-height: 1.65;
-}
-.comparison-content blockquote p {
-    margin: 0;
-}
-.comparison-content ul,
-.comparison-content ol {
-    margin: 10px 0 10px 8px;
-    padding-left: 18px;
-    font-size: 15.5px;
-    line-height: 1.7;
-    color: var(--drac-fg);
-}
-.comparison-content li {
-    margin: 6px 0;
-    padding-left: 4px;
-}
-.comparison-content li::marker {
-    color: var(--drac-comment);
-}
-.comparison-content ol li::marker {
-    color: var(--drac-orange);
-    font-weight: 600;
-}
-.comparison-content em {
-    color: var(--drac-comment);
-    font-style: italic;
-}
-.comparison-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 14px 0;
-    font-size: 15px;
-    line-height: 1.55;
-    border: 1px solid var(--drac-current);
-    border-radius: 8px;
-    overflow: hidden;
-}
-.comparison-content thead th {
-    background: var(--drac-current);
-    color: var(--drac-fg);
-    font-weight: 700;
-    text-align: left;
-    padding: 12px 16px;
-    border-bottom: 2px solid rgba(155,148,132,0.25);
-    white-space: nowrap;
-}
-.comparison-content tbody td {
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(62,58,52,0.6);
-    color: var(--drac-fg);
-    vertical-align: top;
-}
-.comparison-content tbody tr:last-child td {
-    border-bottom: none;
-}
-.comparison-content tbody tr:hover {
-    background: rgba(62,58,52,0.35);
-}
-.comparison-content tbody td:first-child {
-    white-space: nowrap;
-    font-weight: 600;
-    color: var(--drac-cyan);
-}
-.comparison-content code {
-    background: var(--drac-current);
-    color: var(--drac-green);
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
 /* ── Feedback form ── */
@@ -1900,7 +1754,10 @@ h1 {
     .header-ctrl-btn { width: 34px; height: 34px; border-radius: 8px; }
     .header-ctrl-btn svg { width: 14px; height: 14px; }
     .header-ctrl-fit { padding: 0 12px; font-size: 13px; min-width: 60px; }
-    .details-container { flex-direction: column; }
+    .content-body { max-height: none; overflow: visible; }
+    .content-pane-scroll { overflow-y: visible; max-height: none; }
+    .content-tabs { padding: 0 10px; overflow-x: auto; }
+    .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
     #chart { height: 440px; }
     .site-footer-content {
         flex-direction: column;
@@ -1949,22 +1806,10 @@ h1 {
         display: block;
     }
 
-    /* Remove internal scroll on detail panels so main page scrolls naturally */
-    .detail-panel,
-    .comparison-bar {
-        max-height: none;
-        overflow-y: visible;
-        overflow: visible;
-    }
-    .detail-panel-scroll,
-    .comparison-content-scroll {
-        overflow-y: visible;
-        max-height: none;
-    }
 }
 
 @media (min-width: 769px) {
-    /* rubber-title is pinned via flex layout in .detail-panel — no sticky needed */
+    /* rubber-title is pinned via flex layout in .content-pane — no sticky needed */
 }
 
 /* YouTube pseudo-fullscreen in landscape */

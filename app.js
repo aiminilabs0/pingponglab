@@ -115,6 +115,11 @@ const rubberDescriptionsCache = {};
 const rubberComparisonCache = {};
 let comparisonRenderToken = 0;
 
+// Tab system state
+let activeTab = null;          // 'desc1' | 'desc2' | 'comparison' | null
+let tabContents = { desc1: null, desc2: null, comparison: null };
+let tabScrollPositions = { desc1: 0, desc2: 0, comparison: 0 };
+
 // ════════════════════════════════════════════════════════════
 //  Data Parsing & Normalization
 // ════════════════════════════════════════════════════════════
@@ -1108,11 +1113,13 @@ function applyFiltersFromUrl() {
     deserializeFilterParam(params, 'rubbers', 'nameFilter');
 
     // Restore selected rubber detail panels
+    let lastRestoredTab = null;
     if (params.has('left')) {
         const leftRubber = rubberData.find(r => r.fullName === params.get('left'));
         if (leftRubber) {
             selectedRubbers[0] = leftRubber;
             updateDetailPanel(1, leftRubber);
+            lastRestoredTab = 'desc1';
         }
     }
     if (params.has('right')) {
@@ -1121,6 +1128,7 @@ function applyFiltersFromUrl() {
             selectedRubbers[1] = rightRubber;
             updateDetailPanel(2, rightRubber);
             nextDetailPanel = 1;
+            lastRestoredTab = 'desc2';
         }
     }
     if (params.has('left') && !params.has('right')) {
@@ -1129,6 +1137,8 @@ function applyFiltersFromUrl() {
 
     updateRadarChart();
     updateComparisonBar();
+    renderTabs();
+    if (lastRestoredTab) setActiveTab(lastRestoredTab);
     updateFilterSummary();
 }
 
@@ -1875,8 +1885,82 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
     }
 }
 
+// ── Tab system functions ──
+
+function buildTabButtonContent(rubber) {
+    const color = getBrandColor(rubber.brand);
+    return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(rubber.name)}`;
+}
+
+function renderTabs() {
+    const tabBar = document.getElementById('contentTabs');
+    let html = '';
+    if (selectedRubbers[0]) {
+        html += `<button class="content-tab" data-tab="desc1">${buildTabButtonContent(selectedRubbers[0])}</button>`;
+    }
+    if (selectedRubbers[1]) {
+        html += `<button class="content-tab" data-tab="desc2">${buildTabButtonContent(selectedRubbers[1])}</button>`;
+    }
+    if (selectedRubbers[0] && selectedRubbers[1]) {
+        html += `<button class="content-tab content-tab--vs" data-tab="comparison">Comparison</button>`;
+    }
+    tabBar.innerHTML = html;
+    highlightActiveTab();
+}
+
+function highlightActiveTab() {
+    const tabBar = document.getElementById('contentTabs');
+    tabBar.querySelectorAll('.content-tab').forEach(btn => {
+        const isActive = btn.dataset.tab === activeTab;
+        btn.classList.toggle('content-tab--active', isActive);
+        if (isActive && !btn.classList.contains('content-tab--vs')) {
+            // Find the rubber for this tab and use its brand color
+            const idx = btn.dataset.tab === 'desc1' ? 0 : 1;
+            const rubber = selectedRubbers[idx];
+            const color = rubber ? getBrandColor(rubber.brand) : '';
+            btn.style.borderBottomColor = color;
+        } else if (isActive && btn.classList.contains('content-tab--vs')) {
+            // Comparison tab active color is handled by CSS
+            btn.style.borderBottomColor = '';
+        } else {
+            btn.style.borderBottomColor = 'transparent';
+        }
+    });
+}
+
+function setActiveTab(tabId) {
+    const pane = document.getElementById('contentPane');
+    const contentBody = document.getElementById('contentBody');
+
+    // Save scroll position of outgoing tab
+    if (activeTab && tabContents[activeTab] != null) {
+        tabScrollPositions[activeTab] = contentBody.scrollTop || 0;
+    }
+
+    // Clean up YouTube embeds before swapping content
+    resetYouTubePlayers();
+
+    activeTab = tabId;
+
+    if (tabId && tabContents[tabId] != null) {
+        pane.classList.remove('content-pane--empty');
+        pane.innerHTML = tabContents[tabId];
+        // Restore scroll position
+        requestAnimationFrame(() => {
+            contentBody.scrollTop = tabScrollPositions[tabId] || 0;
+        });
+    } else {
+        pane.classList.add('content-pane--empty');
+        pane.innerHTML = '<span class="content-pane-placeholder">Select a rubber to see its description</span>';
+    }
+
+    highlightActiveTab();
+}
+
+// ── Detail panel / comparison functions ──
+
 async function updateDetailPanel(panelNum, rubber) {
-    const panel = document.getElementById(`detail${panelNum}`);
+    const tabKey = `desc${panelNum}`;
     const brandColor = getBrandColor(rubber.brand);
     const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
     const headerHtml =
@@ -1898,17 +1982,27 @@ async function updateDetailPanel(panelNum, rubber) {
 
     if (detailMarkdown) {
         const html = marked.parse(detailMarkdown);
-        panel.innerHTML = headerHtml + `<div class="detail-panel-scroll">${html}</div>`;
+        tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll">${html}</div>`;
     } else {
-        panel.innerHTML = headerHtml + '<div class="content">No description available.</div>';
+        tabContents[tabKey] = headerHtml + '<div class="content">No description available.</div>';
+    }
+
+    // If this tab is currently active, refresh the pane
+    if (activeTab === tabKey) {
+        setActiveTab(tabKey);
     }
 }
 
 function resetDetailPanels() {
-    const panel1 = document.getElementById('detail1');
-    const panel2 = document.getElementById('detail2');
-    if (panel1) panel1.innerHTML = '<h3>Select a rubber</h3><div class="content">Click on any rubber to see description</div>';
-    if (panel2) panel2.innerHTML = '<h3>Select another rubber</h3><div class="content">Click on another rubber to compare</div>';
+    tabContents = { desc1: null, desc2: null, comparison: null };
+    tabScrollPositions = { desc1: 0, desc2: 0, comparison: 0 };
+    activeTab = null;
+    const pane = document.getElementById('contentPane');
+    if (pane) {
+        pane.classList.add('content-pane--empty');
+        pane.innerHTML = '<span class="content-pane-placeholder">Select a rubber to see its description</span>';
+    }
+    renderTabs();
 }
 
 function handleRubberClick(rubber) {
@@ -1918,6 +2012,8 @@ function handleRubberClick(rubber) {
     updateDetailPanel(panelNum, rubber);
     updateRadarChart();
     updateComparisonBar();
+    renderTabs();
+    setActiveTab(`desc${panelNum}`);
     pushFiltersToUrl();
 }
 
@@ -1947,26 +2043,34 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
 }
 
 async function updateComparisonBar() {
-    const bar = document.getElementById('comparisonBar');
     const [left, right] = selectedRubbers;
     if (left && right) {
         const renderToken = ++comparisonRenderToken;
         const compTitleHtml = buildComparisonTitleHtml(left, right);
-        bar.innerHTML = `<div class="comparison-title">${compTitleHtml}</div>`;
-        bar.style.display = 'flex';
+        // Set initial comparison content (title only)
+        tabContents.comparison = `<div class="comparison-title">${compTitleHtml}</div>` +
+            `<div class="content-pane-scroll"><div class="content" style="padding:20px;color:var(--drac-comment);font-size:13px;">Loading comparison…</div></div>`;
+        renderTabs();
+        if (activeTab === 'comparison') setActiveTab('comparison');
 
         const markdown = await fetchRubberComparisonMarkdown(left, right);
         if (renderToken !== comparisonRenderToken) return;
 
         if (markdown) {
-            bar.innerHTML =
+            tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
-                `<div class="comparison-content-scroll"><div class="comparison-content">${marked.parse(markdown)}</div></div>`;
+                `<div class="content-pane-scroll">${marked.parse(markdown)}</div>`;
+        } else {
+            tabContents.comparison =
+                `<div class="comparison-title">${compTitleHtml}</div>` +
+                `<div class="content-pane-scroll"><div class="content" style="padding:20px;color:var(--drac-comment);font-size:13px;">No comparison available.</div></div>`;
         }
+        renderTabs();
+        if (activeTab === 'comparison') setActiveTab('comparison');
     } else {
         comparisonRenderToken++;
-        bar.innerHTML = '';
-        bar.style.display = 'none';
+        tabContents.comparison = null;
+        renderTabs();
     }
 }
 
@@ -2122,7 +2226,7 @@ function updateRadarChart() {
 // ════════════════════════════════════════════════════════════
 
 function toggleYouTubeEmbed(iconLink, videoId) {
-    const panel = iconLink.closest('.detail-panel');
+    const panel = iconLink.closest('.content-pane');
     if (!panel) return;
 
     // Toggle off if embed already exists in this panel
@@ -2249,7 +2353,6 @@ function resetAppToInitialState() {
     resetFiltersToAll();
     resetDetailPanels();
     updateRadarChart();
-    updateComparisonBar();
     updateFilterSummary();
     pushFiltersToUrl();
 
@@ -2358,6 +2461,7 @@ function initCountrySelector() {
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
         updateComparisonBar();
+        renderTabs();
     });
 }
 
@@ -2523,6 +2627,14 @@ async function initializeApp() {
     initHomeLogo();
     initFeedbackModal();
     initFilters();
+
+    // Tab click listener
+    document.getElementById('contentTabs').addEventListener('click', (e) => {
+        const tab = e.target.closest('.content-tab');
+        if (!tab || tab.classList.contains('content-tab--active')) return;
+        setActiveTab(tab.dataset.tab);
+    });
+
     applyFiltersFromUrl();
     updateRadarChart();
     initChart();
