@@ -2212,7 +2212,9 @@ function updateRadarChart() {
     const config = {
         displayModeBar: false,
         responsive: true,
-        
+        scrollZoom: false,
+        doubleClick: false,
+        showTips: false,
     };
 
     chartEl.style.height = `${chartHeight}px`;
