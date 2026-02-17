@@ -1514,7 +1514,7 @@ function updateChart(options = {}) {
             x: bestsellers.map(r => r.x),
             y: bestsellers.map(r => r.y),
             mode: 'markers',
-            type: 'scatter',
+            type: 'scattergl',
             name: 'Bestseller',
             showlegend: false,
             hoverinfo: 'skip',
@@ -1532,7 +1532,7 @@ function updateChart(options = {}) {
             x: group.rubbers.map(r => r.x),
             y: group.rubbers.map(r => r.y),
             mode: 'markers+text',
-            type: 'scatter',
+            type: 'scattergl',
             name: `${group.brand} (${group.sheet})`,
             marker: {
                 size: group.rubbers.map(getMarkerSize),
@@ -1626,7 +1626,7 @@ function updateChart(options = {}) {
         }
     };
 
-    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: false };
+    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: true };
     const chartEl = document.getElementById('chart');
 
     // Suppress relayout handler while we programmatically update the chart,
