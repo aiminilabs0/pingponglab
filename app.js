@@ -2049,22 +2049,21 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
 }
 
 function updateRadarChart() {
-    const section = document.getElementById('radarSection');
     const chartEl = document.getElementById('radarChart');
-    const leftPanel = document.getElementById('radarInfoLeft');
-    const rightPanel = document.getElementById('radarInfoRight');
-    const [left, right] = selectedRubbers;
+    if (!chartEl) return;
+    const firstPanel = document.getElementById('radarInfoFirst');
+    const secondPanel = document.getElementById('radarInfoSecond');
+    const [first, second] = selectedRubbers;
     const isMobile = window.innerWidth <= 768;
+    const chartHeight = 260;
 
-    leftPanel.innerHTML = '';
-    rightPanel.innerHTML = '';
-    const sameBrand = left && right && getBrandColor(left.brand) === getBrandColor(right.brand);
-    leftPanel.innerHTML = left ? buildRadarInfoHtml(left) : '';
-    rightPanel.innerHTML = right ? buildRadarInfoHtml(right, { dashed: sameBrand }) : '';
+    const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
+    firstPanel.innerHTML = first ? buildRadarInfoHtml(first) : '';
+    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand }) : '';
     const radarCategories = ['Speed\n(faster)', 'Spin\n(spinnier)', 'Control\n(more control)', 'Weight\n(heavier)', 'Hardness\n(harder)'];
     const traces = [];
 
-    if (!left && !right) {
+    if (!first && !second) {
         // Invisible trace to force Plotly to render the polar grid
         traces.push({
             type: 'scatterpolar',
@@ -2075,9 +2074,11 @@ function updateRadarChart() {
             showlegend: false,
         });
     }
-    if (left) traces.push(buildRadarTrace(left, getRadarData(left)));
-    if (right) traces.push(buildRadarTrace(right, getRadarData(right), { dashed: sameBrand }));
+    if (first) traces.push(buildRadarTrace(first, getRadarData(first)));
+    if (second) traces.push(buildRadarTrace(second, getRadarData(second), { dashed: sameBrand }));
     const layout = {
+        autosize: true,
+        height: chartHeight,
         polar: {
             bgcolor: 'rgba(0,0,0,0)',
             radialaxis: {
@@ -2098,7 +2099,7 @@ function updateRadarChart() {
         showlegend: false,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        margin: isMobile ? { t: 35, b: 35, l: 45, r: 45 } : { t: 25, b: 30, l: 30, r: 30 },
+        margin: isMobile ? { t: 52, b: 52, l: 90, r: 90 } : { t: 42, b: 38, l: 55, r: 55 },
     };
 
     const config = {
@@ -2106,7 +2107,14 @@ function updateRadarChart() {
         responsive: true,
     };
 
+    chartEl.style.height = `${chartHeight}px`;
     Plotly.react(chartEl, traces, layout, config);
+
+    // Ensure Plotly re-measures in flex layout after content updates.
+    requestAnimationFrame(() => {
+        if (!chartEl) return;
+        Plotly.Plots.resize(chartEl);
+    });
 }
 
 // ════════════════════════════════════════════════════════════
