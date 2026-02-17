@@ -1429,6 +1429,10 @@ h1 {
         border: none !important;
         padding: 14px 18px;
     }
+    .radar-info-panel:empty {
+        visibility: visible;
+        display: none;
+    }
     .radar-info-left {
         border-bottom: 1px solid var(--drac-current) !important;
     }
@@ -1443,7 +1447,7 @@ h1 {
         text-align: right;
     }
     .radar-chart {
-        height: 220px;
+        height: 180px;
     }
 }
 
