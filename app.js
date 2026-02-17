@@ -26,8 +26,8 @@ const BRAND_COLORS = {
     JOOLA: '#d4da03',
     Xiom: '#FF7F00',
     Tibhar: '#e3000b',
-    Nittaku: '#272e79',
-    Donic: '#4468b5',
+    Nittaku: '#3E49AA',
+    Donic: '#5E7DCC',
     Yasaka: '#7e67ff'
 };
 
@@ -1127,6 +1127,7 @@ function applyFiltersFromUrl() {
         nextDetailPanel = 2;
     }
 
+    updateRadarChart();
     updateComparisonBar();
     updateFilterSummary();
 }
@@ -1875,15 +1876,9 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
 async function updateDetailPanel(panelNum, rubber) {
     const panel = document.getElementById(`detail${panelNum}`);
-    const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
-    const markdown = detailMarkdown || descriptions[rubber.name] || `# ${rubber.name}\n\nNo description available.`;
-    const html = marked.parse(markdown);
-    const bestsellerBadge = rubber.bestseller
-        ? '<span class="bestseller-badge">★ Bestseller</span>'
-        : '';
     const brandColor = getBrandColor(rubber.brand);
     const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
-    panel.innerHTML =
+    const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
                 `<span class="rubber-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">` +
@@ -1896,8 +1891,16 @@ async function updateDetailPanel(panelNum, rubber) {
                 `<h1 class="rubber-title" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
                 (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
-        `</div>` +
-        `<div class="detail-panel-scroll">${html}</div>`;
+        `</div>`;
+
+    const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
+
+    if (detailMarkdown) {
+        const html = marked.parse(detailMarkdown);
+        panel.innerHTML = headerHtml + `<div class="detail-panel-scroll">${html}</div>`;
+    } else {
+        panel.innerHTML = headerHtml + '<div class="content">No description available.</div>';
+    }
 }
 
 function resetDetailPanels() {
@@ -1912,6 +1915,7 @@ function handleRubberClick(rubber) {
     nextDetailPanel = panelNum === 1 ? 2 : 1;
     selectedRubbers[panelNum - 1] = rubber;
     updateDetailPanel(panelNum, rubber);
+    updateRadarChart();
     updateComparisonBar();
     pushFiltersToUrl();
 }
@@ -1963,6 +1967,138 @@ async function updateComparisonBar() {
         bar.innerHTML = '';
         bar.style.display = 'none';
     }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Radar Chart
+// ════════════════════════════════════════════════════════════
+
+function normalizeRankToScore(rank, total) {
+    if (!Number.isFinite(rank) || !Number.isFinite(total) || total <= 0) return 0;
+    return ((total - rank + 1) / total) * 100;
+}
+
+function normalizeValueToScore(value, min, max) {
+    if (!Number.isFinite(value) || !Number.isFinite(min) || !Number.isFinite(max) || max <= min) return 50;
+    return ((value - min) / (max - min)) * 100;
+}
+
+function getRadarData(rubber) {
+    const spinTotal = rubberData.length > 0 ? Math.max(...rubberData.map(r => r.spinRank).filter(Number.isFinite)) : 1;
+    const speedTotal = rubberData.length > 0 ? Math.max(...rubberData.map(r => r.speedRank).filter(Number.isFinite)) : 1;
+    const controlTotal = rubber.controlTotal || spinTotal;
+
+    const wMin = weightFilterState.dataMin;
+    const wMax = weightFilterState.dataMax;
+    const hMin = hardnessFilterState.dataMin;
+    const hMax = hardnessFilterState.dataMax;
+
+    return {
+        speed: normalizeRankToScore(rubber.speedRank, speedTotal),
+        spin: normalizeRankToScore(rubber.spinRank, spinTotal),
+        control: normalizeRankToScore(rubber.controlRank, controlTotal),
+        weight: normalizeValueToScore(rubber.weight, wMin, wMax),
+        hardness: normalizeValueToScore(rubber.normalizedHardness, hMin, hMax),
+    };
+}
+
+function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
+    const brandColor = getBrandColor(rubber.brand);
+    const categories = ['Speed\n(faster)', 'Spin\n(spinnier)', 'Control\n(more control)', 'Weight\n(heavier)', 'Hardness\n(harder)'];
+    const values = [radarData.speed, radarData.spin, radarData.control, radarData.weight, radarData.hardness];
+
+    return {
+        type: 'scatterpolar',
+        r: [...values, values[0]],
+        theta: [...categories, categories[0]],
+        fill: 'toself',
+        fillcolor: brandColor + '22',
+        line: { color: brandColor, width: 2.5, ...(dashed ? { dash: 'dot' } : {}) },
+        marker: { color: brandColor, size: 5 },
+        name: `${rubber.brand} ${rubber.name}`,
+        hoverinfo: 'skip',
+    };
+}
+
+function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
+    const brandColor = getBrandColor(rubber.brand);
+    const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
+    const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
+    const control = buildControlLevelIndicatorHtml(rubber.controlRank);
+    const weight = rubber.weightLabel || '-';
+    const weightToneClass = getWeightToneClass(rubber.weight);
+    const hardness = formatHardnessPopupLabel(rubber);
+    const hardnessToneClass = getHardnessToneClass(rubber.normalizedHardness);
+    const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
+
+    return `
+        <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
+            <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
+        </span>
+        <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
+        <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
+        <div class="radar-info-metrics">
+            <div class="radar-info-metric"><span>Speed</span><strong>${speed}</strong></div>
+            <div class="radar-info-metric"><span>Spin</span><strong>${spin}</strong></div>
+            <div class="radar-info-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
+            <div class="radar-info-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+            <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+        </div>
+    `;
+}
+
+function updateRadarChart() {
+    const section = document.getElementById('radarSection');
+    const chartEl = document.getElementById('radarChart');
+    const leftPanel = document.getElementById('radarInfoLeft');
+    const rightPanel = document.getElementById('radarInfoRight');
+    const [left, right] = selectedRubbers;
+
+    if (!left && !right) {
+        section.style.display = 'none';
+        leftPanel.innerHTML = '';
+        rightPanel.innerHTML = '';
+        Plotly.purge(chartEl);
+        return;
+    }
+
+    section.style.display = '';
+    const sameBrand = left && right && getBrandColor(left.brand) === getBrandColor(right.brand);
+    leftPanel.innerHTML = left ? buildRadarInfoHtml(left) : '';
+    rightPanel.innerHTML = right ? buildRadarInfoHtml(right, { dashed: sameBrand }) : '';
+    const traces = [];
+
+    if (left) traces.push(buildRadarTrace(left, getRadarData(left)));
+    if (right) traces.push(buildRadarTrace(right, getRadarData(right), { dashed: sameBrand }));
+
+    const layout = {
+        polar: {
+            bgcolor: 'rgba(0,0,0,0)',
+            radialaxis: {
+                visible: true,
+                range: [0, 105],
+                showticklabels: false,
+                gridcolor: 'rgba(158,150,137,0.18)',
+                linecolor: 'rgba(0,0,0,0)',
+            },
+            angularaxis: {
+                gridcolor: 'rgba(158,150,137,0.18)',
+                linecolor: 'rgba(158,150,137,0.25)',
+                tickfont: { color: '#e8e0d0', size: 11 },
+            },
+        },
+        showlegend: false,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        margin: { t: 25, b: 30, l: 30, r: 30 },
+    };
+
+    const config = {
+        displayModeBar: false,
+        responsive: true,
+    };
+
+    Plotly.react(chartEl, traces, layout, config);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -2096,6 +2232,7 @@ function resetAppToInitialState() {
 
     resetFiltersToAll();
     resetDetailPanels();
+    updateRadarChart();
     updateComparisonBar();
     updateFilterSummary();
     pushFiltersToUrl();

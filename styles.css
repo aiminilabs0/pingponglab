@@ -1314,6 +1314,136 @@ h1 {
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
+/* ── Radar chart section ── */
+.radar-section {
+    margin-top: 24px;
+    background: var(--drac-bg-dark);
+    border: 1.5px solid var(--drac-current);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+}
+.radar-chart {
+    flex: 1;
+    min-width: 0;
+    height: 240px;
+}
+.radar-info-panel {
+    width: 190px;
+    flex-shrink: 0;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+}
+.radar-info-panel:empty {
+    display: none;
+}
+.radar-info-left {
+    border-right: 1px solid var(--drac-current);
+}
+.radar-info-right {
+    border-left: 1px solid var(--drac-current);
+}
+
+/* Rubber header inside radar info */
+.radar-info-brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px 3px 7px;
+    border-radius: 999px;
+    border: 1.5px solid;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1;
+    width: fit-content;
+    margin-bottom: 4px;
+}
+.radar-info-brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.radar-info-right .radar-info-brand-pill {
+    flex-direction: row-reverse;
+    padding: 3px 7px 3px 9px;
+}
+.radar-info-name {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    margin-bottom: 2px;
+    word-break: break-word;
+}
+.radar-info-line-key {
+    margin-bottom: 8px;
+}
+
+/* Metric rows */
+.radar-info-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.radar-info-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    line-height: 1.3;
+}
+.radar-info-metric span {
+    color: var(--drac-comment);
+}
+.radar-info-metric strong {
+    color: var(--drac-fg);
+    font-weight: 600;
+    text-align: right;
+}
+.radar-info-right .radar-info-metric {
+    flex-direction: row-reverse;
+}
+.radar-info-right .radar-info-metric strong {
+    text-align: left;
+}
+.radar-info-right {
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .radar-section {
+        flex-direction: column;
+    }
+    .radar-info-panel {
+        width: 100%;
+        border: none !important;
+        padding: 14px 18px;
+    }
+    .radar-info-left {
+        border-bottom: 1px solid var(--drac-current) !important;
+    }
+    .radar-info-right {
+        border-top: 1px solid var(--drac-current) !important;
+        text-align: left;
+    }
+    .radar-info-right .radar-info-metric {
+        flex-direction: row;
+    }
+    .radar-info-right .radar-info-metric strong {
+        text-align: right;
+    }
+    .radar-chart {
+        height: 220px;
+    }
+}
+
 /* Scrollable detail panels for long content */
 .detail-panel {
     max-height: 75vh;
