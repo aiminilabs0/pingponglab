@@ -2054,23 +2054,27 @@ function updateRadarChart() {
     const rightPanel = document.getElementById('radarInfoRight');
     const [left, right] = selectedRubbers;
 
-    if (!left && !right) {
-        section.style.display = 'none';
-        leftPanel.innerHTML = '';
-        rightPanel.innerHTML = '';
-        Plotly.purge(chartEl);
-        return;
-    }
-
-    section.style.display = '';
+    leftPanel.innerHTML = '';
+    rightPanel.innerHTML = '';
     const sameBrand = left && right && getBrandColor(left.brand) === getBrandColor(right.brand);
     leftPanel.innerHTML = left ? buildRadarInfoHtml(left) : '';
     rightPanel.innerHTML = right ? buildRadarInfoHtml(right, { dashed: sameBrand }) : '';
+    const radarCategories = ['Speed\n(faster)', 'Spin\n(spinnier)', 'Control\n(more control)', 'Weight\n(heavier)', 'Hardness\n(harder)'];
     const traces = [];
 
+    if (!left && !right) {
+        // Invisible trace to force Plotly to render the polar grid
+        traces.push({
+            type: 'scatterpolar',
+            r: radarCategories.map(() => 0),
+            theta: radarCategories,
+            mode: 'none',
+            hoverinfo: 'skip',
+            showlegend: false,
+        });
+    }
     if (left) traces.push(buildRadarTrace(left, getRadarData(left)));
     if (right) traces.push(buildRadarTrace(right, getRadarData(right), { dashed: sameBrand }));
-
     const layout = {
         polar: {
             bgcolor: 'rgba(0,0,0,0)',
@@ -2082,6 +2086,8 @@ function updateRadarChart() {
                 linecolor: 'rgba(0,0,0,0)',
             },
             angularaxis: {
+                categoryorder: 'array',
+                categoryarray: radarCategories,
                 gridcolor: 'rgba(158,150,137,0.18)',
                 linecolor: 'rgba(158,150,137,0.25)',
                 tickfont: { color: '#e8e0d0', size: 11 },
@@ -2500,6 +2506,7 @@ async function initializeApp() {
     initFeedbackModal();
     initFilters();
     applyFiltersFromUrl();
+    updateRadarChart();
     initChart();
     // Trigger the same behavior as clicking the Fit button on first load.
     requestAnimationFrame(() => {

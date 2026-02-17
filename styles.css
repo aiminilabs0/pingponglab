@@ -1339,7 +1339,7 @@ h1 {
     justify-content: center;
 }
 .radar-info-panel:empty {
-    display: none;
+    visibility: hidden;
 }
 .radar-info-left {
     border-right: 1px solid var(--drac-current);
@@ -1384,6 +1384,9 @@ h1 {
 }
 .radar-info-line-key {
     margin-bottom: 8px;
+}
+.radar-info-right .radar-info-line-key {
+    margin-left: auto;
 }
 
 /* Metric rows */
