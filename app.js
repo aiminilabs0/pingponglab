@@ -1693,6 +1693,7 @@ function initChart() {
     updateChart({ force: true });
 }
 
+
 // ════════════════════════════════════════════════════════════
 //  Zoom
 // ════════════════════════════════════════════════════════════
@@ -2302,6 +2303,14 @@ function initFilters() {
 
     // Filter panel trigger
     document.getElementById('filterTrigger').addEventListener('click', toggleFilterPanel);
+
+    // Rubber section toggle (mobile)
+    document.getElementById('rubberSectionToggle').addEventListener('click', () => {
+        const header = document.getElementById('rubberSectionToggle');
+        const content = document.getElementById('rubberContent');
+        header.classList.toggle('is-open');
+        content.classList.toggle('is-open');
+    });
 
     // Close panel on Escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilterPanel(); });

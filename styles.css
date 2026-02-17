@@ -313,12 +313,17 @@ h1 {
 .fp-search:focus {
     border-color: var(--drac-purple);
 }
+/* Rubber section toggle (mobile only) */
+.fp-rubber-toggle-hint {
+    display: none;
+}
+
 .fp-options.fp-options-no-scroll {
     max-height: none;
     overflow-y: visible;
 }
 .fp-options {
-    max-height: 220px;
+    max-height: 360px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
@@ -1948,6 +1953,25 @@ h1 {
     .filter-panel.open {
         max-height: 80vh;
         overflow-y: auto;
+    }
+    .fp-rubber-header {
+        cursor: pointer;
+        user-select: none;
+    }
+    .fp-rubber-toggle-hint {
+        display: inline;
+        font-size: 10px;
+        transition: transform 0.2s ease;
+    }
+    .fp-rubber-header.is-open .fp-rubber-toggle-hint {
+        display: inline-block;
+        transform: rotate(90deg);
+    }
+    .fp-rubber-content {
+        display: none;
+    }
+    .fp-rubber-content.is-open {
+        display: block;
     }
 
     /* Remove internal scroll on detail panels so main page scrolls naturally */

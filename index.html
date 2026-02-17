@@ -98,15 +98,17 @@
 
                 <!-- Column 3: Rubber -->
                 <div class="fp-section fp-section-rubber">
-                    <div class="fp-section-header">
-                        <span>Rubber</span>
+                    <div class="fp-section-header fp-rubber-header" id="rubberSectionToggle">
+                        <span>Rubber <span class="fp-rubber-toggle-hint">▸</span></span>
                         <div class="fp-section-actions">
                             <button type="button" data-filter="name" data-action="all">All</button>
                             <button type="button" data-filter="name" data-action="none">None</button>
                         </div>
                     </div>
-                    <input class="fp-search" id="nameSearch" type="search" placeholder="Search rubber…">
-                    <div class="fp-options" id="nameFilter"></div>
+                    <div class="fp-rubber-content" id="rubberContent">
+                        <input class="fp-search" id="nameSearch" type="search" placeholder="Search rubber…">
+                        <div class="fp-options" id="nameFilter"></div>
+                    </div>
                 </div>
             </div>
         </div>
