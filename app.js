@@ -2435,13 +2435,7 @@ function initFilters() {
 
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
-        ['brandFilter', 'sheetFilter'].forEach(id =>
-            setAllChecked(document.getElementById(id), true)
-        );
-        resetHardnessRangeToDataBounds();
-        resetWeightRangeToDataBounds();
-        resetControlToAllTiers();
-        buildNameOptionsFromFilters();
+        resetFiltersToAll();
         updateFilterSummary();
         pushFiltersToUrl();
         updateChart();
