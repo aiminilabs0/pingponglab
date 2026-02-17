@@ -1984,7 +1984,7 @@ async function updateDetailPanel(panelNum, rubber) {
         const html = marked.parse(detailMarkdown);
         tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll">${html}</div>`;
     } else {
-        tabContents[tabKey] = headerHtml + '<div class="content">No description available.</div>';
+        tabContents[tabKey] = headerHtml + '<div class="content-pane-scroll"><p class="comparison-status-msg">No description available.</p></div>';
     }
 
     // If this tab is currently active, refresh the pane
@@ -2049,7 +2049,7 @@ async function updateComparisonBar() {
         const compTitleHtml = buildComparisonTitleHtml(left, right);
         // Set initial comparison content (title only)
         tabContents.comparison = `<div class="comparison-title">${compTitleHtml}</div>` +
-            `<div class="content-pane-scroll"><div class="content" style="padding:20px;color:var(--drac-comment);font-size:13px;">Loading comparison…</div></div>`;
+            `<div class="content-pane-scroll"><p class="comparison-status-msg">Loading comparison…</p></div>`;
         renderTabs();
         if (activeTab === 'comparison') setActiveTab('comparison');
 
@@ -2063,7 +2063,7 @@ async function updateComparisonBar() {
         } else {
             tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
-                `<div class="content-pane-scroll"><div class="content" style="padding:20px;color:var(--drac-comment);font-size:13px;">No comparison available.</div></div>`;
+                `<div class="content-pane-scroll"><p class="comparison-status-msg">No comparison available.</p></div>`;
         }
         renderTabs();
         if (activeTab === 'comparison') setActiveTab('comparison');
