@@ -224,6 +224,8 @@ h1 {
 
 /* Collapsible filter panel */
 .filter-panel {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     margin: 0 0 16px;
     border: 1.5px solid var(--drac-current);
@@ -234,7 +236,7 @@ h1 {
     opacity: 0;
 }
 .filter-panel[hidden] {
-    display: block;
+    display: flex;
     max-height: 0;
     opacity: 0;
     margin: 0;
@@ -247,11 +249,24 @@ h1 {
     pointer-events: auto;
 }
 
+.filter-panel-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 24px 10px;
+    border-top: 1px solid var(--drac-current);
+}
+
 .filter-panel-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0;
     padding: 12px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--drac-current) transparent;
 }
 .fp-section {
     padding: 8px 12px;
@@ -1901,6 +1916,9 @@ h1 {
     .filter-panel.open {
         max-height: none;
         overflow: visible;
+    }
+    .filter-panel-grid {
+        overflow-y: visible;
     }
     .filter-panel.open .filter-panel-grid {
         max-height: none;
