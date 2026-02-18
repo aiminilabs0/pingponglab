@@ -1035,7 +1035,10 @@ h1 {
     padding: 0 16px;
     gap: 0;
     flex-shrink: 0;
+
+    overflow: hidden;
 }
+
 .content-tabs:empty { display: none; }
 
 .content-tab {
