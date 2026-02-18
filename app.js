@@ -1347,6 +1347,23 @@ function formatHardnessPopupLabel(rubber) {
     return rubber?.hardnessLabel || 'N/A';
 }
 
+function formatThicknessRadarHtml(thicknessLabel) {
+    const raw = String(thicknessLabel || 'N/A').trim();
+    if (!raw || raw === 'N/A') return 'N/A';
+
+    const entries = raw
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean);
+    if (entries.length === 0) return 'N/A';
+
+    const rows = [];
+    for (let i = 0; i < entries.length; i += 2) {
+        rows.push(entries.slice(i, i + 2).map(escapeHtml).join(', '));
+    }
+    return rows.join('<br>');
+}
+
 function getHardnessToneClass(normalizedHardness) {
     const category = getHardnessCategoryLabel(normalizedHardness);
     if (!category) return '';
@@ -2343,7 +2360,7 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0 } = {}) {
     const hardness = formatHardnessPopupLabel(rubber);
     const hardnessToneClass = getHardnessToneClass(rubber.normalizedHardness);
     const releaseYear = rubber.releaseYearLabel || 'N/A';
-    const thickness = rubber.thicknessLabel || 'N/A';
+    const thickness = formatThicknessRadarHtml(rubber.thicknessLabel);
     const player = rubber.playerLabel || 'N/A';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
@@ -2367,7 +2384,7 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0 } = {}) {
             <div class="radar-info-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
             <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             <div class="radar-info-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
-            <div class="radar-info-metric"><span>Thickness</span><strong>${escapeHtml(thickness)}</strong></div>
+            <div class="radar-info-metric"><span>Thickness</span><strong>${thickness}</strong></div>
             <div class="radar-info-metric"><span>Player</span><strong class="radar-info-player">${player}</strong></div>
         </div>
     `;
