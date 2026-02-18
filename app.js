@@ -301,6 +301,7 @@ async function loadRubberData() {
 
         const rubber = {
             name: raw.name,
+            addr: raw.addr || raw.abbr || raw.name,
             fullName: buildFullName(raw.manufacturer, raw.name),
             abbr: raw.abbr || raw.name,
             brand: raw.manufacturer,
@@ -2335,6 +2336,7 @@ function getRadarData(rubber) {
 
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
+    const radarLabel = rubber.addr || rubber.name || '';
     const categories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
@@ -2349,13 +2351,14 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
         fillcolor: brandColor + '22',
         line: { color: brandColor, width: 2.5, ...(dashed ? { dash: 'dot' } : {}) },
         marker: { color: brandColor, size: 5 },
-        name: `${rubber.brand} ${rubber.name}`,
+        name: `${rubber.brand} ${radarLabel}`,
         hoverinfo: 'skip',
     };
 }
 
 function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
+    const radarLabel = rubber.addr || rubber.name || '-';
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
     const control = buildControlLevelIndicatorHtml(rubber.controlRank);
@@ -2379,7 +2382,7 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
             </span>
             <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
         </div>
-        <div class="radar-info-name${reversed ? ' radar-info-name--reversed' : ''}" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
+        <div class="radar-info-name${reversed ? ' radar-info-name--reversed' : ''}" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
         <div class="radar-info-line-key${reversed ? ' radar-info-line-key--reversed' : ''}" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         <div class="radar-info-metrics${reversed ? ' radar-info-metrics--reversed' : ''}">
             <div class="radar-info-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
