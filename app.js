@@ -1102,9 +1102,6 @@ function syncCountrySelectorUI() {
     document.querySelectorAll('#countrySelector .country-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.country === selectedCountry);
     });
-
-    const mobileSelect = document.getElementById('countrySelectMobile');
-    if (mobileSelect) mobileSelect.value = selectedCountry;
 }
 
 function applyFiltersFromUrl() {
@@ -2636,6 +2633,12 @@ function initFilters() {
 }
 
 function initCountrySelector() {
+    const selector = document.getElementById('countrySelector');
+    if (!selector) return;
+
+    const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
+    const closeCountryMenu = () => selector.classList.remove('is-open');
+
     function applyCountrySelection(nextCountry) {
         if (!['us', 'eu', 'cn', 'kr'].includes(nextCountry)) return;
         if (nextCountry === selectedCountry) return;
@@ -2650,18 +2653,37 @@ function initCountrySelector() {
 
     syncCountrySelectorUI();
 
-    document.getElementById('countrySelector').addEventListener('click', (e) => {
+    selector.addEventListener('click', (e) => {
         const btn = e.target.closest('.country-btn');
         if (!btn) return;
+        const isOpen = selector.classList.contains('is-open');
+
+        // Mobile: first tap on active flag opens compact menu.
+        if (isMobileViewport() && !isOpen && btn.dataset.country === selectedCountry) {
+            selector.classList.add('is-open');
+            return;
+        }
+
+        // Mobile: tap current flag again in open state closes menu.
+        if (isMobileViewport() && isOpen && btn.dataset.country === selectedCountry) {
+            closeCountryMenu();
+            return;
+        }
+
         applyCountrySelection(btn.dataset.country);
+        if (isMobileViewport()) closeCountryMenu();
     });
 
-    const mobileSelect = document.getElementById('countrySelectMobile');
-    if (mobileSelect) {
-        mobileSelect.addEventListener('change', (e) => {
-            applyCountrySelection(e.target.value);
-        });
-    }
+    document.addEventListener('click', (e) => {
+        if (!isMobileViewport()) return;
+        if (!selector.classList.contains('is-open')) return;
+        if (selector.contains(e.target)) return;
+        closeCountryMenu();
+    });
+
+    window.addEventListener('resize', () => {
+        if (!isMobileViewport()) closeCountryMenu();
+    });
 }
 
 function initHomeLogo() {
