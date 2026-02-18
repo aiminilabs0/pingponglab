@@ -1780,15 +1780,14 @@ function updateChart(options = {}) {
             });
             if (ranges) {
                 pinchFinalRanges = ranges;
-                // Treat this as an internal update so the relayout handler does not
-                // schedule a competing updateChart call mid-gesture.
+                // Stay in internal-update mode for the entire pinch gesture so
+                // Plotly relayout events cannot sneak through and trigger updateChart.
+                // isInternalUpdate was set to true in touchstart and will stay true
+                // until onPinchEnd's timer fires.
                 isInternalUpdate = true;
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
                 applyZoomLayout(chartEl, ranges);
-                // Keep isInternalUpdate true long enough for Plotly's relayout event
-                // to fire and be suppressed, then release it.
-                internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 100);
             }
         }, { passive: true });
 
@@ -1799,27 +1798,16 @@ function updateChart(options = {}) {
                 pinchStartXRange = null;
                 pinchStartYRange = null;
 
-                // After the gesture ends, do exactly one updateChart to sync
-                // label de-cluttering with the final zoomed view.
-                // Keep isInternalUpdate=true until just before we call updateChart
-                // so any stray Plotly relayout events fired during the delay are
-                // suppressed and cannot race with our own updateChart call.
-                if (pinchFinalRanges) {
-                    clearTimeout(relayoutTimer);
-                    clearTimeout(internalUpdateTimer);
-                    // isInternalUpdate stays true here — released inside the timeout
-                    relayoutTimer = setTimeout(() => {
-                        isInternalUpdate = false;
-                        // Only update if another pinch hasn't started in the meantime
-                        if (!pinchActive) {
-                            updateChart({ preserveRanges: true });
-                        }
-                    }, 200);
-                } else {
-                    // No zoomed range was captured; just release the guard.
-                    clearTimeout(internalUpdateTimer);
-                    internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 200);
-                }
+                // Do NOT call updateChart / Plotly.react here after pinch ends.
+                // Calling react() re-renders the chart and scattergl internally
+                // recalculates autorange, which resets the zoomed view.
+                // applyZoomLayout() during touchmove already set the correct axis
+                // ranges directly on the chart via Plotly.relayout — those persist.
+                // We just need to wait for Plotly's internal relayout events to
+                // settle, then release the guard.
+                clearTimeout(relayoutTimer);
+                clearTimeout(internalUpdateTimer);
+                internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 300);
                 pinchFinalRanges = null;
             }
         };
