@@ -80,6 +80,7 @@ let rubberData = [];
 let descriptions = {};
 let selectedRubbers = [null, null];
 let nextDetailPanel = 1;
+let pinnedRubbers = [false, false];
 let hasPlotted = false;
 let isInternalUpdate = false;
 let currentFilteredData = [];
@@ -1093,6 +1094,8 @@ function pushFiltersToUrl() {
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
     if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
     if (selectedRubbers[1]) params.set('right', selectedRubbers[1].fullName);
+    if (pinnedRubbers[0]) params.set('pin', 'left');
+    else if (pinnedRubbers[1]) params.set('pin', 'right');
 
     const qs = params.toString();
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
@@ -1106,7 +1109,7 @@ function syncCountrySelectorUI() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right', 'pin'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -1150,6 +1153,13 @@ function applyFiltersFromUrl() {
     }
     if (params.has('left') && !params.has('right')) {
         nextDetailPanel = 2;
+    }
+
+    // Restore pin state
+    if (params.has('pin')) {
+        const pin = params.get('pin');
+        if (pin === 'left' && selectedRubbers[0]) pinnedRubbers[0] = true;
+        else if (pin === 'right' && selectedRubbers[1]) pinnedRubbers[1] = true;
     }
 
     updateRadarChart();
@@ -1663,11 +1673,8 @@ function updateChart(options = {}) {
             const point = data.points[0];
             const rubber = point.data.customdata[point.pointIndex];
 
-            // Capture which detail slot this click will populate (before handleRubberClick flips it).
-            const panelNum = nextDetailPanel;
+            const panelNum = handleRubberClick(rubber);
             const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
-
-            handleRubberClick(rubber);
 
             // Update popup content in place — add slot label without repositioning
             const popup = getChartHoverPopupEl();
@@ -2193,7 +2200,17 @@ function resetDetailPanels() {
 }
 
 function handleRubberClick(rubber) {
-    const panelNum = nextDetailPanel;
+    let panelNum;
+    if (pinnedRubbers[0] && !pinnedRubbers[1]) {
+        // Left is pinned — always replace right
+        panelNum = 2;
+    } else if (!pinnedRubbers[0] && pinnedRubbers[1]) {
+        // Right is pinned — always replace left
+        panelNum = 1;
+    } else {
+        // Neither or both pinned — use default alternating behaviour
+        panelNum = nextDetailPanel;
+    }
     nextDetailPanel = panelNum === 1 ? 2 : 1;
     selectedRubbers[panelNum - 1] = rubber;
     updateDetailPanel(panelNum, rubber);
@@ -2202,6 +2219,7 @@ function handleRubberClick(rubber) {
     renderTabs();
     setActiveTab(`desc${panelNum}`);
     pushFiltersToUrl();
+    return panelNum;
 }
 
 function buildComparisonTitleHtml(leftRubber, rightRubber) {
@@ -2315,7 +2333,7 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     };
 }
 
-function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
+function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0 } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
@@ -2328,11 +2346,18 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
     const thickness = rubber.thicknessLabel || 'N/A';
     const player = rubber.playerLabel || 'N/A';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
+    const isPinned = pinnedRubbers[panelIndex];
+    const pinIcon = isPinned
+        ? `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`
+        : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
 
     return `
-        <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
-            <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
-        </span>
+        <div class="radar-info-header">
+            <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
+                <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
+            </span>
+            <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
+        </div>
         <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
         <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         <div class="radar-info-metrics">
@@ -2358,8 +2383,8 @@ function updateRadarChart() {
     const chartHeight = 260;
 
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
-    firstPanel.innerHTML = first ? buildRadarInfoHtml(first) : '';
-    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand }) : '';
+    firstPanel.innerHTML = first ? buildRadarInfoHtml(first, { panelIndex: 0 }) : '';
+    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand, panelIndex: 1 }) : '';
     const radarCategories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     const traces = [];
 
@@ -2544,6 +2569,7 @@ function resetAppToInitialState() {
     resetYouTubePlayers();
     selectedRubbers = [null, null];
     nextDetailPanel = 1;
+    pinnedRubbers = [false, false];
 
     selectedCountry = 'us';
     syncCountrySelectorUI();
@@ -2857,6 +2883,19 @@ async function initializeApp() {
         const tab = e.target.closest('.content-tab');
         if (!tab || tab.classList.contains('content-tab--active')) return;
         setActiveTab(tab.dataset.tab);
+    });
+
+    // Pin button click listener (event delegation)
+    document.getElementById('radarInfoSide').addEventListener('click', (e) => {
+        const btn = e.target.closest('.radar-pin-btn');
+        if (!btn) return;
+        const idx = parseInt(btn.dataset.panelIndex, 10);
+        const other = idx === 0 ? 1 : 0;
+        pinnedRubbers[idx] = !pinnedRubbers[idx];
+        // Only one side can be pinned at a time
+        if (pinnedRubbers[idx]) pinnedRubbers[other] = false;
+        updateRadarChart();
+        pushFiltersToUrl();
     });
 
     applyFiltersFromUrl();
