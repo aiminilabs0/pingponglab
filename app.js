@@ -1603,7 +1603,7 @@ function updateChart(options = {}) {
         annotations: [
             {
                 x: 0.995, y: -0.04, xref: 'paper', yref: 'paper',
-                text: '🔄 Spin →', showarrow: false,
+                text: '↻ Spin →', showarrow: false,
                 xanchor: 'right', yanchor: 'bottom',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
             },
