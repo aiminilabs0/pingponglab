@@ -2082,7 +2082,7 @@ function renderTabs() {
         html += `<button class="content-tab" data-tab="desc2">${buildTabButtonContent(selectedRubbers[1])}</button>`;
     }
     if (selectedRubbers[0] && selectedRubbers[1]) {
-        html += `<button class="content-tab content-tab--vs" data-tab="comparison">Comparison</button>`;
+        html += `<button class="content-tab content-tab--vs" data-tab="comparison">⚔️ Comparison</button>`;
     }
     tabBar.innerHTML = html;
     highlightActiveTab();

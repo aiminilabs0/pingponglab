@@ -1064,35 +1064,7 @@ h1 {
 .content-tab--active { color: var(--drac-fg); }
 .content-tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .content-tab--vs {
-    margin-left: auto;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    /* Persistent soft highlight so it always stands out */
-    color: var(--drac-orange);
-    border-bottom-color: transparent;
-    position: relative;
-}
-.content-tab--vs::after {
-    content: '';
-    position: absolute;
-    inset: 6px 4px;
-    border-radius: 6px;
-    background: rgba(217,119,86,0.1);
-    border: 1px solid rgba(217,119,86,0.22);
-    pointer-events: none;
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-.content-tab--vs:hover::after {
-    background: rgba(217,119,86,0.18);
-    border-color: rgba(217,119,86,0.4);
-}
-.content-tab--vs.content-tab--active {
-    color: var(--drac-orange);
-    border-bottom-color: var(--drac-orange);
-}
-.content-tab--vs.content-tab--active::after {
-    background: rgba(217,119,86,0.18);
-    border-color: rgba(217,119,86,0.5);
+    /* Same style as other tabs — no special highlight */
 }
 
 /* Content body */
