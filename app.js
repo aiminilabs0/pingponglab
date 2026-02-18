@@ -2131,9 +2131,13 @@ function highlightActiveTab() {
             const color = rubber ? getBrandColor(rubber.brand) : '';
             btn.style.borderBottomColor = color;
         } else if (isActive && btn.classList.contains('content-tab--vs')) {
-            // Comparison tab active color is handled by CSS
-            btn.style.borderBottomColor = '';
+            const colorL = selectedRubbers[0] ? getBrandColor(selectedRubbers[0].brand) : '';
+            const colorR = selectedRubbers[1] ? getBrandColor(selectedRubbers[1].brand) : '';
+            btn.style.borderImage = `linear-gradient(to right, ${colorL}, ${colorR}) 1`;
+            btn.style.borderBottomWidth = '2px';
+            btn.style.borderBottomStyle = 'solid';
         } else {
+            btn.style.borderImage = '';
             btn.style.borderBottomColor = 'transparent';
         }
     });
