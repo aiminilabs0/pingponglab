@@ -2329,8 +2329,8 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
         <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
         <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         <div class="radar-info-metrics">
-            <div class="radar-info-metric"><span>Speed</span><strong>${speed}</strong></div>
-            <div class="radar-info-metric"><span>Spin</span><strong>${spin}</strong></div>
+            <div class="radar-info-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
+            <div class="radar-info-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
             <div class="radar-info-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
             <div class="radar-info-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
             <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
