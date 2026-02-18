@@ -1733,10 +1733,14 @@ function updateChart(options = {}) {
             if (e.touches.length === 2) {
                 e.stopPropagation();
 
-                // Block relayout-triggered updateChart calls while pinching
+                // Block relayout-triggered updateChart calls while pinching.
+                // Clear ALL pending timers so a previous pinch's delayed callbacks
+                // cannot fire and trigger an unwanted autoscale reset.
                 pinchActive = true;
                 pinchFinalRanges = null;
                 clearTimeout(relayoutTimer);
+                clearTimeout(internalUpdateTimer);
+                isInternalUpdate = true;
 
                 pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
 
@@ -1797,13 +1801,24 @@ function updateChart(options = {}) {
 
                 // After the gesture ends, do exactly one updateChart to sync
                 // label de-cluttering with the final zoomed view.
+                // Keep isInternalUpdate=true until just before we call updateChart
+                // so any stray Plotly relayout events fired during the delay are
+                // suppressed and cannot race with our own updateChart call.
                 if (pinchFinalRanges) {
                     clearTimeout(relayoutTimer);
                     clearTimeout(internalUpdateTimer);
-                    isInternalUpdate = false;
+                    // isInternalUpdate stays true here — released inside the timeout
                     relayoutTimer = setTimeout(() => {
-                        updateChart({ preserveRanges: true });
-                    }, 150);
+                        isInternalUpdate = false;
+                        // Only update if another pinch hasn't started in the meantime
+                        if (!pinchActive) {
+                            updateChart({ preserveRanges: true });
+                        }
+                    }, 200);
+                } else {
+                    // No zoomed range was captured; just release the guard.
+                    clearTimeout(internalUpdateTimer);
+                    internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 200);
                 }
                 pinchFinalRanges = null;
             }
