@@ -323,8 +323,8 @@ h1 {
     overflow-y: visible;
 }
 .fp-options {
-    max-height: 360px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
 }
@@ -1839,8 +1839,28 @@ h1 {
         padding-top: 12px;
     }
     .filter-panel.open {
-        max-height: 80vh;
-        overflow-y: auto;
+        max-height: none;
+        overflow: visible;
+    }
+    .filter-panel.open .filter-panel-grid {
+        max-height: none;
+        overflow-y: visible;
+        overflow-x: visible;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        scrollbar-color: var(--drac-orange) var(--drac-current);
+    }
+    .filter-panel.open .filter-panel-grid::-webkit-scrollbar {
+        width: 6px;
+    }
+    .filter-panel.open .filter-panel-grid::-webkit-scrollbar-track {
+        background: var(--drac-current);
+        border-radius: 10px;
+    }
+    .filter-panel.open .filter-panel-grid::-webkit-scrollbar-thumb {
+        background: var(--drac-orange);
+        border-radius: 10px;
     }
     .fp-rubber-header {
         cursor: pointer;
