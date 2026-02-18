@@ -171,9 +171,9 @@ function formatPlayerLabel(raw) {
     collectPlayersFromValue(raw.players);
 
     if (uniquePlayers.size === 0) return 'N/A';
-    const names = Array.from(uniquePlayers);
-    if (names.length <= 2) return names.join(', ');
-    return `${names.slice(0, 2).join(', ')} +${names.length - 2}`;
+    return Array.from(uniquePlayers)
+        .map(name => escapeHtml(name))
+        .join('<br>');
 }
 
 function formatThicknessLabel(value) {
@@ -2336,7 +2336,7 @@ function buildRadarInfoHtml(rubber, { dashed = false } = {}) {
             <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             <div class="radar-info-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
             <div class="radar-info-metric"><span>Thickness</span><strong>${escapeHtml(thickness)}</strong></div>
-            <div class="radar-info-metric"><span>Player</span><strong>${escapeHtml(player)}</strong></div>
+            <div class="radar-info-metric"><span>Player</span><strong class="radar-info-player">${player}</strong></div>
         </div>
     `;
 }
