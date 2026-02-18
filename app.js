@@ -1713,6 +1713,8 @@ function updateChart(options = {}) {
         let pinchStartYRange = null;
         let pinchAnchorFx = 0.5;
         let pinchAnchorFy = 0.5;
+        let pinchActive = false;
+        let pinchFinalRanges = null;
 
         function getTouchDist(t1, t2) {
             const dx = t1.clientX - t2.clientX;
@@ -1730,6 +1732,12 @@ function updateChart(options = {}) {
         chartEl.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 e.stopPropagation();
+
+                // Block relayout-triggered updateChart calls while pinching
+                pinchActive = true;
+                pinchFinalRanges = null;
+                clearTimeout(relayoutTimer);
+
                 pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
 
                 const layout = chartEl._fullLayout;
@@ -1766,16 +1774,43 @@ function updateChart(options = {}) {
                 anchorFx: pinchAnchorFx,
                 anchorFy: pinchAnchorFy
             });
-            if (ranges) applyZoomLayout(chartEl, ranges);
+            if (ranges) {
+                pinchFinalRanges = ranges;
+                // Treat this as an internal update so the relayout handler does not
+                // schedule a competing updateChart call mid-gesture.
+                isInternalUpdate = true;
+                clearTimeout(relayoutTimer);
+                clearTimeout(internalUpdateTimer);
+                applyZoomLayout(chartEl, ranges);
+                // Keep isInternalUpdate true long enough for Plotly's relayout event
+                // to fire and be suppressed, then release it.
+                internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 100);
+            }
         }, { passive: true });
 
-        chartEl.addEventListener('touchend', (e) => {
-            if (e.touches.length < 2) {
+        const onPinchEnd = (e) => {
+            if (e.touches.length < 2 && pinchActive) {
+                pinchActive = false;
                 pinchStartDist = null;
                 pinchStartXRange = null;
                 pinchStartYRange = null;
+
+                // After the gesture ends, do exactly one updateChart to sync
+                // label de-cluttering with the final zoomed view.
+                if (pinchFinalRanges) {
+                    clearTimeout(relayoutTimer);
+                    clearTimeout(internalUpdateTimer);
+                    isInternalUpdate = false;
+                    relayoutTimer = setTimeout(() => {
+                        updateChart({ preserveRanges: true });
+                    }, 150);
+                }
+                pinchFinalRanges = null;
             }
-        }, { passive: true });
+        };
+
+        chartEl.addEventListener('touchend', onPinchEnd, { passive: true });
+        chartEl.addEventListener('touchcancel', onPinchEnd, { passive: true });
     }
 }
 
