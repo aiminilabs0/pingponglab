@@ -1092,9 +1092,9 @@ h1 {
 .rubber-title-header {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     flex-shrink: 0;
-    padding: 16px 20px 12px;
+    padding: 14px 20px 10px;
     border-bottom: 1px solid var(--drac-current);
     background: var(--drac-bg-dark);
     border-radius: 0;
@@ -1495,10 +1495,10 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 3px 10px 3px 8px;
+    padding: 4px 10px 4px 8px;
     border-radius: 999px;
     border: 1.5px solid;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
