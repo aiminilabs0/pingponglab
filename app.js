@@ -1693,9 +1693,14 @@ function updateChart(options = {}) {
             const panelNum = handleRubberClick(rubber);
             const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
 
-            // Update popup content in place — add slot label without repositioning
-            const popup = getChartHoverPopupEl();
-            popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
+            if (IS_TOUCH_DEVICE) {
+                // On touch devices there is no preceding hover, so show and position the popup
+                showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel);
+            } else {
+                // On desktop the popup is already visible from hover — just update content in place
+                const popup = getChartHoverPopupEl();
+                popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
+            }
         });
     }
 
