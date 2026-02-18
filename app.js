@@ -1626,7 +1626,7 @@ function updateChart(options = {}) {
         }
     };
 
-    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: true };
+    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: false };
     const chartEl = document.getElementById('chart');
 
     // Suppress relayout handler while we programmatically update the chart,
@@ -1702,6 +1702,80 @@ function updateChart(options = {}) {
               updateChart({ preserveRanges: true });
             }, 120);
           });
+    }
+
+    // Pinch-to-zoom: intercept two-finger gestures on the chart element
+    if (!chartEl._hasPinchHandler) {
+        chartEl._hasPinchHandler = true;
+
+        let pinchStartDist = null;
+        let pinchStartXRange = null;
+        let pinchStartYRange = null;
+        let pinchAnchorFx = 0.5;
+        let pinchAnchorFy = 0.5;
+
+        function getTouchDist(t1, t2) {
+            const dx = t1.clientX - t2.clientX;
+            const dy = t1.clientY - t2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        function getTouchMidpoint(t1, t2) {
+            return {
+                x: (t1.clientX + t2.clientX) / 2,
+                y: (t1.clientY + t2.clientY) / 2
+            };
+        }
+
+        chartEl.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                e.stopPropagation();
+                pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
+
+                const layout = chartEl._fullLayout;
+                if (!layout || !layout.xaxis || !layout.yaxis) return;
+                pinchStartXRange = [...layout.xaxis.range];
+                pinchStartYRange = [...layout.yaxis.range];
+
+                // Compute anchor as fraction of the plot area
+                const mid = getTouchMidpoint(e.touches[0], e.touches[1]);
+                const dragLayer = chartEl.querySelector('.draglayer .xy');
+                const pRect = dragLayer ? dragLayer.getBoundingClientRect() : chartEl.getBoundingClientRect();
+
+                pinchAnchorFx = Math.max(0, Math.min(1, (mid.x - pRect.left) / pRect.width));
+                pinchAnchorFy = Math.max(0, Math.min(1, 1 - (mid.y - pRect.top) / pRect.height));
+            }
+        }, { passive: true });
+
+        chartEl.addEventListener('touchmove', (e) => {
+            if (e.touches.length !== 2 || pinchStartDist === null) return;
+            if (!pinchStartXRange || !pinchStartYRange) return;
+
+            e.stopPropagation();
+
+            const currentDist = getTouchDist(e.touches[0], e.touches[1]);
+            if (currentDist < 1) return;
+
+            // scale < 1 zooms in (fingers spreading), scale > 1 zooms out (pinching)
+            const scale = pinchStartDist / currentDist;
+
+            const ranges = computeZoomedRanges({
+                xRange: pinchStartXRange,
+                yRange: pinchStartYRange,
+                scale,
+                anchorFx: pinchAnchorFx,
+                anchorFy: pinchAnchorFy
+            });
+            if (ranges) applyZoomLayout(chartEl, ranges);
+        }, { passive: true });
+
+        chartEl.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                pinchStartDist = null;
+                pinchStartXRange = null;
+                pinchStartYRange = null;
+            }
+        }, { passive: true });
     }
 }
 
