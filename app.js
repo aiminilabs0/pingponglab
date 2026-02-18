@@ -2619,14 +2619,6 @@ function initFilters() {
     // Close panel on Escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilterPanel(); });
 
-    // Zoom controls
-    document.getElementById('autoscaleBtn').addEventListener('click', () => {
-        triggerAutoscale();
-    });
-    const ZOOM_IN = 0.6;
-    document.getElementById('zoomInBtn').addEventListener('click', () => zoomChart(ZOOM_IN));
-    document.getElementById('zoomOutBtn').addEventListener('click', () => zoomChart(1 / ZOOM_IN));
-
     // Clear all filters → reset to all selected
     document.getElementById('clearAllFilters').addEventListener('click', () => {
         resetFiltersToAll();
@@ -2826,9 +2818,9 @@ async function initializeApp() {
     applyFiltersFromUrl();
     updateRadarChart();
     initChart();
-    // Trigger the same behavior as clicking the Fit button on first load.
+    // Apply initial autoscale on first load.
     requestAnimationFrame(() => {
-        document.getElementById('autoscaleBtn')?.click();
+        triggerAutoscale();
     });
 }
 
