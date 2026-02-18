@@ -1855,13 +1855,28 @@ function computeZoomedRanges({ xRange, yRange, scale, anchorFx, anchorFy }) {
 
     const xCenter = xRange[0] + anchorFx * xSpan;
     const yCenter = yRange[0] + anchorFy * ySpan;
-    const newXSpan = xSpan * scale;
-    const newYSpan = ySpan * scale;
+
+    // Clamp scale to prevent over-zoom-in: don't let the visible span
+    // drop below a meaningful minimum (e.g. 5% of the full data span).
+    let clampedScale = scale;
+    if (autoscaleBounds && scale < 1) {
+        const fullXSpan = autoscaleBounds.x[1] - autoscaleBounds.x[0];
+        const fullYSpan = autoscaleBounds.y[1] - autoscaleBounds.y[0];
+        const MIN_SPAN_FRACTION = 0.05;
+        const minXSpan = fullXSpan * MIN_SPAN_FRACTION;
+        const minYSpan = fullYSpan * MIN_SPAN_FRACTION;
+        const scaleForMinX = xSpan > 0 ? minXSpan / xSpan : scale;
+        const scaleForMinY = ySpan > 0 ? minYSpan / ySpan : scale;
+        clampedScale = Math.max(scale, scaleForMinX, scaleForMinY);
+    }
+
+    const newXSpan = xSpan * clampedScale;
+    const newYSpan = ySpan * clampedScale;
 
     let newXRange = [xCenter - anchorFx * newXSpan, xCenter + (1 - anchorFx) * newXSpan];
     let newYRange = [yCenter - anchorFy * newYSpan, yCenter + (1 - anchorFy) * newYSpan];
 
-    if (scale > 1 && autoscaleBounds) {
+    if (clampedScale > 1 && autoscaleBounds) {
         newXRange = clampRangeToBounds(newXRange, autoscaleBounds.x);
         newYRange = clampRangeToBounds(newYRange, autoscaleBounds.y);
     }
