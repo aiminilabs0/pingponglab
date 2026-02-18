@@ -219,6 +219,16 @@ h1 {
 .filter-trigger[aria-expanded="true"] .filter-trigger-summary {
     color: var(--drac-purple);
 }
+.filter-trigger-chevron {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--drac-comment);
+    transition: transform 0.25s ease;
+}
+.filter-trigger[aria-expanded="true"] .filter-trigger-chevron {
+    transform: rotate(180deg);
+    color: var(--drac-purple);
+}
 
 /* Collapsible body (grid + footer) */
 .filter-panel-body {
