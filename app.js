@@ -2289,7 +2289,7 @@ function getRadarData(rubber) {
 
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
-    const categories = ['Speed\n(faster)', 'Spin\n(spinnier)', 'Control\n(more control)', 'Weight\n(heavier)', 'Hardness\n(harder)'];
+    const categories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
     const values = [radarData.speed, radarData.spin, radarData.control, radarData.weight, radarData.hardness]
