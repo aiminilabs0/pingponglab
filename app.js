@@ -2353,7 +2353,7 @@ function updateRadarChart() {
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
     firstPanel.innerHTML = first ? buildRadarInfoHtml(first) : '';
     secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand }) : '';
-    const radarCategories = ['Speed\n(faster)', 'Spin\n(spinnier)', 'Control\n(more control)', 'Weight\n(heavier)', 'Hardness\n(harder)'];
+    const radarCategories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     const traces = [];
 
     if (!first && !second) {
