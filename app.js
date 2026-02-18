@@ -2069,7 +2069,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
 function buildTabButtonContent(rubber) {
     const color = getBrandColor(rubber.brand);
-    return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(rubber.name)}`;
+    return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(rubber.abbr || rubber.name)}`;
 }
 
 function renderTabs() {
