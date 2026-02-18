@@ -1098,6 +1098,15 @@ function pushFiltersToUrl() {
     history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
 }
 
+function syncCountrySelectorUI() {
+    document.querySelectorAll('#countrySelector .country-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.country === selectedCountry);
+    });
+
+    const mobileSelect = document.getElementById('countrySelectMobile');
+    if (mobileSelect) mobileSelect.value = selectedCountry;
+}
+
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right'];
@@ -1108,9 +1117,7 @@ function applyFiltersFromUrl() {
         const country = params.get('country');
         if (['us', 'eu', 'kr', 'cn'].includes(country)) {
             selectedCountry = country;
-            document.querySelectorAll('#countrySelector .country-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.country === country);
-            });
+            syncCountrySelectorUI();
         }
     }
 
@@ -2539,9 +2546,7 @@ function resetAppToInitialState() {
     nextDetailPanel = 1;
 
     selectedCountry = 'us';
-    document.querySelectorAll('#countrySelector .country-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.country === 'us');
-    });
+    syncCountrySelectorUI();
 
     resetFiltersToAll();
     resetDetailPanels();
@@ -2631,18 +2636,32 @@ function initFilters() {
 }
 
 function initCountrySelector() {
-    document.getElementById('countrySelector').addEventListener('click', (e) => {
-        const btn = e.target.closest('.country-btn');
-        if (!btn || btn.dataset.country === selectedCountry) return;
-        selectedCountry = btn.dataset.country;
-        document.querySelectorAll('#countrySelector .country-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function applyCountrySelection(nextCountry) {
+        if (!['us', 'eu', 'cn', 'kr'].includes(nextCountry)) return;
+        if (nextCountry === selectedCountry) return;
+        selectedCountry = nextCountry;
+        syncCountrySelectorUI();
         pushFiltersToUrl();
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
         updateComparisonBar();
         renderTabs();
+    }
+
+    syncCountrySelectorUI();
+
+    document.getElementById('countrySelector').addEventListener('click', (e) => {
+        const btn = e.target.closest('.country-btn');
+        if (!btn) return;
+        applyCountrySelection(btn.dataset.country);
     });
+
+    const mobileSelect = document.getElementById('countrySelectMobile');
+    if (mobileSelect) {
+        mobileSelect.addEventListener('change', (e) => {
+            applyCountrySelection(e.target.value);
+        });
+    }
 }
 
 function initHomeLogo() {

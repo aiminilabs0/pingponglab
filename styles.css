@@ -1742,6 +1742,19 @@ h1 {
     border-radius: 100px;
     padding: 4px;
 }
+.country-select-mobile {
+    display: none;
+    border: 1.5px solid var(--drac-current);
+    border-radius: 999px;
+    background: var(--drac-bg-dark);
+    color: var(--drac-fg);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 10px;
+    min-width: 55px;
+    max-width: 55px;
+    width: 55px;
+}
 .country-btn {
     display: inline-flex;
     align-items: center;
@@ -1783,6 +1796,12 @@ h1 {
     .header-title { font-size: 20px; }
     .header-tagline { font-size: 12px; }
     .header-controls { gap: 4px; }
+    .header-controls .country-selector {
+        display: none;
+    }
+    .country-select-mobile {
+        display: inline-block;
+    }
     .header-ctrl-btn { width: 34px; height: 34px; border-radius: 8px; }
     .header-ctrl-btn svg { width: 14px; height: 14px; }
     .header-ctrl-fit { padding: 0 12px; font-size: 13px; min-width: 60px; }

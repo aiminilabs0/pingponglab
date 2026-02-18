@@ -30,7 +30,20 @@
                         <p class="header-tagline">Showing 0 Rubbers</p>
                     </div>
                 </div>
-                <div class="header-controls" aria-hidden="true"></div>
+                <div class="header-controls">
+                    <div class="country-selector" id="countrySelector">
+                        <button type="button" class="country-btn active" data-country="us" title="USA" aria-label="USA">🇺🇸</button>
+                        <button type="button" class="country-btn" data-country="eu" title="Europe" aria-label="Europe">🇪🇺</button>
+                        <button type="button" class="country-btn" data-country="cn" title="China" aria-label="China">🇨🇳</button>
+                        <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
+                    </div>
+                    <select id="countrySelectMobile" class="country-select-mobile" aria-label="Select country">
+                        <option value="us">🇺🇸</option>
+                        <option value="eu">🇪🇺</option>
+                        <option value="cn">🇨🇳</option>
+                        <option value="kr">🇰🇷</option>
+                    </select>
+                </div>
             </div>
             <div class="header-accent"></div>
         </header>
@@ -44,12 +57,6 @@
                 <span class="filter-trigger-label">Filters</span>
                 <span class="filter-trigger-summary" id="filterSummary"></span>
             </button>
-            <div class="country-selector" id="countrySelector">
-                <button type="button" class="country-btn active" data-country="us" title="USA" aria-label="USA">🇺🇸</button>
-                <button type="button" class="country-btn" data-country="eu" title="Europe" aria-label="Europe">🇪🇺</button>
-                <button type="button" class="country-btn" data-country="cn" title="China" aria-label="China">🇨🇳</button>
-                <button type="button" class="country-btn" data-country="kr" title="Korea" aria-label="Korea">🇰🇷</button>
-            </div>
             <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
                 ↺ Reset
             </button>
