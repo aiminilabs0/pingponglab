@@ -1815,6 +1815,47 @@ function updateChart(options = {}) {
         chartEl.addEventListener('touchend', onPinchEnd, { passive: true });
         chartEl.addEventListener('touchcancel', onPinchEnd, { passive: true });
     }
+
+    // Desktop pinch-to-zoom: trackpad pinch fires wheel events with ctrlKey=true
+    if (!chartEl._hasWheelPinchHandler) {
+        chartEl._hasWheelPinchHandler = true;
+
+        chartEl.addEventListener('wheel', (e) => {
+            // Only intercept trackpad pinch (ctrlKey signals pinch on Mac/Windows)
+            if (!e.ctrlKey) return;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const layout = chartEl._fullLayout;
+            if (!layout || !layout.xaxis || !layout.yaxis) return;
+            const xRange = [...layout.xaxis.range];
+            const yRange = [...layout.yaxis.range];
+
+            // deltaY > 0 = pinch in (zoom out), deltaY < 0 = pinch out (zoom in)
+            // Map delta to a scale factor: positive delta → scale > 1 (zoom out)
+            const delta = e.deltaY;
+            const WHEEL_SENSITIVITY = 0.008;
+            const scale = 1 + delta * WHEEL_SENSITIVITY;
+
+            // Compute anchor from cursor position within the plot area
+            const dragLayer = chartEl.querySelector('.draglayer .xy');
+            const pRect = dragLayer ? dragLayer.getBoundingClientRect() : chartEl.getBoundingClientRect();
+            const anchorFx = Math.max(0, Math.min(1, (e.clientX - pRect.left) / pRect.width));
+            const anchorFy = Math.max(0, Math.min(1, 1 - (e.clientY - pRect.top) / pRect.height));
+
+            const ranges = computeZoomedRanges({ xRange, yRange, scale, anchorFx, anchorFy });
+            if (!ranges) return;
+
+            // Suppress relayout → updateChart for the duration of the wheel gesture
+            isInternalUpdate = true;
+            clearTimeout(relayoutTimer);
+            clearTimeout(internalUpdateTimer);
+            applyZoomLayout(chartEl, ranges);
+
+            // Release guard shortly after the last wheel event
+            internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 200);
+        }, { passive: false });
+    }
 }
 
 function initChart() {
