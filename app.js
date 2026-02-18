@@ -2401,6 +2401,7 @@ function updateRadarChart() {
         scrollZoom: false,
         doubleClick: false,
         showTips: false,
+        staticPlot: true,
     };
 
     chartEl.style.height = `${chartHeight}px`;
