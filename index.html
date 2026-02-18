@@ -45,72 +45,71 @@
             <div id="chart"></div>
         </div>
 
-        <div class="filter-toolbar" id="filterToolbar">
+        <div class="filter-panel" id="filterPanel">
             <button type="button" class="filter-trigger" id="filterTrigger" aria-expanded="false" aria-controls="filterPanel">
                 <span class="filter-trigger-icon">≡</span>
                 <span class="filter-trigger-label">Filters</span>
                 <span class="filter-trigger-summary" id="filterSummary"></span>
             </button>
-        </div>
+            <div class="filter-panel-body" id="filterPanelBody">
+                <div class="filter-panel-grid">
+                    <!-- Column 1: Weight, Hardness, Sheet, Control -->
+                    <div class="fp-section fp-section-sliders">
+                        <div class="fp-section-header">
+                            <span>Weight</span>
+                            <div class="fp-section-actions">
+                                <button type="button" id="weightResetBtn">Reset</button>
+                            </div>
+                        </div>
+                        <div class="fp-options" id="weightFilter"></div>
 
-        <div class="filter-panel" id="filterPanel" hidden>
-            <div class="filter-panel-grid">
-                <!-- Column 1: Weight, Hardness, Sheet, Control -->
-                <div class="fp-section fp-section-sliders">
-                    <div class="fp-section-header">
-                        <span>Weight</span>
-                        <div class="fp-section-actions">
-                            <button type="button" id="weightResetBtn">Reset</button>
+                        <div class="fp-section-header fp-section-header-sub">
+                            <span>Hardness</span>
+                            <div class="fp-section-actions">
+                                <button type="button" id="hardnessResetBtn">Reset</button>
+                            </div>
+                        </div>
+                        <div class="fp-options" id="hardnessFilter"></div>
+
+                        <div class="fp-section-header fp-section-header-sub"><span>Sheet</span></div>
+                        <div class="fp-options" id="sheetFilter"></div>
+
+                        <div class="fp-section-header fp-section-header-sub"><span>Control</span></div>
+                        <div class="fp-options" id="controlFilter"></div>
+                    </div>
+
+                    <!-- Column 2: Brand -->
+                    <div class="fp-section fp-section-brand">
+                        <div class="fp-section-header">
+                            <span>Brand</span>
+                            <div class="fp-section-actions">
+                                <button type="button" data-filter="brand" data-action="all">All</button>
+                                <button type="button" data-filter="brand" data-action="none">None</button>
+                            </div>
+                        </div>
+                        <div class="fp-options fp-options-no-scroll" id="brandFilter"></div>
+                    </div>
+
+                    <!-- Column 3: Rubber -->
+                    <div class="fp-section fp-section-rubber">
+                        <div class="fp-section-header fp-rubber-header" id="rubberSectionToggle">
+                            <span>Rubber <span class="fp-rubber-toggle-hint">▸</span></span>
+                            <div class="fp-section-actions">
+                                <button type="button" data-filter="name" data-action="all">All</button>
+                                <button type="button" data-filter="name" data-action="none">None</button>
+                            </div>
+                        </div>
+                        <div class="fp-rubber-content" id="rubberContent">
+                            <input class="fp-search" id="nameSearch" type="search" placeholder="Search rubber…">
+                            <div class="fp-options" id="nameFilter"></div>
                         </div>
                     </div>
-                    <div class="fp-options" id="weightFilter"></div>
-
-                    <div class="fp-section-header fp-section-header-sub">
-                        <span>Hardness</span>
-                        <div class="fp-section-actions">
-                            <button type="button" id="hardnessResetBtn">Reset</button>
-                        </div>
-                    </div>
-                    <div class="fp-options" id="hardnessFilter"></div>
-
-                    <div class="fp-section-header fp-section-header-sub"><span>Sheet</span></div>
-                    <div class="fp-options" id="sheetFilter"></div>
-
-                    <div class="fp-section-header fp-section-header-sub"><span>Control</span></div>
-                    <div class="fp-options" id="controlFilter"></div>
                 </div>
-
-                <!-- Column 2: Brand -->
-                <div class="fp-section fp-section-brand">
-                    <div class="fp-section-header">
-                        <span>Brand</span>
-                        <div class="fp-section-actions">
-                            <button type="button" data-filter="brand" data-action="all">All</button>
-                            <button type="button" data-filter="brand" data-action="none">None</button>
-                        </div>
-                    </div>
-                    <div class="fp-options fp-options-no-scroll" id="brandFilter"></div>
+                <div class="filter-panel-footer">
+                    <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
+                        ↺ Reset all
+                    </button>
                 </div>
-
-                <!-- Column 3: Rubber -->
-                <div class="fp-section fp-section-rubber">
-                    <div class="fp-section-header fp-rubber-header" id="rubberSectionToggle">
-                        <span>Rubber <span class="fp-rubber-toggle-hint">▸</span></span>
-                        <div class="fp-section-actions">
-                            <button type="button" data-filter="name" data-action="all">All</button>
-                            <button type="button" data-filter="name" data-action="none">None</button>
-                        </div>
-                    </div>
-                    <div class="fp-rubber-content" id="rubberContent">
-                        <input class="fp-search" id="nameSearch" type="search" placeholder="Search rubber…">
-                        <div class="fp-options" id="nameFilter"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="filter-panel-footer">
-                <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
-                    ↺ Reset all
-                </button>
             </div>
         </div>
 

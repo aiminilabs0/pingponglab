@@ -968,23 +968,18 @@ function buildNameOptionsFromFilters() {
 
 function toggleFilterPanel() {
     filterPanelOpen = !filterPanelOpen;
-    const panel = document.getElementById('filterPanel');
+    const body = document.getElementById('filterPanelBody');
     const trigger = document.getElementById('filterTrigger');
-    if (!panel || !trigger) return;
+    if (!body || !trigger) return;
 
     if (filterPanelOpen) {
-        panel.removeAttribute('hidden');
         // Force reflow so the transition from max-height:0 works
-        void panel.offsetHeight;
-        panel.classList.add('open');
+        void body.offsetHeight;
+        body.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
     } else {
-        panel.classList.remove('open');
+        body.classList.remove('open');
         trigger.setAttribute('aria-expanded', 'false');
-        panel.addEventListener('transitionend', function onEnd() {
-            panel.removeEventListener('transitionend', onEnd);
-            if (!filterPanelOpen) panel.setAttribute('hidden', '');
-        });
     }
 }
 
