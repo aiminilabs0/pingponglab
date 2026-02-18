@@ -1626,7 +1626,7 @@ function updateChart(options = {}) {
         }
     };
 
-    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: false };
+    const config = { responsive: true, displayModeBar: false, displaylogo: false, scrollZoom: false, doubleClick: false };
     const chartEl = document.getElementById('chart');
 
     // Suppress relayout handler while we programmatically update the chart,
