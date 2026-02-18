@@ -1405,12 +1405,12 @@ function getRubberPopupKey(rubber) {
     return `${rubber.brand || ''}::${rubber.fullName || rubber.name || ''}`;
 }
 
-function showChartHoverPopupFromPlotlyData(data, chartEl) {
+function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const point = data?.points?.[0];
     const rubber = point?.data?.customdata?.[point.pointIndex];
     if (!point || !rubber) return null;
     const popup = getChartHoverPopupEl();
-    popup.innerHTML = buildHoverPopupHtml(rubber, point);
+    popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
     positionHoverPopup(popup, data, chartEl);
     return rubber;
 }
@@ -1430,7 +1430,7 @@ function buildControlLevelIndicatorHtml(rank) {
     `.trim();
 }
 
-function buildHoverPopupHtml(rubber, point) {
+function buildHoverPopupHtml(rubber, point, slotLabel) {
     const rubberName = rubber.name || rubber.fullName || '-';
     const brandName = rubber.brand || '-';
     const sheet = rubber.sheet || '-';
@@ -1444,6 +1444,10 @@ function buildHoverPopupHtml(rubber, point) {
     const brandColor = getBrandColor(brandName);
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
+        : '';
+
+    const slotTag = slotLabel
+        ? `<div class="chart-hover-slot">${escapeHtml(slotLabel)}</div>`
         : '';
 
     return `
@@ -1464,6 +1468,7 @@ function buildHoverPopupHtml(rubber, point) {
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
+            ${slotTag}
         </div>
     `;
 }
@@ -1657,18 +1662,16 @@ function updateChart(options = {}) {
         chartEl.on('plotly_click', data => {
             const point = data.points[0];
             const rubber = point.data.customdata[point.pointIndex];
+
+            // Capture which detail slot this click will populate (before handleRubberClick flips it).
+            const panelNum = nextDetailPanel;
+            const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
+
             handleRubberClick(rubber);
 
-            // Mobile has no true hover; tapping a point should open the popup.
-            if (IS_TOUCH_DEVICE) {
-                const nextKey = getRubberPopupKey(rubber);
-                if (activeTappedRubberKey && activeTappedRubberKey === nextKey) {
-                    hideChartHoverPopup();
-                    return;
-                }
-                const shownRubber = showChartHoverPopupFromPlotlyData(data, chartEl);
-                activeTappedRubberKey = getRubberPopupKey(shownRubber);
-            }
+            // Update popup content in place — add slot label without repositioning
+            const popup = getChartHoverPopupEl();
+            popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
         });
     }
 

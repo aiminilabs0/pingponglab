@@ -1013,6 +1013,16 @@ h1 {
     background: rgba(212,193,106,0.16);
     color: #eadc9e;
 }
+.chart-hover-slot {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(126,184,168,0.85);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding-top: 6px;
+    border-top: 1px solid rgba(155,148,132,0.18);
+}
 
 /* ── Content card (tabbed detail/comparison) ── */
 .content-card {
