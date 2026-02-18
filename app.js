@@ -2354,7 +2354,7 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     };
 }
 
-function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0 } = {}) {
+function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
@@ -2373,15 +2373,15 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0 } = {}) {
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
 
     return `
-        <div class="radar-info-header">
+        <div class="radar-info-header${reversed ? ' radar-info-header--reversed' : ''}">
             <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
                 <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
             </span>
             <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
         </div>
-        <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
-        <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
-        <div class="radar-info-metrics">
+        <div class="radar-info-name${reversed ? ' radar-info-name--reversed' : ''}" style="color:${brandColor}">${escapeHtml(rubber.name)}</div>
+        <div class="radar-info-line-key${reversed ? ' radar-info-line-key--reversed' : ''}" style="${lineStyle} ${brandColor}; width: 28px;"></div>
+        <div class="radar-info-metrics${reversed ? ' radar-info-metrics--reversed' : ''}">
             <div class="radar-info-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
             <div class="radar-info-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
             <div class="radar-info-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
@@ -2405,7 +2405,7 @@ function updateRadarChart() {
 
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
     firstPanel.innerHTML = first ? buildRadarInfoHtml(first, { panelIndex: 0 }) : '';
-    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand, panelIndex: 1 }) : '';
+    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand, panelIndex: 1, reversed: true }) : '';
     const radarCategories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     const traces = [];
 

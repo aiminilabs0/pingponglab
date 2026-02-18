@@ -1512,6 +1512,17 @@ h1 {
     text-align: right;
 }
 
+/* Reversed layout for second panel — values face inward */
+.radar-info-header--reversed { flex-direction: row-reverse; }
+.radar-info-name--reversed { text-align: right; }
+.radar-info-line-key--reversed { margin-left: auto; }
+.radar-info-metrics--reversed .radar-info-metric {
+    flex-direction: row-reverse;
+}
+.radar-info-metrics--reversed .radar-info-metric strong {
+    text-align: left;
+}
+
 @media (max-width: 768px) {
     .radar-chart {
         height: 260px;
