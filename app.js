@@ -1847,6 +1847,9 @@ function computeZoomedRanges({ xRange, yRange, scale, anchorFx, anchorFy }) {
     // Clamp scale to prevent over-zoom-in: don't let the visible span
     // drop below a meaningful minimum (e.g. 5% of the full data span).
     let clampedScale = scale;
+    const MIN_SCALE = 0.6;
+    const MAX_SCALE = 1.8;
+    clampedScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, clampedScale));
     if (autoscaleBounds && scale < 1) {
         const fullXSpan = autoscaleBounds.x[1] - autoscaleBounds.x[0];
         const fullYSpan = autoscaleBounds.y[1] - autoscaleBounds.y[0];
