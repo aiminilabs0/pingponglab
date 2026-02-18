@@ -1932,7 +1932,7 @@ h1 {
     }
     .fp-rubber-toggle-hint {
         display: inline;
-        font-size: 10px;
+        font-size: 14px;
         transition: transform 0.2s ease;
     }
     .fp-rubber-header.is-open .fp-rubber-toggle-hint {
