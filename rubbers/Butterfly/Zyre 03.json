@@ -3,8 +3,8 @@
   "name": "Zyre 03",
   "manufacturer": "Butterfly",
   "players": {
-    "forehand": ["Amy Wang", "Kanak Jha", "Miwa Harimoto"],
-    "backhand": ["Amy Wang", "Tomokazu Harimoto", "Dimitrij Ovtcharov", "Sora Matsushima"]
+    "forehand": ["Amy Wang (https://www.youtube.com/shorts/meYXxJUhouI)", "Kanak Jha", "Miwa Harimoto"],
+    "backhand": ["Amy Wang (https://www.youtube.com/shorts/meYXxJUhouI)", "Tomokazu Harimoto", "Dimitrij Ovtcharov", "Sora Matsushima"]
   },
   "user_ratings": {
     "overall": 9.3,

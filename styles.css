@@ -1091,10 +1091,6 @@ h1 {
 .content-tab:hover { color: var(--drac-fg); }
 .content-tab--active { color: var(--drac-fg); border-bottom-color: var(--drac-purple); }
 .content-tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.content-tab--vs {
-    /* Same style as other tabs — no special highlight */
-}
-
 /* Content body */
 .content-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; max-height: 75vh; }
 .content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -1580,6 +1576,18 @@ h1 {
     color: var(--drac-fg);
     font-weight: 500;
 }
+.radar-info-player-link {
+    color: var(--drac-cyan);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+.radar-info-player-link:hover {
+    color: var(--drac-pink);
+}
+.radar-info-player-link.yt-active {
+    color: var(--drac-red);
+}
 .radar-info-metrics--reversed .radar-info-players {
     align-items: flex-end;
 }
@@ -2040,6 +2048,12 @@ h1 {
 }
 
 /* YouTube pseudo-fullscreen in landscape */
+.radar-info-panel .youtube-embed-wrapper {
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(155,148,132,0.25);
+    background: rgba(0,0,0,0.3);
+}
 .youtube-embed-wrapper.landscape-fs {
     position: fixed !important;
     top: 0 !important;

@@ -144,6 +144,39 @@ function normalizeSheet(value) {
     return 'Classic';
 }
 
+function parsePlayerEntry(value) {
+    if (typeof value !== 'string') return null;
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+
+    // Supports: "Player Name (https://...)"
+    const linkedEntry = trimmed.match(/^(.*?)\s*\((https?:\/\/[^\s)]+)\)\s*$/i);
+    if (!linkedEntry) {
+        return { name: trimmed, url: '' };
+    }
+
+    const [, rawName, rawUrl] = linkedEntry;
+    const name = (rawName || '').trim();
+    const url = (rawUrl || '').trim();
+    if (!name) return { name: trimmed, url: '' };
+    return { name, url };
+}
+
+function renderPlayerEntryHtml(value) {
+    const parsed = parsePlayerEntry(value);
+    if (!parsed) return '';
+    const safeName = escapeHtml(parsed.name);
+    if (!parsed.url) return safeName;
+
+    const videoId = extractYouTubeVideoId(parsed.url);
+    if (videoId) {
+        return `<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`;
+    }
+
+    const safeUrl = escapeHtml(parsed.url);
+    return `<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`;
+}
+
 function formatPlayerLabel(raw) {
     const uniquePlayers = new Set();
 
@@ -173,7 +206,8 @@ function formatPlayerLabel(raw) {
 
     if (uniquePlayers.size === 0) return '';
     return Array.from(uniquePlayers)
-        .map(name => escapeHtml(name))
+        .map(renderPlayerEntryHtml)
+        .filter(Boolean)
         .join('<br>');
 }
 
@@ -204,7 +238,8 @@ function formatPlayersBySide(raw) {
 
         collectPlayersFromValue(value);
         return Array.from(uniquePlayers)
-            .map(name => escapeHtml(name))
+            .map(renderPlayerEntryHtml)
+            .filter(Boolean)
             .join('<br>');
     };
 
@@ -2025,8 +2060,33 @@ function triggerAutoscale() {
 
 function extractYouTubeVideoId(url) {
     if (!url) return null;
-    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-    return match ? match[1] : null;
+    try {
+        const parsed = new URL(url);
+        const host = parsed.hostname.toLowerCase();
+        const path = parsed.pathname;
+
+        if (host === 'youtu.be') {
+            const id = path.replace(/^\/+/, '').split('/')[0];
+            return id || null;
+        }
+
+        if (!host.endsWith('youtube.com')) return null;
+
+        if (path === '/watch') {
+            const id = parsed.searchParams.get('v');
+            return id || null;
+        }
+
+        const segments = path.split('/').filter(Boolean);
+        if (segments[0] === 'shorts' || segments[0] === 'embed' || segments[0] === 'live') {
+            return segments[1] || null;
+        }
+    } catch {
+        // Non-URL input or parse failure; fall back to regex.
+    }
+
+    const fallback = String(url).match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]+)/i);
+    return fallback ? fallback[1] : null;
 }
 
 const PRODUCT_ICON = {
@@ -2524,27 +2584,32 @@ function updateRadarChart() {
 // ════════════════════════════════════════════════════════════
 
 function toggleYouTubeEmbed(iconLink, videoId) {
-    const panel = iconLink.closest('.content-pane');
-    if (!panel) return;
+    const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-panel');
+    if (!panel || !videoId) return;
+    const isRadarPanel = panel.classList.contains('radar-info-panel');
 
-    // Toggle off if embed already exists in this panel
+    // Toggle existing embed in this container; clicking same video closes it.
     let embedWrapper = panel.querySelector('.youtube-embed-wrapper');
     if (embedWrapper) {
+        const existingVideoId = embedWrapper.dataset.videoId;
         const pid = embedWrapper.dataset.playerId;
         if (pid && ytPlayers[pid]) {
             try { ytPlayers[pid].destroy(); } catch {}
             delete ytPlayers[pid];
         }
         embedWrapper.remove();
-        iconLink.classList.remove('yt-active');
-        return;
+        panel.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
+        if (existingVideoId === videoId) return;
     }
 
-    // Insert embed wrapper immediately after the title header
+    // Insert embed wrapper near the section header/metrics.
     const titleHeader = panel.querySelector('.rubber-title-header');
+    const metricsBlock = panel.querySelector('.radar-info-metrics');
     embedWrapper = document.createElement('div');
     embedWrapper.className = 'youtube-embed-wrapper';
     embedWrapper.style.cssText = 'position:relative;padding-bottom:56.25%;height:0;overflow:hidden;';
+    embedWrapper.dataset.videoId = videoId;
+    if (isRadarPanel) embedWrapper.classList.add('youtube-embed-wrapper--radar');
 
     // Close button for landscape pseudo-fullscreen
     const closeBtn = document.createElement('button');
@@ -2560,12 +2625,15 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
 
-    if (titleHeader && titleHeader.nextSibling) {
+    if (isRadarPanel && metricsBlock) {
+        panel.insertBefore(embedWrapper, metricsBlock.nextSibling);
+    } else if (titleHeader && titleHeader.nextSibling) {
         panel.insertBefore(embedWrapper, titleHeader.nextSibling);
     } else {
         panel.appendChild(embedWrapper);
     }
 
+    panel.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
     iconLink.classList.add('yt-active');
 
     if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {
