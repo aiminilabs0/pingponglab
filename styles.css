@@ -221,7 +221,8 @@ h1 {
 }
 .filter-trigger-chevron {
     margin-left: auto;
-    font-size: 14px;
+    font-size: 19px;
+    line-height: 1;
     color: var(--drac-comment);
     transition: transform 0.25s ease;
 }
@@ -1953,7 +1954,8 @@ h1 {
     }
     .fp-rubber-toggle-hint {
         display: inline;
-        font-size: 14px;
+        font-size: 18px;
+        line-height: 1;
         transition: transform 0.2s ease;
     }
     .fp-rubber-header.is-open .fp-rubber-toggle-hint {
