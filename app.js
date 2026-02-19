@@ -2480,9 +2480,10 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
         forehandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH</span><span class="radar-info-player-names">${forehandPlayer}</span></div>` : '',
         backhandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhandPlayer}</span></div>` : ''
     ].filter(Boolean);
-    const playerMetricsHtml = playerRows.length
-        ? `<div class="radar-info-metric">${reversed ? '' : '<span>Players</span>'}<div class="radar-info-players">${playerRows.join('')}</div></div>`
-        : '';
+    const playersValueHtml = playerRows.length
+        ? `<div class="radar-info-players">${playerRows.join('')}</div>`
+        : '<strong>-</strong>';
+    const playerMetricsHtml = `<div class="radar-info-metric">${reversed ? '' : '<span>Players</span>'}${playersValueHtml}</div>`;
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
     const pinIcon = isPinned
