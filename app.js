@@ -2460,54 +2460,121 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     };
 }
 
-function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed = false } = {}) {
+function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
+    if (!rubber) {
+        return `<div class="radar-comparison-header-placeholder">Select a rubber</div>`;
+    }
     const brandColor = getBrandColor(rubber.brand);
     const radarLabel = rubber.addr || rubber.name || '-';
-    const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
-    const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
-    const control = buildControlLevelIndicatorHtml(rubber.controlRank, {
-        fillFromLeft: panelIndex === 1
-    });
-    const weight = rubber.weightLabel || '-';
-    const weightToneClass = getWeightToneClass(rubber.weight);
-    const hardness = formatHardnessPopupLabel(rubber);
-    const hardnessToneClass = getHardnessToneClass(rubber.normalizedHardness);
-    const releaseYear = rubber.releaseYearLabel || 'N/A';
-    const thickness = formatThicknessRadarHtml(rubber.thicknessLabel);
-    const forehandPlayer = rubber.forehandPlayerLabel || '';
-    const backhandPlayer = rubber.backhandPlayerLabel || '';
-    const playerRows = [
-        forehandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH</span><span class="radar-info-player-names">${forehandPlayer}</span></div>` : '',
-        backhandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhandPlayer}</span></div>` : ''
-    ].filter(Boolean);
-    const playersValueHtml = playerRows.length
-        ? `<div class="radar-info-players">${playerRows.join('')}</div>`
-        : '<strong>-</strong>';
-    const playerMetricsHtml = `<div class="radar-info-metric">${reversed ? '' : '<span>Players</span>'}${playersValueHtml}</div>`;
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
     const pinIcon = isPinned
         ? `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
+    return `
+        <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
+            <div class="radar-info-header">
+                <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
+                    <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
+                </span>
+                <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
+            </div>
+            <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
+            <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
+        </div>
+    `;
+}
+
+function buildPlayersColumnHtml(rubber, align) {
+    if (!rubber) return '<span class="radar-cmp-dash">-</span>';
+    const forehand = rubber.forehandPlayerLabel || '';
+    const backhand = rubber.backhandPlayerLabel || '';
+    const rows = [
+        forehand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH</span><span class="radar-info-player-names">${forehand}</span></div>` : '',
+        backhand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhand}</span></div>` : ''
+    ].filter(Boolean);
+    if (!rows.length) return '<span class="radar-cmp-dash">-</span>';
+    return `<div class="radar-info-players radar-info-players--${align}">${rows.join('')}</div>`;
+}
+
+function buildRadarComparisonHtml(first, second) {
+    if (!first && !second) {
+        return `<div class="radar-comparison-empty">Select a rubber</div>`;
+    }
+
+    const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
+
+    // Build header
+    const headerHtml = `
+        <div class="radar-comparison-headers">
+            ${buildRubberHeaderHtml(first, 0, false)}
+            ${buildRubberHeaderHtml(second, 1, sameBrand)}
+        </div>
+    `;
+
+    // Metric helpers
+    function val(rubber, getter) {
+        if (!rubber) return '<span class="radar-cmp-dash">-</span>';
+        return getter(rubber);
+    }
+
+    // Build metric rows
+    const metrics = [
+        {
+            label: 'Speed Rank',
+            left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+            right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+        },
+        {
+            label: 'Spin Rank',
+            left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+            right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+        },
+        {
+            label: 'Control',
+            left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank)}</strong>`),
+            right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank, { fillFromLeft: true })}</strong>`),
+        },
+        {
+            label: 'Weight',
+            left: val(first, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+            right: val(second, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+        },
+        {
+            label: 'Hardness',
+            left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness)}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness)}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+        },
+        {
+            label: 'Release',
+            left: val(first, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
+            right: val(second, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
+        },
+        {
+            label: 'Thickness',
+            left: val(first, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
+            right: val(second, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
+        },
+    ];
+
+    const metricRowsHtml = metrics.map(m => `
+        <div class="radar-cmp-cell radar-cmp-cell--left">${m.left}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--label">${m.label}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--right">${m.right}</div>
+    `).join('');
+
+    // Players row (special layout)
+    const playersRowHtml = `
+        <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${buildPlayersColumnHtml(first, 'right')}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--label">Players</div>
+        <div class="radar-cmp-cell radar-cmp-cell--right radar-cmp-cell--players">${buildPlayersColumnHtml(second, 'left')}</div>
+    `;
 
     return `
-        <div class="radar-info-header${reversed ? ' radar-info-header--reversed' : ''}">
-            <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
-                <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
-            </span>
-            <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
-        </div>
-        <div class="radar-info-name${reversed ? ' radar-info-name--reversed' : ''}" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
-        <div class="radar-info-line-key${reversed ? ' radar-info-line-key--reversed' : ''}" style="${lineStyle} ${brandColor}; width: 28px;"></div>
-        <div class="radar-info-metrics${reversed ? ' radar-info-metrics--reversed' : ''}">
-            <div class="radar-info-metric">${reversed ? '' : '<span>Speed Rank</span>'}<strong>${speed}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Spin Rank</span>'}<strong>${spin}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Control</span>'}<strong class="chart-control-indicator">${control}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Weight</span>'}<strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Hardness</span>'}<strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Release</span>'}<strong>${escapeHtml(releaseYear)}</strong></div>
-            <div class="radar-info-metric">${reversed ? '' : '<span>Thickness</span>'}<strong>${thickness}</strong></div>
-            ${playerMetricsHtml}
+        ${headerHtml}
+        <div class="radar-comparison-grid">
+            ${metricRowsHtml}
+            ${playersRowHtml}
         </div>
     `;
 }
@@ -2515,15 +2582,13 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
 function updateRadarChart() {
     const chartEl = document.getElementById('radarChart');
     if (!chartEl) return;
-    const firstPanel = document.getElementById('radarInfoFirst');
-    const secondPanel = document.getElementById('radarInfoSecond');
+    const infoPanel = document.getElementById('radarInfoPanel');
     const [first, second] = selectedRubbers;
     const isMobile = window.innerWidth <= 768;
     const chartHeight = isMobile ? 260 : 320;
 
+    infoPanel.innerHTML = buildRadarComparisonHtml(first, second);
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
-    firstPanel.innerHTML = first ? buildRadarInfoHtml(first, { panelIndex: 0 }) : '';
-    secondPanel.innerHTML = second ? buildRadarInfoHtml(second, { dashed: sameBrand, panelIndex: 1, reversed: true }) : '';
     const radarCategories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
     const traces = [];
 
@@ -2620,9 +2685,9 @@ function startRadarAutoRotate() {
 // ════════════════════════════════════════════════════════════
 
 function toggleYouTubeEmbed(iconLink, videoId) {
-    const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-panel');
+    const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-combined');
     if (!panel || !videoId) return;
-    const isRadarPanel = panel.classList.contains('radar-info-panel');
+    const isRadarPanel = panel.classList.contains('radar-info-combined');
     const radarSection = isRadarPanel ? panel.closest('.radar-section') : null;
 
     // For radar panels, embed lives in .radar-section (full-width); otherwise in the panel.
@@ -2644,7 +2709,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
 
     // Insert embed wrapper near the section header/metrics.
     const titleHeader = panel.querySelector('.rubber-title-header');
-    const metricsBlock = panel.querySelector('.radar-info-metrics');
+    const metricsBlock = panel.querySelector('.radar-info-metrics') || panel.querySelector('.radar-comparison-grid');
     embedWrapper = document.createElement('div');
     embedWrapper.className = 'youtube-embed-wrapper';
     embedWrapper.style.cssText = 'position:relative;padding-bottom:56.25%;height:0;overflow:hidden;';
