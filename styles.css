@@ -932,22 +932,28 @@ h1 {
     white-space: nowrap;
     text-align: right;
 }
-.chart-hover-metric strong.hardness-tone-soft {
+.chart-hover-metric strong.hardness-tone-soft,
+.radar-info-metric strong.hardness-tone-soft {
     color: var(--drac-green);
 }
-.chart-hover-metric strong.hardness-tone-medium {
+.chart-hover-metric strong.hardness-tone-medium,
+.radar-info-metric strong.hardness-tone-medium {
     color: var(--drac-yellow);
 }
-.chart-hover-metric strong.hardness-tone-hard {
+.chart-hover-metric strong.hardness-tone-hard,
+.radar-info-metric strong.hardness-tone-hard {
     color: var(--drac-red);
 }
-.chart-hover-metric strong.weight-tone-green {
+.chart-hover-metric strong.weight-tone-green,
+.radar-info-metric strong.weight-tone-green {
     color: var(--drac-green);
 }
-.chart-hover-metric strong.weight-tone-yellow {
+.chart-hover-metric strong.weight-tone-yellow,
+.radar-info-metric strong.weight-tone-yellow {
     color: var(--drac-yellow);
 }
-.chart-hover-metric strong.weight-tone-red {
+.chart-hover-metric strong.weight-tone-red,
+.radar-info-metric strong.weight-tone-red {
     color: var(--drac-red);
 }
 .chart-hover-metric strong.chart-control-indicator {
