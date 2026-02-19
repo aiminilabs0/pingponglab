@@ -2404,6 +2404,11 @@ async function updateComparisonBar() {
 //  Radar Chart
 // ════════════════════════════════════════════════════════════
 
+const RADAR_ROTATION_DEG_PER_SEC = 0.5;
+let radarRotationDeg = 0;
+let radarAutoRotateFrameId = null;
+let radarAutoRotateLastTs = null;
+
 function normalizeRankToScore(rank, total) {
     if (!Number.isFinite(rank) || !Number.isFinite(total) || total <= 0) return 0;
     return ((total - rank + 1) / total) * 100;
@@ -2552,6 +2557,7 @@ function updateRadarChart() {
                 gridcolor: 'rgba(158,150,137,0.18)',
                 linecolor: 'rgba(158,150,137,0.25)',
                 tickfont: { color: '#e8e0d0', size: isMobile ? 9 : 11 },
+                rotation: radarRotationDeg,
             },
         },
         showlegend: false,
@@ -2577,6 +2583,35 @@ function updateRadarChart() {
         if (!chartEl) return;
         Plotly.Plots.resize(chartEl);
     });
+}
+
+function startRadarAutoRotate() {
+    if (radarAutoRotateFrameId !== null) return;
+
+    const tick = (timestamp) => {
+        if (document.hidden) {
+            radarAutoRotateLastTs = timestamp;
+            radarAutoRotateFrameId = requestAnimationFrame(tick);
+            return;
+        }
+
+        if (radarAutoRotateLastTs === null) {
+            radarAutoRotateLastTs = timestamp;
+        }
+
+        const elapsedSec = (timestamp - radarAutoRotateLastTs) / 1000;
+        radarAutoRotateLastTs = timestamp;
+        radarRotationDeg = (radarRotationDeg + elapsedSec * RADAR_ROTATION_DEG_PER_SEC) % 360;
+
+        const chartEl = document.getElementById('radarChart');
+        if (chartEl?._fullLayout) {
+            Plotly.relayout(chartEl, { 'polar.angularaxis.rotation': radarRotationDeg });
+        }
+
+        radarAutoRotateFrameId = requestAnimationFrame(tick);
+    };
+
+    radarAutoRotateFrameId = requestAnimationFrame(tick);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -3041,6 +3076,7 @@ async function initializeApp() {
 
     applyFiltersFromUrl();
     updateRadarChart();
+    startRadarAutoRotate();
     initChart();
     // Apply initial autoscale on first load.
     requestAnimationFrame(() => {
