@@ -1507,7 +1507,7 @@ h1 {
     }
     .radar-info-combined {
         flex: 0 0 auto;
-        width: 340px;
+        width: 400px;
         border-top: none;
         border-left: 1px solid var(--drac-current);
     }
@@ -1591,6 +1591,18 @@ h1 {
     letter-spacing: -0.2px;
     margin-bottom: 0;
     word-break: break-word;
+}
+.radar-rubber-img {
+    display: block;
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.radar-comparison-header-side--right .radar-rubber-img {
+    margin-left: auto;
 }
 .radar-info-line-key {
     margin-bottom: 6px;
@@ -2052,6 +2064,10 @@ h1 {
     .filter-panel-body.open .filter-panel-grid::-webkit-scrollbar-thumb {
         background: var(--drac-orange);
         border-radius: 10px;
+    }
+    .radar-rubber-img {
+        width: 40px;
+        height: 40px;
     }
     .fp-rubber-header {
         cursor: pointer;

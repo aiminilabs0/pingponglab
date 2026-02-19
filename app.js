@@ -2471,6 +2471,8 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     const pinIcon = isPinned
         ? `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
+    const rubberImgName = encodeURIComponent(rubber.abbr || rubber.name);
+    const rubberImgHtml = `<img class="radar-rubber-img" src="images/rubbers/${rubberImgName}.jpg" alt="${escapeHtml(radarLabel)}" onerror="this.style.display='none'">`;
     return `
         <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
             <div class="radar-info-header">
@@ -2482,6 +2484,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
                 <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
+            ${rubberImgHtml}
             <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         </div>
     `;
