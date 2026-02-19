@@ -171,10 +171,48 @@ function formatPlayerLabel(raw) {
     collectPlayersFromValue(raw.player);
     collectPlayersFromValue(raw.players);
 
-    if (uniquePlayers.size === 0) return 'N/A';
+    if (uniquePlayers.size === 0) return '';
     return Array.from(uniquePlayers)
         .map(name => escapeHtml(name))
         .join('<br>');
+}
+
+function formatPlayersBySide(raw) {
+    const toLabel = (value) => {
+        if (!value) return '';
+
+        const uniquePlayers = new Set();
+        const collectPlayer = (entry) => {
+            if (typeof entry !== 'string') return;
+            const trimmed = entry.trim();
+            if (trimmed) uniquePlayers.add(trimmed);
+        };
+        const collectPlayersFromValue = (entry) => {
+            if (!entry) return;
+            if (typeof entry === 'string') {
+                collectPlayer(entry);
+                return;
+            }
+            if (Array.isArray(entry)) {
+                entry.forEach(collectPlayersFromValue);
+                return;
+            }
+            if (typeof entry === 'object') {
+                Object.values(entry).forEach(collectPlayersFromValue);
+            }
+        };
+
+        collectPlayersFromValue(value);
+        return Array.from(uniquePlayers)
+            .map(name => escapeHtml(name))
+            .join('<br>');
+    };
+
+    const players = raw && typeof raw.players === 'object' ? raw.players : null;
+    return {
+        forehandPlayerLabel: toLabel(players?.forehand),
+        backhandPlayerLabel: toLabel(players?.backhand),
+    };
 }
 
 function formatThicknessLabel(value) {
@@ -316,6 +354,7 @@ async function loadRubberData() {
             releaseYearLabel: Number.isFinite(releaseYear) ? String(Math.round(releaseYear)) : 'N/A',
             thicknessLabel: formatThicknessLabel(details.thickness),
             playerLabel: formatPlayerLabel(raw),
+            ...formatPlayersBySide(raw),
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
             priority: 999, // will be overridden by priority ranking
@@ -2370,7 +2409,15 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
     const hardnessToneClass = getHardnessToneClass(rubber.normalizedHardness);
     const releaseYear = rubber.releaseYearLabel || 'N/A';
     const thickness = formatThicknessRadarHtml(rubber.thicknessLabel);
-    const player = rubber.playerLabel || 'N/A';
+    const forehandPlayer = rubber.forehandPlayerLabel || '';
+    const backhandPlayer = rubber.backhandPlayerLabel || '';
+    const playerRows = [
+        forehandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH</span><span class="radar-info-player-names">${forehandPlayer}</span></div>` : '',
+        backhandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhandPlayer}</span></div>` : ''
+    ].filter(Boolean);
+    const playerMetricsHtml = playerRows.length
+        ? `<div class="radar-info-metric"><span>Players</span><div class="radar-info-players">${playerRows.join('')}</div></div>`
+        : '';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
     const pinIcon = isPinned
@@ -2394,7 +2441,7 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
             <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             <div class="radar-info-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
             <div class="radar-info-metric"><span>Thickness</span><strong>${thickness}</strong></div>
-            <div class="radar-info-metric"><span>Player</span><strong class="radar-info-player">${player}</strong></div>
+            ${playerMetricsHtml}
         </div>
     `;
 }

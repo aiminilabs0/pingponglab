@@ -1529,6 +1529,52 @@ h1 {
     text-align: right;
 }
 
+/* Players by side (FH / BH badges) */
+.radar-info-players {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 2px;
+}
+.radar-info-player-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 11.5px;
+    line-height: 1.35;
+}
+.radar-info-side-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1.5px solid;
+    flex-shrink: 0;
+}
+.radar-info-side-badge--fh {
+    border-color: var(--drac-orange);
+    color: var(--drac-orange);
+    background: rgba(218, 138, 82, 0.12);
+}
+.radar-info-side-badge--bh {
+    border-color: var(--drac-cyan);
+    color: var(--drac-cyan);
+    background: rgba(126, 184, 168, 0.12);
+}
+.radar-info-player-names {
+    color: var(--drac-fg);
+    font-weight: 500;
+}
+.radar-info-metrics--reversed .radar-info-players {
+    align-items: flex-end;
+}
+.radar-info-metrics--reversed .radar-info-player-row {
+    flex-direction: row-reverse;
+}
+
 /* Reversed layout for second panel — values face inward */
 .radar-info-header--reversed { flex-direction: row-reverse; }
 .radar-info-name--reversed { text-align: right; }
