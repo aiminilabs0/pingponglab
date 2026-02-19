@@ -872,33 +872,14 @@ h1 {
 }
 .chart-hover-head {
     display: flex;
-    align-items: center;
-    gap: 9px;
+    flex-direction: column;
+    gap: 5px;
     margin-bottom: 10px;
 }
-.chart-hover-brand-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.28);
-    box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
-    flex-shrink: 0;
-}
-.chart-hover-title-wrap {
-    min-width: 0;
-    flex: 1;
-}
-.chart-hover-title {
-    color: var(--drac-fg);
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.25;
-}
-.chart-hover-subtitle {
-    color: var(--drac-comment);
-    font-size: 13px;
-    line-height: 1.3;
-    margin-top: 1px;
+.chart-hover-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .chart-hover-metrics {
     display: grid;
@@ -1113,6 +1094,42 @@ h1 {
     text-decoration: underline;
     color: var(--drac-green);
 }
+
+/* ── Shared brand pill + rubber name ── */
+.brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;
+    border: 1.5px solid;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1;
+    width: fit-content;
+}
+.brand-pill--sm {
+    font-size: 10px;
+    padding: 3px 9px 3px 7px;
+    gap: 5px;
+    margin-bottom: 3px;
+}
+.brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.rubber-name {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    word-break: break-word;
+}
+
 /* ── Rubber title header (detail panel) ── */
 .rubber-title-header {
     display: flex;
@@ -1131,31 +1148,8 @@ h1 {
     gap: 8px;
     flex-wrap: wrap;
 }
-.rubber-brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px 4px 8px;
-    border-radius: 999px;
-    border: 1.5px solid;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    line-height: 1;
-}
-.rubber-brand-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.content-pane h1.rubber-title {
+.content-pane h1.rubber-name {
     margin: 0;
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
 }
 /* Title row: name + icon links side by side */
 .rubber-title-row {
@@ -1165,7 +1159,7 @@ h1 {
     flex-wrap: nowrap;
     min-width: 0;
 }
-.rubber-title-row .rubber-title {
+.rubber-title-row .rubber-name {
     flex: 1;
     min-width: 0;
 }
@@ -1430,13 +1424,13 @@ h1 {
 .radar-comparison-header-side--right .radar-info-name-row .radar-pin-btn {
     order: -1;
 }
-.radar-comparison-header-side--right .radar-info-name {
+.radar-comparison-header-side--right .rubber-name {
     text-align: right;
 }
 .radar-comparison-header-side--right .radar-info-line-key {
     margin-left: auto;
 }
-.radar-comparison-header-side--right .radar-info-brand-pill {
+.radar-comparison-header-side--right .brand-pill {
     margin-left: auto;
 }
 .radar-comparison-header-placeholder {
@@ -1514,27 +1508,6 @@ h1 {
 }
 
 /* Rubber header inside radar info */
-.radar-info-brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 9px 3px 7px;
-    border-radius: 999px;
-    border: 1.5px solid;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    line-height: 1;
-    width: fit-content;
-    margin-bottom: 3px;
-}
-.radar-info-brand-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
 
 /* Radar info header row (brand pill) */
 .radar-info-header {
@@ -1542,7 +1515,7 @@ h1 {
     align-items: center;
     margin-bottom: 3px;
 }
-.radar-info-header .radar-info-brand-pill {
+.radar-info-header .brand-pill {
     margin-bottom: 0;
 }
 .radar-info-name-row {
@@ -1584,13 +1557,8 @@ h1 {
     display: block;
 }
 
-.radar-info-name {
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
+.radar-info-name-row .rubber-name {
     margin-bottom: 0;
-    word-break: break-word;
 }
 .radar-rubber-img {
     display: block;
@@ -1685,35 +1653,9 @@ h1 {
     align-items: flex-end;
     text-align: right;
 }
-.comp-brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px 4px 8px;
-    border-radius: 999px;
-    border: 1.5px solid;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    line-height: 1;
-    width: fit-content;
-}
-.comp-title-side-right .comp-brand-pill {
+.comp-title-side-right .brand-pill {
     flex-direction: row-reverse;
     padding: 3px 8px 3px 10px;
-}
-.comp-brand-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.comp-rubber-name {
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
 }
 .comp-title-vs {
     font-size: 13px;

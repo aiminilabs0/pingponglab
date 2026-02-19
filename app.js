@@ -1550,12 +1550,13 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     return `
         <div class="chart-hover-card">
             <div class="chart-hover-head">
-                <span class="chart-hover-brand-dot" style="background:${brandColor};"></span>
-                <div class="chart-hover-title-wrap">
-                    <div class="chart-hover-title">${escapeHtml(rubberName)}</div>
-                    <div class="chart-hover-subtitle">${escapeHtml(brandName)}</div>
+                <div class="chart-hover-top">
+                    <span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
+                        <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(brandName)}
+                    </span>
+                    ${bestsellerTag}
                 </div>
-                ${bestsellerTag}
+                <div class="rubber-name" style="color:var(--drac-fg)">${escapeHtml(rubberName)}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
@@ -2281,14 +2282,14 @@ async function updateDetailPanel(panelNum, rubber) {
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
-                `<span class="rubber-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">` +
-                    `<span class="rubber-brand-dot" style="background:${brandColor}"></span>` +
+                `<span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">` +
+                    `<span class="brand-dot" style="background:${brandColor}"></span>` +
                     `${escapeHtml(rubber.brand)}` +
                 `</span>` +
                 (rubber.bestseller ? `<span class="bestseller-badge">★ Bestseller</span>` : '') +
             `</div>` +
             `<div class="rubber-title-row">` +
-                `<h1 class="rubber-title" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
+                `<h1 class="rubber-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
                 (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
@@ -2353,17 +2354,17 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
 
     return `
         <div class="comp-title-side">
-            <span class="comp-brand-pill" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
-                <span class="comp-brand-dot" style="background:${leftColor}"></span>${leftBrand}
+            <span class="brand-pill" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
+                <span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}
             </span>
-            <span class="comp-rubber-name" style="color:${leftColor}">${leftName}</span>
+            <span class="rubber-name" style="color:${leftColor}">${leftName}</span>
         </div>
         <div class="comp-title-vs">vs</div>
         <div class="comp-title-side comp-title-side-right">
-            <span class="comp-brand-pill" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
-                <span class="comp-brand-dot" style="background:${rightColor}"></span>${rightBrand}
+            <span class="brand-pill" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
+                <span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}
             </span>
-            <span class="comp-rubber-name" style="color:${rightColor}">${rightName}</span>
+            <span class="rubber-name" style="color:${rightColor}">${rightName}</span>
         </div>
     `;
 }
@@ -2476,12 +2477,12 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     return `
         <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
             <div class="radar-info-header">
-                <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
-                    <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
+                <span class="brand-pill brand-pill--sm" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
+                    <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
                 </span>
             </div>
             <div class="radar-info-name-row">
-                <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
+                <div class="rubber-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
             ${rubberImgHtml}
