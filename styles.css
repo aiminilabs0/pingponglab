@@ -1424,8 +1424,11 @@ h1 {
 .radar-comparison-header-side--right {
     text-align: right;
 }
-.radar-comparison-header-side--right .radar-info-header {
-    flex-direction: row-reverse;
+.radar-comparison-header-side--right .radar-info-name-row {
+    justify-content: flex-end;
+}
+.radar-comparison-header-side--right .radar-info-name-row .radar-pin-btn {
+    order: -1;
 }
 .radar-comparison-header-side--right .radar-info-name {
     text-align: right;
@@ -1522,15 +1525,20 @@ h1 {
     flex-shrink: 0;
 }
 
-/* Radar info header row (brand pill + pin button) */
+/* Radar info header row (brand pill) */
 .radar-info-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 3px;
 }
 .radar-info-header .radar-info-brand-pill {
     margin-bottom: 0;
+}
+.radar-info-name-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 1px;
 }
 .radar-pin-btn {
     display: flex;
@@ -1570,7 +1578,7 @@ h1 {
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.2px;
-    margin-bottom: 1px;
+    margin-bottom: 0;
     word-break: break-word;
 }
 .radar-info-line-key {

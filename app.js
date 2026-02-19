@@ -2477,9 +2477,11 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
                 <span class="radar-info-brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
                     <span class="radar-info-brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
                 </span>
+            </div>
+            <div class="radar-info-name-row">
+                <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
-            <div class="radar-info-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
             <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         </div>
     `;
