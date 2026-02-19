@@ -2622,9 +2622,13 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-panel');
     if (!panel || !videoId) return;
     const isRadarPanel = panel.classList.contains('radar-info-panel');
+    const radarSection = isRadarPanel ? panel.closest('.radar-section') : null;
+
+    // For radar panels, embed lives in .radar-section (full-width); otherwise in the panel.
+    const embedContainer = radarSection || panel;
 
     // Toggle existing embed in this container; clicking same video closes it.
-    let embedWrapper = panel.querySelector('.youtube-embed-wrapper');
+    let embedWrapper = embedContainer.querySelector('.youtube-embed-wrapper');
     if (embedWrapper) {
         const existingVideoId = embedWrapper.dataset.videoId;
         const pid = embedWrapper.dataset.playerId;
@@ -2633,7 +2637,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
             delete ytPlayers[pid];
         }
         embedWrapper.remove();
-        panel.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
+        embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
         if (existingVideoId === videoId) return;
     }
 
@@ -2660,15 +2664,16 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
 
-    if (isRadarPanel && metricsBlock) {
-        panel.insertBefore(embedWrapper, metricsBlock.nextSibling);
+    if (radarSection) {
+        // Insert as a direct child of .radar-section so it spans full grid width
+        radarSection.appendChild(embedWrapper);
     } else if (titleHeader && titleHeader.nextSibling) {
         panel.insertBefore(embedWrapper, titleHeader.nextSibling);
     } else {
         panel.appendChild(embedWrapper);
     }
 
-    panel.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
+    embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
     iconLink.classList.add('yt-active');
 
     if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {

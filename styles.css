@@ -2047,11 +2047,11 @@ h1 {
     /* rubber-title is pinned via flex layout in .content-pane — no sticky needed */
 }
 
-/* YouTube pseudo-fullscreen in landscape */
-.radar-info-panel .youtube-embed-wrapper {
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(155,148,132,0.25);
+/* YouTube embed inside radar-section spans full grid width */
+.radar-section > .youtube-embed-wrapper {
+    grid-column: 1 / -1;
+    margin: 0;
+    border-top: 1px solid rgba(155,148,132,0.25);
     background: rgba(0,0,0,0.3);
 }
 .youtube-embed-wrapper.landscape-fs {
