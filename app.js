@@ -1438,14 +1438,14 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     return rubber;
 }
 
-function buildControlLevelIndicatorHtml(rank) {
+function buildControlLevelIndicatorHtml(rank, { fillFromLeft = false } = {}) {
     const controlLevel = getControlLevelFromRank(rank);
     if (!Number.isFinite(controlLevel)) return '-';
 
     const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
     const filledBoxes = CONTROL_LEVEL_COUNT - clampedLevel + 1;
     const boxHtml = Array.from({ length: CONTROL_LEVEL_COUNT }, (_, index) => (
-        `<span class="chart-control-box${index >= CONTROL_LEVEL_COUNT - filledBoxes ? ' is-filled' : ''}" aria-hidden="true"></span>`
+        `<span class="chart-control-box${fillFromLeft ? (index < filledBoxes ? ' is-filled' : '') : (index >= CONTROL_LEVEL_COUNT - filledBoxes ? ' is-filled' : '')}" aria-hidden="true"></span>`
     )).join('');
 
     return `
@@ -2361,7 +2361,9 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
     const radarLabel = rubber.addr || rubber.name || '-';
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
-    const control = buildControlLevelIndicatorHtml(rubber.controlRank);
+    const control = buildControlLevelIndicatorHtml(rubber.controlRank, {
+        fillFromLeft: panelIndex === 1
+    });
     const weight = rubber.weightLabel || '-';
     const weightToneClass = getWeightToneClass(rubber.weight);
     const hardness = formatHardnessPopupLabel(rubber);
