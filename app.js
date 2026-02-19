@@ -2453,7 +2453,7 @@ function updateRadarChart() {
     const secondPanel = document.getElementById('radarInfoSecond');
     const [first, second] = selectedRubbers;
     const isMobile = window.innerWidth <= 768;
-    const chartHeight = 260;
+    const chartHeight = isMobile ? 260 : 320;
 
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
     firstPanel.innerHTML = first ? buildRadarInfoHtml(first, { panelIndex: 0 }) : '';
@@ -2959,7 +2959,7 @@ async function initializeApp() {
     });
 
     // Pin button click listener (event delegation)
-    document.getElementById('radarInfoSide').addEventListener('click', (e) => {
+    document.getElementById('radarSection').addEventListener('click', (e) => {
         const btn = e.target.closest('.radar-pin-btn');
         if (!btn) return;
         const idx = parseInt(btn.dataset.panelIndex, 10);
