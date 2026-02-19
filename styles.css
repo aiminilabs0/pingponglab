@@ -1497,8 +1497,19 @@ h1 {
 }
 
 @media (min-width: 769px) {
+    .radar-section {
+        flex-direction: row;
+    }
     .radar-chart {
+        flex: 1 1 0%;
+        min-width: 0;
         height: 320px;
+    }
+    .radar-info-combined {
+        flex: 0 0 auto;
+        width: 340px;
+        border-top: none;
+        border-left: 1px solid var(--drac-current);
     }
 }
 
