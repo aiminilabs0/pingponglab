@@ -1589,18 +1589,18 @@ h1 {
     color: var(--drac-red);
 }
 .radar-info-metrics--reversed .radar-info-players {
-    align-items: flex-end;
+    align-items: flex-start;
 }
 .radar-info-metrics--reversed .radar-info-player-row {
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
-/* Reversed layout for second panel — values face inward */
-.radar-info-header--reversed { flex-direction: row-reverse; }
-.radar-info-name--reversed { text-align: right; }
-.radar-info-line-key--reversed { margin-left: auto; }
+/* Reversed layout for second panel */
+.radar-info-header--reversed { flex-direction: row; }
+.radar-info-name--reversed { text-align: left; }
+.radar-info-line-key--reversed { margin-left: 0; }
 .radar-info-metrics--reversed .radar-info-metric {
-    flex-direction: row-reverse;
+    justify-content: flex-start;
 }
 .radar-info-metrics--reversed .radar-info-metric strong {
     text-align: left;

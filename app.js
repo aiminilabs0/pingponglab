@@ -2481,7 +2481,7 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
         backhandPlayer ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhandPlayer}</span></div>` : ''
     ].filter(Boolean);
     const playerMetricsHtml = playerRows.length
-        ? `<div class="radar-info-metric"><span>Players</span><div class="radar-info-players">${playerRows.join('')}</div></div>`
+        ? `<div class="radar-info-metric">${reversed ? '' : '<span>Players</span>'}<div class="radar-info-players">${playerRows.join('')}</div></div>`
         : '';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
@@ -2499,13 +2499,13 @@ function buildRadarInfoHtml(rubber, { dashed = false, panelIndex = 0, reversed =
         <div class="radar-info-name${reversed ? ' radar-info-name--reversed' : ''}" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
         <div class="radar-info-line-key${reversed ? ' radar-info-line-key--reversed' : ''}" style="${lineStyle} ${brandColor}; width: 28px;"></div>
         <div class="radar-info-metrics${reversed ? ' radar-info-metrics--reversed' : ''}">
-            <div class="radar-info-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
-            <div class="radar-info-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
-            <div class="radar-info-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
-            <div class="radar-info-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-            <div class="radar-info-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
-            <div class="radar-info-metric"><span>Release</span><strong>${escapeHtml(releaseYear)}</strong></div>
-            <div class="radar-info-metric"><span>Thickness</span><strong>${thickness}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Speed Rank</span>'}<strong>${speed}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Spin Rank</span>'}<strong>${spin}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Control</span>'}<strong class="chart-control-indicator">${control}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Weight</span>'}<strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Hardness</span>'}<strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Release</span>'}<strong>${escapeHtml(releaseYear)}</strong></div>
+            <div class="radar-info-metric">${reversed ? '' : '<span>Thickness</span>'}<strong>${thickness}</strong></div>
             ${playerMetricsHtml}
         </div>
     `;
