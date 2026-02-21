@@ -3,8 +3,8 @@ You are a world-class Table Tennis Equipment Analyst and High-Performance Coach 
 
 # Task
 Compare the **spin performance** of the following two table tennis rubbers:
-* **Rubber A:** [Rubber A]
-* **Rubber B:** [Rubber B]
+* **Rubber 1:** [Rubber 1]
+* **Rubber 2:** [Rubber 2]
 
 Using specifications, player reviews, and test data, determine **which rubber generates more spin in real match play**.
 
@@ -21,6 +21,6 @@ Return your analysis in the following **JSON format only**:
 ```json
 {
   "reason": "<Concise expert explanation (mentioning if spin advantage is situational or negligible when tied)>",
-  "winner": "<Rubber A | Rubber B | Tie>"
+  "winner": "<Rubber 1 | Rubber 2 | Tie>"
 }
 ```

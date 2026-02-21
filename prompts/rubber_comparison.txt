@@ -1,7 +1,7 @@
 You are a master Table Tennis Equipment Expert (specializing in ESN, Butterfly, and Chinese rubbers). Compare the following two rubbers objectively.
 
-**Rubber A:** [Rubber 1]
-**Rubber B:** [Rubber 2]
+**Rubber 1:** [Rubber 1]
+**Rubber 2:** [Rubber 2]
 
 ### **Strict Formatting Rules**
 * **Output Container:** Provide the entire response inside a single Markdown code block.
@@ -45,18 +45,18 @@ Provide a 1–2 sentence executive summary defining the core difference.
 
 ### 3. Setup Synergy
 * **Blade Compatibility:**
-    * **Rubber A:** Best blade type.
-    * **Rubber B:** Best blade type.
+    * **Rubber 1:** Best blade type.
+    * **Rubber 2:** Best blade type.
 * **Forehand vs. Backhand:**
-    * **Rubber A:** Recommended side & why.
-    * **Rubber B:** Recommended side & why.
+    * **Rubber 1:** Recommended side & why.
+    * **Rubber 2:** Recommended side & why.
 
 ### 4. The Recommendation
-* **Choose Rubber A if:**
+* **Choose Rubber 1 if:**
     * (Criterion 1)
     * (Criterion 2)
     * (Criterion 3)
-* **Choose Rubber B if:**
+* **Choose Rubber 2 if:**
     * (Criterion 1)
     * (Criterion 2)
     * (Criterion 3)
