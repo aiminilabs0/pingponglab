@@ -1239,6 +1239,30 @@ function getCurrentAxisRanges() {
     if (!Array.isArray(xa?.range) || !Array.isArray(ya?.range)) return null;
     return { xaxis: [xa.range[0], xa.range[1]], yaxis: [ya.range[0], ya.range[1]] };
   }
+
+function updateHeaderTagline() {
+    const ranges = getCurrentAxisRanges();
+    const filteredData = currentFilteredData;
+    let inViewCount;
+    if (ranges) {
+        const [x0, x1] = ranges.xaxis;
+        const [y0, y1] = ranges.yaxis;
+        const minX = Math.min(x0, x1);
+        const maxX = Math.max(x0, x1);
+        const minY = Math.min(y0, y1);
+        const maxY = Math.max(y0, y1);
+        inViewCount = filteredData.filter(r =>
+            r.x >= minX && r.x <= maxX &&
+            r.y >= minY && r.y <= maxY
+        ).length;
+    } else {
+        inViewCount = filteredData.length;
+    }
+    const headerTagline = document.querySelector('.header-tagline');
+    if (headerTagline) {
+        headerTagline.textContent = `Showing ${inViewCount} of ${filteredData.length} in this range`;
+    }
+}
   
 
 function shouldAutoscaleForFilteredData(filteredData, currentRanges) {
@@ -1649,26 +1673,7 @@ function updateChart(options = {}) {
     if (!options.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
         currentRanges = null;
     }
-    const inViewCount = (() => {
-        if (!currentRanges?.xaxis || !currentRanges?.yaxis) return filteredData.length;
-        const [x0, x1] = currentRanges.xaxis;
-        const [y0, y1] = currentRanges.yaxis;
-        const minX = Math.min(x0, x1);
-        const maxX = Math.max(x0, x1);
-        const minY = Math.min(y0, y1);
-        const maxY = Math.max(y0, y1);
-        return filteredData.filter(r =>
-            r.x >= minX && r.x <= maxX &&
-            r.y >= minY && r.y <= maxY
-        ).length;
-    })();
-
-    const headerTagline = document.querySelector('.header-tagline');
-    if (headerTagline) {
-        headerTagline.textContent = inViewCount < filteredData.length
-            ? `Showing ${inViewCount} of ${filteredData.length} Rubbers`
-            : `Showing ${filteredData.length} Rubbers`;
-    }
+    updateHeaderTagline();
 
     const axisBase = {
         zeroline: false,
@@ -1794,7 +1799,8 @@ function updateChart(options = {}) {
               'yaxis.range', 'xaxis.autorange', 'yaxis.autorange'
             ];
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
-          
+
+            updateHeaderTagline();
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
               updateChart({ preserveRanges: true });
@@ -1886,6 +1892,7 @@ function updateChart(options = {}) {
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
                 applyZoomLayout(chartEl, ranges);
+                updateHeaderTagline();
             }
         }, { passive: true });
 
@@ -1949,6 +1956,7 @@ function updateChart(options = {}) {
             clearTimeout(relayoutTimer);
             clearTimeout(internalUpdateTimer);
             applyZoomLayout(chartEl, ranges);
+            updateHeaderTagline();
 
             // Release guard shortly after the last wheel event
             internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 200);
