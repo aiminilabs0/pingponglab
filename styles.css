@@ -1493,6 +1493,7 @@ h1 {
 @media (min-width: 769px) {
     .radar-section {
         flex-direction: row;
+        flex-wrap: wrap;
     }
     .radar-chart {
         flex: 1 1 0%;
@@ -2072,9 +2073,9 @@ h1 {
     /* rubber-title is pinned via flex layout in .content-pane — no sticky needed */
 }
 
-/* YouTube embed inside radar-section spans full grid width */
+/* YouTube embed inside radar-section spans full width below chart + info */
 .radar-section > .youtube-embed-wrapper {
-    grid-column: 1 / -1;
+    width: 100%;
     margin: 0;
     border-top: 1px solid rgba(155,148,132,0.25);
     background: rgba(0,0,0,0.3);
