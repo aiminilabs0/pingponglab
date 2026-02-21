@@ -1067,20 +1067,9 @@ function updateFilterSummary() {
     const summary = document.getElementById('filterSummary');
     if (!summary) return;
 
-    let count = 0;
-    // Check checkbox-based filters for partial selection
-    ['brandFilter', 'sheetFilter'].forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const all = el.querySelectorAll('input[type="checkbox"]');
-        const checked = el.querySelectorAll('input[type="checkbox"]:checked');
-        if (checked.length > 0 && checked.length < all.length) count++;
-    });
-    if (isWeightFilterActive()) count++;
-    if (isHardnessFilterActive()) count++;
-    if (isControlFilterActive()) count++;
-
-    summary.textContent = count > 0 ? `(${count} active)` : '';
+    const filtered = getFilteredData().length;
+    const total = rubberData.length;
+    summary.textContent = `(${filtered} rubbers)`;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1676,7 +1665,9 @@ function updateChart(options = {}) {
 
     const headerTagline = document.querySelector('.header-tagline');
     if (headerTagline) {
-        headerTagline.textContent = `Showing ${inViewCount} Rubbers`;
+        headerTagline.textContent = inViewCount < filteredData.length
+            ? `Showing ${inViewCount} of ${filteredData.length} Rubbers`
+            : `Showing ${filteredData.length} Rubbers`;
     }
 
     const axisBase = {
