@@ -3,8 +3,8 @@
   "name": "Hybrid K3",
   "manufacturer": "Tibhar",
   "players": {
-    "forehand": ["Felix Lebrun", "Alexis Lebrun", "Miyuu Kihara", "Darko Jorgić", "Tomislav Pucar"],
-    "backhand": ["Felix Lebrun", "Alexis Lebrun", "Manav Thakkar"]
+    "forehand": ["F. Lebrun", "A. Lebrun", "M. Kihara", "D. Jorgić", "T. Pucar"],
+    "backhand": ["F. Lebrun", "A. Lebrun", "M. Thakkar"]
   },
   "user_ratings": {
     "overall": 9.2,

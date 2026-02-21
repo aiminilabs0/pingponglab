@@ -3,8 +3,8 @@
   "name": "Fastarc G-1",
   "manufacturer": "Nittaku",
   "players": {
-    "forehand": ["Mima Ito", "Satsuki Odo", "Rin Mende"],
-    "backhand": ["Satsuki Odo", "Rin Mende"]
+    "forehand": ["M. Ito", "S. Odo", "R. Mende"],
+    "backhand": ["S. Odo", "R. Mende"]
   },
   "user_ratings": {
     "overall": 9.4,
