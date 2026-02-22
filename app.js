@@ -1332,9 +1332,159 @@ function getFilteredData() {
     );
 }
 
+// ── Label-placement with leader lines ──────────────────────
+// Computes Plotly annotation objects for every visible rubber.
+// Labels that would overlap are pushed outward and connected to their
+// data-point with a subtle arrow (leader line).
+
+function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHeight) {
+    if (visibleData.length === 0 || plotWidth <= 0 || plotHeight <= 0) return [];
+
+    const xSpan = xRange[1] - xRange[0];
+    const ySpan = yRange[1] - yRange[0];
+    if (xSpan <= 0 || ySpan <= 0) return [];
+
+    // Data → pixel helpers
+    const toPx = (dx, dy) => ({
+        px: ((dx - xRange[0]) / xSpan) * plotWidth,
+        py: ((yRange[1] - dy) / ySpan) * plotHeight   // y-axis is inverted in pixel space
+    });
+
+    // Estimated label half-dimensions in pixels
+    const LABEL_H_WIDTH  = 30;
+    const LABEL_H_HEIGHT = 8;
+
+    // Radius (px) within which other data-points count as "neighbours"
+    const NEIGHBOR_RADIUS = 80;
+    // Minimum distance (px) between a label centre and any data-point
+    const POINT_CLEARANCE = 14;
+
+    // Pre-compute pixel positions for every visible rubber
+    const allPx = visibleData.map(r => toPx(r.x, r.y));
+
+    // 12 evenly-spaced directions × 3 distance rings = 36 candidate slots
+    const ANGLE_COUNT = 12;
+    const DISTANCES = [18, 36, 54];
+    const BASE_ANGLES = Array.from(
+        { length: ANGLE_COUNT },
+        (_, i) => (2 * Math.PI * i) / ANGLE_COUNT - Math.PI / 2   // start at "up"
+    );
+
+    // Build the full candidate pool (angle × distance), each with a pre-computed unit direction
+    const BASE_CANDIDATES = [];
+    for (const dist of DISTANCES) {
+        for (const angle of BASE_ANGLES) {
+            BASE_CANDIDATES.push({
+                ax: Math.round(Math.cos(angle) * dist),
+                ay: Math.round(Math.sin(angle) * dist),
+                angle,
+                dist
+            });
+        }
+    }
+
+    // Angular difference helper (returns 0..π)
+    const angleDiff = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+
+    // Placed label bounding boxes in pixel space
+    const placed = [];
+
+    const sorted = [...visibleData].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
+    const annotations = [];
+
+    for (const rubber of sorted) {
+        const { px, py } = toPx(rubber.x, rubber.y);
+
+        // ── Compute repulsion direction (away from nearby data-points) ──
+        let repX = 0;
+        let repY = 0;
+        let neighborCount = 0;
+
+        for (const pt of allPx) {
+            const dx = px - pt.px;
+            const dy = py - pt.py;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d > 0 && d < NEIGHBOR_RADIUS) {
+                const w = 1 / d;          // closer neighbours push harder
+                repX += dx * w;
+                repY += dy * w;
+                neighborCount++;
+            }
+        }
+
+        // Preferred escape angle: direction away from neighbours, default to "up"
+        const repAngle = neighborCount > 0
+            ? Math.atan2(repY, repX)
+            : -Math.PI / 2;
+
+        // Sort candidates: prefer the direction aligned with repulsion, then shorter distance
+        const candidates = [...BASE_CANDIDATES].sort((a, b) => {
+            const da = angleDiff(a.angle, repAngle);
+            const db = angleDiff(b.angle, repAngle);
+            // Bucket angular closeness (within ~30° treated as equal) then prefer shorter
+            if (Math.abs(da - db) > 0.5) return da - db;
+            return a.dist - b.dist;
+        });
+
+        let bestIdx = 0;
+        for (let ci = 0; ci < candidates.length; ci++) {
+            const cx = px + candidates[ci].ax;
+            const cy = py + candidates[ci].ay;
+
+            // Check overlap with already-placed labels
+            const hitsLabel = placed.some(
+                p => Math.abs(cx - p.cx) < LABEL_H_WIDTH * 2 &&
+                     Math.abs(cy - p.cy) < LABEL_H_HEIGHT * 2
+            );
+            if (hitsLabel) continue;
+
+            // Check that the label doesn't land on top of another data-point
+            const hitsPoint = allPx.some(pt => {
+                if (pt.px === px && pt.py === py) return false; // skip own point
+                return Math.abs(cx - pt.px) < POINT_CLEARANCE &&
+                       Math.abs(cy - pt.py) < POINT_CLEARANCE;
+            });
+            if (hitsPoint) continue;
+
+            bestIdx = ci;
+            break;
+        }
+
+        const chosen = candidates[bestIdx];
+        placed.push({ cx: px + chosen.ax, cy: py + chosen.ay });
+
+        const needsLeader = chosen.dist > DISTANCES[0];   // leader line for non-close slots
+
+        annotations.push({
+            x: rubber.x,
+            y: rubber.y,
+            xref: 'x',
+            yref: 'y',
+            text: rubber.abbr,
+            showarrow: needsLeader,
+            arrowhead: 0,
+            arrowwidth: needsLeader ? 1 : 0,
+            arrowcolor: needsLeader ? 'rgba(155,148,132,0.5)' : 'transparent',
+            ax: chosen.ax,
+            ay: chosen.ay,
+            font: { size: 11, color: '#e8e0d0', family: CHART_FONT },
+            bgcolor: needsLeader ? 'rgba(43,41,38,0.75)' : 'transparent',
+            borderpad: needsLeader ? 2 : 0,
+            xanchor: 'center',
+            yanchor: 'bottom',
+            standoff: needsLeader ? 4 : 2,
+            captureevents: false
+        });
+    }
+
+    return annotations;
+}
+
 // Thin overlapping labels by priority (lower priority number = higher importance)
 function computeVisibleRubbers(filteredData) {
     if (filteredData.length === 0) return [];
+    // Desktop: keep every rubber point/label visible, even when overlapping.
+    if (window.matchMedia('(min-width: 769px)').matches) return filteredData;
 
     const chartEl = document.getElementById('chart');
     let xRange, yRange, plotWidth, plotHeight;
@@ -1651,7 +1801,7 @@ function updateChart(options = {}) {
         traces.push({
             x: group.rubbers.map(r => r.x),
             y: group.rubbers.map(r => r.y),
-            mode: 'markers+text',
+            mode: 'markers',
             type: 'scattergl',
             name: `${group.brand} (${group.sheet})`,
             marker: {
@@ -1660,9 +1810,6 @@ function updateChart(options = {}) {
                 symbol: getSheetSymbol(group.sheet),
                 line: { width: 1, color: '#2b2926' }
             },
-            text: group.rubbers.map(r => r.abbr),
-            textposition: 'top center',
-            textfont: { size: 11, color: '#e8e0d0', family: CHART_FONT },
             hoverinfo: 'none',
             customdata: group.rubbers
         });
@@ -1674,6 +1821,33 @@ function updateChart(options = {}) {
         currentRanges = null;
     }
     updateHeaderTagline();
+
+    // Compute displaced label annotations with leader lines
+    const chartElForLabels = document.getElementById('chart');
+    let labelXRange, labelYRange, labelPlotW, labelPlotH;
+
+    if (currentRanges) {
+        labelXRange = currentRanges.xaxis;
+        labelYRange = currentRanges.yaxis;
+    } else {
+        // Estimate from data bounds (mirrors getAutoscaleBounds)
+        const bounds = getAutoscaleBounds(visibleData);
+        labelXRange = bounds ? bounds.x : [0, 1];
+        labelYRange = bounds ? bounds.y : [0, 1];
+    }
+
+    if (chartElForLabels._fullLayout?._size) {
+        labelPlotW = chartElForLabels._fullLayout._size.w;
+        labelPlotH = chartElForLabels._fullLayout._size.h;
+    } else {
+        const rect = chartElForLabels.getBoundingClientRect();
+        labelPlotW = rect.width * 0.82;
+        labelPlotH = rect.height * 0.82;
+    }
+
+    const labelAnnotations = computeLabelAnnotations(
+        visibleData, labelXRange, labelYRange, labelPlotW, labelPlotH
+    );
 
     const axisBase = {
         zeroline: false,
@@ -1715,7 +1889,8 @@ function updateChart(options = {}) {
                 text: '⚡ Speed ↑', showarrow: false,
                 xanchor: 'left', yanchor: 'top',
                 font: { color: '#d4c16a', size: 13, family: CHART_FONT }
-            }
+            },
+            ...labelAnnotations
         ],
         showlegend: false,
         legend: {

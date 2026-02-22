@@ -845,6 +845,8 @@ h1 {
     margin: 0;
     overscroll-behavior: none;
 }
+/* Let annotation labels pass pointer events through to the WebGL layer */
+#chart .annotation { pointer-events: none; }
 /* chart-controls and chart-control-btn removed – now in header */
 .chart-hover-popup {
     position: fixed;
