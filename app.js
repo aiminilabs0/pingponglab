@@ -2353,21 +2353,33 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
     const cacheKey = `${lang}/${nameA}_${nameB}`;
     if (cacheKey in rubberComparisonCache) return rubberComparisonCache[cacheKey];
 
+    const orderings = [
+        [nameA, nameB],
+        [nameB, nameA],
+    ];
+
     try {
-        const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(nameA)}_${encodeURIComponent(nameB)}`;
-        let resp = await fetch(localizedPath);
-        if (!resp.ok) {
-            // Backward compatibility for legacy files outside language directories.
-            const legacyPath = `rubbers_comparison/${encodeURIComponent(nameA)}_${encodeURIComponent(nameB)}`;
-            resp = await fetch(legacyPath);
+        for (const [n1, n2] of orderings) {
+            const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
+            const resp = await fetch(localizedPath);
+            if (resp.ok) {
+                const text = await resp.text();
+                rubberComparisonCache[cacheKey] = text;
+                return text;
+            }
         }
-        if (!resp.ok) {
-            rubberComparisonCache[cacheKey] = null;
-            return null;
+        // Backward compatibility for legacy files outside language directories.
+        for (const [n1, n2] of orderings) {
+            const legacyPath = `rubbers_comparison/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
+            const resp = await fetch(legacyPath);
+            if (resp.ok) {
+                const text = await resp.text();
+                rubberComparisonCache[cacheKey] = text;
+                return text;
+            }
         }
-        const text = await resp.text();
-        rubberComparisonCache[cacheKey] = text;
-        return text;
+        rubberComparisonCache[cacheKey] = null;
+        return null;
     } catch {
         rubberComparisonCache[cacheKey] = null;
         return null;
