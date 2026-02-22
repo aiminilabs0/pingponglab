@@ -3,8 +3,8 @@
   "name": "NUZN 55",
   "manufacturer": "Andro",
   "players": {
-    "forehand": ["S. Gauzy", "B. Takahashi", "S. Winter"],
-    "backhand": ["S. Gauzy", "B. Takahashi"]
+    "forehand": ["Gauzy Simon", "B. Takahashi", "S. Winter"],
+    "backhand": ["Gauzy Simon", "B. Takahashi"]
   },
   "user_ratings": {
     "overall": 9.5,

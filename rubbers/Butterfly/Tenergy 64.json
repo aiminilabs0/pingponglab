@@ -3,8 +3,8 @@
   "name": "Tenergy 64",
   "manufacturer": "Butterfly",
   "players": {
-    "forehand": ["H. Yang"],
-    "backhand": ["H. Yang"]
+    "forehand": [],
+    "backhand": []
   },
   "user_ratings": {
     "overall": 9.3,
