@@ -18,17 +18,25 @@ The report must read like a high-quality table tennis blog/forum post and priori
 
 # 🌍 Language Output Requirement (CRITICAL)
 
-You MUST generate **three separate full reports**, each inside its own Markdown code block:
-1. **English Version**
-2. **Korean Version (한국어)**
-3. **Chinese Version (Simplified Chinese / 简体中文)**
+1️⃣ Each report must be 100% written in its target language.
+* The English version must be fully in English.
+* The Korean version must be fully in Korean.
+* The Chinese version must be fully in Simplified Chinese.
 
-### Strict Rules for Language Output
-* Each language must be a **complete standalone report**.
-* Do NOT summarize or shorten non-English versions.
-* The Korean and Chinese versions must be **natural, native-level**, not literal word-for-word translations. Keep table tennis terminology natural to those languages.
-* Maintain identical structure, hierarchy, and depth across all three versions.
-* Produce exactly **three Markdown code blocks total** (one for each language) — no extra commentary outside them.
+2️⃣ ALL headings, section titles, bullet labels, and structural text MUST also be translated.
+This includes but is not limited to:
+* "One-Line Summary"
+* "Performance Analysis"
+* "Speed & Gears"
+* "Pros & Cons"
+* Every sub-category label
+No English headings are allowed inside Korean or Chinese reports.
+
+3️⃣ Do NOT leave any structural labels in English in non-English versions.
+4️⃣ Do NOT mix languages within a version.
+5️⃣ Each version must be a fully standalone article, not a summarized translation.
+6️⃣ Maintain identical structure, depth, and analytical detail across all three languages.
+
 
 ---
 
