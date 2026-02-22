@@ -2078,16 +2078,15 @@ function updateChart(options = {}) {
                 pinchStartXRange = null;
                 pinchStartYRange = null;
 
-                // Do NOT call updateChart / Plotly.react here after pinch ends.
-                // Calling react() re-renders the chart and scattergl internally
-                // recalculates autorange, which resets the zoomed view.
-                // applyZoomLayout() during touchmove already set the correct axis
-                // ranges directly on the chart via Plotly.relayout — those persist.
-                // We just need to wait for Plotly's internal relayout events to
-                // settle, then release the guard.
+                // Wait for Plotly's internal relayout events to settle, then
+                // re-run updateChart so computeVisibleRubbers recalculates the
+                // thinned rubber set for the new zoom level (mobile only).
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
-                internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 300);
+                internalUpdateTimer = setTimeout(() => {
+                    isInternalUpdate = false;
+                    updateChart({ preserveRanges: true });
+                }, 300);
                 pinchFinalRanges = null;
             }
         };
@@ -2133,8 +2132,12 @@ function updateChart(options = {}) {
             applyZoomLayout(chartEl, ranges);
             updateHeaderTagline();
 
-            // Release guard shortly after the last wheel event
-            internalUpdateTimer = setTimeout(() => { isInternalUpdate = false; }, 200);
+            // Release guard shortly after the last wheel event, then re-run
+            // updateChart so computeVisibleRubbers refreshes for the new zoom.
+            internalUpdateTimer = setTimeout(() => {
+                isInternalUpdate = false;
+                updateChart({ preserveRanges: true });
+            }, 200);
         }, { passive: false });
     }
 }
