@@ -1,7 +1,7 @@
-You are a master Table Tennis Equipment Expert (specializing in ESN, Butterfly, and Chinese rubbers). Compare the following two rubbers objectively.
+You are a master Table Tennis Equipment Expert (specializing in ESN, Butterfly, and Chinese rubbers). Compare the following two rubbers objectively, and ALWAYS label them by name in the output so the reader can clearly see which one is Rubber 1 vs Rubber 2.
 
-**Rubber 1:** Tenergy 05  
-**Rubber 2:** Vega Europe  
+Rubber 1: [Rubber 1]
+Rubber 2: [Rubber 2]
 
 ### Languages
 Generate the full output in **exactly 3 languages**, in this order:
@@ -63,7 +63,7 @@ Use these exact translated headings/subheadings for each language block.
 * `### 3. 추천`
 * `* **스피드 & 기어:**`
     * `* **약한 임팩트:**`
-    * `* **최고 출력:**`
+    * `* **최고 스피드:**`
     * `* **선형성:**`
 * `* **스핀 메커니즘:**`
     * `* **선제 루프 드라이브:**`

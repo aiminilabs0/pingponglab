@@ -2150,8 +2150,8 @@ async function fetchRubberDescriptionMarkdown(brand, abbr) {
 }
 
 function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
-    const leftName = (leftRubber?.name || '').trim();
-    const rightName = (rightRubber?.name || '').trim();
+    const leftName = (leftRubber?.abbr || '').trim();
+    const rightName = (rightRubber?.abbr || '').trim();
     return [leftName, rightName].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 }
 
