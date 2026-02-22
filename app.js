@@ -2245,11 +2245,11 @@ function highlightActiveTab() {
 
 function setActiveTab(tabId) {
     const pane = document.getElementById('contentPane');
-    const contentBody = document.getElementById('contentBody');
 
     // Save scroll position of outgoing tab
     if (activeTab && tabContents[activeTab] != null) {
-        tabScrollPositions[activeTab] = contentBody.scrollTop || 0;
+        const scrollEl = pane.querySelector('.content-pane-scroll');
+        tabScrollPositions[activeTab] = scrollEl ? scrollEl.scrollTop : 0;
     }
 
     // Clean up YouTube embeds before swapping content
@@ -2262,7 +2262,8 @@ function setActiveTab(tabId) {
         pane.innerHTML = tabContents[tabId];
         // Restore scroll position
         requestAnimationFrame(() => {
-            contentBody.scrollTop = tabScrollPositions[tabId] || 0;
+            const scrollEl = pane.querySelector('.content-pane-scroll');
+            if (scrollEl) scrollEl.scrollTop = tabScrollPositions[tabId] || 0;
         });
     } else {
         pane.classList.add('content-pane--empty');
