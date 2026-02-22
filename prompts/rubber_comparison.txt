@@ -1,63 +1,126 @@
 You are a master Table Tennis Equipment Expert (specializing in ESN, Butterfly, and Chinese rubbers). Compare the following two rubbers objectively.
 
-**Rubber 1:** [Rubber 1]
-**Rubber 2:** [Rubber 2]
+**Rubber 1:** Tenergy 05  
+**Rubber 2:** Vega Europe  
 
-### **Strict Formatting Rules**
-* **Output Container:** Provide the entire response inside a single Markdown code block.
+### Languages
+Generate the full output in **exactly 3 languages**, in this order:
+1) English  
+2) Korean  
+3) Chinese  
+
+### Strict Formatting Rules
+* **Output Containers:** Provide the response as **three separate Markdown code blocks**, one per language, and **nothing outside code blocks**.
+* **Identical Structure:** All three languages must follow the **same headings and bullet structure**. Do not add/remove sections per language.
 * **Use Nested Lists:** You must use proper Markdown indentation.
 * **Indentation Depth:** Sub-bullets **MUST be indented by 4 spaces** relative to the parent bullet.
 * **Spacing:** Add an empty line between main categories to ensure readability.
+* **No Tables:** Do not use tables.
+
+### Heading Translation Rules (CRITICAL)
+* **Translate ALL headings and subheadings** into the target language for that code block:
+    * This includes every `###` heading (section titles) AND every bold label (e.g., `**Speed & Gears:**`, `**Low Impact:**`, etc.).
+* **No English headings/subheadings are allowed** in the Korean and Chinese blocks.
+* **Keep product names untranslated** (rubber names, blade models): e.g., `Tenergy 05`, `Vega Europe`.
+* Keep technical table tennis terms accurate and commonly used in each language.
 
 ---
 
+## Translated Titles to Use (MUST MATCH EXACTLY)
+Use these exact translated headings/subheadings for each language block.
+
+### English (use exactly these labels)
+* `### 1. One-Line Summary`
+* `### 2. Head-to-Head Breakdown`
+* `### 3. The Recommendation`
+* `* **Speed & Gears:**`
+    * `* **Low Impact:**`
+    * `* **Top End:**`
+    * `* **Linearity:**`
+* `* **Spin Mechanics:**`
+    * `* **Opening Loop:**`
+    * `* **Max Spin:**`
+    * `* **Topsheet Grip:**`
+* `* **Flight Path (Throw Angle):**`
+    * `* **Arc Height:**`
+    * `* **Safety:**`
+* `* **Feel & Feedback:**`
+    * `* **Sensation:**`
+    * `* **Dwell:**`
+* `* **Control & Short Game:**`
+    * `* **Sensitivity:**`
+    * `* **Touch Play:**`
+* `* **Blocking & Countering:**`
+    * `* **Passive Block:**`
+    * `* **Active Counter:**`
+* `* **Choose Rubber 1 if:**`
+* `* **Choose Rubber 2 if:**`
+* `* **"Tuning" / Optimization:**`
+
+### Korean (use exactly these labels)
+* `### 1. 한 줄 요약`
+* `### 2. 정면 비교 분석`
+* `### 3. 추천`
+* `* **스피드 & 기어:**`
+    * `* **약한 임팩트:**`
+    * `* **최고 출력:**`
+    * `* **선형성:**`
+* `* **스핀 메커니즘:**`
+    * `* **선제 루프 드라이브:**`
+    * `* **최대 회전량:**`
+    * `* **탑시트 그립력:**`
+* `* **비행 궤적(스로우 각):**`
+    * `* **호의 높이:**`
+    * `* **안전성:**`
+* `* **타구감 & 피드백:**`
+    * `* **감각:**`
+    * `* **머무는 시간:**`
+* `* **컨트롤 & 쇼트게임:**`
+    * `* **민감도:**`
+    * `* **섬세한 플레이:**`
+* `* **블로킹 & 카운터:**`
+    * `* **수동 블록:**`
+    * `* **공격적 카운터:**`
+* `* **Rubber 1을 추천하는 경우:**`
+* `* **Rubber 2를 추천하는 경우:**`
+* `* **"튜닝" / 최적화:**`
+
+### Chinese (use exactly these labels)
+* `### 1. 一句话总结`
+* `### 2. 正面对比解析`
+* `### 3. 推荐建议`
+* `* **速度与力量档位:**`
+    * `* **中小力量表现:**`
+    * `* **天花板速度:**`
+    * `* **线性度:**`
+* `* **旋转机制:**`
+    * `* **起下旋:**`
+    * `* **最大旋转量:**`
+    * `* **胶面抓球力:**`
+* `* **飞行轨迹 :**`
+    * `* **弧线高度:**`
+    * `* **容错率:**`
+* `* **手感与反馈:**`
+    * `* **击球感:**`
+    * `* **持球时间:**`
+* `* **控制与台内小球:**`
+    * `* **敏感度:**`
+    * `* **手感球:**`
+* `* **防守与反带:**`
+    * `* **被动防守:**`
+    * `* **主动反带:**`
+* `* **选择 Rubber 1 的情况:**`
+* `* **选择 Rubber 2 的情况:**`
+* `* **“调校”/ 优化:**`
+
+---
+
+## Content Instructions (apply in every language)
 ### 1. One-Line Summary
 Provide a 1–2 sentence executive summary defining the core difference.
 
 ### 2. Head-to-Head Breakdown
-*Follow this exact nesting structure:*
+Follow the headings/subheadings exactly (translated per language list above) and fill in the comparison content.
 
-* **Speed & Gears:**
-    * **Low Impact:** (Bounciness in short game)
-    * **Top End:** (Power away from table)
-    * **Linearity:** (Predictable vs. strong catapult effect)
-
-* **Spin Mechanics:**
-    * **Opening Loop:** (Ease of lifting backspin)
-    * **Max Spin:** (Ceiling when fully engaged)
-    * **Topsheet Grip:** (Mechanical grip vs. Tacky adhesion)
-
-* **Flight Path (Throw Angle):**
-    * **Arc Height:** (Low/Medium/High)
-    * **Safety:** (Clearance over the net)
-
-* **Feel & Feedback:**
-    * **Sensation:** (Crisp/Clicky vs. Muted/Dampened)
-    * **Dwell:** (Ball dwell time)
-
-* **Control & Short Game:**
-    * **Sensitivity:** (Reaction to incoming spin)
-    * **Touch Play:** (Push/drop stability)
-
-* **Blocking & Countering:**
-    * **Passive Block:** Stability against loops.
-    * **Active Counter:** Punch/counter-loop ease.
-
-### 3. Setup Synergy
-* **Blade Compatibility:**
-    * **Rubber 1:** Best blade type.
-    * **Rubber 2:** Best blade type.
-* **Forehand vs. Backhand:**
-    * **Rubber 1:** Recommended side & why.
-    * **Rubber 2:** Recommended side & why.
-
-### 4. The Recommendation
-* **Choose Rubber 1 if:**
-    * (Criterion 1)
-    * (Criterion 2)
-    * (Criterion 3)
-* **Choose Rubber 2 if:**
-    * (Criterion 1)
-    * (Criterion 2)
-    * (Criterion 3)
-* **"Tuning" / Optimization:** Advice on sponge thickness or boosting.
+### 3. The Recommendation
+Provide 3 concrete criteria for each rubber, then give practical tuning/optimization advice (e.g., sponge thickness; boosting only if appropriate).
