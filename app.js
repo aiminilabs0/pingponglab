@@ -2727,18 +2727,39 @@ function buildRadarComparisonHtml(first, second) {
         if (!rubber) return '<span class="radar-cmp-dash">-</span>';
         return getter(rubber);
     }
+    function hasFiniteNumber(value) {
+        return Number.isFinite(value);
+    }
+    function shouldUnderlineLowerRank(rubber, otherRubber, rankKey) {
+        const rank = rubber?.[rankKey];
+        const otherRank = otherRubber?.[rankKey];
+        if (!hasFiniteNumber(rank) || !hasFiniteNumber(otherRank)) return false;
+        return rank < otherRank;
+    }
+    function shouldUnderlineHigherHardness(rubber, otherRubber) {
+        const hardness = rubber?.normalizedHardness;
+        const otherHardness = otherRubber?.normalizedHardness;
+        if (!hasFiniteNumber(hardness) || !hasFiniteNumber(otherHardness)) return false;
+        return hardness > otherHardness;
+    }
+    function shouldUnderlineHigherWeight(rubber, otherRubber) {
+        const weight = rubber?.weight;
+        const otherWeight = otherRubber?.weight;
+        if (!hasFiniteNumber(weight) || !hasFiniteNumber(otherWeight)) return false;
+        return weight > otherWeight;
+    }
 
     // Build metric rows
     const metrics = [
         {
             label: 'Speed Rank',
-            left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
-            right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+            left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+            right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
         },
         {
             label: 'Spin Rank',
-            left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
-            right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+            left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+            right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
         },
         {
             label: 'Control',
@@ -2747,13 +2768,13 @@ function buildRadarComparisonHtml(first, second) {
         },
         {
             label: 'Cut Weight',
-            left: val(first, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
-            right: val(second, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+            left: val(first, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+            right: val(second, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },
         {
             label: 'Hardness',
-            left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness)}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
-            right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness)}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            left: val(first, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            right: val(second, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
         },
         {
             label: 'Release',
