@@ -406,9 +406,29 @@ h1 {
 .fp-pill.hard .fp-pill-dot { background: #cf5555; border-color: #cf5555; border-radius: 50%; }
 
 /* Sheet type shapes */
-.fp-pill .fp-pill-dot.dot-circle  { border-radius: 50%; background: var(--drac-fg); }
-.fp-pill .fp-pill-dot.dot-square  { border-radius: 2px; background: var(--drac-fg); }
-.fp-pill .fp-pill-dot.dot-diamond { border-radius: 2px; background: var(--drac-fg); transform: rotate(45deg); width: 7px; height: 7px; }
+#sheetFilter .fp-pill .fp-pill-dot {
+    width: 10px;
+    height: 10px;
+    border-color: rgba(248, 248, 242, 0.9);
+}
+#sheetFilter .fp-pill .fp-pill-dot.dot-circle {
+    border-radius: 50%;
+    background: transparent;
+    border-width: 2px;
+}
+#sheetFilter .fp-pill .fp-pill-dot.dot-square {
+    border-radius: 2px;
+    background: var(--drac-fg);
+    border-width: 1px;
+}
+#sheetFilter .fp-pill .fp-pill-dot.dot-diamond {
+    width: 9px;
+    height: 9px;
+    border-radius: 1px;
+    background: transparent;
+    border-width: 2px;
+    transform: rotate(45deg);
+}
 
 .filter-action-btn {
     display: inline-flex;
