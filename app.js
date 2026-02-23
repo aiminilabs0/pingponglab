@@ -1354,6 +1354,7 @@ function getFilteredData() {
 
 function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHeight) {
     if (visibleData.length === 0 || plotWidth <= 0 || plotHeight <= 0) return [];
+    const isSingleRubber = visibleData.length === 1;
 
     const xSpan = xRange[1] - xRange[0];
     const ySpan = yRange[1] - yRange[0];
@@ -1377,9 +1378,11 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
     // Pre-compute pixel positions for every visible rubber
     const allPx = visibleData.map(r => toPx(r.x, r.y));
 
-    // 12 evenly-spaced directions × 3 distance rings = 36 candidate slots
+    // 12 evenly-spaced directions × distance rings candidate slots.
+    // For multi-rubber views, skip the closest ring so labels are always
+    // displaced into empty space with a leader line.
     const ANGLE_COUNT = 12;
-    const DISTANCES = [18, 36, 54];
+    const DISTANCES = isSingleRubber ? [18, 36, 54] : [36, 54, 72];
     const BASE_ANGLES = Array.from(
         { length: ANGLE_COUNT },
         (_, i) => (2 * Math.PI * i) / ANGLE_COUNT - Math.PI / 2   // start at "up"
@@ -1468,7 +1471,7 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
         const chosen = candidates[bestIdx];
         placed.push({ cx: px + chosen.ax, cy: py + chosen.ay });
 
-        const needsLeader = chosen.dist > DISTANCES[0];   // leader line for non-close slots
+        const needsLeader = true;
 
         annotations.push({
             x: rubber.x,
@@ -1483,11 +1486,11 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             ax: chosen.ax,
             ay: chosen.ay,
             font: { size: 11, color: '#e8e0d0', family: CHART_FONT },
-            bgcolor: needsLeader ? 'rgba(43,41,38,0.75)' : 'transparent',
-            borderpad: needsLeader ? 2 : 0,
+            bgcolor: 'transparent',
+            borderpad: 0,
             xanchor: 'center',
             yanchor: 'bottom',
-            standoff: needsLeader ? 4 : 2,
+            standoff: 4,
             captureevents: false
         });
     }
