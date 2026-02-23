@@ -109,15 +109,3 @@ Use these exact translated headings/subheadings for each language block.
     * `* **主动反带:**`
 * `* **选择 {{RUBBER_1_NAME}} 的情况:**`
 * `* **选择 {{RUBBER_2_NAME}} 的情况:**`
-
----
-
-## Content Instructions (apply in every language)
-### 1. One-Line Summary
-Provide a 1–2 sentence executive summary defining the core difference.
-
-### 2. Head-to-Head Breakdown
-Follow the headings/subheadings exactly (translated per language list above) and fill in the comparison content.
-
-### 3. The Recommendation
-Provide 3 concrete criteria for each rubber, then give practical tuning/optimization advice (e.g., sponge thickness; boosting only if appropriate).
