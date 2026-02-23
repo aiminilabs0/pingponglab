@@ -280,7 +280,7 @@ function buildDescriptionMarkdown(raw) {
         raw.price ? `**Price:** ${raw.price}` : null,
         details.sheet ? `**Sheet:** ${details.sheet}` : null,
         details.hardness !== undefined ? `**Hardness:** ${details.hardness}° ${COUNTRY_FLAGS[details.country]}` : null,
-        details.weight !== undefined ? `**Weight:** ${details.weight}g` : null,
+        details.weight !== undefined ? `**Cut Weight:** ${details.weight}g` : null,
         details.thickness ? `**Thickness:** ${Array.isArray(details.thickness) ? details.thickness.join(', ') : details.thickness}` : null
     ].filter(Boolean);
     return lines.join('\n');
@@ -1743,7 +1743,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
                 <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
-                <div class="chart-hover-metric"><span>Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+                <div class="chart-hover-metric"><span>Cut Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
@@ -2646,7 +2646,7 @@ function getRadarData(rubber) {
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const radarLabel = rubber.addr || rubber.name || '';
-    const categories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
+    const categories = ['Speed', 'Spin', 'Control', 'Cut Weight', 'Hardness'];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
     const values = [radarData.speed, radarData.spin, radarData.control, radarData.weight, radarData.hardness]
@@ -2746,7 +2746,7 @@ function buildRadarComparisonHtml(first, second) {
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank, { fillFromLeft: true })}</strong>`),
         },
         {
-            label: 'Weight',
+            label: 'Cut Weight',
             left: val(first, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${getWeightToneClass(r.weight)}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },
@@ -2799,7 +2799,7 @@ function updateRadarChart() {
 
     infoPanel.innerHTML = buildRadarComparisonHtml(first, second);
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
-    const radarCategories = ['Speed', 'Spin', 'Control', 'Weight', 'Hardness'];
+    const radarCategories = ['Speed', 'Spin', 'Control', 'Cut Weight', 'Hardness'];
     const traces = [];
 
     if (!first && !second) {
