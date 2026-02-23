@@ -845,6 +845,50 @@ h1 {
     margin: 0;
     overscroll-behavior: none;
 }
+.chart-speed-outside {
+    padding: 0 14px 2px;
+    color: var(--drac-yellow);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.chart-control-guide {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 10px;
+    color: var(--drac-comment);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+.chart-control-guide-label {
+    color: var(--drac-fg);
+    font-weight: 700;
+}
+.chart-spin-label {
+    margin-left: auto;
+    color: var(--drac-yellow);
+    font-size: 13px;
+    font-weight: 700;
+}
+.chart-control-guide-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 2px;
+}
+.chart-control-guide-dot {
+    display: inline-block;
+    border-radius: 50%;
+    background: rgba(212,193,106,0.92);
+    border: 1px solid rgba(28,26,23,0.55);
+}
+.chart-control-guide-dot.dot-1 { width: 6px; height: 6px; }
+.chart-control-guide-dot.dot-2 { width: 8px; height: 8px; }
+.chart-control-guide-dot.dot-3 { width: 10px; height: 10px; }
+.chart-control-guide-dot.dot-4 { width: 12px; height: 12px; }
+.chart-control-guide-dot.dot-5 { width: 14px; height: 14px; }
 /* Let annotation labels pass pointer events through to the WebGL layer */
 #chart .annotation { pointer-events: none; }
 /* chart-controls and chart-control-btn removed – now in header */
@@ -1982,6 +2026,26 @@ h1 {
     .content-tabs { padding: 0 10px; overflow-x: auto; }
     .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
     #chart { height: 440px; }
+    .chart-speed-outside {
+        padding: 0 10px 2px;
+        font-size: 12px;
+    }
+    .chart-control-guide {
+        gap: 6px;
+        padding: 4px 10px 8px;
+        font-size: 11px;
+    }
+    .chart-spin-label {
+        font-size: 12px;
+    }
+    .chart-control-guide-dots {
+        gap: 5px;
+    }
+    .chart-control-guide-dot.dot-1 { width: 5px; height: 5px; }
+    .chart-control-guide-dot.dot-2 { width: 7px; height: 7px; }
+    .chart-control-guide-dot.dot-3 { width: 9px; height: 9px; }
+    .chart-control-guide-dot.dot-4 { width: 11px; height: 11px; }
+    .chart-control-guide-dot.dot-5 { width: 13px; height: 13px; }
     .site-footer-content {
         flex-direction: column;
         align-items: center;
