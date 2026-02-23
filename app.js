@@ -1153,6 +1153,9 @@ function pushFiltersToUrl() {
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
     if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
     if (selectedRubbers[1]) params.set('right', selectedRubbers[1].fullName);
+    if (activeTab === 'desc1') params.set('page', 'rubber1');
+    else if (activeTab === 'desc2') params.set('page', 'rubber2');
+    else if (activeTab === 'comparison') params.set('page', 'comparison');
     if (pinnedRubbers[0]) params.set('pin', 'left');
     else if (pinnedRubbers[1]) params.set('pin', 'right');
 
@@ -1168,7 +1171,7 @@ function syncCountrySelectorUI() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right', 'pin'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right', 'page', 'pin'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -1224,7 +1227,19 @@ function applyFiltersFromUrl() {
     updateRadarChart();
     updateComparisonBar();
     renderTabs();
-    if (lastRestoredTab) setActiveTab(lastRestoredTab);
+    let requestedTab = null;
+    if (params.has('page')) {
+        const page = params.get('page');
+        if (page === 'rubber1') requestedTab = 'desc1';
+        else if (page === 'rubber2') requestedTab = 'desc2';
+        else if (page === 'comparison') requestedTab = 'comparison';
+    }
+    const canOpenRequestedTab =
+        (requestedTab === 'desc1' && selectedRubbers[0]) ||
+        (requestedTab === 'desc2' && selectedRubbers[1]) ||
+        (requestedTab === 'comparison' && selectedRubbers[0] && selectedRubbers[1]);
+    const initialTab = canOpenRequestedTab ? requestedTab : lastRestoredTab;
+    if (initialTab) setActiveTab(initialTab);
     updateFilterSummary();
 }
 
@@ -2461,6 +2476,7 @@ function setActiveTab(tabId) {
     }
 
     highlightActiveTab();
+    pushFiltersToUrl();
 }
 
 // ── Detail panel / comparison functions ──
