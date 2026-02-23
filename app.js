@@ -2594,9 +2594,16 @@ async function updateComparisonBar() {
                 `<div class="comparison-title">${compTitleHtml}</div>` +
                 `<div class="content-pane-scroll">${marked.parse(markdown)}</div>`;
         } else {
+            const leftName = escapeHtml(left.name || left.abbr || '');
+            const rightName = escapeHtml(right.name || right.abbr || '');
             tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
-                `<div class="content-pane-scroll"><p class="comparison-status-msg">No comparison available.</p></div>`;
+                `<div class="content-pane-scroll">` +
+                    `<div class="comparison-status-msg-wrap">` +
+                        `<p class="comparison-status-msg">No comparison available.</p>` +
+                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">Request this comparison</button>` +
+                    `</div>` +
+                `</div>`;
         }
         renderTabs();
         if (activeTab === 'comparison') setActiveTab('comparison');
@@ -3196,6 +3203,7 @@ function initFeedbackModal() {
     const confirmation = document.getElementById('feedbackConfirmation');
     const confirmationMessage = document.getElementById('feedbackConfirmationMessage');
     const emailInput = document.getElementById('feedbackEmail');
+    const messageInput = document.getElementById('feedbackMessage');
     if (!openBtn || !closeBtn || !modal || !form) return;
 
     let closeTimer = null;
@@ -3244,14 +3252,26 @@ function initFeedbackModal() {
         document.body.style.overflow = '';
     }
 
-    function openFeedbackModal() {
+    function buildComparisonRequestMessage(leftName, rightName) {
+        const left = (leftName || '').trim();
+        const right = (rightName || '').trim();
+        if (left && right) return `Please add a rubber comparison for "${left}" vs "${right}".`;
+        return 'Please add this rubber comparison.';
+    }
+
+    function openFeedbackModal(options = {}) {
+        const prefillMessage = typeof options.prefillMessage === 'string' ? options.prefillMessage : '';
         closeFilterPanel();
         clearCloseTimer();
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        form.reset();
         showFormState();
         setFeedbackStatus('We’ll get back to you as soon as possible.');
+        if (messageInput && prefillMessage.trim()) {
+            messageInput.value = prefillMessage;
+        }
         setSubmittingState(false);
         setTimeout(() => {
             if (emailInput) {
@@ -3261,6 +3281,15 @@ function initFeedbackModal() {
     }
 
     openBtn.addEventListener('click', openFeedbackModal);
+    document.addEventListener('click', (e) => {
+        const requestBtn = e.target.closest('[data-feedback-request-comparison="true"]');
+        if (!requestBtn) return;
+        const prefillMessage = buildComparisonRequestMessage(
+            requestBtn.dataset.leftRubber,
+            requestBtn.dataset.rightRubber
+        );
+        openFeedbackModal({ prefillMessage });
+    });
     closeBtn.addEventListener('click', closeFeedbackModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeFeedbackModal();

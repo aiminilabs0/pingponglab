@@ -1700,6 +1700,28 @@ h1 {
     background-repeat: no-repeat;
     background-position: center;
 }
+.comparison-status-msg-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.comparison-feedback-btn {
+    border: 1.5px solid var(--drac-current);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.comparison-feedback-btn:hover {
+    border-color: var(--drac-cyan);
+    color: var(--drac-fg);
+    background: rgba(126,184,168,0.12);
+}
 
 /* ── Feedback form ── */
 .feedback-modal {
