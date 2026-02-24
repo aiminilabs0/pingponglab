@@ -1,0 +1,103 @@
+# Role
+Act as an Elite Table Tennis Equipment Analyst and High-Performance Coach with over two decades of expertise. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your specific talent is translating technical specifications—such as sponge hardness, topsheet geometry, and tackiness—into real-world playing sensations and performance metrics.
+
+# Task
+I have provided a list of table tennis rubbers below, currently ranked in descending order based on their maximum control potential. Your objective is to accurately insert **YINHE/Mercury 2** into its correct position within this established hierarchy.
+
+**Evaluation Criteria:**
+1.  **Linearity & Predictability:** The rubber should produce a result exactly proportional to the input force. Rubbers with unpredictable "bouncy" catapult effects (high tension) generally rank lower in control.
+2.  **Forgiveness:** The size of the sweet spot and ability to land the ball on the table even with minor technique errors.
+3.  **Spin Sensitivity:** Rubbers that are less sensitive to incoming spin (easier to block and return serve) generally offer higher control sensation.
+4.  **Speed Factor:** Generally, slower rubbers allow for more reaction time and precise placement; extremely fast rubbers are harder to control.
+
+# Input Data
+DHS/H3 Neo
+Nittaku/C-1
+Butterfly/Rozena
+Tibhar/MK
+Yasaka/Rakza Z
+DHS/H8-80
+Yasaka/Rakza 7
+Donic/Baracuda
+DHS/Gold Arc 8
+Xiom/Vega Europe
+Xiom/Vega Pro
+Nittaku/G-1
+Tibhar/EL-P
+Tibhar/EL-S
+Yasaka/Rakza 7 Soft
+JOOLA/Tronix CMD
+Donic/Acuda S2
+Andro/NUZN 45
+Xiom/Vega X
+Andro/NUZN 48
+Andro/R42
+Tibhar/FX-P
+Tibhar/FX-S
+Donic/Bluefire M3
+Nittaku/S-1
+Butterfly/Dignics 09C
+JOOLA/Tronix ACC
+Tibhar/MX-K
+Donic/Bluefire M2
+Yasaka/Rakza X
+Donic/Acuda S1
+Donic/BlueGrip J2
+Donic/BlueGrip J3
+Donic/BlueGrip J1
+Donic/BlueGrip C2
+Andro/C48
+Andro/C53
+Xiom/J&H V47.5
+Xiom/Omega VII China Guang
+JOOLA/Dynaryz CMD
+Andro/NUZN 50
+Xiom/Omega 8 China
+Yasaka/Rakza 9
+Tibhar/MX-S
+Tibhar/K3
+JOOLA/Tronix ZGR
+Xiom/Omega 8 Hybrid
+Andro/R47
+Yasaka/Rakza XX
+Donic/Bluestorm Z1
+Donic/Bluestorm Z2
+Donic/Bluestorm Z3
+Donic/Bluestorm Pro AM
+Tibhar/MX-P
+Xiom/Omega7 Pro
+Andro/R50
+Butterfly/Tenergy 19
+Xiom/J&H Z52.5
+Xiom/J&H C52.5
+Xiom/J&H C55.0
+Andro/NUZN 55
+Andro/R48
+Xiom/J&H X47.5
+Xiom/Omega 8 Pro
+Donic/Bluefire M1
+JOOLA/Dynaryz ZGX
+JOOLA/Dynaryz ZGR
+Xiom/J&H C57.5
+Andro/R53
+Tibhar/MX-P 50
+Tibhar/MX-D
+Butterfly/Dignics 80
+Butterfly/Dignics 05
+JOOLA/Dynaryz ACC
+Butterfly/Tenergy 80
+Butterfly/Tenergy 05H
+Butterfly/Tenergy 05
+Butterfly/Zyre 03
+Donic/Bluestar A1
+JOOLA/Dynaryz AGR
+JOOLA/Dynaryz Inferno
+Butterfly/Dignics 64
+Butterfly/Tenergy 64
+
+
+
+**# Output Format**
+Return the updated list as a numbered ranking from 1 (Highest Control Potential) to the lowest.
+
+For **every** rubber on the list (including the newly added the rubber), you must provide a one-line justification explaining its placement. This justification must focus strictly on its spin ceiling, detailing the interaction between the topsheet and the sponge.

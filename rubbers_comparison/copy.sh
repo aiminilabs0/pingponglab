@@ -18,7 +18,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
   exit 1
 fi
 
-fname="Tenergy 05_${param}"
+fname="Dignics 09C_${param}"
 
 # Ensure output dirs exist
 mkdir -p en ko cn

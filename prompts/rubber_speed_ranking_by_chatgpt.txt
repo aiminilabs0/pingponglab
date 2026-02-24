@@ -2,7 +2,7 @@
 You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with over 20 years of experience. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your expertise lies in translating technical specifications (sponge pores, tension technology, hardness) into tangible playing sensations.
 
 # Task
-I will provide a list of 57 table tennis rubbers. Your objective is to **rank them strictly from #1 to #57 based on "Maximum Speed Potential."**
+I will provide a list of 58 table tennis rubbers. Your objective is to **rank them strictly based on "Maximum Speed Potential."**
 
 **Evaluation Criteria:**
 1.  **Catapult & Tension:** Priority is given to rubbers with high "trampoline effect" (ESN Tensors, Butterfly Spring Sponge) over linear/dead rubbers (traditional Chinese tacky).
@@ -73,7 +73,7 @@ Andro/C48
 Andro/NUZN 50
 Andro/NUZN 48
 Andro/NUZN 45
-Andro/Baracuda
+Donic/Baracuda
 Donic/BlueGrip J2
 Donic/BlueGrip J3
 Donic/BlueStorm Z1
@@ -96,10 +96,10 @@ Xiom/Vega Pro
 Xiom/J&H X47.5
 Xiom/Omega VII China Guang
 Xiom/Omega 8 Hybrid
+YINHE/Mercury 2
 
 
 # Decision Rules for Ranking
-* **Strict Ordering:** You must rank them 1 through 60. Do not group them.
 * **Tie-Breaking:** If two rubbers have similar speed, prioritize the one with the more aggressive **ball rebound trajectory** (lower throw/longer trajectory usually feels faster).
 * **Context:** Assume the player has elite technique capable of activating hard sponges for maximum power.
 

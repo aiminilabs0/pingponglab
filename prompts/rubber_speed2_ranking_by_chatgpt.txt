@@ -1,0 +1,103 @@
+# Role
+Act as an Elite Table Tennis Equipment Analyst and High-Performance Coach with over two decades of expertise. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your specific talent is translating technical specifications—such as sponge hardness, topsheet geometry, and tackiness—into real-world playing sensations and performance metrics.
+
+
+**# Task**
+I have provided a list of table tennis rubbers below, currently ranked in descending order based on their maximum speed potential. Your objective is to accurately insert **YINHE/Mercury 2** into its correct position within this established hierarchy.
+
+
+**Evaluation Criteria:**
+1.  **Catapult & Tension:** Priority is given to rubbers with high "trampoline effect" (ESN Tensors, Butterfly Spring Sponge) over linear/dead rubbers (traditional Chinese tacky).
+2.  **Top-End Speed:** The maximum velocity the ball travels during a full-power drive or smash.
+3.  **Sponge Density:** Harder sponges generally offer higher top-speed ceilings, whereas softer sponges offer easier speed at low impact but bottom out faster.
+
+# Input Data
+Butterfly/Dignics 64
+Butterfly/Tenergy 64
+JOOLA/Dynaryz Inferno
+Tibhar/MX-D
+Donic/Bluestar A1
+Xiom/J&H Z52.5
+Andro/NUZN 55
+Andro/R53
+Andro/NUZN 50
+Andro/R50
+Andro/NUZN 48
+JOOLA/Dynaryz AGR
+Tibhar/MX-P 50
+JOOLA/Dynaryz ACC
+Andro/R48
+Butterfly/Zyre 03
+Butterfly/Tenergy 05H
+Butterfly/Dignics 80
+Butterfly/Tenergy 80
+Butterfly/Tenergy 19
+Butterfly/Dignics 05
+Butterfly/Tenergy 05
+Yasaka/Rakza 9
+Donic/BlueStorm Z1
+Donic/BlueStorm Pro AM
+Donic/Bluefire M1
+Tibhar/MX-P
+Xiom/Omega7 Pro
+Andro/R47
+Tibhar/MX-K
+Tibhar/EL-S
+Xiom/Omega 8 Pro
+Xiom/Vega X
+Xiom/Vega Pro
+Xiom/J&H X47.5
+Xiom/J&H V47.5
+Andro/NUZN 45
+Nittaku/S-1
+Nittaku/C-1
+Nittaku/G-1
+Tibhar/MX-S
+Donic/BlueStorm Z2
+Donic/BlueStorm Z3
+Andro/C48
+Tibhar/K3
+Xiom/J&H C57.5
+Butterfly/Dignics 09C
+Donic/BlueGrip J1
+Donic/BlueGrip J2
+JOOLA/Tronix ZGR
+JOOLA/Dynaryz ZGR
+Xiom/Omega 8 Hybrid
+Xiom/Omega 8 China
+Donic/BlueGrip C2
+Andro/C53
+JOOLA/Dynaryz ZGX
+Donic/BlueGrip J3
+Yasaka/Rakza XX
+JOOLA/Tronix ACC
+Donic/Bluefire M2
+Donic/Acuda S1
+DHS/Gold Arc 8
+Yasaka/Rakza X
+Tibhar/MK
+Tibhar/EL-P
+Donic/Baracuda
+JOOLA/Dynaryz CMD
+Butterfly/Rozena
+JOOLA/Tronix CMD
+Xiom/Vega Europe
+Andro/R42
+Yasaka/Rakza 7
+Donic/Acuda S2
+Yasaka/Rakza 7 Soft
+Tibhar/FX-S
+Tibhar/FX-P
+Donic/Bluefire M3
+Xiom/J&H C55.0
+Xiom/J&H C52.5
+Yasaka/Rakza Z
+Xiom/Omega VII China Guang
+DHS/H8-80
+DHS/H3 Neo
+
+
+**# Output Format**
+Return the updated list as a numbered ranking from 1 (Highest Speed Potential) to the lowest.
+
+For **every** rubber on the list (including the newly added the rubber), you must provide a one-line justification explaining its placement. This justification must focus strictly on its spin ceiling, detailing the interaction between the topsheet and the sponge.

@@ -2,7 +2,7 @@
 You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with over 20 years of experience. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your expertise lies in translating technical specifications into tangible playing sensations.
 
 # Task
-I will provide a list of 57 table tennis rubbers. Your objective is to **rank them strictly from #1 to #57 based on "Control & Precision."**
+I will provide a list of 58 table tennis rubbers. Your objective is to **rank them based on "Control & Precision."**
 
 **Evaluation Criteria:**
 1.  **Linearity & Predictability:** The rubber should produce a result exactly proportional to the input force. Rubbers with unpredictable "bouncy" catapult effects (high tension) generally rank lower in control.
@@ -25,6 +25,7 @@ Andro/C53
 Butterfly/Tenergy 05H
 Tibhar/MX-S
 Donic/Bluestar A1
+YINHE/Mercury 2
 Nittaku/G-1
 Butterfly/Tenergy 19
 Butterfly/Tenergy 05
@@ -74,7 +75,7 @@ Andro/C48
 Andro/NUZN 50
 Andro/NUZN 48
 Andro/NUZN 45
-Andro/Baracuda
+Donic/Baracuda
 Donic/BlueGrip J2
 Donic/BlueGrip J3
 Donic/BlueStorm Z1
@@ -100,7 +101,6 @@ Xiom/Omega 8 Hybrid
 
 
 # Decision Rules for Ranking
-* **Strict Ordering:** You must rank them 1 through 57. Do not group them.
 * **Tie-Breaking:** If two rubbers have similar control stats, prioritize the one with **better linearity** (less random bounciness in the short game).
 * **Context:** Rank from the perspective of **placement accuracy and consistency**.
 

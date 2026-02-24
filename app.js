@@ -28,7 +28,8 @@ const BRAND_COLORS = {
     Tibhar: '#e3000b',
     Nittaku: '#3E49AA',
     Donic: '#5E7DCC',
-    Yasaka: '#7e67ff'
+    Yasaka: '#7e67ff',
+    YINHE: '#2596be'
 };
 
 const SHEET_MARKERS = {
