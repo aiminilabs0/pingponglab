@@ -19,7 +19,7 @@
     "manufacturer_details": {
       "url": "https://racketinsight.com/table-tennis/yinhe-mercury-2-review/",
       "country": "China",
-      "release_year": 2022,
+      "release_year": 2016,
       "hardness": 37,
       "thickness": [
         "max",
@@ -33,7 +33,7 @@
     "urls": {
       "us": {
         "product": "",
-        "youtube": ""
+        "youtube": "https://www.youtube.com/watch?v=n-Q-mYhPPW8"
       },
       "eu": {
         "product": "",
@@ -41,7 +41,7 @@
       },
       "kr": {
         "product": "",
-        "youtube": ""
+        "youtube": "https://www.youtube.com/watch?v=_B9tkTrPiPs"
       },
       "cn": {
         "product": "",
