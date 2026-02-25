@@ -20,10 +20,7 @@ fi
 
 fname="Dignics 09C_${param}"
 
-# Ensure output dirs exist
-mkdir -p en ko cn
-
 # Read each language source file and write to the matching directory
-cat "1_english"  > "en/${fname}"
-cat "2_한국어"   > "ko/${fname}"
-cat "3_중국어"   > "cn/${fname}"
+cat "1_english"  > "../../rubbers_comparison/en/${fname}"
+cat "2_한국어"   > "../../rubbers_comparison/ko/${fname}"
+cat "3_중국어"   > "../../rubbers_comparison/cn/${fname}"
