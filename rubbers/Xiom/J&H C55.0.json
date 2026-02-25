@@ -3,8 +3,12 @@
   "name": "Jekyll & Hyde C55.0",
   "manufacturer": "Xiom",
   "players": {
-    "forehand": ["H. Calderano"],
-    "backhand": ["H. Calderano", "Peng Xiang"]
+    "forehand": [
+      "H. Calderano (https://www.youtube.com/watch?v=GfaSz4TKlpc)"
+    ],
+    "backhand": [
+      "Peng Xiang (https://www.youtube.com/watch?v=Q2hHK7tDnYE)"
+    ]
   },
   "user_ratings": {
     "overall": 9.4,

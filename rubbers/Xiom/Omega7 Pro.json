@@ -4,7 +4,11 @@
   "manufacturer": "Xiom",
   "players": {
     "forehand": [],
-    "backhand": ["Y. Jeoung", "AN Jaehyun", "CHO Daesung"]
+    "backhand": [
+      "AN Jaehyun (https://www.youtube.com/watch?v=BfR4v-njh6U)",
+      "CHO Daesung (https://www.youtube.com/watch?v=pMo6YFG1GgU)",
+      "Y. Jeoung (https://www.youtube.com/watch?v=HXKLG0DnWMw)"
+    ]
   },
   "user_ratings": {
     "overall": 9.1,

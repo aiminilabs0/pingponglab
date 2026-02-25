@@ -3,8 +3,15 @@
   "name": "NUZN 55",
   "manufacturer": "Andro",
   "players": {
-    "forehand": ["Gauzy Simon (https://www.youtube.com/watch?v=GwXG_JDp4M8)", "B. Takahashi (https://www.youtube.com/watch?v=Nsa_u7nEn-U)", "S. Winter (https://www.youtube.com/watch?v=u-iN7Ls855I)"],
-    "backhand": ["Gauzy Simon (https://www.youtube.com/watch?v=lxZiv-fiHkY)", "B. Takahashi (https://www.youtube.com/watch?v=HSiJ9X3HLGw)"]
+    "forehand": [
+      "B. Takahashi (https://www.youtube.com/watch?v=Nsa_u7nEn-U)",
+      "Gauzy Simon (https://www.youtube.com/watch?v=GwXG_JDp4M8)",
+      "S. Winter (https://www.youtube.com/watch?v=u-iN7Ls855I)"
+    ],
+    "backhand": [
+      "B. Takahashi (https://www.youtube.com/watch?v=HSiJ9X3HLGw)",
+      "Gauzy Simon (https://www.youtube.com/watch?v=lxZiv-fiHkY)"
+    ]
   },
   "user_ratings": {
     "overall": 9.5,

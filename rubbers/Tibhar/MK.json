@@ -3,7 +3,9 @@
   "name": "Hybrid MK",
   "manufacturer": "Tibhar",
   "players": {
-    "forehand": ["Y. Muramatsu"],
+    "forehand": [
+      "Y. Muramatsu (https://www.youtube.com/watch?v=k7to-R-trgk)"
+    ],
     "backhand": []
   },
   "user_ratings": {

@@ -3,8 +3,15 @@
   "name": "Dignics 05",
   "manufacturer": "Butterfly",
   "players": {
-    "forehand": ["T. Harimoto (https://www.youtube.com/watch?v=JS_R5Yw2LSw)"],
-    "backhand": ["Kanak Jha (https://www.youtube.com/watch?v=JdOlkiz6XMA)", "X. Chen (https://www.youtube.com/watch?v=_FyrzNK5BYk)", "M. Harimoto (https://www.youtube.com/watch?v=HJJSUf7Rbr0)", "M. Nagasaki (https://www.youtube.com/watch?v=wa0XEj17gyI)"]
+    "forehand": [
+      "T. Harimoto (https://www.youtube.com/watch?v=JS_R5Yw2LSw)"
+    ],
+    "backhand": [
+      "Kanak Jha (https://www.youtube.com/watch?v=JdOlkiz6XMA)",
+      "M. Harimoto (https://www.youtube.com/watch?v=HJJSUf7Rbr0)",
+      "M. Nagasaki (https://www.youtube.com/watch?v=wa0XEj17gyI)",
+      "X. Chen (https://www.youtube.com/watch?v=_FyrzNK5BYk)"
+    ]
   },
   "user_ratings": {
     "overall": 9.3,

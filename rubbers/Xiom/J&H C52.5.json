@@ -4,7 +4,9 @@
   "manufacturer": "Xiom",
   "players": {
     "forehand": [],
-    "backhand": ["H. Calderano"]
+    "backhand": [
+      "H. Calderano (https://www.youtube.com/watch?v=sDtwcRqH9MY)"
+    ]
   },
   "user_ratings": {
     "overall": 9.5,

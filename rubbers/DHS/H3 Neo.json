@@ -2,7 +2,10 @@
   "abbr": "H3 Neo",
   "name": "Hurricane 3 Neo",
   "players": {
-    "forehand": ["AN Jaehyun", "CHO Daesung"],
+    "forehand": [
+      "AN Jaehyun (https://www.youtube.com/watch?v=I_T7Zp5ccWI)",
+      "CHO Daesung (https://www.youtube.com/watch?v=pBcv2OY_pxI)"
+    ],
     "backhand": []
   },
   "manufacturer": "DHS",

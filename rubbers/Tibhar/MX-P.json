@@ -3,8 +3,12 @@
   "name": "Evolution MX-P",
   "manufacturer": "Tibhar",
   "players": {
-    "forehand": ["M. Thakkar"],
-    "backhand": ["D. Jorgić"]
+    "forehand": [
+      "M. Thakkar (https://www.youtube.com/watch?v=ascZgnWZgb0)"
+    ],
+    "backhand": [
+      "D. Jorgić (https://www.youtube.com/watch?v=r8Yh13EnLmE)"
+    ]
   },
   "user_ratings": {
     "overall": 9.4,

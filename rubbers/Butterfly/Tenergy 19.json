@@ -2,8 +2,13 @@
   "abbr": "Tenergy 19",
   "name": "Tenergy 19",
   "players": {
-    "forehand": ["R. Walther"],
-    "backhand": ["R. Walther", "E. Samara"]
+    "forehand": [
+      "R. Walther (https://www.youtube.com/watch?v=HYKPJ44jhms)"
+    ],
+    "backhand": [
+      "E. Samara (https://www.youtube.com/watch?v=Bz8iczWXfxw)",
+      "R. Walther (https://www.youtube.com/watch?v=w9Nnumuw8rY)"
+    ]
   },
   "manufacturer": "Butterfly",
   "user_ratings": {

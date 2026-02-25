@@ -3,8 +3,18 @@
   "name": "Hybrid K3",
   "manufacturer": "Tibhar",
   "players": {
-    "forehand": ["F. Lebrun", "A. Lebrun", "M. Kihara", "D. Jorgić", "T. Pucar"],
-    "backhand": ["F. Lebrun", "A. Lebrun", "M. Thakkar"]
+    "forehand": [
+      "A. Lebrun (https://www.youtube.com/watch?v=r8Yh13EnLmE)",
+      "D. Jorgić (https://www.youtube.com/watch?v=KCIwMnDXipY)",
+      "F. Lebrun (https://www.youtube.com/watch?v=Xs-u4wICOGM)",
+      "M. Kihara (https://www.youtube.com/watch?v=C0bCp22tiAs)",
+      "T. Pucar (https://www.youtube.com/watch?v=7AmRus7FkkY)"
+    ],
+    "backhand": [
+      "A. Lebrun (https://www.youtube.com/watch?v=_NFXZlKR-ig)",
+      "F. Lebrun (https://www.youtube.com/watch?v=OfnF48FaxVw)",
+      "M. Thakkar (https://www.youtube.com/watch?v=FDWLthIpjUE)"
+    ]
   },
   "user_ratings": {
     "overall": 9.2,

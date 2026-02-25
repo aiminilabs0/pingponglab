@@ -4,7 +4,9 @@
   "manufacturer": "Andro",
   "players": {
     "forehand": [],
-    "backhand": ["André B."]
+    "backhand": [
+      "André (https://www.youtube.com/watch?v=PQiK3rXRJN0)"
+    ]
   },
   "user_ratings": {
     "overall": 9.2,

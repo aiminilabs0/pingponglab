@@ -4,7 +4,9 @@
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [],
-    "backhand": ["T. Pucar"]
+    "backhand": [
+      "T. Pucar (https://www.youtube.com/watch?v=Se-l5cl0FJ4)"
+    ]
   },
   "user_ratings": {
     "overall": 9.2,

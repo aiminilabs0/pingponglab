@@ -3,7 +3,9 @@
   "name": "Rakza X",
   "manufacturer": "Yasaka",
   "players": {
-    "forehand": ["Liang Jingkun"],
+    "forehand": [
+      "Liang Jingkun (https://www.youtube.com/watch?v=C00ZMZGalPg)"
+    ],
     "backhand": []
   },
   "user_ratings": {

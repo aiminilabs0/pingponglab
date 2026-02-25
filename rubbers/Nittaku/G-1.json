@@ -3,8 +3,15 @@
   "name": "Fastarc G-1",
   "manufacturer": "Nittaku",
   "players": {
-    "forehand": ["Mima Ito", "Satsuki Odo", "Rin Mende"],
-    "backhand": ["Satsuki Odo", "Rin Mende"]
+    "forehand": [
+      "Mima Ito (https://www.youtube.com/watch?v=Dwr37gbZZoo)",
+      "Rin Mende (https://www.youtube.com/watch?v=TL6fmgxJMgw)",
+      "Satsuki Odo (https://www.youtube.com/watch?v=LuCc8Btfy9w)"
+    ],
+    "backhand": [
+      "Rin Mende (https://www.youtube.com/watch?v=p6A4C9pbtjo)",
+      "Satsuki Odo (https://www.youtube.com/watch?v=jce2Q4xdC54)"
+    ]
   },
   "user_ratings": {
     "overall": 9.4,

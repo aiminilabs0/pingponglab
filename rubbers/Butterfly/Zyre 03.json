@@ -3,8 +3,16 @@
   "name": "Zyre 03",
   "manufacturer": "Butterfly",
   "players": {
-    "forehand": ["Amy Wang (https://www.youtube.com/shorts/meYXxJUhouI)", "Kanak Jha (https://www.youtube.com/watch?v=hPPB26t2Ifc)", "M. Harimoto (https://www.youtube.com/watch?v=PpvMu87FWoA)"],
-    "backhand": ["Amy Wang (https://www.youtube.com/shorts/ZUZcCfY_rc8)", "T. Harimoto (https://www.youtube.com/watch?v=nPyQb-WVTx0)", " (https://www.youtube.com/watch?v=xfDmT2N1OVw)", "Sora (https://www.youtube.com/watch?v=4gwzA13-qi4)"]
+    "forehand": [
+      "Amy Wang (https://www.youtube.com/shorts/meYXxJUhouI)",
+      "Kanak Jha (https://www.youtube.com/watch?v=hPPB26t2Ifc)",
+      "M. Harimoto (https://www.youtube.com/watch?v=PpvMu87FWoA)"
+    ],
+    "backhand": [
+      "Amy Wang (https://www.youtube.com/shorts/ZUZcCfY_rc8)",
+      "Sora (https://www.youtube.com/watch?v=4gwzA13-qi4)",
+      "T. Harimoto (https://www.youtube.com/watch?v=nPyQb-WVTx0)"
+    ]
   },
   "user_ratings": {
     "overall": 9.3,
