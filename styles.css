@@ -418,8 +418,8 @@ h1 {
 }
 #sheetFilter .fp-pill .fp-pill-dot.dot-square {
     border-radius: 2px;
-    background: var(--drac-fg);
-    border-width: 1px;
+    background: transparent;
+    border-width: 2px;
 }
 #sheetFilter .fp-pill .fp-pill-dot.dot-diamond {
     width: 9px;
