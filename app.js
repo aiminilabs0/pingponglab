@@ -1725,8 +1725,9 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
         : '';
 
-    const slotTag = slotLabel
-        ? `<div class="chart-hover-slot">${escapeHtml(slotLabel)}</div>`
+    const slotNum = slotLabel ? slotLabel.replace(/\D/g, '') : '';
+    const slotBadge = slotNum
+        ? `<span class="chart-hover-slot-badge">${slotNum}</span>`
         : '';
 
     return `
@@ -1738,7 +1739,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                     </span>
                     ${bestsellerTag}
                 </div>
-                <div class="rubber-name" style="color:var(--drac-fg)">${escapeHtml(rubberName)}</div>
+                <div class="rubber-name" style="color:var(--drac-fg)">${escapeHtml(rubberName)}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
@@ -1748,7 +1749,6 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
-            ${slotTag}
         </div>
     `;
 }
