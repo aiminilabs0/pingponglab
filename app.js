@@ -3475,6 +3475,18 @@ async function initializeApp() {
     requestAnimationFrame(() => {
         triggerAutoscale();
     });
+
+    // Show "zoom in" hint on narrow viewports
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        const hint = document.getElementById('zoomHint');
+        if (hint) {
+            hint.classList.add('is-visible');
+            setTimeout(() => {
+                hint.classList.add('is-fading');
+                hint.addEventListener('transitionend', () => hint.classList.remove('is-visible', 'is-fading'), { once: true });
+            }, 3000);
+        }
+    }
 }
 
 initializeApp();
