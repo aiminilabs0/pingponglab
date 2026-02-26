@@ -11,7 +11,7 @@ from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 RUBBERS_DIR = ROOT_DIR / "rubbers"
-PLAYERS_JSON = ROOT_DIR / "scripts" / "players.json"
+PLAYERS_JSON = ROOT_DIR / "scripts" / "update_players" / "players.json"
 SIDES = ("forehand", "backhand")
 PLAYER_ENTRY_RE = re.compile(r"^(.*?)\s*\((https?://[^\s)]+)\)\s*$", re.IGNORECASE)
 
