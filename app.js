@@ -2963,6 +2963,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
             delete ytPlayers[pid];
         }
         embedWrapper.remove();
+        embedContainer.querySelectorAll('.yt-mobile-hint').forEach(el => el.remove());
         embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
         if (existingVideoId === videoId) return;
     }
@@ -2990,13 +2991,19 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
 
+    const hint = document.createElement('div');
+    hint.className = 'yt-mobile-hint';
+    hint.textContent = '↻ Rotate for full screen';
+
     if (radarSection) {
-        // Insert as a direct child of .radar-section so it spans full grid width
         radarSection.appendChild(embedWrapper);
+        radarSection.appendChild(hint);
     } else if (titleHeader && titleHeader.nextSibling) {
         panel.insertBefore(embedWrapper, titleHeader.nextSibling);
+        embedWrapper.after(hint);
     } else {
         panel.appendChild(embedWrapper);
+        panel.appendChild(hint);
     }
 
     embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
@@ -3069,6 +3076,7 @@ function resetYouTubePlayers() {
     });
     ytPlayers = {};
     document.querySelectorAll('.youtube-embed-wrapper').forEach(w => w.remove());
+    document.querySelectorAll('.yt-mobile-hint').forEach(el => el.remove());
 }
 
 function resetAppToInitialState() {
