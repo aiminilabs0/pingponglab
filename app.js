@@ -2400,18 +2400,26 @@ function buildTabButtonContent(rubber) {
     return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(rubber.abbr || rubber.name)}`;
 }
 
+function buildEmptyPanePlaceholder(tabId) {
+    const searchIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;vertical-align:-2px;margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+    if (tabId === 'comparison') {
+        return '<span class="content-pane-placeholder">' + searchIcon + 'Select two rubbers to compare</span>';
+    }
+    const label = tabId === 'desc1' ? 'first' : 'second';
+    return '<span class="content-pane-placeholder">' + searchIcon + 'Select a ' + label + ' rubber</span>';
+}
+
 function renderTabs() {
     const tabBar = document.getElementById('contentTabs');
+    const r1 = selectedRubbers[0];
+    const r2 = selectedRubbers[1];
+    const tab1Label = r1 ? buildTabButtonContent(r1) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 1';
+    const tab2Label = r2 ? buildTabButtonContent(r2) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 2';
+    const vsLabel = '⚔️ Comparison';
     let html = '';
-    if (selectedRubbers[0]) {
-        html += `<button class="content-tab" data-tab="desc1">${buildTabButtonContent(selectedRubbers[0])}</button>`;
-    }
-    if (selectedRubbers[1]) {
-        html += `<button class="content-tab" data-tab="desc2">${buildTabButtonContent(selectedRubbers[1])}</button>`;
-    }
-    if (selectedRubbers[0] && selectedRubbers[1]) {
-        html += `<button class="content-tab content-tab--vs" data-tab="comparison">⚔️ Comparison</button>`;
-    }
+    html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
+    html += `<button class="content-tab" data-tab="desc2">${tab2Label}</button>`;
+    html += `<button class="content-tab content-tab--vs" data-tab="comparison">${vsLabel}</button>`;
     tabBar.innerHTML = html;
     highlightActiveTab();
 }
@@ -2419,13 +2427,15 @@ function renderTabs() {
 function highlightActiveTab() {
     const tabBar = document.getElementById('contentTabs');
     tabBar.querySelectorAll('.content-tab').forEach(btn => {
-        const isActive = btn.dataset.tab === activeTab;
+        const tabKey = btn.dataset.tab;
+        const isActive = tabKey === activeTab;
+        const hasContent = tabContents[tabKey] != null;
         btn.classList.toggle('content-tab--active', isActive);
+        btn.classList.toggle('content-tab--empty', !hasContent);
         if (isActive && !btn.classList.contains('content-tab--vs')) {
-            // Find the rubber for this tab and use its brand color
-            const idx = btn.dataset.tab === 'desc1' ? 0 : 1;
+            const idx = tabKey === 'desc1' ? 0 : 1;
             const rubber = selectedRubbers[idx];
-            const color = rubber ? getBrandColor(rubber.brand) : '';
+            const color = rubber ? getBrandColor(rubber.brand) : 'var(--drac-comment)';
             btn.style.borderBottomColor = color;
         } else if (isActive && btn.classList.contains('content-tab--vs')) {
             const colorL = selectedRubbers[0] ? getBrandColor(selectedRubbers[0].brand) : '';
@@ -2464,7 +2474,7 @@ function setActiveTab(tabId) {
         });
     } else {
         pane.classList.add('content-pane--empty');
-        pane.innerHTML = '<span class="content-pane-placeholder"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;vertical-align:-2px;margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</span>';
+        pane.innerHTML = buildEmptyPanePlaceholder(tabId);
     }
 
     highlightActiveTab();
@@ -2511,12 +2521,8 @@ function resetDetailPanels() {
     tabContents = { desc1: null, desc2: null, comparison: null };
     tabScrollPositions = { desc1: 0, desc2: 0, comparison: 0 };
     activeTab = null;
-    const pane = document.getElementById('contentPane');
-    if (pane) {
-        pane.classList.add('content-pane--empty');
-        pane.innerHTML = '<span class="content-pane-placeholder"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;vertical-align:-2px;margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</span>';
-    }
     renderTabs();
+    setActiveTab('desc1');
 }
 
 function handleRubberClick(rubber) {
@@ -2710,7 +2716,25 @@ function buildPlayersColumnHtml(rubber, align) {
 
 function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
-        return `<div class="radar-comparison-empty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;margin-right:5px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</div>`;
+        const dash = '<span class="radar-cmp-dash">-</span>';
+        const emptyHeader = `<div class="radar-comparison-header-placeholder">—</div>`;
+        const emptyLabels = ['Speed Rank', 'Spin Rank', 'Control', 'Cut Weight', 'Hardness', 'Release', 'Thickness'];
+        const metricRows = emptyLabels.map(label => `
+            <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
+            <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
+            <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
+        `).join('');
+        const playersRow = `
+            <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${dash}</div>
+            <div class="radar-cmp-cell radar-cmp-cell--label">Players</div>
+            <div class="radar-cmp-cell radar-cmp-cell--right radar-cmp-cell--players">${dash}</div>
+        `;
+        const hint = `<div class="radar-select-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber from the chart above</div>`;
+        return `
+            ${hint}
+            <div class="radar-comparison-headers">${emptyHeader}${emptyHeader}</div>
+            <div class="radar-comparison-grid">${metricRows}${playersRow}</div>
+        `;
     }
 
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
@@ -3404,6 +3428,10 @@ async function initializeApp() {
     });
 
     applyFiltersFromUrl();
+    if (!activeTab) {
+        renderTabs();
+        setActiveTab('desc1');
+    }
     updateRadarChart();
     startRadarAutoRotate();
     initChart();

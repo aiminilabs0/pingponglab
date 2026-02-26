@@ -1136,7 +1136,7 @@ h1 {
     overflow: hidden;
 }
 
-.content-tabs:empty { display: none; }
+.content-tab--empty { opacity: 0.5; }
 
 .content-tab {
     display: inline-flex;
@@ -1480,17 +1480,19 @@ h1 {
     padding: 14px 16px;
 }
 
-/* Empty state */
-.radar-comparison-empty {
+/* Select-a-rubber hint at top of radar info */
+.radar-select-hint {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     color: var(--drac-comment);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     opacity: 0.55;
-    padding: 20px 0;
+    padding: 6px 0 10px;
 }
+
 /* Header row: two rubber headers side-by-side */
 .radar-comparison-headers {
     display: flex;
