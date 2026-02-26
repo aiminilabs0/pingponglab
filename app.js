@@ -2464,7 +2464,7 @@ function setActiveTab(tabId) {
         });
     } else {
         pane.classList.add('content-pane--empty');
-        pane.innerHTML = '<span class="content-pane-placeholder">Select a rubber to see its description</span>';
+        pane.innerHTML = '<span class="content-pane-placeholder"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;vertical-align:-2px;margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</span>';
     }
 
     highlightActiveTab();
@@ -2514,7 +2514,7 @@ function resetDetailPanels() {
     const pane = document.getElementById('contentPane');
     if (pane) {
         pane.classList.add('content-pane--empty');
-        pane.innerHTML = '<span class="content-pane-placeholder">Select a rubber to see its description</span>';
+        pane.innerHTML = '<span class="content-pane-placeholder"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;vertical-align:-2px;margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</span>';
     }
     renderTabs();
 }
@@ -2668,7 +2668,7 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
 
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
-        return `<div class="radar-comparison-header-placeholder">Select a rubber</div>`;
+        return `<div class="radar-comparison-header-placeholder">—</div>`;
     }
     const brandColor = getBrandColor(rubber.brand);
     const radarLabel = rubber.addr || rubber.name || '-';
@@ -2710,7 +2710,7 @@ function buildPlayersColumnHtml(rubber, align) {
 
 function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
-        return `<div class="radar-comparison-empty">Select a rubber</div>`;
+        return `<div class="radar-comparison-empty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;margin-right:5px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber</div>`;
     }
 
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
@@ -2825,12 +2825,15 @@ function updateRadarChart() {
     const traces = [];
 
     if (!first && !second) {
-        // Invisible trace to force Plotly to render the polar grid
+        // Placeholder trace so radar chart feels intentional before first selection.
         traces.push({
             type: 'scatterpolar',
-            r: radarCategories.map(() => 0),
-            theta: radarCategories,
-            mode: 'none',
+            r: [70, 62, 68, 64, 66, 70],
+            theta: [...radarCategories, radarCategories[0]],
+            mode: 'lines',
+            line: { color: 'rgba(155,148,132,0.45)', width: 1.5, dash: 'dot' },
+            fill: 'toself',
+            fillcolor: 'rgba(126,184,168,0.08)',
             hoverinfo: 'skip',
             showlegend: false,
         });
@@ -2859,6 +2862,7 @@ function updateRadarChart() {
             },
         },
         showlegend: false,
+        annotations: [],
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         margin: isMobile ? { t: 52, b: 52, l: 90, r: 90 } : { t: 42, b: 38, l: 55, r: 55 },

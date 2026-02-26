@@ -1164,7 +1164,7 @@ h1 {
 .content-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; max-height: 75vh; }
 .content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 .content-pane--empty { align-items: center; justify-content: center; min-height: 60px; }
-.content-pane-placeholder { color: var(--drac-comment); font-size: 12px; font-weight: 500; opacity: 0.6; }
+.content-pane-placeholder { display: inline-flex; align-items: center; color: var(--drac-comment); font-size: 13px; font-weight: 500; opacity: 0.55; }
 
 .content-pane .content {
     color: var(--drac-fg);
@@ -1486,12 +1486,11 @@ h1 {
     align-items: center;
     justify-content: center;
     color: var(--drac-comment);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    opacity: 0.6;
-    padding: 16px 0;
+    opacity: 0.55;
+    padding: 20px 0;
 }
-
 /* Header row: two rubber headers side-by-side */
 .radar-comparison-headers {
     display: flex;
