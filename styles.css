@@ -1667,6 +1667,16 @@ h1 {
 .radar-comparison-header-side--right .radar-rubber-img {
     margin-left: auto;
 }
+.radar-rubber-img-placeholder {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.radar-comparison-header-side--right .radar-rubber-img-placeholder {
+    margin-left: auto;
+}
 .radar-info-line-key {
     margin-bottom: 6px;
 }
@@ -2145,6 +2155,10 @@ h1 {
         border-radius: 10px;
     }
     .radar-rubber-img {
+        width: 80px;
+        height: 80px;
+    }
+    .radar-rubber-img-placeholder {
         width: 80px;
         height: 80px;
     }

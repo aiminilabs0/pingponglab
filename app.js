@@ -2674,7 +2674,24 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
 
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
-        return `<div class="radar-comparison-header-placeholder">—</div>`;
+        const placeholderColor = '#9e9689';
+        const placeholderBrand = 'Brand';
+        const placeholderName = `Rubber ${panelIndex + 1}`;
+        const lineStyle = panelIndex === 1 ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
+        return `
+            <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
+                <div class="radar-info-header">
+                    <span class="brand-pill brand-pill--sm" style="background:${placeholderColor}18;border-color:${placeholderColor}55;color:${placeholderColor}">
+                        <span class="brand-dot" style="background:${placeholderColor}"></span>${placeholderBrand}
+                    </span>
+                </div>
+                <div class="radar-info-name-row">
+                    <div class="rubber-name" style="color:${placeholderColor}">${placeholderName}</div>
+                </div>
+                <div class="radar-rubber-img-placeholder"></div>
+                <div class="radar-info-line-key" style="${lineStyle} ${placeholderColor}; width: 28px;"></div>
+            </div>
+        `;
     }
     const brandColor = getBrandColor(rubber.brand);
     const radarLabel = rubber.addr || rubber.name || '-';
@@ -2717,7 +2734,6 @@ function buildPlayersColumnHtml(rubber, align) {
 function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const emptyHeader = `<div class="radar-comparison-header-placeholder">—</div>`;
         const emptyLabels = ['Speed Rank', 'Spin Rank', 'Control', 'Cut Weight', 'Hardness', 'Release', 'Thickness'];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
@@ -2729,10 +2745,11 @@ function buildRadarComparisonHtml(first, second) {
             <div class="radar-cmp-cell radar-cmp-cell--label">Players</div>
             <div class="radar-cmp-cell radar-cmp-cell--right radar-cmp-cell--players">${dash}</div>
         `;
-        const hint = `<div class="radar-select-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Select a rubber from the chart above</div>`;
         return `
-            ${hint}
-            <div class="radar-comparison-headers">${emptyHeader}${emptyHeader}</div>
+            <div class="radar-comparison-headers">
+                ${buildRubberHeaderHtml(null, 0, false)}
+                ${buildRubberHeaderHtml(null, 1, true)}
+            </div>
             <div class="radar-comparison-grid">${metricRows}${playersRow}</div>
         `;
     }
@@ -2849,15 +2866,26 @@ function updateRadarChart() {
     const traces = [];
 
     if (!first && !second) {
-        // Placeholder trace so radar chart feels intentional before first selection.
+        const placeholderColor = 'rgba(158,150,137,0.45)';
         traces.push({
             type: 'scatterpolar',
             r: [70, 62, 68, 64, 66, 70],
             theta: [...radarCategories, radarCategories[0]],
             mode: 'lines',
-            line: { color: 'rgba(155,148,132,0.45)', width: 1.5, dash: 'dot' },
+            line: { color: placeholderColor, width: 2.5 },
             fill: 'toself',
-            fillcolor: 'rgba(126,184,168,0.08)',
+            fillcolor: 'rgba(158,150,137,0.08)',
+            hoverinfo: 'skip',
+            showlegend: false,
+        });
+        traces.push({
+            type: 'scatterpolar',
+            r: [63, 72, 58, 70, 60, 63],
+            theta: [...radarCategories, radarCategories[0]],
+            mode: 'lines',
+            line: { color: placeholderColor, width: 2.5, dash: 'dot' },
+            fill: 'toself',
+            fillcolor: 'rgba(158,150,137,0.06)',
             hoverinfo: 'skip',
             showlegend: false,
         });
