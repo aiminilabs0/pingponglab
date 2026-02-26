@@ -364,9 +364,9 @@ h1 {
     gap: 5px;
     padding: 6px 14px;
     border-radius: 999px;
-    border: 1.5px solid rgba(155, 148, 132, 0.45);
-    background: rgba(62, 58, 52, 0.35);
-    color: var(--drac-fg);
+    border: 1.5px solid rgba(155, 148, 132, 0.32);
+    background: rgba(28, 26, 23, 0.72);
+    color: rgba(232, 224, 208, 0.72);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -374,8 +374,9 @@ h1 {
     transition: border-color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
 }
 .fp-pill:hover {
-    border-color: rgba(218, 138, 82, 0.48);
-    background: rgba(62, 58, 52, 0.6);
+    border-color: rgba(218, 138, 82, 0.56);
+    background: rgba(62, 58, 52, 0.58);
+    color: var(--drac-fg);
 }
 .fp-pill input[type="checkbox"] {
     position: absolute;
@@ -389,15 +390,19 @@ h1 {
     height: 8px;
     flex-shrink: 0;
     border: 1.5px solid var(--drac-comment);
+    opacity: 0.58;
+    filter: saturate(0.65);
 }
 .fp-pill.active .fp-pill-dot {
     border-color: var(--drac-orange);
+    opacity: 1;
+    filter: saturate(1);
 }
 .fp-pill.active {
-    border-color: rgba(218, 138, 82, 0.75);
-    background: rgba(218, 138, 82, 0.14);
+    border-color: rgba(218, 138, 82, 0.95);
+    background: rgba(218, 138, 82, 0.28);
     color: var(--drac-fg);
-    box-shadow: 0 0 0 1px rgba(218, 138, 82, 0.22);
+    box-shadow: 0 0 0 1px rgba(218, 138, 82, 0.38), inset 0 1px 0 rgba(248, 248, 242, 0.08);
 }
 
 /* Control tier colors */
