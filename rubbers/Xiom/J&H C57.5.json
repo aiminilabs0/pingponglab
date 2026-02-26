@@ -3,7 +3,9 @@
   "name": "Jekyll & Hyde C57.5",
   "manufacturer": "Xiom",
   "players": {
-    "forehand": [],
+    "forehand": [
+      "H. Calderano (https://www.youtube.com/watch?v=GfaSz4TKlpc)"
+    ],
     "backhand": []
   },
   "user_ratings": {
