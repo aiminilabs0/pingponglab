@@ -2854,7 +2854,7 @@ function updateRadarChart() {
                 categoryarray: radarCategories,
                 gridcolor: 'rgba(158,150,137,0.18)',
                 linecolor: 'rgba(158,150,137,0.25)',
-                tickfont: { color: '#e8e0d0', size: isMobile ? 9 : 11 },
+                tickfont: { color: '#e8e0d0', size: isMobile ? 11 : 13 },
                 rotation: radarRotationDeg,
             },
         },
