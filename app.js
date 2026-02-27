@@ -3476,16 +3476,22 @@ async function initializeApp() {
         triggerAutoscale();
     });
 
-    // Show "zoom in" hint on narrow viewports
-    if (window.matchMedia('(max-width: 768px)').matches) {
-        const hint = document.getElementById('zoomHint');
-        if (hint) {
-            hint.classList.add('is-visible');
-            setTimeout(() => {
-                hint.classList.add('is-fading');
-                hint.addEventListener('transitionend', () => hint.classList.remove('is-visible', 'is-fading'), { once: true });
-            }, 3000);
+    // Keep zoom hint state in sync when switching mobile/desktop.
+    const zoomHint = document.getElementById('zoomHint');
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const syncZoomHintVisibility = () => {
+        if (!zoomHint) return;
+        if (mobileQuery.matches) {
+            zoomHint.classList.add('is-visible');
+        } else {
+            zoomHint.classList.remove('is-visible', 'is-fading');
         }
+    };
+    syncZoomHintVisibility();
+    if (typeof mobileQuery.addEventListener === 'function') {
+        mobileQuery.addEventListener('change', syncZoomHintVisibility);
+    } else if (typeof mobileQuery.addListener === 'function') {
+        mobileQuery.addListener(syncZoomHintVisibility);
     }
 }
 
