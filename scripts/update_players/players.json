@@ -214,5 +214,17 @@
     "backhand": "",
     "forehand_youtube": "https://www.youtube.com/watch?v=37tr9lUgn6Q",
     "backhand_youtube": ""
+  },
+  "BAE Hwan": {
+    "forehand": "DHS/H3 Neo",
+    "backhand": "DHS/H3 Neo",
+    "forehand_youtube": "https://www.youtube.com/watch?v=1YzapPOGTfE",
+    "backhand_youtube": "https://www.youtube.com/watch?v=pQRpkpEzrNQ"
+  },
+  "BAE Won": {
+    "forehand": "DHS/H3 Neo",
+    "backhand": "DHS/H8-80",
+    "forehand_youtube": "https://www.youtube.com/watch?v=sZ9Ho5Oq2rM",
+    "backhand_youtube": "https://www.youtube.com/watch?v=4_xSMd1gzpk"
   }
 }
