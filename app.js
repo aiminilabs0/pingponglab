@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 1;
+const CACHE_VERSION = 2;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
@@ -73,7 +73,7 @@ function fromGermanScale(geValue, country) {
 }
 
 const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
-const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control'];
+const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
 // ════════════════════════════════════════════════════════════
@@ -109,6 +109,8 @@ let controlFilterState = {
     rankMax: null,
     selectedTiers: new Set(['Easy', 'Med', 'Hard'])
 };
+let top30FilterActive = false;
+let top30Set = new Set();
 
 // YouTube embed state
 let ytApiReady = false;
@@ -451,6 +453,13 @@ async function loadRubberData() {
 
     // Only show rubbers that appear in both spin and speed rankings
     rubberData = data.filter(r => r.x !== null && r.y !== null);
+
+    const top30Ranking = priorityRanking.slice(0, 30);
+    top30Set = new Set();
+    for (const rubber of rubberData) {
+        if (findRubberRank(rubber, top30Ranking) >= 0) top30Set.add(rubber.fullName);
+    }
+
     descriptions = descriptionMap;
 }
 
@@ -902,6 +911,39 @@ function initControlToggleFilter(onChange) {
     container.appendChild(group);
 }
 
+function initTop30Filter(onChange) {
+    const container = document.getElementById('top30Filter');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const group = document.createElement('div');
+    group.className = 'fp-pill-group';
+
+    const pill = document.createElement('label');
+    pill.className = 'fp-pill';
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = false;
+    cb.value = 'top30';
+    pill.appendChild(cb);
+
+    const dot = document.createElement('span');
+    dot.className = 'fp-pill-dot';
+    pill.appendChild(dot);
+
+    pill.appendChild(document.createTextNode('Top 30'));
+    group.appendChild(pill);
+
+    cb.addEventListener('change', () => {
+        top30FilterActive = cb.checked;
+        pill.classList.toggle('active', cb.checked);
+        onChange();
+    });
+
+    container.appendChild(group);
+}
+
 const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
 
 function initSheetToggleFilter(onChange) {
@@ -1016,7 +1058,8 @@ function buildNameOptionsFromFilters() {
         (selectedSheet.size === 0 || selectedSheet.has(rubber.sheet)) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank)))
+        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank))) &&
+        (!top30FilterActive || top30Set.has(rubber.fullName))
     );
 
     const seenNames = new Map();
@@ -1153,6 +1196,7 @@ function pushFiltersToUrl() {
     serializeHardnessRangeParam(params);
     serializeWeightRangeParam(params);
     serializeControlRangeParam(params);
+    if (top30FilterActive) params.set('top30', '1');
 
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
     if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
@@ -1175,7 +1219,7 @@ function syncCountrySelectorUI() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'country', 'left', 'right', 'page', 'pin'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'top30', 'country', 'left', 'right', 'page', 'pin'];
     if (!filterKeys.some(key => params.has(key))) return;
 
     // Country
@@ -1193,6 +1237,11 @@ function applyFiltersFromUrl() {
     deserializeHardnessRangeParam(params);
     deserializeWeightRangeParam(params);
     deserializeControlRangeParam(params);
+    if (params.has('top30')) {
+        top30FilterActive = true;
+        const cb = document.querySelector('#top30Filter input[type="checkbox"]');
+        if (cb) { cb.checked = true; cb.closest('.fp-pill')?.classList.add('active'); }
+    }
 
     // Rebuild rubber options from all filters, then restore rubber selections
     buildNameOptionsFromFilters();
@@ -1344,7 +1393,8 @@ function getFilteredData() {
         selectedSheet.has(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank)))
+        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank))) &&
+        (!top30FilterActive || top30Set.has(rubber.fullName))
     );
 }
 
@@ -3091,6 +3141,9 @@ function resetFiltersToAll() {
     resetHardnessRangeToDataBounds();
     resetWeightRangeToDataBounds();
     resetControlToAllTiers();
+    top30FilterActive = false;
+    const top30Cb = document.querySelector('#top30Filter input[type="checkbox"]');
+    if (top30Cb) { top30Cb.checked = false; top30Cb.closest('.fp-pill')?.classList.remove('active'); }
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
@@ -3156,10 +3209,11 @@ function initFilters() {
     initHardnessRangeFilter(() => onFilterChange('hardness'));
     initWeightRangeFilter(() => onFilterChange('weight'));
     initControlToggleFilter(() => onFilterChange('control'));
+    initTop30Filter(() => onFilterChange('top30'));
     buildNameOptionsFromFilters();
 
     // Filter change listeners (checkbox-based filters only)
-    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control' && id !== 'sheet').forEach(id => {
+    FILTER_IDS.filter(id => id !== 'weight' && id !== 'hardness' && id !== 'control' && id !== 'sheet' && id !== 'top30').forEach(id => {
         document.getElementById(id + 'Filter').addEventListener('change', () => onFilterChange(id));
     });
 
