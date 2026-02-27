@@ -943,8 +943,8 @@ function filterOptions(container, query) {
 }
 
 function buildCheckboxOptions(container, values, checkedValues) {
-    container.innerHTML = '';
     const isToggleGroup = container.classList.contains('toggle-group');
+    const frag = document.createDocumentFragment();
 
     for (const item of values) {
         const value = typeof item === 'string' ? item : item.value;
@@ -978,18 +978,21 @@ function buildCheckboxOptions(container, values, checkedValues) {
         if (isToggleGroup) text.classList.add('toggle-pill');
         label.appendChild(text);
 
-        container.appendChild(label);
+        frag.appendChild(label);
     }
+
+    container.innerHTML = '';
+    container.appendChild(frag);
 }
 
 function buildNameOptionsFromFilters() {
     const nameFilter = document.getElementById('nameFilter');
-    const selectedBrands = getCheckedValues('brandFilter');
-    const selectedSheet = getCheckedValues('sheetFilter');
+    const selectedBrands = new Set(getCheckedValues('brandFilter'));
+    const selectedSheet = new Set(getCheckedValues('sheetFilter'));
     const previousSelections = new Set(getCheckedValues('nameFilter'));
     const previousNames = new Set(getAllCheckboxValues('nameFilter'));
 
-    if (selectedBrands.length === 0) {
+    if (selectedBrands.size === 0) {
         nameFilter.innerHTML = '<div class="filter-instructions">Select a brand first.</div>';
         return;
     }
@@ -1006,26 +1009,24 @@ function buildNameOptionsFromFilters() {
     const selectedTiers = controlFilterState.selectedTiers;
 
     const filtered = rubberData.filter(rubber =>
-        selectedBrands.includes(rubber.brand) &&
-        (selectedSheet.length === 0 || selectedSheet.includes(rubber.sheet)) &&
+        selectedBrands.has(rubber.brand) &&
+        (selectedSheet.size === 0 || selectedSheet.has(rubber.sheet)) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || (() => {
-            const tier = getControlTierFromRank(rubber.controlRank);
-            return tier !== null && selectedTiers.has(tier);
-        })())
+        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank)))
     );
 
-    const uniqueNames = [...new Set(filtered.map(r => r.fullName))].sort();
+    const seenNames = new Map();
+    for (const r of filtered) {
+        if (!seenNames.has(r.fullName)) seenNames.set(r.fullName, r);
+    }
+    const uniqueNames = [...seenNames.keys()].sort();
 
-    const nameOptions = uniqueNames.map(name => {
-        const rubber = rubberData.find(r => r.fullName === name);
-        return {
-            value: name,
-            label: name,
-            swatchColor: rubber ? getBrandColor(rubber.brand) : null
-        };
-    });
+    const nameOptions = uniqueNames.map(name => ({
+        value: name,
+        label: name,
+        swatchColor: getBrandColor(seenNames.get(name).brand)
+    }));
 
     buildCheckboxOptions(
         nameFilter,
@@ -1064,13 +1065,12 @@ function closeFilterPanel() {
     toggleFilterPanel();
 }
 
-function updateFilterSummary() {
+function updateFilterSummary(filteredCount) {
     const summary = document.getElementById('filterSummary');
     if (!summary) return;
 
-    const filtered = getFilteredData().length;
-    const total = rubberData.length;
-    summary.textContent = `(${filtered} rubbers)`;
+    const count = filteredCount ?? getFilteredData().length;
+    summary.textContent = `(${count} rubbers)`;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1315,12 +1315,12 @@ function clampRangeToBounds(range, bounds) {
 // ════════════════════════════════════════════════════════════
 
 function getFilteredData() {
-    const selectedBrands = getCheckedValues('brandFilter');
-    const selectedNames = getCheckedValues('nameFilter');
-    const selectedSheet = getCheckedValues('sheetFilter');
+    const selectedBrands = new Set(getCheckedValues('brandFilter'));
+    const selectedNames = new Set(getCheckedValues('nameFilter'));
+    const selectedSheet = new Set(getCheckedValues('sheetFilter'));
 
-    if (!selectedBrands.length || !selectedNames.length ||
-        !selectedSheet.length) {
+    if (!selectedBrands.size || !selectedNames.size ||
+        !selectedSheet.size) {
         return [];
     }
 
@@ -1336,15 +1336,12 @@ function getFilteredData() {
     const selectedTiers = controlFilterState.selectedTiers;
 
     return rubberData.filter(rubber =>
-        selectedBrands.includes(rubber.brand) &&
-        selectedNames.includes(rubber.fullName) &&
-        selectedSheet.includes(rubber.sheet) &&
+        selectedBrands.has(rubber.brand) &&
+        selectedNames.has(rubber.fullName) &&
+        selectedSheet.has(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || (() => {
-            const tier = getControlTierFromRank(rubber.controlRank);
-            return tier !== null && selectedTiers.has(tier);
-        })())
+        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank)))
     );
 }
 
@@ -1755,7 +1752,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
 
 function updateChart(options = {}) {
     hideChartHoverPopup();
-    const filteredData = getFilteredData();
+    const filteredData = options._cachedFilteredData || getFilteredData();
 
     // Skip update when filtered data hasn't changed — avoids flicker during range slider drag.
     // preserveRanges calls (from user pan/zoom) and force calls always proceed.
@@ -3146,9 +3143,10 @@ function initFilters() {
 
     function onFilterChange(filterId) {
         if (filterId !== 'name') buildNameOptionsFromFilters();
-        updateFilterSummary();
+        const filtered = getFilteredData();
+        updateFilterSummary(filtered.length);
         pushFiltersToUrl();
-        updateChart();
+        updateChart({ _cachedFilteredData: filtered });
     }
 
     initSheetToggleFilter(() => onFilterChange('sheet'));
