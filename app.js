@@ -10,6 +10,9 @@ function debounce(fn, ms) {
     };
 }
 
+const CACHE_VERSION = 1;
+function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
+
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
 const RANKING_FILES = {
     spin: 'stats/rubbers/ranking/spin.json',
@@ -293,7 +296,7 @@ function buildDescriptionMarkdown(raw) {
 async function loadRankings() {
     const results = await Promise.all(
         Object.entries(RANKING_FILES).map(([key, url]) =>
-            fetch(url).then(r => {
+            fetch(v(url)).then(r => {
                 if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
                 return r.json();
             }).then(data => [key, data])
@@ -325,7 +328,7 @@ function findRubberRank(rubber, rankingArray) {
 // ════════════════════════════════════════════════════════════
 
 async function loadRubberData() {
-    const indexResp = await fetch(RUBBER_INDEX_FILE);
+    const indexResp = await fetch(v(RUBBER_INDEX_FILE));
     if (!indexResp.ok) {
         throw new Error(`HTTP ${indexResp.status} for ${RUBBER_INDEX_FILE}`);
     }
@@ -337,7 +340,7 @@ async function loadRubberData() {
 
     const results = await Promise.allSettled(
         rubberFiles.map(file =>
-            fetch(file).then(r => {
+            fetch(v(file)).then(r => {
                 if (!r.ok) throw new Error(`HTTP ${r.status} for ${file}`);
                 return r.json();
             })
@@ -414,9 +417,9 @@ async function loadRubberData() {
     const controlTotal = rankings.control.length;
 
     // ── Override priority with priority ranking ──
-    const priorityResp = await fetch(PRIORITY_FILE);
+    const priorityResp = await fetch(v(PRIORITY_FILE));
     const priorityRanking = priorityResp.ok ? await priorityResp.json() : [];
-    const bestsellerResp = await fetch(BESTSELLER_FILE);
+    const bestsellerResp = await fetch(v(BESTSELLER_FILE));
     const bestsellerRanking = bestsellerResp.ok ? await bestsellerResp.json() : [];
 
     for (const rubber of data) {
@@ -2318,9 +2321,9 @@ async function fetchRubberDescriptionMarkdown(brand, abbr) {
     const cacheKey = `${brand}/${lang}/${abbr}`;
     if (cacheKey in rubberDescriptionsCache) return rubberDescriptionsCache[cacheKey];
     try {
-        const resp = await fetch(
+        const resp = await fetch(v(
             `rubbers_description/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
-        );
+        ));
         if (!resp.ok) { rubberDescriptionsCache[cacheKey] = null; return null; }
         const text = await resp.text();
         rubberDescriptionsCache[cacheKey] = text;
@@ -2365,7 +2368,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
     try {
         for (const [n1, n2] of orderings) {
             const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
-            const resp = await fetch(localizedPath);
+            const resp = await fetch(v(localizedPath));
             if (resp.ok) {
                 const text = await resp.text();
                 rubberComparisonCache[cacheKey] = text;
@@ -2375,7 +2378,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
         // Backward compatibility for legacy files outside language directories.
         for (const [n1, n2] of orderings) {
             const legacyPath = `rubbers_comparison/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
-            const resp = await fetch(legacyPath);
+            const resp = await fetch(v(legacyPath));
             if (resp.ok) {
                 const text = await resp.text();
                 rubberComparisonCache[cacheKey] = text;
