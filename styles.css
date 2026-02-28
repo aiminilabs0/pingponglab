@@ -1832,6 +1832,47 @@ h1 {
     transform: translate(-50%, -50%) translateY(-50px) scale(1.6);
 }
 
+/* ── Main Chart: Dot hover shake ring ── */
+@keyframes chart-dot-shake {
+    0%, 100% { transform: translate(-50%, -50%); }
+    20% { transform: translate(calc(-50% + 3px), calc(-50% - 2px)); }
+    40% { transform: translate(calc(-50% - 2px), calc(-50% + 3px)); }
+    60% { transform: translate(calc(-50% + 2px), calc(-50% + 1px)); }
+    80% { transform: translate(calc(-50% - 3px), calc(-50% - 1px)); }
+}
+
+.chart-dot-shake-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    border-radius: 50%;
+    border: 2px solid;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    animation: chart-dot-shake 0.35s ease-in-out infinite;
+}
+
+/* ── Main Chart: Click effect ── */
+.chart-click-effect {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 16px;
+    font-weight: 800;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    opacity: 1;
+    white-space: nowrap;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+.chart-click-effect--fly {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-50px) scale(1.6);
+}
+
 /* Comparison title header (used inside content pane) */
 .comparison-title {
     display: flex;

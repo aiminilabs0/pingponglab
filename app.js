@@ -1740,6 +1740,75 @@ function getRubberPopupKey(rubber) {
     return `${rubber.brand || ''}::${rubber.fullName || rubber.name || ''}`;
 }
 
+// ── Main Chart: Dot hover shake effect ──────────────────────────────
+
+let _chartShakeRing = null;
+
+function getChartDotScreenPosition(point, chartEl) {
+    const rect = chartEl.getBoundingClientRect();
+    const layout = chartEl._fullLayout?._size;
+    if (!layout) return null;
+    return {
+        x: rect.left + layout.l + point.xaxis.l2p(point.x),
+        y: rect.top + layout.t + point.yaxis.l2p(point.y)
+    };
+}
+
+function showChartDotShake(data, chartEl) {
+    const point = data?.points?.[0];
+    if (!point) return;
+    const rubber = point.data.customdata?.[point.pointIndex];
+    if (!rubber) return;
+
+    const pos = getChartDotScreenPosition(point, chartEl);
+    if (!pos) return;
+
+    const markerSizes = point.data.marker?.size;
+    const markerSize = Array.isArray(markerSizes)
+        ? markerSizes[point.pointIndex]
+        : (markerSizes || 14);
+    const ringSize = markerSize + 14;
+
+    if (!_chartShakeRing) {
+        _chartShakeRing = document.createElement('div');
+        _chartShakeRing.className = 'chart-dot-shake-ring';
+        document.body.appendChild(_chartShakeRing);
+    }
+
+    const color = getBrandColor(rubber.brand);
+    _chartShakeRing.style.borderColor = color;
+    _chartShakeRing.style.boxShadow = `0 0 8px ${color}`;
+    _chartShakeRing.style.width = ringSize + 'px';
+    _chartShakeRing.style.height = ringSize + 'px';
+    _chartShakeRing.style.left = pos.x + 'px';
+    _chartShakeRing.style.top = pos.y + 'px';
+    _chartShakeRing.style.opacity = '0.7';
+}
+
+function hideChartDotShake() {
+    if (_chartShakeRing) _chartShakeRing.style.opacity = '0';
+}
+
+// ── Main Chart: Click effect ────────────────────────────────────────
+
+let _chartClickCount = 0;
+
+function showChartClickEffect(x, y, rubber) {
+    const messages = ['Ping!', 'Pong!', 'Nice!', 'Sweet!', 'Ooh!', 'Yes!', 'Go!', 'Pick!'];
+    const msg = messages[_chartClickCount++ % messages.length];
+
+    const el = document.createElement('div');
+    el.className = 'chart-click-effect';
+    el.textContent = msg;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    if (rubber) el.style.color = getBrandColor(rubber.brand);
+    document.body.appendChild(el);
+
+    requestAnimationFrame(() => el.classList.add('chart-click-effect--fly'));
+    setTimeout(() => el.remove(), 900);
+}
+
 function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const point = data?.points?.[0];
     const rubber = point?.data?.customdata?.[point.pointIndex];
@@ -1998,6 +2067,10 @@ function updateChart(options = {}) {
             const panelNum = handleRubberClick(rubber);
             const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
 
+            // Click effect at the dot position
+            const clickPos = getChartDotScreenPosition(point, chartEl);
+            if (clickPos) showChartClickEffect(clickPos.x, clickPos.y, rubber);
+
             if (IS_TOUCH_DEVICE) {
                 // On touch devices there is no preceding hover, so show and position the popup
                 showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel);
@@ -2014,8 +2087,12 @@ function updateChart(options = {}) {
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
             showChartHoverPopupFromPlotlyData(data, chartEl);
+            showChartDotShake(data, chartEl);
         });
-        chartEl.on('plotly_unhover', hideChartHoverPopup);
+        chartEl.on('plotly_unhover', () => {
+            hideChartHoverPopup();
+            hideChartDotShake();
+        });
     }
 
     if (!chartEl._hasTapDismissHandler) {
