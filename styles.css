@@ -1850,7 +1850,7 @@ h1 {
     background: transparent;
     opacity: 0;
     transition: opacity 0.12s ease;
-    animation: chart-dot-shake 0.35s ease-in-out infinite;
+    animation: chart-dot-shake 0.8s ease-in-out infinite;
 }
 
 /* ── Main Chart: Click effect ── */
