@@ -921,6 +921,14 @@ function initControlToggleFilter(onChange) {
     container.appendChild(group);
 }
 
+function positionSegSlider(seg) {
+    const slider = seg.querySelector('.fp-seg-slider');
+    const activeBtn = seg.querySelector('.fp-seg-btn.active');
+    if (!slider || !activeBtn) return;
+    slider.style.width = activeBtn.offsetWidth + 'px';
+    slider.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+}
+
 function initTop30Filter(onChange) {
     const container = document.getElementById('top30Filter');
     if (!container) return;
@@ -928,6 +936,10 @@ function initTop30Filter(onChange) {
     container.innerHTML = '';
     const seg = document.createElement('div');
     seg.className = 'fp-seg';
+
+    const slider = document.createElement('div');
+    slider.className = 'fp-seg-slider';
+    seg.appendChild(slider);
 
     ['All', 'Top 30'].forEach(label => {
         const btn = document.createElement('button');
@@ -939,6 +951,7 @@ function initTop30Filter(onChange) {
         btn.addEventListener('click', () => {
             seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
             btn.classList.add('active');
+            positionSegSlider(seg);
             top30FilterActive = btn.dataset.value === 'top30';
             onChange();
         });
@@ -946,6 +959,7 @@ function initTop30Filter(onChange) {
     });
 
     container.appendChild(seg);
+    requestAnimationFrame(() => positionSegSlider(seg));
 }
 
 const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
@@ -1247,6 +1261,7 @@ function applyFiltersFromUrl() {
         if (seg) {
             seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
             seg.querySelector('.fp-seg-btn[data-value="top30"]')?.classList.add('active');
+            positionSegSlider(seg);
         }
     }
 
@@ -1877,6 +1892,19 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
             </div>
         </div>
     `;
+}
+
+let filterAnimTimer = null;
+function animateChartUpdate(chartOptions = {}) {
+    const chartEl = document.getElementById('chart');
+    clearTimeout(filterAnimTimer);
+    chartEl.classList.add('chart--filter-fade');
+    filterAnimTimer = setTimeout(() => {
+        updateChart(chartOptions);
+        requestAnimationFrame(() => {
+            chartEl.classList.remove('chart--filter-fade');
+        });
+    }, 150);
 }
 
 function updateChart(options = {}) {
@@ -3427,6 +3455,7 @@ function resetFiltersToAll() {
     if (seg) {
         seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
         seg.querySelector('.fp-seg-btn[data-value="all"]')?.classList.add('active');
+        positionSegSlider(seg);
     }
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
@@ -3486,7 +3515,12 @@ function initFilters() {
         const filtered = getFilteredData();
         updateFilterSummary(filtered.length);
         pushFiltersToUrl();
-        updateChart({ _cachedFilteredData: filtered });
+        const isRangeFilter = filterId === 'hardness' || filterId === 'weight';
+        if (isRangeFilter) {
+            updateChart({ _cachedFilteredData: filtered });
+        } else {
+            animateChartUpdate({ _cachedFilteredData: filtered });
+        }
     }
 
     initSheetToggleFilter(() => onFilterChange('sheet'));
@@ -3537,7 +3571,7 @@ function initFilters() {
         resetFiltersToAll();
         updateFilterSummary();
         pushFiltersToUrl();
-        updateChart();
+        animateChartUpdate();
     });
 
     updateFilterSummary();

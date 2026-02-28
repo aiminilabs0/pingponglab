@@ -414,6 +414,7 @@ h1 {
 /* Segmented toggle (Top 30) */
 .fp-seg {
     display: inline-flex;
+    position: relative;
     border-radius: 999px;
     border: 1.5px solid rgba(155, 148, 132, 0.32);
     background: rgba(28, 26, 23, 0.72);
@@ -421,22 +422,33 @@ h1 {
     padding: 2px;
     gap: 2px;
 }
+.fp-seg-slider {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 0;
+    border-radius: 999px;
+    background: rgba(218, 138, 82, 0.28);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
 .fp-seg-btn {
     all: unset;
+    position: relative;
+    z-index: 1;
     padding: 5px 14px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
     color: rgba(232, 224, 208, 0.55);
     cursor: pointer;
-    transition: background 0.12s ease, color 0.12s ease;
+    transition: color 0.12s ease;
     user-select: none;
 }
 .fp-seg-btn:hover {
     color: rgba(232, 224, 208, 0.85);
 }
 .fp-seg-btn.active {
-    background: rgba(218, 138, 82, 0.28);
     color: var(--drac-fg);
 }
 
@@ -909,6 +921,10 @@ h1 {
     height: 680px;
     margin: 0;
     overscroll-behavior: none;
+    transition: opacity 0.15s ease;
+}
+#chart.chart--filter-fade {
+    opacity: 0;
 }
 .chart-speed-outside {
     padding: 0 14px 2px;
