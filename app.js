@@ -2549,7 +2549,7 @@ function renderTabs() {
     const r2 = selectedRubbers[1];
     const tab1Label = r1 ? buildTabButtonContent(r1) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 1';
     const tab2Label = r2 ? buildTabButtonContent(r2) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 2';
-    const vsLabel = '⚔️ Comparison';
+    const vsLabel = '🆚 VS';
     let html = '';
     html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
     html += `<button class="content-tab" data-tab="desc2">${tab2Label}</button>`;
