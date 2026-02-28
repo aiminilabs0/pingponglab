@@ -245,12 +245,21 @@ h1 {
     opacity: 1;
 }
 
-.filter-panel-footer {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 24px;
-    border-top: 1px solid var(--drac-current);
+.fp-reset-all-btn {
+    all: unset;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--drac-comment);
+    cursor: pointer;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+.fp-reset-all-btn:hover {
+    color: var(--drac-red);
+    border-color: var(--drac-red);
 }
 
 .filter-panel-grid {

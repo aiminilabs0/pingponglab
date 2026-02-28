@@ -101,7 +101,12 @@
                 <div class="filter-panel-grid">
                     <!-- Column 1: Popularity, Weight, Hardness, Sheet, Control -->
                     <div class="fp-section fp-section-sliders">
-                        <div class="fp-section-header"><span>Popularity</span></div>
+                        <div class="fp-section-header">
+                            <span>Popularity</span>
+                            <div class="fp-section-actions">
+                                <button type="button" class="fp-reset-all-btn" id="clearAllFilters" title="Reset all filters">Reset all</button>
+                            </div>
+                        </div>
                         <div class="fp-options" id="top30Filter"></div>
 
                         <div class="fp-section-header fp-section-header-sub">
@@ -153,11 +158,6 @@
                             <div class="fp-options" id="nameFilter"></div>
                         </div>
                     </div>
-                </div>
-                <div class="filter-panel-footer">
-                    <button type="button" class="filter-action-btn reset-btn filter-reset-btn" id="clearAllFilters" title="Reset all filters">
-                        ↺ Reset all
-                    </button>
                 </div>
             </div>
         </div>
