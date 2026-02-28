@@ -2560,6 +2560,11 @@ function renderTabs() {
 
 function highlightActiveTab() {
     const tabBar = document.getElementById('contentTabs');
+    const hasSameBrandSelection = (() => {
+        const [first, second] = selectedRubbers;
+        if (!first?.brand || !second?.brand) return false;
+        return first.brand.trim().toLowerCase() === second.brand.trim().toLowerCase();
+    })();
     tabBar.querySelectorAll('.content-tab').forEach(btn => {
         const tabKey = btn.dataset.tab;
         const isActive = tabKey === activeTab;
@@ -2571,6 +2576,7 @@ function highlightActiveTab() {
             const rubber = selectedRubbers[idx];
             const color = rubber ? getBrandColor(rubber.brand) : 'var(--drac-comment)';
             btn.style.borderBottomColor = color;
+            btn.style.borderBottomStyle = (tabKey === 'desc2' && hasSameBrandSelection) ? 'dashed' : 'solid';
         } else if (isActive && btn.classList.contains('content-tab--vs')) {
             const colorL = selectedRubbers[0] ? getBrandColor(selectedRubbers[0].brand) : '';
             const colorR = selectedRubbers[1] ? getBrandColor(selectedRubbers[1].brand) : '';
@@ -2580,6 +2586,7 @@ function highlightActiveTab() {
         } else {
             btn.style.borderImage = '';
             btn.style.borderBottomColor = 'transparent';
+            btn.style.borderBottomStyle = 'solid';
         }
     });
 }
