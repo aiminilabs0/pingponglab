@@ -2809,8 +2809,14 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
         const placeholderColor = '#9e9689';
-        const placeholderBrand = 'Brand';
-        const placeholderName = `Rubber ${panelIndex + 1}`;
+        const placeholderRubbers = [
+            { brand: 'Butterfly', name: 'Tenergy 05' },
+            { brand: 'DHS', name: 'H3 Neo' },
+        ];
+        const placeholderRubber = placeholderRubbers[panelIndex] || placeholderRubbers[0];
+        const placeholderBrand = placeholderRubber.brand;
+        const placeholderName = placeholderRubber.name;
+        const placeholderImageName = encodeURIComponent(placeholderName);
         const lineStyle = panelIndex === 1 ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
         return `
             <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
@@ -2822,7 +2828,13 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
                 <div class="radar-info-name-row">
                     <div class="rubber-name" style="color:${placeholderColor}">${placeholderName}</div>
                 </div>
-                <div class="radar-rubber-img-placeholder"></div>
+                <img
+                    class="radar-rubber-img radar-rubber-img--placeholder"
+                    src="images/rubbers/${placeholderImageName}.jpg"
+                    alt="${escapeHtml(placeholderName)}"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                >
+                <div class="radar-rubber-img-placeholder" style="display:none;"></div>
                 <div class="radar-info-line-key" style="${lineStyle} ${placeholderColor}; width: 28px;"></div>
             </div>
         `;
