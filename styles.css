@@ -1526,15 +1526,18 @@ h1 {
     border: 1.5px solid var(--drac-current);
     border-bottom: none;
     border-radius: 14px 14px 0 0;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .radar-chart {
     width: 100%;
     height: 260px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    will-change: transform;
+    z-index: 2;
 }
 .radar-info-combined {
     border-top: 1px solid var(--drac-current);
@@ -1802,6 +1805,27 @@ h1 {
 }
 .radar-info-player-link.yt-active {
     color: var(--drac-red);
+}
+
+/* ── Radar Dodge: catch effect ── */
+.radar-catch-effect {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--drac-orange);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    opacity: 1;
+    white-space: nowrap;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+.radar-catch-effect--fly {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-50px) scale(1.6);
 }
 
 /* Comparison title header (used inside content pane) */

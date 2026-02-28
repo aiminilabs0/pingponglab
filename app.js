@@ -2676,6 +2676,7 @@ const RADAR_ROTATION_DEG_PER_SEC = 0.5;
 let radarRotationDeg = 0;
 let radarAutoRotateFrameId = null;
 let radarAutoRotateLastTs = null;
+let radarRotationSpeedMultiplier = 1;  // increases when panicking
 
 function normalizeRankToScore(rank, total) {
     if (!Number.isFinite(rank) || !Number.isFinite(total) || total <= 0) return 0;
@@ -3021,7 +3022,7 @@ function startRadarAutoRotate() {
 
         const elapsedSec = (timestamp - radarAutoRotateLastTs) / 1000;
         radarAutoRotateLastTs = timestamp;
-        radarRotationDeg = (radarRotationDeg + elapsedSec * RADAR_ROTATION_DEG_PER_SEC) % 360;
+        radarRotationDeg = (radarRotationDeg + elapsedSec * RADAR_ROTATION_DEG_PER_SEC * radarRotationSpeedMultiplier) % 360;
 
         const chartEl = document.getElementById('radarChart');
         if (chartEl?._fullLayout) {
@@ -3032,6 +3033,168 @@ function startRadarAutoRotate() {
     };
 
     radarAutoRotateFrameId = requestAnimationFrame(tick);
+}
+
+// ════════════════════════════════════════════════════════════
+//  Radar Chart – Dodge & Fun Interactions
+// ════════════════════════════════════════════════════════════
+
+const RADAR_DODGE = {
+    DETECT_RADIUS: 280,
+    STRENGTH: 2400,
+    FRICTION: 0.85,
+    SPRING: 3.5,
+    MAX_OFFSET: 140,
+    CLICK_IMPULSE: 700,
+    SPIN_FAST: 20,
+    SPIN_RETURN_SPEED: 0.08,
+};
+
+let radarDodgeX = 0, radarDodgeY = 0;
+let radarDodgeVx = 0, radarDodgeVy = 0;
+let radarDodgeFrameId = null;
+let radarDodgeLastTs = null;
+let radarIsPanicking = false;
+let radarCatchCount = 0;
+let radarDodgeMouseX = -9999, radarDodgeMouseY = -9999;
+
+function getRadarChartCenter() {
+    const el = document.getElementById('radarChart');
+    if (!el) return null;
+    const rect = el.getBoundingClientRect();
+    return {
+        cx: rect.left + rect.width / 2 - radarDodgeX,
+        cy: rect.top + rect.height / 2 - radarDodgeY,
+    };
+}
+
+function showCatchEffect(x, y) {
+    const messages = ['!', 'Hey!', 'Stop!', 'No!', '...!', '?!', 'Eek!', 'Nope!', 'Why?!', 'Ow!'];
+    const msg = messages[radarCatchCount % messages.length];
+    const el = document.createElement('div');
+    el.className = 'radar-catch-effect';
+    el.textContent = msg;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    document.body.appendChild(el);
+    requestAnimationFrame(() => {
+        el.classList.add('radar-catch-effect--fly');
+    });
+    setTimeout(() => el.remove(), 900);
+}
+
+function startRadarDodgePhysics() {
+    if (radarDodgeFrameId !== null) return;
+
+    const tick = (timestamp) => {
+        if (document.hidden) {
+            radarDodgeLastTs = timestamp;
+            radarDodgeFrameId = requestAnimationFrame(tick);
+            return;
+        }
+        if (radarDodgeLastTs === null) radarDodgeLastTs = timestamp;
+        const dt = Math.min((timestamp - radarDodgeLastTs) / 1000, 0.05);
+        radarDodgeLastTs = timestamp;
+
+        const chartEl = document.getElementById('radarChart');
+        const center = getRadarChartCenter();
+        if (!chartEl || !center) {
+            radarDodgeFrameId = requestAnimationFrame(tick);
+            return;
+        }
+
+        const dx = radarDodgeMouseX - center.cx;
+        const dy = radarDodgeMouseY - center.cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        radarIsPanicking = dist < RADAR_DODGE.DETECT_RADIUS;
+
+        if (radarIsPanicking && dist > 1) {
+            const proximity = 1 - dist / RADAR_DODGE.DETECT_RADIUS;
+            const force = RADAR_DODGE.STRENGTH * proximity * proximity;
+            radarDodgeVx += (-dx / dist) * force * dt;
+            radarDodgeVy += (-dy / dist) * force * dt;
+        }
+
+        // Spring back to origin
+        radarDodgeVx -= radarDodgeX * RADAR_DODGE.SPRING * dt * 60;
+        radarDodgeVy -= radarDodgeY * RADAR_DODGE.SPRING * dt * 60;
+
+        // Friction
+        const f = Math.pow(RADAR_DODGE.FRICTION, dt * 60);
+        radarDodgeVx *= f;
+        radarDodgeVy *= f;
+
+        // Integrate position
+        radarDodgeX += radarDodgeVx * dt;
+        radarDodgeY += radarDodgeVy * dt;
+
+        // Clamp to max offset
+        const offsetDist = Math.sqrt(radarDodgeX * radarDodgeX + radarDodgeY * radarDodgeY);
+        if (offsetDist > RADAR_DODGE.MAX_OFFSET) {
+            const s = RADAR_DODGE.MAX_OFFSET / offsetDist;
+            radarDodgeX *= s;
+            radarDodgeY *= s;
+            const dot = (radarDodgeVx * radarDodgeX + radarDodgeVy * radarDodgeY) / (offsetDist * offsetDist);
+            if (dot > 0) {
+                radarDodgeVx -= 1.5 * dot * radarDodgeX;
+                radarDodgeVy -= 1.5 * dot * radarDodgeY;
+            }
+        }
+
+        // Dynamic rotation speed
+        const targetMul = radarIsPanicking ? RADAR_DODGE.SPIN_FAST : 1;
+        radarRotationSpeedMultiplier += (targetMul - radarRotationSpeedMultiplier) * RADAR_DODGE.SPIN_RETURN_SPEED;
+
+        // Apply visual transform to chart only
+        const wobble = radarIsPanicking ? Math.sin(timestamp / 40) * 2 : 0;
+        const pulse = radarIsPanicking ? 0.975 + Math.sin(timestamp / 80) * 0.012 : 1;
+        chartEl.style.transform = `translate(${radarDodgeX + wobble}px, ${radarDodgeY}px) scale(${pulse})`;
+
+        radarDodgeFrameId = requestAnimationFrame(tick);
+    };
+
+    radarDodgeFrameId = requestAnimationFrame(tick);
+}
+
+function initRadarDodge() {
+    const chartEl = document.getElementById('radarChart');
+    if (!chartEl) return;
+
+    // Track mouse globally
+    document.addEventListener('mousemove', (e) => {
+        radarDodgeMouseX = e.clientX;
+        radarDodgeMouseY = e.clientY;
+    });
+
+    // Touch support
+    document.addEventListener('touchmove', (e) => {
+        if (e.touches.length) {
+            radarDodgeMouseX = e.touches[0].clientX;
+            radarDodgeMouseY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+    document.addEventListener('touchend', () => {
+        radarDodgeMouseX = -9999;
+        radarDodgeMouseY = -9999;
+    });
+
+    // Click on chart → strong impulse + catch effect
+    chartEl.addEventListener('click', (e) => {
+        const center = getRadarChartCenter();
+        if (!center) return;
+
+        const cdx = center.cx - e.clientX;
+        const cdy = center.cy - e.clientY;
+        const angle = Math.atan2(cdy, cdx) + (Math.random() - 0.5) * 1.2;
+        radarDodgeVx += Math.cos(angle) * RADAR_DODGE.CLICK_IMPULSE;
+        radarDodgeVy += Math.sin(angle) * RADAR_DODGE.CLICK_IMPULSE;
+
+        radarCatchCount++;
+        showCatchEffect(e.clientX, e.clientY);
+    });
+
+    startRadarDodgePhysics();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -3544,6 +3707,7 @@ async function initializeApp() {
     }
     updateRadarChart();
     startRadarAutoRotate();
+    initRadarDodge();
     initChart();
     // Apply initial autoscale on first load.
     requestAnimationFrame(() => {
