@@ -99,9 +99,12 @@
             </button>
             <div class="filter-panel-body" id="filterPanelBody">
                 <div class="filter-panel-grid">
-                    <!-- Column 1: Weight, Hardness, Sheet, Control -->
+                    <!-- Column 1: Popularity, Weight, Hardness, Sheet, Control -->
                     <div class="fp-section fp-section-sliders">
-                        <div class="fp-section-header">
+                        <div class="fp-section-header"><span>Popularity</span></div>
+                        <div class="fp-options" id="top30Filter"></div>
+
+                        <div class="fp-section-header fp-section-header-sub">
                             <span>Weight</span>
                             <div class="fp-section-actions">
                                 <button type="button" id="weightResetBtn">Reset</button>
@@ -122,9 +125,6 @@
 
                         <div class="fp-section-header fp-section-header-sub"><span>Control</span></div>
                         <div class="fp-options" id="controlFilter"></div>
-
-                        <div class="fp-section-header fp-section-header-sub"><span>Popularity</span></div>
-                        <div class="fp-options" id="top30Filter"></div>
                     </div>
 
                     <!-- Column 2: Brand -->
