@@ -1770,14 +1770,14 @@ h1 {
     flex-shrink: 0;
 }
 .radar-info-side-badge--fh {
-    border-color: var(--drac-orange);
-    color: var(--drac-orange);
-    background: rgba(218, 138, 82, 0.12);
+    border-color: #e25555;
+    color: #e25555;
+    background: rgba(226, 85, 85, 0.12);
 }
 .radar-info-side-badge--bh {
-    border-color: var(--drac-cyan);
-    color: var(--drac-cyan);
-    background: rgba(126, 184, 168, 0.12);
+    border-color: #888;
+    color: #ccc;
+    background: rgba(40, 40, 40, 0.45);
 }
 .radar-info-player-names {
     color: var(--drac-fg);
