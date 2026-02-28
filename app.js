@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 5;
+const CACHE_VERSION = 6;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
@@ -169,7 +169,7 @@ function parsePlayerEntry(value) {
 }
 
 function playerEmojiPath(name) {
-    return 'images/players/' + name.replace(/\s+/g, ' ') + '.jpg';
+    return 'images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
 function renderPlayerEntryHtml(value) {
