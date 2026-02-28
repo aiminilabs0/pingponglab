@@ -57,7 +57,7 @@ Butterfly/Tenergy 80
 Tibhar/MX-P 50
 Andro/NUZN 48
 Xiom/Omega 8 Pro
-Xiom/Omega7 Pro
+Xiom/Omega 7 Pro
 Xiom/Vega X
 Tibhar/MX-P
 Andro/R50

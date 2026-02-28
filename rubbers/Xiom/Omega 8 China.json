@@ -1,31 +1,31 @@
 {
-  "abbr": "Omega8 Pro",
-  "name": "Omega8 Pro",
+  "abbr": "Omega 8 China",
+  "name": "Omega 8 China",
   "manufacturer": "Xiom",
   "user_ratings": {
     "overall": 0,
     "speed": 0,
     "spin": 0,
     "control": 0,
-    "sponge_hardness": "N/A",
-    "gears": "N/A",
-    "throw_angle": "N/A",
+    "sponge_hardness": "0.0 (not rated)",
+    "gears": "0.0 (not rated)",
+    "throw_angle": "0.0 (not rated)",
     "consistency": 0,
-    "durability": "N/A",
-    "tackiness": "N/A",
-    "url": "https://revspin.net/rubber/xiom-omega-viii-pro.html",
+    "durability": "0.0 (not rated)",
+    "tackiness": "0.0 (not rated)",
+    "url": "https://revspin.net/rubber/xiom-omega-viii-china.html",
     "people": 0
   },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/rubber-review-xiom-omega-viii-rubbers",
     "country": "Germany",
-    "release_year": 2025,
-    "hardness": 47.5,
+    "release_year": 2023,
+    "hardness": 52.5,
     "thickness": [
       "max"
     ],
-    "sheet": "Classic",
-    "weight": 48
+    "sheet": "Hybrid",
+    "weight": 51
   },
   "urls": {
     "us": {

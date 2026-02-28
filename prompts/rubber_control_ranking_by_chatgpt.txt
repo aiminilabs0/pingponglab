@@ -39,7 +39,7 @@ JOOLA/Dynaryz AGR
 Yasaka/Rakza 7
 Nittaku/S-1
 Tibhar/MX-P
-Xiom/Omega7 Pro
+Xiom/Omega 7 Pro
 Xiom/Vega X
 Butterfly/Dignics 80
 Butterfly/Tenergy 80
