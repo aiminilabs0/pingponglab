@@ -3219,9 +3219,8 @@ function startRadarDodgePhysics() {
             }
         }
 
-        // Dynamic rotation speed
-        const targetMul = radarIsPanicking ? RADAR_DODGE.SPIN_FAST : 1;
-        radarRotationSpeedMultiplier += (targetMul - radarRotationSpeedMultiplier) * RADAR_DODGE.SPIN_RETURN_SPEED;
+        // Keep rotation speed constant (no speed-up on hover/click)
+        radarRotationSpeedMultiplier = 1;
 
         // Apply visual transform to chart only
         const wobble = radarIsPanicking ? Math.sin(timestamp / 40) * 2 : 0;
