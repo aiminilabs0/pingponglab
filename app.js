@@ -172,22 +172,27 @@ function playerEmojiPath(name) {
     return 'images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
-function renderPlayerEntryHtml(value) {
+function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
     const safeName = escapeHtml(parsed.name);
     const emojiSrc = playerEmojiPath(parsed.name);
-    const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()"> `;
+    const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()">`;
+    const withEmoji = (nameOrLinkHtml) => (
+        imagePosition === 'before'
+            ? `${emojiHtml} ${nameOrLinkHtml}`
+            : `${nameOrLinkHtml} ${emojiHtml}`
+    );
 
-    if (!parsed.url) return emojiHtml + safeName;
+    if (!parsed.url) return withEmoji(safeName);
 
     const videoId = extractYouTubeVideoId(parsed.url);
     if (videoId) {
-        return `${emojiHtml}<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`;
+        return withEmoji(`<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`);
     }
 
     const safeUrl = escapeHtml(parsed.url);
-    return `${emojiHtml}<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`;
+    return withEmoji(`<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`);
 }
 
 function formatPlayerLabel(raw) {
@@ -225,7 +230,7 @@ function formatPlayerLabel(raw) {
 }
 
 function formatPlayersBySide(raw) {
-    const toLabel = (value) => {
+    const toEntries = (value) => {
         if (!value) return '';
 
         const uniquePlayers = new Set();
@@ -250,16 +255,13 @@ function formatPlayersBySide(raw) {
         };
 
         collectPlayersFromValue(value);
-        return Array.from(uniquePlayers)
-            .map(renderPlayerEntryHtml)
-            .filter(Boolean)
-            .join('<br>');
+        return Array.from(uniquePlayers);
     };
 
     const players = raw && typeof raw.players === 'object' ? raw.players : null;
     return {
-        forehandPlayerLabel: toLabel(players?.forehand),
-        backhandPlayerLabel: toLabel(players?.backhand),
+        forehandPlayers: toEntries(players?.forehand),
+        backhandPlayers: toEntries(players?.backhand),
     };
 }
 
@@ -2775,8 +2777,18 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
 
 function buildPlayersColumnHtml(rubber, align) {
     if (!rubber) return '<span class="radar-cmp-dash">-</span>';
-    const forehand = rubber.forehandPlayerLabel || '';
-    const backhand = rubber.backhandPlayerLabel || '';
+    const imagePosition = align === 'right' ? 'before' : 'after';
+    const toLabel = (entries, fallbackLabel) => {
+        if (Array.isArray(entries) && entries.length) {
+            return entries
+                .map(entry => renderPlayerEntryHtml(entry, { imagePosition }))
+                .filter(Boolean)
+                .join('<br>');
+        }
+        return fallbackLabel || '';
+    };
+    const forehand = toLabel(rubber.forehandPlayers, rubber.forehandPlayerLabel);
+    const backhand = toLabel(rubber.backhandPlayers, rubber.backhandPlayerLabel);
     const rows = [
         forehand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH</span><span class="radar-info-player-names">${forehand}</span></div>` : '',
         backhand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH</span><span class="radar-info-player-names">${backhand}</span></div>` : ''
