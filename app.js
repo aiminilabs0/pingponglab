@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 4;
+const CACHE_VERSION = 5;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
@@ -168,19 +168,26 @@ function parsePlayerEntry(value) {
     return { name, url };
 }
 
+function playerEmojiPath(name) {
+    return 'images/players/' + name.replace(/\s+/g, ' ') + '.jpg';
+}
+
 function renderPlayerEntryHtml(value) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
     const safeName = escapeHtml(parsed.name);
-    if (!parsed.url) return safeName;
+    const emojiSrc = playerEmojiPath(parsed.name);
+    const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()"> `;
+
+    if (!parsed.url) return emojiHtml + safeName;
 
     const videoId = extractYouTubeVideoId(parsed.url);
     if (videoId) {
-        return `<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`;
+        return `${emojiHtml}<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`;
     }
 
     const safeUrl = escapeHtml(parsed.url);
-    return `<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`;
+    return `${emojiHtml}<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`;
 }
 
 function formatPlayerLabel(raw) {
