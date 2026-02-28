@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 3;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
@@ -916,32 +916,26 @@ function initTop30Filter(onChange) {
     if (!container) return;
 
     container.innerHTML = '';
-    const group = document.createElement('div');
-    group.className = 'fp-pill-group';
+    const seg = document.createElement('div');
+    seg.className = 'fp-seg';
 
-    const pill = document.createElement('label');
-    pill.className = 'fp-pill';
-
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.checked = false;
-    cb.value = 'top30';
-    pill.appendChild(cb);
-
-    const dot = document.createElement('span');
-    dot.className = 'fp-pill-dot';
-    pill.appendChild(dot);
-
-    pill.appendChild(document.createTextNode('Top 30'));
-    group.appendChild(pill);
-
-    cb.addEventListener('change', () => {
-        top30FilterActive = cb.checked;
-        pill.classList.toggle('active', cb.checked);
-        onChange();
+    ['All', 'Top 30'].forEach(label => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'fp-seg-btn';
+        btn.dataset.value = label === 'All' ? 'all' : 'top30';
+        btn.textContent = label;
+        if (label === 'All') btn.classList.add('active');
+        btn.addEventListener('click', () => {
+            seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
+            btn.classList.add('active');
+            top30FilterActive = btn.dataset.value === 'top30';
+            onChange();
+        });
+        seg.appendChild(btn);
     });
 
-    container.appendChild(group);
+    container.appendChild(seg);
 }
 
 const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
@@ -1239,8 +1233,11 @@ function applyFiltersFromUrl() {
     deserializeControlRangeParam(params);
     if (params.has('top30')) {
         top30FilterActive = true;
-        const cb = document.querySelector('#top30Filter input[type="checkbox"]');
-        if (cb) { cb.checked = true; cb.closest('.fp-pill')?.classList.add('active'); }
+        const seg = document.querySelector('#top30Filter .fp-seg');
+        if (seg) {
+            seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
+            seg.querySelector('.fp-seg-btn[data-value="top30"]')?.classList.add('active');
+        }
     }
 
     // Rebuild rubber options from all filters, then restore rubber selections
@@ -3142,8 +3139,11 @@ function resetFiltersToAll() {
     resetWeightRangeToDataBounds();
     resetControlToAllTiers();
     top30FilterActive = false;
-    const top30Cb = document.querySelector('#top30Filter input[type="checkbox"]');
-    if (top30Cb) { top30Cb.checked = false; top30Cb.closest('.fp-pill')?.classList.remove('active'); }
+    const seg = document.querySelector('#top30Filter .fp-seg');
+    if (seg) {
+        seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
+        seg.querySelector('.fp-seg-btn[data-value="all"]')?.classList.add('active');
+    }
     const nameFilter = document.getElementById('nameFilter');
     if (nameFilter) {
         nameFilter.innerHTML = '';
