@@ -2817,13 +2817,13 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
         const placeholderColor = '#9e9689';
         const placeholderRubbers = [
-            { brand: 'Butterfly', name: 'Tenergy 05' },
-            { brand: 'DHS', name: 'H3 Neo' },
+            { displayBrand: 'BRAND', displayName: 'Rubber 1', imageName: 'Tenergy 05' },
+            { displayBrand: 'BRAND', displayName: 'Rubber 2', imageName: 'H3 Neo' },
         ];
         const placeholderRubber = placeholderRubbers[panelIndex] || placeholderRubbers[0];
-        const placeholderBrand = placeholderRubber.brand;
-        const placeholderName = placeholderRubber.name;
-        const placeholderImageName = encodeURIComponent(placeholderName);
+        const placeholderBrand = placeholderRubber.displayBrand;
+        const placeholderName = placeholderRubber.displayName;
+        const placeholderImageName = encodeURIComponent(placeholderRubber.imageName);
         const lineStyle = panelIndex === 1 ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
         return `
             <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
