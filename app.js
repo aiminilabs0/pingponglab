@@ -91,6 +91,7 @@ let currentFilteredData = [];
 let relayoutTimer = null;
 let internalUpdateTimer = null;
 let selectedCountry = 'us';
+let _countrySwitchFade = false;
 let filterPanelOpen = false;
 let weightFilterState = {
     dataMin: null,
@@ -2610,6 +2611,12 @@ function setActiveTab(tabId) {
         pane.innerHTML = buildEmptyPanePlaceholder(tabId);
     }
 
+    // Fade in content pane after country switch
+    if (_countrySwitchFade) {
+        _countrySwitchFade = false;
+        requestAnimationFrame(() => pane.classList.remove('content-pane--country-fade'));
+    }
+
     highlightActiveTab();
     pushFiltersToUrl();
 }
@@ -3539,8 +3546,26 @@ function initCountrySelector() {
     function applyCountrySelection(nextCountry) {
         if (!['us', 'eu', 'cn', 'kr'].includes(nextCountry)) return;
         if (nextCountry === selectedCountry) return;
+
         selectedCountry = nextCountry;
         syncCountrySelectorUI();
+
+        // Pop animation on newly active flag
+        const activeBtn = selector.querySelector(`.country-btn[data-country="${nextCountry}"]`);
+        if (activeBtn) {
+            activeBtn.classList.remove('country-btn--pop');
+            void activeBtn.offsetWidth;
+            activeBtn.classList.add('country-btn--pop');
+            activeBtn.addEventListener('animationend', () => activeBtn.classList.remove('country-btn--pop'), { once: true });
+        }
+
+        // Crossfade content pane
+        const pane = document.getElementById('contentPane');
+        if (pane && (selectedRubbers[0] || selectedRubbers[1])) {
+            _countrySwitchFade = true;
+            pane.classList.add('content-pane--country-fade');
+        }
+
         pushFiltersToUrl();
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
