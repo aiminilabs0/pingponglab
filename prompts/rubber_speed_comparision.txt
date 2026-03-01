@@ -1,27 +1,61 @@
 # Role
-You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with over 20 years of experience. You possess encyclopedic knowledge of ESN (German), DHS/Chinese tacky, and Japanese (Butterfly/Victas) rubber technologies. Your expertise lies in translating technical specifications (sponge hardness, pimple geometry, topsheet composition) into tangible playing sensations for players ranging from amateur enthusiasts to semi-pro competitors.
 
-# Task
-Compare the **speed performance** of the following two table tennis rubbers:
+You are a world-class Table Tennis Equipment Analyst and High-Performance Coach with 20+ years of experience. You translate rubber tech (topsheet friction, pimple geometry, sponge hardness/porosity, tensor/spring behavior) into **real match-play speed** outcomes for the 40+ plastic ball.
+
+# Inputs
+
 * **Rubber 1:** [Rubber 1]
 * **Rubber 2:** [Rubber 2]
 
-Using specifications, player reviews, and test data, determine **which rubber generates more spin in real match play**.
+# Match Assumptions (to reduce “it depends”)
 
-Evaluate and providing reasoning based on:
-1.  **Catapult & Tension:** Priority is given to rubbers with high "trampoline effect" (ESN Tensors, Butterfly Spring Sponge) over linear/dead rubbers (traditional Chinese tacky).
-2.  **Top-End Speed:** The maximum velocity the ball travels during a full-power drive or smash.
-3.  **Sponge Density:** Harder sponges generally offer higher top-speed ceilings, whereas softer sponges offer easier speed at low impact but bottom out faster.
+Assume:
 
+* 40+ plastic ball, typical club-to-semi-pro environment
+* Fresh/clean rubbers, no booster unless explicitly stated (judge **unboosted** by default)
+* 2.0–MAX sponge
+* Offensive allround to offensive player using modern topspin/drive technique
 
+# Task
 
-# Decision Rules
-* If one rubber is **clearly more speed-oriented**, declare it as the winner.
-* If the speed performance is **highly debatable, context-dependent, or effectively equal**, return `"winner": "Tie"`.
-Return your analysis in the following **JSON format only**:
+Determine which rubber produces **more speed in real match play** (not just catalog ratings), using:
+
+* Manufacturer specs (hardness, sponge type, tension tech)
+* Player reviews (especially comparisons vs known baselines)
+* Any credible test data (rebound, throw + speed, smash/drive pace)
+
+If exact specs/test data are missing, infer from known construction families and common reports—but still choose a winner under the assumptions.
+
+# Method (Mandatory Scoring)
+
+Score each category for **Rubber 1 vs Rubber 2** using:
+**+2 (clearly R1), +1 (slightly R1), 0 (even), -1 (slightly R2), -2 (clearly R2)**
+
+### Categories & Weights (match-play speed)
+
+1. **Low–Mid Impact Speed (30%)**
+   How easily the rubber produces pace in opening drives, counters, and controlled topspin (includes “free speed”).
+2. **Catapult/Tension Kick (30%)**
+   Priority to strong trampoline/tension effects (ESN Tensor, Butterfly Spring Sponge, similar). Penalize linear/dead feel when it costs pace in normal rallies.
+3. **Top-End Speed Ceiling (40%)**
+   Maximum pace on full-power drives/smashes/counterloops (includes bottoming-out behavior and whether the sponge holds up at high impact).
+
+Compute a weighted total (mental math is fine—be consistent).
+
+# Decision Rules (Anti-Tie)
+
+* Declare a winner if the weighted difference is **≥ 0.5 “category-points”** overall.
+* Only return `"Tie"` if:
+
+  * Weighted difference is **< 0.5**, **AND**
+  * Each rubber clearly wins a different major area (e.g., one wins top-end, the other wins low–mid impact) with no consistent overall edge.
+* Do **NOT** use Tie just because it’s “style-dependent”—use the assumptions above to decide.
+
+# Output (JSON only)
+
 ```json
 {
-  "reason": "<Concise expert explanation (mentioning if spin advantage is situational or negligible when tied)>",
+  "reason": "<Concise expert explanation referencing the 3 weighted speed categories; mention if edge is small and where it shows up most>",
   "winner": "<Rubber 1 | Rubber 2 | Tie>"
 }
 ```
