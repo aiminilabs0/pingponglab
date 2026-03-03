@@ -1688,6 +1688,7 @@ function getDeviceTypeForGa() {
 }
 
 let activeTappedRubberKey = null;
+let _clickPopupActiveUntil = 0;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -1794,7 +1795,8 @@ function positionHoverPopup(popup, hoverData, chartEl) {
     popup.style.top = `${top}px`;
 }
 
-function hideChartHoverPopup() {
+function hideChartHoverPopup({ force = false } = {}) {
+    if (!force && Date.now() < _clickPopupActiveUntil) return;
     activeTappedRubberKey = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
@@ -2190,6 +2192,11 @@ function updateChart(options = {}) {
             const point = data.points[0];
             const rubber = point.data.customdata[point.pointIndex];
 
+            // Suppress hideChartHoverPopup during the chart re-render triggered
+            // by handleRubberClick → updateChart, and the async plotly_unhover
+            // that Plotly.react may fire afterwards.
+            _clickPopupActiveUntil = Date.now() + 500;
+
             const panelNum = handleRubberClick(rubber);
             trackRubberClickEvent(rubber, panelNum);
             const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
@@ -2199,12 +2206,11 @@ function updateChart(options = {}) {
             if (clickPos) showChartClickEffect(clickPos.x, clickPos.y, rubber);
 
             if (IS_TOUCH_DEVICE) {
-                // On touch devices there is no preceding hover, so show and position the popup
                 showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel);
             } else {
-                // On desktop the popup is already visible from hover — just update content in place
                 const popup = getChartHoverPopupEl();
                 popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
+                positionHoverPopup(popup, data, chartEl);
             }
         });
     }
@@ -2227,7 +2233,7 @@ function updateChart(options = {}) {
         document.addEventListener('pointerdown', (event) => {
             if (!IS_TOUCH_DEVICE) return;
             if (chartEl.contains(event.target)) return;
-            hideChartHoverPopup();
+            hideChartHoverPopup({ force: true });
         }, { passive: true });
     }
 
