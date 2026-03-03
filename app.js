@@ -79,9 +79,36 @@ const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 function trackRubberClickEvent(rubber, panelNum) {
     if (!rubber || typeof window.gtag !== 'function') return;
 
-    window.gtag('event', 'rubber_click', {
-        event_category: 'chart',
+    window.gtag('event', 'c_rubber_click', {
         rubber_abbr: rubber.abbr || '',
+        device_type: IS_TOUCH_DEVICE ? 'touch' : 'desktop'
+    });
+}
+
+function trackContentFeedbackVote(vote, context = {}) {
+    if (!vote || typeof window.gtag !== 'function') return;
+    const contentType = context.contentType || 'unknown';
+    const tabId = context.tabId || activeTab || '';
+    const normalizeEventToken = (value) => String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
+        .replace(/_+/g, '_');
+
+    let eventName = '';
+    if (contentType === 'description') {
+        eventName = vote === 'good' ? 'c_good_desc' : 'c_bad_desc';
+    } else if (contentType === 'comparison') {
+        const left = normalizeEventToken(context.leftRubber) || 'unknown';
+        const right = normalizeEventToken(context.rightRubber) || 'unknown';
+        const prefix = vote === 'good' ? 'c_good_comp' : 'c_bad_comp';
+        eventName = `${prefix}_${left}_${right}`;
+    } else {
+        eventName = `feedback_${normalizeEventToken(contentType) || 'unknown'}_${normalizeEventToken(vote) || 'unknown'}`;
+    }
+
+    window.gtag('event', eventName, {
+        rubber_name: context.rubberName || '',
         device_type: IS_TOUCH_DEVICE ? 'touch' : 'desktop'
     });
 }
@@ -2691,8 +2718,14 @@ async function updateDetailPanel(panelNum, rubber) {
     const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
 
     if (detailMarkdown) {
+        const feedbackButtonsHtml = buildContentFeedbackButtonsHtml({
+            voteScope: 'description',
+            tabId: tabKey,
+            rubberName: rubber.name || rubber.abbr || '',
+            ariaSubject: 'this description'
+        });
         const html = marked.parse(detailMarkdown);
-        tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll">${html}</div>`;
+        tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll">${html}${feedbackButtonsHtml}</div>`;
     } else {
         tabContents[tabKey] = headerHtml + '<div class="content-pane-scroll"><p class="comparison-status-msg">No description available.</p></div>';
     }
@@ -2759,6 +2792,22 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
     `;
 }
 
+function buildContentFeedbackButtonsHtml(context = {}) {
+    const voteScope = escapeHtml(context.voteScope || 'content');
+    const tabId = escapeHtml(context.tabId || '');
+    const rubberName = escapeHtml(context.rubberName || '');
+    const leftRubber = escapeHtml(context.leftRubber || '');
+    const rightRubber = escapeHtml(context.rightRubber || '');
+    const ariaSubject = context.ariaSubject || 'this content';
+
+    return (
+        `<div class="content-feedback-actions" data-feedback-scope="${voteScope}">` +
+            `<button type="button" class="content-feedback-btn content-feedback-btn--good" data-feedback-vote="good" data-feedback-scope="${voteScope}" data-feedback-tab="${tabId}" data-feedback-rubber-name="${rubberName}" data-feedback-left-rubber="${leftRubber}" data-feedback-right-rubber="${rightRubber}" aria-label="Mark ${ariaSubject} as good">👍</button>` +
+            `<button type="button" class="content-feedback-btn content-feedback-btn--bad" data-feedback-vote="bad" data-feedback-scope="${voteScope}" data-feedback-tab="${tabId}" data-feedback-rubber-name="${rubberName}" data-feedback-left-rubber="${leftRubber}" data-feedback-right-rubber="${rightRubber}" aria-label="Mark ${ariaSubject} as bad">👎</button>` +
+        `</div>`
+    );
+}
+
 async function updateComparisonBar() {
     const [left, right] = selectedRubbers;
     if (left && right) {
@@ -2774,9 +2823,16 @@ async function updateComparisonBar() {
         if (renderToken !== comparisonRenderToken) return;
 
         if (markdown) {
+            const comparisonFeedbackButtonsHtml = buildContentFeedbackButtonsHtml({
+                voteScope: 'comparison',
+                tabId: 'comparison',
+                leftRubber: left.name || left.abbr || '',
+                rightRubber: right.name || right.abbr || '',
+                ariaSubject: 'this comparison'
+            });
             tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
-                `<div class="content-pane-scroll">${marked.parse(markdown)}</div>`;
+                `<div class="content-pane-scroll">${marked.parse(markdown)}${comparisonFeedbackButtonsHtml}</div>`;
         } else {
             const leftName = escapeHtml(left.name || left.abbr || '');
             const rightName = escapeHtml(right.name || right.abbr || '');
@@ -3850,6 +3906,19 @@ async function initializeApp() {
         const tab = e.target.closest('.content-tab');
         if (!tab || tab.classList.contains('content-tab--active')) return;
         setActiveTab(tab.dataset.tab);
+    });
+
+    document.getElementById('contentBody').addEventListener('click', (e) => {
+        const voteBtn = e.target.closest('[data-feedback-vote]');
+        if (!voteBtn) return;
+
+        trackContentFeedbackVote(voteBtn.dataset.feedbackVote, {
+            contentType: voteBtn.dataset.feedbackScope,
+            tabId: voteBtn.dataset.feedbackTab,
+            rubberName: voteBtn.dataset.feedbackRubberName,
+            leftRubber: voteBtn.dataset.feedbackLeftRubber,
+            rightRubber: voteBtn.dataset.feedbackRightRubber
+        });
     });
 
     // Pin button click listener (event delegation)

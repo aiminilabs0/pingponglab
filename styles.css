@@ -1987,6 +1987,60 @@ h1 {
     background: rgba(126,184,168,0.12);
 }
 
+.content-feedback-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(155,148,132,0.2);
+}
+
+.content-feedback-btn {
+    border: 1.5px solid var(--drac-current);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    min-width: 44px;
+    min-height: 38px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.content-feedback-btn:hover {
+    border-color: var(--drac-cyan);
+    color: var(--drac-fg);
+    background: rgba(126,184,168,0.12);
+}
+
+.content-feedback-btn--good {
+    border-color: rgba(111, 191, 115, 0.45);
+    color: #6fbf73;
+    background: rgba(111, 191, 115, 0.08);
+}
+
+.content-feedback-btn--good:hover {
+    border-color: #6fbf73;
+    color: #9bdba0;
+    background: rgba(111, 191, 115, 0.16);
+}
+
+.content-feedback-btn--bad {
+    border-color: rgba(207, 85, 85, 0.45);
+    color: #cf5555;
+    background: rgba(207, 85, 85, 0.08);
+}
+
+.content-feedback-btn--bad:hover {
+    border-color: #cf5555;
+    color: #f08d8d;
+    background: rgba(207, 85, 85, 0.16);
+}
+
 /* ── Feedback form ── */
 .feedback-modal {
     position: fixed;
