@@ -2019,6 +2019,28 @@ function updateChart(options = {}) {
         });
     }
 
+    // Selection highlight rings for selected rubbers
+    for (let i = 0; i < 2; i++) {
+        const sel = selectedRubbers[i];
+        if (!sel || !filteredData.some(r => r === sel)) continue;
+        const brandColor = getBrandColor(sel.brand);
+        traces.push({
+            x: [sel.x],
+            y: [sel.y],
+            mode: 'markers',
+            type: 'scattergl',
+            name: `Selected ${i + 1}`,
+            showlegend: false,
+            hoverinfo: 'skip',
+            marker: {
+                size: [getMarkerSize(sel) + 16],
+                color: brandColor + '15',
+                symbol: 'circle',
+                line: { width: 2.5, color: brandColor }
+            }
+        });
+    }
+
     for (const group of Object.values(groups)) {
         traces.push({
             x: group.rubbers.map(r => r.x),
@@ -2071,6 +2093,31 @@ function updateChart(options = {}) {
         visibleData, labelXRange, labelYRange, labelPlotW, labelPlotH
     );
 
+    // Selection badge annotations ("1" / "2" labels near selected rubber dots)
+    const selectionBadges = [];
+    for (let i = 0; i < 2; i++) {
+        const sel = selectedRubbers[i];
+        if (!sel || !filteredData.some(r => r === sel)) continue;
+        const brandColor = getBrandColor(sel.brand);
+        selectionBadges.push({
+            x: sel.x,
+            y: sel.y,
+            xref: 'x',
+            yref: 'y',
+            text: `<b>${i + 1}</b>`,
+            showarrow: false,
+            font: { size: 9, color: '#1c1a17', family: CHART_FONT },
+            bgcolor: brandColor,
+            borderpad: 2,
+            borderwidth: 0,
+            xshift: 12,
+            yshift: -12,
+            xanchor: 'center',
+            yanchor: 'middle',
+            captureevents: false
+        });
+    }
+
     const axisBase = {
         zeroline: false,
         gridcolor: '#3e3a34',
@@ -2100,7 +2147,8 @@ function updateChart(options = {}) {
         paper_bgcolor: '#2b2926',
         margin: { l: 10, r: 10, t: 30, b: 30 },
         annotations: [
-            ...labelAnnotations
+            ...labelAnnotations,
+            ...selectionBadges
         ],
         showlegend: false,
         legend: {
@@ -2773,6 +2821,7 @@ function handleRubberClick(rubber) {
     updateDetailPanel(panelNum, rubber);
     updateRadarChart();
     updateComparisonBar();
+    updateChart({ preserveRanges: true, force: true });
     renderTabs();
     setActiveTab(`desc${panelNum}`);
     pushFiltersToUrl();
