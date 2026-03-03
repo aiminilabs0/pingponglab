@@ -81,7 +81,7 @@ function trackRubberClickEvent(rubber, panelNum) {
 
     window.gtag('event', 'c_rubber_click', {
         rubber_abbr: rubber.abbr || '',
-        device_type: IS_TOUCH_DEVICE ? 'touch' : 'desktop'
+        device_type: getDeviceTypeForGa()
     });
 }
 
@@ -109,7 +109,14 @@ function trackContentFeedbackVote(vote, context = {}) {
 
     window.gtag('event', eventName, {
         rubber_name: context.rubberName || '',
-        device_type: IS_TOUCH_DEVICE ? 'touch' : 'desktop'
+        device_type: getDeviceTypeForGa()
+    });
+}
+
+function trackAppLoadedEvent() {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'c_device_type', {
+        device_type: getDeviceTypeForGa()
     });
 }
 
@@ -1675,6 +1682,11 @@ const IS_TOUCH_DEVICE =
     window.matchMedia('(hover: none)').matches ||
     window.matchMedia('(pointer: coarse)').matches ||
     navigator.maxTouchPoints > 0;
+
+function getDeviceTypeForGa() {
+    return IS_TOUCH_DEVICE ? 'mobile' : 'desktop';
+}
+
 let activeTappedRubberKey = null;
 
 function getChartHoverPopupEl() {
@@ -3871,6 +3883,8 @@ window.addEventListener('resize', () => {
 });
 
 async function initializeApp() {
+    trackAppLoadedEvent();
+
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data…</div>';
 
