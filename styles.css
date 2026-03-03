@@ -482,79 +482,6 @@ h1 {
     transform: rotate(45deg);
 }
 
-.filter-action-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border: 1.5px solid var(--drac-current);
-    border-radius: 100px;
-    background: transparent;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--drac-comment);
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-.filter-action-btn:hover {
-    border-color: var(--drac-comment);
-    color: var(--drac-fg);
-    background: var(--drac-current);
-}
-/* autoscale-btn hover moved to .header-ctrl-fit:hover */
-.filter-action-btn.reset-btn:hover {
-    border-color: var(--drac-red);
-    color: var(--drac-red);
-}
-.filter-action-btn svg {
-    width: 13px;
-    height: 13px;
-    fill: currentColor;
-}
-.filter-separator {
-    width: 1px;
-    height: 22px;
-    background: var(--drac-current);
-    margin: 0 2px;
-}
-
-
-/* ── Toggle button group (hardness) ── */
-.toggle-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.toggle-group .filter-option {
-    padding: 0;
-    background: transparent;
-}
-.toggle-group .custom-check {
-    display: none;
-}
-.toggle-group .toggle-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1.5px solid var(--drac-current);
-    background: transparent;
-    color: var(--drac-fg);
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.12s ease;
-}
-.toggle-group .filter-option:hover .toggle-pill {
-    border-color: var(--drac-comment);
-    background: var(--drac-current);
-}
-.toggle-group .filter-option input[type="checkbox"]:checked + .custom-check + .toggle-pill {
-    border-color: var(--drac-purple);
-    color: var(--drac-purple);
-    background: rgba(217,119,86,0.15);
-}
-
 /* Weight dual-range slider filter */
 .weight-range-filter {
     display: flex;
@@ -655,12 +582,6 @@ h1 {
     background: transparent;
     border: none;
 }
-.weight-range-hint {
-    font-size: 13px;
-    color: var(--drac-comment);
-    text-align: center;
-}
-
 /* Hardness dual-range slider filter with country reference marks */
 .hardness-range-filter {
     display: flex;
@@ -898,15 +819,6 @@ h1 {
     transform: rotate(0deg) !important;
 }
 
-/* Inline color dot next to option text */
-.opt-color-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
 .filter-instructions {
     font-size: 14px;
     color: var(--drac-comment);
@@ -1119,15 +1031,6 @@ h1 {
     border-color: rgba(126,184,168,0.85);
     background: rgba(126,184,168,0.95);
 }
-.chart-control-level-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 24px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-}
 .chart-control-boxes.control-level-1 .chart-control-box.is-filled {
     border-color: #6fbf73;
     background: #6fbf73;
@@ -1147,11 +1050,6 @@ h1 {
 .chart-control-boxes.control-level-5 .chart-control-box.is-filled {
     border-color: #cf5555;
     background: #cf5555;
-}
-.chart-hover-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
 }
 .chart-hover-pill {
     display: inline-flex;
@@ -1560,19 +1458,6 @@ h1 {
     padding: 14px 16px;
 }
 
-/* Select-a-rubber hint at top of radar info */
-.radar-select-hint {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    color: var(--drac-comment);
-    font-size: 12px;
-    font-weight: 500;
-    opacity: 0.55;
-    padding: 6px 0 10px;
-}
-
 /* Header row: two rubber headers side-by-side */
 .radar-comparison-headers {
     display: flex;
@@ -1601,17 +1486,6 @@ h1 {
 .radar-comparison-header-side--right .brand-pill {
     margin-left: auto;
 }
-.radar-comparison-header-placeholder {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--drac-comment);
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.6;
-}
-
 /* 3-column comparison grid */
 .radar-comparison-grid {
     display: grid;

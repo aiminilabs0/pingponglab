@@ -76,7 +76,7 @@ const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
-function trackRubberClickEvent(rubber, panelNum) {
+function trackRubberClickEvent(rubber) {
     if (!rubber || typeof window.gtag !== 'function') return;
 
     window.gtag('event', 'c_rubber_click', {
@@ -125,7 +125,6 @@ function trackAppLoadedEvent() {
 // ════════════════════════════════════════════════════════════
 
 let rubberData = [];
-let descriptions = {};
 let selectedRubbers = [null, null];
 let nextDetailPanel = 1;
 let pinnedRubbers = [false, false];
@@ -514,7 +513,6 @@ async function loadRubberData() {
         if (findRubberRank(rubber, top30Ranking) >= 0) top30Set.add(rubber.fullName);
     }
 
-    descriptions = descriptionMap;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1588,18 +1586,16 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
         const chosen = candidates[bestIdx];
         placed.push({ cx: px + chosen.ax, cy: py + chosen.ay });
 
-        const needsLeader = true;
-
         annotations.push({
             x: rubber.x,
             y: rubber.y,
             xref: 'x',
             yref: 'y',
             text: rubber.abbr,
-            showarrow: needsLeader,
+            showarrow: true,
             arrowhead: 0,
-            arrowwidth: needsLeader ? 1 : 0,
-            arrowcolor: needsLeader ? 'rgba(155,148,132,0.5)' : 'transparent',
+            arrowwidth: 1,
+            arrowcolor: 'rgba(155,148,132,0.5)',
             ax: chosen.ax,
             ay: chosen.ay,
             font: { size: 11, color: '#e8e0d0', family: CHART_FONT },
@@ -1687,7 +1683,6 @@ function getDeviceTypeForGa() {
     return IS_TOUCH_DEVICE ? 'mobile' : 'desktop';
 }
 
-let activeTappedRubberKey = null;
 let _clickPopupActiveUntil = 0;
 
 function getChartHoverPopupEl() {
@@ -1797,14 +1792,8 @@ function positionHoverPopup(popup, hoverData, chartEl) {
 
 function hideChartHoverPopup({ force = false } = {}) {
     if (!force && Date.now() < _clickPopupActiveUntil) return;
-    activeTappedRubberKey = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
-}
-
-function getRubberPopupKey(rubber) {
-    if (!rubber) return null;
-    return `${rubber.brand || ''}::${rubber.fullName || rubber.name || ''}`;
 }
 
 // ── Main Chart: Dot hover shake effect ──────────────────────────────
@@ -2198,7 +2187,7 @@ function updateChart(options = {}) {
             _clickPopupActiveUntil = Date.now() + 500;
 
             const panelNum = handleRubberClick(rubber);
-            trackRubberClickEvent(rubber, panelNum);
+            trackRubberClickEvent(rubber);
             const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
 
             // Click effect at the dot position
@@ -2482,22 +2471,6 @@ function applyZoomLayout(chartEl, ranges) {
     });
 }
 
-function zoomChart(scale) {
-    const chartEl = document.getElementById('chart');
-    if (!chartEl?._fullLayout) return;
-    const { xaxis: xa, yaxis: ya } = chartEl._fullLayout;
-    if (!xa || !ya || !Array.isArray(xa.range) || !Array.isArray(ya.range)) return;
-
-    const ranges = computeZoomedRanges({
-        xRange: [xa.range[0], xa.range[1]],
-        yRange: [ya.range[0], ya.range[1]],
-        scale,
-        anchorFx: 0.5,
-        anchorFy: 0.5
-    });
-    if (ranges) applyZoomLayout(chartEl, ranges);
-}
-
 function triggerAutoscale() {
     const chartEl = document.getElementById('chart');
     if (chartEl && hasPlotted) {
@@ -2540,12 +2513,6 @@ function extractYouTubeVideoId(url) {
     return fallback ? fallback[1] : null;
 }
 
-const PRODUCT_ICON = {
-    us: 'images/product/amazon.ico',
-    eu: 'images/product/sale.ico',
-    cn: 'images/product/taobao.ico',
-    kr: 'images/product/coupang.ico'
-};
 const YOUTUBE_ICON = 'images/youtube.ico';
 
 function buildTitleLinkIconsHtml(rubber) {
@@ -2568,15 +2535,6 @@ function buildTitleLinkIconsHtml(rubber) {
                 `</a>`
             );
         }
-    }
-    // TODO: enable later
-    if (false) { // if (countryUrls.product) {
-        const icon = PRODUCT_ICON[selectedCountry] || PRODUCT_ICON.us;
-        parts.push(
-            `<a class="rubber-title-icon-link" href="${countryUrls.product}" target="_blank" rel="noopener" title="Buy Product" aria-label="Buy Product">` +
-            `<img src="${icon}" class="rubber-title-icon" alt="Buy">` +
-            `</a>`
-        );
     }
     return parts.join('');
 }
@@ -2604,18 +2562,6 @@ function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
     const leftName = (leftRubber?.abbr || '').trim();
     const rightName = (rightRubber?.abbr || '').trim();
     return [leftName, rightName].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-}
-
-function buildComparisonTitleStyle(leftRubber, rightRubber) {
-    const leftColor = getBrandColor(leftRubber?.brand);
-    const rightColor = getBrandColor(rightRubber?.brand);
-
-    if (leftColor === rightColor) {
-        return `style="color:${leftColor}"`;
-    }
-
-    // Use both rubber brand colors when comparing different brands.
-    return `style="color:${leftColor};background:linear-gradient(90deg,${leftColor} 0%,${rightColor} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"`;
 }
 
 async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
@@ -3311,8 +3257,6 @@ const RADAR_DODGE = {
     SPRING: 3.5,
     MAX_OFFSET: 140,
     CLICK_IMPULSE: 700,
-    SPIN_FAST: 20,
-    SPIN_RETURN_SPEED: 0.08,
 };
 
 let radarDodgeX = 0, radarDodgeY = 0;
