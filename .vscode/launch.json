@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run update.sh",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "bash scripts/update-comparison/update.sh",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

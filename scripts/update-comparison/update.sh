@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-param_file="0_rubber"
+# Resolve paths relative to this script so it works from any cwd.
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd -- "$script_dir/../.." && pwd)"
+param_file="$script_dir/0_rubber"
 
 if [[ ! -f "$param_file" ]]; then
   echo "Error: '$param_file' not found"
@@ -10,17 +13,22 @@ fi
 
 # Read parameter from 0_rubber (trim trailing newlines/whitespace)
 param="$(<"$param_file")"
-param="${param%"${param##*[!$' \t\r\n']}" }"  # rtrim spaces/tabs/cr/lf
-param="${param%"${param##*[!$'\n']}" }"       # (extra safety) rtrim newlines
+param="${param%"${param##*[![:space:]]}"}"
 
 if [[ -z "${param//[[:space:]]/}" ]]; then
   echo "Error: '$param_file' is empty"
   exit 1
 fi
 
-fname="Dignics 09C_${param}"
+# TODO:: Modify
+fname="Dignics 05_${param}"
 
 # Read each language source file and write to the matching directory
-cat "1_english"  > "../../rubbers_comparison/en/${fname}"
-cat "2_한국어"   > "../../rubbers_comparison/ko/${fname}"
-cat "3_중국어"   > "../../rubbers_comparison/cn/${fname}"
+mkdir -p \
+  "$repo_root/rubbers_comparison/en" \
+  "$repo_root/rubbers_comparison/ko" \
+  "$repo_root/rubbers_comparison/cn"
+
+cat "$script_dir/1_english" > "$repo_root/rubbers_comparison/en/${fname}"
+cat "$script_dir/2_한국어"  > "$repo_root/rubbers_comparison/ko/${fname}"
+cat "$script_dir/3_중국어"  > "$repo_root/rubbers_comparison/cn/${fname}"
