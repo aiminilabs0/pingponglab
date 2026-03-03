@@ -79,15 +79,9 @@ const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 function trackRubberClickEvent(rubber, panelNum) {
     if (!rubber || typeof window.gtag !== 'function') return;
 
-    const displayName = rubber.fullName || rubber.name || rubber.abbr || '';
     window.gtag('event', 'rubber_click', {
         event_category: 'chart',
-        event_label: displayName,
-        rubber_brand: rubber.brand || '',
-        rubber_name: rubber.name || '',
-        rubber_full_name: rubber.fullName || '',
         rubber_abbr: rubber.abbr || '',
-        panel_num: panelNum,
         device_type: IS_TOUCH_DEVICE ? 'touch' : 'desktop'
     });
 }
