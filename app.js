@@ -2195,11 +2195,7 @@ function updateChart(options = {}) {
             if (clickPos) showChartClickEffect(clickPos.x, clickPos.y, rubber);
 
             if (IS_TOUCH_DEVICE) {
-                showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel);
-            } else {
-                const popup = getChartHoverPopupEl();
-                popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
-                positionHoverPopup(popup, data, chartEl);
+                showChartHoverPopupFromPlotlyData(data, chartEl);
             }
         });
     }
