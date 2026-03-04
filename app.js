@@ -78,8 +78,9 @@ const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
 function trackRubberClickEvent(rubber) {
     if (!rubber || typeof window.gtag !== 'function') return;
-
-    window.gtag('event', 'c_rubber_click', {
+    const rubberAbbr = String(rubber.abbr || '')
+        .toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').replace(/_+/g, '_');
+    window.gtag('event', `c_click_${rubberAbbr || 'unknown'}`, {
         rubber_abbr: rubber.abbr || '',
         device_type: getDeviceTypeForGa()
     });
@@ -97,7 +98,8 @@ function trackContentFeedbackVote(vote, context = {}) {
 
     let eventName = '';
     if (contentType === 'description') {
-        eventName = vote === 'good' ? 'c_good_desc' : 'c_bad_desc';
+        const name = normalizeEventToken(context.rubberName) || 'unknown';
+        eventName = vote === 'good' ? `c_good_desc_${name}` : `c_bad_desc_${name}`;
     } else if (contentType === 'comparison') {
         const left = normalizeEventToken(context.leftRubber) || 'unknown';
         const right = normalizeEventToken(context.rightRubber) || 'unknown';
@@ -115,8 +117,9 @@ function trackContentFeedbackVote(vote, context = {}) {
 
 function trackAppLoadedEvent() {
     if (typeof window.gtag !== 'function') return;
-    window.gtag('event', 'c_device_type', {
-        device_type: getDeviceTypeForGa()
+    const deviceType = getDeviceTypeForGa();
+    window.gtag('event', `c_device_${deviceType}`, {
+        device_type: deviceType
     });
 }
 
