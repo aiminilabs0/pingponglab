@@ -1,0 +1,43 @@
+/* ── Claude / warm-dark palette ── */
+:root {
+    --drac-bg: #2b2926;
+    --drac-bg-dark: #1c1a17;
+    --drac-current: #3e3a34;
+    --drac-fg: #e8e0d0;
+    --drac-comment: #9b9484;
+    --drac-cyan: #7eb8a8;
+    --drac-green: #8bbd6e;
+    --drac-orange: #da8a52;
+    --drac-pink: #d4785e;
+    --drac-purple: #d97756;
+    --drac-red: #cf5555;
+    --drac-yellow: #d4c16a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    padding: 24px;
+    background: var(--drac-bg-dark);
+    color: var(--drac-fg);
+}
+.container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--drac-bg);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.chart-bleed {
+    margin: 0 -32px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}

@@ -1,0 +1,346 @@
+/* ── Content card (tabbed detail/comparison) ── */
+.content-card {
+    background: var(--drac-bg-dark);
+    border-left: 1.5px solid var(--drac-current);
+    border-right: 1.5px solid var(--drac-current);
+    border-bottom: 1.5px solid var(--drac-current);
+    border-top: 1px solid var(--drac-current);
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tab bar */
+.content-tabs {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--drac-current);
+    padding: 0 16px;
+    gap: 0;
+    flex-shrink: 0;
+
+    overflow: hidden;
+}
+
+.content-tab--empty { opacity: 0.5; }
+
+.content-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--drac-comment);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s ease;
+}
+.content-tab:hover { color: var(--drac-fg); }
+.content-tab--active { color: var(--drac-fg); border-bottom-color: var(--drac-purple); }
+.content-tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+/* Content body */
+.content-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; max-height: 75vh; }
+.content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.content-pane--empty { align-items: center; justify-content: center; min-height: 60px; }
+.content-pane-placeholder { display: inline-flex; align-items: center; color: var(--drac-comment); font-size: 13px; font-weight: 500; opacity: 0.55; }
+
+.content-pane .content {
+    color: var(--drac-fg);
+    line-height: 1.6;
+}
+.content-pane strong {
+    color: var(--drac-cyan);
+}
+.content-pane a {
+    color: var(--drac-cyan);
+    text-decoration: none;
+}
+.content-pane a:hover {
+    text-decoration: underline;
+    color: var(--drac-green);
+}
+
+/* ── Shared brand pill + rubber name ── */
+.brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;
+    border: 1.5px solid;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1;
+    width: fit-content;
+}
+.brand-pill--sm {
+    font-size: 10px;
+    padding: 3px 9px 3px 7px;
+    gap: 5px;
+    margin-bottom: 3px;
+}
+.brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.rubber-name {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    word-break: break-word;
+}
+
+/* ── Rubber title header (detail panel) ── */
+.rubber-title-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex-shrink: 0;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--drac-current);
+    background: var(--drac-bg-dark);
+    border-radius: 0;
+    z-index: 2;
+}
+.rubber-title-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.content-pane h1.rubber-name {
+    margin: 0;
+}
+/* Title row: name + icon links side by side */
+.rubber-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+.rubber-title-row .rubber-name {
+    flex: 1;
+    min-width: 0;
+}
+.rubber-title-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.rubber-title-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(155,148,132,0.25);
+    background: rgba(62,58,52,0.4);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    text-decoration: none !important;
+    flex-shrink: 0;
+}
+.rubber-title-icon-link:hover {
+    background: rgba(126,184,168,0.15);
+    border-color: var(--drac-cyan);
+    transform: translateY(-1px);
+    text-decoration: none !important;
+}
+.rubber-title-icon-link.yt-active {
+    background: rgba(207,85,85,0.18);
+    border-color: rgba(207,85,85,0.6);
+}
+.rubber-title-icon-link.yt-active:hover {
+    background: rgba(207,85,85,0.28);
+    border-color: var(--drac-red);
+}
+.rubber-title-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+    image-rendering: auto;
+}
+/* YouTube embed sits flush between title header and scroll content */
+.content-pane .youtube-embed-wrapper {
+    flex-shrink: 0;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--drac-current);
+}
+.content-pane-scroll {
+    overflow-y: auto;
+    flex: 1;
+    padding: 14px 20px 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--drac-current) transparent;
+}
+.content-pane-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.content-pane-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.content-pane-scroll::-webkit-scrollbar-thumb {
+    background: var(--drac-current);
+    border-radius: 10px;
+}
+.bestseller-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1c1a17;
+    background: #d4c16a;
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* ── Rich markdown inside content pane ── */
+.content-pane-scroll h1 {
+    color: var(--drac-pink);
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--drac-current);
+    line-height: 1.3;
+}
+.content-pane h2 {
+    color: var(--drac-orange);
+    font-size: 17px;
+    font-weight: 700;
+    margin: 18px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(62,58,52,0.5);
+    letter-spacing: 0.2px;
+}
+.content-pane h3 {
+    color: var(--drac-purple);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 14px 0 6px;
+}
+.content-pane p {
+    color: var(--drac-fg);
+    margin: 8px 0;
+    line-height: 1.75;
+    font-size: 15.5px;
+}
+.content-pane hr {
+    border: none;
+    border-top: 1px solid var(--drac-current);
+    margin: 16px 0;
+}
+
+/* Blockquotes */
+.content-pane blockquote {
+    margin: 14px 0;
+    padding: 10px 16px;
+    border-left: 2px solid var(--drac-orange);
+    background: rgba(218,138,82,0.07);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--drac-fg);
+    font-size: 15.5px;
+    line-height: 1.7;
+}
+.content-pane blockquote p {
+    margin: 0;
+}
+
+/* Unordered & ordered lists */
+.content-pane ul,
+.content-pane ol {
+    margin: 10px 0 10px 8px;
+    padding-left: 18px;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--drac-fg);
+}
+.content-pane li {
+    margin: 6px 0;
+    padding-left: 4px;
+}
+.content-pane li::marker {
+    color: var(--drac-comment);
+}
+.content-pane ol li::marker {
+    color: var(--drac-orange);
+    font-weight: 600;
+}
+
+/* Emphasis / italic */
+.content-pane em {
+    color: var(--drac-comment);
+    font-style: italic;
+}
+
+/* Tables */
+.content-pane table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 15px;
+    line-height: 1.55;
+    border: 1px solid var(--drac-current);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.content-pane thead th {
+    background: var(--drac-current);
+    color: var(--drac-fg);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid rgba(155,148,132,0.25);
+    white-space: nowrap;
+}
+.content-pane tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(62,58,52,0.6);
+    color: var(--drac-fg);
+    vertical-align: top;
+}
+.content-pane tbody tr:last-child td {
+    border-bottom: none;
+}
+.content-pane tbody tr:hover {
+    background: rgba(62,58,52,0.35);
+}
+.content-pane tbody td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--drac-cyan);
+}
+
+/* Inline code (if any) */
+.content-pane code {
+    background: var(--drac-current);
+    color: var(--drac-green);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
