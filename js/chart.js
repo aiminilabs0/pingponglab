@@ -458,7 +458,7 @@ function hideChartDotShake() {
 let _chartClickCount = 0;
 
 function showChartClickEffect(x, y, rubber) {
-    const messages = ['Ping!', 'Pong!', 'Nice!', 'Sweet!', 'Ooh!', 'Yes!', 'Go!', 'Pick!'];
+    const messages = ['Ping!', 'Pong!', 'Go!', 'Amy!', 'Nice!', 'Sweet!', 'Ooh!', 'Yes!'];
     const msg = messages[_chartClickCount++ % messages.length];
 
     const el = document.createElement('div');
