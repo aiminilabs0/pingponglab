@@ -45,7 +45,7 @@ NAME_MAP = {
     "J&H C52.5": "Jekyll & Hyde C52.5",
     "J&H C55.0": "Jekyll & Hyde C55.0",
     "Omega 7 Guang": "Omega 7 Guang China",
-    "Zyre 03": "Zyre 03",
+    "Zyre 03": "Butterfly Zyre 03",
     "MX-K": "Tibhar MX-K",
     "Tenergy 05H": "Tenergy 05 Hard",
 }
