@@ -21,7 +21,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify
-base_rubber="Dignics 05"
+base_rubber="G-1"
 
 # Read each language source file and write to the matching directory
 mkdir -p \

@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
 """Find missing comparison files for a base rubber.
 
+Expected rubbers are derived from the filenames in
+``make-comparision-prompt/gen-prompts/``.
+
 Usage:
-  python scripts/update-comparison/find_missing.py "Dignics 05"
+  python scripts/find-missing-rubber-from-comparision/find_missing.py "Dignics 05"
 
 If no argument is provided, this script falls back to reading
-`scripts/update-comparison/0_rubber`.
+``scripts/update-comparison/0_rubber``.
 """
 
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
+
+# J&H rubber names use "JandH" in gen-prompt filenames
+_FILENAME_TO_RUBBER = {
+    "JandH": "J&H",
+}
+
+
+def _prompt_filename_to_rubber(stem: str) -> str:
+    for token, replacement in _FILENAME_TO_RUBBER.items():
+        stem = stem.replace(token, replacement)
+    return stem
 
 
 def _read_base_rubber(script_dir: Path) -> str:
@@ -34,9 +47,9 @@ def main() -> int:
         print('Error: missing base rubber. Pass it as an argument, e.g. "Dignics 05".')
         return 1
 
-    all_rubbers_file = script_dir / "all_rubbers.txt"
-    if not all_rubbers_file.exists():
-        print(f"Error: '{all_rubbers_file}' not found.")
+    gen_prompts_dir = script_dir.parent / "make-comparision-prompt" / "gen-prompts"
+    if not gen_prompts_dir.exists():
+        print(f"Error: '{gen_prompts_dir}' not found.")
         return 1
 
     en_dir = repo_root / "rubbers_comparison" / "en" / base_rubber
@@ -44,21 +57,10 @@ def main() -> int:
         print(f"Error: '{en_dir}' not found.")
         return 1
 
-    try:
-        all_rubbers = json.loads(all_rubbers_file.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        print(f"Error: invalid JSON in '{all_rubbers_file}': {exc}")
-        return 1
-
-    if not isinstance(all_rubbers, list):
-        print(f"Error: '{all_rubbers_file}' must contain a JSON list.")
-        return 1
-
-    all_rubbers = [
-        str(name).strip()
-        for name in all_rubbers
-        if str(name).strip() and str(name).strip() != base_rubber
-    ]
+    all_rubbers = sorted(
+        _prompt_filename_to_rubber(p.stem)
+        for p in gen_prompts_dir.glob("*.txt")
+    )
     existing_targets = set()
     for path in en_dir.iterdir():
         if not path.is_file():
