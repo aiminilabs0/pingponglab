@@ -25,19 +25,6 @@ def _read_base_rubber(script_dir: Path) -> str:
     return fallback_file.read_text(encoding="utf-8").strip()
 
 
-def _extract_counterpart(filename: str, base_rubber: str) -> str:
-    prefix = f"{base_rubber}_"
-    suffix = f"_{base_rubber}"
-
-    if filename.startswith(prefix):
-        return filename[len(prefix) :].strip()
-
-    if filename.endswith(suffix):
-        return filename[: -len(suffix)].strip()
-
-    return ""
-
-
 def main() -> int:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent.parent
@@ -52,7 +39,7 @@ def main() -> int:
         print(f"Error: '{all_rubbers_file}' not found.")
         return 1
 
-    en_dir = repo_root / "rubbers_comparison" / "en"
+    en_dir = repo_root / "rubbers_comparison" / "en" / base_rubber
     if not en_dir.exists():
         print(f"Error: '{en_dir}' not found.")
         return 1
@@ -76,9 +63,7 @@ def main() -> int:
     for path in en_dir.iterdir():
         if not path.is_file():
             continue
-        counterpart = _extract_counterpart(path.name, base_rubber)
-        if counterpart:
-            existing_targets.add(counterpart)
+        existing_targets.add(path.name.strip())
 
     missing = [rubber for rubber in all_rubbers if rubber not in existing_targets]
 

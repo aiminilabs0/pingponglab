@@ -2578,18 +2578,8 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
     try {
         for (const [n1, n2] of orderings) {
-            const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
+            const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}/${encodeURIComponent(n2)}`;
             const resp = await fetch(v(localizedPath));
-            if (resp.ok) {
-                const text = await resp.text();
-                rubberComparisonCache[cacheKey] = text;
-                return text;
-            }
-        }
-        // Backward compatibility for legacy files outside language directories.
-        for (const [n1, n2] of orderings) {
-            const legacyPath = `rubbers_comparison/${encodeURIComponent(n1)}_${encodeURIComponent(n2)}`;
-            const resp = await fetch(v(legacyPath));
             if (resp.ok) {
                 const text = await resp.text();
                 rubberComparisonCache[cacheKey] = text;
