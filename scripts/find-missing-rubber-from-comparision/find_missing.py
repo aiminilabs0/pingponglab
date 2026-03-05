@@ -13,19 +13,9 @@ If no argument is provided, this script falls back to reading
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
-
-# J&H rubber names use "JandH" in gen-prompt filenames
-_FILENAME_TO_RUBBER = {
-    "JandH": "J&H",
-}
-
-
-def _prompt_filename_to_rubber(stem: str) -> str:
-    for token, replacement in _FILENAME_TO_RUBBER.items():
-        stem = stem.replace(token, replacement)
-    return stem
 
 
 def _read_base_rubber(script_dir: Path) -> str:
@@ -38,6 +28,14 @@ def _read_base_rubber(script_dir: Path) -> str:
     return fallback_file.read_text(encoding="utf-8").strip()
 
 
+def _load_excludes(script_dir: Path) -> set[str]:
+    exclude_file = script_dir.parent / "make-comparision-prompt" / "exclude.txt"
+    if not exclude_file.exists():
+        return set()
+    lines = exclude_file.read_text(encoding="utf-8").splitlines()
+    return {line.strip() for line in lines if line.strip()}
+
+
 def main() -> int:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent.parent
@@ -47,9 +45,9 @@ def main() -> int:
         print('Error: missing base rubber. Pass it as an argument, e.g. "Dignics 05".')
         return 1
 
-    gen_prompts_dir = script_dir.parent / "make-comparision-prompt" / "gen-prompts"
-    if not gen_prompts_dir.exists():
-        print(f"Error: '{gen_prompts_dir}' not found.")
+    all_rubbers_file = script_dir / "all_rubbers.txt"
+    if not all_rubbers_file.exists():
+        print(f"Error: '{all_rubbers_file}' not found.")
         return 1
 
     en_dir = repo_root / "rubbers_comparison" / "en" / base_rubber
@@ -57,9 +55,13 @@ def main() -> int:
         print(f"Error: '{en_dir}' not found.")
         return 1
 
+    with all_rubbers_file.open("r", encoding="utf-8") as f:
+        all_rubbers_list: list[str] = json.load(f)
+
+    excludes = _load_excludes(script_dir)
     all_rubbers = sorted(
-        _prompt_filename_to_rubber(p.stem)
-        for p in gen_prompts_dir.glob("*.txt")
+        r for r in all_rubbers_list
+        if r != base_rubber and r not in excludes
     )
     existing_targets = set()
     for path in en_dir.iterdir():

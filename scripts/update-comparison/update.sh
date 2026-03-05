@@ -20,8 +20,8 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
   exit 1
 fi
 
-# TODO:: Modify
-base_rubber="G-1"
+# TODO:: Modify!!!!!!
+base_rubber="MX-K"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
