@@ -74,6 +74,104 @@
     gap: 6px;
     flex-shrink: 0;
 }
+
+/* ── Header search bar ── */
+.header-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.header-search-icon {
+    position: absolute;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    color: var(--drac-comment);
+    pointer-events: none;
+    transition: color 0.15s ease;
+    z-index: 1;
+}
+.header-search:focus-within .header-search-icon {
+    color: var(--drac-orange);
+}
+.header-search-input {
+    width: 180px;
+    height: 36px;
+    padding: 0 12px 0 32px;
+    border: 1.5px solid rgba(155,148,132,0.3);
+    border-radius: 10px;
+    background: rgba(28,26,23,0.5);
+    color: var(--drac-fg);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease, width 0.25s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.header-search-input::placeholder {
+    color: var(--drac-comment);
+    opacity: 0.7;
+}
+.header-search-input:focus {
+    border-color: var(--drac-orange);
+    background: rgba(28,26,23,0.75);
+    width: 240px;
+}
+.header-search-results {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 260px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--drac-bg-dark);
+    border: 1.5px solid rgba(155,148,132,0.25);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    z-index: 200;
+    scrollbar-width: thin;
+    scrollbar-color: var(--drac-orange) var(--drac-current);
+}
+.header-search-results.is-open {
+    display: block;
+}
+.header-search-result {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    transition: background 0.1s ease;
+    border-bottom: 1px solid rgba(155,148,132,0.1);
+}
+.header-search-result:last-child {
+    border-bottom: none;
+}
+.header-search-result:hover,
+.header-search-result.is-active {
+    background: rgba(218,138,82,0.12);
+}
+.header-search-result-abbr {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--drac-fg);
+    white-space: nowrap;
+}
+.header-search-result-brand {
+    font-size: 11px;
+    color: var(--drac-comment);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.header-search-no-results {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--drac-comment);
+    text-align: center;
+}
 .header-ctrl-btn {
     display: inline-flex;
     align-items: center;

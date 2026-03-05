@@ -80,7 +80,14 @@
             <div class="header-accent"></div>
         </header>
         <div class="chart-bleed">
-            <div class="chart-speed-outside" aria-hidden="true">⚡ Speed ↑</div>
+            <div class="chart-speed-outside" aria-hidden="true">
+                <span>⚡ Speed ↑</span>
+                <div class="header-search" id="headerSearch" aria-hidden="false">
+                    <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="headerSearchInput" class="header-search-input" placeholder="Search rubber..." autocomplete="off" spellcheck="false">
+                    <div class="header-search-results" id="headerSearchResults"></div>
+                </div>
+            </div>
             <div id="chart"></div>
             <div class="chart-control-guide" aria-label="Control indicator guide">
                 <span class="zoom-hint" id="zoomHint" aria-live="polite">Zoom in for more rubbers</span>

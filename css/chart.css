@@ -10,6 +10,9 @@
     opacity: 0;
 }
 .chart-speed-outside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0 14px 2px;
     color: var(--drac-yellow);
     font-size: 13px;

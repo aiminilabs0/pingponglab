@@ -149,6 +149,128 @@ function initCountrySelector() {
     });
 }
 
+function initHeaderSearch() {
+    const input = document.getElementById('headerSearchInput');
+    const results = document.getElementById('headerSearchResults');
+    if (!input || !results) return;
+
+    let activeIndex = -1;
+    let currentMatches = [];
+
+    function search(query) {
+        const q = query.trim().toLowerCase();
+        if (!q) { closeResults(); return; }
+
+        currentMatches = rubberData
+            .filter(r =>
+                r.abbr.toLowerCase().includes(q) ||
+                r.fullName.toLowerCase().includes(q)
+            )
+            .slice(0, 30);
+
+        if (currentMatches.length === 0) {
+            results.innerHTML = '<div class="header-search-no-results">No rubbers found</div>';
+            results.classList.add('is-open');
+            activeIndex = -1;
+            return;
+        }
+
+        results.innerHTML = currentMatches.map((r, i) =>
+            `<div class="header-search-result" data-index="${i}">` +
+            `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
+            `<span class="header-search-result-brand">${r.brand}</span>` +
+            `</div>`
+        ).join('');
+        results.classList.add('is-open');
+        activeIndex = -1;
+    }
+
+    function highlightMatch(text, query) {
+        const idx = text.toLowerCase().indexOf(query);
+        if (idx === -1) return escapeHtml(text);
+        return escapeHtml(text.slice(0, idx)) +
+            '<mark style="background:rgba(218,138,82,0.3);color:inherit;border-radius:2px;padding:0 1px">' +
+            escapeHtml(text.slice(idx, idx + query.length)) + '</mark>' +
+            escapeHtml(text.slice(idx + query.length));
+    }
+
+    function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function selectResult(rubber) {
+        handleRubberClick(rubber);
+        input.value = '';
+        closeResults();
+        input.blur();
+        trackSearchSelectEvent(rubber);
+    }
+
+    function closeResults() {
+        results.classList.remove('is-open');
+        results.innerHTML = '';
+        activeIndex = -1;
+        currentMatches = [];
+    }
+
+    function setActive(index) {
+        const items = results.querySelectorAll('.header-search-result');
+        items.forEach(el => el.classList.remove('is-active'));
+        if (index >= 0 && index < items.length) {
+            items[index].classList.add('is-active');
+            items[index].scrollIntoView({ block: 'nearest' });
+        }
+        activeIndex = index;
+    }
+
+    input.addEventListener('input', () => search(input.value));
+
+    input.addEventListener('keydown', (e) => {
+        const items = results.querySelectorAll('.header-search-result');
+        if (!results.classList.contains('is-open') || items.length === 0) {
+            if (e.key === 'Escape') { input.blur(); closeResults(); }
+            return;
+        }
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setActive(activeIndex < items.length - 1 ? activeIndex + 1 : 0);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setActive(activeIndex > 0 ? activeIndex - 1 : items.length - 1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeIndex >= 0 && currentMatches[activeIndex]) {
+                selectResult(currentMatches[activeIndex]);
+            } else if (currentMatches.length > 0) {
+                selectResult(currentMatches[0]);
+            }
+        } else if (e.key === 'Escape') {
+            closeResults();
+            input.blur();
+        }
+    });
+
+    results.addEventListener('click', (e) => {
+        const item = e.target.closest('.header-search-result');
+        if (!item) return;
+        const idx = parseInt(item.dataset.index, 10);
+        if (currentMatches[idx]) selectResult(currentMatches[idx]);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#headerSearch')) closeResults();
+    });
+}
+
+function trackSearchSelectEvent(rubber) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'search_select', {
+        event_category: 'Search',
+        event_label: rubber.fullName
+    });
+}
+
 function initHomeLogo() {
     const logo = document.getElementById('homeLogo');
     if (!logo) return;
@@ -333,6 +455,7 @@ async function initializeApp() {
     if (chart) chart.innerHTML = '';
     initCountrySelector();
     initHomeLogo();
+    initHeaderSearch();
     initFeedbackModal();
     initFilters();
 
