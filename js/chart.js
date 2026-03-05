@@ -159,7 +159,13 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
     // Placed label bounding boxes in pixel space
     const placed = [];
 
-    const sorted = [...visibleData].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
+    const selectedSet = new Set(selectedRubbers.filter(Boolean));
+    const sorted = [...visibleData].sort((a, b) => {
+        const aSelected = selectedSet.has(a) ? 0 : 1;
+        const bSelected = selectedSet.has(b) ? 0 : 1;
+        if (aSelected !== bSelected) return aSelected - bSelected;
+        return (a.priority ?? 999) - (b.priority ?? 999);
+    });
     const annotations = [];
 
     for (const rubber of sorted) {
@@ -291,7 +297,16 @@ function computeVisibleRubbers(filteredData) {
     const MIN_DIST_X = 55;
     const MIN_DIST_Y = 24;
 
+    const selectedSet = new Set(selectedRubbers.filter(Boolean));
+    for (const sel of selectedSet) {
+        if (!filteredData.includes(sel)) continue;
+        const { px, py } = toPixel(sel.x, sel.y);
+        visible.push(sel);
+        occupied.push({ px, py });
+    }
+
     for (const rubber of sorted) {
+        if (selectedSet.has(rubber)) continue;
         const { px, py } = toPixel(rubber.x, rubber.y);
         const overlaps = occupied.some(
             occ => Math.abs(px - occ.px) < MIN_DIST_X && Math.abs(py - occ.py) < MIN_DIST_Y
