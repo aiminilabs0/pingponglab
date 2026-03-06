@@ -31,7 +31,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     const metricsBlock = panel.querySelector('.radar-info-metrics') || panel.querySelector('.radar-comparison-grid');
     embedWrapper = document.createElement('div');
     embedWrapper.className = 'youtube-embed-wrapper';
-    embedWrapper.style.cssText = 'position:relative;padding-bottom:56.25%;height:0;overflow:hidden;';
+    embedWrapper.style.cssText = 'position:relative;aspect-ratio:16/9;overflow:hidden;';
     embedWrapper.dataset.videoId = videoId;
     if (isRadarPanel) embedWrapper.classList.add('youtube-embed-wrapper--radar');
 

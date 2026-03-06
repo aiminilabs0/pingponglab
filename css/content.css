@@ -181,8 +181,7 @@
 .content-pane .youtube-embed-wrapper {
     flex-shrink: 0;
     position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     border-bottom: 1px solid var(--drac-current);
 }
