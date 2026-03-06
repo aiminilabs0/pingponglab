@@ -21,7 +21,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="K3"
+base_rubber="Tenergy 05"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
@@ -29,6 +29,16 @@ mkdir -p \
   "$repo_root/rubbers_comparison/ko/${base_rubber}" \
   "$repo_root/rubbers_comparison/cn/${base_rubber}"
 
-cat "$script_dir/1_english" > "$repo_root/rubbers_comparison/en/${base_rubber}/${param}"
-cat "$script_dir/2_한국어"  > "$repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
-cat "$script_dir/3_중국어"  > "$repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
+sanitize_and_write() {
+  local source_file="$1"
+  local output_file="$2"
+
+  perl -ne 'print unless /^\s*-\s*:contentReference\[oaicite:\d+\]\{index=\d+\}\s*$/' "$source_file" \
+    | perl -pe 's/[[:space:]]*:contentReference\[oaicite:\d+\]\{index=\d+\}//g' \
+    | sed -E 's/[[:space:]]+$//' \
+    > "$output_file"
+}
+
+sanitize_and_write "$script_dir/1_english" "$repo_root/rubbers_comparison/en/${base_rubber}/${param}"
+sanitize_and_write "$script_dir/2_한국어" "$repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
+sanitize_and_write "$script_dir/3_중국어" "$repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
