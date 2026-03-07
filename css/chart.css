@@ -156,6 +156,9 @@
     white-space: nowrap;
     text-align: right;
 }
+.chart-hover-metric strong.chart-sheet-value {
+    font-size: 12px;
+}
 .chart-hover-metric strong.hardness-tone-soft,
 .radar-cmp-cell strong.hardness-tone-soft {
     color: var(--drac-green);

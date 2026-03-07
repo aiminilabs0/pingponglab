@@ -550,7 +550,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>Cut Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>Sheet</span><strong>${escapeHtml(sheet)}</strong></div>
+                <div class="chart-hover-metric"><span>Topsheet</span><strong class="chart-sheet-value">${escapeHtml(sheet)}</strong></div>
                 <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
         </div>
