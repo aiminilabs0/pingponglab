@@ -156,6 +156,17 @@ function getCountryTokenForGa() {
     return normalizeGaToken(currentCountry) || 'unknown';
 }
 
+function getLoginNameInputForGa() {
+    try {
+        const input = document.getElementById('loginNameInput');
+        const inputValue = (input?.value || '').trim();
+        if (inputValue) return inputValue;
+        return (localStorage.getItem('pingponglab_user_id') || '').trim();
+    } catch {
+        return '';
+    }
+}
+
 function buildCountryGaEventName(eventToken, nameToken) {
     return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getCountryTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
 }
@@ -178,7 +189,8 @@ function trackRubberClickEvent(rubber) {
     const rubberAbbr = normalizeGaToken(rubber.abbr);
     window.gtag('event', buildCountryGaEventName('click', rubberAbbr), {
         rubber_abbr: rubber.abbr || '',
-        device_type: getDeviceTypeForGa()
+        device_type: getDeviceTypeForGa(),
+        login_name: getLoginNameInputForGa()
     });
 }
 
@@ -200,7 +212,8 @@ function trackContentFeedbackVote(vote, context = {}) {
 
     window.gtag('event', eventName, {
         rubber_name: context.rubberName || '',
-        device_type: getDeviceTypeForGa()
+        device_type: getDeviceTypeForGa(),
+        login_name: getLoginNameInputForGa()
     });
 }
 
@@ -208,6 +221,7 @@ function trackAppLoadedEvent() {
     if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const deviceType = getDeviceTypeForGa();
     window.gtag('event', buildCountryGaEventName('device', deviceType), {
-        device_type: deviceType
+        device_type: deviceType,
+        login_name: getLoginNameInputForGa()
     });
 }
