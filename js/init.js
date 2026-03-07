@@ -328,6 +328,7 @@ function initFeedbackModal() {
     if (!openBtn || !closeBtn || !modal || !form) return;
 
     let closeTimer = null;
+    let comparisonRequestToastTimer = null;
 
     function clearCloseTimer() {
         if (closeTimer) {
@@ -373,11 +374,26 @@ function initFeedbackModal() {
         document.body.style.overflow = '';
     }
 
-    function buildComparisonRequestMessage(leftName, rightName) {
-        const left = (leftName || '').trim();
-        const right = (rightName || '').trim();
-        if (left && right) return `Please add a rubber comparison for "${left}" vs "${right}".`;
-        return 'Please add this rubber comparison.';
+    function ensureComparisonRequestToast() {
+        let toast = document.getElementById('comparisonRequestToast');
+        if (toast) return toast;
+        toast = document.createElement('div');
+        toast.id = 'comparisonRequestToast';
+        toast.className = 'comparison-request-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+        return toast;
+    }
+
+    function showComparisonRequestToast(message) {
+        const toast = ensureComparisonRequestToast();
+        toast.textContent = message || 'Request sent.';
+        toast.classList.add('is-visible');
+        if (comparisonRequestToastTimer) clearTimeout(comparisonRequestToastTimer);
+        comparisonRequestToastTimer = setTimeout(() => {
+            toast.classList.remove('is-visible');
+        }, 1800);
     }
 
     function openFeedbackModal(options = {}) {
@@ -405,11 +421,11 @@ function initFeedbackModal() {
     document.addEventListener('click', (e) => {
         const requestBtn = e.target.closest('[data-feedback-request-comparison="true"]');
         if (!requestBtn) return;
-        const prefillMessage = buildComparisonRequestMessage(
-            requestBtn.dataset.leftRubber,
-            requestBtn.dataset.rightRubber
+        trackComparisonRequestEvent(
+            requestBtn.dataset.leftRubber || '',
+            requestBtn.dataset.rightRubber || ''
         );
-        openFeedbackModal({ prefillMessage });
+        showComparisonRequestToast('Request sent. Thank you!');
     });
     closeBtn.addEventListener('click', closeFeedbackModal);
     modal.addEventListener('click', (e) => {

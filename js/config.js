@@ -225,3 +225,15 @@ function trackAppLoadedEvent() {
         login_name: getLoginNameInputForGa()
     });
 }
+
+function trackComparisonRequestEvent(leftRubberName, rightRubberName) {
+    if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
+    const left = normalizeGaToken(leftRubberName) || 'unknown';
+    const right = normalizeGaToken(rightRubberName) || 'unknown';
+    window.gtag('event', `c_request_${left}_${right}`, {
+        left_rubber: leftRubberName || '',
+        right_rubber: rightRubberName || '',
+        device_type: getDeviceTypeForGa(),
+        login_name: getLoginNameInputForGa()
+    });
+}
