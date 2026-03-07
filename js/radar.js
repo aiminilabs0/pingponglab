@@ -500,24 +500,6 @@ function initRadarDodge() {
     const chartEl = document.getElementById('radarChart');
     if (!chartEl) return;
 
-    // Track mouse globally
-    document.addEventListener('mousemove', (e) => {
-        radarDodgeMouseX = e.clientX;
-        radarDodgeMouseY = e.clientY;
-    });
-
-    // Touch support
-    document.addEventListener('touchmove', (e) => {
-        if (e.touches.length) {
-            radarDodgeMouseX = e.touches[0].clientX;
-            radarDodgeMouseY = e.touches[0].clientY;
-        }
-    }, { passive: true });
-    document.addEventListener('touchend', () => {
-        radarDodgeMouseX = -9999;
-        radarDodgeMouseY = -9999;
-    });
-
     // Click on chart → strong impulse + catch effect
     chartEl.addEventListener('click', (e) => {
         const center = getRadarChartCenter();
