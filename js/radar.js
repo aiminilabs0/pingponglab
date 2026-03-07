@@ -397,6 +397,31 @@ let radarDodgeLastTs = null;
 let radarIsPanicking = false;
 let radarCatchCount = 0;
 let radarDodgeMouseX = -9999, radarDodgeMouseY = -9999;
+let radarTouchTrackingActive = false;
+
+function resetRadarDodgePointer() {
+    radarDodgeMouseX = -9999;
+    radarDodgeMouseY = -9999;
+}
+
+function stopRadarDodgeMotion() {
+    radarDodgeVx = 0;
+    radarDodgeVy = 0;
+}
+
+function applyRadarCatchImpulse(clientX, clientY) {
+    const center = getRadarChartCenter();
+    if (!center) return;
+
+    const cdx = center.cx - clientX;
+    const cdy = center.cy - clientY;
+    const angle = Math.atan2(cdy, cdx) + (Math.random() - 0.5) * 1.2;
+    radarDodgeVx += Math.cos(angle) * RADAR_DODGE.CLICK_IMPULSE;
+    radarDodgeVy += Math.sin(angle) * RADAR_DODGE.CLICK_IMPULSE;
+
+    radarCatchCount++;
+    showCatchEffect(clientX, clientY);
+}
 
 function getRadarChartCenter() {
     const el = document.getElementById('radarChart');
@@ -506,31 +531,42 @@ function initRadarDodge() {
         radarDodgeMouseY = e.clientY;
     });
 
-    // Touch support
-    document.addEventListener('touchmove', (e) => {
-        if (e.touches.length) {
-            radarDodgeMouseX = e.touches[0].clientX;
-            radarDodgeMouseY = e.touches[0].clientY;
-        }
+    // Touch support: only track touches that begin on the radar chart.
+    chartEl.addEventListener('touchstart', (e) => {
+        if (!e.touches.length) return;
+        radarTouchTrackingActive = true;
+        radarDodgeMouseX = e.touches[0].clientX;
+        radarDodgeMouseY = e.touches[0].clientY;
     }, { passive: true });
+
+    chartEl.addEventListener('touchmove', (e) => {
+        if (!radarTouchTrackingActive || !e.touches.length) return;
+        radarDodgeMouseX = e.touches[0].clientX;
+        radarDodgeMouseY = e.touches[0].clientY;
+    }, { passive: true });
+
+    const endRadarTouchTracking = () => {
+        radarTouchTrackingActive = false;
+        resetRadarDodgePointer();
+        stopRadarDodgeMotion();
+    };
+    chartEl.addEventListener('touchend', endRadarTouchTracking, { passive: true });
+    chartEl.addEventListener('touchcancel', endRadarTouchTracking, { passive: true });
     document.addEventListener('touchend', () => {
-        radarDodgeMouseX = -9999;
-        radarDodgeMouseY = -9999;
-    });
+        if (!radarTouchTrackingActive) return;
+        endRadarTouchTracking();
+    }, { passive: true });
+    document.addEventListener('touchcancel', () => {
+        if (!radarTouchTrackingActive) return;
+        endRadarTouchTracking();
+    }, { passive: true });
 
     // Click on chart → strong impulse + catch effect
     chartEl.addEventListener('click', (e) => {
-        const center = getRadarChartCenter();
-        if (!center) return;
-
-        const cdx = center.cx - e.clientX;
-        const cdy = center.cy - e.clientY;
-        const angle = Math.atan2(cdy, cdx) + (Math.random() - 0.5) * 1.2;
-        radarDodgeVx += Math.cos(angle) * RADAR_DODGE.CLICK_IMPULSE;
-        radarDodgeVy += Math.sin(angle) * RADAR_DODGE.CLICK_IMPULSE;
-
-        radarCatchCount++;
-        showCatchEffect(e.clientX, e.clientY);
+        applyRadarCatchImpulse(e.clientX, e.clientY);
+        if (IS_TOUCH_DEVICE) {
+            setTimeout(stopRadarDodgeMotion, 180);
+        }
     });
 
     startRadarDodgePhysics();
