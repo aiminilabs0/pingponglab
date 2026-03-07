@@ -4,7 +4,9 @@
   "manufacturer": "Andro",
   "players": {
     "forehand": [],
-    "backhand": ["S. Winter (https://www.youtube.com/watch?v=_FyrzNK5BYk)"]
+    "backhand": [
+      "S. Winter"
+    ]
   },
   "user_ratings": {
     "overall": 9.4,

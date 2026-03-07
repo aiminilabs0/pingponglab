@@ -59,6 +59,41 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     };
 }
 
+function getPlayerYouTubeVideoId(rubber) {
+    if (!rubber) return null;
+    const collectPlayerYoutubeUrls = (entries) => {
+        if (!Array.isArray(entries)) return [];
+
+        const urls = [];
+        entries.forEach(entry => {
+            const parsed = parsePlayerEntry(entry);
+            if (!parsed) return;
+
+            // Keep entry-level links bound to the same player entry.
+            if (parsed.url) {
+                urls.push(parsed.url);
+                return;
+            }
+
+            const player = playersData[parsed.name];
+            if (player && Array.isArray(player.youtubes) && player.youtubes.length) {
+                urls.push(...player.youtubes.filter(Boolean));
+            }
+        });
+        return urls;
+    };
+
+    const videoIds = Array.from(new Set([
+        ...collectPlayerYoutubeUrls(rubber.forehandPlayers),
+        ...collectPlayerYoutubeUrls(rubber.backhandPlayers),
+    ]
+        .map(extractYouTubeVideoId)
+        .filter(Boolean)));
+
+    if (videoIds.length === 0) return null;
+    return videoIds[Math.floor(Math.random() * videoIds.length)];
+}
+
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
         const placeholderColor = '#9e9689';
@@ -101,6 +136,10 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
     const rubberImgName = encodeURIComponent(rubber.abbr || rubber.name);
     const rubberImgHtml = `<img class="radar-rubber-img" src="images/rubbers/${rubberImgName}.jpg" alt="${escapeHtml(radarLabel)}" onerror="this.style.display='none'">`;
+    const ytVideoId = getPlayerYouTubeVideoId(rubber);
+    const ytIconHtml = ytVideoId
+        ? `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${escapeHtml(ytVideoId)}" title="YouTube" aria-label="YouTube"><img src="${YOUTUBE_ICON}" class="rubber-title-icon" alt="YouTube"></a>`
+        : '';
     return `
         <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
             <div class="radar-info-header">
@@ -110,6 +149,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
             </div>
             <div class="radar-info-name-row">
                 <div class="rubber-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
+                ${ytIconHtml}
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
             ${rubberImgHtml}

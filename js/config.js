@@ -22,6 +22,7 @@ const RANKING_FILES = {
 };
 const PRIORITY_FILE = 'stats/rubbers/ranking/priority.json';
 const BESTSELLER_FILE = 'stats/rubbers/ranking/bestseller.json';
+const PLAYERS_FILE = 'players/players.json';
 
 const BRAND_COLORS = {
     Butterfly: '#f11b85',

@@ -55,14 +55,22 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
             : `${nameOrLinkHtml} ${emojiHtml}`
     );
 
-    if (!parsed.url) return withEmoji(safeName);
+    let url = parsed.url;
+    if (!url) {
+        const player = playersData[parsed.name];
+        if (player && Array.isArray(player.youtubes) && player.youtubes.length) {
+            url = player.youtubes[Math.floor(Math.random() * player.youtubes.length)];
+        }
+    }
 
-    const videoId = extractYouTubeVideoId(parsed.url);
+    if (!url) return withEmoji(safeName);
+
+    const videoId = extractYouTubeVideoId(url);
     if (videoId) {
         return withEmoji(`<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`);
     }
 
-    const safeUrl = escapeHtml(parsed.url);
+    const safeUrl = escapeHtml(url);
     return withEmoji(`<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`);
 }
 
@@ -226,6 +234,42 @@ function findRubberRank(rubber, rankingArray) {
 // ════════════════════════════════════════════════════════════
 //  Data Loading
 // ════════════════════════════════════════════════════════════
+
+async function loadPlayersData() {
+    const pickRandomItems = (items, count) => {
+        if (!Array.isArray(items)) return [];
+        if (items.length <= count) return [...items];
+
+        const pool = [...items];
+        for (let i = pool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+        return pool.slice(0, count);
+    };
+
+    try {
+        const resp = await fetch(v(PLAYERS_FILE));
+        if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${PLAYERS_FILE}`);
+        const rawPlayersData = await resp.json();
+        const trimmedPlayersData = {};
+
+        Object.entries(rawPlayersData || {}).forEach(([name, player]) => {
+            const youtubes = Array.isArray(player?.youtubes)
+                ? player.youtubes.filter(Boolean)
+                : [];
+            trimmedPlayersData[name] = {
+                ...player,
+                youtubes: pickRandomItems(youtubes, 2),
+            };
+        });
+
+        playersData = trimmedPlayersData;
+    } catch (error) {
+        console.warn('Failed to load players data:', error);
+        playersData = {};
+    }
+}
 
 async function loadRubberData() {
     const indexResp = await fetch(v(RUBBER_INDEX_FILE));

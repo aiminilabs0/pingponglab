@@ -3,7 +3,9 @@
   "name": "Tenergy 05",
   "manufacturer": "Butterfly",
   "players": {
-    "forehand": ["E. Samara (https://www.youtube.com/watch?v=pOD1i57JYUw)"],
+    "forehand": [
+      "E. Samara"
+    ],
     "backhand": []
   },
   "user_ratings": {
