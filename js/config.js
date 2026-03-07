@@ -143,6 +143,23 @@ function getDeviceTypeForGa() {
     return IS_TOUCH_DEVICE ? 'mobile' : 'desktop';
 }
 
+function normalizeGaToken(value) {
+    return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '')
+        .replace(/_+/g, '_');
+}
+
+function getCountryTokenForGa() {
+    const currentCountry = typeof selectedCountry === 'string' ? selectedCountry : '';
+    return normalizeGaToken(currentCountry) || 'unknown';
+}
+
+function buildCountryGaEventName(eventToken, nameToken) {
+    return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getCountryTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
+}
+
 function isAnalyticsBlockedUser() {
     try {
         const user = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase();
@@ -158,9 +175,8 @@ function isAnalyticsBlockedUser() {
 
 function trackRubberClickEvent(rubber) {
     if (!rubber || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
-    const rubberAbbr = String(rubber.abbr || '')
-        .toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').replace(/_+/g, '_');
-    window.gtag('event', `c_click_${rubberAbbr || 'unknown'}`, {
+    const rubberAbbr = normalizeGaToken(rubber.abbr);
+    window.gtag('event', buildCountryGaEventName('click', rubberAbbr), {
         rubber_abbr: rubber.abbr || '',
         device_type: getDeviceTypeForGa()
     });
@@ -170,23 +186,16 @@ function trackContentFeedbackVote(vote, context = {}) {
     if (!vote || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const contentType = context.contentType || 'unknown';
     const tabId = context.tabId || activeTab || '';
-    const normalizeEventToken = (value) => String(value || '')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '_')
-        .replace(/^_+|_+$/g, '')
-        .replace(/_+/g, '_');
 
     let eventName = '';
     if (contentType === 'description') {
-        const name = normalizeEventToken(context.rubberName) || 'unknown';
-        eventName = vote === 'good' ? `c_good_desc_${name}` : `c_bad_desc_${name}`;
+        eventName = buildCountryGaEventName(vote === 'good' ? 'good_desc' : 'bad_desc', context.rubberName);
     } else if (contentType === 'comparison') {
-        const left = normalizeEventToken(context.leftRubber) || 'unknown';
-        const right = normalizeEventToken(context.rightRubber) || 'unknown';
-        const prefix = vote === 'good' ? 'c_good_comp' : 'c_bad_comp';
-        eventName = `${prefix}_${left}_${right}`;
+        const left = normalizeGaToken(context.leftRubber) || 'unknown';
+        const right = normalizeGaToken(context.rightRubber) || 'unknown';
+        eventName = buildCountryGaEventName(vote === 'good' ? 'good_comp' : 'bad_comp', `${left}_${right}`);
     } else {
-        eventName = `feedback_${normalizeEventToken(contentType) || 'unknown'}_${normalizeEventToken(vote) || 'unknown'}`;
+        eventName = buildCountryGaEventName(`feedback_${contentType}`, vote);
     }
 
     window.gtag('event', eventName, {
@@ -198,7 +207,7 @@ function trackContentFeedbackVote(vote, context = {}) {
 function trackAppLoadedEvent() {
     if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const deviceType = getDeviceTypeForGa();
-    window.gtag('event', `c_device_${deviceType}`, {
+    window.gtag('event', buildCountryGaEventName('device', deviceType), {
         device_type: deviceType
     });
 }
