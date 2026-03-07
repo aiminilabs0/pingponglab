@@ -186,7 +186,8 @@ function initHeaderSearch() {
         currentMatches = rubberData
             .filter(r =>
                 r.abbr.toLowerCase().includes(q) ||
-                r.fullName.toLowerCase().includes(q)
+                r.fullName.toLowerCase().includes(q) ||
+                r.playerSearchNames.some(name => name.toLowerCase().includes(q))
             )
             .slice(0, 30);
 
@@ -197,12 +198,20 @@ function initHeaderSearch() {
             return;
         }
 
-        results.innerHTML = currentMatches.map((r, i) =>
-            `<div class="header-search-result" data-index="${i}">` +
-            `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
-            `<span class="header-search-result-brand">${r.brand}</span>` +
-            `</div>`
-        ).join('');
+        results.innerHTML = currentMatches.map((r, i) => {
+            const nameMatch = r.abbr.toLowerCase().includes(q) || r.fullName.toLowerCase().includes(q);
+            const matchedPlayer = !nameMatch
+                ? r.playerSearchNames.find(name => name.toLowerCase().includes(q)) || ''
+                : '';
+
+            return `<div class="header-search-result" data-index="${i}">` +
+                `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
+                `<span class="header-search-result-brand">${r.brand}</span>` +
+                (matchedPlayer
+                    ? `<span class="header-search-result-player">${highlightMatch(matchedPlayer, q)}</span>`
+                    : '') +
+                `</div>`;
+        }).join('');
         results.classList.add('is-open');
         activeIndex = -1;
     }

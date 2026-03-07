@@ -66,6 +66,23 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     return withEmoji(`<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`);
 }
 
+function collectPlayerSearchNames(raw) {
+    const names = [];
+    const collect = (value) => {
+        if (!value) return;
+        if (typeof value === 'string') {
+            const parsed = parsePlayerEntry(value);
+            if (parsed) names.push(parsed.name);
+            return;
+        }
+        if (Array.isArray(value)) { value.forEach(collect); return; }
+        if (typeof value === 'object') { Object.values(value).forEach(collect); }
+    };
+    collect(raw.player);
+    collect(raw.players);
+    return names;
+}
+
 function formatPlayerLabel(raw) {
     const uniquePlayers = new Set();
 
@@ -276,6 +293,7 @@ async function loadRubberData() {
             releaseYearLabel: Number.isFinite(releaseYear) ? String(Math.round(releaseYear)) : 'N/A',
             thicknessLabel: formatThicknessLabel(details.thickness),
             playerLabel: formatPlayerLabel(raw),
+            playerSearchNames: collectPlayerSearchNames(raw),
             ...formatPlayersBySide(raw),
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
