@@ -1,0 +1,81 @@
+/* ── Greeting login (between Speed and Search) ── */
+.greeting {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--drac-comment);
+    white-space: nowrap;
+}
+.greeting-label {
+    opacity: 0.8;
+}
+
+/* Logged-out: inline input */
+.greeting-login {
+    display: flex;
+    align-items: center;
+}
+.greeting-login[hidden] { display: none; }
+.greeting-input {
+    width: 72px;
+    height: 24px;
+    padding: 0 6px;
+    border: none;
+    border-bottom: 1.5px solid rgba(155,148,132,0.35);
+    border-radius: 0;
+    background: transparent;
+    color: var(--drac-fg);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+.greeting-input::placeholder {
+    color: var(--drac-comment);
+    font-weight: 500;
+    opacity: 0.55;
+}
+.greeting-input:focus {
+    border-bottom-color: var(--drac-orange);
+}
+
+/* Logged-in: name + logout */
+.greeting-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+.greeting-user[hidden] { display: none; }
+.greeting-name {
+    font-weight: 700;
+    color: var(--drac-orange);
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.greeting-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--drac-comment);
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.greeting:hover .greeting-logout {
+    opacity: 1;
+}
+.greeting-logout:hover {
+    color: var(--drac-red);
+    background: rgba(207,85,85,0.12);
+}

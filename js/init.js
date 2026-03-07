@@ -453,6 +453,7 @@ async function initializeApp() {
     }
 
     if (chart) chart.innerHTML = '';
+    initAuth();
     initCountrySelector();
     initHomeLogo();
     initHeaderSearch();
