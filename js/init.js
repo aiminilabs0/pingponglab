@@ -81,14 +81,36 @@ function initCountrySelector() {
     const selector = document.getElementById('countrySelector');
     if (!selector) return;
 
+    const COUNTRY_STORAGE_KEY = 'pingponglab_selected_country';
+    const allowedCountries = ['us', 'eu', 'cn', 'kr'];
+    const readStoredCountry = () => {
+        try {
+            const storedCountry = localStorage.getItem(COUNTRY_STORAGE_KEY);
+            return allowedCountries.includes(storedCountry) ? storedCountry : null;
+        } catch {
+            return null;
+        }
+    };
+    const persistCountry = (country) => {
+        try {
+            localStorage.setItem(COUNTRY_STORAGE_KEY, country);
+        } catch {
+            // Ignore storage write failures (private mode, quota, etc.)
+        }
+    };
+
+    const storedCountry = readStoredCountry();
+    if (storedCountry) selectedCountry = storedCountry;
+
     const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
     const closeCountryMenu = () => selector.classList.remove('is-open');
 
     function applyCountrySelection(nextCountry) {
-        if (!['us', 'eu', 'cn', 'kr'].includes(nextCountry)) return;
+        if (!allowedCountries.includes(nextCountry)) return;
         if (nextCountry === selectedCountry) return;
 
         selectedCountry = nextCountry;
+        persistCountry(nextCountry);
         syncCountrySelectorUI();
 
         // Pop animation on newly active flag
