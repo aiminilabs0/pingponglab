@@ -143,12 +143,21 @@ function getDeviceTypeForGa() {
     return IS_TOUCH_DEVICE ? 'mobile' : 'desktop';
 }
 
+function isAnalyticsBlockedUser() {
+    try {
+        const user = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase();
+        return user === 'tiny657';
+    } catch {
+        return false;
+    }
+}
+
 // ════════════════════════════════════════════════════════════
 //  Analytics
 // ════════════════════════════════════════════════════════════
 
 function trackRubberClickEvent(rubber) {
-    if (!rubber || typeof window.gtag !== 'function') return;
+    if (!rubber || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const rubberAbbr = String(rubber.abbr || '')
         .toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').replace(/_+/g, '_');
     window.gtag('event', `c_click_${rubberAbbr || 'unknown'}`, {
@@ -158,7 +167,7 @@ function trackRubberClickEvent(rubber) {
 }
 
 function trackContentFeedbackVote(vote, context = {}) {
-    if (!vote || typeof window.gtag !== 'function') return;
+    if (!vote || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const contentType = context.contentType || 'unknown';
     const tabId = context.tabId || activeTab || '';
     const normalizeEventToken = (value) => String(value || '')
@@ -187,7 +196,7 @@ function trackContentFeedbackVote(vote, context = {}) {
 }
 
 function trackAppLoadedEvent() {
-    if (typeof window.gtag !== 'function') return;
+    if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const deviceType = getDeviceTypeForGa();
     window.gtag('event', `c_device_${deviceType}`, {
         device_type: deviceType

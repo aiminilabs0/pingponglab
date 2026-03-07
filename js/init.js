@@ -264,8 +264,8 @@ function initHeaderSearch() {
 }
 
 function trackSearchSelectEvent(rubber) {
-    if (typeof gtag !== 'function') return;
-    gtag('event', 'search_select', {
+    if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
+    window.gtag('event', 'search_select', {
         event_category: 'Search',
         event_label: rubber.fullName
     });
