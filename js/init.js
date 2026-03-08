@@ -179,11 +179,17 @@ function initHeaderSearch() {
     let activeIndex = -1;
     let currentMatches = [];
 
+    function getHeaderSearchPool() {
+        if (typeof getFilteredData !== 'function') return rubberData;
+        const filtered = getFilteredData();
+        return Array.isArray(filtered) && filtered.length > 0 ? filtered : rubberData;
+    }
+
     function search(query) {
         const q = query.trim().toLowerCase();
         if (!q) { closeResults(); return; }
 
-        currentMatches = rubberData
+        currentMatches = getHeaderSearchPool()
             .filter(r =>
                 r.abbr.toLowerCase().includes(q) ||
                 r.fullName.toLowerCase().includes(q) ||
