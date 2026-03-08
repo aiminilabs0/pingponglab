@@ -531,10 +531,36 @@ async function initializeApp() {
         setActiveTab(tab.dataset.tab);
     });
 
+    let contentFeedbackToastTimer = null;
+    function ensureContentFeedbackToast() {
+        let toast = document.getElementById('contentFeedbackToast');
+        if (toast) return toast;
+        toast = document.createElement('div');
+        toast.id = 'contentFeedbackToast';
+        toast.className = 'comparison-request-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+        return toast;
+    }
+
+    function showContentFeedbackToast(vote) {
+        const toast = ensureContentFeedbackToast();
+        toast.textContent = vote === 'good'
+            ? 'Thanks! Glad this was helpful.'
+            : 'Thanks! We will use your feedback to improve this.';
+        toast.classList.add('is-visible');
+        if (contentFeedbackToastTimer) clearTimeout(contentFeedbackToastTimer);
+        contentFeedbackToastTimer = setTimeout(() => {
+            toast.classList.remove('is-visible');
+        }, 1800);
+    }
+
     document.getElementById('contentBody').addEventListener('click', (e) => {
         const voteBtn = e.target.closest('[data-feedback-vote]');
         if (!voteBtn) return;
 
+        const vote = voteBtn.dataset.feedbackVote;
         trackContentFeedbackVote(voteBtn.dataset.feedbackVote, {
             contentType: voteBtn.dataset.feedbackScope,
             tabId: voteBtn.dataset.feedbackTab,
@@ -542,6 +568,7 @@ async function initializeApp() {
             leftRubber: voteBtn.dataset.feedbackLeftRubber,
             rightRubber: voteBtn.dataset.feedbackRightRubber
         });
+        showContentFeedbackToast(vote);
     });
 
     // Pin button click listener (event delegation)
