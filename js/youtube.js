@@ -50,23 +50,28 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
 
-    const hint = document.createElement('div');
-    hint.className = 'yt-mobile-hint';
-    hint.textContent = '↻ Rotate for full screen';
+    const shouldShowMobileHint = window.matchMedia('(max-width: 768px)').matches &&
+        ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    let hint = null;
+    if (shouldShowMobileHint) {
+        hint = document.createElement('div');
+        hint.className = 'yt-mobile-hint';
+        hint.textContent = '↻ Rotate for full screen';
+    }
 
     if (radarSection) {
         radarSection.appendChild(embedWrapper);
-        radarSection.appendChild(hint);
+        if (hint) radarSection.appendChild(hint);
     } else if (scrollContainer) {
         // Keep explanation text in the same scroll context as the video.
         scrollContainer.insertBefore(embedWrapper, scrollContainer.firstChild);
-        embedWrapper.after(hint);
+        if (hint) embedWrapper.after(hint);
     } else if (titleHeader && titleHeader.nextSibling) {
         panel.insertBefore(embedWrapper, titleHeader.nextSibling);
-        embedWrapper.after(hint);
+        if (hint) embedWrapper.after(hint);
     } else {
         panel.appendChild(embedWrapper);
-        panel.appendChild(hint);
+        if (hint) panel.appendChild(hint);
     }
 
     embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
