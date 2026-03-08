@@ -26,8 +26,9 @@ function toggleYouTubeEmbed(iconLink, videoId) {
         if (existingVideoId === videoId) return;
     }
 
-    // Insert embed wrapper near the section header/metrics.
+    // Insert embed wrapper in a way that preserves description visibility.
     const titleHeader = panel.querySelector('.rubber-title-header');
+    const scrollContainer = panel.querySelector('.content-pane-scroll');
     const metricsBlock = panel.querySelector('.radar-info-metrics') || panel.querySelector('.radar-comparison-grid');
     embedWrapper = document.createElement('div');
     embedWrapper.className = 'youtube-embed-wrapper';
@@ -56,6 +57,10 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     if (radarSection) {
         radarSection.appendChild(embedWrapper);
         radarSection.appendChild(hint);
+    } else if (scrollContainer) {
+        // Keep explanation text in the same scroll context as the video.
+        scrollContainer.insertBefore(embedWrapper, scrollContainer.firstChild);
+        embedWrapper.after(hint);
     } else if (titleHeader && titleHeader.nextSibling) {
         panel.insertBefore(embedWrapper, titleHeader.nextSibling);
         embedWrapper.after(hint);
