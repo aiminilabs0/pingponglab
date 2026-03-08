@@ -259,14 +259,12 @@
         width: fit-content;
         margin: 8px auto 4px;
         font-size: 12px;
-        font-weight: 700;
-        color: #f8f8f2;
-        letter-spacing: 0.3px;
-        padding: 7px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 184, 108, 0.55);
-        background: rgba(255, 184, 108, 0.22);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        font-weight: 600;
+        color: var(--drac-yellow);
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: 1px solid rgba(212, 193, 106, 0.45);
+        background: rgba(28, 26, 23, 0.92);
         pointer-events: none;
     }
 }
