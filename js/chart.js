@@ -844,6 +844,9 @@ function updateChart(options = {}) {
             if (chartEl.contains(event.target)) return;
             hideChartHoverPopup({ force: true });
         }, { passive: true });
+        window.addEventListener('scroll', () => {
+            hideChartHoverPopup({ force: true });
+        }, { passive: true });
     }
 
     if (!chartEl._hasRelayoutHandler) {
