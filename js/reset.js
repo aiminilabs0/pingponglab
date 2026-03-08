@@ -40,9 +40,6 @@ function resetAppToInitialState() {
     nextDetailPanel = 1;
     pinnedRubbers = [false, false];
 
-    selectedCountry = 'us';
-    syncCountrySelectorUI();
-
     resetFiltersToAll();
     resetDetailPanels();
     updateRadarChart();
