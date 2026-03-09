@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="NUZN 55"
+base_rubber="J&H C55.0"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
