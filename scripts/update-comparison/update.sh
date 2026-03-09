@@ -4,8 +4,8 @@ set -euo pipefail
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd -- "$script_dir/../.." && pwd)"
-param_file="$script_dir/0_rubber"
-combined_file="$script_dir/4_combined"
+param_file="$script_dir/0_rubber2"
+combined_file="$script_dir/1_llm_output"
 
 if [[ ! -f "$param_file" ]]; then
   echo "Error: '$param_file' not found"
@@ -17,7 +17,7 @@ if [[ ! -f "$combined_file" ]]; then
   exit 1
 fi
 
-# Read parameter from 0_rubber (trim trailing newlines/whitespace)
+# Read parameter from 0_rubber2 (trim trailing newlines/whitespace)
 param="$(<"$param_file")"
 param="${param%"${param##*[![:space:]]}"}"
 
@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="Rozena"
+base_rubber="Rakza Z"
 
 # Read each language source file and write to the matching directory
 mkdir -p \

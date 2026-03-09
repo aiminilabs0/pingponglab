@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE_TO_WATCH="4_combined"
+FILE_TO_WATCH="1_llm_output"
 SCRIPT_TO_RUN="./update.sh"
 CHECK_INTERVAL=2  # seconds between checks
 
