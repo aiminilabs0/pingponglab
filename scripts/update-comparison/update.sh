@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="Rakza Z"
+base_rubber="Vega X"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
