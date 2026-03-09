@@ -43,6 +43,40 @@ function playerEmojiPath(name) {
     return 'images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
+function collectPlayerVideoIdsByName(name) {
+    const player = playersData[name];
+    if (!player || !Array.isArray(player.youtubes)) return [];
+    return Array.from(new Set(
+        player.youtubes
+            .map(extractYouTubeVideoId)
+            .filter(Boolean)
+    ));
+}
+
+function resolvePlayerVideoSelection(parsed) {
+    const playerVideoIds = collectPlayerVideoIdsByName(parsed.name);
+    const explicitVideoId = parsed.url ? extractYouTubeVideoId(parsed.url) : null;
+
+    if (!playerVideoIds.length) {
+        if (!explicitVideoId) return { videoIds: [], currentIndex: 0 };
+        return { videoIds: [explicitVideoId], currentIndex: 0 };
+    }
+
+    if (!explicitVideoId) {
+        return { videoIds: playerVideoIds, currentIndex: 0 };
+    }
+
+    const explicitIndex = playerVideoIds.indexOf(explicitVideoId);
+    if (explicitIndex >= 0) {
+        return { videoIds: playerVideoIds, currentIndex: explicitIndex };
+    }
+
+    return {
+        videoIds: [explicitVideoId, ...playerVideoIds],
+        currentIndex: 0,
+    };
+}
+
 function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
@@ -55,22 +89,18 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
             : `${nameOrLinkHtml} ${emojiHtml}`
     );
 
-    let url = parsed.url;
-    if (!url) {
-        const player = playersData[parsed.name];
-        if (player && Array.isArray(player.youtubes) && player.youtubes.length) {
-            url = player.youtubes[Math.floor(Math.random() * player.youtubes.length)];
-        }
+    const { videoIds, currentIndex } = resolvePlayerVideoSelection(parsed);
+    if (videoIds.length) {
+        const videoId = videoIds[currentIndex] || videoIds[0];
+        const playlist = escapeHtml(videoIds.join(','));
+        return withEmoji(
+            `<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" data-yt-playlist="${playlist}" data-yt-index="${currentIndex}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`
+        );
     }
 
-    if (!url) return withEmoji(safeName);
+    if (!parsed.url) return withEmoji(safeName);
 
-    const videoId = extractYouTubeVideoId(url);
-    if (videoId) {
-        return withEmoji(`<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`);
-    }
-
-    const safeUrl = escapeHtml(url);
+    const safeUrl = escapeHtml(parsed.url);
     return withEmoji(`<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`);
 }
 
@@ -236,35 +266,22 @@ function findRubberRank(rubber, rankingArray) {
 // ════════════════════════════════════════════════════════════
 
 async function loadPlayersData() {
-    const pickRandomItems = (items, count) => {
-        if (!Array.isArray(items)) return [];
-        if (items.length <= count) return [...items];
-
-        const pool = [...items];
-        for (let i = pool.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [pool[i], pool[j]] = [pool[j], pool[i]];
-        }
-        return pool.slice(0, count);
-    };
-
     try {
         const resp = await fetch(v(PLAYERS_FILE));
         if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${PLAYERS_FILE}`);
         const rawPlayersData = await resp.json();
-        const trimmedPlayersData = {};
+        const normalizedPlayersData = {};
 
         Object.entries(rawPlayersData || {}).forEach(([name, player]) => {
-            const youtubes = Array.isArray(player?.youtubes)
-                ? player.youtubes.filter(Boolean)
-                : [];
-            trimmedPlayersData[name] = {
+            normalizedPlayersData[name] = {
                 ...player,
-                youtubes: pickRandomItems(youtubes, 2),
+                youtubes: Array.isArray(player?.youtubes)
+                    ? player.youtubes.filter(Boolean)
+                    : [],
             };
         });
 
-        playersData = trimmedPlayersData;
+        playersData = normalizedPlayersData;
     } catch (error) {
         console.warn('Failed to load players data:', error);
         playersData = {};

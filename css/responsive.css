@@ -64,6 +64,20 @@
     .header-ctrl-fit { padding: 0 12px; font-size: 13px; min-width: 60px; }
     .content-body { max-height: none; overflow: visible; }
     .content-pane-scroll { overflow-y: visible; max-height: none; }
+    .yt-embed-nav {
+        right: 8px;
+        bottom: 8px;
+        gap: 6px;
+        padding: 5px 7px;
+    }
+    .yt-embed-nav-btn {
+        font-size: 10px;
+        padding: 5px 9px;
+    }
+    .yt-embed-page {
+        min-width: 38px;
+        font-size: 10px;
+    }
     .content-tabs { padding: 0 10px; overflow-x: auto; }
     .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
     #chart { height: 440px; }

@@ -185,6 +185,45 @@
     overflow: hidden;
     border-bottom: 1px solid var(--drac-current);
 }
+.yt-embed-nav {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(248, 248, 242, 0.2);
+    background: rgba(0, 0, 0, 0.62);
+    color: #f8f8f2;
+    backdrop-filter: blur(1px);
+}
+.yt-embed-nav-btn {
+    appearance: none;
+    border: 1px solid rgba(248, 248, 242, 0.2);
+    background: rgba(40, 42, 54, 0.8);
+    color: inherit;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.yt-embed-nav-btn:hover {
+    border-color: rgba(139, 233, 253, 0.5);
+    background: rgba(139, 233, 253, 0.14);
+}
+.yt-embed-page {
+    min-width: 42px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--drac-yellow);
+}
 .content-pane-scroll {
     overflow-y: auto;
     flex: 1;

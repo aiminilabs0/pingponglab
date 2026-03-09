@@ -91,7 +91,7 @@ function getPlayerYouTubeVideoId(rubber) {
         .filter(Boolean)));
 
     if (videoIds.length === 0) return null;
-    return videoIds[Math.floor(Math.random() * videoIds.length)];
+    return videoIds[0];
 }
 
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {

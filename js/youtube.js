@@ -2,7 +2,88 @@
 //  YouTube Embed
 // ════════════════════════════════════════════════════════════
 
-function toggleYouTubeEmbed(iconLink, videoId) {
+function parsePlaylistFromLink(link, fallbackVideoId) {
+    const rawPlaylist = (link.dataset.ytPlaylist || '').trim();
+    if (!rawPlaylist) return { playlist: [], currentIndex: 0 };
+
+    const playlist = Array.from(new Set(
+        rawPlaylist
+            .split(',')
+            .map(id => id.trim())
+            .filter(Boolean)
+    ));
+    if (!playlist.length) return { playlist: [], currentIndex: 0 };
+
+    if (fallbackVideoId && !playlist.includes(fallbackVideoId)) {
+        playlist.unshift(fallbackVideoId);
+    }
+
+    let currentIndex = Number.parseInt(link.dataset.ytIndex || '', 10);
+    if (!Number.isInteger(currentIndex) || currentIndex < 0 || currentIndex >= playlist.length) {
+        currentIndex = fallbackVideoId ? playlist.indexOf(fallbackVideoId) : 0;
+    }
+    if (currentIndex < 0) currentIndex = 0;
+
+    return { playlist, currentIndex };
+}
+
+function readEmbedPlaylistState(embedWrapper) {
+    const playlist = (embedWrapper.dataset.playlist || '')
+        .split(',')
+        .map(id => id.trim())
+        .filter(Boolean);
+    const currentIndex = Number.parseInt(embedWrapper.dataset.currentIndex || '0', 10);
+    return {
+        playlist,
+        currentIndex: Number.isInteger(currentIndex) ? currentIndex : 0,
+    };
+}
+
+function writeEmbedPlaylistState(embedWrapper, playlist, currentIndex) {
+    embedWrapper.dataset.playlist = playlist.join(',');
+    embedWrapper.dataset.currentIndex = String(currentIndex);
+}
+
+function updateEmbedPagerUi(embedWrapper) {
+    const pageEl = embedWrapper.querySelector('.yt-embed-page');
+    if (!pageEl) return;
+    const { playlist, currentIndex } = readEmbedPlaylistState(embedWrapper);
+    if (!playlist.length) return;
+    pageEl.textContent = `${currentIndex + 1} / ${playlist.length}`;
+}
+
+function updateEmbedVideo(embedWrapper, videoId) {
+    if (!videoId) return;
+    embedWrapper.dataset.videoId = videoId;
+    const playerId = embedWrapper.dataset.playerId;
+    const player = playerId ? ytPlayers[playerId] : null;
+    if (player && typeof player.loadVideoById === 'function') {
+        player.loadVideoById(videoId);
+        return;
+    }
+
+    const iframe = embedWrapper.querySelector('iframe');
+    if (iframe) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0`;
+    }
+}
+
+function createEmbedPager(embedWrapper) {
+    const { playlist } = readEmbedPlaylistState(embedWrapper);
+    if (!playlist.length) return;
+
+    const pager = document.createElement('div');
+    pager.className = 'yt-embed-nav';
+    pager.innerHTML = `
+        <button type="button" class="yt-embed-nav-btn" data-direction="prev" aria-label="Previous video">Prev</button>
+        <span class="yt-embed-page"></span>
+        <button type="button" class="yt-embed-nav-btn" data-direction="next" aria-label="Next video">Next</button>
+    `;
+    embedWrapper.appendChild(pager);
+    updateEmbedPagerUi(embedWrapper);
+}
+
+function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0 } = {}) {
     const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-combined');
     if (!panel || !videoId) return;
     const isRadarPanel = panel.classList.contains('radar-info-combined');
@@ -15,6 +96,8 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     let embedWrapper = embedContainer.querySelector('.youtube-embed-wrapper');
     if (embedWrapper) {
         const existingVideoId = embedWrapper.dataset.videoId;
+        const existingPlaylist = embedWrapper.dataset.playlist || '';
+        const requestedPlaylist = Array.isArray(playlist) ? playlist.join(',') : '';
         const pid = embedWrapper.dataset.playerId;
         if (pid && ytPlayers[pid]) {
             try { ytPlayers[pid].destroy(); } catch {}
@@ -23,7 +106,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
         embedWrapper.remove();
         embedContainer.querySelectorAll('.yt-mobile-hint').forEach(el => el.remove());
         embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
-        if (existingVideoId === videoId) return;
+        if (existingVideoId === videoId && existingPlaylist === requestedPlaylist) return;
     }
 
     // Insert embed wrapper in a way that preserves description visibility.
@@ -34,6 +117,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     embedWrapper.className = 'youtube-embed-wrapper';
     embedWrapper.style.cssText = 'position:relative;aspect-ratio:16/9;overflow:hidden;';
     embedWrapper.dataset.videoId = videoId;
+    writeEmbedPlaylistState(embedWrapper, playlist, currentIndex);
     if (isRadarPanel) embedWrapper.classList.add('youtube-embed-wrapper--radar');
 
     // Close button for landscape pseudo-fullscreen
@@ -49,6 +133,7 @@ function toggleYouTubeEmbed(iconLink, videoId) {
     playerDiv.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
+    createEmbedPager(embedWrapper);
 
     const shouldShowMobileHint = window.matchMedia('(max-width: 768px)').matches &&
         ('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -110,10 +195,26 @@ window.addEventListener('orientationchange', () => setTimeout(handleOrientationF
 
 // Event delegation: YouTube title icon clicks toggle the embed below the title header.
 document.addEventListener('click', (e) => {
+    const navBtn = e.target.closest('.yt-embed-nav-btn');
+    if (navBtn) {
+        e.preventDefault();
+        const embedWrapper = navBtn.closest('.youtube-embed-wrapper');
+        if (!embedWrapper) return;
+        const { playlist, currentIndex } = readEmbedPlaylistState(embedWrapper);
+        if (!playlist.length) return;
+        const delta = navBtn.dataset.direction === 'prev' ? -1 : 1;
+        const nextIndex = (currentIndex + delta + playlist.length) % playlist.length;
+        writeEmbedPlaylistState(embedWrapper, playlist, nextIndex);
+        updateEmbedPagerUi(embedWrapper);
+        updateEmbedVideo(embedWrapper, playlist[nextIndex]);
+        return;
+    }
+
     const link = e.target.closest('a[data-yt-videoid]');
     if (!link) return;
     e.preventDefault();
     const videoId = link.dataset.ytVideoid;
     if (!videoId) return;
-    toggleYouTubeEmbed(link, videoId);
+    const { playlist, currentIndex } = parsePlaylistFromLink(link, videoId);
+    toggleYouTubeEmbed(link, videoId, { playlist, currentIndex });
 });
