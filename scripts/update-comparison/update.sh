@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="J&H C55.0"
+base_rubber="Rozena"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
@@ -86,3 +86,8 @@ fi
 sanitize_and_write "$en_tmp" "$repo_root/rubbers_comparison/en/${base_rubber}/${param}"
 sanitize_and_write "$ko_tmp" "$repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
 sanitize_and_write "$cn_tmp" "$repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
+
+echo "Recently updated files:"
+echo "  - $repo_root/rubbers_comparison/en/${base_rubber}/${param}"
+echo "  - $repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
+echo "  - $repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
