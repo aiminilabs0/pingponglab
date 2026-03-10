@@ -323,6 +323,7 @@ function initHardnessRangeFilter(onChange) {
 
 const CONTROL_LEVEL_COUNT = 5;
 const CONTROL_TIERS = ['Easy', 'Med', 'Hard'];
+const CONTROL_TIER_I18N_KEYS = { Easy: 'EASY', Med: 'MED', Hard: 'HARD' };
 
 function getControlBoundsFromData() {
     const ranks = rubberData
@@ -422,7 +423,10 @@ function initControlToggleFilter(onChange) {
         dot.className = 'fp-pill-dot';
         pill.appendChild(dot);
 
-        pill.appendChild(document.createTextNode(tier));
+        const tierLabel = document.createElement('span');
+        tierLabel.dataset.i18nKey = CONTROL_TIER_I18N_KEYS[tier] || tier;
+        tierLabel.textContent = tUi(tierLabel.dataset.i18nKey);
+        pill.appendChild(tierLabel);
         group.appendChild(pill);
 
         cb.addEventListener('change', () => {
@@ -481,6 +485,7 @@ function initTop30Filter(onChange) {
 }
 
 const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
+const SHEET_I18N_KEYS = { Classic: 'CLASSIC', Chinese: 'CHINESE', Hybrid: 'HYBRID' };
 
 function initSheetToggleFilter(onChange) {
     const container = document.getElementById('sheetFilter');
@@ -504,7 +509,10 @@ function initSheetToggleFilter(onChange) {
         dot.className = `fp-pill-dot ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}`;
         pill.appendChild(dot);
 
-        pill.appendChild(document.createTextNode(sheet));
+        const sheetLabel = document.createElement('span');
+        sheetLabel.dataset.i18nKey = SHEET_I18N_KEYS[sheet] || sheet;
+        sheetLabel.textContent = tUi(sheetLabel.dataset.i18nKey);
+        pill.appendChild(sheetLabel);
         group.appendChild(pill);
 
         cb.addEventListener('change', () => {

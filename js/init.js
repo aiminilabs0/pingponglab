@@ -111,6 +111,7 @@ function initCountrySelector() {
 
         selectedCountry = nextCountry;
         persistCountry(nextCountry);
+        applyLocalizedStaticText();
         syncCountrySelectorUI();
 
         // Pop animation on newly active flag
@@ -134,9 +135,11 @@ function initCountrySelector() {
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
         updateComparisonBar();
         renderTabs();
+        updateRadarChart();
     }
 
     syncCountrySelectorUI();
+    applyLocalizedStaticText();
 
     selector.addEventListener('click', (e) => {
         const btn = e.target.closest('.country-btn');
@@ -525,6 +528,7 @@ async function initializeApp() {
     if (chart) chart.innerHTML = '';
     initAuth();
     initCountrySelector();
+    applyLocalizedStaticText();
     initHomeLogo();
     initHeaderSearch();
     initFeedbackModal();

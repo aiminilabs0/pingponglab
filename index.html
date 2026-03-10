@@ -94,7 +94,7 @@
         </header>
         <div class="chart-bleed">
             <div class="chart-speed-outside" aria-hidden="true">
-                <span>⚡ Speed Ranking ↑</span>
+                <span>⚡ <span data-i18n-key="SPEED_RANKING">Speed Ranking</span> ↑</span>
                 <div class="greeting" id="headerAuth">
                     <span class="greeting-label">Hi,</span>
                     <div class="greeting-login" id="headerLogin">
@@ -123,14 +123,14 @@
                     <span class="chart-control-guide-dot dot-5"></span>
                 </span>
                 <span class="chart-control-guide-label">More control</span>
-                <span class="chart-spin-label" aria-hidden="true">↻ Spin Ranking →</span>
+                <span class="chart-spin-label" aria-hidden="true">↻ <span data-i18n-key="SPIN_RANKING">Spin Ranking</span> →</span>
             </div>
         </div>
 
         <div class="filter-panel" id="filterPanel">
             <button type="button" class="filter-trigger" id="filterTrigger" aria-expanded="false" aria-controls="filterPanel">
                 <span class="filter-trigger-icon">≡</span>
-                <span class="filter-trigger-label">Filters</span>
+                <span class="filter-trigger-label" data-i18n-key="FILTERS">Filters</span>
                 <span class="filter-trigger-summary" id="filterSummary"></span>
                 <span class="filter-trigger-chevron">▾</span>
             </button>
@@ -139,7 +139,7 @@
                     <!-- Column 1: Popularity, Weight, Hardness, Topsheet, Control -->
                     <div class="fp-section fp-section-sliders">
                         <div class="fp-section-header">
-                            <span>Popularity</span>
+                            <span data-i18n-key="POPULARITY">Popularity</span>
                             <div class="fp-section-actions">
                                 <button type="button" class="fp-reset-all-btn" id="clearAllFilters" title="Reset all filters">Reset all</button>
                             </div>
@@ -147,26 +147,26 @@
                         <div class="fp-options" id="top30Filter"></div>
 
                         <div class="fp-section-header fp-section-header-sub">
-                            <span>Weight</span>
+                            <span data-i18n-key="WEIGHT">Weight</span>
                         </div>
                         <div class="fp-options" id="weightFilter"></div>
 
                         <div class="fp-section-header fp-section-header-sub">
-                            <span>Hardness</span>
+                            <span data-i18n-key="HARDNESS">Hardness</span>
                         </div>
                         <div class="fp-options" id="hardnessFilter"></div>
 
-                        <div class="fp-section-header fp-section-header-sub"><span>Topsheet</span></div>
+                        <div class="fp-section-header fp-section-header-sub"><span data-i18n-key="TOPSHEET">Topsheet</span></div>
                         <div class="fp-options" id="sheetFilter"></div>
 
-                        <div class="fp-section-header fp-section-header-sub"><span>Control</span></div>
+                        <div class="fp-section-header fp-section-header-sub"><span data-i18n-key="CONTROL">Control</span></div>
                         <div class="fp-options" id="controlFilter"></div>
                     </div>
 
                     <!-- Column 2: Brand -->
                     <div class="fp-section fp-section-brand">
                         <div class="fp-section-header">
-                            <span>Brand</span>
+                            <span data-i18n-key="BRAND">Brand</span>
                             <div class="fp-section-actions">
                                 <button type="button" data-filter="brand" data-action="all">All</button>
                                 <button type="button" data-filter="brand" data-action="none">None</button>
@@ -178,7 +178,7 @@
                     <!-- Column 3: Rubber -->
                     <div class="fp-section fp-section-rubber">
                         <div class="fp-section-header fp-rubber-header" id="rubberSectionToggle">
-                            <span>Rubber <span class="fp-rubber-toggle-hint">▸</span></span>
+                            <span><span data-i18n-key="RUBBER">Rubber</span> <span class="fp-rubber-toggle-hint">▸</span></span>
                             <div class="fp-section-actions">
                                 <button type="button" data-filter="name" data-action="all">All</button>
                                 <button type="button" data-filter="name" data-action="none">None</button>

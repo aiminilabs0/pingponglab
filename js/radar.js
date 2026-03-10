@@ -40,7 +40,7 @@ function getRadarData(rubber) {
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const radarLabel = rubber.addr || rubber.name || '';
-    const categories = ['Speed', 'Spin', 'Control', 'Cut Weight', 'Hardness'];
+    const categories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
     const values = [radarData.speed, radarData.spin, radarData.control, radarData.weight, radarData.hardness]
@@ -98,8 +98,8 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
         const placeholderColor = '#9e9689';
         const placeholderRubbers = [
-            { displayBrand: 'BRAND', displayName: 'Rubber 1', imageName: 'Tenergy 05' },
-            { displayBrand: 'BRAND', displayName: 'Rubber 2', imageName: 'H3 Neo' },
+            { displayBrand: tUi('BRAND').toUpperCase(), displayName: `${tUi('RUBBER')} 1`, imageName: 'Tenergy 05' },
+            { displayBrand: tUi('BRAND').toUpperCase(), displayName: `${tUi('RUBBER')} 2`, imageName: 'H3 Neo' },
         ];
         const placeholderRubber = placeholderRubbers[panelIndex] || placeholderRubbers[0];
         const placeholderBrand = placeholderRubber.displayBrand;
@@ -178,7 +178,7 @@ function buildPlayersColumnHtml(rubber, align) {
 function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const emptyLabels = ['Speed Rank', 'Spin Rank', 'Control', 'Cut Weight', 'Hardness', 'Release', 'Thickness'];
+        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
@@ -186,7 +186,7 @@ function buildRadarComparisonHtml(first, second) {
         `).join('');
         const playersRow = `
             <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${dash}</div>
-            <div class="radar-cmp-cell radar-cmp-cell--label">Players</div>
+            <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PLAYERS')}</div>
             <div class="radar-cmp-cell radar-cmp-cell--right radar-cmp-cell--players">${dash}</div>
         `;
         return `
@@ -238,37 +238,37 @@ function buildRadarComparisonHtml(first, second) {
     // Build metric rows
     const metrics = [
         {
-            label: 'Speed Rank',
+            label: tUi('SPEED_RANK'),
             left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
             right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
         },
         {
-            label: 'Spin Rank',
+            label: tUi('SPIN_RANK'),
             left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
             right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
         },
         {
-            label: 'Control',
+            label: tUi('CONTROL'),
             left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank)}</strong>`),
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank, { fillFromLeft: true })}</strong>`),
         },
         {
-            label: 'Cut Weight',
+            label: tUi('CUT_WEIGHT'),
             left: val(first, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },
         {
-            label: 'Hardness',
+            label: tUi('HARDNESS'),
             left: val(first, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
             right: val(second, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
         },
         {
-            label: 'Release',
+            label: tUi('RELEASE'),
             left: val(first, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
             right: val(second, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
         },
         {
-            label: 'Thickness',
+            label: tUi('THICKNESS'),
             left: val(first, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
             right: val(second, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
         },
@@ -283,7 +283,7 @@ function buildRadarComparisonHtml(first, second) {
     // Players row (special layout)
     const playersRowHtml = `
         <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${buildPlayersColumnHtml(first, 'right')}</div>
-        <div class="radar-cmp-cell radar-cmp-cell--label">Players</div>
+        <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PLAYERS')}</div>
         <div class="radar-cmp-cell radar-cmp-cell--right radar-cmp-cell--players">${buildPlayersColumnHtml(second, 'left')}</div>
     `;
 
@@ -306,7 +306,7 @@ function updateRadarChart() {
 
     infoPanel.innerHTML = buildRadarComparisonHtml(first, second);
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
-    const radarCategories = ['Speed', 'Spin', 'Control', 'Cut Weight', 'Hardness'];
+    const radarCategories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
     const traces = [];
 
     if (!first && !second) {

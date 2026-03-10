@@ -79,6 +79,109 @@ const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
+const UI_TEXT = {
+    en: {
+        FILTERS: 'Filters',
+        POPULARITY: 'Popularity',
+        WEIGHT: 'Weight',
+        WEGIHT: 'Weight',
+        HARDNESS: 'Hardness',
+        TOPSHEET: 'Topsheet',
+        CLASSIC: 'Classic',
+        CHINESE: 'Chinese',
+        HYBRID: 'Hybrid',
+        CONTROL: 'Control',
+        EASY: 'Easy',
+        MED: 'Med',
+        HARD: 'Hard',
+        BRAND: 'Brand',
+        RUBBER: 'Rubber',
+        SPEED: 'Speed',
+        SPIN: 'Spin',
+        SPEED_RANKING: 'Speed Ranking',
+        SPIN_RANKING: 'Spin Ranking',
+        CUT_WEIGHT: 'Cut Weight',
+        SPEED_RANK: 'Speed Rank',
+        SPIN_RANK: 'Spin Rank',
+        RELEASE: 'Release',
+        THICKNESS: 'Thickness',
+        PLAYERS: 'Players'
+    },
+    ko: {
+        FILTERS: '필터',
+        POPULARITY: '인기',
+        WEIGHT: '무게',
+        WEGIHT: '무게',
+        HARDNESS: '경도',
+        TOPSHEET: '탑시트',
+        CLASSIC: '일반',
+        CHINESE: '중국러버',
+        HYBRID: '하이브리드',
+        CONTROL: '컨트롤',
+        EASY: '쉬움',
+        MED: '중간',
+        HARD: '어려움',
+        BRAND: '브랜드',
+        RUBBER: '러버',
+        SPEED: '스피드',
+        SPIN: '스핀',
+        SPEED_RANKING: '스피드 랭킹',
+        SPIN_RANKING: '스핀 랭킹',
+        CUT_WEIGHT: '컷팅 후 무게',
+        SPEED_RANK: '스피드 랭킹',
+        SPIN_RANK: '스핀 랭킹',
+        RELEASE: '출시',
+        THICKNESS: '두께',
+        PLAYERS: '선수'
+    },
+    cn: {
+        FILTERS: '筛选',
+        POPULARITY: '人气',
+        WEIGHT: '重量',
+        WEGIHT: '重量',
+        HARDNESS: '硬度',
+        TOPSHEET: '胶面',
+        CLASSIC: '经典',
+        CHINESE: '粘性',
+        HYBRID: '混合',
+        CONTROL: '控制',
+        EASY: '容易',
+        MED: '中等',
+        HARD: '困难',
+        BRAND: '品牌',
+        RUBBER: '胶皮',
+        SPEED: '速度',
+        SPIN: '旋转',
+        SPEED_RANKING: '速度排名',
+        SPIN_RANKING: '旋转排名',
+        CUT_WEIGHT: '裁切重量',
+        SPEED_RANK: '速度排名',
+        SPIN_RANK: '旋转排名',
+        RELEASE: '发售',
+        THICKNESS: '厚度',
+        PLAYERS: '选手'
+    }
+};
+
+function getCurrentLang() {
+    return COUNTRY_TO_LANG[selectedCountry] || 'en';
+}
+
+function tUi(key) {
+    const lang = getCurrentLang();
+    const localized = UI_TEXT[lang]?.[key];
+    if (localized) return localized;
+    return UI_TEXT.en[key] || key;
+}
+
+function applyLocalizedStaticText() {
+    document.querySelectorAll('[data-i18n-key]').forEach((el) => {
+        const key = el.dataset.i18nKey;
+        if (!key) return;
+        el.textContent = tUi(key);
+    });
+}
+
 const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
 const HOVER_POPUP_ID = 'chartHoverPopup';
 const IS_TOUCH_DEVICE =

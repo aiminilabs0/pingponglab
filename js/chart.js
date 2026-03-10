@@ -546,12 +546,12 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="rubber-name" style="color:var(--drac-fg)">${escapeHtml(rubberName)}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
-                <div class="chart-hover-metric"><span>Spin Rank</span><strong>${spin}</strong></div>
-                <div class="chart-hover-metric"><span>Speed Rank</span><strong>${speed}</strong></div>
-                <div class="chart-hover-metric"><span>Control</span><strong class="chart-control-indicator">${control}</strong></div>
-                <div class="chart-hover-metric"><span>Cut Weight</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>Topsheet</span><strong class="chart-sheet-value">${escapeHtml(sheet)}</strong></div>
-                <div class="chart-hover-metric"><span>Hardness</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('SPEED_RANK')}</span><strong>${speed}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><strong class="chart-sheet-value">${escapeHtml(sheet)}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
         </div>
     `;

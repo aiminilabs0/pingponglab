@@ -106,6 +106,7 @@ function applyFiltersFromUrl() {
         const country = params.get('country');
         if (['us', 'eu', 'kr', 'cn'].includes(country)) {
             selectedCountry = country;
+            applyLocalizedStaticText();
             syncCountrySelectorUI();
         }
     }
