@@ -30,7 +30,7 @@ function updateHeaderTagline() {
     }
     const headerTagline = document.querySelector('.header-tagline');
     if (headerTagline) {
-        headerTagline.textContent = `Showing ${inViewCount} of ${filteredData.length} in this range`;
+        headerTagline.innerHTML = `Showing <span class="header-tagline-current-count">${inViewCount}</span> of ${filteredData.length} in this range`;
     }
 }
 

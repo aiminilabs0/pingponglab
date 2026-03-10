@@ -68,6 +68,10 @@
     margin: 0;
     line-height: 1.4;
 }
+.header-tagline-current-count {
+    color: var(--drac-orange);
+    font-weight: 700;
+}
 .header-controls {
     display: flex;
     align-items: center;
