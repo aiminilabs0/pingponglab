@@ -47,9 +47,13 @@ function writeEmbedPlaylistState(embedWrapper, playlist, currentIndex) {
 function updateEmbedPagerUi(embedWrapper) {
     const pageEl = embedWrapper.querySelector('.yt-embed-page');
     if (!pageEl) return;
+    const prevBtn = embedWrapper.querySelector('.yt-embed-nav-btn[data-direction="prev"]');
+    const nextBtn = embedWrapper.querySelector('.yt-embed-nav-btn[data-direction="next"]');
     const { playlist, currentIndex } = readEmbedPlaylistState(embedWrapper);
     if (!playlist.length) return;
     pageEl.textContent = `${currentIndex + 1} / ${playlist.length}`;
+    if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= playlist.length - 1;
 }
 
 function updateEmbedVideo(embedWrapper, videoId) {
@@ -75,9 +79,9 @@ function createEmbedPager(embedWrapper) {
     const pager = document.createElement('div');
     pager.className = 'yt-embed-nav';
     pager.innerHTML = `
-        <button type="button" class="yt-embed-nav-btn" data-direction="prev" aria-label="Previous video">Prev</button>
+        <button type="button" class="yt-embed-nav-btn" data-direction="prev" aria-label="Previous video"><</button>
         <span class="yt-embed-page"></span>
-        <button type="button" class="yt-embed-nav-btn" data-direction="next" aria-label="Next video">Next</button>
+        <button type="button" class="yt-embed-nav-btn" data-direction="next" aria-label="Next video">></button>
     `;
     embedWrapper.appendChild(pager);
     updateEmbedPagerUi(embedWrapper);
@@ -198,12 +202,15 @@ document.addEventListener('click', (e) => {
     const navBtn = e.target.closest('.yt-embed-nav-btn');
     if (navBtn) {
         e.preventDefault();
+        if (navBtn.disabled) return;
         const embedWrapper = navBtn.closest('.youtube-embed-wrapper');
         if (!embedWrapper) return;
         const { playlist, currentIndex } = readEmbedPlaylistState(embedWrapper);
         if (!playlist.length) return;
         const delta = navBtn.dataset.direction === 'prev' ? -1 : 1;
-        const nextIndex = (currentIndex + delta + playlist.length) % playlist.length;
+        const maxIndex = playlist.length - 1;
+        const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + delta));
+        if (nextIndex === currentIndex) return;
         writeEmbedPlaylistState(embedWrapper, playlist, nextIndex);
         updateEmbedPagerUi(embedWrapper);
         updateEmbedVideo(embedWrapper, playlist[nextIndex]);
