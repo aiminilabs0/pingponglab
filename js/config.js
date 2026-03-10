@@ -10,8 +10,8 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 31;
-const LAST_MODIFIED = '2026-03-09';
+const CACHE_VERSION = 32;
+const LAST_MODIFIED = '2026-03-10';
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';

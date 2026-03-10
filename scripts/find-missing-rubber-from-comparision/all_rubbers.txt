@@ -82,5 +82,6 @@
   "Dynaryz AGR",
   "Dynaryz Inferno",
   "Dignics 64",
-  "Tenergy 64"
+  "Tenergy 64",
+  "Etika 47"
 ]
