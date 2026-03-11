@@ -105,7 +105,7 @@ const UI_TEXT = {
         SPIN_RANK: 'Spin Rank',
         RELEASE: 'Release',
         THICKNESS: 'Thickness',
-        PLAYERS: 'Players'
+        PLAYERS: 'Pro Players'
     },
     ko: {
         FILTERS: '필터',
@@ -132,7 +132,7 @@ const UI_TEXT = {
         SPIN_RANK: '스핀 랭킹',
         RELEASE: '출시',
         THICKNESS: '두께',
-        PLAYERS: '선수'
+        PLAYERS: '프로선수'
     },
     cn: {
         FILTERS: '筛选',
@@ -159,7 +159,7 @@ const UI_TEXT = {
         SPIN_RANK: '旋转排名',
         RELEASE: '发售',
         THICKNESS: '厚度',
-        PLAYERS: '选手'
+        PLAYERS: '职业选手'
     }
 };
 
