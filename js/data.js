@@ -43,8 +43,25 @@ function playerEmojiPath(name) {
     return 'images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
+function normalizePlayerNameKey(value) {
+    if (typeof value !== 'string') return '';
+    return value.trim().toLowerCase();
+}
+
+function getPlayerDataByName(name) {
+    if (typeof name !== 'string') return null;
+    const trimmed = name.trim();
+    if (!trimmed) return null;
+
+    if (playersData[trimmed]) return playersData[trimmed];
+
+    const canonicalName = playerNameToCanonicalName[normalizePlayerNameKey(trimmed)];
+    if (!canonicalName) return null;
+    return playersData[canonicalName] || null;
+}
+
 function collectPlayerVideoIdsByName(name) {
-    const player = playersData[name];
+    const player = getPlayerDataByName(name);
     if (!player || !Array.isArray(player.youtubes)) return [];
     return Array.from(new Set(
         player.youtubes
@@ -105,12 +122,24 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
 }
 
 function collectPlayerSearchNames(raw) {
-    const names = [];
+    const names = new Set();
+
+    const addPlayerSearchNames = (displayName) => {
+        if (!displayName) return;
+        names.add(displayName);
+        const player = getPlayerDataByName(displayName);
+        if (!player) return;
+
+        const fullName = (player.full_name || '').trim();
+        if (fullName) names.add(fullName);
+
+    };
+
     const collect = (value) => {
         if (!value) return;
         if (typeof value === 'string') {
             const parsed = parsePlayerEntry(value);
-            if (parsed) names.push(parsed.name);
+            if (parsed) addPlayerSearchNames(parsed.name);
             return;
         }
         if (Array.isArray(value)) { value.forEach(collect); return; }
@@ -118,7 +147,7 @@ function collectPlayerSearchNames(raw) {
     };
     collect(raw.player);
     collect(raw.players);
-    return names;
+    return Array.from(names);
 }
 
 function formatPlayerLabel(raw) {
@@ -271,10 +300,26 @@ async function loadPlayersData() {
         if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${PLAYERS_FILE}`);
         const rawPlayersData = await resp.json();
         const normalizedPlayersData = {};
+        const normalizedPlayerNames = {};
 
         Object.entries(rawPlayersData || {}).forEach(([name, player]) => {
-            normalizedPlayersData[name] = {
+            const canonicalName = typeof name === 'string' ? name.trim() : '';
+            if (!canonicalName) return;
+
+            const rawFullName = typeof player?.full_name === 'string' ? player.full_name.trim() : '';
+            const allKnownNames = Array.from(new Set([
+                canonicalName,
+                rawFullName,
+            ].filter(Boolean)));
+
+            allKnownNames.forEach(playerName => {
+                const key = normalizePlayerNameKey(playerName);
+                if (key) normalizedPlayerNames[key] = canonicalName;
+            });
+
+            normalizedPlayersData[canonicalName] = {
                 ...player,
+                full_name: rawFullName,
                 youtubes: Array.isArray(player?.youtubes)
                     ? player.youtubes.filter(Boolean)
                     : [],
@@ -282,9 +327,11 @@ async function loadPlayersData() {
         });
 
         playersData = normalizedPlayersData;
+        playerNameToCanonicalName = normalizedPlayerNames;
     } catch (error) {
         console.warn('Failed to load players data:', error);
         playersData = {};
+        playerNameToCanonicalName = {};
     }
 }
 

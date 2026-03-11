@@ -34,6 +34,7 @@ let controlFilterState = {
 let top30FilterActive = false;
 let top30Set = new Set();
 let playersData = {};
+let playerNameToCanonicalName = {};
 
 // YouTube embed state
 let ytApiReady = false;

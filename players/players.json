@@ -1,5 +1,6 @@
 {
   "A. Lebrun": {
+    "full_name": "Alexis Lebrun",
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -32,6 +33,7 @@
     ]
   },
   "B. Takahashi": {
+    "full_name": "Bruna Takahashi",
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
     "youtubes": [
@@ -55,6 +57,7 @@
     ]
   },
   "D. Jorgić": {
+    "full_name": "Darko Jorgić",
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-P",
     "youtubes": [
@@ -63,6 +66,7 @@
     ]
   },
   "D. Ovtcharov": {
+    "full_name": "Dimitrij Ovtcharov",
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "",
     "youtubes": [
@@ -70,6 +74,7 @@
     ]
   },
   "E. Samara": {
+    "full_name": "Elizabeta Samara",
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 19",
     "youtubes": [
@@ -78,6 +83,7 @@
     ]
   },
   "F. Lebrun": {
+    "full_name": "Felix Lebrun",
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -94,6 +100,7 @@
     ]
   },
   "H. Calderano": {
+    "full_name": "Hugo Calderano",
     "forehand": "Xiom/J&H C57.5",
     "backhand": "Xiom/J&H C52.5",
     "youtubes": [
@@ -133,6 +140,7 @@
     ]
   },
   "M. Harimoto": {
+    "full_name": "Miwa Harimoto",
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -141,6 +149,7 @@
     ]
   },
   "M. Kihara": {
+    "full_name": "Miyuu Kihara",
     "forehand": "Tibhar/K3",
     "backhand": "",
     "youtubes": [
@@ -148,6 +157,7 @@
     ]
   },
   "M. Nagasaki": {
+    "full_name": "Miyu Nagasaki",
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -156,6 +166,7 @@
     ]
   },
   "M. Thakkar": {
+    "full_name": "Manav Thakkar",
     "forehand": "Tibhar/MX-P",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -186,6 +197,7 @@
     ]
   },
   "R. Walther": {
+    "full_name": "Ricardo Walther",
     "forehand": "Butterfly/Tenergy 19",
     "backhand": "Butterfly/Tenergy 19",
     "youtubes": [
@@ -202,6 +214,7 @@
     ]
   },
   "S. Shibata": {
+    "full_name": "Saki Shibata",
     "forehand": "",
     "backhand": "DHS/H8-80",
     "youtubes": [
@@ -209,6 +222,7 @@
     ]
   },
   "S. Winter": {
+    "full_name": "Sabine Winter",
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/R53",
     "youtubes": [
@@ -234,6 +248,7 @@
     ]
   },
   "T. Harimoto": {
+    "full_name": "Tomokazu Harimoto",
     "forehand": "Butterfly/Dignics 05",
     "backhand": "Butterfly/Zyre 03",
     "youtubes": [
@@ -242,6 +257,7 @@
     ]
   },
   "T. Pucar": {
+    "full_name": "Tomislav Pucar",
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-D",
     "youtubes": [
@@ -250,6 +266,7 @@
     ]
   },
   "X. Chen": {
+    "full_name": "Xingtong Chen",
     "forehand": "",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -257,6 +274,7 @@
     ]
   },
   "Y. Jeoung": {
+    "full_name": "Youngsik Jeoung",
     "forehand": "",
     "backhand": "Xiom/Omega 7 Pro",
     "youtubes": [
@@ -264,6 +282,7 @@
     ]
   },
   "Y. Muramatsu": {
+    "full_name": "Yuto Muramatsu",
     "forehand": "Tibhar/MK",
     "backhand": "",
     "youtubes": [

@@ -75,7 +75,7 @@ function getPlayerYouTubeVideoId(rubber) {
                 return;
             }
 
-            const player = playersData[parsed.name];
+            const player = getPlayerDataByName(parsed.name);
             if (player && Array.isArray(player.youtubes) && player.youtubes.length) {
                 urls.push(...player.youtubes.filter(Boolean));
             }

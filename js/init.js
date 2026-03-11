@@ -505,7 +505,8 @@ async function initializeApp() {
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data\u2026</div>';
 
     try {
-        await Promise.all([loadRubberData(), loadPlayersData()]);
+        await loadPlayersData();
+        await loadRubberData();
     } catch (error) {
         console.error('Failed to load data:', error);
     }
