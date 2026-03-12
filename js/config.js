@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 48;
+const CACHE_VERSION = 49;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
@@ -152,7 +152,7 @@ const UI_TEXT = {
         RELEASE: '출시',
         THICKNESS: '두께',
         PLAYERS: '프로선수',
-        FEEDBACK_BUTTON: '피드백',
+        FEEDBACK_BUTTON: '피드백 보내기',
         FEEDBACK_BUTTON_TITLE: '피드백 보내기',
         FEEDBACK_CLOSE_ARIA: '피드백 창 닫기',
         FEEDBACK_TITLE_SHARE: '피드백 보내기',
