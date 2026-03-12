@@ -124,7 +124,9 @@ const UI_TEXT = {
         FEEDBACK_COMPARISON_TOAST: 'We\'ll add the comparison soon. Thank you!',
         FEEDBACK_REQUEST_SENT_TOAST: 'Request sent.',
         CONTENT_FEEDBACK_GOOD_TOAST: 'Thanks! Glad this was helpful.',
-        CONTENT_FEEDBACK_BAD_TOAST: 'Thanks! We will use your feedback to improve this.'
+        CONTENT_FEEDBACK_BAD_TOAST: 'Thanks! We will use your feedback to improve this.',
+        RUBBER_1: 'Rubber 1',
+        RUBBER_2: 'Rubber 2'
     },
     ko: {
         FILTERS: '필터',
@@ -171,8 +173,10 @@ const UI_TEXT = {
         FEEDBACK_CONFIRMATION: '피드백 감사합니다.',
         FEEDBACK_COMPARISON_TOAST: '비교 내용을 곧 추가할게요. 감사합니다!',
         FEEDBACK_REQUEST_SENT_TOAST: '요청이 전송되었습니다.',
-        CONTENT_FEEDBACK_GOOD_TOAST: '감사합니다! 도움이 되었다니 기뻐요.',
-        CONTENT_FEEDBACK_BAD_TOAST: '감사합니다! 더 나아지도록 반영하겠습니다.'
+        CONTENT_FEEDBACK_GOOD_TOAST: '피드백 감사합니다!',
+        CONTENT_FEEDBACK_BAD_TOAST: '감사합니다! 해당 내용을 다시 검토해 볼께요.',
+        RUBBER_1: '러버 1',
+        RUBBER_2: '러버 2'
     },
     cn: {
         FILTERS: '筛选',
@@ -220,7 +224,9 @@ const UI_TEXT = {
         FEEDBACK_COMPARISON_TOAST: '我们会尽快补充该对比，感谢你的建议！',
         FEEDBACK_REQUEST_SENT_TOAST: '请求已发送。',
         CONTENT_FEEDBACK_GOOD_TOAST: '感谢！很高兴这对你有帮助。',
-        CONTENT_FEEDBACK_BAD_TOAST: '感谢反馈！我们会继续改进。'
+        CONTENT_FEEDBACK_BAD_TOAST: '感谢反馈！我们会继续改进。',
+        RUBBER_1: '胶皮 1',
+        RUBBER_2: '胶皮 2'
     }
 };
 

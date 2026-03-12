@@ -104,8 +104,8 @@ function renderTabs() {
     const tabBar = document.getElementById('contentTabs');
     const r1 = selectedRubbers[0];
     const r2 = selectedRubbers[1];
-    const tab1Label = r1 ? buildTabButtonContent(r1) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 1';
-    const tab2Label = r2 ? buildTabButtonContent(r2) : '<span class="content-tab-dot" style="background:var(--drac-comment)"></span>Rubber 2';
+    const tab1Label = r1 ? buildTabButtonContent(r1) : `<span class="content-tab-dot" style="background:var(--drac-comment)"></span>${tUi('RUBBER_1')}`;
+    const tab2Label = r2 ? buildTabButtonContent(r2) : `<span class="content-tab-dot" style="background:var(--drac-comment)"></span>${tUi('RUBBER_2')}`;
     const vsLabel = '🆚 VS';
     let html = '';
     html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
