@@ -234,7 +234,7 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             y: rubber.y,
             xref: 'x',
             yref: 'y',
-            text: rubber.abbr,
+            text: tRubber(rubber.abbr),
             showarrow: true,
             arrowhead: 0,
             arrowwidth: 1,
@@ -514,8 +514,8 @@ function buildControlLevelIndicatorHtml(rank, { fillFromLeft = false } = {}) {
 }
 
 function buildHoverPopupHtml(rubber, point, slotLabel) {
-    const rubberName = rubber.name || rubber.fullName || '-';
-    const brandName = rubber.brand || '-';
+    const rubberName = tRubber(rubber.abbr) || rubber.name || '-';
+    const brandName = tBrand(rubber.brand) || '-';
     const sheet = rubber.sheet || '-';
     const sheetI18nKey = { Classic: 'CLASSIC', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
     const localizedSheet = sheetI18nKey ? tUi(sheetI18nKey) : sheet;
@@ -663,7 +663,7 @@ function updateChart(options = {}) {
             y: group.rubbers.map(r => r.y),
             mode: 'markers',
             type: 'scattergl',
-            name: `${group.brand} (${group.sheet})`,
+            name: `${tBrand(group.brand)} (${group.sheet})`,
             marker: {
                 size: group.rubbers.map(getMarkerSize),
                 color: getBrandColor(group.brand),

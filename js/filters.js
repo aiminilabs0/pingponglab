@@ -627,7 +627,7 @@ function buildNameOptionsFromFilters() {
         }
         return {
             value: name,
-            label: name,
+            label: tRubber(name),
             swatchColor: getBrandColor(rubber.brand),
             searchTerms: terms.length ? terms.join(' ') : undefined
         };

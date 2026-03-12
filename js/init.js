@@ -7,7 +7,7 @@ function initFilters() {
 
     buildCheckboxOptions(
         document.getElementById('brandFilter'),
-        brands.map(b => ({ value: b, label: b, swatchColor: getBrandColor(b) }))
+        brands.map(b => ({ value: b, label: tBrand(b), swatchColor: getBrandColor(b) }))
     );
 
     function onFilterChange(filterId) {
@@ -112,6 +112,17 @@ function initCountrySelector() {
         selectedCountry = nextCountry;
         persistCountry(nextCountry);
         applyLocalizedStaticText();
+
+        // Rebuild filter labels with translated brand/rubber names
+        const brandFilter = document.getElementById('brandFilter');
+        const brandChecked = new Set(getCheckedValues('brandFilter'));
+        const brands = [...new Set(rubberData.map(r => r.brand))].sort();
+        buildCheckboxOptions(brandFilter, brands.map(b => ({ value: b, label: tBrand(b), swatchColor: getBrandColor(b) })), brandChecked);
+        buildNameOptionsFromFilters();
+
+        // Re-render chart with translated labels
+        updateChart({ preserveRanges: true, force: true });
+
         syncCountrySelectorUI();
 
         // Pop animation on newly active flag
@@ -217,7 +228,7 @@ function initHeaderSearch() {
 
             return `<div class="header-search-result" data-index="${i}">` +
                 `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
-                `<span class="header-search-result-brand">${r.brand}</span>` +
+                `<span class="header-search-result-brand">${tBrand(r.brand)}</span>` +
                 (matchedPlayer
                     ? `<span class="header-search-result-player">${highlightMatch(matchedPlayer, q)}</span>`
                     : '') +
