@@ -608,7 +608,7 @@ function buildNameOptionsFromFilters() {
 
     const seenNames = new Map();
     for (const r of filtered) {
-        if (!seenNames.has(r.fullName)) seenNames.set(r.fullName, r);
+        if (!seenNames.has(r.abbr)) seenNames.set(r.abbr, r);
     }
     const uniqueNames = [...seenNames.keys()].sort();
 

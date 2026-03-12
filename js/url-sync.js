@@ -70,7 +70,12 @@ function pushFiltersToUrl() {
     if (DEBUG_MODE) params.set('debug', '');
 
     serializeFilterParam(params, 'brands', 'brandFilter');
-    serializeFilterParam(params, 'rubbers', 'nameFilter');
+    // Rubber names: use abbr with dashes instead of spaces for cleaner URLs
+    const allRubbers = getAllCheckboxValues('nameFilter');
+    const checkedRubbers = getCheckedValues('nameFilter');
+    if (checkedRubbers.length > 0 && checkedRubbers.length < allRubbers.length) {
+        params.set('rubbers', checkedRubbers.map(n => n.replace(/ /g, '-')).join(','));
+    }
     serializeFilterParam(params, 'sheet', 'sheetFilter');
     serializeHardnessRangeParam(params);
     serializeWeightRangeParam(params);
@@ -129,7 +134,15 @@ function applyFiltersFromUrl() {
 
     // Rebuild rubber options from all filters, then restore rubber selections
     buildNameOptionsFromFilters();
-    deserializeFilterParam(params, 'rubbers', 'nameFilter');
+    // Rubber names: match dash-encoded URL values against abbr checkboxes
+    if (params.has('rubbers')) {
+        const urlValues = params.get('rubbers').split(',').filter(Boolean);
+        document.querySelectorAll('#nameFilter input[type="checkbox"]').forEach(cb => {
+            cb.checked = urlValues.includes(cb.value.replace(/ /g, '-'));
+            const pill = cb.closest('.fp-pill');
+            if (pill) pill.classList.toggle('active', cb.checked);
+        });
+    }
 
     // Restore selected rubber detail panels
     let lastRestoredTab = null;

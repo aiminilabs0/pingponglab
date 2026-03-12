@@ -90,7 +90,7 @@ function getFilteredData() {
 
     return rubberData.filter(rubber =>
         selectedBrands.has(rubber.brand) &&
-        selectedNames.has(rubber.fullName) &&
+        selectedNames.has(rubber.abbr) &&
         selectedSheet.has(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
