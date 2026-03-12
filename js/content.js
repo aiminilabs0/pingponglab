@@ -333,7 +333,7 @@ async function updateComparisonBar() {
                 `<div class="content-pane-scroll">` +
                     `<div class="comparison-status-msg-wrap">` +
                         `<p class="comparison-status-msg">No comparison available.</p>` +
-                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">Request this comparison</button>` +
+                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">Request a Comparison</button>` +
                     `</div>` +
                 `</div>`;
         }

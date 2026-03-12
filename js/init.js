@@ -450,7 +450,7 @@ function initFeedbackModal() {
             requestBtn.dataset.leftRubber || '',
             requestBtn.dataset.rightRubber || ''
         );
-        showComparisonRequestToast('Request sent. Thank you!');
+        showComparisonRequestToast('We’ll add the comparison soon. Thank you!');
     });
     closeBtn.addEventListener('click', closeFeedbackModal);
     modal.addEventListener('click', (e) => {
