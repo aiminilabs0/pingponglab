@@ -117,7 +117,7 @@ const UI_TEXT = {
         FEEDBACK_MESSAGE_PLACEHOLDER: 'Share your feedback or suggestions.',
         FEEDBACK_SUBMIT: 'Send feedback',
         FEEDBACK_SUBMITTING: 'Sending...',
-        FEEDBACK_STATUS_PROMPT: 'Share your feedback. Add your email if you want a reply.',
+        FEEDBACK_STATUS_PROMPT: 'Share your feedback. Add your email if you’d like a reply.',
         FEEDBACK_STATUS_SENDING: 'Sending your feedback...',
         FEEDBACK_STATUS_FAILED: 'Could not send feedback. Please try again.',
         FEEDBACK_CONFIRMATION: 'Thank you for your feedback.',
