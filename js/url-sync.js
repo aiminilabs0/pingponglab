@@ -78,8 +78,8 @@ function pushFiltersToUrl() {
     if (top30FilterActive) params.set('top30', '1');
 
     if (selectedCountry !== 'us') params.set('country', selectedCountry);
-    if (selectedRubbers[0]) params.set('left', selectedRubbers[0].fullName);
-    if (selectedRubbers[1]) params.set('right', selectedRubbers[1].fullName);
+    if (selectedRubbers[0]) params.set('left', selectedRubbers[0].abbr.replace(/ /g, '-'));
+    if (selectedRubbers[1]) params.set('right', selectedRubbers[1].abbr.replace(/ /g, '-'));
     if (activeTab === 'desc1') params.set('page', 'rubber1');
     else if (activeTab === 'desc2') params.set('page', 'rubber2');
     else if (activeTab === 'comparison') params.set('page', 'comparison');
@@ -134,7 +134,7 @@ function applyFiltersFromUrl() {
     // Restore selected rubber detail panels
     let lastRestoredTab = null;
     if (params.has('left')) {
-        const leftRubber = rubberData.find(r => r.fullName === params.get('left'));
+        const leftRubber = rubberData.find(r => r.abbr.replace(/ /g, '-') === params.get('left'));
         if (leftRubber) {
             selectedRubbers[0] = leftRubber;
             updateDetailPanel(1, leftRubber);
@@ -142,7 +142,7 @@ function applyFiltersFromUrl() {
         }
     }
     if (params.has('right')) {
-        const rightRubber = rubberData.find(r => r.fullName === params.get('right'));
+        const rightRubber = rubberData.find(r => r.abbr.replace(/ /g, '-') === params.get('right'));
         if (rightRubber) {
             selectedRubbers[1] = rightRubber;
             updateDetailPanel(2, rightRubber);
