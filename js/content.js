@@ -216,7 +216,7 @@ async function updateDetailPanel(panelNum, rubber) {
             ariaSubject: 'this description'
         });
         const html = marked.parse(detailMarkdown);
-        tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll">${html}${feedbackButtonsHtml}</div>`;
+        tabContents[tabKey] = headerHtml + `<div class="content-pane-scroll md-description">${html}${feedbackButtonsHtml}</div>`;
     } else {
         tabContents[tabKey] = headerHtml + '<div class="content-pane-scroll"><p class="comparison-status-msg">No description available.</p></div>';
     }
@@ -324,7 +324,7 @@ async function updateComparisonBar() {
             });
             tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
-                `<div class="content-pane-scroll">${marked.parse(markdown)}${comparisonFeedbackButtonsHtml}</div>`;
+                `<div class="content-pane-scroll md-comparison">${marked.parse(markdown)}${comparisonFeedbackButtonsHtml}</div>`;
         } else {
             const leftName = escapeHtml(left.name || left.abbr || '');
             const rightName = escapeHtml(right.name || right.abbr || '');
