@@ -66,7 +66,6 @@ Xiom/Vega Europe
 Andro/R42
 Tibhar/FX-P
 Donic/Bluefire M3
-Donic/Acuda S3
 JOOLA/Tronix CMD
 Andro/R50
 Andro/R53
