@@ -124,7 +124,7 @@
     padding: 4px 0 6px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--drac-comment);
+    color: rgba(232, 224, 208, 0.9);
     text-transform: uppercase;
     letter-spacing: 0.6px;
 }
