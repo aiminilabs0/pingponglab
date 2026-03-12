@@ -323,21 +323,6 @@ function initHomeLogo() {
     });
 }
 
-function renderLastModifiedDate() {
-    const target = document.getElementById('lastModifiedDate');
-    if (!target) return;
-
-    if (typeof LAST_MODIFIED !== 'string' || !LAST_MODIFIED.trim()) return;
-
-    const parsedDate = new Date(`${LAST_MODIFIED}T00:00:00Z`);
-    if (Number.isNaN(parsedDate.getTime())) return;
-
-    target.textContent = parsedDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-}
 
 function initFeedbackModal() {
     const openBtn = document.getElementById('feedbackOpenBtn');
@@ -499,7 +484,6 @@ window.addEventListener('resize', () => {
 
 async function initializeApp() {
     trackAppLoadedEvent();
-    renderLastModifiedDate();
 
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data\u2026</div>';
