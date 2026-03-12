@@ -104,7 +104,27 @@ const UI_TEXT = {
         SPIN_RANK: 'Spin Rank',
         RELEASE: 'Release',
         THICKNESS: 'Thickness',
-        PLAYERS: 'Pro Players'
+        PLAYERS: 'Pro Players',
+        FEEDBACK_BUTTON: 'Feedback',
+        FEEDBACK_BUTTON_TITLE: 'Send feedback',
+        FEEDBACK_CLOSE_ARIA: 'Close feedback form',
+        FEEDBACK_TITLE_SHARE: 'Share feedback',
+        FEEDBACK_TITLE_SENT: 'Feedback sent',
+        FEEDBACK_INTRO: 'We\'ll get back to you as soon as possible.',
+        FEEDBACK_EMAIL_LABEL: 'Email (optional)',
+        FEEDBACK_MESSAGE_LABEL: 'Message',
+        FEEDBACK_EMAIL_PLACEHOLDER: 'you@example.com',
+        FEEDBACK_MESSAGE_PLACEHOLDER: 'Share your feedback or suggestions.',
+        FEEDBACK_SUBMIT: 'Send feedback',
+        FEEDBACK_SUBMITTING: 'Sending...',
+        FEEDBACK_STATUS_PROMPT: 'Share your feedback. Add your email if you want a reply.',
+        FEEDBACK_STATUS_SENDING: 'Sending your feedback...',
+        FEEDBACK_STATUS_FAILED: 'Could not send feedback. Please try again.',
+        FEEDBACK_CONFIRMATION: 'Thank you for your feedback.',
+        FEEDBACK_COMPARISON_TOAST: 'We\'ll add the comparison soon. Thank you!',
+        FEEDBACK_REQUEST_SENT_TOAST: 'Request sent.',
+        CONTENT_FEEDBACK_GOOD_TOAST: 'Thanks! Glad this was helpful.',
+        CONTENT_FEEDBACK_BAD_TOAST: 'Thanks! We will use your feedback to improve this.'
     },
     ko: {
         FILTERS: '필터',
@@ -131,7 +151,28 @@ const UI_TEXT = {
         SPIN_RANK: '스핀 랭킹',
         RELEASE: '출시',
         THICKNESS: '두께',
-        PLAYERS: '프로선수'
+        PLAYERS: '프로선수',
+        FEEDBACK_BUTTON: '피드백',
+        FEEDBACK_BUTTON_TITLE: '피드백 보내기',
+        FEEDBACK_CLOSE_ARIA: '피드백 창 닫기',
+        FEEDBACK_TITLE_SHARE: '피드백 보내기',
+        FEEDBACK_TITLE_SENT: '피드백 전송 완료',
+        FEEDBACK_INTRO: '가능한 한 빨리 답변드릴게요.',
+        FEEDBACK_EMAIL_LABEL: '이메일 (선택)',
+        FEEDBACK_EMAIL_NOTE: '답변을 원하시면 이메일을 남겨주세요.',
+        FEEDBACK_MESSAGE_LABEL: '메시지',
+        FEEDBACK_EMAIL_PLACEHOLDER: 'you@example.com',
+        FEEDBACK_MESSAGE_PLACEHOLDER: '피드백이나 제안을 남겨주세요.',
+        FEEDBACK_SUBMIT: '피드백 보내기',
+        FEEDBACK_SUBMITTING: '전송 중...',
+        FEEDBACK_STATUS_PROMPT: '피드백을 남겨주세요. 답변을 원하시면 이메일을 함께 적어주세요.',
+        FEEDBACK_STATUS_SENDING: '피드백을 전송하는 중...',
+        FEEDBACK_STATUS_FAILED: '피드백 전송에 실패했습니다. 다시 시도해주세요.',
+        FEEDBACK_CONFIRMATION: '피드백 감사합니다.',
+        FEEDBACK_COMPARISON_TOAST: '비교 내용을 곧 추가할게요. 감사합니다!',
+        FEEDBACK_REQUEST_SENT_TOAST: '요청이 전송되었습니다.',
+        CONTENT_FEEDBACK_GOOD_TOAST: '감사합니다! 도움이 되었다니 기뻐요.',
+        CONTENT_FEEDBACK_BAD_TOAST: '감사합니다! 더 나아지도록 반영하겠습니다.'
     },
     cn: {
         FILTERS: '筛选',
@@ -158,7 +199,28 @@ const UI_TEXT = {
         SPIN_RANK: '旋转排名',
         RELEASE: '发售',
         THICKNESS: '厚度',
-        PLAYERS: '职业选手'
+        PLAYERS: '职业选手',
+        FEEDBACK_BUTTON: '反馈',
+        FEEDBACK_BUTTON_TITLE: '发送反馈',
+        FEEDBACK_CLOSE_ARIA: '关闭反馈窗口',
+        FEEDBACK_TITLE_SHARE: '提交反馈',
+        FEEDBACK_TITLE_SENT: '反馈已发送',
+        FEEDBACK_INTRO: '我们会尽快回复您。',
+        FEEDBACK_EMAIL_LABEL: '邮箱（可选）',
+        FEEDBACK_EMAIL_NOTE: '如需回复，请留下邮箱。',
+        FEEDBACK_MESSAGE_LABEL: '留言',
+        FEEDBACK_EMAIL_PLACEHOLDER: 'you@example.com',
+        FEEDBACK_MESSAGE_PLACEHOLDER: '欢迎分享你的反馈或建议。',
+        FEEDBACK_SUBMIT: '发送反馈',
+        FEEDBACK_SUBMITTING: '发送中...',
+        FEEDBACK_STATUS_PROMPT: '欢迎反馈。若希望收到回复，请填写邮箱。',
+        FEEDBACK_STATUS_SENDING: '正在发送你的反馈...',
+        FEEDBACK_STATUS_FAILED: '反馈发送失败，请稍后重试。',
+        FEEDBACK_CONFIRMATION: '感谢你的反馈。',
+        FEEDBACK_COMPARISON_TOAST: '我们会尽快补充该对比，感谢你的建议！',
+        FEEDBACK_REQUEST_SENT_TOAST: '请求已发送。',
+        CONTENT_FEEDBACK_GOOD_TOAST: '感谢！很高兴这对你有帮助。',
+        CONTENT_FEEDBACK_BAD_TOAST: '感谢反馈！我们会继续改进。'
     }
 };
 
@@ -411,6 +473,26 @@ function applyLocalizedStaticText() {
         if (!key) return;
         el.textContent = tUi(key);
     });
+    const setText = (id, key) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = tUi(key);
+    };
+    const setAttr = (id, attr, key) => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute(attr, tUi(key));
+    };
+
+    setAttr('feedbackOpenBtn', 'title', 'FEEDBACK_BUTTON_TITLE');
+    setAttr('feedbackCloseBtn', 'aria-label', 'FEEDBACK_CLOSE_ARIA');
+    setText('feedbackTitle', 'FEEDBACK_TITLE_SHARE');
+    setText('feedbackIntro', 'FEEDBACK_INTRO');
+    setText('feedbackEmailLabel', 'FEEDBACK_EMAIL_LABEL');
+    setText('feedbackEmailNote', 'FEEDBACK_EMAIL_NOTE');
+    setText('feedbackMessageLabel', 'FEEDBACK_MESSAGE_LABEL');
+    setText('feedbackSubmitBtn', 'FEEDBACK_SUBMIT');
+    setText('feedbackConfirmationMessage', 'FEEDBACK_CONFIRMATION');
+    setAttr('feedbackEmail', 'placeholder', 'FEEDBACK_EMAIL_PLACEHOLDER');
+    setAttr('feedbackMessage', 'placeholder', 'FEEDBACK_MESSAGE_PLACEHOLDER');
 }
 
 const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';

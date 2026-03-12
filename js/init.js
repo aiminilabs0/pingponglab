@@ -346,7 +346,6 @@ function initFeedbackModal() {
     const intro = modal ? modal.querySelector('.feedback-intro') : null;
     const confirmation = document.getElementById('feedbackConfirmation');
     const confirmationMessage = document.getElementById('feedbackConfirmationMessage');
-    const emailInput = document.getElementById('feedbackEmail');
     const messageInput = document.getElementById('feedbackMessage');
     if (!openBtn || !closeBtn || !modal || !form) return;
 
@@ -371,22 +370,22 @@ function initFeedbackModal() {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.disabled = isSubmitting;
-            submitBtn.textContent = isSubmitting ? 'Sending...' : 'Send feedback';
+            submitBtn.textContent = isSubmitting ? tUi('FEEDBACK_SUBMITTING') : tUi('FEEDBACK_SUBMIT');
         }
     }
 
     function showFormState() {
-        if (title) title.textContent = 'Share feedback';
+        if (title) title.textContent = tUi('FEEDBACK_TITLE_SHARE');
         if (intro) intro.hidden = false;
         form.hidden = false;
         if (confirmation) confirmation.hidden = true;
     }
 
     function showConfirmationState(message) {
-        if (title) title.textContent = 'Feedback sent';
+        if (title) title.textContent = tUi('FEEDBACK_TITLE_SENT');
         if (intro) intro.hidden = true;
         form.hidden = true;
-        if (confirmationMessage) confirmationMessage.textContent = message || 'Thank you for your feedback.';
+        if (confirmationMessage) confirmationMessage.textContent = message || tUi('FEEDBACK_CONFIRMATION');
         if (confirmation) confirmation.hidden = false;
     }
 
@@ -411,7 +410,7 @@ function initFeedbackModal() {
 
     function showComparisonRequestToast(message) {
         const toast = ensureComparisonRequestToast();
-        toast.textContent = message || 'Request sent.';
+        toast.textContent = message || tUi('FEEDBACK_REQUEST_SENT_TOAST');
         toast.classList.add('is-visible');
         if (comparisonRequestToastTimer) clearTimeout(comparisonRequestToastTimer);
         comparisonRequestToastTimer = setTimeout(() => {
@@ -428,14 +427,22 @@ function initFeedbackModal() {
         document.body.style.overflow = 'hidden';
         form.reset();
         showFormState();
-        setFeedbackStatus('We\u2019ll get back to you as soon as possible.');
+        setFeedbackStatus(tUi('FEEDBACK_STATUS_PROMPT'));
         if (messageInput && prefillMessage.trim()) {
             messageInput.value = prefillMessage;
         }
         setSubmittingState(false);
         setTimeout(() => {
-            if (emailInput) {
-                try { emailInput.focus({ preventScroll: true }); } catch { emailInput.focus(); }
+            if (messageInput) {
+                try {
+                    messageInput.focus({ preventScroll: true });
+                } catch {
+                    messageInput.focus();
+                }
+                if (typeof messageInput.setSelectionRange === 'function') {
+                    const pos = messageInput.value.length;
+                    messageInput.setSelectionRange(pos, pos);
+                }
             }
         }, 50);
     }
@@ -448,7 +455,7 @@ function initFeedbackModal() {
             requestBtn.dataset.leftRubber || '',
             requestBtn.dataset.rightRubber || ''
         );
-        showComparisonRequestToast('We’ll add the comparison soon. Thank you!');
+        showComparisonRequestToast(tUi('FEEDBACK_COMPARISON_TOAST'));
     });
     closeBtn.addEventListener('click', closeFeedbackModal);
     modal.addEventListener('click', (e) => {
@@ -461,7 +468,7 @@ function initFeedbackModal() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         setSubmittingState(true);
-        setFeedbackStatus('Sending your feedback...', '#b8b3a7');
+        setFeedbackStatus(tUi('FEEDBACK_STATUS_SENDING'), '#b8b3a7');
 
         try {
             const response = await fetch(form.action, {
@@ -472,10 +479,10 @@ function initFeedbackModal() {
             const result = await response.json().catch(() => ({}));
 
             if (!response.ok || result.success === false) {
-                throw new Error(result.message || 'Failed to send feedback.');
+                throw new Error(result.message || tUi('FEEDBACK_STATUS_FAILED'));
             }
 
-            showConfirmationState('We\u2019ll get back to you as soon as possible.');
+            showConfirmationState(tUi('FEEDBACK_CONFIRMATION'));
             form.reset();
             closeTimer = setTimeout(() => {
                 closeFeedbackModal();
@@ -483,7 +490,7 @@ function initFeedbackModal() {
         } catch (error) {
             console.error('Feedback submission failed:', error);
             showFormState();
-            setFeedbackStatus('Could not send feedback. Please try again.', '#cf5555');
+            setFeedbackStatus(tUi('FEEDBACK_STATUS_FAILED'), '#cf5555');
         } finally {
             setSubmittingState(false);
         }
@@ -555,8 +562,8 @@ async function initializeApp() {
     function showContentFeedbackToast(vote) {
         const toast = ensureContentFeedbackToast();
         toast.textContent = vote === 'good'
-            ? 'Thanks! Glad this was helpful.'
-            : 'Thanks! We will use your feedback to improve this.';
+            ? tUi('CONTENT_FEEDBACK_GOOD_TOAST')
+            : tUi('CONTENT_FEEDBACK_BAD_TOAST');
         toast.classList.add('is-visible');
         if (contentFeedbackToastTimer) clearTimeout(contentFeedbackToastTimer);
         contentFeedbackToastTimer = setTimeout(() => {

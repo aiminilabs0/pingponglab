@@ -214,7 +214,7 @@
         <footer class="site-footer">
             <div class="site-footer-content">
                 <span>© 2026 aiMiniLabs</span>
-                <button class="footer-feedback-btn" id="feedbackOpenBtn" title="Send feedback">✉ Feedback</button>
+                <button class="footer-feedback-btn" id="feedbackOpenBtn" title="Send feedback">✉ <span data-i18n-key="FEEDBACK_BUTTON">Feedback</span></button>
             </div>
         </footer>
     </div>
@@ -223,19 +223,19 @@
         <div class="feedback-modal-card" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
             <button type="button" class="feedback-modal-close" id="feedbackCloseBtn" aria-label="Close feedback form">×</button>
             <h2 id="feedbackTitle">Share feedback</h2>
-            <p class="feedback-intro">We’ll get back to you as soon as possible.</p>
+            <p class="feedback-intro" id="feedbackIntro">We’ll get back to you as soon as possible.</p>
             <form class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="209c243c-c02d-4523-8587-1fe225a6cad3">
                 <input type="hidden" name="subject" value="PingPong Lab user feedback">
                 <input type="checkbox" name="botcheck" class="feedback-botcheck" tabindex="-1" autocomplete="off">
 
-                <label for="feedbackEmail">Email</label>
-                <input id="feedbackEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+                <label for="feedbackEmail" id="feedbackEmailLabel">Email (optional)</label>
+                <input id="feedbackEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com">
 
-                <label for="feedbackMessage">Message</label>
+                <label for="feedbackMessage" id="feedbackMessageLabel">Message</label>
                 <textarea id="feedbackMessage" name="message" rows="5" placeholder="Share your feedback or suggestions." required></textarea>
 
-                <button type="submit">Send feedback</button>
+                <button type="submit" id="feedbackSubmitBtn">Send feedback</button>
             </form>
             <div class="feedback-confirmation" id="feedbackConfirmation" hidden>
                 <p class="feedback-confirmation-icon" aria-hidden="true">✓</p>
