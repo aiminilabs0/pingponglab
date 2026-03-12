@@ -1,6 +1,10 @@
 {
   "A. Lebrun": {
     "full_name": "Alexis Lebrun",
+    "localized_names": {
+      "ko": "알렉시스 르브론",
+      "cn": "亚历克西·勒布伦"
+    },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -9,6 +13,10 @@
     ]
   },
   "AN Jaehyun": {
+    "localized_names": {
+      "ko": "안재현",
+      "cn": "安宰贤"
+    },
     "forehand": "DHS/H3 Neo",
     "backhand": "Xiom/Omega 7 Pro",
     "youtubes": [
@@ -17,6 +25,10 @@
     ]
   },
   "Amy Wang": {
+    "localized_names": {
+      "ko": "에이미 왕",
+      "cn": "艾米·王"
+    },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Zyre 03",
     "youtubes": [
@@ -29,6 +41,10 @@
     ]
   },
   "André": {
+    "localized_names": {
+      "ko": "안드레",
+      "cn": "安德烈"
+    },
     "forehand": "",
     "backhand": "Andro/C53",
     "youtubes": [
@@ -37,6 +53,10 @@
   },
   "B. Takahashi": {
     "full_name": "Bruna Takahashi",
+    "localized_names": {
+      "ko": "브루나 타카하시",
+      "cn": "布鲁娜·高桥"
+    },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
     "youtubes": [
@@ -45,6 +65,10 @@
     ]
   },
   "CHEN Meng": {
+    "localized_names": {
+      "ko": "첸멍",
+      "cn": "陈梦"
+    },
     "forehand": "",
     "backhand": "DHS/H8-80",
     "youtubes": [
@@ -52,6 +76,10 @@
     ]
   },
   "CHO Daesung": {
+    "localized_names": {
+      "ko": "조대성",
+      "cn": "赵大成"
+    },
     "forehand": "DHS/H3 Neo",
     "backhand": "Xiom/Omega 7 Pro",
     "youtubes": [
@@ -61,6 +89,10 @@
   },
   "D. Jorgić": {
     "full_name": "Darko Jorgić",
+    "localized_names": {
+      "ko": "다르코 요르지치",
+      "cn": "达尔科·约尔吉奇"
+    },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-P",
     "youtubes": [
@@ -70,6 +102,10 @@
   },
   "D. Ovtcharov": {
     "full_name": "Dimitrij Ovtcharov",
+    "localized_names": {
+      "ko": "디미트리 옵차로프",
+      "cn": "迪米特里·奥恰洛夫"
+    },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "",
     "youtubes": [
@@ -78,6 +114,10 @@
   },
   "E. Samara": {
     "full_name": "Elizabeta Samara",
+    "localized_names": {
+      "ko": "엘리자베타 사마라",
+      "cn": "伊丽莎贝塔·萨马拉"
+    },
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 19",
     "youtubes": [
@@ -87,6 +127,10 @@
   },
   "F. Lebrun": {
     "full_name": "Felix Lebrun",
+    "localized_names": {
+      "ko": "펠릭스 르브론",
+      "cn": "费利克斯·勒布伦"
+    },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -95,6 +139,10 @@
     ]
   },
   "Gauzy Simon": {
+    "localized_names": {
+      "ko": "시몽 고지",
+      "cn": "西蒙·高茨"
+    },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
     "youtubes": [
@@ -104,6 +152,10 @@
   },
   "H. Calderano": {
     "full_name": "Hugo Calderano",
+    "localized_names": {
+      "ko": "휴고 칼데라노",
+      "cn": "雨果·卡尔德拉诺"
+    },
     "forehand": "Xiom/J&H C57.5",
     "backhand": "Xiom/J&H C52.5",
     "youtubes": [
@@ -112,6 +164,10 @@
     ]
   },
   "Kanak Jha": {
+    "localized_names": {
+      "ko": "카낙 자",
+      "cn": "卡纳克·贾"
+    },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -120,6 +176,10 @@
     ]
   },
   "LIN Shidong": {
+    "localized_names": {
+      "ko": "린시동",
+      "cn": "林诗栋"
+    },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
     "youtubes": [
@@ -128,6 +188,10 @@
     ]
   },
   "LIN Yun-ju": {
+    "localized_names": {
+      "ko": "린윤주",
+      "cn": "林昀儒"
+    },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "",
     "youtubes": [
@@ -136,6 +200,10 @@
     ]
   },
   "Liang Jingkun": {
+    "localized_names": {
+      "ko": "량징쿤",
+      "cn": "梁靖崑"
+    },
     "forehand": "Yasaka/Rakza X",
     "backhand": "",
     "youtubes": [
@@ -144,6 +212,10 @@
   },
   "M. Harimoto": {
     "full_name": "Miwa Harimoto",
+    "localized_names": {
+      "ko": "하리모토 미와",
+      "cn": "张本美和"
+    },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -153,6 +225,10 @@
   },
   "M. Kihara": {
     "full_name": "Miyuu Kihara",
+    "localized_names": {
+      "ko": "기하라 미유",
+      "cn": "木原美悠"
+    },
     "forehand": "Tibhar/K3",
     "backhand": "",
     "youtubes": [
@@ -161,6 +237,10 @@
   },
   "M. Nagasaki": {
     "full_name": "Miyu Nagasaki",
+    "localized_names": {
+      "ko": "나가사키 미유",
+      "cn": "长崎美柚"
+    },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -170,6 +250,10 @@
   },
   "M. Thakkar": {
     "full_name": "Manav Thakkar",
+    "localized_names": {
+      "ko": "마나브 타카르",
+      "cn": "马纳夫·塔卡尔"
+    },
     "forehand": "Tibhar/MX-P",
     "backhand": "Tibhar/K3",
     "youtubes": [
@@ -178,6 +262,10 @@
     ]
   },
   "Mima Ito": {
+    "localized_names": {
+      "ko": "이토 미마",
+      "cn": "伊藤美诚"
+    },
     "forehand": "Nittaku/G-1",
     "backhand": "",
     "youtubes": [
@@ -185,6 +273,10 @@
     ]
   },
   "OH Junsung": {
+    "localized_names": {
+      "ko": "오준성",
+      "cn": "吴晙诚"
+    },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "Butterfly/Dignics 09C",
     "youtubes": [
@@ -193,6 +285,10 @@
     ]
   },
   "Peng Xiang": {
+    "localized_names": {
+      "ko": "펑샹",
+      "cn": "彭翔"
+    },
     "forehand": "",
     "backhand": "Xiom/J&H C55.0",
     "youtubes": [
@@ -201,6 +297,10 @@
   },
   "R. Walther": {
     "full_name": "Ricardo Walther",
+    "localized_names": {
+      "ko": "리카르도 발터",
+      "cn": "里卡多·瓦尔特"
+    },
     "forehand": "Butterfly/Tenergy 19",
     "backhand": "Butterfly/Tenergy 19",
     "youtubes": [
@@ -209,6 +309,10 @@
     ]
   },
   "Rin Mende": {
+    "localized_names": {
+      "ko": "린 멘데",
+      "cn": "凛·门德"
+    },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
     "youtubes": [
@@ -218,6 +322,10 @@
   },
   "S. Shibata": {
     "full_name": "Saki Shibata",
+    "localized_names": {
+      "ko": "시바타 사키",
+      "cn": "柴田咲"
+    },
     "forehand": "",
     "backhand": "DHS/H8-80",
     "youtubes": [
@@ -226,6 +334,10 @@
   },
   "S. Winter": {
     "full_name": "Sabine Winter",
+    "localized_names": {
+      "ko": "자비네 빈터",
+      "cn": "萨宾·温特"
+    },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/R53",
     "youtubes": [
@@ -234,6 +346,10 @@
     ]
   },
   "Satsuki Odo": {
+    "localized_names": {
+      "ko": "오도 사츠키",
+      "cn": "大藤沙月"
+    },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
     "youtubes": [
@@ -242,6 +358,10 @@
     ]
   },
   "Sora": {
+    "localized_names": {
+      "ko": "소라 마쓰시마",
+      "cn": "松島輝空"
+    },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "Butterfly/Zyre 03",
     "youtubes": [
@@ -252,6 +372,10 @@
   },
   "T. Harimoto": {
     "full_name": "Tomokazu Harimoto",
+    "localized_names": {
+      "ko": "하리모토 도모카즈",
+      "cn": "张本智和"
+    },
     "forehand": "Butterfly/Dignics 05",
     "backhand": "Butterfly/Zyre 03",
     "youtubes": [
@@ -261,6 +385,10 @@
   },
   "T. Pucar": {
     "full_name": "Tomislav Pucar",
+    "localized_names": {
+      "ko": "토미슬라브 푸카르",
+      "cn": "托米斯拉夫·普卡尔"
+    },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-D",
     "youtubes": [
@@ -270,6 +398,10 @@
   },
   "X. Chen": {
     "full_name": "Xingtong Chen",
+    "localized_names": {
+      "ko": "첸싱퉁",
+      "cn": "陈幸同"
+    },
     "forehand": "",
     "backhand": "Butterfly/Dignics 05",
     "youtubes": [
@@ -278,6 +410,10 @@
   },
   "Y. Jeoung": {
     "full_name": "Youngsik Jeoung",
+    "localized_names": {
+      "ko": "정영식",
+      "cn": "郑荣植"
+    },
     "forehand": "",
     "backhand": "Xiom/Omega 7 Pro",
     "youtubes": [
@@ -286,6 +422,10 @@
   },
   "Y. Muramatsu": {
     "full_name": "Yuto Muramatsu",
+    "localized_names": {
+      "ko": "무라마쓰 유토",
+      "cn": "村松雄斗"
+    },
     "forehand": "Tibhar/MK",
     "backhand": "",
     "youtubes": [
@@ -293,6 +433,10 @@
     ]
   },
   "Ma Long": {
+    "localized_names": {
+      "ko": "마롱",
+      "cn": "马龙"
+    },
     "forehand": "DHS/H3 Neo",
     "backhand": "",
     "youtubes": [
@@ -300,6 +444,10 @@
     ]
   },
   "BAE Hwan": {
+    "localized_names": {
+      "ko": "배환",
+      "cn": "裴焕"
+    },
     "forehand": "DHS/H3 Neo",
     "backhand": "DHS/H3 Neo",
     "youtubes": [
@@ -308,6 +456,10 @@
     ]
   },
   "BAE Won": {
+    "localized_names": {
+      "ko": "배원",
+      "cn": "裴元"
+    },
     "forehand": "DHS/H3 Neo",
     "backhand": "DHS/H8-80",
     "youtubes": [

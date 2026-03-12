@@ -60,6 +60,28 @@ function getPlayerDataByName(name) {
     return playersData[canonicalName] || null;
 }
 
+function getLocalizedPlayerName(name) {
+    const parsedName = typeof name === 'string' ? name.trim() : '';
+    if (!parsedName) return '';
+
+    const player = getPlayerDataByName(parsedName);
+    if (!player) return parsedName;
+
+    const lang = getCurrentLang();
+    const localizedNames = player.localized_names && typeof player.localized_names === 'object'
+        ? player.localized_names
+        : null;
+    const localized = localizedNames && typeof localizedNames[lang] === 'string'
+        ? localizedNames[lang].trim()
+        : '';
+    if (localized) return localized;
+
+    const fullName = typeof player.full_name === 'string' ? player.full_name.trim() : '';
+    if (fullName) return fullName;
+
+    return parsedName;
+}
+
 function collectPlayerVideoIdsByName(name) {
     const player = getPlayerDataByName(name);
     if (!player || !Array.isArray(player.youtubes)) return [];
@@ -97,7 +119,8 @@ function resolvePlayerVideoSelection(parsed) {
 function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
-    const safeName = escapeHtml(parsed.name);
+    const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
+    const safeName = escapeHtml(displayName);
     const emojiSrc = playerEmojiPath(parsed.name);
     const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()">`;
     const withEmoji = (nameOrLinkHtml) => (
@@ -130,8 +153,21 @@ function collectPlayerSearchNames(raw) {
         const player = getPlayerDataByName(displayName);
         if (!player) return;
 
+        const canonicalName = typeof player.canonical_name === 'string' ? player.canonical_name.trim() : '';
+        if (canonicalName) names.add(canonicalName);
+
         const fullName = (player.full_name || '').trim();
         if (fullName) names.add(fullName);
+
+        const localizedNames = player.localized_names && typeof player.localized_names === 'object'
+            ? player.localized_names
+            : null;
+        if (localizedNames) {
+            Object.values(localizedNames).forEach((localizedValue) => {
+                const normalizedLocalized = typeof localizedValue === 'string' ? localizedValue.trim() : '';
+                if (normalizedLocalized) names.add(normalizedLocalized);
+            });
+        }
 
     };
 
@@ -319,7 +355,15 @@ async function loadPlayersData() {
 
             normalizedPlayersData[canonicalName] = {
                 ...player,
+                canonical_name: canonicalName,
                 full_name: rawFullName,
+                localized_names: player?.localized_names && typeof player.localized_names === 'object'
+                    ? Object.fromEntries(
+                        Object.entries(player.localized_names)
+                            .map(([lang, value]) => [lang, typeof value === 'string' ? value.trim() : ''])
+                            .filter(([, value]) => Boolean(value))
+                    )
+                    : {},
                 youtubes: Array.isArray(player?.youtubes)
                     ? player.youtubes.filter(Boolean)
                     : [],
