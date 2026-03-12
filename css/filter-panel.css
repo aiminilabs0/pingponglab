@@ -67,6 +67,20 @@
 .filter-panel-body.open {
     max-height: 720px;
     opacity: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--drac-current) transparent;
+}
+.filter-panel-body.open::-webkit-scrollbar {
+    width: 6px;
+}
+.filter-panel-body.open::-webkit-scrollbar-track {
+    background: transparent;
+}
+.filter-panel-body.open::-webkit-scrollbar-thumb {
+    background: var(--drac-current);
+    border-radius: 10px;
 }
 
 .fp-reset-all-btn {
