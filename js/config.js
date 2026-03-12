@@ -173,6 +173,238 @@ function tUi(key) {
     return UI_TEXT.en[key] || key;
 }
 
+const BRAND_NAMES_I18N = {
+    ko: {
+        Butterfly: '버터플라이',
+        DHS: 'DHS',
+        Andro: '안드로',
+        JOOLA: '줄라',
+        Xiom: '엑시옴',
+        Tibhar: '티바',
+        Nittaku: '닛타쿠',
+        Donic: '도닉',
+        Yasaka: '야사카',
+        YINHE: '은하'
+    },
+    cn: {
+        Butterfly: '蝴蝶',
+        DHS: '红双喜',
+        Andro: '安德罗',
+        JOOLA: '尤拉',
+        Xiom: '骄猛',
+        Tibhar: '挺拔',
+        Nittaku: '尼塔库',
+        Donic: '多尼克',
+        Yasaka: '亚萨卡',
+        YINHE: '银河'
+    }
+};
+
+const RUBBER_NAMES_I18N = {
+    ko: {
+        // Andro
+        'R42': '라잔터 R42',
+        'R47': '라잔터 R47',
+        'R48': '라잔터 R48',
+        'R50': '라잔터 R50',
+        'R53': '라잔터 R53',
+        'C48': '라잔터 C48',
+        'C53': '라잔터 C53',
+        'NUZN 45': '뉴존 45',
+        'NUZN 48': '뉴존 48',
+        'NUZN 50': '뉴존 50',
+        'NUZN 55': '뉴존 55',
+        // Butterfly
+        'Tenergy 05': '테너지 05',
+        'Tenergy 05H': '테너지 05H',
+        'Tenergy 19': '테너지 19',
+        'Tenergy 64': '테너지 64',
+        'Tenergy 80': '테너지 80',
+        'Dignics 05': '디그닉스 05',
+        'Dignics 09C': '디그닉스 09C',
+        'Dignics 64': '디그닉스 64',
+        'Dignics 80': '디그닉스 80',
+        'Rozena': '로제나',
+        'Zyre 03': '자이르 03',
+        // DHS
+        'H3 Neo': '허리케인3 Neo',
+        'H8-80': '허리케인8-80',
+        'Gold Arc 8': '금궁8',
+        // Donic
+        'Acuda S1': '아쿠다 S1',
+        'Acuda S2': '아쿠다 S2',
+        'Baracuda': '바라쿠다',
+        'Bluefire M1': '블루파이어 M1',
+        'Bluefire M2': '블루파이어 M2',
+        'Bluefire M3': '블루파이어 M3',
+        'BlueGrip C2': '블루그립 C2',
+        'BlueGrip J1': '블루그립 J1',
+        'BlueGrip J2': '블루그립 J2',
+        'BlueGrip J3': '블루그립 J3',
+        'Bluestar A1': '블루스타 A1',
+        'Bluestorm Pro AM': '블루스톰 프로 AM',
+        'Bluestorm Z1': '블루스톰 Z1',
+        'Bluestorm Z2': '블루스톰 Z2',
+        'Bluestorm Z3': '블루스톰 Z3',
+        // JOOLA
+        'Dynaryz ACC': '다이나리즈 ACC',
+        'Dynaryz AGR': '다이나리즈 AGR',
+        'Dynaryz CMD': '다이나리즈 CMD',
+        'Dynaryz Inferno': '다이나리즈 인페르노',
+        'Dynaryz ZGR': '다이나리즈 ZGR',
+        'Dynaryz ZGX': '다이나리즈 ZGX',
+        'Tronix ACC': '트로닉스 ACC',
+        'Tronix CMD': '트로닉스 CMD',
+        'Tronix ZGR': '트로닉스 ZGR',
+        // Nittaku
+        'C-1': '패스타크 C-1',
+        'G-1': '패스타크 G-1',
+        'S-1': '패스타크 S-1',
+        // Tibhar
+        'EL-P': '에볼루션 EL-P',
+        'EL-S': '에볼루션 EL-S',
+        'FX-P': '에볼루션 FX-P',
+        'FX-S': '에볼루션 FX-S',
+        'K3': '하이브리드 K3',
+        'MK': '하이브리드 MK',
+        'MX-D': '에볼루션 MX-D',
+        'MX-K': '에볼루션 MX-K',
+        'MX-P 50': '에볼루션 MX-P 50',
+        'MX-P': '에볼루션 MX-P',
+        'MX-S': '에볼루션 MX-S',
+        // Xiom
+        'J&H C52.5': '지킬앤하이드 C52.5',
+        'J&H C55.0': '지킬앤하이드 C55.0',
+        'J&H C57.5': '지킬앤하이드 C57.5',
+        'J&H V47.5': '지킬앤하이드 V47.5',
+        'J&H X47.5': '지킬앤하이드 X47.5',
+        'J&H Z52.5': '지킬앤하이드 Z52.5',
+        'Omega 7 Guang': '오메가 7 광',
+        'Omega 7 Pro': '오메가 7 프로',
+        'Omega 8 China': '오메가 8 차이나',
+        'Omega 8 Hybrid': '오메가 8 하이브리드',
+        'Omega 8 Pro': '오메가 8 프로',
+        'Vega Europe': '베가 유럽',
+        'Vega Pro': '베가 프로',
+        'Vega X': '베가 X',
+        // Yasaka
+        'Rakza 7 Soft': '라크자 7 소프트',
+        'Rakza 7': '라크자 7',
+        'Rakza 9': '라크자 9',
+        'Rakza X': '라크자 X',
+        'Rakza XX': '라크자 XX',
+        'Rakza Z': '라크자 Z',
+        // YINHE
+        'Mercury 2': '머큐리 2'
+    },
+    cn: {
+        // Andro
+        'R42': '拉赞特R42',
+        'R47': '拉赞特R47',
+        'R48': '拉赞特R48',
+        'R50': '拉赞特R50',
+        'R53': '拉赞特R53',
+        'C48': '拉赞特C48',
+        'C53': '拉赞特C53',
+        'NUZN 45': 'NUZN 45',
+        'NUZN 48': 'NUZN 48',
+        'NUZN 50': 'NUZN 50',
+        'NUZN 55': 'NUZN 55',
+        // Butterfly
+        'Tenergy 05': '能量05',
+        'Tenergy 05H': '能量05H',
+        'Tenergy 19': '能量19',
+        'Tenergy 64': '能量64',
+        'Tenergy 80': '能量80',
+        'Dignics 05': '迪格尼斯05',
+        'Dignics 09C': '迪格尼斯09C',
+        'Dignics 64': '迪格尼斯64',
+        'Dignics 80': '迪格尼斯80',
+        'Rozena': '罗泽纳',
+        'Zyre 03': 'Zyre 03',
+        // DHS
+        'H3 Neo': '狂飙3 Neo',
+        'H8-80': '狂飙8-80',
+        'Gold Arc 8': '金弓8',
+        // Donic
+        'Acuda S1': '阿库达S1',
+        'Acuda S2': '阿库达S2',
+        'Baracuda': '巴拉库达',
+        'Bluefire M1': '蓝火M1',
+        'Bluefire M2': '蓝火M2',
+        'Bluefire M3': '蓝火M3',
+        'BlueGrip C2': '蓝握C2',
+        'BlueGrip J1': '蓝握J1',
+        'BlueGrip J2': '蓝握J2',
+        'BlueGrip J3': '蓝握J3',
+        'Bluestar A1': '蓝星A1',
+        'Bluestorm Pro AM': '蓝色风暴 Pro AM',
+        'Bluestorm Z1': '蓝色风暴Z1',
+        'Bluestorm Z2': '蓝色风暴Z2',
+        'Bluestorm Z3': '蓝色风暴Z3',
+        // JOOLA
+        'Dynaryz ACC': '黛纳瑞兹ACC',
+        'Dynaryz AGR': '黛纳瑞兹AGR',
+        'Dynaryz CMD': '黛纳瑞兹CMD',
+        'Dynaryz Inferno': '黛纳瑞兹Inferno',
+        'Dynaryz ZGR': '黛纳瑞兹ZGR',
+        'Dynaryz ZGX': '黛纳瑞兹ZGX',
+        'Tronix ACC': '特罗尼斯ACC',
+        'Tronix CMD': '特罗尼斯CMD',
+        'Tronix ZGR': '特罗尼斯ZGR',
+        // Nittaku
+        'C-1': '快弧C-1',
+        'G-1': '快弧G-1',
+        'S-1': '快弧S-1',
+        // Tibhar
+        'EL-P': '进化EL-P',
+        'EL-S': '进化EL-S',
+        'FX-P': '进化FX-P',
+        'FX-S': '进化FX-S',
+        'K3': '混合K3',
+        'MK': '混合MK',
+        'MX-D': '进化MX-D',
+        'MX-K': '进化MX-K',
+        'MX-P 50': '进化MX-P 50',
+        'MX-P': '进化MX-P',
+        'MX-S': '进化MX-S',
+        // Xiom
+        'J&H C52.5': '变脸C52.5',
+        'J&H C55.0': '变脸C55.0',
+        'J&H C57.5': '变脸C57.5',
+        'J&H V47.5': '变脸V47.5',
+        'J&H X47.5': '变脸X47.5',
+        'J&H Z52.5': '变脸Z52.5',
+        'Omega 7 Guang': '欧米茄7 光',
+        'Omega 7 Pro': '欧米茄7 Pro',
+        'Omega 8 China': '欧米茄8 粘性',
+        'Omega 8 Hybrid': '欧米茄8 混合',
+        'Omega 8 Pro': '欧米茄8 Pro',
+        'Vega Europe': '维佳 欧洲',
+        'Vega Pro': '维佳Pro',
+        'Vega X': '维佳X',
+        // Yasaka
+        'Rakza 7 Soft': '力克萨7 Soft',
+        'Rakza 7': '力克萨7',
+        'Rakza 9': '力克萨9',
+        'Rakza X': '力克萨X',
+        'Rakza XX': '力克萨XX',
+        'Rakza Z': '力克萨Z',
+        // YINHE
+        'Mercury 2': '水星2'
+    }
+};
+
+function tBrand(brand) {
+    const lang = getCurrentLang();
+    return BRAND_NAMES_I18N[lang]?.[brand] || brand;
+}
+
+function tRubber(abbr) {
+    const lang = getCurrentLang();
+    return RUBBER_NAMES_I18N[lang]?.[abbr] || abbr;
+}
+
 function applyLocalizedStaticText() {
     document.querySelectorAll('[data-i18n-key]').forEach((el) => {
         const key = el.dataset.i18nKey;

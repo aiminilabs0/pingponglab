@@ -527,7 +527,9 @@ function initSheetToggleFilter(onChange) {
 function filterOptions(container, query) {
     const q = query.trim().toLowerCase();
     container.querySelectorAll('.filter-option').forEach(option => {
-        option.style.display = option.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+        const match = option.textContent.toLowerCase().includes(q) ||
+            (option.dataset.search && option.dataset.search.toLowerCase().includes(q));
+        option.style.display = match ? 'flex' : 'none';
     });
 }
 
@@ -561,6 +563,8 @@ function buildCheckboxOptions(container, values, checkedValues) {
             indicator.classList.add('shape-check', shapeSymbol);
         }
         label.appendChild(indicator);
+
+        if (item.searchTerms) label.dataset.search = item.searchTerms;
 
         const text = document.createElement('span');
         text.textContent = labelText;
@@ -612,11 +616,22 @@ function buildNameOptionsFromFilters() {
     }
     const uniqueNames = [...seenNames.keys()].sort();
 
-    const nameOptions = uniqueNames.map(name => ({
-        value: name,
-        label: name,
-        swatchColor: getBrandColor(seenNames.get(name).brand)
-    }));
+    const nameOptions = uniqueNames.map(name => {
+        const rubber = seenNames.get(name);
+        const terms = [];
+        for (const m of Object.values(BRAND_NAMES_I18N)) {
+            if (m[rubber.brand]) terms.push(m[rubber.brand]);
+        }
+        for (const m of Object.values(RUBBER_NAMES_I18N)) {
+            if (m[name]) terms.push(m[name]);
+        }
+        return {
+            value: name,
+            label: name,
+            swatchColor: getBrandColor(rubber.brand),
+            searchTerms: terms.length ? terms.join(' ') : undefined
+        };
+    });
 
     buildCheckboxOptions(
         nameFilter,

@@ -196,7 +196,9 @@ function initHeaderSearch() {
             .filter(r =>
                 r.abbr.toLowerCase().includes(q) ||
                 r.fullName.toLowerCase().includes(q) ||
-                r.playerSearchNames.some(name => name.toLowerCase().includes(q))
+                r.playerSearchNames.some(name => name.toLowerCase().includes(q)) ||
+                Object.values(BRAND_NAMES_I18N).some(m => m[r.brand]?.toLowerCase().includes(q)) ||
+                Object.values(RUBBER_NAMES_I18N).some(m => m[r.abbr]?.toLowerCase().includes(q))
             )
             .slice(0, 30);
 
