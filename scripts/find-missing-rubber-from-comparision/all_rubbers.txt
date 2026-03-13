@@ -83,5 +83,6 @@
   "Dynaryz Inferno",
   "Dignics 64",
   "Tenergy 64",
-  "Etika 47"
+  "Etika 47",
+  "Tenergy 05 FX"
 ]

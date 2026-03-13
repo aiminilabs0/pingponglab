@@ -284,6 +284,7 @@ const RUBBER_NAMES_I18N = {
         'NUZN 55': '뉴존 55',
         // Butterfly
         'Tenergy 05': '테너지 05',
+        'Tenergy 05 FX': '테너지 05 FX',
         'Tenergy 05H': '테너지 05H',
         'Tenergy 19': '테너지 19',
         'Tenergy 64': '테너지 64',
@@ -380,6 +381,7 @@ const RUBBER_NAMES_I18N = {
         'NUZN 55': 'NUZN 55',
         // Butterfly
         'Tenergy 05': '能量05',
+        'Tenergy 05 FX': '能量05 FX',
         'Tenergy 05H': '能量05H',
         'Tenergy 19': '能量19',
         'Tenergy 64': '能量64',

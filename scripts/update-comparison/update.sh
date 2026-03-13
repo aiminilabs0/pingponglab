@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!
-base_rubber="BlueGrip J1"
+base_rubber="Tenergy 05 FX"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
