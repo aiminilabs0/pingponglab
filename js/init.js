@@ -82,7 +82,7 @@ function initCountrySelector() {
     if (!selector) return;
 
     const COUNTRY_STORAGE_KEY = 'pingponglab_selected_country';
-    const allowedCountries = ['us', 'eu', 'cn', 'kr'];
+    const allowedCountries = ['us', 'cn', 'kr'];
     const readStoredCountry = () => {
         try {
             const storedCountry = localStorage.getItem(COUNTRY_STORAGE_KEY);

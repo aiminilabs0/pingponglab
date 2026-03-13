@@ -109,7 +109,7 @@ function applyFiltersFromUrl() {
     // Country
     if (params.has('country')) {
         const country = params.get('country');
-        if (['us', 'eu', 'kr', 'cn'].includes(country)) {
+        if (['us', 'kr', 'cn'].includes(country)) {
             selectedCountry = country;
             applyLocalizedStaticText();
             syncCountrySelectorUI();

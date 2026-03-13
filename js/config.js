@@ -73,7 +73,7 @@ function fromGermanScale(geValue, country) {
     return interpolateScale(geValue, HARDNESS_SCALES.Germany, HARDNESS_SCALES[country]);
 }
 
-const COUNTRY_TO_LANG = { us: 'en', eu: 'en', cn: 'cn', kr: 'ko' };
+const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
