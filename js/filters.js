@@ -484,8 +484,8 @@ function initTop30Filter(onChange) {
     requestAnimationFrame(() => positionSegSlider(seg));
 }
 
-const SHEET_DOT_CLASS = { Classic: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
-const SHEET_I18N_KEYS = { Classic: 'CLASSIC', Chinese: 'CHINESE', Hybrid: 'HYBRID' };
+const SHEET_DOT_CLASS = { Tension: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
+const SHEET_I18N_KEYS = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' };
 
 function initSheetToggleFilter(onChange) {
     const container = document.getElementById('sheetFilter');
@@ -495,7 +495,7 @@ function initSheetToggleFilter(onChange) {
     const group = document.createElement('div');
     group.className = 'fp-pill-group';
 
-    ['Classic', 'Chinese', 'Hybrid'].forEach(sheet => {
+    ['Tension', 'Chinese', 'Hybrid'].forEach(sheet => {
         const pill = document.createElement('label');
         pill.className = 'fp-pill active';
 

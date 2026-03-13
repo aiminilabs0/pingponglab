@@ -14,11 +14,11 @@ function parseRatingNumber(value) {
 function normalizeSheet(value) {
     if (typeof value === 'string') {
         const lower = value.trim().toLowerCase();
-        if (lower === 'classic') return 'Classic';
+        if (lower === 'tension') return 'Tension';
         if (lower === 'chinese') return 'Chinese';
         if (lower === 'hybrid') return 'Hybrid';
     }
-    return 'Classic';
+    return 'Tension';
 }
 
 function parsePlayerEntry(value) {

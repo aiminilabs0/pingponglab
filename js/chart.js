@@ -517,7 +517,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const rubberName = tRubber(rubber.abbr) || rubber.name || '-';
     const brandName = tBrand(rubber.brand) || '-';
     const sheet = rubber.sheet || '-';
-    const sheetI18nKey = { Classic: 'CLASSIC', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
+    const sheetI18nKey = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
     const localizedSheet = sheetI18nKey ? tUi(sheetI18nKey) : sheet;
     const hardness = formatHardnessPopupLabel(rubber);
     const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
@@ -552,7 +552,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>${tUi('SPEED_RANK')}</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><strong class="chart-sheet-value">${escapeHtml(localizedSheet)}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><strong class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${localizedSheet.charAt(0)}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
         </div>

@@ -157,8 +157,29 @@
     text-align: right;
 }
 .chart-hover-metric strong.chart-sheet-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 12px;
 }
+.chart-hover-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(248, 248, 242, 0.85);
+    background: transparent;
+    flex-shrink: 0;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(248, 248, 242, 0.85);
+}
+.chart-hover-shape.dot-circle  { border-radius: 50%; }
+.chart-hover-shape.dot-square  { border-radius: 2px; }
+.chart-hover-shape.dot-diamond { border-radius: 1px; transform: rotate(45deg); }
+.chart-hover-shape.dot-diamond > span { transform: rotate(-45deg); }
 .chart-hover-metric strong.hardness-tone-soft,
 .radar-cmp-cell strong.hardness-tone-soft {
     color: var(--drac-green);

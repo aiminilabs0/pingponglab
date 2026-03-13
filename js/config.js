@@ -37,7 +37,7 @@ const BRAND_COLORS = {
 };
 
 const SHEET_MARKERS = {
-    Classic: 'circle',
+    Tension: 'circle',
     Chinese: 'square',
     Hybrid: 'diamond'
 };
@@ -86,7 +86,7 @@ const UI_TEXT = {
         WEGIHT: 'Weight',
         HARDNESS: 'Hardness',
         TOPSHEET: 'Topsheet',
-        CLASSIC: 'Classic',
+        TENSION: 'Tension',
         CHINESE: 'Chinese',
         HYBRID: 'Hybrid',
         CONTROL: 'Control',
@@ -135,8 +135,8 @@ const UI_TEXT = {
         WEGIHT: '무게',
         HARDNESS: '경도',
         TOPSHEET: '탑시트',
-        CLASSIC: '일반',
-        CHINESE: '중국러버',
+        TENSION: '텐션',
+        CHINESE: '점착러버',
         HYBRID: '하이브리드',
         CONTROL: '컨트롤',
         EASY: '쉬움',
@@ -185,7 +185,7 @@ const UI_TEXT = {
         WEGIHT: '重量',
         HARDNESS: '硬度',
         TOPSHEET: '胶面',
-        CLASSIC: '经典',
+        TENSION: '经典',
         CHINESE: '粘性',
         HYBRID: '混合',
         CONTROL: '控制',
