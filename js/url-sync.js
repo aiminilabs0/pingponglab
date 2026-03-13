@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════
-//  URL State Sync
+//  URL State Sync (path-based clean URLs + query-param filters)
 // ════════════════════════════════════════════════════════════
 
 // Serialize partial checkbox selection to a URL param (skips when all or none selected)
@@ -65,12 +65,52 @@ function deserializeControlRangeParam(params) {
     syncControlPillUI();
 }
 
-function pushFiltersToUrl() {
+// ── Path construction ──
+
+/**
+ * Build the path portion of the current URL from app state.
+ * Returns e.g. "/us/", "/us/rubbers/tenergy-05", "/kr/rubbers/compare/a-vs-b"
+ */
+function buildCurrentPath() {
+    const country = selectedCountry || 'us';
+    const left = selectedRubbers[0];
+    const right = selectedRubbers[1];
+
+    if (activeTab === 'comparison' && left && right && SLUG_MAP) {
+        const slugA = SLUG_MAP.abbrToSlug[left.abbr];
+        const slugB = SLUG_MAP.abbrToSlug[right.abbr];
+        if (slugA && slugB) {
+            const [a, b] = [slugA, slugB].sort();
+            return '/' + country + '/rubbers/compare/' + a + '-vs-' + b;
+        }
+    }
+
+    // Determine the "active" rubber based on current tab
+    let activeRubber = null;
+    if (activeTab === 'desc2' && right) {
+        activeRubber = right;
+    } else if (left) {
+        activeRubber = left;
+    }
+
+    if (activeRubber && SLUG_MAP) {
+        const slug = SLUG_MAP.abbrToSlug[activeRubber.abbr];
+        if (slug) {
+            return '/' + country + '/rubbers/' + slug;
+        }
+    }
+
+    return '/' + country + '/';
+}
+
+/**
+ * Build query string from current filter state (filters only, no rubber selection / page).
+ */
+function buildFilterQueryString() {
     const params = new URLSearchParams();
     if (DEBUG_MODE) params.set('debug', '');
 
     serializeFilterParam(params, 'brands', 'brandFilter');
-    // Rubber names: use abbr with dashes instead of spaces for cleaner URLs
     const allRubbers = getAllCheckboxValues('nameFilter');
     const checkedRubbers = getCheckedValues('nameFilter');
     if (checkedRubbers.length > 0 && checkedRubbers.length < allRubbers.length) {
@@ -81,18 +121,30 @@ function pushFiltersToUrl() {
     serializeWeightRangeParam(params);
     serializeControlRangeParam(params);
     if (top30FilterActive) params.set('top30', '1');
-
-    if (selectedCountry !== 'us') params.set('country', selectedCountry);
-    if (selectedRubbers[0]) params.set('left', selectedRubbers[0].abbr.replace(/ /g, '-'));
-    if (selectedRubbers[1]) params.set('right', selectedRubbers[1].abbr.replace(/ /g, '-'));
-    if (activeTab === 'desc1') params.set('page', 'rubber1');
-    else if (activeTab === 'desc2') params.set('page', 'rubber2');
-    else if (activeTab === 'comparison') params.set('page', 'comparison');
     if (pinnedRubbers[0]) params.set('pin', 'left');
     else if (pinnedRubbers[1]) params.set('pin', 'right');
 
-    const qs = params.toString();
-    history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
+    return params.toString();
+}
+
+/**
+ * Update the browser URL to reflect the current path + filter state.
+ * Uses replaceState so it doesn't create a new history entry (for filter tweaks).
+ */
+function pushFiltersToUrl() {
+    const path = buildCurrentPath();
+    const qs = buildFilterQueryString();
+    history.replaceState(null, '', path + (qs ? '?' + qs : ''));
+}
+
+/**
+ * Navigate to a new path via pushState (creates history entry for back/forward).
+ * Used for rubber clicks, country switches, and tab changes that change the page identity.
+ */
+function navigateToPath(path) {
+    const qs = buildFilterQueryString();
+    const fullUrl = path + (qs ? '?' + qs : '');
+    history.pushState(null, '', fullUrl);
 }
 
 function syncCountrySelectorUI() {
@@ -103,18 +155,8 @@ function syncCountrySelectorUI() {
 
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'top30', 'country', 'left', 'right', 'page', 'pin'];
+    const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'top30', 'pin'];
     if (!filterKeys.some(key => params.has(key))) return;
-
-    // Country
-    if (params.has('country')) {
-        const country = params.get('country');
-        if (['us', 'kr', 'cn'].includes(country)) {
-            selectedCountry = country;
-            applyLocalizedStaticText();
-            syncCountrySelectorUI();
-        }
-    }
 
     // Deserialize all filters that affect rubber options first
     if (params.has('brands')) deserializeFilterParam(params, 'brands', 'brandFilter');
@@ -144,29 +186,6 @@ function applyFiltersFromUrl() {
         });
     }
 
-    // Restore selected rubber detail panels
-    let lastRestoredTab = null;
-    if (params.has('left')) {
-        const leftRubber = rubberData.find(r => r.abbr.replace(/ /g, '-') === params.get('left'));
-        if (leftRubber) {
-            selectedRubbers[0] = leftRubber;
-            updateDetailPanel(1, leftRubber);
-            lastRestoredTab = 'desc1';
-        }
-    }
-    if (params.has('right')) {
-        const rightRubber = rubberData.find(r => r.abbr.replace(/ /g, '-') === params.get('right'));
-        if (rightRubber) {
-            selectedRubbers[1] = rightRubber;
-            updateDetailPanel(2, rightRubber);
-            nextDetailPanel = 1;
-            lastRestoredTab = 'desc2';
-        }
-    }
-    if (params.has('left') && !params.has('right')) {
-        nextDetailPanel = 2;
-    }
-
     // Restore pin state
     if (params.has('pin')) {
         const pin = params.get('pin');
@@ -174,21 +193,5 @@ function applyFiltersFromUrl() {
         else if (pin === 'right' && selectedRubbers[1]) pinnedRubbers[1] = true;
     }
 
-    updateRadarChart();
-    updateComparisonBar();
-    renderTabs();
-    let requestedTab = null;
-    if (params.has('page')) {
-        const page = params.get('page');
-        if (page === 'rubber1') requestedTab = 'desc1';
-        else if (page === 'rubber2') requestedTab = 'desc2';
-        else if (page === 'comparison') requestedTab = 'comparison';
-    }
-    const canOpenRequestedTab =
-        (requestedTab === 'desc1' && selectedRubbers[0]) ||
-        (requestedTab === 'desc2' && selectedRubbers[1]) ||
-        (requestedTab === 'comparison' && selectedRubbers[0] && selectedRubbers[1]);
-    const initialTab = canOpenRequestedTab ? requestedTab : lastRestoredTab;
-    if (initialTab) setActiveTab(initialTab);
     updateFilterSummary();
 }

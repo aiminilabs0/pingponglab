@@ -141,7 +141,9 @@ function initCountrySelector() {
             pane.classList.add('content-pane--country-fade');
         }
 
-        pushFiltersToUrl();
+        // Navigate to new country path (replaces country prefix)
+        const newPath = buildCurrentPath();
+        navigateToPath(newPath);
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
         if (selectedRubbers[1]) updateDetailPanel(2, selectedRubbers[1]);
         updateComparisonBar();
@@ -327,11 +329,15 @@ function trackSearchSelectEvent(rubber) {
 function initHomeLogo() {
     const logo = document.getElementById('homeLogo');
     if (!logo) return;
-    logo.addEventListener('click', resetAppToInitialState);
+    function handleLogoClick() {
+        resetAppToInitialState();
+        navigateToPath('/' + (selectedCountry || 'us') + '/');
+    }
+    logo.addEventListener('click', handleLogoClick);
     logo.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            resetAppToInitialState();
+            handleLogoClick();
         }
     });
 }
@@ -502,11 +508,81 @@ window.addEventListener('resize', () => {
     if (hasPlotted) updateChart({ preserveRanges: true });
 });
 
+/**
+ * Apply a parsed route to the app state (auto-select rubbers, open tabs).
+ */
+function applyRoute(route) {
+    if (!route || !SLUG_MAP) return;
+
+    if (route.type === 'rubber') {
+        const rubber = findRubberBySlug(route.slug);
+        if (rubber) {
+            selectedRubbers[0] = rubber;
+            updateDetailPanel(1, rubber);
+            nextDetailPanel = 2;
+            updateRadarChart();
+            updateComparisonBar();
+            renderTabs();
+            setActiveTab('desc1');
+        }
+    } else if (route.type === 'comparison') {
+        const rubberA = findRubberBySlug(route.slugA);
+        const rubberB = findRubberBySlug(route.slugB);
+        if (rubberA && rubberB) {
+            selectedRubbers[0] = rubberA;
+            selectedRubbers[1] = rubberB;
+            updateDetailPanel(1, rubberA);
+            updateDetailPanel(2, rubberB);
+            nextDetailPanel = 1;
+            updateRadarChart();
+            updateComparisonBar();
+            renderTabs();
+            setActiveTab('comparison');
+        } else if (rubberA) {
+            selectedRubbers[0] = rubberA;
+            updateDetailPanel(1, rubberA);
+            nextDetailPanel = 2;
+            updateRadarChart();
+            updateComparisonBar();
+            renderTabs();
+            setActiveTab('desc1');
+        }
+    }
+    // 'homepage' type: nothing to select
+}
+
 async function initializeApp() {
     trackAppLoadedEvent();
 
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data\u2026</div>';
+
+    // Load slug map
+    try {
+        const slugMapResp = await fetch(v('/js/slug-map.json'));
+        if (slugMapResp.ok) {
+            SLUG_MAP = await slugMapResp.json();
+        }
+    } catch (e) {
+        console.warn('Could not load slug map:', e);
+    }
+
+    // Check for legacy URL redirect (before loading data to avoid flash)
+    if (SLUG_MAP && checkLegacyUrlRedirect(SLUG_MAP)) return;
+
+    // Parse route from current URL
+    const route = parseRoute();
+
+    // Handle root redirect
+    if (route.type === 'redirect') {
+        window.location.replace('/' + route.country + '/');
+        return;
+    }
+
+    // Set country from route
+    if (route.country && ['us', 'cn', 'kr'].includes(route.country)) {
+        selectedCountry = route.country;
+    }
 
     try {
         await loadPlayersData();
@@ -600,6 +676,7 @@ async function initializeApp() {
     });
 
     applyFiltersFromUrl();
+    applyRoute(route);
     if (!activeTab) {
         renderTabs();
         setActiveTab('desc1');
@@ -630,6 +707,38 @@ async function initializeApp() {
     } else if (typeof mobileQuery.addListener === 'function') {
         mobileQuery.addListener(syncZoomHintVisibility);
     }
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+        const newRoute = parseRoute();
+        if (newRoute.type === 'redirect') {
+            window.location.replace('/' + newRoute.country + '/');
+            return;
+        }
+        // Update country if changed
+        if (newRoute.country && newRoute.country !== selectedCountry) {
+            selectedCountry = newRoute.country;
+            applyLocalizedStaticText();
+            syncCountrySelectorUI();
+            const brandFilter = document.getElementById('brandFilter');
+            const brandChecked = new Set(getCheckedValues('brandFilter'));
+            const brands = [...new Set(rubberData.map(r => r.brand))].sort();
+            buildCheckboxOptions(brandFilter, brands.map(b => ({ value: b, label: tBrand(b), swatchColor: getBrandColor(b) })), brandChecked);
+            buildNameOptionsFromFilters();
+            updateChart({ preserveRanges: true, force: true });
+        }
+        // Reset selections and apply route
+        selectedRubbers = [null, null];
+        nextDetailPanel = 1;
+        pinnedRubbers = [false, false];
+        resetDetailPanels();
+        applyRoute(newRoute);
+        if (!activeTab) {
+            renderTabs();
+            setActiveTab('desc1');
+        }
+        updateChart({ preserveRanges: true, force: true });
+    });
 }
 
 initializeApp();

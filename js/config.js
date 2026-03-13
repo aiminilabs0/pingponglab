@@ -10,18 +10,18 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 52;
+const CACHE_VERSION = 53;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
-const RUBBER_INDEX_FILE = 'stats/rubbers/index.json';
+const RUBBER_INDEX_FILE = '/stats/rubbers/index.json';
 const RANKING_FILES = {
-    spin: 'stats/rubbers/ranking/spin.json',
-    speed: 'stats/rubbers/ranking/speed.json',
-    control: 'stats/rubbers/ranking/control.json'
+    spin: '/stats/rubbers/ranking/spin.json',
+    speed: '/stats/rubbers/ranking/speed.json',
+    control: '/stats/rubbers/ranking/control.json'
 };
-const PRIORITY_FILE = 'stats/rubbers/ranking/priority.json';
-const BESTSELLER_FILE = 'stats/rubbers/ranking/bestseller.json';
-const PLAYERS_FILE = 'players/players.json';
+const PRIORITY_FILE = '/stats/rubbers/ranking/priority.json';
+const BESTSELLER_FILE = '/stats/rubbers/ranking/bestseller.json';
+const PLAYERS_FILE = '/players/players.json';
 
 const BRAND_COLORS = {
     Butterfly: '#f11b85',
@@ -71,6 +71,15 @@ function fromGermanScale(geValue, country) {
     if (!Number.isFinite(geValue)) return null;
     if (country === 'Germany' || !HARDNESS_SCALES[country]) return geValue;
     return interpolateScale(geValue, HARDNESS_SCALES.Germany, HARDNESS_SCALES[country]);
+}
+
+let SLUG_MAP = null; // Loaded at startup from /js/slug-map.json
+
+function findRubberBySlug(slug) {
+    if (!slug || !SLUG_MAP) return null;
+    const abbr = fromSlug(slug, SLUG_MAP);
+    if (!abbr) return null;
+    return rubberData.find(r => r.abbr === abbr) || null;
 }
 
 const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };

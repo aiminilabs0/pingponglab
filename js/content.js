@@ -2,7 +2,7 @@
 //  Detail Panels & Comparison
 // ════════════════════════════════════════════════════════════
 
-const YOUTUBE_ICON = 'images/youtube.ico';
+const YOUTUBE_ICON = '/images/youtube.ico';
 
 function buildTitleLinkIconsHtml(rubber) {
     if (!rubber?.urls) return '';
@@ -35,7 +35,7 @@ async function fetchRubberDescriptionMarkdown(brand, abbr) {
     if (cacheKey in rubberDescriptionsCache) return rubberDescriptionsCache[cacheKey];
     try {
         const resp = await fetch(v(
-            `rubbers_description/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
+            `/rubbers_description/${encodeURIComponent(brand)}/${encodeURIComponent(lang)}/${encodeURIComponent(abbr)}`
         ));
         if (!resp.ok) { rubberDescriptionsCache[cacheKey] = null; return null; }
         const text = await resp.text();
@@ -68,7 +68,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
     try {
         for (const [n1, n2] of orderings) {
-            const localizedPath = `rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}/${encodeURIComponent(n2)}`;
+            const localizedPath = `/rubbers_comparison/${encodeURIComponent(lang)}/${encodeURIComponent(n1)}/${encodeURIComponent(n2)}`;
             const resp = await fetch(v(localizedPath));
             if (resp.ok) {
                 const text = await resp.text();
@@ -254,8 +254,17 @@ function handleRubberClick(rubber) {
     updateComparisonBar();
     updateChart({ preserveRanges: true, force: true });
     renderTabs();
+    activeTab = `desc${panelNum}`;
+
+    // Navigate to the rubber's clean URL
+    if (SLUG_MAP) {
+        const slug = SLUG_MAP.abbrToSlug[rubber.abbr];
+        if (slug) {
+            navigateToPath('/' + (selectedCountry || 'us') + '/rubbers/' + slug);
+        }
+    }
+
     setActiveTab(`desc${panelNum}`);
-    pushFiltersToUrl();
     return panelNum;
 }
 

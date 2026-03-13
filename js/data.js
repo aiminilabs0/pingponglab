@@ -40,7 +40,7 @@ function parsePlayerEntry(value) {
 }
 
 function playerEmojiPath(name) {
-    return 'images/players/' + name.replace(/\s+/g, ' ') + '.png';
+    return '/images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
 function normalizePlayerNameKey(value) {
@@ -392,7 +392,7 @@ async function loadRubberData() {
 
     const results = await Promise.allSettled(
         rubberFiles.map(file =>
-            fetch(v(file)).then(r => {
+            fetch(v('/' + file)).then(r => {
                 if (!r.ok) throw new Error(`HTTP ${r.status} for ${file}`);
                 return r.json();
             })
