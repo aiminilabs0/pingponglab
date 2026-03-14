@@ -14,6 +14,7 @@ ALL_RUBBERS_FILE = (
 )
 OUTPUT_DIR = Path(__file__).resolve().parent / "gen-prompts"
 EXCLUDE_FILE = Path(__file__).resolve().parent / "exclude.txt"
+INCLUDE_FILE = Path(__file__).resolve().parent / "include.txt"
 
 NAME_MAP = {
     "H3 Neo": "Hurricane 3 Neo",
@@ -67,6 +68,13 @@ def load_excludes() -> set[str]:
     return {line.strip() for line in lines if line.strip()}
 
 
+def load_includes() -> list[str]:
+    if not INCLUDE_FILE.exists():
+        return []
+    lines = INCLUDE_FILE.read_text(encoding="utf-8").splitlines()
+    return [line.strip() for line in lines if line.strip()]
+
+
 def generate_prompt(template: str, rubber1: str, rubber2: str) -> str:
     r1 = expand_name(rubber1)
     r2 = expand_name(rubber2)
@@ -100,11 +108,16 @@ def main() -> int:
 
     template = PROMPT_TEMPLATE.read_text(encoding="utf-8")
     excludes = load_excludes()
+    includes = load_includes()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    targets = includes if includes else all_rubbers
+
     count = 0
-    for rubber2 in all_rubbers:
-        if rubber2 == rubber1 or rubber2 in excludes:
+    for rubber2 in targets:
+        if rubber2 == rubber1:
+            continue
+        if not includes and rubber2 in excludes:
             continue
         prompt = generate_prompt(template, rubber1, rubber2)
         filename = f"{sanitize_filename(rubber2)}.txt"
