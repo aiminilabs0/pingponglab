@@ -11,7 +11,6 @@ commit_name="$1"
 
 ./scripts/bump_version.sh
 
-git add index.html
-git add js/config.js
+git add .
 git commit -m "$commit_name"
 git push origin main
