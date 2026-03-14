@@ -2,20 +2,6 @@
   "abbr": "Gold Arc 8",
   "name": "Gold Arc 8",
   "manufacturer": "DHS",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.4,
-    "spin": 9.2,
-    "control": 9.1,
-    "sponge_hardness": "6.7 (Medium hard)",
-    "gears": "8.7 (Many gears)",
-    "throw_angle": "5.7 (Medium high)",
-    "consistency": 9.4,
-    "durability": "8.3 (Lasts longer than average)",
-    "tackiness": "2.0 (Slightly tacky)",
-    "people": 145,
-    "desc": "adjust spin from 9.3 to 9.2 because all DHS rubbers have same value"
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2017,
@@ -28,11 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "url": "",
-    "speed": 102,
-    "spin": 91
   },
   "urls": {
     "us": {

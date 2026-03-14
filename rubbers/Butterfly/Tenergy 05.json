@@ -11,19 +11,6 @@
       "Timo Ball"
     ]
   },
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.3,
-    "spin": 9.4,
-    "control": 8.3,
-    "sponge_hardness": "6.1 (Medium hard)",
-    "gears": "8.6 (Many gears)",
-    "throw_angle": "7.6 (High)",
-    "consistency": 9.3,
-    "durability": "7.7 (Lasts longer than average)",
-    "tackiness": "2.3 (Slightly tacky)",
-    "people": 378
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/butterfly-tenergy-05/",
     "country": "Japan",
@@ -36,10 +23,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "speed": 83,
-    "spin": 76
   },
   "urls": {
     "us": {

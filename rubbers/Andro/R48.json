@@ -2,19 +2,6 @@
   "abbr": "R48",
   "name": "Rasanter R48",
   "manufacturer": "Andro",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 8.9,
-    "spin": 9.4,
-    "control": 8.9,
-    "sponge_hardness": "6.6 (Medium hard)",
-    "gears": "8.1 (Above average gears)",
-    "throw_angle": "5.9 (Medium high)",
-    "consistency": 8.2,
-    "durability": "7.4 (Lasts longer than average)",
-    "tackiness": "1.9 (Slightly tacky)",
-    "people": 51
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/andro-rasanter-r48/",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.paddlepalace.com/Andro-Rasanter-R48/productinfo/RAR48/",
-    "speed": 97,
-    "spin": 97,
-    "control": 68
   },
   "urls": {
     "us": {

@@ -8,19 +8,6 @@
       "T. Pucar"
     ]
   },
-  "user_ratings": {
-    "overall": 9.2,
-    "speed": 9.3,
-    "spin": 9.1,
-    "control": 8.6,
-    "sponge_hardness": "8.6 (Hard)",
-    "gears": "8.7 (Many gears)",
-    "throw_angle": "4.6 (Medium)",
-    "consistency": 8.9,
-    "durability": "7.1 (Lasts longer than average)",
-    "tackiness": "1.8 (Slightly tacky)",
-    "people": 28
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/tibhar-evolution-mx-d/",
     "country": "Germany",
@@ -32,11 +19,6 @@
     ],
     "sheet": "Tension",
     "weight": 53
-  },
-  "manufacturer_ratings": {
-    "speed": 130,
-    "spin": 123,
-    "control": 83
   },
   "urls": {
     "us": {

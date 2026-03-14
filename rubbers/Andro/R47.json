@@ -2,19 +2,6 @@
   "abbr": "R47",
   "name": "Rasanter R47",
   "manufacturer": "Andro",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.4,
-    "spin": 9.3,
-    "control": 8.9,
-    "sponge_hardness": "6.5 (Medium hard)",
-    "gears": "8.8 (Many gears)",
-    "throw_angle": "5.9 (Medium high)",
-    "consistency": 9.3,
-    "durability": "7.6 (Lasts longer than average)",
-    "tackiness": "1.8 (Slightly tacky)",
-    "people": 93
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/andro-rasanter-r47/",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.paddlepalace.com/Andro-Rasanter-R47/productinfo/RAR47/",
-    "speed": 96,
-    "spin": 96,
-    "control": 68
   },
   "urls": {
     "us": {

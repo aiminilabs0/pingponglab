@@ -6,19 +6,6 @@
     "forehand": [],
     "backhand": []
   },
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.1,
-    "spin": 9.2,
-    "control": 8.9,
-    "sponge_hardness": "4.1 (Medium)",
-    "gears": "8.4 (Above average gears)",
-    "throw_angle": "6.9 (Medium high)",
-    "consistency": 9.3,
-    "durability": "7.7 (Lasts longer than average)",
-    "tackiness": "2.9 (Slightly tacky)",
-    "people": 378
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/butterfly-tenergy-05-fx/",
     "country": "Japan",
@@ -31,10 +18,6 @@
     ],
     "sheet": "Tension",
     "weight": 44
-  },
-  "manufacturer_ratings": {
-    "speed": 83,
-    "spin": 76
   },
   "urls": {
     "us": {

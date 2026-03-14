@@ -8,19 +8,6 @@
       "André"
     ]
   },
-  "user_ratings": {
-    "overall": 9.2,
-    "speed": 9.2,
-    "spin": 9.2,
-    "control": 9.1,
-    "sponge_hardness": "8.5 (Hard)",
-    "gears": "8.3 (Above average gears)",
-    "throw_angle": "5.8 (Medium high)",
-    "consistency": 9.3,
-    "durability": "7.3   Lasts longer than average",
-    "tackiness": "5.0 (Medium tacky)",
-    "people": 9
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2022,
@@ -31,12 +18,6 @@
     ],
     "sheet": "Hybrid",
     "weight": 52
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.paddlepalace.com/Andro-Rasanter-R48/productinfo/RAR48/",
-    "speed": 97,
-    "spin": 98,
-    "control": 68
   },
   "urls": {
     "us": {

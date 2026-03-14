@@ -2,19 +2,6 @@
   "abbr": "Rakza 9",
   "name": "Rakza 9",
   "manufacturer": "Yasaka",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.4,
-    "spin": 9.3,
-    "control": 8.9,
-    "sponge_hardness": "6.3 (Medium hard)",
-    "gears": "8.8 (Many gears)",
-    "throw_angle": "4.3 (Medium)",
-    "consistency": 9.3,
-    "durability": "8.7 (Lasts a long time!)",
-    "tackiness": "2.3 (Slightly tacky)",
-    "people": 78
-  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=y-rakza-9",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 52
-  },
-  "manufacturer_ratings": {
-    "speed": 91,
-    "spin": 85,
-    "control": 60,
-    "arc": "Low"
   },
   "urls": {
     "us": {

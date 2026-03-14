@@ -16,19 +16,6 @@
       "M. Thakkar"
     ]
   },
-  "user_ratings": {
-    "overall": 9.2,
-    "speed": 8.7,
-    "spin": 9.2,
-    "control": 8.9,
-    "sponge_hardness": "8.3 (Medium hard)",
-    "gears": "8.9 (Many gears)",
-    "throw_angle": "6.2 (Medium high)",
-    "consistency": 9.5,
-    "durability": "5.1 (Average durability)",
-    "tackiness": "4.8 (Medium tacky)",
-    "people": 36
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/tibhar-hybrid-k3/",
     "country": "Germany",
@@ -40,11 +27,6 @@
     ],
     "sheet": "Hybrid",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "speed": 118,
-    "spin": 130,
-    "control": 100
   },
   "urls": {
     "us": {

@@ -2,19 +2,6 @@
   "abbr": "BlueGrip C2",
   "name": "BlueGrip C2",
   "manufacturer": "Donic",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.2,
-    "spin": 9.4,
-    "control": 9.1,
-    "sponge_hardness": "9.2 (Hard)",
-    "gears": "9.0 (Many gears)",
-    "throw_angle": "7.3 (High)",
-    "consistency": 9.7,
-    "durability": "7.6 (Lasts longer than average)",
-    "tackiness": "5.6 (Medium tacky)",
-    "people": 39
-  },
   "manufacturer_details": {
     "url": "",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Hybrid",
     "weight": 53
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.donic.com/en/DONIC-BLUEGRIP-C2/000241120",
-    "speed": 9,
-    "spin": 10.5,
-    "control": 10
   },
   "urls": {
     "us": {

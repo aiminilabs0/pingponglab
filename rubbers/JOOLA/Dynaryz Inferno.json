@@ -2,19 +2,6 @@
   "abbr": "Dynaryz Inferno",
   "name": "Dynaryz Inferno",
   "manufacturer": "JOOLA",
-  "user_ratings": {
-    "overall": 9.1,
-    "speed": 9.3,
-    "spin": 8.9,
-    "control": 8.9,
-    "sponge_hardness": "8.0 (Medium hard)",
-    "gears": "8.0 (Above average gears)",
-    "throw_angle": "5.3 (Medium high)",
-    "consistency": 7.5,
-    "durability": "7.3 (Lasts longer than average)",
-    "tackiness": "0.5 (Completely non-tacky)",
-    "people": 4
-  },
   "manufacturer_details": {
     "url": "https://www.youtube.com/watch?v=vH6gYSkDqvA",
     "country": "Germany",
@@ -26,13 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "url": "https://joola.com/products/dynaryz-inferno-table-tennis-rubber?variant=44995101065430",
-    "speed": 12,
-    "spin": 10,
-    "trajectory": 7,
-    "precision": 9
   },
   "urls": {
     "us": {

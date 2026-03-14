@@ -2,19 +2,6 @@
   "abbr": "BlueGrip J1",
   "name": "BlueGrip J1",
   "manufacturer": "Donic",
-  "user_ratings": {
-    "overall": 9.5,
-    "speed": 9.2,
-    "spin": 9.4,
-    "control": 8.9,
-    "sponge_hardness": "10.0 (Hard)",
-    "gears": "10.0 (Many gears)",
-    "throw_angle": "4.0 (Medium)",
-    "consistency": 10,
-    "durability": "9.0 (Lasts a long time!)",
-    "tackiness": "5.6 (Medium tacky)",
-    "people": 6
-  },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/donic-bluegrip-j-one",
     "country": "Germany",
@@ -26,12 +13,6 @@
     ],
     "sheet": "Hybrid",
     "weight": 51
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.donic.com/en/DONIC-BLUEGRIP-J1/000231220",
-    "speed": 9.5,
-    "spin": 10,
-    "control": 10
   },
   "urls": {
     "us": {

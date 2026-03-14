@@ -2,19 +2,6 @@
   "abbr": "EL-P",
   "name": "Evolution EL-P",
   "manufacturer": "Tibhar",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.1,
-    "spin": 9.2,
-    "control": 9,
-    "sponge_hardness": "5.0 (Medium)",
-    "gears": "8.2 (Above average gears)",
-    "throw_angle": "5.3 (Medium high)",
-    "consistency": 9.5,
-    "durability": "8.1 (Lasts longer than average)",
-    "tackiness": "2.2 (Slightly tacky)",
-    "people": 72
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2013,
@@ -27,11 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "speed": 121,
-    "spin": 122,
-    "control": 98
   },
   "urls": {
     "us": {

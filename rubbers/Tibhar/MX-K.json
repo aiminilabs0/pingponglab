@@ -2,19 +2,6 @@
   "abbr": "MX-K",
   "name": "Tibhar MX-K",
   "manufacturer": "Tibhar",
-  "user_ratings": {
-    "overall": 9,
-    "speed": 9,
-    "spin": 9.2,
-    "control": 9.4,
-    "sponge_hardness": "7.0 (Medium hard)",
-    "gears": null,
-    "throw_angle": "8.0 (High)",
-    "consistency": 5,
-    "durability": "10.0 (Lasts a long time!)",
-    "tackiness": "8.0 (Tacky)",
-    "people": 2
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2019,
@@ -26,7 +13,6 @@
     "sheet": "Tension",
     "weight": 48
   },
-  "manufacturer_ratings": {},
   "urls": {
     "us": {
       "product": "https://www.amazon.com/s?k=Tibhar+Evolution+MX-K+table+tennis+rubber",

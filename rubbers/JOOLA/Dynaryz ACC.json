@@ -2,20 +2,6 @@
   "abbr": "Dynaryz ACC",
   "name": "Dynaryz ACC",
   "manufacturer": "JOOLA",
-  "user_ratings": {
-    "overall": 9.1,
-    "speed": 9.2,
-    "spin": 9.1,
-    "control": 9.1,
-    "weight": "5.3 (Medium heavy)",
-    "sponge_hardness": "6.6 (Medium hard)",
-    "gears": "6.5 (Above average gears)",
-    "throw_angle": "5.0 (Medium high)",
-    "consistency": 9.4,
-    "durability": "6.8 (Lasts longer than average)",
-    "tackiness": "2.1 (Slightly tacky)",
-    "people": 30
-  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/joola-dynaryz-acc/",
     "country": "Germany",
@@ -27,13 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 46
-  },
-  "manufacturer_ratings": {
-    "url": "https://joola.com/pages/rubber-specification?srsltid=AfmBOoo6G5Kh7eRNauE3BxGjz79iBV4u_VeVVPChuuShOZQ-seNAJWJ5",
-    "speed": 10,
-    "spin": 10,
-    "trajectory": 7.5,
-    "precision": 10.5
   },
   "urls": {
     "us": {

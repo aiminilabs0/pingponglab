@@ -13,19 +13,6 @@
       "Gauzy Simon"
     ]
   },
-  "user_ratings": {
-    "overall": 9.5,
-    "speed": 9.6,
-    "spin": 9.6,
-    "control": 8.9,
-    "sponge_hardness": "8.9 (Hard)",
-    "gears": "8.3 (Above average gears)",
-    "throw_angle": "6.3 (Medium high)",
-    "consistency": 9.3,
-    "durability": "8.3 (Lasts longer than average)",
-    "tackiness": "2.6 (Slightly tacky)",
-    "people": 8
-  },
   "manufacturer_details": {
     "url": "https://ttgearlab.com/2024/06/16/andro-nuzn-55-nuzn-50-photos-information/",
     "country": "Germany",
@@ -37,12 +24,6 @@
     ],
     "sheet": "Tension",
     "weight": 53
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.paddlepalace.com/Andro-NUZN-55/productinfo/RANZ55/",
-    "speed": 98,
-    "spin": 98,
-    "control": 69
   },
   "urls": {
     "us": {

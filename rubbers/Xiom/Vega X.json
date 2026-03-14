@@ -2,19 +2,6 @@
   "abbr": "Vega X",
   "name": "Vega X",
   "manufacturer": "Xiom",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9,
-    "spin": 9,
-    "control": 8.7,
-    "sponge_hardness": "10.0 (Hard)",
-    "gears": 1,
-    "throw_angle": "8.0 (High)",
-    "consistency": 10,
-    "durability": "7.0 (Above average)",
-    "tackiness": "5.0 (Medium tacky)",
-    "people": 29
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2019,
@@ -26,12 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 50
-  },
-  "manufacturer_ratings": {
-    "url": "https://xiom.tt/sub/catalog/2025_product/index.html",
-    "catapult & click": 5,
-    "spin": 5.7,
-    "speed": 5
   },
   "urls": {
     "us": {

@@ -2,20 +2,6 @@
   "abbr": "Rozena",
   "name": "Rozena",
   "manufacturer": "Butterfly",
-  "user_ratings": {
-    "overall": 8.8,
-    "speed": 8.7,
-    "spin": 8.4,
-    "control": 8.7,
-    "weight": "4.5 (Average)",
-    "sponge_hardness": "5.0 (Medium)",
-    "gears": "6.9 (Above average gears)",
-    "throw_angle": "5.5 (Medium high)",
-    "consistency": 9,
-    "durability": "6.8 (Lasts longer than average)",
-    "tackiness": "1.5 (Slightly tacky)",
-    "people": 88
-  },
   "manufacturer_details": {
     "country": "Japan",
     "release_year": 2017,
@@ -27,10 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 47
-  },
-  "manufacturer_ratings": {
-    "speed": 83,
-    "spin": 70
   },
   "urls": {
     "us": {

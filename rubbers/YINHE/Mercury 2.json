@@ -2,19 +2,6 @@
   "abbr": "Mercury 2",
   "name": "Mercury 2",
   "manufacturer": "YINHE",
-  "user_ratings": {
-    "overall": 8.7,
-    "speed": 8.4,
-    "spin": 8.8,
-    "control": 8.7,
-    "sponge_hardness": "4.7 (Medium)",
-    "gears": "6.6 (Above average gears)",
-    "throw_angle": "5.6 (Medium high)",
-    "consistency": 8.2,
-    "durability": "6.2 (Lasts longer than average)",
-    "tackiness": "6.1 (Medium tacky)",
-    "people": 106
-  },
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yinhe-mercury-2-review/",
     "country": "China",
@@ -27,7 +14,6 @@
     "sheet": "Chinese",
     "weight": 43
   },
-  "manufacturer_ratings": {},
   "urls": {
     "us": {
       "product": "",

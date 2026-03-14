@@ -14,19 +14,6 @@
     ]
   },
   "manufacturer": "DHS",
-  "user_ratings": {
-    "overall": 9,
-    "speed": 8.4,
-    "spin": 9.3,
-    "control": 8.7,
-    "sponge_hardness": "8.0 (Medium hard)",
-    "gears": "8.7 (Many gears)",
-    "throw_angle": "5.8 (Medium high)",
-    "consistency": 7.4,
-    "durability": "7.5 (Lasts longer than average)",
-    "tackiness": "8.1 (Tacky)",
-    "people": 317
-  },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
     "country": "China",
@@ -39,11 +26,6 @@
     ],
     "sheet": "Chinese",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "url": "https://dhstabletennis.ca/products/dhs-neo-hurricane-3-national-edition-rubber",
-    "speed": 93,
-    "spin": 103
   },
   "urls": {
     "us": {

@@ -2,20 +2,6 @@
   "abbr": "S-1",
   "name": "Fastarc S-1",
   "manufacturer": "Nittaku",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.1,
-    "spin": 8.9,
-    "control": 9,
-    "weight": "3.3 (Average)",
-    "sponge_hardness": "4.4 (Medium)",
-    "gears": 8.5,
-    "throw_angle": "5.3 (Medium high)",
-    "consistency": 9.4,
-    "durability": "7.9 (Lasts longer than average)",
-    "tackiness": "1.9 (Slightly tacky)",
-    "people": 67
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2010,
@@ -28,11 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 44
-  },
-  "manufacturer_ratings": {
-    "url": "https://nittaku.tt/en/products/nittaku-fastarc-s-1-rubber",
-    "speed": 15.5,
-    "spin": 11.75
   },
   "urls": {
     "us": {

@@ -2,19 +2,6 @@
   "abbr": "R50",
   "name": "Rasanter R50",
   "manufacturer": "Andro",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.4,
-    "spin": 9.4,
-    "control": 8.7,
-    "sponge_hardness": "8.3 (Medium hard)",
-    "gears": "9.2 (Many gears)",
-    "throw_angle": "5.9 (Medium high)",
-    "consistency": 9.3,
-    "durability": "8.3 (Lasts longer than average)",
-    "tackiness": "1.8 (Slightly tacky)",
-    "people": 43
-  },
   "manufacturer_details": {
     "url": "https://katsuo000.com/review_rasanter_r50_en/",
     "country": "Germany",
@@ -28,7 +15,6 @@
     "sheet": "Tension",
     "weight": 51
   },
-  "manufacturer_ratings": {},
   "urls": {
     "us": {
       "product": "",

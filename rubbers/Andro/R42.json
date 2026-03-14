@@ -2,19 +2,6 @@
   "abbr": "R42",
   "name": "Rasanter R42",
   "manufacturer": "Andro",
-  "user_ratings": {
-    "overall": 9.2,
-    "speed": 9,
-    "spin": 9.2,
-    "control": 9.2,
-    "sponge_hardness": "4.1 (Medium)",
-    "gears": "8.0 (Above average gears)",
-    "throw_angle": "6.1 (Medium high)",
-    "consistency": 9,
-    "durability": "7.7 (Lasts longer than average)",
-    "tackiness": "2.1 (Slightly tacky)",
-    "people": 66
-  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=andro-rasanter-r42",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 47
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.paddlepalace.com/Andro-Rasanter-R42/productinfo/RAR42/",
-    "speed": 95,
-    "spin": 96,
-    "control": 69
   },
   "urls": {
     "us": {

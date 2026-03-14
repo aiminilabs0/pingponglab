@@ -10,19 +10,6 @@
       "S. Shibata"
     ]
   },
-  "user_ratings": {
-    "overall": 8.9,
-    "speed": 8.1,
-    "spin": 9.3,
-    "control": 9.1,
-    "sponge_hardness": "6.4 (Medium hard)",
-    "gears": "9.1 (Many gears)",
-    "throw_angle": "5.0 (Medium high)",
-    "consistency": 8.5,
-    "durability": "8.3 (Lasts longer than average)",
-    "tackiness": "8.1 (Tacky)",
-    "people": 16
-  },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/review-hurricane-8-80",
     "country": "China",
@@ -33,11 +20,6 @@
     ],
     "sheet": "Chinese",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "url": "https://dhstabletennis.ca/products/dhs-neo-hurricane-3-national-edition-rubber",
-    "speed": 97,
-    "spin": 99
   },
   "urls": {
     "us": {

@@ -2,19 +2,6 @@
   "abbr": "Rakza Z",
   "name": "Rakza Z",
   "manufacturer": "Yasaka",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 8.7,
-    "spin": 9.5,
-    "control": 9.2,
-    "sponge_hardness": "7.7 (Medium hard)",
-    "gears": "8.7 (Many gears)",
-    "throw_angle": "6.5 (Medium high)",
-    "consistency": 9.4,
-    "durability": "8.3 (Lasts longer than average)",
-    "tackiness": "6.6 (Tacky)",
-    "people": 67
-  },
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-z-review/",
     "country": "Germany",
@@ -26,12 +13,6 @@
     ],
     "sheet": "Hybrid",
     "weight": 52
-  },
-  "manufacturer_ratings": {
-    "speed": 84,
-    "spin": 92,
-    "control": 63,
-    "arc": "High"
   },
   "urls": {
     "us": {

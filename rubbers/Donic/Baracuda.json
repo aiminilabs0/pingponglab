@@ -2,20 +2,6 @@
   "abbr": "Baracuda",
   "name": "Baracuda",
   "manufacturer": "Donic",
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 8.7,
-    "spin": 9.5,
-    "control": 8.6,
-    "weight": "5.5 (Medium heavy)",
-    "sponge_hardness": "4.9 (Medium)",
-    "gears": "7.8 (Above average gears)",
-    "throw_angle": "7.3 (High)",
-    "consistency": 8.8,
-    "durability": "7.7 (Lasts longer than average)",
-    "tackiness": "2.3 (Slightly tacky)",
-    "people": 220
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2009,
@@ -27,12 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.donic.com/en/DONIC-BARACUDA/000284118",
-    "speed": 9,
-    "spin": 9.5,
-    "control": 8.5
   },
   "urls": {
     "us": {

@@ -2,19 +2,6 @@
   "abbr": "Vega Europe",
   "name": "Vega Europe",
   "manufacturer": "Xiom",
-  "user_ratings": {
-    "overall": 9.1,
-    "speed": 8.7,
-    "spin": 8.9,
-    "control": 9.1,
-    "sponge_hardness": "2.8 (Medium soft)",
-    "gears": "7.8 (Above average gears)",
-    "throw_angle": "4.7 (Medium)",
-    "consistency": 9.3,
-    "durability": "6.8 (Lasts longer than average)",
-    "tackiness": "1.9 (Slightly tacky)",
-    "people": 207
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2008,
@@ -26,12 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 43
-  },
-  "manufacturer_ratings": {
-    "url": "https://xiom.tt/sub/catalog/2025_product/index.html",
-    "catapult & click": 4.6,
-    "spin": 3.4,
-    "speed": 6
   },
   "urls": {
     "us": {

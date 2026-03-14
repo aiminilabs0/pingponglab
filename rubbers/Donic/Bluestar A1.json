@@ -2,19 +2,6 @@
   "abbr": "Bluestar A1",
   "name": "Bluestar A1",
   "manufacturer": "Donic",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.4,
-    "spin": 9.4,
-    "control": 8.8,
-    "sponge_hardness": "9.6 (Hard)",
-    "gears": "9.1 (Many gears)",
-    "throw_angle": "6.1 (Medium high)",
-    "consistency": 9.4,
-    "durability": "7.7 (Lasts longer than average)",
-    "tackiness": "2.8 (Slightly tacky)",
-    "people": 22
-  },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittaku-genextion-vs-donic-bluestar-a1-the-battle-of-recently-introduced-525-degree-rubbers",
     "country": "Germany",
@@ -26,12 +13,6 @@
     ],
     "sheet": "Tension",
     "weight": 50
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.donic.com/en/Rubbers/4274/DONIC-BlueStar-A1-available-November-2022",
-    "speed": 9,
-    "spin": 10,
-    "control": 10
   },
   "urls": {
     "us": {

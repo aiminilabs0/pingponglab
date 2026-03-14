@@ -2,19 +2,6 @@
   "abbr": "Rakza 7 Soft",
   "name": "Rakza 7 Soft",
   "manufacturer": "Yasaka",
-  "user_ratings": {
-    "overall": 9.2,
-    "speed": 8.6,
-    "spin": 9.2,
-    "control": 9.1,
-    "sponge_hardness": "2.5 (Medium soft)",
-    "gears": "7.6 (Above average gears)",
-    "throw_angle": "5.5 (Medium high)",
-    "consistency": 9.7,
-    "durability": "7.6 (Lasts longer than average)",
-    "tackiness": "2.4 (Slightly tacky)",
-    "people": 139
-  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=y-rakza-7-soft",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 43
-  },
-  "manufacturer_ratings": {
-    "speed": 84,
-    "spin": 88,
-    "control": 67,
-    "arc": "High"
   },
   "urls": {
     "us": {

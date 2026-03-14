@@ -6,20 +6,6 @@
     "forehand": [],
     "backhand": []
   },
-  "user_ratings": {
-    "overall": 9.3,
-    "speed": 9.3,
-    "spin": 8.8,
-    "control": 8.5,
-    "weight": "5.5 (Medium heavy)",
-    "sponge_hardness": "5.1 (Medium)",
-    "gears": "8.5 (Many gears)",
-    "throw_angle": "5.4 (Medium high)",
-    "consistency": 9.2,
-    "durability": "8.0 (Lasts longer than average)",
-    "tackiness": "2.5 (Slightly tacky)",
-    "people": 173
-  },
   "manufacturer_details": {
     "country": "Japan",
     "release_year": 2009,
@@ -31,10 +17,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "speed": 87,
-    "spin": 70
   },
   "urls": {
     "us": {

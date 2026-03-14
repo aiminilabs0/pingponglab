@@ -2,19 +2,6 @@
   "abbr": "Bluefire M2",
   "name": "Bluefire M2",
   "manufacturer": "Donic",
-  "user_ratings": {
-    "overall": 8.9,
-    "speed": 8.7,
-    "spin": 9,
-    "control": 8.5,
-    "sponge_hardness": "5.4 (Medium)",
-    "gears": "7.7 (Above average gears)",
-    "throw_angle": "6.4 (Medium high)",
-    "consistency": 9.2,
-    "durability": "6.3 (Lasts longer than average)",
-    "tackiness": "1.8 (Slightly tacky)",
-    "people": 67
-  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-bluefire-ms2",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "url": "https://www.donic.com/en/DONIC-Bluefire-M2/000295118",
-    "speed": 8.5,
-    "spin": 9.5,
-    "control": 9.5
   },
   "urls": {
     "us": {

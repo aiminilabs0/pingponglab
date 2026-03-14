@@ -10,19 +10,6 @@
       "Y. Jeoung"
     ]
   },
-  "user_ratings": {
-    "overall": 9.1,
-    "speed": 9.2,
-    "spin": 9.1,
-    "control": 8.7,
-    "sponge_hardness": "6.2 (Medium hard)",
-    "gears": 8.2,
-    "throw_angle": "5.2 (Medium high)",
-    "consistency": 8.8,
-    "durability": "6.7 (Lasts longer than average)",
-    "tackiness": "1.6 (Slightly tacky)",
-    "people": 29
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2018,
@@ -33,12 +20,6 @@
     ],
     "sheet": "Tension",
     "weight": 48
-  },
-  "manufacturer_ratings": {
-    "url": "https://xiom.tt/sub/catalog/2025_product/index.html",
-    "catapult & click": 5.6,
-    "spin": 5.4,
-    "speed": 6
   },
   "urls": {
     "us": {

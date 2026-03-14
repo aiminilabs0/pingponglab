@@ -10,19 +10,6 @@
       "D. Jorgić"
     ]
   },
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 9.5,
-    "spin": 9.3,
-    "control": 8.7,
-    "sponge_hardness": "7.0 (Medium hard)",
-    "gears": "8.7 (Many gears)",
-    "throw_angle": "5.5 (Medium high)",
-    "consistency": 8.9,
-    "durability": "7.0 (Lasts longer than average)",
-    "tackiness": "2.3 (Slightly tacky)",
-    "people": 137
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2013,
@@ -35,11 +22,6 @@
     ],
     "sheet": "Tension",
     "weight": 49
-  },
-  "manufacturer_ratings": {
-    "speed": 126,
-    "spin": 122,
-    "control": 86
   },
   "urls": {
     "us": {

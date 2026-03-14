@@ -2,19 +2,6 @@
   "abbr": "J&H Z52.5",
   "name": "Jekyll & Hyde Z52.5",
   "manufacturer": "Xiom",
-  "user_ratings": {
-    "overall": 9.7,
-    "speed": 9.7,
-    "spin": 9.3,
-    "control": 9.5,
-    "sponge_hardness": "10.0 (Hard)",
-    "gears": 10,
-    "throw_angle": "6.0 (Medium high)",
-    "consistency": 10,
-    "durability": null,
-    "tackiness": "2.0 (Slightly tacky)",
-    "people": 4
-  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2024,
@@ -24,12 +11,6 @@
     ],
     "sheet": "Tension",
     "weight": 52
-  },
-  "manufacturer_ratings": {
-    "url": "https://xiom.tt/sub/catalog/2025_product/index.html",
-    "catapult & click": 6,
-    "spin": 6,
-    "speed": 5
   },
   "urls": {
     "us": {

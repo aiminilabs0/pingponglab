@@ -2,19 +2,6 @@
   "abbr": "Rakza 7",
   "name": "Rakza 7",
   "manufacturer": "Yasaka",
-  "user_ratings": {
-    "overall": 9.4,
-    "speed": 8.9,
-    "spin": 9.2,
-    "control": 8.9,
-    "sponge_hardness": "6.1 (Medium hard)",
-    "gears": "8.5 (Many gears)",
-    "throw_angle": "5.5 (Medium high)",
-    "consistency": 9.6,
-    "durability": "8.0 (Lasts longer than average)",
-    "tackiness": "2.6 (Slightly tacky)",
-    "people": 248
-  },
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-7-review/",
     "country": "Germany",
@@ -27,12 +14,6 @@
     ],
     "sheet": "Tension",
     "weight": 50
-  },
-  "manufacturer_ratings": {
-    "speed": 87,
-    "spin": 88,
-    "control": 63,
-    "arc": "Medium"
   },
   "urls": {
     "us": {
