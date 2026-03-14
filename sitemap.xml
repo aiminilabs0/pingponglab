@@ -649,6 +649,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pingponglab.com/us/rubbers/genextion</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/genextion</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/genextion</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pingponglab.com/us/rubbers/el-p</loc>
     <priority>0.8</priority>
   </url>
@@ -1798,6 +1810,18 @@
   </url>
   <url>
     <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-j1-vs-g-1</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j1-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/bluegrip-j1-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-j1-vs-genextion</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -4450,6 +4474,18 @@
   </url>
   <url>
     <loc>https://pingponglab.com/cn/rubbers/compare/dignics-05-vs-g-1</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/dignics-05-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/dignics-05-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/dignics-05-vs-genextion</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -7741,6 +7777,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/g-1-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/g-1-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/g-1-vs-genextion</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/g-1-vs-gold-arc-8</loc>
     <priority>0.6</priority>
   </url>
@@ -8362,6 +8410,150 @@
   </url>
   <url>
     <loc>https://pingponglab.com/cn/rubbers/compare/g-1-vs-zyre-03</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-h3-neo</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-h3-neo</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-h3-neo</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-jh-c55-0</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-jh-c55-0</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-jh-c55-0</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-k3</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-k3</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-k3</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-mx-k</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-mx-k</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-mx-k</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-mx-p</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-mx-p</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-mx-p</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-nuzn-55</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-nuzn-55</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-nuzn-55</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-rakza-z</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-rakza-z</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-rakza-z</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-rozena</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-rozena</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-rozena</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-tenergy-05</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-tenergy-05</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-tenergy-05</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-vega-x</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-vega-x</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-vega-x</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-zyre-03</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-zyre-03</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-zyre-03</loc>
     <priority>0.6</priority>
   </url>
   <url>
