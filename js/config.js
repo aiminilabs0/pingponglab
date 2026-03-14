@@ -305,7 +305,7 @@ const RUBBER_NAMES_I18N = {
         'Rozena': '로제나',
         'Zyre 03': '자이어 03',
         // DHS
-        'H3 Neo': '허리케인3 Neo',
+        'H3 Neo': '네오 허리케인3',
         'H8-80': '허리케인8-80',
         'Gold Arc 8': '금궁8',
         // Donic
@@ -364,7 +364,7 @@ const RUBBER_NAMES_I18N = {
         'Omega 8 Pro': '오메가 8 프로',
         'Vega Europe': '베가 유럽',
         'Vega Pro': '베가 프로',
-        'Vega X': '베가 X',
+        'Vega X': '베가 텐',
         // Yasaka
         'Rakza 7 Soft': '라크자 7 소프트',
         'Rakza 7': '라크자 7',
