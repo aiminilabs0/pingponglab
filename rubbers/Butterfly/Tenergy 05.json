@@ -4,9 +4,12 @@
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [
-      "E. Samara"
+      "E. Samara",
+      "Timo Ball"
     ],
-    "backhand": []
+    "backhand": [
+      "Timo Ball"
+    ]
   },
   "user_ratings": {
     "overall": 9.3,

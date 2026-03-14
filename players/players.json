@@ -466,5 +466,18 @@
       "https://www.youtube.com/watch?v=sZ9Ho5Oq2rM",
       "https://www.youtube.com/watch?v=4_xSMd1gzpk"
     ]
+  },
+  "Timo Ball": {
+    "localized_names": {
+      "ko": "티모볼",
+      "cn": "波尔"
+    },
+    "forehand": "Butterfly/Tenergy 05",
+    "backhand": "Butterfly/Tenergy 05",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=cKqfsAU5UQw",
+      "https://www.youtube.com/watch?v=QKXSayRNGJ4",
+      "https://www.youtube.com/watch?v=K-gLfUdzmD4"
+    ]
   }
 }
