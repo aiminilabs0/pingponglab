@@ -547,8 +547,18 @@ function applyRoute(route) {
             renderTabs();
             setActiveTab('desc1');
         }
+    } else if (route.type === 'homepage') {
+        const defaultRubber = findRubberBySlug('tenergy-05') || rubberData.find(r => r && r.abbr === 'Tenergy 05');
+        if (defaultRubber) {
+            selectedRubbers[0] = defaultRubber;
+            updateDetailPanel(1, defaultRubber);
+            nextDetailPanel = 2;
+            updateRadarChart();
+            updateComparisonBar();
+            renderTabs();
+            setActiveTab('desc1');
+        }
     }
-    // 'homepage' type: nothing to select
 }
 
 async function initializeApp() {
