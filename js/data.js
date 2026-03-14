@@ -76,8 +76,8 @@ function getLocalizedPlayerName(name) {
         : '';
     if (localized) return localized;
 
-    const fullName = typeof player.full_name === 'string' ? player.full_name.trim() : '';
-    if (fullName) return fullName;
+    const canonicalName = typeof player.canonical_name === 'string' ? player.canonical_name.trim() : '';
+    if (canonicalName) return canonicalName;
 
     return parsedName;
 }
