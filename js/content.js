@@ -201,7 +201,7 @@ async function updateDetailPanel(panelNum, rubber) {
                 (rubber.bestseller ? `<span class="bestseller-badge">★ Bestseller</span>` : '') +
             `</div>` +
             `<div class="rubber-title-row">` +
-                `<h1 class="rubber-name" style="color:${brandColor}">${escapeHtml(rubber.name)}</h1>` +
+                `<h1 class="rubber-name">${escapeHtml(rubber.name)}</h1>` +
                 (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
@@ -281,14 +281,14 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
             <span class="brand-pill" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
                 <span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}
             </span>
-            <span class="rubber-name" style="color:${leftColor}">${leftName}</span>
+            <span class="rubber-name">${leftName}</span>
         </div>
         <div class="comp-title-vs">vs</div>
         <div class="comp-title-side comp-title-side-right">
             <span class="brand-pill" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
                 <span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}
             </span>
-            <span class="rubber-name" style="color:${rightColor}">${rightName}</span>
+            <span class="rubber-name">${rightName}</span>
         </div>
     `;
 }

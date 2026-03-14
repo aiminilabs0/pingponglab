@@ -545,7 +545,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                     </span>
                     ${bestsellerTag}
                 </div>
-                <div class="rubber-name" style="color:var(--drac-fg)">${escapeHtml(rubberName)}${slotBadge}</div>
+                <div class="rubber-name">${escapeHtml(rubberName)}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>

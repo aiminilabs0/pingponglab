@@ -114,7 +114,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
                     </span>
                 </div>
                 <div class="radar-info-name-row">
-                    <div class="rubber-name" style="color:${placeholderColor}">${placeholderName}</div>
+                    <div class="rubber-name">${placeholderName}</div>
                 </div>
                 <img
                     class="radar-rubber-img radar-rubber-img--placeholder"
@@ -144,7 +144,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
                 </span>
             </div>
             <div class="radar-info-name-row">
-                <div class="rubber-name" style="color:${brandColor}">${escapeHtml(radarLabel)}</div>
+                <div class="rubber-name">${escapeHtml(radarLabel)}</div>
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
             ${rubberImgHtml}

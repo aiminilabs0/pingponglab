@@ -338,6 +338,7 @@ const RUBBER_NAMES_I18N = {
         'C-1': 'C-1',
         'G-1': 'G-1',
         'S-1': 'S-1',
+        'Genextion': '제넥션',
         // Tibhar
         'EL-P': 'EL-P',
         'EL-S': 'EL-S',
@@ -435,6 +436,7 @@ const RUBBER_NAMES_I18N = {
         'C-1': 'C-1',
         'G-1': 'G-1',
         'S-1': 'S-1',
+        'Genextion': '杰ネクション',
         // Tibhar
         'EL-P': 'EL-P',
         'EL-S': 'EL-S',

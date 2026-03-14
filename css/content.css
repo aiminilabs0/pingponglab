@@ -102,6 +102,8 @@
     line-height: 1.2;
     letter-spacing: -0.2px;
     word-break: break-word;
+    color: #f2ece0;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 
 /* ── Rubber title header (detail panel) ── */
