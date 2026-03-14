@@ -587,22 +587,15 @@ function updateChart(options = {}) {
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
-    // 7 discrete marker sizes based on control ranking
-    // Rank 1 (most controllable) → biggest (20), last rank → smallest (8)
-    const MARKER_SIZES = [20, 18, 16, 14, 12, 10, 8];
+    // Match chart marker sizes to the 5-dot control guide:
+    // L1 (more control) → biggest dot, L5 (less control) → smallest dot.
+    const CONTROL_GUIDE_MARKER_SIZES = [14, 12, 10, 8, 6];
 
     function getMarkerSize(rubber) {
-        const rank = rubber.controlRank;
-        const total = rubber.controlTotal;
-        if (typeof rank !== 'number' || typeof total !== 'number') return 14; // default medium
-
-        const seventh = total / 7;
-        for (let i = 0; i < 7; i++) {
-            if (rank <= seventh * (i + 1)) {
-                return MARKER_SIZES[i]; // Lower rank (better control) gets bigger marker
-            }
-        }
-        return MARKER_SIZES[6]; // fallback to smallest
+        const controlLevel = getControlLevelFromRank(rubber.controlRank);
+        if (!Number.isFinite(controlLevel)) return CONTROL_GUIDE_MARKER_SIZES[2];
+        const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
+        return CONTROL_GUIDE_MARKER_SIZES[clampedLevel - 1];
     }
 
     // Group by brand × sheet for trace creation
