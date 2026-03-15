@@ -25,7 +25,7 @@
         height: 12px;
     }
     .header-search-input:focus {
-        width: 150px;
+        width: 130px;
     }
     .header-search-results {
         min-width: 200px;

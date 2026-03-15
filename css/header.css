@@ -120,7 +120,7 @@
 .header-search-input:focus {
     border-color: var(--drac-orange);
     background: rgba(28,26,23,0.75);
-    width: 240px;
+    width: 210px;
 }
 .header-search-results {
     display: none;
