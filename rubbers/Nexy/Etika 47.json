@@ -1,0 +1,29 @@
+{
+  "abbr": "Etika 47",
+  "name": "Etika 47",
+  "manufacturer": "Nexy",
+  "manufacturer_details": {
+    "country": "Germany",
+    "release_year": 2021,
+    "hardness": 47,
+    "thickness": [
+      "2.1"
+    ],
+    "sheet": "Tension",
+    "weight": 46
+  },
+  "urls": {
+    "us": {
+      "product": "",
+      "youtube": ""
+    },
+    "kr": {
+      "product": "",
+      "youtube": ""
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  }
+}

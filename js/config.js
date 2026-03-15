@@ -374,7 +374,9 @@ const RUBBER_NAMES_I18N = {
         'Rakza XX': '라크자 XX',
         'Rakza Z': '라크자 Z',
         // YINHE
-        'Mercury 2': '머큐리 2'
+        'Mercury 2': '머큐리 2',
+        // Nexy
+        'Etika 47': '에티카 47'
     },
     cn: {
         // Andro
@@ -472,7 +474,9 @@ const RUBBER_NAMES_I18N = {
         'Rakza XX': '力克萨XX',
         'Rakza Z': '力克萨Z',
         // YINHE
-        'Mercury 2': '水星2'
+        'Mercury 2': '水星2',
+        // Nexy
+        'Etika 47': '埃提卡47'
     }
 };
 

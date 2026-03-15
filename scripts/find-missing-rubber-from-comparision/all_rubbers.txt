@@ -84,5 +84,9 @@
   "Dignics 64",
   "Tenergy 64",
   "Tenergy 05 FX",
-  "Genextion"
+  "Genextion",
+  "Etika 47",
+  "Etika 51",
+  "Etika Pro 47",
+  "Etika Pro H"
 ]
