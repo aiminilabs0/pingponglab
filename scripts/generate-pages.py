@@ -7,7 +7,7 @@ Reads rubber data and comparison files, then generates:
 - Root index.html (redirect to /us/)
 - Country homepages (/us/, /kr/, /cn/)
 - Rubber detail pages (~86 per country)
-- Comparison pages (only for pairs with actual content)
+- Comparison pages (all rubber pair combinations)
 - sitemap.xml
 - 404.html
 """
@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+from itertools import combinations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -204,9 +205,16 @@ def main():
     rubbers = load_rubber_index()
     print(f'  Found {len(rubbers)} rubbers')
 
-    print('Loading comparison pairs...')
-    pairs = load_comparison_pairs()
-    print(f'  Found {len(pairs)} comparison pairs')
+    print('Loading comparison pairs with content...')
+    content_pairs = load_comparison_pairs()
+    print(f'  Found {len(content_pairs)} comparison pairs with content')
+
+    all_pairs = set()
+    abbrs = [r['abbr'] for r in rubbers]
+    for a, b in combinations(abbrs, 2):
+        pair = tuple(sorted([a, b]))
+        all_pairs.add(pair)
+    print(f'  Total rubber pair combinations: {len(all_pairs)}')
 
     print('Generating slug map...')
     slug_map = generate_slug_map(rubbers)
@@ -277,7 +285,7 @@ def main():
     # ── Comparison pages ──
     print('Generating comparison pages...')
     comp_count = 0
-    for name_a, name_b in sorted(pairs):
+    for name_a, name_b in sorted(all_pairs):
         slug_a = slug_map['abbrToSlug'].get(name_a)
         slug_b = slug_map['abbrToSlug'].get(name_b)
         if not slug_a or not slug_b:
