@@ -181,9 +181,17 @@ function buildPlayersColumnHtml(rubber, align) {
 }
 
 function buildRadarComparisonHtml(first, second) {
+    function formatSheetRadarHtml(sheet) {
+        if (!sheet) return '<strong>-</strong>';
+        const sheetI18nKey = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
+        const localizedSheet = sheetI18nKey ? tUi(sheetI18nKey) : sheet;
+        if (!localizedSheet || localizedSheet === '-') return '<strong>-</strong>';
+        return `<strong class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(localizedSheet.charAt(0))}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong>`;
+    }
+
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('RELEASE'), tUi('THICKNESS')];
+        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('TOPSHEET'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
@@ -256,6 +264,11 @@ function buildRadarComparisonHtml(first, second) {
             label: tUi('CONTROL'),
             left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel)}</strong>`),
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
+        },
+        {
+            label: tUi('TOPSHEET'),
+            left: val(first, r => formatSheetRadarHtml(r.sheet)),
+            right: val(second, r => formatSheetRadarHtml(r.sheet)),
         },
         {
             label: tUi('CUT_WEIGHT'),
