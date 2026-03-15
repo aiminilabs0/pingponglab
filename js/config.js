@@ -318,6 +318,38 @@ function tRubber(rubberOrAbbr) {
     return localizedAbbr?.[lang] || localizedName?.[lang] || localizedAbbr?.en || localizedName?.en || rubber.abbr || rubber.name || '';
 }
 
+function tRubberAbbr(rubberOrAbbr) {
+    const lang = getCurrentLang();
+    const rubber = (rubberOrAbbr && typeof rubberOrAbbr === 'object')
+        ? rubberOrAbbr
+        : rubberByAbbr.get(rubberOrAbbr);
+    if (!rubber) return typeof rubberOrAbbr === 'string' ? rubberOrAbbr : '';
+
+    const localizedAbbr = rubber.localizedAbbr && typeof rubber.localizedAbbr === 'object'
+        ? rubber.localizedAbbr
+        : null;
+    const localizedName = rubber.localizedName && typeof rubber.localizedName === 'object'
+        ? rubber.localizedName
+        : null;
+    return localizedAbbr?.[lang] || localizedAbbr?.en || rubber.abbr || localizedName?.[lang] || localizedName?.en || rubber.name || '';
+}
+
+function tRubberName(rubberOrAbbr) {
+    const lang = getCurrentLang();
+    const rubber = (rubberOrAbbr && typeof rubberOrAbbr === 'object')
+        ? rubberOrAbbr
+        : rubberByAbbr.get(rubberOrAbbr);
+    if (!rubber) return typeof rubberOrAbbr === 'string' ? rubberOrAbbr : '';
+
+    const localizedName = rubber.localizedName && typeof rubber.localizedName === 'object'
+        ? rubber.localizedName
+        : null;
+    const localizedAbbr = rubber.localizedAbbr && typeof rubber.localizedAbbr === 'object'
+        ? rubber.localizedAbbr
+        : null;
+    return localizedName?.[lang] || localizedName?.en || rubber.name || localizedAbbr?.[lang] || localizedAbbr?.en || rubber.abbr || '';
+}
+
 function applyLocalizedStaticText() {
     document.querySelectorAll('[data-i18n-key]').forEach((el) => {
         const key = el.dataset.i18nKey;

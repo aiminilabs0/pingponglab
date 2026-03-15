@@ -43,7 +43,7 @@ function getRadarData(rubber) {
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
-    const localizedRubber = tRubber(rubber.abbr) || rubber.addr || rubber.name || '';
+    const localizedRubber = tRubberName(rubber) || rubber.name || rubber.addr || rubber.abbr || '';
     const categories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
@@ -133,7 +133,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     }
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '-';
-    const localizedRubber = tRubber(rubber.abbr) || rubber.addr || rubber.name || '-';
+    const localizedRubber = tRubberName(rubber) || rubber.name || rubber.addr || rubber.abbr || '-';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
     const pinIcon = isPinned

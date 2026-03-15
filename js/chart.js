@@ -513,7 +513,7 @@ function buildControlLevelIndicatorHtml(controlLevel, { fillFromLeft = false } =
 }
 
 function buildHoverPopupHtml(rubber, point, slotLabel) {
-    const rubberName = tRubber(rubber.abbr) || rubber.name || '-';
+    const rubberName = tRubberName(rubber) || rubber.name || rubber.abbr || '-';
     const brandName = tBrand(rubber.brand) || '-';
     const sheet = rubber.sheet || '-';
     const sheetI18nKey = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];

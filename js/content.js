@@ -88,7 +88,7 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
 function buildTabButtonContent(rubber) {
     const color = getBrandColor(rubber.brand);
-    const localizedName = tRubber(rubber.abbr) || rubber.name || rubber.abbr || '';
+    const localizedName = tRubberAbbr(rubber) || rubber.abbr || rubber.name || '';
     return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(localizedName)}`;
 }
 
@@ -192,7 +192,7 @@ async function updateDetailPanel(panelNum, rubber) {
     const tabKey = `desc${panelNum}`;
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
-    const localizedRubber = tRubber(rubber.abbr) || rubber.name || rubber.abbr || '';
+    const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
     const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
     const headerHtml =
         `<div class="rubber-title-header">` +
@@ -275,9 +275,9 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
     const leftColor = getBrandColor(leftRubber?.brand);
     const rightColor = getBrandColor(rightRubber?.brand);
     const leftBrand = escapeHtml(tBrand(leftRubber?.brand) || leftRubber?.brand || '');
-    const leftName  = escapeHtml(tRubber(leftRubber?.abbr) || leftRubber?.name || leftRubber?.abbr || '');
+    const leftName  = escapeHtml(tRubberName(leftRubber) || leftRubber?.name || leftRubber?.abbr || '');
     const rightBrand = escapeHtml(tBrand(rightRubber?.brand) || rightRubber?.brand || '');
-    const rightName  = escapeHtml(tRubber(rightRubber?.abbr) || rightRubber?.name || rightRubber?.abbr || '');
+    const rightName  = escapeHtml(tRubberName(rightRubber) || rightRubber?.name || rightRubber?.abbr || '');
 
     return `
         <div class="comp-title-side">
