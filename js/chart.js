@@ -806,9 +806,7 @@ function updateChart(options = {}) {
             // that Plotly.react may fire afterwards.
             _clickPopupActiveUntil = Date.now() + 500;
 
-            const panelNum = handleRubberClick(rubber);
-            trackRubberClickEvent(rubber);
-            const slotLabel = panelNum === 1 ? 'Rubber 1' : 'Rubber 2';
+            handleRubberClick(rubber);
 
             // Click effect at the dot position
             const clickPos = getChartDotScreenPosition(point, chartEl);

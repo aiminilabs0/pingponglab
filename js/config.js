@@ -491,16 +491,6 @@ function isAnalyticsBlockedUser() {
 //  Analytics
 // ════════════════════════════════════════════════════════════
 
-function trackRubberClickEvent(rubber) {
-    if (!rubber || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
-    const rubberAbbr = normalizeGaToken(rubber.abbr);
-    window.gtag('event', buildCountryGaEventName('click', rubberAbbr), {
-        rubber_abbr: rubber.abbr || '',
-        device_type: getDeviceTypeForGa(),
-        login_name: getLoginNameInputForGa()
-    });
-}
-
 function trackContentFeedbackVote(vote, context = {}) {
     if (!vote || typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const contentType = context.contentType || 'unknown';
