@@ -578,30 +578,6 @@ function buildCheckboxOptions(container, values, checkedValues) {
     container.appendChild(frag);
 }
 
-function getLocalizedPlayerNamesForRubber(rubber) {
-    if (!rubber) return [];
-    const uniqueNames = new Set();
-    const collect = (entries) => {
-        if (!Array.isArray(entries)) return;
-        entries.forEach((entry) => {
-            const parsed = parsePlayerEntry(entry);
-            if (!parsed?.name) return;
-            const localizedName = getLocalizedPlayerName(parsed.name) || parsed.name;
-            const normalizedName = localizedName.trim();
-            if (normalizedName) uniqueNames.add(normalizedName);
-        });
-    };
-    collect(rubber.forehandPlayers);
-    collect(rubber.backhandPlayers);
-    return Array.from(uniqueNames);
-}
-
-function buildPlayerFilterPreview(playerNames, maxVisible = 2) {
-    if (!Array.isArray(playerNames) || playerNames.length === 0) return '';
-    if (playerNames.length <= maxVisible) return playerNames.join(', ');
-    return `${playerNames.slice(0, maxVisible).join(', ')} +${playerNames.length - maxVisible}`;
-}
-
 function buildNameOptionsFromFilters() {
     const nameFilter = document.getElementById('nameFilter');
     const selectedBrands = new Set(getCheckedValues('brandFilter'));
@@ -643,18 +619,15 @@ function buildNameOptionsFromFilters() {
     const nameOptions = uniqueNames.map(name => {
         const rubber = seenNames.get(name);
         const terms = [];
-        const localizedPlayerNames = getLocalizedPlayerNamesForRubber(rubber);
         for (const m of Object.values(BRAND_NAMES_I18N)) {
             if (m[rubber.brand]) terms.push(m[rubber.brand]);
         }
         for (const m of Object.values(RUBBER_NAMES_I18N)) {
             if (m[name]) terms.push(m[name]);
         }
-        terms.push(...localizedPlayerNames);
-        const playerPreview = buildPlayerFilterPreview(localizedPlayerNames);
         return {
             value: name,
-            label: playerPreview ? `${tRubber(name)} (${playerPreview})` : tRubber(name),
+            label: tRubber(name),
             swatchColor: getBrandColor(rubber.brand),
             searchTerms: terms.length ? terms.join(' ') : undefined
         };
