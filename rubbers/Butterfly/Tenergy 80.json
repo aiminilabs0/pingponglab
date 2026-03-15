@@ -1,6 +1,16 @@
 {
   "abbr": "Tenergy 80",
   "name": "Tenergy 80",
+  "abbr_i18n": {
+    "en": "Tenergy 80",
+    "ko": "테너지80",
+    "cn": "能量80"
+  },
+  "name_i18n": {
+    "en": "Tenergy 80",
+    "ko": "테너지80",
+    "cn": "能量80"
+  },
   "manufacturer": "Butterfly",
   "manufacturer_details": {
     "country": "Japan",

@@ -1,6 +1,16 @@
 {
   "abbr": "Zyre 03",
   "name": "Zyre 03",
+  "abbr_i18n": {
+    "en": "Zyre 03",
+    "ko": "자이어03",
+    "cn": "Zyre 03"
+  },
+  "name_i18n": {
+    "en": "Zyre 03",
+    "ko": "자이어03",
+    "cn": "Zyre 03"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [

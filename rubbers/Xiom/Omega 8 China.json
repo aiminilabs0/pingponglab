@@ -1,6 +1,16 @@
 {
   "abbr": "Omega 8 China",
   "name": "Omega 8 China",
+  "abbr_i18n": {
+    "en": "Omega 8 China",
+    "ko": "오메가8 차이나",
+    "cn": "欧米茄8 粘性"
+  },
+  "name_i18n": {
+    "en": "Omega 8 China",
+    "ko": "오메가8 차이나",
+    "cn": "欧米茄8 粘性"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/rubber-review-xiom-omega-viii-rubbers",

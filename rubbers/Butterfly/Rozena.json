@@ -1,6 +1,16 @@
 {
   "abbr": "Rozena",
   "name": "Rozena",
+  "abbr_i18n": {
+    "en": "Rozena",
+    "ko": "로제나",
+    "cn": "罗泽纳"
+  },
+  "name_i18n": {
+    "en": "Rozena",
+    "ko": "로제나",
+    "cn": "罗泽纳"
+  },
   "manufacturer": "Butterfly",
   "manufacturer_details": {
     "country": "Japan",

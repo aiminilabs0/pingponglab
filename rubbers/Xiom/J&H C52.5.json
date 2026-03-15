@@ -1,6 +1,16 @@
 {
   "abbr": "J&H C52.5",
   "name": "Jekyll & Hyde C52.5",
+  "abbr_i18n": {
+    "en": "J&H C52.5",
+    "ko": "지킬C52.5",
+    "cn": "J&H C52.5"
+  },
+  "name_i18n": {
+    "en": "Jekyll & Hyde C52.5",
+    "ko": "지킬앤하이드 C52.5",
+    "cn": "Jekyll & Hyde C52.5"
+  },
   "manufacturer": "Xiom",
   "players": {
     "forehand": [],

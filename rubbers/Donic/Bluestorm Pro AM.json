@@ -1,6 +1,16 @@
 {
   "abbr": "Bluestorm Pro AM",
   "name": "Bluestorm Pro AM",
+  "abbr_i18n": {
+    "en": "Bluestorm Pro AM",
+    "ko": "블루스톰 프로 AM",
+    "cn": "蓝色风暴Pro AM"
+  },
+  "name_i18n": {
+    "en": "Bluestorm Pro AM",
+    "ko": "블루스톰 프로 AM",
+    "cn": "蓝色风暴Pro AM"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://www.tabletennis11.com/other_eng/donic-bluestorm-pro-am",

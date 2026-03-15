@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz AGR",
   "name": "Dynaryz AGR",
+  "abbr_i18n": {
+    "en": "Dynaryz AGR",
+    "ko": "다이나리즈AGR",
+    "cn": "黛纳瑞兹AGR"
+  },
+  "name_i18n": {
+    "en": "Dynaryz AGR",
+    "ko": "다이나리즈AGR",
+    "cn": "黛纳瑞兹AGR"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/joola-dynaryz-agr/",

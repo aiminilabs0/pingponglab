@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz CMD",
   "name": "Dynaryz CMD",
+  "abbr_i18n": {
+    "en": "Dynaryz CMD",
+    "ko": "다이나리즈CMD",
+    "cn": "黛纳瑞兹CMD"
+  },
+  "name_i18n": {
+    "en": "Dynaryz CMD",
+    "ko": "다이나리즈CMD",
+    "cn": "黛纳瑞兹CMD"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.ttmode.com/joola-dynaryz-cmd",

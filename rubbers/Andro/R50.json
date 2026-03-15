@@ -1,6 +1,16 @@
 {
   "abbr": "R50",
   "name": "Rasanter R50",
+  "abbr_i18n": {
+    "en": "R50",
+    "ko": "R50",
+    "cn": "R50"
+  },
+  "name_i18n": {
+    "en": "Rasanter R50",
+    "ko": "R50",
+    "cn": "新锐煞 R50"
+  },
   "manufacturer": "Andro",
   "manufacturer_details": {
     "url": "https://katsuo000.com/review_rasanter_r50_en/",

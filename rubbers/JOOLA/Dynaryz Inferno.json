@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz Inferno",
   "name": "Dynaryz Inferno",
+  "abbr_i18n": {
+    "en": "Dynaryz Inferno",
+    "ko": "인페르노",
+    "cn": "黛纳瑞兹Inferno"
+  },
+  "name_i18n": {
+    "en": "Dynaryz Inferno",
+    "ko": "다이나리즈 인페르노",
+    "cn": "黛纳瑞兹Inferno"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.youtube.com/watch?v=vH6gYSkDqvA",

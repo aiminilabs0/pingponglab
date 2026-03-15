@@ -1,6 +1,16 @@
 {
   "abbr": "Etika 51",
   "name": "Etika 51",
+  "abbr_i18n": {
+    "en": "Etika 51",
+    "ko": "에티카51",
+    "cn": "埃提卡51"
+  },
+  "name_i18n": {
+    "en": "Etika 51",
+    "ko": "에티카51",
+    "cn": "埃提卡51"
+  },
   "manufacturer": "Nexy",
   "manufacturer_details": {
     "country": "Germany",

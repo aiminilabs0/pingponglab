@@ -1,6 +1,16 @@
 {
   "abbr": "NUZN 45",
   "name": "NUZN 45",
+  "abbr_i18n": {
+    "en": "NUZN 45",
+    "ko": "뉴존 45",
+    "cn": "NUZN 45"
+  },
+  "name_i18n": {
+    "en": "NUZN 45",
+    "ko": "뉴존 45",
+    "cn": "NUZN 45"
+  },
   "manufacturer": "Andro",
   "manufacturer_details": {
     "url": "https://www.tabletennisdaily.com/forum/topics/new-andro-nuzn-48-and-45.37237/page-5",

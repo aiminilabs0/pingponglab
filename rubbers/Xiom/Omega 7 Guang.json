@@ -1,6 +1,16 @@
 {
   "abbr": "Omega 7 Guang",
   "name": "Omega 7 Guang",
+  "abbr_i18n": {
+    "en": "Omega 7 Guang",
+    "ko": "오메가7 광",
+    "cn": "欧米茄7 光"
+  },
+  "name_i18n": {
+    "en": "Omega 7 Guang",
+    "ko": "오메가7 광",
+    "cn": "欧米茄7 光"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/xiom-omega-vii-china-guang/",

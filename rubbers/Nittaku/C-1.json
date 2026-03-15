@@ -1,6 +1,16 @@
 {
   "abbr": "C-1",
   "name": "Fastarc C-1",
+  "abbr_i18n": {
+    "en": "C-1",
+    "ko": "C-1",
+    "cn": "C-1"
+  },
+  "name_i18n": {
+    "en": "Fastarc C-1",
+    "ko": "파스탁C-1",
+    "cn": "尼塔库C-1"
+  },
   "manufacturer": "Nittaku",
   "manufacturer_details": {
     "country": "Germany",

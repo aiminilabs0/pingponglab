@@ -1,6 +1,16 @@
 {
   "abbr": "K3",
   "name": "Hybrid K3",
+  "abbr_i18n": {
+    "en": "K3",
+    "ko": "K3",
+    "cn": "K3"
+  },
+  "name_i18n": {
+    "en": "Hybrid K3",
+    "ko": "하이브리드K3",
+    "cn": "混动K3"
+  },
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [

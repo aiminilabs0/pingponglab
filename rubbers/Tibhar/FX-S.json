@@ -1,6 +1,16 @@
 {
   "abbr": "FX-S",
   "name": "Evolution FX-S",
+  "abbr_i18n": {
+    "en": "FX-S",
+    "ko": "FX-S",
+    "cn": "FX-S"
+  },
+  "name_i18n": {
+    "en": "Evolution FX-S",
+    "ko": "에볼루션FX-S",
+    "cn": "变革FX-S"
+  },
   "manufacturer": "Tibhar",
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/tibhar-evolution-series-table-tennis-rubbers-review",

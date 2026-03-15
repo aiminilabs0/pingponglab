@@ -1,6 +1,16 @@
 {
   "abbr": "Rakza X",
   "name": "Rakza X",
+  "abbr_i18n": {
+    "en": "Rakza X",
+    "ko": "라크자X",
+    "cn": "力克萨X"
+  },
+  "name_i18n": {
+    "en": "Rakza X",
+    "ko": "라크자X",
+    "cn": "力克萨X"
+  },
   "manufacturer": "Yasaka",
   "players": {
     "forehand": [

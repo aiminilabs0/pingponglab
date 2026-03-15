@@ -1,6 +1,16 @@
 {
   "abbr": "R47",
   "name": "Rasanter R47",
+  "abbr_i18n": {
+    "en": "R47",
+    "ko": "R47",
+    "cn": "R47"
+  },
+  "name_i18n": {
+    "en": "Rasanter R47",
+    "ko": "R47",
+    "cn": "新锐煞 R47"
+  },
   "manufacturer": "Andro",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/andro-rasanter-r47/",

@@ -1,6 +1,16 @@
 {
   "abbr": "FX-P",
   "name": "Evolution FX-P",
+  "abbr_i18n": {
+    "en": "FX-P",
+    "ko": "FX-P",
+    "cn": "FX-P"
+  },
+  "name_i18n": {
+    "en": "Evolution FX-P",
+    "ko": "에볼루션FX-P",
+    "cn": "变革FX-P"
+  },
   "manufacturer": "Tibhar",
   "manufacturer_details": {
     "country": "Germany",

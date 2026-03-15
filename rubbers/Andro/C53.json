@@ -1,6 +1,16 @@
 {
   "abbr": "C53",
   "name": "Rasanter C53",
+  "abbr_i18n": {
+    "en": "C53",
+    "ko": "C53",
+    "cn": "C53"
+  },
+  "name_i18n": {
+    "en": "Rasanter C53",
+    "ko": "라잔터 C53",
+    "cn": "新锐煞 C53"
+  },
   "manufacturer": "Andro",
   "players": {
     "forehand": [],

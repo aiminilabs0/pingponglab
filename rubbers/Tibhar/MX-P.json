@@ -1,6 +1,16 @@
 {
   "abbr": "MX-P",
   "name": "Evolution MX-P",
+  "abbr_i18n": {
+    "en": "MX-P",
+    "ko": "MX-P",
+    "cn": "MX-P"
+  },
+  "name_i18n": {
+    "en": "Evolution MX-P",
+    "ko": "에볼루션MX-P",
+    "cn": "变革MX-P"
+  },
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [

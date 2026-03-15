@@ -1,6 +1,16 @@
 {
   "abbr": "Bluestorm Z2",
   "name": "Bluestorm Z2",
+  "abbr_i18n": {
+    "en": "Bluestorm Z2",
+    "ko": "블루스톰Z2",
+    "cn": "蓝色风暴Z2"
+  },
+  "name_i18n": {
+    "en": "Bluestorm Z2",
+    "ko": "블루스톰Z2",
+    "cn": "蓝色风暴Z2"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-bluestorm-z2",

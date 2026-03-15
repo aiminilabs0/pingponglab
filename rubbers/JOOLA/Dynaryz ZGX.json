@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz ZGX",
   "name": "Dynaryz ZGX",
+  "abbr_i18n": {
+    "en": "Dynaryz ZGX",
+    "ko": "다이나리즈ZGX",
+    "cn": "黛纳瑞兹ZGX"
+  },
+  "name_i18n": {
+    "en": "Dynaryz ZGX",
+    "ko": "다이나리즈ZGX",
+    "cn": "黛纳瑞兹ZGX"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/default.asp?pid=j-dynaryz-zgx#:~:text=External%20Review%20for%20JOOLA%20Dynaryz,at%20157%20x%20150%20mm).",

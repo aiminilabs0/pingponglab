@@ -1,6 +1,16 @@
 {
   "abbr": "Acuda S2",
   "name": "Acuda S2",
+  "abbr_i18n": {
+    "en": "Acuda S2",
+    "ko": "아쿠다 S2",
+    "cn": "阿库达S2"
+  },
+  "name_i18n": {
+    "en": "Acuda S2",
+    "ko": "아쿠다 S2",
+    "cn": "阿库达S2"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-acuda-s2",

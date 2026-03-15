@@ -1,6 +1,16 @@
 {
   "abbr": "Bluestar A1",
   "name": "Bluestar A1",
+  "abbr_i18n": {
+    "en": "Bluestar A1",
+    "ko": "블루스타A1",
+    "cn": "蓝星A1"
+  },
+  "name_i18n": {
+    "en": "Bluestar A1",
+    "ko": "블루스타A1",
+    "cn": "蓝星A1"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittaku-genextion-vs-donic-bluestar-a1-the-battle-of-recently-introduced-525-degree-rubbers",

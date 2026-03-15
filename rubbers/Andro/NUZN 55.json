@@ -1,6 +1,16 @@
 {
   "abbr": "NUZN 55",
   "name": "NUZN 55",
+  "abbr_i18n": {
+    "en": "NUZN 55",
+    "ko": "뉴존 55",
+    "cn": "NUZN 55"
+  },
+  "name_i18n": {
+    "en": "NUZN 55",
+    "ko": "뉴존 55",
+    "cn": "NUZN 55"
+  },
   "manufacturer": "Andro",
   "players": {
     "forehand": [

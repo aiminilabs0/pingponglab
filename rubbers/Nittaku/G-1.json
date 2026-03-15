@@ -1,6 +1,16 @@
 {
   "abbr": "G-1",
   "name": "Fastarc G-1",
+  "abbr_i18n": {
+    "en": "G-1",
+    "ko": "G-1",
+    "cn": "G-1"
+  },
+  "name_i18n": {
+    "en": "Fastarc G-1",
+    "ko": "파스탁G-1",
+    "cn": "尼塔库G-1"
+  },
   "manufacturer": "Nittaku",
   "players": {
     "forehand": [

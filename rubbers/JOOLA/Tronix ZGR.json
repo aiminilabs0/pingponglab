@@ -1,6 +1,16 @@
 {
   "abbr": "Tronix ZGR",
   "name": "Tronix ZGR",
+  "abbr_i18n": {
+    "en": "Tronix ZGR",
+    "ko": "트로닉스ZGR",
+    "cn": "特罗尼斯ZGR"
+  },
+  "name_i18n": {
+    "en": "Tronix ZGR",
+    "ko": "트로닉스ZGR",
+    "cn": "特罗尼斯ZGR"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.ttmode.com/joola-tronix-zgr",

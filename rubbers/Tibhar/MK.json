@@ -1,6 +1,16 @@
 {
   "abbr": "MK",
   "name": "Hybrid MK",
+  "abbr_i18n": {
+    "en": "MK",
+    "ko": "MK",
+    "cn": "MK"
+  },
+  "name_i18n": {
+    "en": "Hybrid MK",
+    "ko": "하이브리드MK",
+    "cn": "混动MK"
+  },
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [

@@ -1,6 +1,16 @@
 {
   "abbr": "Tenergy 05",
   "name": "Tenergy 05",
+  "abbr_i18n": {
+    "en": "Tenergy 05",
+    "ko": "테너지05",
+    "cn": "能量05"
+  },
+  "name_i18n": {
+    "en": "Tenergy 05",
+    "ko": "테너지05",
+    "cn": "能量05"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [

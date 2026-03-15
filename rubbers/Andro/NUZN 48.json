@@ -1,6 +1,16 @@
 {
   "abbr": "NUZN 48",
   "name": "NUZN 48",
+  "abbr_i18n": {
+    "en": "NUZN 48",
+    "ko": "뉴존 48",
+    "cn": "NUZN 48"
+  },
+  "name_i18n": {
+    "en": "NUZN 48",
+    "ko": "뉴존 48",
+    "cn": "NUZN 48"
+  },
   "manufacturer": "Andro",
   "manufacturer_details": {
     "url": "https://www.tabletennis11.com/other_eng/andro-nuzn-48",

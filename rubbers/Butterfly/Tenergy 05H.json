@@ -1,6 +1,16 @@
 {
   "abbr": "Tenergy 05H",
   "name": "Tenergy 05 Hard",
+  "abbr_i18n": {
+    "en": "Tenergy 05H",
+    "ko": "테너지05하드",
+    "cn": "能量05H"
+  },
+  "name_i18n": {
+    "en": "Tenergy 05 Hard",
+    "ko": "테너지05하드",
+    "cn": "能量05H"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [

@@ -1,6 +1,16 @@
 {
   "abbr": "Tronix ACC",
   "name": "Tronix ACC",
+  "abbr_i18n": {
+    "en": "Tronix ACC",
+    "ko": "트로닉스ACC",
+    "cn": "特罗尼斯ACC"
+  },
+  "name_i18n": {
+    "en": "Tronix ACC",
+    "ko": "트로닉스ACC",
+    "cn": "特罗尼斯ACC"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.youtube.com/watch?v=JIxZGn6x-yg",

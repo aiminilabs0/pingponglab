@@ -1,6 +1,16 @@
 {
   "abbr": "Tenergy 05 FX",
   "name": "Tenergy 05 FX",
+  "abbr_i18n": {
+    "en": "Tenergy 05 FX",
+    "ko": "테너지05 FX",
+    "cn": "能量05 FX"
+  },
+  "name_i18n": {
+    "en": "Tenergy 05 FX",
+    "ko": "테너지05 FX",
+    "cn": "能量05 FX"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [],

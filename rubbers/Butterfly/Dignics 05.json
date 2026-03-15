@@ -1,6 +1,16 @@
 {
   "abbr": "Dignics 05",
   "name": "Dignics 05",
+  "abbr_i18n": {
+    "en": "Dignics 05",
+    "ko": "디그닉스05",
+    "cn": "迪格尼斯05"
+  },
+  "name_i18n": {
+    "en": "Dignics 05",
+    "ko": "디그닉스05",
+    "cn": "迪格尼斯05"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [

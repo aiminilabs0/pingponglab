@@ -1,6 +1,16 @@
 {
   "abbr": "BlueGrip J2",
   "name": "BlueGrip J2",
+  "abbr_i18n": {
+    "en": "BlueGrip J2",
+    "ko": "블루그립J2",
+    "cn": "蓝握J2"
+  },
+  "name_i18n": {
+    "en": "BlueGrip J2",
+    "ko": "블루그립J2",
+    "cn": "蓝握J2"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://ttgearlab.com/2025/07/16/donic-bluegrip-j1-j2-photos-information/",

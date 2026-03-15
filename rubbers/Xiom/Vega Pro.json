@@ -1,6 +1,16 @@
 {
   "abbr": "Vega Pro",
   "name": "Vega Pro",
+  "abbr_i18n": {
+    "en": "Vega Pro",
+    "ko": "베가프로",
+    "cn": "维佳Pro"
+  },
+  "name_i18n": {
+    "en": "Vega Pro",
+    "ko": "베가프로",
+    "cn": "维佳Pro"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "url": "https://tabletennis-reviews.com/reference/rubber-sheet-mass-size-database/",

@@ -1,6 +1,16 @@
 {
   "abbr": "Vega Europe",
   "name": "Vega Europe",
+  "abbr_i18n": {
+    "en": "Vega Europe",
+    "ko": "베가유럽",
+    "cn": "维佳 欧洲"
+  },
+  "name_i18n": {
+    "en": "Vega Europe",
+    "ko": "베가유럽",
+    "cn": "维佳 欧洲"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "country": "Germany",

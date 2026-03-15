@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz ACC",
   "name": "Dynaryz ACC",
+  "abbr_i18n": {
+    "en": "Dynaryz ACC",
+    "ko": "다이나리즈ACC",
+    "cn": "黛纳瑞兹ACC"
+  },
+  "name_i18n": {
+    "en": "Dynaryz ACC",
+    "ko": "다이나리즈ACC",
+    "cn": "黛纳瑞兹ACC"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/joola-dynaryz-acc/",

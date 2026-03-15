@@ -1,6 +1,16 @@
 {
   "abbr": "Dignics 64",
   "name": "Dignics 64",
+  "abbr_i18n": {
+    "en": "Dignics 64",
+    "ko": "디그닉스64",
+    "cn": "迪格尼斯64"
+  },
+  "name_i18n": {
+    "en": "Dignics 64",
+    "ko": "디그닉스64",
+    "cn": "迪格尼斯64"
+  },
   "manufacturer": "Butterfly",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/butterfly-dignics-64/",

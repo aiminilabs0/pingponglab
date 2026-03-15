@@ -1,6 +1,16 @@
 {
   "abbr": "Rakza 7",
   "name": "Rakza 7",
+  "abbr_i18n": {
+    "en": "Rakza 7",
+    "ko": "라크자7",
+    "cn": "力克萨7"
+  },
+  "name_i18n": {
+    "en": "Rakza 7",
+    "ko": "라크자7",
+    "cn": "力克萨7"
+  },
   "manufacturer": "Yasaka",
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-7-review/",

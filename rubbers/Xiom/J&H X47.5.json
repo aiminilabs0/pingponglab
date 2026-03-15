@@ -1,6 +1,16 @@
 {
   "abbr": "J&H X47.5",
   "name": "Jekyll & Hyde X47.5",
+  "abbr_i18n": {
+    "en": "J&H X47.5",
+    "ko": "지킬X47.5",
+    "cn": "J&H X47.5"
+  },
+  "name_i18n": {
+    "en": "Jekyll & Hyde X47.5",
+    "ko": "지킬앤하이드 X47.5",
+    "cn": "Jekyll & Hyde X47.5"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "url": "https://www.tabletennisdaily.com/forum/topics/xiom-jekyll-hyde-rubbers.27504/",

@@ -1,6 +1,16 @@
 {
   "abbr": "Bluefire M1",
   "name": "Bluefire M1",
+  "abbr_i18n": {
+    "en": "Bluefire M1",
+    "ko": "블루파이어M1",
+    "cn": "蓝火M1"
+  },
+  "name_i18n": {
+    "en": "Bluefire M1",
+    "ko": "블루파이어M1",
+    "cn": "蓝火M1"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=d-bluefire-m1",

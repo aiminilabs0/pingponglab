@@ -31,6 +31,7 @@ let controlFilterState = {
 };
 let top30FilterActive = false;
 let top30Set = new Set();
+let rubberByAbbr = new Map();
 let playersData = {};
 let playerNameToCanonicalName = {};
 

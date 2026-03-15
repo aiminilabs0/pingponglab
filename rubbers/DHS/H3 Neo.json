@@ -1,6 +1,16 @@
 {
   "abbr": "H3 Neo",
   "name": "Hurricane 3 Neo",
+  "abbr_i18n": {
+    "en": "H3 Neo",
+    "ko": "네오 허리케인3",
+    "cn": "狂飙3 Neo"
+  },
+  "name_i18n": {
+    "en": "Hurricane 3 Neo",
+    "ko": "네오 허리케인3",
+    "cn": "狂飙3 Neo"
+  },
   "players": {
     "forehand": [
       "AN Jaehyun",

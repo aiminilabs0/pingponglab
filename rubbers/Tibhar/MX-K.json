@@ -1,6 +1,16 @@
 {
   "abbr": "MX-K",
   "name": "Tibhar MX-K",
+  "abbr_i18n": {
+    "en": "MX-K",
+    "ko": "MX-K",
+    "cn": "MX-K"
+  },
+  "name_i18n": {
+    "en": "Tibhar MX-K",
+    "ko": "에볼루션MX-K",
+    "cn": "变革MX-K"
+  },
   "manufacturer": "Tibhar",
   "manufacturer_details": {
     "country": "Germany",

@@ -1,6 +1,16 @@
 {
   "abbr": "Dignics 09C",
   "name": "Dignics 09C",
+  "abbr_i18n": {
+    "en": "Dignics 09C",
+    "ko": "디그닉스09C",
+    "cn": "迪格尼斯09C"
+  },
+  "name_i18n": {
+    "en": "Dignics 09C",
+    "ko": "디그닉스09C",
+    "cn": "迪格尼斯09C"
+  },
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [

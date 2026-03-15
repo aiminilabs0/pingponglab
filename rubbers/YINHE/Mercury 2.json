@@ -1,6 +1,16 @@
 {
   "abbr": "Mercury 2",
   "name": "Mercury 2",
+  "abbr_i18n": {
+    "en": "Mercury 2",
+    "ko": "머큐리2",
+    "cn": "水星2"
+  },
+  "name_i18n": {
+    "en": "Mercury 2",
+    "ko": "머큐리2",
+    "cn": "水星2"
+  },
   "manufacturer": "YINHE",
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yinhe-mercury-2-review/",

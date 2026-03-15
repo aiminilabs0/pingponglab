@@ -1,6 +1,16 @@
 {
   "abbr": "MX-D",
   "name": "Evolution MX-D",
+  "abbr_i18n": {
+    "en": "MX-D",
+    "ko": "MX-D",
+    "cn": "MX-D"
+  },
+  "name_i18n": {
+    "en": "Evolution MX-D",
+    "ko": "에볼루션MX-D",
+    "cn": "变革MX-D"
+  },
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [],

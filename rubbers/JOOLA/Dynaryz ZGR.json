@@ -1,6 +1,16 @@
 {
   "abbr": "Dynaryz ZGR",
   "name": "Dynaryz ZGR",
+  "abbr_i18n": {
+    "en": "Dynaryz ZGR",
+    "ko": "다이나리즈ZGR",
+    "cn": "黛纳瑞兹ZGR"
+  },
+  "name_i18n": {
+    "en": "Dynaryz ZGR",
+    "ko": "다이나리즈ZGR",
+    "cn": "黛纳瑞兹ZGR"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.tabletennisdaily.com/forum/topics/dynaryz-zgr-vs-rakza-z-extra-hard.27760/",

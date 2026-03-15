@@ -1,6 +1,16 @@
 {
   "abbr": "C48",
   "name": "Rasanter C48",
+  "abbr_i18n": {
+    "en": "C48",
+    "ko": "C48",
+    "cn": "C48"
+  },
+  "name_i18n": {
+    "en": "Rasanter C48",
+    "ko": "라잔터 C48",
+    "cn": "新锐煞 C48"
+  },
   "manufacturer": "Andro",
   "manufacturer_details": {
     "url": "https://www.tabletennis11.com/other_eng/andro-rasanter-c48",

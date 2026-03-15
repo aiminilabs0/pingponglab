@@ -1,6 +1,16 @@
 {
   "abbr": "BlueGrip J3",
   "name": "BlueGrip J3",
+  "abbr_i18n": {
+    "en": "BlueGrip J3",
+    "ko": "블루그립J3",
+    "cn": "蓝握J3"
+  },
+  "name_i18n": {
+    "en": "BlueGrip J3",
+    "ko": "블루그립J3",
+    "cn": "蓝握J3"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "https://www.tabletennis11.com/other_eng/donic-bluegrip-j3",

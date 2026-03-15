@@ -1,6 +1,16 @@
 {
   "abbr": "J&H V47.5",
   "name": "Jekyll & Hyde V47.5",
+  "abbr_i18n": {
+    "en": "J&H V47.5",
+    "ko": "지킬V47.5",
+    "cn": "J&H V47.5"
+  },
+  "name_i18n": {
+    "en": "Jekyll & Hyde V47.5",
+    "ko": "지킬앤하이드 V47.5",
+    "cn": "Jekyll & Hyde V47.5"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "country": "Germany",

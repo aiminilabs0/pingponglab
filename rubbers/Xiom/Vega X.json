@@ -1,6 +1,16 @@
 {
   "abbr": "Vega X",
   "name": "Vega X",
+  "abbr_i18n": {
+    "en": "Vega X",
+    "ko": "베가텐",
+    "cn": "维佳X"
+  },
+  "name_i18n": {
+    "en": "Vega X",
+    "ko": "베가텐",
+    "cn": "维佳X"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "country": "Germany",

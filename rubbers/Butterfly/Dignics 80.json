@@ -1,6 +1,16 @@
 {
   "abbr": "Dignics 80",
   "name": "Dignics 80",
+  "abbr_i18n": {
+    "en": "Dignics 80",
+    "ko": "디그닉스80",
+    "cn": "迪格尼斯80"
+  },
+  "name_i18n": {
+    "en": "Dignics 80",
+    "ko": "디그닉스80",
+    "cn": "迪格尼斯80"
+  },
   "manufacturer": "Butterfly",
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/butterfly-dignics-80/",

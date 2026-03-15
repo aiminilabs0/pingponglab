@@ -1,6 +1,16 @@
 {
   "abbr": "Omega 7 Pro",
   "name": "Omega 7 Pro",
+  "abbr_i18n": {
+    "en": "Omega 7 Pro",
+    "ko": "오메가7 프로",
+    "cn": "欧米茄7 Pro"
+  },
+  "name_i18n": {
+    "en": "Omega 7 Pro",
+    "ko": "오메가7 프로",
+    "cn": "欧米茄7 Pro"
+  },
   "manufacturer": "Xiom",
   "players": {
     "forehand": [],

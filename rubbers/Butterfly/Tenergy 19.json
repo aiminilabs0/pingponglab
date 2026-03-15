@@ -1,6 +1,16 @@
 {
   "abbr": "Tenergy 19",
   "name": "Tenergy 19",
+  "abbr_i18n": {
+    "en": "Tenergy 19",
+    "ko": "테너지19",
+    "cn": "能量19"
+  },
+  "name_i18n": {
+    "en": "Tenergy 19",
+    "ko": "테너지19",
+    "cn": "能量19"
+  },
   "players": {
     "forehand": [
       "R. Walther"

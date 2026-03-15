@@ -1,6 +1,16 @@
 {
   "abbr": "Tronix CMD",
   "name": "Tronix CMD",
+  "abbr_i18n": {
+    "en": "Tronix CMD",
+    "ko": "트로닉스CMD",
+    "cn": "特罗尼斯CMD"
+  },
+  "name_i18n": {
+    "en": "Tronix CMD",
+    "ko": "트로닉스CMD",
+    "cn": "特罗尼斯CMD"
+  },
   "manufacturer": "JOOLA",
   "manufacturer_details": {
     "url": "https://www.youtube.com/watch?v=JIxZGn6x-yg",

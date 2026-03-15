@@ -1,6 +1,16 @@
 {
   "abbr": "Gold Arc 8",
   "name": "Gold Arc 8",
+  "abbr_i18n": {
+    "en": "Gold Arc 8",
+    "ko": "금궁8",
+    "cn": "金弓8"
+  },
+  "name_i18n": {
+    "en": "Gold Arc 8",
+    "ko": "금궁8",
+    "cn": "金弓8"
+  },
   "manufacturer": "DHS",
   "manufacturer_details": {
     "country": "Germany",

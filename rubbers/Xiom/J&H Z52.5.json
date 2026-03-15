@@ -1,6 +1,16 @@
 {
   "abbr": "J&H Z52.5",
   "name": "Jekyll & Hyde Z52.5",
+  "abbr_i18n": {
+    "en": "J&H Z52.5",
+    "ko": "지킬Z52.5",
+    "cn": "J&H Z52.5"
+  },
+  "name_i18n": {
+    "en": "Jekyll & Hyde Z52.5",
+    "ko": "지킬앤하이드 Z52.5",
+    "cn": "Jekyll & Hyde Z52.5"
+  },
   "manufacturer": "Xiom",
   "manufacturer_details": {
     "country": "Germany",

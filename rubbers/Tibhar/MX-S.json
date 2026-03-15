@@ -1,6 +1,16 @@
 {
   "abbr": "MX-S",
   "name": "Evolution MX-S",
+  "abbr_i18n": {
+    "en": "MX-S",
+    "ko": "MX-S",
+    "cn": "MX-S"
+  },
+  "name_i18n": {
+    "en": "Evolution MX-S",
+    "ko": "에볼루션MX-S",
+    "cn": "变革MX-S"
+  },
   "manufacturer": "Tibhar",
   "manufacturer_details": {
     "country": "Germany",

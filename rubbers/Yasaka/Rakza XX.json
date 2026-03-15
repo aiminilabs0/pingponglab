@@ -1,6 +1,16 @@
 {
   "abbr": "Rakza XX",
   "name": "Rakza XX",
+  "abbr_i18n": {
+    "en": "Rakza XX",
+    "ko": "라크자XX",
+    "cn": "力克萨XX"
+  },
+  "name_i18n": {
+    "en": "Rakza XX",
+    "ko": "라크자XX",
+    "cn": "力克萨XX"
+  },
   "manufacturer": "Yasaka",
   "manufacturer_details": {
     "country": "Germany",

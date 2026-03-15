@@ -1,6 +1,16 @@
 {
   "abbr": "Genextion",
   "name": "Genextion",
+  "abbr_i18n": {
+    "en": "Genextion",
+    "ko": "제넥션",
+    "cn": "杰ネクション"
+  },
+  "name_i18n": {
+    "en": "Genextion",
+    "ko": "제넥션",
+    "cn": "杰ネクション"
+  },
   "manufacturer": "Nittaku",
   "manufacturer_details": {
     "country": "Germany",

@@ -276,6 +276,17 @@ function buildFullName(brand, name) {
     return `${b} ${n}`.trim();
 }
 
+function buildLocalizedTextMap(rawMap, fallbackText) {
+    const fallback = typeof fallbackText === 'string' ? fallbackText.trim() : '';
+    const localized = (rawMap && typeof rawMap === 'object' && !Array.isArray(rawMap)) ? rawMap : {};
+    const next = {};
+    for (const lang of ['en', 'ko', 'cn']) {
+        const candidate = typeof localized[lang] === 'string' ? localized[lang].trim() : '';
+        next[lang] = candidate || fallback;
+    }
+    return next;
+}
+
 // ════════════════════════════════════════════════════════════
 //  Description Markdown
 // ════════════════════════════════════════════════════════════
@@ -433,6 +444,8 @@ async function loadRubberData() {
             addr: raw.addr || raw.abbr || raw.name,
             fullName: buildFullName(raw.manufacturer, raw.name),
             abbr: raw.abbr || raw.name,
+            localizedName: buildLocalizedTextMap(raw.name_i18n, raw.name),
+            localizedAbbr: buildLocalizedTextMap(raw.abbr_i18n, raw.abbr || raw.name),
             brand: raw.manufacturer,
             x: null,
             y: null,
@@ -518,6 +531,7 @@ async function loadRubberData() {
 
     // Only show rubbers that appear in both spin and speed rankings
     rubberData = data.filter(r => r.x !== null && r.y !== null);
+    rubberByAbbr = new Map(rubberData.map(r => [r.abbr, r]));
 
     const top30Ranking = priorityRanking.slice(0, 30);
     top30Set = new Set();

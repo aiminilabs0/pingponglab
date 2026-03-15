@@ -1,6 +1,16 @@
 {
   "abbr": "Rakza 7 Soft",
   "name": "Rakza 7 Soft",
+  "abbr_i18n": {
+    "en": "Rakza 7 Soft",
+    "ko": "라크자7 소프트",
+    "cn": "力克萨7 Soft"
+  },
+  "name_i18n": {
+    "en": "Rakza 7 Soft",
+    "ko": "라크자7 소프트",
+    "cn": "力克萨7 Soft"
+  },
   "manufacturer": "Yasaka",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=y-rakza-7-soft",

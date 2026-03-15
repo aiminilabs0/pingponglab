@@ -1,6 +1,16 @@
 {
   "abbr": "MX-P 50",
   "name": "Evolution MX-P 50",
+  "abbr_i18n": {
+    "en": "MX-P 50",
+    "ko": "MX-P 50",
+    "cn": "MX-P 50"
+  },
+  "name_i18n": {
+    "en": "Evolution MX-P 50",
+    "ko": "에볼루션MX-P 50",
+    "cn": "变革MX-P 50"
+  },
   "manufacturer": "Tibhar",
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=t-evolution-mx-p-50",

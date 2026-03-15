@@ -1,6 +1,16 @@
 {
   "abbr": "Baracuda",
   "name": "Baracuda",
+  "abbr_i18n": {
+    "en": "Baracuda",
+    "ko": "바라쿠다",
+    "cn": "巴拉库达"
+  },
+  "name_i18n": {
+    "en": "Baracuda",
+    "ko": "바라쿠다",
+    "cn": "巴拉库达"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "country": "Germany",

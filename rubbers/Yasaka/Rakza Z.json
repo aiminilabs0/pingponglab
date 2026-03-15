@@ -1,6 +1,16 @@
 {
   "abbr": "Rakza Z",
   "name": "Rakza Z",
+  "abbr_i18n": {
+    "en": "Rakza Z",
+    "ko": "라크자Z",
+    "cn": "力克萨Z"
+  },
+  "name_i18n": {
+    "en": "Rakza Z",
+    "ko": "라크자Z",
+    "cn": "力克萨Z"
+  },
   "manufacturer": "Yasaka",
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-z-review/",

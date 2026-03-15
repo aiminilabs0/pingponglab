@@ -1,6 +1,16 @@
 {
   "abbr": "BlueGrip C2",
   "name": "BlueGrip C2",
+  "abbr_i18n": {
+    "en": "BlueGrip C2",
+    "ko": "블루그립C2",
+    "cn": "蓝握C2"
+  },
+  "name_i18n": {
+    "en": "BlueGrip C2",
+    "ko": "블루그립C2",
+    "cn": "蓝握C2"
+  },
   "manufacturer": "Donic",
   "manufacturer_details": {
     "url": "",

@@ -628,9 +628,7 @@ function buildNameOptionsFromFilters() {
         for (const m of Object.values(BRAND_NAMES_I18N)) {
             if (m[rubber.brand]) terms.push(m[rubber.brand]);
         }
-        for (const m of Object.values(RUBBER_NAMES_I18N)) {
-            if (m[name]) terms.push(m[name]);
-        }
+        terms.push(...getRubberLocalizedSearchTerms(rubber));
         return {
             value: name,
             label: tRubber(name),
