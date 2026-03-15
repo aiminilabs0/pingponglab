@@ -438,6 +438,48 @@ function initTop30Filter(onChange) {
 
 const SHEET_DOT_CLASS = { Tension: 'dot-circle', Chinese: 'dot-square', Hybrid: 'dot-diamond' };
 const SHEET_I18N_KEYS = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' };
+const SHEET_INITIAL_BY_LANG = {
+    ko: { Tension: '텐', Chinese: '점', Hybrid: '하' },
+    cn: { Tension: '经', Chinese: '粘', Hybrid: '混' }
+};
+
+function getLocalizedSheetLabelParts(sheet) {
+    const sheetI18nKey = SHEET_I18N_KEYS[sheet] || sheet;
+    const localizedSheet = tUi(sheetI18nKey);
+    const chars = Array.from(localizedSheet);
+    const fallbackInitial = chars[0] || '';
+    const fallbackRemainder = chars.slice(1).join('');
+    const lang = typeof getCurrentLang === 'function' ? getCurrentLang() : 'en';
+    const initialOverride = SHEET_INITIAL_BY_LANG[lang]?.[sheet] || null;
+    if (initialOverride) {
+        const remainder = localizedSheet.startsWith(initialOverride)
+            ? localizedSheet.slice(initialOverride.length)
+            : fallbackRemainder;
+        return {
+            key: sheetI18nKey,
+            initial: initialOverride,
+            remainder
+        };
+    }
+
+    return {
+        key: sheetI18nKey,
+        initial: fallbackInitial,
+        remainder: fallbackRemainder
+    };
+}
+
+function refreshSheetToggleFilterLabels() {
+    document.querySelectorAll('#sheetFilter .sheet-pill-value').forEach((valueEl) => {
+        const sheet = valueEl.dataset.sheet;
+        if (!sheet) return;
+        const { initial, remainder } = getLocalizedSheetLabelParts(sheet);
+        const initialEl = valueEl.querySelector('.chart-hover-shape > span');
+        const textEl = valueEl.querySelector('.sheet-pill-text');
+        if (initialEl) initialEl.textContent = initial;
+        if (textEl) textEl.textContent = remainder;
+    });
+}
 
 function initSheetToggleFilter(onChange) {
     const container = document.getElementById('sheetFilter');
@@ -457,14 +499,25 @@ function initSheetToggleFilter(onChange) {
         cb.value = sheet;
         pill.appendChild(cb);
 
-        const dot = document.createElement('span');
-        dot.className = `fp-pill-dot ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}`;
-        pill.appendChild(dot);
+        const sheetValue = document.createElement('span');
+        sheetValue.className = 'chart-sheet-value sheet-pill-value';
+        sheetValue.dataset.sheet = sheet;
+
+        const { key, initial, remainder } = getLocalizedSheetLabelParts(sheet);
+        const shape = document.createElement('span');
+        shape.className = `chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}`;
+        const shapeInitial = document.createElement('span');
+        shapeInitial.textContent = initial;
+        shape.appendChild(shapeInitial);
+        sheetValue.appendChild(shape);
 
         const sheetLabel = document.createElement('span');
-        sheetLabel.dataset.i18nKey = SHEET_I18N_KEYS[sheet] || sheet;
-        sheetLabel.textContent = tUi(sheetLabel.dataset.i18nKey);
-        pill.appendChild(sheetLabel);
+        sheetLabel.className = 'sheet-pill-text';
+        sheetLabel.dataset.i18nKey = key;
+        sheetLabel.textContent = remainder;
+        sheetValue.appendChild(sheetLabel);
+
+        pill.appendChild(sheetValue);
         group.appendChild(pill);
 
         cb.addEventListener('change', () => {
@@ -474,6 +527,7 @@ function initSheetToggleFilter(onChange) {
     });
 
     container.appendChild(group);
+    refreshSheetToggleFilterLabels();
 }
 
 function filterOptions(container, query) {

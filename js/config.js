@@ -496,6 +496,9 @@ function applyLocalizedStaticText() {
         if (!key) return;
         el.textContent = tUi(key);
     });
+    if (typeof refreshSheetToggleFilterLabels === 'function') {
+        refreshSheetToggleFilterLabels();
+    }
     const setText = (id, key) => {
         const el = document.getElementById(id);
         if (el) el.textContent = tUi(key);

@@ -343,29 +343,33 @@
     color: #f0a1a1;
 }
 
-/* Sheet type shapes */
-#sheetFilter .fp-pill .fp-pill-dot {
-    width: 10px;
-    height: 10px;
-    border-color: rgba(248, 248, 242, 0.9);
+/* Sheet type labels mirror hover popup: shape + first character */
+#sheetFilter .fp-pill .sheet-pill-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 16px;
+    font-size: 12px;
+    line-height: 1;
 }
-#sheetFilter .fp-pill .fp-pill-dot.dot-circle {
-    border-radius: 50%;
-    background: transparent;
-    border-width: 2px;
+#sheetFilter .fp-pill .sheet-pill-text {
+    line-height: 1;
 }
-#sheetFilter .fp-pill .fp-pill-dot.dot-square {
-    border-radius: 2px;
-    background: transparent;
+#sheetFilter .fp-pill .chart-hover-shape {
+    width: 18px;
+    height: 18px;
     border-width: 2px;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(248, 248, 242, 0.7);
+    border-color: rgba(248, 248, 242, 0.7);
+    opacity: 0.8;
 }
-#sheetFilter .fp-pill .fp-pill-dot.dot-diamond {
-    width: 9px;
-    height: 9px;
-    border-radius: 1px;
-    background: transparent;
-    border-width: 2px;
-    transform: rotate(45deg);
+#sheetFilter .fp-pill.active .chart-hover-shape {
+    color: rgba(248, 248, 242, 0.95);
+    border-color: rgba(248, 248, 242, 0.95);
+    opacity: 1;
 }
 
 /* Weight dual-range slider filter */
