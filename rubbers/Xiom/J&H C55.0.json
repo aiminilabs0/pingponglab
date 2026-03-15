@@ -1,15 +1,15 @@
 {
-  "abbr": "J&H C55",
-  "name": "Jekyll & Hyde C55",
+  "abbr": "J&H C55.0",
+  "name": "Jekyll & Hyde C55.0",
   "abbr_i18n": {
-    "en": "J&H C55",
-    "ko": "지킬C55",
-    "cn": "J&H C55"
+    "en": "J&H C55.0",
+    "ko": "지킬C55.0",
+    "cn": "J&H C55.0"
   },
   "name_i18n": {
-    "en": "Jekyll & Hyde C55",
-    "ko": "지킬앤하이드 C55",
-    "cn": "Jekyll & Hyde C55"
+    "en": "Jekyll & Hyde C55.0",
+    "ko": "지킬앤하이드 C55.0",
+    "cn": "Jekyll & Hyde C55.0"
   },
   "manufacturer": "Xiom",
   "players": {
