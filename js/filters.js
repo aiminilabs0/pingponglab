@@ -347,12 +347,6 @@ function isControlFilterActive() {
     return controlFilterState.selectedLevels.size < CONTROL_LEVEL_COUNT;
 }
 
-function buildControlPillBoxesHtml(level) {
-    return Array.from({ length: CONTROL_LEVEL_COUNT }, (_, i) =>
-        `<span class="fp-ctrl-box${i < level ? ' is-filled' : ''}" aria-hidden="true"></span>`
-    ).join('');
-}
-
 function initControlToggleFilter(onChange) {
     const container = document.getElementById('controlFilter');
     if (!container) return;
@@ -370,8 +364,9 @@ function initControlToggleFilter(onChange) {
 
     CONTROL_LEVELS.forEach(level => {
         const pill = document.createElement('label');
-        pill.className = 'fp-pill active';
+        pill.className = `fp-pill control-level-pill control-level-${level} active`;
         pill.dataset.level = level;
+        pill.setAttribute('aria-label', `Control level ${level}`);
 
         const cb = document.createElement('input');
         cb.type = 'checkbox';
@@ -379,10 +374,10 @@ function initControlToggleFilter(onChange) {
         cb.value = String(level);
         pill.appendChild(cb);
 
-        const boxes = document.createElement('span');
-        boxes.className = 'fp-ctrl-boxes';
-        boxes.innerHTML = buildControlPillBoxesHtml(level);
-        pill.appendChild(boxes);
+        const label = document.createElement('span');
+        label.className = 'control-level-number';
+        label.textContent = String(level);
+        pill.appendChild(label);
 
         group.appendChild(pill);
 

@@ -290,25 +290,57 @@
     color: var(--drac-fg);
 }
 
-/* Control level filter — 5 mini-box indicators inside each pill */
-.fp-ctrl-boxes {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
+/* Control level filter — compact numeric badges */
+#controlFilter .fp-pill-group {
+    gap: 8px;
 }
-.fp-ctrl-box {
-    width: 7px;
-    height: 7px;
-    border-radius: 1.5px;
-    border: 1px solid rgba(155,148,132,0.4);
-    background: rgba(62,58,52,0.2);
+#controlFilter .fp-pill.control-level-pill {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    justify-content: center;
+    border-radius: 10px;
+    border-width: 1.5px;
+    color: rgba(248, 248, 242, 0.74);
+    background: rgba(33, 31, 28, 0.9);
 }
-.fp-ctrl-box.is-filled {
-    border-color: rgba(126,184,168,0.85);
-    background: rgba(126,184,168,0.85);
+#controlFilter .fp-pill.control-level-pill:hover {
+    transform: translateY(-1px);
 }
-.fp-pill:not(.active) .fp-ctrl-box.is-filled {
-    opacity: 0.4;
+#controlFilter .fp-pill.control-level-pill.active {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(248, 248, 242, 0.09);
+}
+#controlFilter .control-level-number {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    line-height: 1;
+}
+
+#controlFilter .control-level-5.active {
+    border-color: #6fbf73;
+    background: rgba(111, 191, 115, 0.22);
+    color: #9be3a0;
+}
+#controlFilter .control-level-4.active {
+    border-color: #a3d977;
+    background: rgba(163, 217, 119, 0.2);
+    color: #c6e89e;
+}
+#controlFilter .control-level-3.active {
+    border-color: #d4c16a;
+    background: rgba(212, 193, 106, 0.22);
+    color: #f2df95;
+}
+#controlFilter .control-level-2.active {
+    border-color: #e0b55c;
+    background: rgba(224, 181, 92, 0.22);
+    color: #f2ce8a;
+}
+#controlFilter .control-level-1.active {
+    border-color: #cf5555;
+    background: rgba(207, 85, 85, 0.2);
+    color: #f0a1a1;
 }
 
 /* Sheet type shapes */
