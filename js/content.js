@@ -88,7 +88,8 @@ async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
 
 function buildTabButtonContent(rubber) {
     const color = getBrandColor(rubber.brand);
-    return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(rubber.abbr || rubber.name)}`;
+    const localizedName = tRubber(rubber.abbr) || rubber.name || rubber.abbr || '';
+    return `<span class="content-tab-dot" style="background:${color}"></span>${escapeHtml(localizedName)}`;
 }
 
 function buildEmptyPanePlaceholder(tabId) {
@@ -190,18 +191,20 @@ function setActiveTab(tabId) {
 async function updateDetailPanel(panelNum, rubber) {
     const tabKey = `desc${panelNum}`;
     const brandColor = getBrandColor(rubber.brand);
+    const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
+    const localizedRubber = tRubber(rubber.abbr) || rubber.name || rubber.abbr || '';
     const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
                 `<span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">` +
                     `<span class="brand-dot" style="background:${brandColor}"></span>` +
-                    `${escapeHtml(rubber.brand)}` +
+                    `${escapeHtml(localizedBrand)}` +
                 `</span>` +
                 (rubber.bestseller ? `<span class="bestseller-badge">★ Bestseller</span>` : '') +
             `</div>` +
             `<div class="rubber-title-row">` +
-                `<h1 class="rubber-name">${escapeHtml(rubber.name)}</h1>` +
+                `<h1 class="rubber-name">${escapeHtml(localizedRubber)}</h1>` +
                 (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
@@ -271,10 +274,10 @@ function handleRubberClick(rubber) {
 function buildComparisonTitleHtml(leftRubber, rightRubber) {
     const leftColor = getBrandColor(leftRubber?.brand);
     const rightColor = getBrandColor(rightRubber?.brand);
-    const leftBrand = escapeHtml(leftRubber?.brand || '');
-    const leftName  = escapeHtml(leftRubber?.name  || '');
-    const rightBrand = escapeHtml(rightRubber?.brand || '');
-    const rightName  = escapeHtml(rightRubber?.name  || '');
+    const leftBrand = escapeHtml(tBrand(leftRubber?.brand) || leftRubber?.brand || '');
+    const leftName  = escapeHtml(tRubber(leftRubber?.abbr) || leftRubber?.name || leftRubber?.abbr || '');
+    const rightBrand = escapeHtml(tBrand(rightRubber?.brand) || rightRubber?.brand || '');
+    const rightName  = escapeHtml(tRubber(rightRubber?.abbr) || rightRubber?.name || rightRubber?.abbr || '');
 
     return `
         <div class="comp-title-side">

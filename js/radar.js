@@ -39,7 +39,8 @@ function getRadarData(rubber) {
 
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
-    const radarLabel = rubber.addr || rubber.name || '';
+    const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
+    const localizedRubber = tRubber(rubber.abbr) || rubber.addr || rubber.name || '';
     const categories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
     // Remap 0–100 scores into 50–100 so the chart starts visually from the middle ring
     const remap = v => 50 + v * 0.5;
@@ -54,7 +55,7 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
         fillcolor: brandColor + '22',
         line: { color: brandColor, width: 2.5, ...(dashed ? { dash: 'dot' } : {}) },
         marker: { color: brandColor, size: 5 },
-        name: `${rubber.brand} ${radarLabel}`,
+        name: `${localizedBrand} ${localizedRubber}`,
         hoverinfo: 'skip',
     };
 }
@@ -128,23 +129,24 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
         `;
     }
     const brandColor = getBrandColor(rubber.brand);
-    const radarLabel = rubber.addr || rubber.name || '-';
+    const localizedBrand = tBrand(rubber.brand) || rubber.brand || '-';
+    const localizedRubber = tRubber(rubber.abbr) || rubber.addr || rubber.name || '-';
     const lineStyle = dashed ? 'border-top: 2.5px dotted' : 'border-top: 2.5px solid';
     const isPinned = pinnedRubbers[panelIndex];
     const pinIcon = isPinned
         ? `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
     const rubberImgName = encodeURIComponent(rubber.abbr || rubber.name);
-    const rubberImgHtml = `<img class="radar-rubber-img" src="/images/rubbers/${rubberImgName}.jpg" alt="${escapeHtml(radarLabel)}" onerror="this.style.display='none'">`;
+    const rubberImgHtml = `<img class="radar-rubber-img" src="/images/rubbers/${rubberImgName}.jpg" alt="${escapeHtml(localizedRubber)}" onerror="this.style.display='none'">`;
     return `
         <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
             <div class="radar-info-header">
                 <span class="brand-pill brand-pill--sm" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
-                    <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(rubber.brand)}
+                    <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(localizedBrand)}
                 </span>
             </div>
             <div class="radar-info-name-row">
-                <div class="rubber-name">${escapeHtml(radarLabel)}</div>
+                <div class="rubber-name">${escapeHtml(localizedRubber)}</div>
                 <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
             </div>
             ${rubberImgHtml}
