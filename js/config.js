@@ -33,7 +33,8 @@ const BRAND_COLORS = {
     Nittaku: '#3E49AA',
     Donic: '#5E7DCC',
     Yasaka: '#7e67ff',
-    YINHE: '#2596be'
+    YINHE: '#2596be',
+    Nexy: '#9C27B0'
 };
 
 const SHEET_MARKERS = {
@@ -261,7 +262,8 @@ const BRAND_NAMES_I18N = {
         Nittaku: '닛타쿠',
         Donic: '도닉',
         Yasaka: '야사카',
-        YINHE: '은하'
+        YINHE: '은하',
+        Nexy: '넥시'
     },
     cn: {
         Butterfly: '蝴蝶',
@@ -273,7 +275,8 @@ const BRAND_NAMES_I18N = {
         Nittaku: '尼塔库',
         Donic: '多尼克',
         Yasaka: '亚萨卡',
-        YINHE: '银河'
+        YINHE: '银河',
+        Nexy: 'Nexy'
     }
 };
 
