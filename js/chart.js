@@ -731,7 +731,9 @@ function updateChart(options = {}) {
         zeroline: false,
         gridcolor: '#3e3a34',
         tickfont: { color: '#9b9484' },
-        linecolor: '#3e3a34',
+        showline: true,
+        linecolor: '#6f685b',
+        linewidth: 2,
         showticklabels: false,
         tickformat: '.1f'
     };
