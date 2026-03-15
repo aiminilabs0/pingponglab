@@ -182,18 +182,29 @@
 .fp-options {
     max-height: none;
     overflow-y: visible;
+}
+#nameFilter {
+    max-height: none;
+    overflow-y: visible;
+}
+
+@media (min-width: 769px) {
+    #nameFilter {
+    max-height: 520px;
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
-}
-.fp-options::-webkit-scrollbar {
-    width: 5px;
-}
-.fp-options::-webkit-scrollbar-track {
-    background: transparent;
-}
-.fp-options::-webkit-scrollbar-thumb {
-    background: var(--drac-current);
-    border-radius: 10px;
+    }
+    #nameFilter::-webkit-scrollbar {
+        width: 5px;
+    }
+    #nameFilter::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #nameFilter::-webkit-scrollbar-thumb {
+        background: var(--drac-current);
+        border-radius: 10px;
+    }
 }
 
 /* Toggle pill groups (shared by Sheet & Control) */
