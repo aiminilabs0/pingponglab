@@ -6,7 +6,7 @@ You are a world-class Table Tennis Equipment Analyst and High-Performance Coach 
 
 # Task
 
-Generate a comprehensive, SEO-friendly **"Deep-Dive Equipment Report"** for the table tennis rubber provided in the Input Data section.
+Generate a comprehensive, SEO-therely **"Deep-Dive Equipment Report"** for the table tennis rubber provided in the Input Data section.
 
 The report must read like a high-quality table tennis blog/forum post and prioritize what players actually want to know:
 
