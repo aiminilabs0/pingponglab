@@ -54,14 +54,16 @@ function deserializeWeightRangeParam(params) {
 
 function serializeControlRangeParam(params) {
     if (!isControlFilterActive()) return;
-    params.set('control', [...controlFilterState.selectedTiers].join(','));
+    params.set('control', [...controlFilterState.selectedLevels].sort().join(','));
 }
 
 function deserializeControlRangeParam(params) {
     if (!params.has('control')) return;
-    const tiers = params.get('control').split(',').filter(t => CONTROL_TIERS.includes(t));
-    if (tiers.length === 0) return;
-    controlFilterState.selectedTiers = new Set(tiers);
+    const levels = params.get('control').split(',')
+        .map(Number)
+        .filter(n => CONTROL_LEVELS.includes(n));
+    if (levels.length === 0) return;
+    controlFilterState.selectedLevels = new Set(levels);
     syncControlPillUI();
 }
 

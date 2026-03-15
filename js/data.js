@@ -467,7 +467,18 @@ async function loadRubberData() {
     const rankings = await loadRankings();
     const spinTotal = rankings.spin.length;
     const speedTotal = rankings.speed.length;
-    const controlTotal = rankings.control.length;
+
+    // Build control level lookup from the 5-level category format
+    const controlLevelMap = new Map();
+    const controlData = rankings.control;
+    for (const [key, rubbers] of Object.entries(controlData)) {
+        const level = parseInt(key, 10);
+        if (!Number.isFinite(level)) continue;
+        for (const entry of rubbers) {
+            const mapKey = `${(entry.brand || '').trim().toLowerCase()}|${entry.name}`;
+            controlLevelMap.set(mapKey, level);
+        }
+    }
 
     // ── Override priority with priority ranking ──
     const priorityResp = await fetch(v(PRIORITY_FILE));
@@ -478,7 +489,6 @@ async function loadRubberData() {
     for (const rubber of data) {
         const spinIdx = findRubberRank(rubber, rankings.spin);
         const speedIdx = findRubberRank(rubber, rankings.speed);
-        const controlIdx = findRubberRank(rubber, rankings.control);
 
         // Chart axes: higher value = more spin / more speed (rank 0 → highest value)
         rubber.x = spinIdx >= 0 ? spinTotal - spinIdx : null;
@@ -487,8 +497,12 @@ async function loadRubberData() {
         // Store 1-based ranks for display
         rubber.spinRank = spinIdx >= 0 ? spinIdx + 1 : null;
         rubber.speedRank = speedIdx >= 0 ? speedIdx + 1 : null;
-        rubber.controlRank = controlIdx >= 0 ? controlIdx + 1 : null;
-        rubber.controlTotal = controlTotal;
+
+        // Control level from manual 5-level categories (1 = hardest, 5 = easiest)
+        const brandKey = (rubber.brand || '').trim().toLowerCase();
+        rubber.controlLevel = controlLevelMap.get(`${brandKey}|${rubber.name}`)
+            ?? controlLevelMap.get(`${brandKey}|${rubber.abbr}`)
+            ?? null;
 
         // Display order: bestseller first, then priority ranking.
         const popIdx = findRubberRank(rubber, priorityRanking);

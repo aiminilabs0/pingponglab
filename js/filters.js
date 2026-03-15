@@ -318,122 +318,79 @@ function initHardnessRangeFilter(onChange) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  Control Toggle Filter (3 tiers: Easy / Med / Hard)
+//  Control Toggle Filter (5 manual levels: 5 = most control … 1 = least)
 // ════════════════════════════════════════════════════════════
 
 const CONTROL_LEVEL_COUNT = 5;
-const CONTROL_TIERS = ['Easy', 'Med', 'Hard'];
-const CONTROL_TIER_I18N_KEYS = { Easy: 'EASY', Med: 'MED', Hard: 'HARD' };
+const CONTROL_LEVELS = [5, 4, 3, 2, 1];
 
-function getControlBoundsFromData() {
-    const ranks = rubberData
-        .map(r => r.controlRank)
-        .filter(rank => Number.isFinite(rank));
-
-    if (ranks.length === 0) return null;
-
-    return {
-        min: Math.min(...ranks),
-        max: Math.max(...ranks)
-    };
-}
-
-function getControlTierFromRank(rank) {
-    const { rankMin, rankMax } = controlFilterState;
-    if (![rank, rankMin, rankMax].every(Number.isFinite)) return null;
-
-    const totalRanks = rankMax - rankMin + 1;
-    if (totalRanks <= 0) return null;
-
-    const zeroBasedRank = Math.max(0, Math.min(totalRanks - 1, rank - rankMin));
-    const pct = zeroBasedRank / totalRanks;
-
-    // Easy = top 40% of control ranks, Med = middle 20%, Hard = bottom 40%
-    if (pct < 0.4) return 'Easy';
-    if (pct < 0.8) return 'Med';
-    return 'Hard';
-}
-
-// Keep the old 5-level function for the hover popup indicator
-function getControlLevelFromRank(rank) {
-    const { rankMin, rankMax } = controlFilterState;
-    if (![rank, rankMin, rankMax].every(Number.isFinite)) return null;
-
-    const totalRanks = rankMax - rankMin + 1;
-    if (totalRanks <= 0) return null;
-
-    const zeroBasedRank = Math.max(0, Math.min(totalRanks - 1, rank - rankMin));
-    const bucketBestFirst = Math.min(
-        CONTROL_LEVEL_COUNT - 1,
-        Math.floor((zeroBasedRank * CONTROL_LEVEL_COUNT) / totalRanks)
-    );
-
-    return bucketBestFirst + 1;
+function hasControlLevelData() {
+    return rubberData.some(r => Number.isFinite(r.controlLevel));
 }
 
 function resetControlToAllTiers() {
-    controlFilterState.selectedTiers = new Set(['Easy', 'Med', 'Hard']);
+    controlFilterState.selectedLevels = new Set(CONTROL_LEVELS);
     syncControlPillUI();
 }
 
 function syncControlPillUI() {
     document.querySelectorAll('#controlFilter .fp-pill').forEach(pill => {
-        const tier = pill.dataset.tier;
+        const level = parseInt(pill.dataset.level, 10);
         const cb = pill.querySelector('input[type="checkbox"]');
-        const isActive = controlFilterState.selectedTiers.has(tier);
+        const isActive = controlFilterState.selectedLevels.has(level);
         if (cb) cb.checked = isActive;
         pill.classList.toggle('active', isActive);
     });
 }
 
 function isControlFilterActive() {
-    return controlFilterState.selectedTiers.size < 3;
+    return controlFilterState.selectedLevels.size < CONTROL_LEVEL_COUNT;
+}
+
+function buildControlPillBoxesHtml(level) {
+    return Array.from({ length: CONTROL_LEVEL_COUNT }, (_, i) =>
+        `<span class="fp-ctrl-box${i < level ? ' is-filled' : ''}" aria-hidden="true"></span>`
+    ).join('');
 }
 
 function initControlToggleFilter(onChange) {
     const container = document.getElementById('controlFilter');
     if (!container) return;
 
-    const bounds = getControlBoundsFromData();
-    if (!bounds) {
-        container.innerHTML = '<div class="filter-instructions">No control ranking data available.</div>';
+    if (!hasControlLevelData()) {
+        container.innerHTML = '<div class="filter-instructions">No control level data available.</div>';
         return;
     }
 
-    controlFilterState.rankMin = bounds.min;
-    controlFilterState.rankMax = bounds.max;
-    controlFilterState.selectedTiers = new Set(['Easy', 'Med', 'Hard']);
+    controlFilterState.selectedLevels = new Set(CONTROL_LEVELS);
 
     container.innerHTML = '';
     const group = document.createElement('div');
     group.className = 'fp-pill-group';
 
-    CONTROL_TIERS.forEach(tier => {
+    CONTROL_LEVELS.forEach(level => {
         const pill = document.createElement('label');
-        pill.className = `fp-pill ${tier.toLowerCase()} active`;
-        pill.dataset.tier = tier;
+        pill.className = 'fp-pill active';
+        pill.dataset.level = level;
 
         const cb = document.createElement('input');
         cb.type = 'checkbox';
         cb.checked = true;
-        cb.value = tier;
+        cb.value = String(level);
         pill.appendChild(cb);
 
-        const dot = document.createElement('span');
-        dot.className = 'fp-pill-dot';
-        pill.appendChild(dot);
+        const boxes = document.createElement('span');
+        boxes.className = 'fp-ctrl-boxes';
+        boxes.innerHTML = buildControlPillBoxesHtml(level);
+        pill.appendChild(boxes);
 
-        const tierLabel = document.createElement('span');
-        tierLabel.dataset.i18nKey = CONTROL_TIER_I18N_KEYS[tier] || tier;
-        tierLabel.textContent = tUi(tierLabel.dataset.i18nKey);
-        pill.appendChild(tierLabel);
         group.appendChild(pill);
 
         cb.addEventListener('change', () => {
             if (cb.checked) {
-                controlFilterState.selectedTiers.add(tier);
+                controlFilterState.selectedLevels.add(level);
             } else {
-                controlFilterState.selectedTiers.delete(tier);
+                controlFilterState.selectedLevels.delete(level);
             }
             pill.classList.toggle('active', cb.checked);
             onChange();
@@ -599,14 +556,14 @@ function buildNameOptionsFromFilters() {
     const maxHardness = hardnessFilterState.selectedMax;
 
     const filterByControl = isControlFilterActive();
-    const selectedTiers = controlFilterState.selectedTiers;
+    const selectedLevels = controlFilterState.selectedLevels;
 
     const filtered = rubberData.filter(rubber =>
         selectedBrands.has(rubber.brand) &&
         (selectedSheet.size === 0 || selectedSheet.has(rubber.sheet)) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank))) &&
+        (!filterByControl || selectedLevels.has(rubber.controlLevel)) &&
         (!top30FilterActive || top30Set.has(rubber.fullName))
     );
 

@@ -230,24 +230,24 @@
     background: rgba(126,184,168,0.95);
 }
 .chart-control-boxes.control-level-1 .chart-control-box.is-filled {
-    border-color: #6fbf73;
-    background: #6fbf73;
+    border-color: #cf5555;
+    background: #cf5555;
 }
 .chart-control-boxes.control-level-2 .chart-control-box.is-filled {
-    border-color: #a3d977;
-    background: #a3d977;
+    border-color: #e0b55c;
+    background: #e0b55c;
 }
 .chart-control-boxes.control-level-3 .chart-control-box.is-filled {
     border-color: #d4c16a;
     background: #d4c16a;
 }
 .chart-control-boxes.control-level-4 .chart-control-box.is-filled {
-    border-color: #e0b55c;
-    background: #e0b55c;
+    border-color: #a3d977;
+    background: #a3d977;
 }
 .chart-control-boxes.control-level-5 .chart-control-box.is-filled {
-    border-color: #cf5555;
-    background: #cf5555;
+    border-color: #6fbf73;
+    background: #6fbf73;
 }
 .chart-hover-pill {
     display: inline-flex;

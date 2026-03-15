@@ -21,17 +21,20 @@ function normalizeValueToScore(value, min, max) {
 function getRadarData(rubber) {
     const spinTotal = rubberData.length > 0 ? Math.max(...rubberData.map(r => r.spinRank).filter(Number.isFinite)) : 1;
     const speedTotal = rubberData.length > 0 ? Math.max(...rubberData.map(r => r.speedRank).filter(Number.isFinite)) : 1;
-    const controlTotal = rubber.controlTotal || spinTotal;
-
     const wMin = weightFilterState.dataMin;
     const wMax = weightFilterState.dataMax;
     const hMin = hardnessFilterState.dataMin;
     const hMax = hardnessFilterState.dataMax;
 
+    // Control: map 1–5 level to 0–100 score (level 5 = most control = 100)
+    const controlScore = Number.isFinite(rubber.controlLevel)
+        ? ((rubber.controlLevel - 1) / (CONTROL_LEVEL_COUNT - 1)) * 100
+        : 50;
+
     return {
         speed: normalizeRankToScore(rubber.speedRank, speedTotal),
         spin: normalizeRankToScore(rubber.spinRank, spinTotal),
-        control: normalizeRankToScore(rubber.controlRank, controlTotal),
+        control: controlScore,
         weight: normalizeValueToScore(rubber.weight, wMin, wMax),
         hardness: normalizeValueToScore(rubber.normalizedHardness, hMin, hMax),
     };
@@ -251,8 +254,8 @@ function buildRadarComparisonHtml(first, second) {
         },
         {
             label: tUi('CONTROL'),
-            left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank)}</strong>`),
-            right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlRank, { fillFromLeft: true })}</strong>`),
+            left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel)}</strong>`),
+            right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
         {
             label: tUi('CUT_WEIGHT'),

@@ -27,9 +27,7 @@ let hardnessFilterState = {
     selectedMax: null
 };
 let controlFilterState = {
-    rankMin: null,
-    rankMax: null,
-    selectedTiers: new Set(['Easy', 'Med', 'Hard'])
+    selectedLevels: new Set([1, 2, 3, 4, 5])
 };
 let top30FilterActive = false;
 let top30Set = new Set();

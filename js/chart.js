@@ -86,7 +86,7 @@ function getFilteredData() {
     const maxHardness = hardnessFilterState.selectedMax;
 
     const filterByControl = isControlFilterActive();
-    const selectedTiers = controlFilterState.selectedTiers;
+    const selectedLevels = controlFilterState.selectedLevels;
 
     return rubberData.filter(rubber =>
         selectedBrands.has(rubber.brand) &&
@@ -94,7 +94,7 @@ function getFilteredData() {
         selectedSheet.has(rubber.sheet) &&
         (!filterByHardness || (Number.isFinite(rubber.normalizedHardness) && rubber.normalizedHardness >= minHardness && rubber.normalizedHardness <= maxHardness)) &&
         (!filterByWeight || (Number.isFinite(rubber.weight) && rubber.weight >= minWeight && rubber.weight <= maxWeight)) &&
-        (!filterByControl || selectedTiers.has(getControlTierFromRank(rubber.controlRank))) &&
+        (!filterByControl || selectedLevels.has(rubber.controlLevel)) &&
         (!top30FilterActive || top30Set.has(rubber.fullName))
     );
 }
@@ -498,18 +498,17 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     return rubber;
 }
 
-function buildControlLevelIndicatorHtml(rank, { fillFromLeft = false } = {}) {
-    const controlLevel = getControlLevelFromRank(rank);
+function buildControlLevelIndicatorHtml(controlLevel, { fillFromLeft = false } = {}) {
     if (!Number.isFinite(controlLevel)) return '-';
 
-    const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
-    const filledBoxes = CONTROL_LEVEL_COUNT - clampedLevel + 1;
+    const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, controlLevel));
+    const filledBoxes = clampedLevel;
     const boxHtml = Array.from({ length: CONTROL_LEVEL_COUNT }, (_, index) => (
         `<span class="chart-control-box${fillFromLeft ? (index < filledBoxes ? ' is-filled' : '') : (index >= CONTROL_LEVEL_COUNT - filledBoxes ? ' is-filled' : '')}" aria-hidden="true"></span>`
     )).join('');
 
     return `
-        <span class="chart-control-boxes control-level-${clampedLevel}" aria-label="Control level L${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
+        <span class="chart-control-boxes control-level-${clampedLevel}" aria-label="Control level ${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
     `.trim();
 }
 
@@ -525,7 +524,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const weightToneClass = getWeightToneClass(rubber?.weight);
     const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
-    const control = buildControlLevelIndicatorHtml(rubber?.controlRank);
+    const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
     const brandColor = getBrandColor(brandName);
     const bestsellerTag = rubber.bestseller
         ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
@@ -587,15 +586,15 @@ function updateChart(options = {}) {
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
-    // Match chart marker sizes to the 5-dot control guide:
-    // L1 (more control) → biggest dot, L5 (less control) → smallest dot.
-    const CONTROL_GUIDE_MARKER_SIZES = [14, 12, 10, 8, 6];
+    // Marker sizes mapped to control levels:
+    // Level 5 (most control) → biggest dot, Level 1 (least control) → smallest dot.
+    const CONTROL_GUIDE_MARKER_SIZES = [6, 8, 10, 12, 14];
 
     function getMarkerSize(rubber) {
-        const controlLevel = getControlLevelFromRank(rubber.controlRank);
-        if (!Number.isFinite(controlLevel)) return CONTROL_GUIDE_MARKER_SIZES[2];
-        const clampedLevel = Math.max(1, Math.min(CONTROL_LEVEL_COUNT, Math.round(controlLevel)));
-        return CONTROL_GUIDE_MARKER_SIZES[clampedLevel - 1];
+        const level = rubber.controlLevel;
+        if (!Number.isFinite(level)) return CONTROL_GUIDE_MARKER_SIZES[2];
+        const idx = Math.max(0, Math.min(CONTROL_LEVEL_COUNT - 1, level - 1));
+        return CONTROL_GUIDE_MARKER_SIZES[idx];
     }
 
     // Group by brand × sheet for trace creation

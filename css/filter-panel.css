@@ -290,10 +290,26 @@
     color: var(--drac-fg);
 }
 
-/* Control tier colors */
-.fp-pill.easy .fp-pill-dot { background: #6fbf73; border-color: #6fbf73; border-radius: 50%; }
-.fp-pill.med .fp-pill-dot  { background: #d4c16a; border-color: #d4c16a; border-radius: 50%; }
-.fp-pill.hard .fp-pill-dot { background: #cf5555; border-color: #cf5555; border-radius: 50%; }
+/* Control level filter — 5 mini-box indicators inside each pill */
+.fp-ctrl-boxes {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+.fp-ctrl-box {
+    width: 7px;
+    height: 7px;
+    border-radius: 1.5px;
+    border: 1px solid rgba(155,148,132,0.4);
+    background: rgba(62,58,52,0.2);
+}
+.fp-ctrl-box.is-filled {
+    border-color: rgba(126,184,168,0.85);
+    background: rgba(126,184,168,0.85);
+}
+.fp-pill:not(.active) .fp-ctrl-box.is-filled {
+    opacity: 0.4;
+}
 
 /* Sheet type shapes */
 #sheetFilter .fp-pill .fp-pill-dot {
