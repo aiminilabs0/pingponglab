@@ -70,19 +70,117 @@ Use EXACTLY this structure for the English article:
 ```markdown
 ## 1. One-Line Summary
 
+- The Hook — Define the rubber’s identity in one captivating sentence.
+- Archetype — e.g., Aggressive Looper, Controlled Blocker, Variable Attacker, etc.
+
 ## 2. Performance Analysis
+
+Include analysis of:
+
+- Speed & Gears
+  - Passive Block Speed
+  - Active Loop Speed
+  - Linearity vs. Trampoline
+  - Mid-Distance Carry
+
+- Spin Generation
+  - Top-End Spin
+  - Opening Loop
+  - Serve Quality
+
+- Control & Short Game
+  - Touch Play
+  - Spin Sensitivity
+  - Flick Window
+
+- Throw Angle (Arc)
+  - Trajectory
+  - Arc Behavior
+
+- Spin-Interaction Behavior
+  - Against Heavy Topspin
+  - Against Heavy Backspin
+  - Error Pattern
 
 ## 3. Technique-by-Technique Breakdown
 
+- Serve
+
+- Receive
+  - Push/Stop
+  - Flick
+  - Chiquita/Banana
+
+- Loop/Drive
+  - First Loop (3rd Ball)
+  - Continuous Looping
+  - Power Loop / Kill
+
+- Countering
+  - Counter-Topspin
+  - Punch Counter / Active Block
+
+- Blocking
+  - Passive Block
+  - Active Block
+
+- Smash & Flat Hit
+
+- Defense
+  - Chop
+  - Lob
+
+---
+
 ## 4. The "Hand Feel" Experience
+
+- Impact Sensation
+  - Hardness Words
+  - Feedback
+  - Hold vs. Release
+  - Dwell Time
+
+- Sound/Click
+
+---
 
 ## 5. Compatibility & Setup Guide
 
+- Best Blade Matches
+  - Outer Carbon
+  - Inner Carbon
+  - All-Wood
+  - Mismatch Cases
+
+- Forehand vs. Backhand Recommendation
+  - Forehand
+  - Backhand
+
+---
+
 ## 6. Pros & Cons
+
+At least two detailed Pros and two detailed Cons.
+- Pros
+- Cons
+
+---
 
 ## 7. Recommended Users & Pairings
 
+- Who Should Buy This
+- Who Should Avoid This
+- Complementary Rubber Pairings (Opposite Side)
+
+---
+
 ## 8. Value & Alternatives
+
+- Value Verdict
+- Similar Alternatives
+  - Same Brand
+  - Rival Brand
+- Closest Feel Match Summary
 ```
 
 All subsection labels must also be in English.
@@ -96,19 +194,118 @@ Use EXACTLY this structure for the Korean article:
 ```markdown
 ## 1. 한 줄 요약
 
+- 핵심 특징 — 이 러버의 정체성을 한 문장으로 압축한 표현.
+- 플레이 스타일 — 예: 공격형 루퍼, 안정형 블로커, 변화형 공격수 등.
+
 ## 2. 성능 분석
+
+다음 요소들을 중심으로 분석합니다.
+
+- 스피드 & 반발력
+    - 수동적인 블록 스피드
+    - 적극적인 드라이브 스피드
+    - 직선성 vs 튀는 느낌
+    - 중진에서 비거리
+
+- 회전 성능
+    - 최대 회전량
+    - 선제 드라이브
+    - 서브 퀄리티
+
+- 컨트롤 & 쇼트 게임
+    - 터치 플레이
+    - 회전 민감도
+    - 플릭 허용 범위
+
+- 포물선
+    - 궤적 특징
+    - 포물선 형태
+
+- 회전 상호작용
+    - 강한 탑스핀 상대할 때
+    - 강한 백스핀 상대할 때
+    - 주로 발생하는 실수
 
 ## 3. 기술별 세부 분석
 
-## 4. "손맛" 경험
+- 서브
 
-## 5. 호환성 및 세팅 가이드
+- 리시브
+    - 보스커트과 스톱
+    - 플릭
+    - 치키타 / 바나나 플릭
 
-## 6. 장단점
+- 드라이브
+    - 3구 선제 공격
+    - 연속 드라이브
+    - 파워 드라이브 / 결정구
 
-## 7. 추천 사용자 및 조합
+- 카운터
+    - 카운터 드라이브
+    - 카운터 펀치
 
-## 8. 가치 및 대안
+- 블록
+    - 수동적인 블록
+    - 적극적인 블록
+
+- 스매시
+
+- 수비
+    - 보스커트
+    - 로빙
+
+---
+
+## 4. 손맛
+
+- 임팩트 감각
+    - 단단함의 정도
+    - 손에 전달되는 느낌
+    - 잡아주는 느낌 vs 튕겨내는 느낌
+    - 공이 머무는 시간
+
+- 타구음 / 클릭감 
+
+---
+
+## 5. 조합 추천
+
+- 추천 블레이드 조합
+    - 아우터 카본
+    - 이너 카본
+    - 순수 합판
+    - 피해야할 조합
+
+- 포핸드 / 백핸드 추천
+    - 포핸드 사용
+    - 백핸드 사용
+
+---
+
+## 6. 장점과 단점
+
+최소 두 가지 이상의 상세한 장점과 단점을 작성합니다.
+
+- 장점
+- 단점
+
+---
+
+## 7. 추천 대상 & 러버 조합
+
+- 이 러버가 잘 맞는 플레이어
+- 이 러버를 피해야 할 플레이어
+- 상호 보완적인 반대면 러버 추천
+
+---
+
+## 8. 가치평가 & 대안
+
+- 가치 평가
+- 유사한 러버
+    - 같은 브랜드
+    - 다른 브랜드
+- 가장 유사한 느낌 요약
 ```
 
 모든 소제목, 항목 라벨, 구조 텍스트는 반드시 한국어로 작성해야 합니다.
@@ -124,182 +321,131 @@ Use EXACTLY this structure for the Chinese article:
 ```markdown
 ## 1. 一句话总结
 
-## 2. 性能解析
+- 核心定位 — 用一句话概括这款套胶最鲜明的特点与定位。
+- 适合打法 — 例如：进攻型弧圈手、稳定型控制型选手、变化型进攻者等。
 
-## 3. 技术逐项拆解
+## 2. 性能分析
+
+围绕以下关键性能维度进行详细分析：
+
+- 速度与动力层次
+    - 被动挡球速度
+    - 主动拉球速度
+    - 线性表现 vs 弹射感
+    - 中远台飞行能力
+
+- 旋转能力
+    - 最大旋转潜力
+    - 起下旋能力
+    - 发球质量
+
+- 控制力与台内小球
+    - 细腻手感
+    - 对旋转的敏感度
+    - 挑打容错空间
+
+- 出球弧线
+    - 飞行轨迹特点
+    - 弧线形态
+
+- 对旋转的相互作用
+    - 对抗强上旋时的表现
+    - 对抗强下旋时的表现
+    - 常见失误类型
+
+## 3. 各技术动作表现解析
+
+- 发球
+
+- 接发球
+    - 搓球 / 停短
+    - 挑打
+    - 反手拧拉
+
+- 拉球与进攻
+    - 第三板起板
+    - 连续相持
+    - 暴冲 / 终结进攻
+
+- 反击
+    - 对拉反击
+    - 主动挡击 / 快挡
+
+- 挡球
+    - 被动挡
+    - 主动挡
+
+- 扣杀与平击
+
+- 防守
+    - 削球
+    - 高吊球
+
+---
 
 ## 4. 手感体验
 
-## 5. 兼容性与搭配建议
+- 击球触感
+    - 硬度感受
+    - 手感反馈
+    - 吃球感 vs 弹出感
+    - 持球时间
+
+- 击球声音 / 清脆感
+
+---
+
+## 5. 器材搭配建议
+
+- 适合搭配的底板类型
+    - 外置碳素底板
+    - 内置碳素底板
+    - 纯木底板
+    - 不推荐的搭配
+
+- 正手 / 反手使用建议
+    - 正手使用
+    - 反手使用
+
+---
 
 ## 6. 优点与缺点
 
-## 7. 适合人群与搭配方案
+至少列出两个详细优点和两个详细缺点。
 
-## 8. 价值定位与替代方案
-```
+- 优点
+- 缺点
 
-所有小标题、项目名称和结构性文本必须全部使用简体中文。
-严禁在中文版本中出现英文结构标题。
-不得在中文版本中混用英文标签。
+---
+
+## 7. 适用人群与搭配建议
+
+- 适合使用这款套胶的球员
+- 不建议使用的人群
+- 反面搭配推荐套胶
+
+---
+
+## 8. 性价比与替代选择
+
+- 性价比评价
+- 相似类型套胶
+    - 同品牌选择
+    - 其他品牌选择
+- 手感最接近的套胶总结
 
 ---
 
 # Strict Formatting Rules (Apply to ALL Three Versions)
 
 * Each language must be wrapped entirely in its own single Markdown code block (start with `markdown and end with `).
-* Use proper Markdown headings (`##`, `###`) and standard bullet points (`*`).
+* Use proper Markdown headings (`##`, `###`) and standard bullet points (`-`).
 * Sub-bullets MUST be indented by **4 spaces**.
 * Add one empty line between main categories (## sections).
 * Do NOT fabricate data.
 * If a specific metric is completely unknown, write: **“Information not available”**.
 * If making an educated guess based on similar rubbers, clearly label it as: **“[Inference]”**.
 * Maintain identical analytical depth across all three languages.
-
----
-
-# Detailed Section Content Requirements (Applies to ALL Languages)
-
-Each version must contain the following analytical elements inside its localized structure:
-
-## 1. One-Line Summary
-
-* The Hook — Define the rubber’s identity in one captivating sentence.
-* Archetype — e.g., Aggressive Looper, Controlled Blocker, Variable Attacker, etc.
-
----
-
-## 2. Performance Analysis
-
-Include analysis of:
-
-* Speed & Gears
-
-  * Passive Block Speed
-  * Active Loop Speed
-  * Linearity vs. Trampoline
-  * Mid-Distance Carry
-
-* Spin Generation
-
-  * Top-End Spin
-  * Opening Loop
-  * Serve Quality
-
-* Control & Short Game
-
-  * Touch Play
-  * Spin Sensitivity
-  * Flick Window
-
-* Throw Angle (Arc)
-
-  * Trajectory
-  * Arc Behavior
-
-* Spin-Interaction Behavior
-
-  * Against Heavy Topspin
-  * Against Heavy Backspin
-  * Error Pattern
-
----
-
-## 3. Technique-by-Technique Breakdown
-
-Must include evaluation of:
-
-* Serve
-
-* Receive
-
-  * Push/Stop
-  * Flick/Flip
-  * Chiquita/Banana
-
-* Loop/Drive
-
-  * First Loop (3rd Ball)
-  * Continuous Looping
-  * Power Loop / Kill
-
-* Countering
-
-  * Counter-Topspin
-  * Punch Counter / Active Block
-
-* Blocking
-
-  * Passive Block
-  * Active Block
-
-* Smash & Flat Hit
-
-* Defense (If Relevant)
-
-  * Chop
-  * Lob/Fish
-
----
-
-## 4. The "Hand Feel" Experience
-
-Include:
-
-* Impact Sensation
-
-  * Hardness Words
-  * Feedback
-  * Hold vs. Release
-  * Dwell Time
-
-* Sound/Click
-
----
-
-## 5. Compatibility & Setup Guide
-
-Include:
-
-* Best Blade Matches
-
-  * Outer Carbon
-  * Inner Carbon
-  * All-Wood
-  * Mismatch Cases
-
-* Forehand vs. Backhand Recommendation
-
-* 40+ ABS Ball Suitability
-
----
-
-## 6. Pros & Cons
-
-At least two detailed Pros and two detailed Cons.
-
----
-
-## 7. Recommended Users & Pairings
-
-Include:
-
-* Who Should Buy This
-* Who Should Avoid This
-* Complementary Rubber Pairings (Opposite Side)
-
----
-
-## 8. Value & Alternatives
-
-Include:
-
-* Value Verdict
-* Similar Alternatives
-
-  * Same Brand
-  * Rival Brand
-* Closest Feel Match Summary
 
 ---
 
