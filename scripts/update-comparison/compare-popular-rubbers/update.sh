@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Modify!!!!
-current_rubber="Etika 51"
+current_rubber="Omega 7 Guang"
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
