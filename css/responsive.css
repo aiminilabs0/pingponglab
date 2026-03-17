@@ -299,17 +299,14 @@
     border-radius: 0 !important;
 }
 .youtube-embed-wrapper .landscape-fs-close {
-    display: none;
-}
-.youtube-embed-wrapper.landscape-fs .landscape-fs-close {
     display: block;
     position: absolute;
     top: 12px;
     right: 12px;
-    z-index: 100000;
+    z-index: 6;
     background: rgba(0,0,0,0.6);
     color: #fff;
-    border: none;
+    border: 1px solid rgba(248, 248, 242, 0.35);
     border-radius: 50%;
     width: 36px;
     height: 36px;
@@ -318,4 +315,7 @@
     text-align: center;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+}
+.youtube-embed-wrapper.landscape-fs .landscape-fs-close {
+    z-index: 100000;
 }

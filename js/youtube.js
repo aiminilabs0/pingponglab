@@ -72,6 +72,25 @@ function updateEmbedVideo(embedWrapper, videoId) {
     }
 }
 
+function closeYouTubeEmbed(embedWrapper) {
+    if (!embedWrapper) return;
+    const playerId = embedWrapper.dataset.playerId;
+    if (playerId && ytPlayers[playerId]) {
+        try { ytPlayers[playerId].destroy(); } catch {}
+        delete ytPlayers[playerId];
+    }
+
+    const scope =
+        embedWrapper.closest('.radar-section') ||
+        embedWrapper.closest('.content-pane') ||
+        embedWrapper.parentElement;
+
+    embedWrapper.remove();
+    if (!scope || !scope.querySelectorAll) return;
+    scope.querySelectorAll('.yt-mobile-hint').forEach(el => el.remove());
+    scope.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
+}
+
 function createEmbedPager(embedWrapper) {
     const { playlist } = readEmbedPlaylistState(embedWrapper);
     if (!playlist.length) return;
@@ -102,14 +121,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
         const existingVideoId = embedWrapper.dataset.videoId;
         const existingPlaylist = embedWrapper.dataset.playlist || '';
         const requestedPlaylist = Array.isArray(playlist) ? playlist.join(',') : '';
-        const pid = embedWrapper.dataset.playerId;
-        if (pid && ytPlayers[pid]) {
-            try { ytPlayers[pid].destroy(); } catch {}
-            delete ytPlayers[pid];
-        }
-        embedWrapper.remove();
-        embedContainer.querySelectorAll('.yt-mobile-hint').forEach(el => el.remove());
-        embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
+        closeYouTubeEmbed(embedWrapper);
         if (existingVideoId === videoId && existingPlaylist === requestedPlaylist) return;
     }
 
@@ -124,11 +136,12 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
     writeEmbedPlaylistState(embedWrapper, playlist, currentIndex);
     if (isRadarPanel) embedWrapper.classList.add('youtube-embed-wrapper--radar');
 
-    // Close button for landscape pseudo-fullscreen
+    // Close button to stop and dismiss the embed.
     const closeBtn = document.createElement('button');
     closeBtn.className = 'landscape-fs-close';
     closeBtn.textContent = '✕';
-    closeBtn.onclick = () => embedWrapper.classList.remove('landscape-fs');
+    closeBtn.setAttribute('aria-label', 'Close video');
+    closeBtn.onclick = () => closeYouTubeEmbed(embedWrapper);
     embedWrapper.appendChild(closeBtn);
 
     const playerDiv = document.createElement('div');
