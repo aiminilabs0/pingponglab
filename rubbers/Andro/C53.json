@@ -14,9 +14,7 @@
   "manufacturer": "Andro",
   "players": {
     "forehand": [],
-    "backhand": [
-      "André"
-    ]
+    "backhand": []
   },
   "manufacturer_details": {
     "country": "Germany",
