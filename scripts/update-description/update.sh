@@ -26,8 +26,8 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
   exit 1
 fi
 
-# TODO:: Modify!!!!!!
-brand="JOOLA"
+# TODO:: Modify!!!!!!  (Brand)
+brand="Xiom"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
