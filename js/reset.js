@@ -48,8 +48,12 @@ function resetAppToInitialState() {
 
     const chartEl = document.getElementById('chart');
     if (chartEl && hasPlotted) {
-        Plotly.relayout(chartEl, { 'xaxis.autorange': true, 'yaxis.autorange': true });
-        updateChart({ preserveRanges: true });
+        // Rebuild with fresh autoscaled bounds (do not preserve panned/zoomed ranges).
+        updateChart({ force: true });
+        // Match initial-load behavior: apply Plotly autoscale after first render tick.
+        requestAnimationFrame(() => {
+            triggerAutoscale();
+        });
     } else {
         updateChart();
     }
