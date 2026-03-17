@@ -158,7 +158,7 @@ const UI_TEXT = {
         SPIN: '스핀',
         SPEED_RANKING: '스피드 랭킹',
         SPIN_RANKING: '스핀 랭킹',
-        CUT_WEIGHT: '컷팅 후 무게',
+        CUT_WEIGHT: '컷무게',
         SPEED_RANK: '스피드 랭킹',
         SPIN_RANK: '스핀 랭킹',
         RELEASE: '출시',
