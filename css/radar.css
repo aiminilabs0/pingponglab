@@ -258,6 +258,11 @@
     vertical-align: middle;
     margin-right: 2px;
     object-fit: cover;
+    transition: transform 0.16s ease;
+    transform-origin: center;
+}
+.player-emoji:hover {
+    transform: scale(2.1);
 }
 .radar-info-player-link {
     color: var(--drac-cyan);

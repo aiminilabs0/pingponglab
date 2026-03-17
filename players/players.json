@@ -13,6 +13,7 @@
     ]
   },
   "AN Jaehyun": {
+    "full_name": "AN Jaehyun",
     "localized_names": {
       "ko": "안재현",
       "cn": "安宰贤"
@@ -25,6 +26,7 @@
     ]
   },
   "Amy Wang": {
+    "full_name": "Amy Wang",
     "localized_names": {
       "ko": "에이미 왕",
       "cn": "艾米·王"
@@ -40,17 +42,6 @@
       "https://www.youtube.com/shorts/meYXxJUhouI"
     ]
   },
-  "André": {
-    "localized_names": {
-      "ko": "안드레",
-      "cn": "安德烈"
-    },
-    "forehand": "",
-    "backhand": "Andro/C53",
-    "youtubes": [
-      "https://www.youtube.com/watch?v=PQiK3rXRJN0"
-    ]
-  },
   "B. Takahashi": {
     "full_name": "Bruna Takahashi",
     "localized_names": {
@@ -64,7 +55,8 @@
       "https://www.youtube.com/watch?v=HSiJ9X3HLGw"
     ]
   },
-  "CHEN Meng": {
+  "Chen Meng": {
+    "full_name": "Chen Meng",
     "localized_names": {
       "ko": "첸멍",
       "cn": "陈梦"
@@ -75,7 +67,8 @@
       "https://www.youtube.com/watch?v=x6DJ_UjokjI"
     ]
   },
-  "CHO Daesung": {
+  "CHO Daeseong": {
+    "full_name": "CHO Daeseong",
     "localized_names": {
       "ko": "조대성",
       "cn": "赵大成"
@@ -87,8 +80,8 @@
       "https://www.youtube.com/watch?v=pMo6YFG1GgU"
     ]
   },
-  "D. Jorgić": {
-    "full_name": "Darko Jorgić",
+  "D. JORGIC": {
+    "full_name": "Darko JORGIC",
     "localized_names": {
       "ko": "다르코 요르지치",
       "cn": "达尔科·约尔吉奇"
@@ -138,7 +131,8 @@
       "https://www.youtube.com/watch?v=OfnF48FaxVw"
     ]
   },
-  "Gauzy Simon": {
+  "Simon GAUZY": {
+    "full_name": "Simon GAUZY",
     "localized_names": {
       "ko": "시몽 고지",
       "cn": "西蒙·高茨"
@@ -163,7 +157,8 @@
       "https://www.youtube.com/watch?v=sDtwcRqH9MY"
     ]
   },
-  "Kanak Jha": {
+  "Kanak JHA": {
+    "full_name": "Kanak JHA",
     "localized_names": {
       "ko": "카낙 자",
       "cn": "卡纳克·贾"
@@ -176,6 +171,7 @@
     ]
   },
   "LIN Shidong": {
+    "full_name": "LIN Shidong",
     "localized_names": {
       "ko": "린시동",
       "cn": "林诗栋"
@@ -188,6 +184,7 @@
     ]
   },
   "LIN Yun-ju": {
+    "full_name": "LIN Yun-ju",
     "localized_names": {
       "ko": "린윤주",
       "cn": "林昀儒"
@@ -200,6 +197,7 @@
     ]
   },
   "Liang Jingkun": {
+    "full_name": "Liang Jingkun",
     "localized_names": {
       "ko": "량징쿤",
       "cn": "梁靖崑"
@@ -210,10 +208,10 @@
       "https://www.youtube.com/watch?v=C00ZMZGalPg"
     ]
   },
-  "M. Harimoto": {
-    "full_name": "Miwa Harimoto",
+  "M. HARIMOTO": {
+    "full_name": "Miwa HARIMOTO",
     "localized_names": {
-      "ko": "하리모토 미와",
+      "ko": "미와 하리모토",
       "cn": "张本美和"
     },
     "forehand": "Butterfly/Zyre 03",
@@ -223,8 +221,8 @@
       "https://www.youtube.com/watch?v=HJJSUf7Rbr0"
     ]
   },
-  "M. Kihara": {
-    "full_name": "Miyuu Kihara",
+  "M. KIHARA": {
+    "full_name": "Miyuu KIHARA",
     "localized_names": {
       "ko": "기하라 미유",
       "cn": "木原美悠"
@@ -235,8 +233,8 @@
       "https://www.youtube.com/watch?v=C0bCp22tiAs"
     ]
   },
-  "M. Nagasaki": {
-    "full_name": "Miyu Nagasaki",
+  "M. NAGASAKI": {
+    "full_name": "Miyu NAGASAKI",
     "localized_names": {
       "ko": "나가사키 미유",
       "cn": "长崎美柚"
@@ -248,8 +246,8 @@
       "https://www.youtube.com/watch?v=wa0XEj17gyI"
     ]
   },
-  "M. Thakkar": {
-    "full_name": "Manav Thakkar",
+  "M. THAKKAR": {
+    "full_name": "Manav THAKKAR",
     "localized_names": {
       "ko": "마나브 타카르",
       "cn": "马纳夫·塔卡尔"
@@ -261,7 +259,8 @@
       "https://www.youtube.com/watch?v=FDWLthIpjUE"
     ]
   },
-  "Mima Ito": {
+  "Mima ITO": {
+    "full_name": "Mima ITO",
     "localized_names": {
       "ko": "이토 미마",
       "cn": "伊藤美诚"
@@ -273,6 +272,7 @@
     ]
   },
   "OH Junsung": {
+    "full_name": "OH Junsung",
     "localized_names": {
       "ko": "오준성",
       "cn": "吴晙诚"
@@ -284,7 +284,8 @@
       "https://www.youtube.com/watch?v=9pPJa0PXoNM"
     ]
   },
-  "Peng Xiang": {
+  "XIANG Peng": {
+    "full_name": "XIANG Peng",
     "localized_names": {
       "ko": "펑샹",
       "cn": "彭翔"
@@ -295,8 +296,8 @@
       "https://www.youtube.com/watch?v=Q2hHK7tDnYE"
     ]
   },
-  "R. Walther": {
-    "full_name": "Ricardo Walther",
+  "R. WALTHER": {
+    "full_name": "Ricardo WALTHER",
     "localized_names": {
       "ko": "리카르도 발터",
       "cn": "里卡多·瓦尔特"
@@ -308,7 +309,8 @@
       "https://www.youtube.com/watch?v=w9Nnumuw8rY"
     ]
   },
-  "Rin Mende": {
+  "Rin MENDE": {
+    "full_name": "Rin MENDE",
     "localized_names": {
       "ko": "린 멘데",
       "cn": "凛·门德"
@@ -320,8 +322,8 @@
       "https://www.youtube.com/watch?v=p6A4C9pbtjo"
     ]
   },
-  "S. Shibata": {
-    "full_name": "Saki Shibata",
+  "S. SHIBATA": {
+    "full_name": "Saki SHIBATA",
     "localized_names": {
       "ko": "시바타 사키",
       "cn": "柴田咲"
@@ -332,8 +334,8 @@
       "https://www.youtube.com/watch?v=QgXr5vzTV8M"
     ]
   },
-  "S. Winter": {
-    "full_name": "Sabine Winter",
+  "S. WINTER": {
+    "full_name": "Sabine WINTER",
     "localized_names": {
       "ko": "자비네 빈터",
       "cn": "萨宾·温特"
@@ -345,7 +347,8 @@
       "https://www.youtube.com/watch?v=_FyrzNK5BYk"
     ]
   },
-  "Satsuki Odo": {
+  "Satsuki ODO": {
+    "full_name": "Satsuki ODO",
     "localized_names": {
       "ko": "오도 사츠키",
       "cn": "大藤沙月"
@@ -357,7 +360,8 @@
       "https://www.youtube.com/watch?v=jce2Q4xdC54"
     ]
   },
-  "Sora": {
+  "S. MATSUSHIMA": {
+    "full_name": "Sora MATSUSHIMA",
     "localized_names": {
       "ko": "소라 마쓰시마",
       "cn": "松島輝空"
@@ -370,8 +374,8 @@
       "https://www.youtube.com/watch?v=xY-9FfN6y3w"
     ]
   },
-  "T. Harimoto": {
-    "full_name": "Tomokazu Harimoto",
+  "T. HARIMOTO": {
+    "full_name": "Tomokazu HARIMOTO",
     "localized_names": {
       "ko": "하리모토 도모카즈",
       "cn": "张本智和"
@@ -383,8 +387,8 @@
       "https://www.youtube.com/watch?v=nPyQb-WVTx0"
     ]
   },
-  "T. Pucar": {
-    "full_name": "Tomislav Pucar",
+  "T. PUCAR": {
+    "full_name": "Tomislav PUCAR",
     "localized_names": {
       "ko": "토미슬라브 푸카르",
       "cn": "托米斯拉夫·普卡尔"
@@ -396,8 +400,8 @@
       "https://www.youtube.com/watch?v=Se-l5cl0FJ4"
     ]
   },
-  "X. Chen": {
-    "full_name": "Xingtong Chen",
+  "CHEN X.": {
+    "full_name": "CHEN Xingtong",
     "localized_names": {
       "ko": "첸싱퉁",
       "cn": "陈幸同"
@@ -409,7 +413,7 @@
     ]
   },
   "Y. Jeoung": {
-    "full_name": "Youngsik Jeoung",
+    "full_name": "Young-sik Jeoung",
     "localized_names": {
       "ko": "정영식",
       "cn": "郑荣植"
@@ -420,8 +424,8 @@
       "https://www.youtube.com/watch?v=HXKLG0DnWMw"
     ]
   },
-  "Y. Muramatsu": {
-    "full_name": "Yuto Muramatsu",
+  "Y. MURAMATSU": {
+    "full_name": "Yuto MURAMATSU",
     "localized_names": {
       "ko": "무라마쓰 유토",
       "cn": "村松雄斗"
@@ -433,6 +437,7 @@
     ]
   },
   "Ma Long": {
+    "full_name": "Ma Long",
     "localized_names": {
       "ko": "마롱",
       "cn": "马龙"
@@ -444,6 +449,7 @@
     ]
   },
   "BAE Hwan": {
+    "full_name": "BAE Hwan",
     "localized_names": {
       "ko": "배환",
       "cn": "裴焕"
@@ -456,6 +462,7 @@
     ]
   },
   "BAE Won": {
+    "full_name": "BAE Won",
     "localized_names": {
       "ko": "배원",
       "cn": "裴元"
@@ -468,6 +475,7 @@
     ]
   },
   "Timo Ball": {
+    "full_name": "Timo Ball",
     "localized_names": {
       "ko": "티모볼",
       "cn": "波尔"

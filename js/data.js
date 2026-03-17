@@ -43,6 +43,15 @@ function playerEmojiPath(name) {
     return '/images/players/' + name.replace(/\s+/g, ' ') + '.png';
 }
 
+function getPlayerImageName(name) {
+    const trimmedName = typeof name === 'string' ? name.trim() : '';
+    if (!trimmedName) return '';
+
+    const player = getPlayerDataByName(trimmedName);
+    const fullName = typeof player?.full_name === 'string' ? player.full_name.trim() : '';
+    return fullName || trimmedName;
+}
+
 function normalizePlayerNameKey(value) {
     if (typeof value !== 'string') return '';
     return value.trim().toLowerCase();
@@ -121,7 +130,7 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     if (!parsed) return '';
     const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
     const safeName = escapeHtml(displayName);
-    const emojiSrc = playerEmojiPath(parsed.name);
+    const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name));
     const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()">`;
     const withEmoji = (nameOrLinkHtml) => (
         imagePosition === 'before'
