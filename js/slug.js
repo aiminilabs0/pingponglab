@@ -3,14 +3,14 @@
 // ════════════════════════════════════════════════════════════
 
 /**
- * Convert a rubber abbreviation to a URL slug.
- * e.g. "Tenergy 05" → "tenergy-05", "J&H C52.5" → "jh-c52-5"
+ * Convert a rubber name to a URL slug.
+ * e.g. "Hybrid K3" → "hybrid-k3", "Jekyll & Hyde C52.5" → "jekyll-hyde-c52.5"
  */
 function toSlug(name) {
     return String(name)
         .toLowerCase()
         .replace(/&/g, '')
-        .replace(/[.\s]+/g, '-')
+        .replace(/\s+/g, '-')
         .replace(/-{2,}/g, '-')
         .replace(/^-+|-+$/g, '');
 }

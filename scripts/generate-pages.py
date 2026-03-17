@@ -27,10 +27,10 @@ BASE_URL = 'https://pingponglab.com'
 # ── Slug utility ──
 
 def to_slug(name):
-    """Convert rubber abbreviation to URL slug."""
+    """Convert rubber name to URL slug."""
     s = name.lower()
     s = s.replace('&', '')
-    s = re.sub(r'[\.\s]+', '-', s)
+    s = re.sub(r'\s+', '-', s)
     s = re.sub(r'-{2,}', '-', s)
     s = s.strip('-')
     return s
@@ -39,17 +39,21 @@ def to_slug(name):
 # ── Load data ──
 
 def load_rubber_index():
-    """Load the rubber index file and extract abbreviations."""
+    """Load the rubber index file and extract abbreviations + names."""
     index_path = ROOT / 'stats' / 'rubbers' / 'index.json'
     with open(index_path) as f:
         files = json.load(f)
-    # files are like "rubbers/Andro/C48.json" — extract abbr from filename
     rubbers = []
     for filepath in files:
         parts = filepath.split('/')
         brand = parts[1]
         abbr = parts[2].replace('.json', '')
-        rubbers.append({'brand': brand, 'abbr': abbr, 'file': filepath})
+        # Read the rubber JSON to get the full name
+        rubber_path = ROOT / filepath
+        with open(rubber_path) as f:
+            rubber_data = json.load(f)
+        name = rubber_data.get('name', abbr)
+        rubbers.append({'brand': brand, 'abbr': abbr, 'name': name, 'file': filepath})
     return rubbers
 
 
@@ -76,16 +80,19 @@ def load_comparison_pairs():
 # ── Slug map generation ──
 
 def generate_slug_map(rubbers):
-    """Generate bidirectional slug <-> abbr mapping with collision detection."""
+    """Generate bidirectional slug <-> abbr mapping with collision detection.
+    Slugs are derived from the rubber's full name (not abbreviation)."""
     abbr_to_slug = {}
     slug_to_abbr = {}
 
     for r in rubbers:
         abbr = r['abbr']
-        slug = to_slug(abbr)
+        name = r['name']
+        slug = to_slug(name)
 
         if slug in slug_to_abbr:
-            print(f"ERROR: Slug collision! '{abbr}' and '{slug_to_abbr[slug]}' both map to '{slug}'",
+            print(f"ERROR: Slug collision! '{name}' (abbr '{abbr}') and "
+                  f"'{slug_to_abbr[slug]}' both map to '{slug}'",
                   file=sys.stderr)
             sys.exit(1)
 
