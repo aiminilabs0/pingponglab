@@ -3,24 +3,101 @@
 // ════════════════════════════════════════════════════════════
 
 const YOUTUBE_ICON = '/images/youtube.ico';
+const YOUTUBE_DEFAULT_TITLE = 'YouTube Review';
+const youtubeMetaCache = new Map();
 
-function buildTitleLinkIconsHtml(rubber) {
+function normalizeYouTubeMeta(rawYoutubeValue) {
+    if (!rawYoutubeValue) return null;
+
+    if (typeof rawYoutubeValue === 'string') {
+        const url = rawYoutubeValue.trim();
+        if (!url) return null;
+        return { url, title: YOUTUBE_DEFAULT_TITLE, icon: YOUTUBE_ICON };
+    }
+
+    if (typeof rawYoutubeValue === 'object') {
+        const url = typeof rawYoutubeValue.url === 'string' ? rawYoutubeValue.url.trim() : '';
+        if (!url) return null;
+        const title = typeof rawYoutubeValue.title === 'string' && rawYoutubeValue.title.trim()
+            ? rawYoutubeValue.title.trim()
+            : YOUTUBE_DEFAULT_TITLE;
+        return { url, title, icon: YOUTUBE_ICON };
+    }
+
+    return null;
+}
+
+function getYouTubeWatchUrl(url) {
+    const videoId = extractYouTubeVideoId(url);
+    if (!videoId) return null;
+    return `https://www.youtube.com/watch?v=${videoId}`;
+}
+
+async function fetchYouTubeMetaFromProviders(url) {
+    const watchUrl = getYouTubeWatchUrl(url);
+    if (!watchUrl) return null;
+
+    const providers = [
+        `https://www.youtube.com/oembed?url=${encodeURIComponent(watchUrl)}&format=json`,
+        `https://noembed.com/embed?url=${encodeURIComponent(watchUrl)}`
+    ];
+
+    for (const providerUrl of providers) {
+        try {
+            const resp = await fetch(providerUrl);
+            if (!resp.ok) continue;
+            const data = await resp.json();
+            const title = (typeof data.title === 'string' && data.title.trim()) || '';
+            if (title) return { title };
+        } catch {
+            // Try next metadata provider.
+        }
+    }
+
+    return null;
+}
+
+async function enrichYouTubeMeta(youtubeMeta) {
+    if (!youtubeMeta?.url) return youtubeMeta;
+
+    const hasCustomTitle = youtubeMeta.title && youtubeMeta.title !== YOUTUBE_DEFAULT_TITLE;
+    if (hasCustomTitle) return youtubeMeta;
+
+    if (!youtubeMetaCache.has(youtubeMeta.url)) {
+        youtubeMetaCache.set(youtubeMeta.url, fetchYouTubeMetaFromProviders(youtubeMeta.url));
+    }
+    const fetched = await youtubeMetaCache.get(youtubeMeta.url);
+    if (!fetched) return youtubeMeta;
+
+    return {
+        ...youtubeMeta,
+        title: fetched.title || youtubeMeta.title
+    };
+}
+
+async function buildTitleLinkIconsHtml(rubber) {
     if (!rubber?.urls) return '';
     const countryUrls = rubber.urls[selectedCountry] || {};
     const parts = [];
 
-    if (countryUrls.youtube) {
-        const videoId = extractYouTubeVideoId(countryUrls.youtube);
+    const youtubeMeta = await enrichYouTubeMeta(normalizeYouTubeMeta(countryUrls.youtube));
+    if (youtubeMeta) {
+        const safeTitle = escapeHtml(youtubeMeta.title);
+        const safeIcon = escapeHtml(youtubeMeta.icon);
+        const safeUrl = escapeHtml(youtubeMeta.url);
+        const videoId = extractYouTubeVideoId(youtubeMeta.url);
         if (videoId) {
             parts.push(
-                `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${videoId}" title="YouTube Review" aria-label="YouTube Review">` +
-                `<img src="${YOUTUBE_ICON}" class="rubber-title-icon" alt="YouTube">` +
+                `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${videoId}" title="${safeTitle}" aria-label="${safeTitle}">` +
+                `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
+                `<span class="rubber-title-link-label">${safeTitle}</span>` +
                 `</a>`
             );
         } else {
             parts.push(
-                `<a class="rubber-title-icon-link" href="${countryUrls.youtube}" target="_blank" rel="noopener" title="YouTube Review" aria-label="YouTube Review">` +
-                `<img src="${YOUTUBE_ICON}" class="rubber-title-icon" alt="YouTube">` +
+                `<a class="rubber-title-icon-link" href="${safeUrl}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}">` +
+                `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
+                `<span class="rubber-title-link-label">${safeTitle}</span>` +
                 `</a>`
             );
         }
@@ -193,7 +270,9 @@ async function updateDetailPanel(panelNum, rubber) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
     const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
-    const titleIconsHtml = buildTitleLinkIconsHtml(rubber);
+    const titleIconsHtmlPromise = buildTitleLinkIconsHtml(rubber);
+    const detailMarkdownPromise = fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
+    const [titleIconsHtml, detailMarkdown] = await Promise.all([titleIconsHtmlPromise, detailMarkdownPromise]);
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -208,8 +287,6 @@ async function updateDetailPanel(panelNum, rubber) {
                 (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
-
-    const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
 
     if (detailMarkdown) {
         const feedbackButtonsHtml = buildContentFeedbackButtonsHtml({

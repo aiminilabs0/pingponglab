@@ -148,15 +148,18 @@
 .rubber-title-icon-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
+    justify-content: flex-start;
+    gap: 7px;
+    min-height: 32px;
+    max-width: 220px;
+    padding: 6px 10px;
     border-radius: 8px;
     border: 1.5px solid rgba(155,148,132,0.25);
     background: rgba(62,58,52,0.4);
     transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
     text-decoration: none !important;
     flex-shrink: 0;
+    color: var(--drac-fg);
 }
 .rubber-title-icon-link:hover {
     background: rgba(126,184,168,0.15);
@@ -173,11 +176,23 @@
     border-color: var(--drac-red);
 }
 .rubber-title-icon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     object-fit: contain;
     display: block;
     image-rendering: auto;
+    flex-shrink: 0;
+}
+.rubber-title-link-label {
+    display: inline-block;
+    max-width: 160px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
 }
 /* YouTube embed sits flush between title header and scroll content */
 .content-pane .youtube-embed-wrapper {
