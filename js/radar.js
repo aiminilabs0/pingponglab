@@ -191,7 +191,7 @@ function buildRadarComparisonHtml(first, second) {
 
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('TOPSHEET'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('RELEASE'), tUi('THICKNESS')];
+        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
@@ -266,11 +266,6 @@ function buildRadarComparisonHtml(first, second) {
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
         {
-            label: tUi('TOPSHEET'),
-            left: val(first, r => formatSheetRadarHtml(r.sheet)),
-            right: val(second, r => formatSheetRadarHtml(r.sheet)),
-        },
-        {
             label: tUi('CUT_WEIGHT'),
             left: val(first, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
@@ -279,6 +274,11 @@ function buildRadarComparisonHtml(first, second) {
             label: tUi('HARDNESS'),
             left: val(first, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
             right: val(second, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+        },
+        {
+            label: tUi('TOPSHEET'),
+            left: val(first, r => formatSheetRadarHtml(r.sheet)),
+            right: val(second, r => formatSheetRadarHtml(r.sheet)),
         },
         {
             label: tUi('RELEASE'),
