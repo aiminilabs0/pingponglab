@@ -131,26 +131,32 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
     const safeName = escapeHtml(displayName);
     const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name));
-    const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="20" height="20" onerror="this.remove()">`;
-    const withEmoji = (nameOrLinkHtml) => (
-        imagePosition === 'before'
-            ? `${emojiHtml} ${nameOrLinkHtml}`
-            : `${nameOrLinkHtml} ${emojiHtml}`
-    );
+    const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="48" height="48" onerror="this.remove()">`;
+
+    // Split name into 2 lines at the first space
+    const spaceIdx = displayName.indexOf(' ');
+    let nameInnerHtml;
+    if (spaceIdx !== -1) {
+        const line1 = escapeHtml(displayName.substring(0, spaceIdx));
+        const line2 = escapeHtml(displayName.substring(spaceIdx + 1));
+        nameInnerHtml = `<span class="player-name-line">${line1}</span><span class="player-name-line">${line2}</span>`;
+    } else {
+        nameInnerHtml = `<span class="player-name-line">${safeName}</span>`;
+    }
+
+    const cardInnerHtml = `${emojiHtml}${nameInnerHtml}`;
 
     const { videoIds, currentIndex } = resolvePlayerVideoSelection(parsed);
     if (videoIds.length) {
         const videoId = videoIds[currentIndex] || videoIds[0];
         const playlist = escapeHtml(videoIds.join(','));
-        return withEmoji(
-            `<a class="radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" data-yt-playlist="${playlist}" data-yt-index="${currentIndex}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${safeName}</a>`
-        );
+        return `<a class="player-card radar-info-player-link" href="#" data-yt-videoid="${escapeHtml(videoId)}" data-yt-playlist="${playlist}" data-yt-index="${currentIndex}" title="Watch ${safeName} on YouTube" aria-label="Watch ${safeName} on YouTube">${cardInnerHtml}</a>`;
     }
-
-    if (!parsed.url) return withEmoji(safeName);
-
-    const safeUrl = escapeHtml(parsed.url);
-    return withEmoji(`<a class="radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>`);
+    if (parsed.url) {
+        const safeUrl = escapeHtml(parsed.url);
+        return `<a class="player-card radar-info-player-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer">${cardInnerHtml}</a>`;
+    }
+    return `<span class="player-card">${cardInnerHtml}</span>`;
 }
 
 function collectPlayerSearchNames(raw) {
@@ -226,7 +232,7 @@ function formatPlayerLabel(raw) {
     return Array.from(uniquePlayers)
         .map(renderPlayerEntryHtml)
         .filter(Boolean)
-        .join('<br>');
+        .join('');
 }
 
 function formatPlayersBySide(raw) {

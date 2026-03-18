@@ -166,7 +166,7 @@ function buildPlayersColumnHtml(rubber, align) {
             return entries
                 .map(entry => renderPlayerEntryHtml(entry, { imagePosition }))
                 .filter(Boolean)
-                .join('<br>');
+                .join('');
         }
         return fallbackLabel || '';
     };

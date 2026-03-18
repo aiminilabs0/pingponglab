@@ -96,8 +96,10 @@
     align-items: flex-end;
 }
 .radar-info-players--right .radar-info-player-row {
-    align-items: flex-end;
-    text-align: right;
+    align-items: stretch;
+}
+.radar-info-players--right .radar-info-player-names {
+    justify-content: end;
 }
 .radar-info-players--left {
     align-items: flex-start;
@@ -217,58 +219,76 @@
 .radar-info-player-row {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 3px;
+    align-items: stretch;
+    gap: 6px;
+    width: 140px;
     font-size: 13px;
     line-height: 1.35;
 }
 .radar-info-side-badge {
-    display: inline-block;
-    font-size: 10px;
+    display: block;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    padding: 1px 5px;
-    border-radius: 3px;
+    padding: 4px 8px;
+    border-radius: 4px;
     border: 1.5px solid;
-    flex-shrink: 0;
+    text-align: center;
 }
 .radar-info-side-badge--fh {
     border-color: #e25555;
     color: #e25555;
-    background: rgba(226, 85, 85, 0.12);
+    background: rgba(226, 85, 85, 0.08);
 }
 .radar-info-side-badge--bh {
     border-color: #555;
     color: #ccc;
-    background: rgba(60, 60, 60, 0.35);
+    background: rgba(60, 60, 60, 0.25);
 }
 .radar-info-paddle-black {
     display: inline-block;
     filter: grayscale(1) brightness(1) contrast(1.3);
 }
 .radar-info-player-names {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
     color: var(--drac-fg);
     font-weight: 500;
 }
+.player-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-align: center;
+    min-width: 0;
+}
+.player-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+.player-name-line {
+    display: block;
+    font-size: 11px;
+    line-height: 1.25;
+    white-space: nowrap;
+}
 .player-emoji {
-    width: 20px;
-    height: 20px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 2px;
     object-fit: cover;
     transition: transform 0.16s ease;
     transform-origin: center;
 }
 .player-emoji:hover {
-    transform: scale(2.1);
+    transform: scale(1.5);
 }
 .radar-info-player-link {
     color: var(--drac-cyan);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+    text-decoration: none;
 }
 .radar-info-player-link:hover {
     color: var(--drac-pink);
