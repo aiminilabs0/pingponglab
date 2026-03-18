@@ -39,8 +39,8 @@ function parsePlayerEntry(value) {
     return { name, url };
 }
 
-function playerEmojiPath(name) {
-    return '/images/players/' + name.replace(/\s+/g, ' ') + '.png';
+function playerEmojiPath(name, ext) {
+    return '/images/players/' + name.replace(/\s+/g, ' ') + '.' + (ext || 'png');
 }
 
 function getPlayerImageName(name) {
@@ -130,7 +130,9 @@ function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
     if (!parsed) return '';
     const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
     const safeName = escapeHtml(displayName);
-    const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name));
+    const playerData = getPlayerDataByName(parsed.name);
+    const imageExt = playerData?.image_ext;
+    const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name), imageExt);
     const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="48" height="48" onerror="this.remove()">`;
 
     // Split name into 2 lines at the first space
