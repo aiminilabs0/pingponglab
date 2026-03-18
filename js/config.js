@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 71;
+const CACHE_VERSION = 72;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = '/stats/rubbers/index.json';
