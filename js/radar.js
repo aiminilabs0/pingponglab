@@ -182,11 +182,11 @@ function buildPlayersColumnHtml(rubber, align) {
 
 function buildRadarComparisonHtml(first, second) {
     function formatSheetRadarHtml(sheet) {
-        if (!sheet) return '<strong>-</strong>';
+        if (!sheet) return '<strong class="radar-cmp-small">-</strong>';
         const sheetI18nKey = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
         const localizedSheet = sheetI18nKey ? tUi(sheetI18nKey) : sheet;
-        if (!localizedSheet || localizedSheet === '-') return '<strong>-</strong>';
-        return `<strong class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(localizedSheet.charAt(0))}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong>`;
+        if (!localizedSheet || localizedSheet === '-') return '<strong class="radar-cmp-small">-</strong>';
+        return `<strong class="chart-sheet-value radar-cmp-small"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(localizedSheet.charAt(0))}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong>`;
     }
 
     if (!first && !second) {
@@ -248,32 +248,59 @@ function buildRadarComparisonHtml(first, second) {
         return weight > otherWeight;
     }
 
+    // Winner detection: 'left' | 'right' | null
+    function rankWinner(rankKey) {
+        const l = first?.[rankKey], r = second?.[rankKey];
+        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
+        return l < r ? 'left' : 'right';
+    }
+    function controlWinner() {
+        const l = first?.controlLevel, r = second?.controlLevel;
+        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
+        return l > r ? 'left' : 'right';
+    }
+    function weightWinner() {
+        const l = first?.weight, r = second?.weight;
+        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
+        return l < r ? 'left' : 'right';
+    }
+    function hardnessWinner() {
+        const l = first?.normalizedHardness, r = second?.normalizedHardness;
+        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
+        return l > r ? 'left' : 'right';
+    }
+
     // Build metric rows
     const metrics = [
         {
             label: tUi('SPEED_RANK'),
-            left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
-            right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'speedRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+            winner: rankWinner('speedRank'),
+            left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
+            right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
         },
         {
             label: tUi('SPIN_RANK'),
-            left: val(first, r => `<strong${shouldUnderlineLowerRank(r, second, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
-            right: val(second, r => `<strong${shouldUnderlineLowerRank(r, first, 'spinRank') ? ' class="radar-cmp-highlighted"' : ''}>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+            winner: rankWinner('spinRank'),
+            left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
+            right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
         },
         {
             label: tUi('CONTROL'),
+            winner: controlWinner(),
             left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel)}</strong>`),
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
         {
             label: tUi('CUT_WEIGHT'),
-            left: val(first, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
-            right: val(second, r => `<strong class="${[getWeightToneClass(r.weight), shouldUnderlineHigherWeight(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+            winner: weightWinner(),
+            left: val(first, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
+            right: val(second, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },
         {
             label: tUi('HARDNESS'),
-            left: val(first, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, second) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
-            right: val(second, r => `<strong class="${[getHardnessToneClass(r.normalizedHardness), shouldUnderlineHigherHardness(r, first) ? 'radar-cmp-highlighted' : ''].filter(Boolean).join(' ')}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            winner: hardnessWinner(),
+            left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
         },
         {
             label: tUi('TOPSHEET'),
@@ -282,19 +309,24 @@ function buildRadarComparisonHtml(first, second) {
         },
         {
             label: tUi('RELEASE'),
-            left: val(first, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
-            right: val(second, r => `<strong>${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
+            left: val(first, r => `<strong class="radar-cmp-small">${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
+            right: val(second, r => `<strong class="radar-cmp-small">${escapeHtml(r.releaseYearLabel || 'N/A')}</strong>`),
         },
         {
             label: tUi('THICKNESS'),
-            left: val(first, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
-            right: val(second, r => `<strong>${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
+            left: val(first, r => `<strong class="radar-cmp-small">${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
+            right: val(second, r => `<strong class="radar-cmp-small">${formatThicknessRadarHtml(r.thicknessLabel)}</strong>`),
         },
     ];
 
+    function trophyLabel(m) {
+        if (m.winner === 'left') return `🏆${m.label}\u2002`;
+        if (m.winner === 'right') return `\u2002${m.label}🏆`;
+        return m.label;
+    }
     const metricRowsHtml = metrics.map(m => `
         <div class="radar-cmp-cell radar-cmp-cell--left">${m.left}</div>
-        <div class="radar-cmp-cell radar-cmp-cell--label">${m.label}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--label">${trophyLabel(m)}</div>
         <div class="radar-cmp-cell radar-cmp-cell--right">${m.right}</div>
     `).join('');
 

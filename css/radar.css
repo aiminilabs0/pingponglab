@@ -75,13 +75,11 @@
     justify-self: start;
 }
 .radar-cmp-cell strong {
-    color: var(--drac-fg);
+    color: var(--drac-comment);
     font-weight: 600;
 }
-.radar-cmp-cell strong.radar-cmp-highlighted {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
+.radar-cmp-cell strong.radar-cmp-small {
+    font-size: 12px;
 }
 .radar-cmp-dash {
     color: var(--drac-comment);
