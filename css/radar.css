@@ -68,6 +68,7 @@
     text-align: center;
     color: var(--drac-comment);
     white-space: nowrap;
+    font-size: 12px;
 }
 .radar-cmp-cell--right {
     text-align: left;
