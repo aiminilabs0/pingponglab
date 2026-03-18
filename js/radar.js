@@ -259,17 +259,6 @@ function buildRadarComparisonHtml(first, second) {
         if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
         return l > r ? 'left' : 'right';
     }
-    function weightWinner() {
-        const l = first?.weight, r = second?.weight;
-        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
-        return l < r ? 'left' : 'right';
-    }
-    function hardnessWinner() {
-        const l = first?.normalizedHardness, r = second?.normalizedHardness;
-        if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
-        return l > r ? 'left' : 'right';
-    }
-
     // Build metric rows
     const metrics = [
         {
@@ -292,13 +281,11 @@ function buildRadarComparisonHtml(first, second) {
         },
         {
             label: tUi('CUT_WEIGHT'),
-            winner: weightWinner(),
             left: val(first, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },
         {
             label: tUi('HARDNESS'),
-            winner: hardnessWinner(),
             left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
             right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
         },
@@ -320,8 +307,8 @@ function buildRadarComparisonHtml(first, second) {
     ];
 
     function trophyLabel(m) {
-        if (m.winner === 'left') return `🏆${m.label}\u2002`;
-        if (m.winner === 'right') return `\u2002${m.label}🏆`;
+        if (m.winner === 'left') return `🏆 ${m.label}\u2002\u2002`;
+        if (m.winner === 'right') return `\u2002\u2002${m.label} 🏆`;
         return m.label;
     }
     const metricRowsHtml = metrics.map(m => `
