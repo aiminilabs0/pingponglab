@@ -125,13 +125,21 @@ function resolvePlayerVideoSelection(parsed) {
     };
 }
 
-function renderPlayerEntryHtml(value, { imagePosition = 'after' } = {}) {
+function renderPlayerEntryHtml(value, { imagePosition = 'after', gifTracker = null } = {}) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
     const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
     const safeName = escapeHtml(displayName);
     const playerData = getPlayerDataByName(parsed.name);
-    const imageExt = playerData?.image_ext;
+    const rawImageExt = playerData?.image_ext;
+    let imageExt = rawImageExt;
+    if (rawImageExt === 'gif' && gifTracker && typeof gifTracker === 'object') {
+        if (gifTracker.hasGif) {
+            imageExt = 'png';
+        } else {
+            gifTracker.hasGif = true;
+        }
+    }
     const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name), imageExt);
     const emojiHtml = `<img class="player-emoji" src="${emojiSrc}" alt="" width="48" height="48" onerror="this.remove()">`;
 
