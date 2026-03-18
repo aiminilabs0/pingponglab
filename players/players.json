@@ -592,5 +592,18 @@
       "https://www.youtube.com/watch?v=vUTVygcMnUE",
       "https://www.youtube.com/watch?v=hfnAnKSLj9U"
     ]
+  },
+  "Vladimir SIDORENKO": {
+    "full_name": "Vladimir SIDORENKO",
+    "localized_names": {
+      "ko": "블라디미르 시도렌코",
+      "cn": "弗拉基米尔 西多连科"
+    },
+    "forehand": "Butterfly/Tenergy 05",
+    "backhand": "Butterfly/Tenergy 05",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=Zb6OAuaH1xM",
+      "https://www.youtube.com/watch?v=pyKzbBM5W48"
+    ]
   }
 }
