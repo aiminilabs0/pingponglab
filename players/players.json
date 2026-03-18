@@ -487,5 +487,109 @@
       "https://www.youtube.com/watch?v=QKXSayRNGJ4",
       "https://www.youtube.com/watch?v=K-gLfUdzmD4"
     ]
+  },
+  "FAN Zhendong": {
+    "full_name": "FAN Zhendong",
+    "localized_names": {
+      "ko": "판젠동",
+      "cn": "樊振东"
+    },
+    "forehand": "",
+    "backhand": "Butterfly/Dignics 09C",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=hgEX27ABr9M",
+      "https://www.youtube.com/watch?v=cN14JgUV2ag",
+      "https://www.youtube.com/watch?v=Wp1SoyHO-Q8"
+    ]
+  },
+  "SHIN Yubin": {
+    "full_name": "SHIN Yubin",
+    "localized_names": {
+      "ko": "신유빈",
+      "cn": "申裕斌"
+    },
+    "forehand": "",
+    "backhand": "Butterfly/Dignics 09C",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=wqOe9zZ0s3g",
+      "https://www.youtube.com/watch?v=O0SmPqoEcrw"
+    ]
+  },
+  "Mattias KARLSSON": {
+    "full_name": "Mattias KARLSSON",
+    "localized_names": {
+      "ko": "마티아스 카를슨",
+      "cn": "马蒂亚斯"
+    },
+    "forehand": "",
+    "backhand": "Butterfly/Dignics 09C",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=u-0K09OJm0s",
+      "https://www.youtube.com/watch?v=GjlJWnS0M6k"
+    ]
+  },
+  "Lily ZHANG": {
+    "full_name": "Lily ZHANG",
+    "localized_names": {
+      "ko": "릴리장",
+      "cn": "张安安"
+    },
+    "forehand": "JOOLA/Dynaryz AGR",
+    "backhand": "JOOLA/Dynaryz AGR",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=7OgT-DNl-ps",
+      "https://www.youtube.com/watch?v=_tiGlzZl5pY"
+    ]
+  },
+  "Hyobin YOON": {
+    "full_name": "Hyobin YOON",
+    "localized_names": {
+      "ko": "윤효빈",
+      "cn": "尹孝彬"
+    },
+    "forehand": "Xiom/J&H C52.5",
+    "backhand": "Xiom/J&H C52.5",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=r4FD0e-Wwo8",
+      "https://www.youtube.com/watch?v=mtoxswtjPKc"
+    ]
+  },
+  "Da-eun LEE": {
+    "full_name": "Da-eun LEE",
+    "localized_names": {
+      "ko": "이다은",
+      "cn": "李多恩"
+    },
+    "forehand": "Butterfly/Tenergy 05H",
+    "backhand": "Butterfly/Tenergy 05H",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=xI1TYtXE_1o"
+    ]
+  },
+  "Daniel Habesohn": {
+    "full_name": "Daniel Habesohn",
+    "localized_names": {
+      "ko": "다니엘 하베손",
+      "cn": "丹尼尔 哈贝松"
+    },
+    "forehand": "JOOLA/Dynaryz ZGX",
+    "backhand": "JOOLA/Dynaryz ZGX",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=_EYwpBUYap0",
+      "https://www.youtube.com/watch?v=2G2kdgfzR1o"
+    ]
+  },
+  "Satoshi AIDA": {
+    "full_name": "Satoshi AIDA",
+    "localized_names": {
+      "ko": "아이다 사토시",
+      "cn": "相田聪"
+    },
+    "forehand": "Yasaka/Rakza 7",
+    "backhand": "Yasaka/Rakza 7",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=vUTVygcMnUE",
+      "https://www.youtube.com/watch?v=hfnAnKSLj9U"
+    ]
   }
 }

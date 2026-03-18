@@ -13,9 +13,12 @@
   },
   "manufacturer": "Xiom",
   "players": {
-    "forehand": [],
+    "forehand": [
+      "Hyobin YOON"
+    ],
     "backhand": [
-      "Hugo Calderano" 
+      "Hugo Calderano",
+      "Hyobin YOON"
     ]
   },
   "manufacturer_details": {

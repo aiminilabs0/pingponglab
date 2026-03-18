@@ -12,6 +12,14 @@
     "cn": "黛纳瑞兹ZGX"
   },
   "manufacturer": "JOOLA",
+  "players": {
+    "forehand": [
+      "Daniel Habesohn"
+    ],
+    "backhand": [
+      "Daniel Habesohn"
+    ]
+  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/default.asp?pid=j-dynaryz-zgx#:~:text=External%20Review%20for%20JOOLA%20Dynaryz,at%20157%20x%20150%20mm).",
     "country": "Germany",

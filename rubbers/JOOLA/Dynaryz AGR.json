@@ -12,6 +12,14 @@
     "cn": "黛纳瑞兹AGR"
   },
   "manufacturer": "JOOLA",
+  "players": {
+    "forehand": [
+      "Lily ZHANG"
+    ],
+    "backhand": [
+      "Lily ZHANG"
+    ]
+  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/joola-dynaryz-agr/",
     "country": "Germany",

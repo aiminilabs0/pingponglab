@@ -12,6 +12,14 @@
     "cn": "力克萨7"
   },
   "manufacturer": "Yasaka",
+  "players": {
+    "forehand": [
+      "Satoshi AIDA"
+    ],
+    "backhand": [
+      "Satoshi AIDA"
+    ]
+  },
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-7-review/",
     "country": "Germany",

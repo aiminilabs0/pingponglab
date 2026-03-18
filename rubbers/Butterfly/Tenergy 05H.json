@@ -14,10 +14,13 @@
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [
+      "Da-eun LEE",
       "LIN Yun-ju",
       "Miyu NAGASAKI"
     ],
-    "backhand": []
+    "backhand": [
+      "Da-eun LEE"
+    ]
   },
   "manufacturer_details": {
     "country": "Japan",
