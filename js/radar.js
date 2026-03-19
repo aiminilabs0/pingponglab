@@ -191,7 +191,8 @@ function buildRadarComparisonHtml(first, second) {
 
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
+        const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span>`;
+        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
@@ -280,7 +281,7 @@ function buildRadarComparisonHtml(first, second) {
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
         {
-            label: tUi('CUT_WEIGHT'),
+            label: tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span>`,
             left: val(first, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },

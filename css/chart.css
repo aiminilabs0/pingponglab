@@ -283,3 +283,44 @@
     vertical-align: middle;
     flex-shrink: 0;
 }
+
+/* ── Metric hint tooltip (?) ── */
+.metric-hint {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    margin-left: 3px;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--drac-comment);
+    border: 1px solid var(--drac-comment);
+    cursor: help;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+.metric-hint::after {
+    content: attr(data-hint);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--drac-current);
+    color: var(--drac-fg);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+}
+.metric-hint:hover::after {
+    opacity: 1;
+}
