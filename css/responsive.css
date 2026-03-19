@@ -80,6 +80,8 @@
     }
     .content-tabs { padding: 0 10px; overflow-x: auto; }
     .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
+    .share-btn-label { display: none; }
+    .content-tab--share { padding: 8px 10px; min-width: 0; }
     #chart { height: 440px; }
     .chart-speed-outside {
         padding: 0 10px 2px;

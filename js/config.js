@@ -137,7 +137,9 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_GOOD_TOAST: 'Thanks! Glad this was helpful.',
         CONTENT_FEEDBACK_BAD_TOAST: 'Thanks! We will use your feedback to improve this.',
         RUBBER_1: 'Rubber 1',
-        RUBBER_2: 'Rubber 2'
+        RUBBER_2: 'Rubber 2',
+        SHARE: 'Share',
+        SHARE_COPIED: 'Link copied!'
     },
     ko: {
         FILTERS: '필터',
@@ -188,7 +190,9 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_GOOD_TOAST: '피드백 감사합니다!',
         CONTENT_FEEDBACK_BAD_TOAST: '감사합니다! 해당 내용을 다시 검토해 볼께요.',
         RUBBER_1: '러버 1',
-        RUBBER_2: '러버 2'
+        RUBBER_2: '러버 2',
+        SHARE: '공유',
+        SHARE_COPIED: '링크가 복사되었습니다!'
     },
     cn: {
         FILTERS: '筛选',
@@ -239,7 +243,9 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_GOOD_TOAST: '感谢！很高兴这对你有帮助。',
         CONTENT_FEEDBACK_BAD_TOAST: '感谢反馈！我们会继续改进。',
         RUBBER_1: '胶皮 1',
-        RUBBER_2: '胶皮 2'
+        RUBBER_2: '胶皮 2',
+        SHARE: '分享',
+        SHARE_COPIED: '链接已复制！'
     }
 };
 

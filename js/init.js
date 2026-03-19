@@ -626,6 +626,11 @@ async function initializeApp() {
 
     // Tab click listener
     document.getElementById('contentTabs').addEventListener('click', (e) => {
+        // Share button
+        if (e.target.closest('.content-tab--share')) {
+            handleShareClick();
+            return;
+        }
         const tab = e.target.closest('.content-tab');
         if (!tab || tab.classList.contains('content-tab--active')) return;
         setActiveTab(tab.dataset.tab);

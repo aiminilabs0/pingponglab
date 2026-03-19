@@ -189,6 +189,10 @@ function renderTabs() {
     html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
     html += `<button class="content-tab" data-tab="desc2">${tab2Label}</button>`;
     html += `<button class="content-tab content-tab--vs" data-tab="comparison">${vsLabel}</button>`;
+    html += `<button class="content-tab content-tab--share" id="shareBtn" type="button" aria-label="${escapeHtml(tUi('SHARE'))}">` +
+        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>` +
+        `<span class="share-btn-label">${escapeHtml(tUi('SHARE'))}</span>` +
+        `</button>`;
     tabBar.innerHTML = html;
     highlightActiveTab();
 }
@@ -433,4 +437,75 @@ async function updateComparisonBar() {
         tabContents.comparison = null;
         renderTabs();
     }
+}
+
+function getShareUrl() {
+    const left = selectedRubbers[0];
+    const right = selectedRubbers[1];
+    const country = selectedCountry || 'us';
+    const origin = window.location.origin;
+
+    if (left && right && SLUG_MAP) {
+        const slugA = SLUG_MAP.abbrToSlug[left.abbr];
+        const slugB = SLUG_MAP.abbrToSlug[right.abbr];
+        if (slugA && slugB) {
+            const [a, b] = [slugA, slugB].sort();
+            return origin + '/' + country + '/rubbers/compare/' + a + '-vs-' + b;
+        }
+    }
+
+    return window.location.href;
+}
+
+async function handleShareClick() {
+    const url = getShareUrl();
+
+    try {
+        await navigator.clipboard.writeText(url);
+    } catch {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+
+    // Show "copied" feedback on the button
+    const btn = document.getElementById('shareBtn');
+    if (btn) {
+        btn.classList.add('content-tab--share-copied');
+        const label = btn.querySelector('.share-btn-label');
+        const origText = label?.textContent;
+        if (label) label.textContent = tUi('SHARE_COPIED');
+        setTimeout(() => {
+            btn.classList.remove('content-tab--share-copied');
+            if (label) label.textContent = origText;
+        }, 1500);
+    }
+
+    // Toast for mobile (label is hidden)
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        showShareToast(tUi('SHARE_COPIED'));
+    }
+}
+
+let shareToastTimer = null;
+function showShareToast(message) {
+    let toast = document.getElementById('shareToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'shareToast';
+        toast.className = 'comparison-request-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    if (shareToastTimer) clearTimeout(shareToastTimer);
+    shareToastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1500);
 }
