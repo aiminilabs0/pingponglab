@@ -99,8 +99,7 @@ function initCountrySelector() {
         }
     };
 
-    const storedCountry = readStoredCountry();
-    if (storedCountry) selectedCountry = storedCountry;
+    persistCountry(selectedCountry);
 
     const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
     const closeCountryMenu = () => selector.classList.remove('is-open');
