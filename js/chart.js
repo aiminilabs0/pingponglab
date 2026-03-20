@@ -609,8 +609,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const rubberName = tRubberName(rubber) || rubber.name || rubber.abbr || '-';
     const brandName = tBrand(rubber.brand) || '-';
     const sheet = rubber.sheet || '-';
-    const sheetI18nKey = { Tension: 'TENSION', Chinese: 'CHINESE', Hybrid: 'HYBRID' }[sheet];
-    const localizedSheet = sheetI18nKey ? tUi(sheetI18nKey) : sheet;
+    const { initial: sheetInitial, remainder: sheetRemainder } = getLocalizedSheetLabelParts(sheet);
     const hardness = formatHardnessPopupLabel(rubber);
     const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
     const weight = rubber.weightLabel || '-';
@@ -647,7 +646,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>${tUi('SPEED_RANK')}</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><strong class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${localizedSheet.charAt(0)}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
                 <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
