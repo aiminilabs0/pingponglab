@@ -356,6 +356,16 @@ function initControlToggleFilter(onChange) {
         return;
     }
 
+    // Add hint icon to the section header
+    const header = container.previousElementSibling;
+    if (header && header.classList.contains('fp-section-header') && !header.querySelector('.metric-hint')) {
+        const hint = document.createElement('span');
+        hint.className = 'metric-hint';
+        hint.dataset.hint = tUi('CONTROL_HINT');
+        hint.textContent = '?';
+        header.appendChild(hint);
+    }
+
     controlFilterState.selectedLevels = new Set(CONTROL_LEVELS);
 
     container.innerHTML = '';
