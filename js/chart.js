@@ -501,6 +501,23 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const popup = getChartHoverPopupEl();
     popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
     positionHoverPopup(popup, data, chartEl);
+
+    const ytBtn = popup.querySelector('.chart-hover-yt-btn');
+    if (ytBtn) {
+        ytBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const videoId = ytBtn.dataset.videoid;
+            const radarPanel = document.getElementById('radarInfoPanel');
+            if (!radarPanel) return;
+            const radarLink = radarPanel.querySelector(`a[data-yt-videoid="${videoId}"]`);
+            if (radarLink) {
+                radarLink.click();
+            } else {
+                toggleYouTubeEmbed(radarPanel, videoId);
+            }
+        });
+    }
+
     return rubber;
 }
 
@@ -541,6 +558,12 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         ? `<span class="chart-hover-slot-badge">${slotNum}</span>`
         : '';
 
+    const countryUrls = rubber.urls?.[selectedCountry] || {};
+    const ytVideoId = extractYouTubeVideoId(countryUrls.youtube);
+    const ytBtn = ytVideoId
+        ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.9 31.9 0 0 0 0 12a31.9 31.9 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.9 31.9 0 0 0 24 12a31.9 31.9 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></button>`
+        : '';
+
     return `
         <div class="chart-hover-card">
             <div class="chart-hover-head">
@@ -550,7 +573,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                     </span>
                     ${bestsellerTag}
                 </div>
-                <div class="rubber-name">${escapeHtml(rubberName)}${slotBadge}</div>
+                <div class="rubber-name">${escapeHtml(rubberName)}${ytBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>
