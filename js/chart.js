@@ -956,6 +956,8 @@ function updateChart(options = {}) {
         document.addEventListener('pointerdown', (event) => {
             if (!IS_TOUCH_DEVICE) return;
             if (chartEl.contains(event.target)) return;
+            const popup = document.getElementById(HOVER_POPUP_ID);
+            if (popup && popup.contains(event.target)) return;
             hideChartHoverPopup({ force: true });
         }, { passive: true });
         window.addEventListener('scroll', () => {
