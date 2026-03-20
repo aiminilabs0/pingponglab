@@ -324,6 +324,7 @@ function computeVisibleRubbers(filteredData) {
 // ════════════════════════════════════════════════════════════
 
 let _clickPopupActiveUntil = 0;
+let _clickPopupPinned = false;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -331,6 +332,10 @@ function getChartHoverPopupEl() {
     popup = document.createElement('div');
     popup.id = HOVER_POPUP_ID;
     popup.className = 'chart-hover-popup';
+    popup.addEventListener('mouseleave', () => {
+        _clickPopupPinned = false;
+        hideChartHoverPopup({ force: true });
+    });
     document.body.appendChild(popup);
     return popup;
 }
@@ -414,7 +419,8 @@ function positionHoverPopup(popup, hoverData, chartEl) {
 }
 
 function hideChartHoverPopup({ force = false } = {}) {
-    if (!force && Date.now() < _clickPopupActiveUntil) return;
+    if (!force && (_clickPopupPinned || Date.now() < _clickPopupActiveUntil)) return;
+    _clickPopupPinned = false;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
 }
@@ -805,6 +811,7 @@ function updateChart(options = {}) {
             // by handleRubberClick → updateChart, and the async plotly_unhover
             // that Plotly.react may fire afterwards.
             _clickPopupActiveUntil = Date.now() + 500;
+            _clickPopupPinned = true;
 
             handleRubberClick(rubber);
 
@@ -812,9 +819,7 @@ function updateChart(options = {}) {
             const clickPos = getChartDotScreenPosition(point, chartEl);
             if (clickPos) showChartClickEffect(clickPos.x, clickPos.y, rubber);
 
-            if (IS_TOUCH_DEVICE) {
-                showChartHoverPopupFromPlotlyData(data, chartEl);
-            }
+            showChartHoverPopupFromPlotlyData(data, chartEl);
         });
     }
 

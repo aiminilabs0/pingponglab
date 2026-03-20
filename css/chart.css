@@ -98,6 +98,7 @@
 .chart-hover-popup.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 .chart-hover-card {
     border: 1px solid rgba(155,148,132,0.35);
