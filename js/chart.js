@@ -835,6 +835,18 @@ function updateChart(options = {}) {
         tickformat: '.1f'
     };
 
+    const bestZoneAnnotation = {
+        x: 1, y: 1,
+        xref: 'x domain', yref: 'y domain',
+        xanchor: 'right', yanchor: 'bottom',
+        text: '<b>⭐ Sweet Spot</b>',
+        showarrow: false,
+        font: { size: 11, color: 'rgba(126,184,168,0.7)', family: CHART_FONT },
+        bgcolor: 'transparent',
+        borderpad: 4,
+        captureevents: false
+    };
+
     const layout = {
         title: '',
         dragmode: 'pan',
@@ -854,7 +866,16 @@ function updateChart(options = {}) {
         plot_bgcolor: '#2b2926',
         paper_bgcolor: '#2b2926',
         margin: { l: 10, r: 10, t: 30, b: 30 },
+        shapes: [{
+            type: 'rect',
+            xref: 'x domain', yref: 'y domain',
+            x0: 0.62, y0: 0.54, x1: 1, y1: 1,
+            fillcolor: 'rgba(126,184,168,0.06)',
+            line: { color: 'rgba(126,184,168,0.2)', width: 1, dash: 'dot' },
+            layer: 'below'
+        }],
         annotations: [
+            bestZoneAnnotation,
             ...labelAnnotations,
             ...selectionBadges
         ],
