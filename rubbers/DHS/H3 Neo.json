@@ -13,14 +13,14 @@
   },
   "players": {
     "forehand": [
+      "Wang Chuqin",
       "Ma Long",
-      "AN Jaehyun",
-      "CHO Daeseong",
       "BAE Hwan",
       "BAE Won"
     ],
     "backhand": [
-      "BAE Hwan"
+      "AN Jaehyun",
+      "CHO Daeseong"
     ]
   },
   "manufacturer": "DHS",

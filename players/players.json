@@ -398,7 +398,6 @@
     "backhand": "Butterfly/Zyre 03",
     "ranking": 8,
     "youtubes": [
-      "https://www.youtube.com/watch?v=7fNA9mkZtIc",
       "https://www.youtube.com/watch?v=Ntcuqh-P3io",
       "https://www.youtube.com/watch?v=4gwzA13-qi4",
       "https://www.youtube.com/watch?v=xY-9FfN6y3w"
@@ -647,6 +646,20 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=Zb6OAuaH1xM",
       "https://www.youtube.com/watch?v=pyKzbBM5W48"
+    ]
+  },
+  "Wang Chuqin": {
+    "full_name": "Wang Chuqin",
+    "localized_names": {
+      "ko": "왕추친",
+      "cn": "王楚钦"
+    },
+    "forehand": "DHS/H3 Neo",
+    "backhand": "DHS/H3 Neo",
+    "ranking": 1,
+    "youtubes": [
+      "https://www.youtube.com/watch?v=7fNA9mkZtIc",
+      "https://www.youtube.com/watch?v=1DRHmH6AaDg"
     ]
   }
 }
