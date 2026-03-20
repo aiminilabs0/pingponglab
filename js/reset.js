@@ -10,11 +10,10 @@ function resetFiltersToAll() {
     resetHardnessRangeToDataBounds();
     resetWeightRangeToDataBounds();
     resetControlToAllTiers();
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    top30FilterActive = isMobile;
+    top30FilterActive = false;
     const seg = document.querySelector('#top30Filter .fp-seg');
     if (seg) {
-        const activeValue = isMobile ? 'top30' : 'all';
+        const activeValue = 'all';
         seg.querySelector('.fp-seg-btn.active')?.classList.remove('active');
         seg.querySelector(`.fp-seg-btn[data-value="${activeValue}"]`)?.classList.add('active');
         positionSegSlider(seg);
