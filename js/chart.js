@@ -549,9 +549,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
     const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
     const brandColor = getBrandColor(rubber.brand);
-    const bestsellerTag = rubber.bestseller
-        ? '<span class="chart-hover-pill chart-hover-pill-bestseller">Bestseller</span>'
-        : '';
+    const bestsellerStar = rubber.bestseller ? '\u2B50 ' : '';
 
     const slotNum = slotLabel ? slotLabel.replace(/\D/g, '') : '';
     const slotBadge = slotNum
@@ -571,9 +569,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                     <span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
                         <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(brandName)}
                     </span>
-                    ${bestsellerTag}
                 </div>
-                <div class="rubber-name">${escapeHtml(rubberName)}${ytBtn}${slotBadge}</div>
+                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${ytBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>
