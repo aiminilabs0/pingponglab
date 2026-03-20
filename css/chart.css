@@ -143,6 +143,61 @@
 .chart-hover-yt-btn.yt-active {
     background: rgba(255,0,0,0.35);
 }
+.chart-hover-players {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(155,148,132,0.18);
+}
+.chart-hover-players-label {
+    font-size: 12.5px;
+    color: var(--drac-comment);
+    flex-shrink: 0;
+}
+.chart-hover-player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.chart-hover-player {
+    display: inline-flex;
+    text-decoration: none;
+}
+a.chart-hover-player {
+    cursor: pointer;
+}
+.chart-hover-player-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.16s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    transform-origin: center;
+    opacity: 0.5;
+}
+.chart-hover-player.is-active .chart-hover-player-img {
+    opacity: 1;
+    box-shadow: 0 0 0 2px var(--drac-cyan);
+}
+a.chart-hover-player:hover .chart-hover-player-img {
+    transform: scale(1.3);
+}
+.chart-hover-player-name-rotate {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--drac-fg);
+    opacity: 1;
+    transition: opacity 0.15s ease;
+    margin-top: 4px;
+}
+.chart-hover-player-name-rotate:not(.visible) {
+    opacity: 0;
+}
 .chart-hover-top {
     display: flex;
     align-items: center;

@@ -325,6 +325,7 @@ function computeVisibleRubbers(filteredData) {
 
 let _clickPopupActiveUntil = 0;
 let _clickPopupPinned = false;
+let _popupPlayerRotateTimer = null;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -421,6 +422,8 @@ function positionHoverPopup(popup, hoverData, chartEl) {
 function hideChartHoverPopup({ force = false } = {}) {
     if (!force && (_clickPopupPinned || Date.now() < _clickPopupActiveUntil)) return;
     _clickPopupPinned = false;
+    clearInterval(_popupPlayerRotateTimer);
+    _popupPlayerRotateTimer = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
 }
@@ -502,21 +505,46 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
     positionHoverPopup(popup, data, chartEl);
 
-    const ytBtn = popup.querySelector('.chart-hover-yt-btn');
-    if (ytBtn) {
-        ytBtn.addEventListener('click', (e) => {
+    // Start player name rotation
+    clearInterval(_popupPlayerRotateTimer);
+    _popupPlayerRotateTimer = null;
+    const rotateEl = popup.querySelector('.chart-hover-player-name-rotate');
+    const playerEls = popup.querySelectorAll('.chart-hover-player');
+    if (rotateEl && playerEls.length) {
+        // Highlight first player initially
+        playerEls[0]?.classList.add('is-active');
+        try {
+            const names = JSON.parse(rotateEl.dataset.names || '[]');
+            if (names.length > 1) {
+                let idx = 0;
+                _popupPlayerRotateTimer = setInterval(() => {
+                    playerEls[idx]?.classList.remove('is-active');
+                    idx = (idx + 1) % names.length;
+                    rotateEl.classList.remove('visible');
+                    setTimeout(() => {
+                        rotateEl.textContent = names[idx];
+                        rotateEl.classList.add('visible');
+                        playerEls[idx]?.classList.add('is-active');
+                    }, 150);
+                }, 1000);
+            }
+        } catch {}
+    }
+
+    // Route all YouTube links in the popup through the radar panel embed
+    popup.querySelectorAll('.chart-hover-yt-btn, a[data-yt-videoid]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
-            const videoId = ytBtn.dataset.videoid;
+            const videoId = el.dataset.videoid || el.dataset.ytVideoid;
+            if (!videoId) return;
             const radarPanel = document.getElementById('radarInfoPanel');
             if (!radarPanel) return;
-            const radarLink = radarPanel.querySelector(`a[data-yt-videoid="${videoId}"]`);
-            if (radarLink) {
-                radarLink.click();
-            } else {
-                toggleYouTubeEmbed(radarPanel, videoId);
-            }
+            const playlist = (el.dataset.ytPlaylist || '').split(',').filter(Boolean);
+            const currentIndex = parseInt(el.dataset.ytIndex, 10) || 0;
+            toggleYouTubeEmbed(radarPanel, videoId, { playlist, currentIndex });
         });
-    }
+    });
 
     return rubber;
 }
@@ -533,6 +561,48 @@ function buildControlLevelIndicatorHtml(controlLevel, { fillFromLeft = false } =
     return `
         <span class="chart-control-boxes control-level-${clampedLevel}" aria-label="Control level ${clampedLevel}: ${filledBoxes} out of ${CONTROL_LEVEL_COUNT} boxes">${boxHtml}</span>
     `.trim();
+}
+
+function buildHoverPopupPlayerHtml(entry) {
+    const parsed = parsePlayerEntry(entry);
+    if (!parsed) return '';
+    const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;
+    const safeName = escapeHtml(displayName);
+    const playerData = getPlayerDataByName(parsed.name);
+    const imageExt = playerData?.image_ext || 'png';
+    const emojiSrc = playerEmojiPath(getPlayerImageName(parsed.name), imageExt);
+    const imgHtml = `<img class="chart-hover-player-img" src="${emojiSrc}" alt="${safeName}" title="${safeName}" onerror="this.closest('.chart-hover-player').remove()">`;
+
+    const { videoIds, currentIndex } = resolvePlayerVideoSelection(parsed);
+    if (videoIds.length) {
+        const videoId = videoIds[currentIndex] || videoIds[0];
+        const playlist = escapeHtml(videoIds.join(','));
+        return `<a class="chart-hover-player" href="#" data-yt-videoid="${escapeHtml(videoId)}" data-yt-playlist="${playlist}" data-yt-index="${currentIndex}">${imgHtml}</a>`;
+    }
+    return `<span class="chart-hover-player">${imgHtml}</span>`;
+}
+
+function buildHoverPopupPlayersHtml(rubber) {
+    const allEntries = [
+        ...(Array.isArray(rubber.forehandPlayers) ? rubber.forehandPlayers : []),
+        ...(Array.isArray(rubber.backhandPlayers) ? rubber.backhandPlayers : []),
+    ];
+    const seen = new Set();
+    const unique = allEntries.filter(e => {
+        const parsed = parsePlayerEntry(e);
+        if (!parsed || seen.has(parsed.name)) return false;
+        seen.add(parsed.name);
+        return true;
+    });
+    if (!unique.length) return '';
+    const players = unique.map(buildHoverPopupPlayerHtml).filter(Boolean).join('');
+    if (!players) return '';
+    const names = unique.map(e => {
+        const p = parsePlayerEntry(e);
+        return p ? escapeHtml(getLocalizedPlayerName(p.name) || p.name) : '';
+    }).filter(Boolean);
+    const namesAttr = escapeHtml(JSON.stringify(names));
+    return `<div class="chart-hover-players"><span class="chart-hover-players-label">${tUi('PLAYERS')}</span><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;
 }
 
 function buildHoverPopupHtml(rubber, point, slotLabel) {
@@ -580,6 +650,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><strong class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${localizedSheet.charAt(0)}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
             </div>
+            ${buildHoverPopupPlayersHtml(rubber)}
         </div>
     `;
 }
