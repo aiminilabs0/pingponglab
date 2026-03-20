@@ -606,7 +606,7 @@ function buildHoverPopupPlayersHtml(rubber) {
         return rank ? `#${rank} ${displayName}` : displayName;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));
-    return `<div class="chart-hover-players"><span class="chart-hover-players-label">${tUi('PLAYERS')}</span><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;
+    return `<div class="chart-hover-players"><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;
 }
 
 function buildHoverPopupHtml(rubber, point, slotLabel) {
