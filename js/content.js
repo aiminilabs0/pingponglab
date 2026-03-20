@@ -483,25 +483,39 @@ async function handleShareClick() {
         }, 1500);
     }
 
-    // Toast for mobile (label is hidden)
-    if (window.matchMedia('(max-width: 768px)').matches) {
-        showShareToast(tUi('SHARE_COPIED'));
-    }
+    showShareToast(tUi('SHARE_COPIED'), url);
 }
 
 let shareToastTimer = null;
-function showShareToast(message) {
-    let toast = document.getElementById('shareToast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'shareToast';
-        toast.className = 'comparison-request-toast';
-        toast.setAttribute('role', 'status');
-        toast.setAttribute('aria-live', 'polite');
-        document.body.appendChild(toast);
+function showShareToast(message, url) {
+    let backdrop = document.getElementById('shareBackdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'shareBackdrop';
+        backdrop.className = 'share-backdrop';
+        backdrop.innerHTML =
+            '<div class="share-card" role="status" aria-live="polite">' +
+                '<div class="share-card__icon">&#10003;</div>' +
+                '<div class="share-card__title"></div>' +
+                '<div class="share-card__url-wrap">' +
+                    '<a class="share-card__link" target="_blank" rel="noopener noreferrer"></a>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(backdrop);
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) dismissShareToast();
+        });
     }
-    toast.textContent = message;
-    toast.classList.add('is-visible');
+    const titleEl = backdrop.querySelector('.share-card__title');
+    const linkEl = backdrop.querySelector('.share-card__link');
+    if (titleEl) titleEl.textContent = message;
+    if (linkEl) { linkEl.textContent = url; linkEl.href = url; }
+    backdrop.classList.add('is-visible');
     if (shareToastTimer) clearTimeout(shareToastTimer);
-    shareToastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1500);
+    shareToastTimer = setTimeout(dismissShareToast, 3200);
+}
+function dismissShareToast() {
+    const b = document.getElementById('shareBackdrop');
+    if (b) b.classList.remove('is-visible');
+    if (shareToastTimer) { clearTimeout(shareToastTimer); shareToastTimer = null; }
 }
