@@ -185,11 +185,62 @@
     margin-top: 4px;
     margin-bottom: 4px;
 }
+.radar-rubber-img-wrap {
+    position: relative;
+    width: fit-content;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.radar-rubber-img-link {
+    display: block;
+    position: relative;
+    width: 80px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 2px solid rgba(255, 59, 59, 0.65);
+    box-shadow: 0 0 0 2px rgba(255, 59, 59, 0.2), 0 8px 18px rgba(0, 0, 0, 0.45);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+.radar-rubber-img-link .radar-rubber-img {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.radar-rubber-yt-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.82);
+    border: 1px solid rgba(248, 248, 242, 0.35);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.radar-rubber-yt-badge img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+}
+.radar-rubber-img-link:hover .radar-rubber-img {
+    filter: brightness(1.05);
+}
+.radar-rubber-img-link:hover {
+    transform: translateY(-1px) scale(1.02);
+    border-color: #ff4f4f;
+    box-shadow: 0 0 0 3px rgba(255, 79, 79, 0.28), 0 10px 22px rgba(0, 0, 0, 0.52);
+}
 .radar-rubber-img--placeholder {
     filter: grayscale(1) saturate(0);
     opacity: 0.55;
 }
 .radar-comparison-header-side--right .radar-rubber-img {
+    margin-left: auto;
+}
+.radar-comparison-header-side--right .radar-rubber-img-wrap {
     margin-left: auto;
 }
 .radar-rubber-img-placeholder {

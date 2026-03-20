@@ -98,6 +98,16 @@ function getPlayerYouTubeVideoId(rubber) {
     return videoIds[0];
 }
 
+function getRubberYouTubeVideoId(rubber) {
+    if (!rubber) return null;
+
+    const countryUrls = rubber.urls?.[selectedCountry] || {};
+    const youtubeMeta = normalizeYouTubeMeta(countryUrls.youtube);
+    const rubberVideoId = youtubeMeta?.url ? extractYouTubeVideoId(youtubeMeta.url) : null;
+    if (rubberVideoId) return rubberVideoId;
+    return null;
+}
+
 function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
     if (!rubber) {
         const placeholderColor = '#9e9689';
@@ -140,7 +150,23 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
         ? `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`
         : `<svg class="radar-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>`;
     const rubberImgName = encodeURIComponent(rubber.abbr || rubber.name);
-    const rubberImgHtml = `<img class="radar-rubber-img" src="/images/rubbers/${rubberImgName}.jpg" alt="${escapeHtml(localizedRubber)}" onerror="this.style.display='none'">`;
+    const youtubeVideoId = getRubberYouTubeVideoId(rubber);
+    const safeRubberName = escapeHtml(localizedRubber);
+    const safeVideoLabel = escapeHtml(`${localizedRubber} YouTube video`);
+    const imageOnError = "this.closest('.radar-rubber-img-link').style.display='none';this.closest('.radar-rubber-img-wrap').querySelector('.radar-rubber-img-placeholder').style.display='block';";
+    const plainImageOnError = "this.style.display='none';this.closest('.radar-rubber-img-wrap').querySelector('.radar-rubber-img-placeholder').style.display='block';";
+    const rubberImgHtml = youtubeVideoId
+        ? `<div class="radar-rubber-img-wrap">` +
+            `<a href="#" class="radar-rubber-img-link" data-yt-videoid="${youtubeVideoId}" title="${safeVideoLabel}" aria-label="${safeVideoLabel}">` +
+                `<img class="radar-rubber-img" src="/images/rubbers/${rubberImgName}.jpg" alt="${safeRubberName}" onerror="${imageOnError}">` +
+                `<span class="radar-rubber-yt-badge" aria-hidden="true"><img src="/images/youtube.ico" alt=""></span>` +
+            `</a>` +
+            `<div class="radar-rubber-img-placeholder" style="display:none;"></div>` +
+        `</div>`
+        : `<div class="radar-rubber-img-wrap">` +
+            `<img class="radar-rubber-img" src="/images/rubbers/${rubberImgName}.jpg" alt="${safeRubberName}" onerror="${plainImageOnError}">` +
+            `<div class="radar-rubber-img-placeholder" style="display:none;"></div>` +
+        `</div>`;
     return `
         <div class="radar-comparison-header-side${panelIndex === 1 ? ' radar-comparison-header-side--right' : ''}">
             <div class="radar-info-header">

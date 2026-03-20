@@ -90,14 +90,12 @@ async function buildTitleLinkIconsHtml(rubber) {
             parts.push(
                 `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${videoId}" title="${safeTitle}" aria-label="${safeTitle}">` +
                 `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
-                `<span class="rubber-title-link-label">${safeTitle}</span>` +
                 `</a>`
             );
         } else {
             parts.push(
                 `<a class="rubber-title-icon-link" href="${safeUrl}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}">` +
                 `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
-                `<span class="rubber-title-link-label">${safeTitle}</span>` +
                 `</a>`
             );
         }
@@ -274,9 +272,8 @@ async function updateDetailPanel(panelNum, rubber) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
     const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
-    const titleIconsHtmlPromise = buildTitleLinkIconsHtml(rubber);
     const detailMarkdownPromise = fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
-    const [titleIconsHtml, detailMarkdown] = await Promise.all([titleIconsHtmlPromise, detailMarkdownPromise]);
+    const detailMarkdown = await detailMarkdownPromise;
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -288,7 +285,6 @@ async function updateDetailPanel(panelNum, rubber) {
             `</div>` +
             `<div class="rubber-title-row">` +
                 `<h1 class="rubber-name">${escapeHtml(localizedRubber)}</h1>` +
-                (titleIconsHtml ? `<div class="rubber-title-icons">${titleIconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
 
