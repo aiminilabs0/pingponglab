@@ -106,6 +106,17 @@ function createEmbedPager(embedWrapper) {
     updateEmbedPagerUi(embedWrapper);
 }
 
+function scrollEmbedToCenter(embedWrapper) {
+    if (!embedWrapper || typeof embedWrapper.scrollIntoView !== 'function') return;
+    requestAnimationFrame(() => {
+        embedWrapper.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest',
+        });
+    });
+}
+
 function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0 } = {}) {
     const panel = iconLink.closest('.content-pane') || iconLink.closest('.radar-info-combined');
     if (!panel || !videoId) return;
@@ -175,6 +186,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
         panel.appendChild(embedWrapper);
         if (hint) panel.appendChild(hint);
     }
+    scrollEmbedToCenter(embedWrapper);
 
     embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
     iconLink.classList.add('yt-active');
