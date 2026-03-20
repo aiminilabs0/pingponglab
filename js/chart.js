@@ -599,7 +599,11 @@ function buildHoverPopupPlayersHtml(rubber) {
     if (!players) return '';
     const names = unique.map(e => {
         const p = parsePlayerEntry(e);
-        return p ? escapeHtml(getLocalizedPlayerName(p.name) || p.name) : '';
+        if (!p) return '';
+        const displayName = escapeHtml(getLocalizedPlayerName(p.name) || p.name);
+        const playerData = getPlayerDataByName(p.name);
+        const rank = playerData?.ranking;
+        return rank ? `#${rank} ${displayName}` : displayName;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));
     return `<div class="chart-hover-players"><span class="chart-hover-players-label">${tUi('PLAYERS')}</span><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;

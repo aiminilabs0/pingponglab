@@ -7,6 +7,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
+    "ranking": 14,
     "youtubes": [
       "https://www.youtube.com/watch?v=r8Yh13EnLmE",
       "https://www.youtube.com/watch?v=_NFXZlKR-ig"
@@ -20,6 +21,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "Xiom/Omega 7 Pro",
+    "ranking": 20,
     "youtubes": [
       "https://www.youtube.com/watch?v=I_T7Zp5ccWI",
       "https://www.youtube.com/watch?v=BfR4v-njh6U"
@@ -34,6 +36,7 @@
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Zyre 03",
     "image_ext": "gif",
+    "ranking": 40,
     "youtubes": [
       "https://www.youtube.com/shorts/ZUZcCfY_rc8",
       "https://www.youtube.com/watch?v=ziVZq1qmSaQ",
@@ -51,6 +54,7 @@
     },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
+    "ranking": 21,
     "youtubes": [
       "https://www.youtube.com/watch?v=Nsa_u7nEn-U",
       "https://www.youtube.com/watch?v=HSiJ9X3HLGw"
@@ -76,6 +80,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "Xiom/Omega 7 Pro",
+    "ranking": 59,
     "youtubes": [
       "https://www.youtube.com/watch?v=pBcv2OY_pxI",
       "https://www.youtube.com/watch?v=pMo6YFG1GgU"
@@ -89,6 +94,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-P",
+    "ranking": 16,
     "youtubes": [
       "https://www.youtube.com/watch?v=KCIwMnDXipY",
       "https://www.youtube.com/watch?v=r8Yh13EnLmE"
@@ -102,6 +108,7 @@
     },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "Butterfly/Dignics 05",
+    "ranking": 27,
     "youtubes": [
       "https://www.youtube.com/watch?v=gHQ5qscsopE"
     ]
@@ -114,6 +121,7 @@
     },
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 19",
+    "ranking": 41,
     "youtubes": [
       "https://www.youtube.com/watch?v=pOD1i57JYUw",
       "https://www.youtube.com/watch?v=Bz8iczWXfxw"
@@ -127,6 +135,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
+    "ranking": 6,
     "youtubes": [
       "https://www.youtube.com/watch?v=Xs-u4wICOGM",
       "https://www.youtube.com/watch?v=OfnF48FaxVw"
@@ -140,6 +149,7 @@
     },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
+    "ranking": 19,
     "youtubes": [
       "https://www.youtube.com/watch?v=GwXG_JDp4M8",
       "https://www.youtube.com/watch?v=lxZiv-fiHkY"
@@ -153,6 +163,7 @@
     },
     "forehand": "Xiom/J&H C57.5",
     "backhand": "Xiom/J&H C52.5",
+    "ranking": 3,
     "youtubes": [
       "https://www.youtube.com/watch?v=GfaSz4TKlpc",
       "https://www.youtube.com/watch?v=sDtwcRqH9MY"
@@ -166,6 +177,7 @@
     },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
+    "ranking": 28,
     "youtubes": [
       "https://www.youtube.com/watch?v=hPPB26t2Ifc",
       "https://www.youtube.com/watch?v=JdOlkiz6XMA"
@@ -179,6 +191,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
+    "ranking": 5,
     "youtubes": [
       "https://www.youtube.com/watch?v=ku5Gzf-I-Ok",
       "https://www.youtube.com/watch?v=bjyycN_5NwA"
@@ -192,6 +205,7 @@
     },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "",
+    "ranking": 7,
     "youtubes": [
       "https://www.youtube.com/watch?v=E2Lfb2vB15c",
       "https://www.youtube.com/watch?v=JhI-YXZGhQ4"
@@ -205,6 +219,7 @@
     },
     "forehand": "Yasaka/Rakza X",
     "backhand": "",
+    "ranking": 13,
     "youtubes": [
       "https://www.youtube.com/watch?v=C00ZMZGalPg"
     ]
@@ -217,6 +232,7 @@
     },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
+    "ranking": 5,
     "youtubes": [
       "https://www.youtube.com/watch?v=PpvMu87FWoA",
       "https://www.youtube.com/watch?v=HJJSUf7Rbr0"
@@ -230,6 +246,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "",
+    "ranking": 23,
     "youtubes": [
       "https://www.youtube.com/watch?v=C0bCp22tiAs"
     ]
@@ -242,6 +259,7 @@
     },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Dignics 05",
+    "ranking": 16,
     "youtubes": [
       "https://www.youtube.com/watch?v=MvwAT6n3lDk",
       "https://www.youtube.com/watch?v=wa0XEj17gyI"
@@ -255,6 +273,7 @@
     },
     "forehand": "Tibhar/MX-P",
     "backhand": "Tibhar/K3",
+    "ranking": 33,
     "youtubes": [
       "https://www.youtube.com/watch?v=ascZgnWZgb0",
       "https://www.youtube.com/watch?v=FDWLthIpjUE"
@@ -268,6 +287,7 @@
     },
     "forehand": "Nittaku/G-1",
     "backhand": "",
+    "ranking": 10,
     "youtubes": [
       "https://www.youtube.com/watch?v=Dwr37gbZZoo"
     ]
@@ -280,6 +300,7 @@
     },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "Butterfly/Dignics 09C",
+    "ranking": 25,
     "youtubes": [
       "https://www.youtube.com/watch?v=MfqSoUEPzuM",
       "https://www.youtube.com/watch?v=9pPJa0PXoNM"
@@ -293,6 +314,7 @@
     },
     "forehand": "",
     "backhand": "Xiom/J&H C55.0",
+    "ranking": 9,
     "youtubes": [
       "https://www.youtube.com/watch?v=Q2hHK7tDnYE"
     ]
@@ -305,6 +327,7 @@
     },
     "forehand": "Butterfly/Tenergy 19",
     "backhand": "Butterfly/Tenergy 19",
+    "ranking": 66,
     "youtubes": [
       "https://www.youtube.com/watch?v=HYKPJ44jhms",
       "https://www.youtube.com/watch?v=w9Nnumuw8rY"
@@ -318,6 +341,7 @@
     },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
+    "ranking": 124,
     "youtubes": [
       "https://www.youtube.com/watch?v=TL6fmgxJMgw",
       "https://www.youtube.com/watch?v=p6A4C9pbtjo"
@@ -331,6 +355,7 @@
     },
     "forehand": "",
     "backhand": "DHS/H8-80",
+    "ranking": 37,
     "youtubes": [
       "https://www.youtube.com/watch?v=QgXr5vzTV8M"
     ]
@@ -343,6 +368,7 @@
     },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/R53",
+    "ranking": 12,
     "youtubes": [
       "https://www.youtube.com/watch?v=u-iN7Ls855I",
       "https://www.youtube.com/watch?v=_FyrzNK5BYk"
@@ -356,6 +382,7 @@
     },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
+    "ranking": 11,
     "youtubes": [
       "https://www.youtube.com/watch?v=LuCc8Btfy9w",
       "https://www.youtube.com/watch?v=jce2Q4xdC54"
@@ -369,6 +396,7 @@
     },
     "forehand": "Butterfly/Dignics 09C",
     "backhand": "Butterfly/Zyre 03",
+    "ranking": 8,
     "youtubes": [
       "https://www.youtube.com/watch?v=7fNA9mkZtIc",
       "https://www.youtube.com/watch?v=Ntcuqh-P3io",
@@ -384,6 +412,7 @@
     },
     "forehand": "Butterfly/Dignics 05",
     "backhand": "Butterfly/Zyre 03",
+    "ranking": 4,
     "youtubes": [
       "https://www.youtube.com/watch?v=JS_R5Yw2LSw",
       "https://www.youtube.com/watch?v=nPyQb-WVTx0"
@@ -397,6 +426,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/MX-D",
+    "ranking": 30,
     "youtubes": [
       "https://www.youtube.com/watch?v=7AmRus7FkkY",
       "https://www.youtube.com/watch?v=Se-l5cl0FJ4"
@@ -410,6 +440,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 05",
+    "ranking": 3,
     "youtubes": [
       "https://www.youtube.com/watch?v=_FyrzNK5BYk"
     ]
@@ -436,7 +467,8 @@
     "backhand": "",
     "youtubes": [
       "https://www.youtube.com/watch?v=k7to-R-trgk"
-    ]
+    ],
+    "ranking": 216
   },
   "Ma Long": {
     "full_name": "Ma Long",
@@ -459,6 +491,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "DHS/H3 Neo",
+    "ranking": 78,
     "youtubes": [
       "https://www.youtube.com/watch?v=1YzapPOGTfE",
       "https://www.youtube.com/watch?v=pQRpkpEzrNQ"
@@ -475,7 +508,8 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=sZ9Ho5Oq2rM",
       "https://www.youtube.com/watch?v=4_xSMd1gzpk"
-    ]
+    ],
+    "ranking": 474
   },
   "Timo Ball": {
     "full_name": "Timo Ball",
@@ -513,6 +547,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
+    "ranking": 14,
     "youtubes": [
       "https://www.youtube.com/watch?v=wqOe9zZ0s3g",
       "https://www.youtube.com/watch?v=O0SmPqoEcrw"
@@ -526,6 +561,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
+    "ranking": 87,
     "youtubes": [
       "https://www.youtube.com/watch?v=u-0K09OJm0s",
       "https://www.youtube.com/watch?v=GjlJWnS0M6k"
@@ -539,6 +575,7 @@
     },
     "forehand": "JOOLA/Dynaryz AGR",
     "backhand": "JOOLA/Dynaryz AGR",
+    "ranking": 42,
     "youtubes": [
       "https://www.youtube.com/watch?v=7OgT-DNl-ps",
       "https://www.youtube.com/watch?v=_tiGlzZl5pY"
@@ -565,6 +602,7 @@
     },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Tenergy 05H",
+    "ranking": 235,
     "youtubes": [
       "https://www.youtube.com/watch?v=xI1TYtXE_1o"
     ]
@@ -577,6 +615,7 @@
     },
     "forehand": "JOOLA/Dynaryz ZGX",
     "backhand": "JOOLA/Dynaryz ZGX",
+    "ranking": 117,
     "youtubes": [
       "https://www.youtube.com/watch?v=_EYwpBUYap0",
       "https://www.youtube.com/watch?v=2G2kdgfzR1o"
@@ -593,7 +632,8 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=vUTVygcMnUE",
       "https://www.youtube.com/watch?v=hfnAnKSLj9U"
-    ]
+    ],
+    "ranking": 204
   },
   "Vladimir SIDORENKO": {
     "full_name": "Vladimir SIDORENKO",
@@ -603,6 +643,7 @@
     },
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 05",
+    "ranking": 43,
     "youtubes": [
       "https://www.youtube.com/watch?v=Zb6OAuaH1xM",
       "https://www.youtube.com/watch?v=pyKzbBM5W48"
