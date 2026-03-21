@@ -24,11 +24,11 @@
     "weight": 51
   },
   "urls": {
-    "us": {
+    "en": {
       "product": "https://www.amazon.com/s?k=Xiom+Jekyll+%26+Hyde+V47.5+table+tennis+rubber",
       "youtube": "https://www.youtube.com/watch?v=5lKpiFIH5FY"
     },
-    "kr": {
+    "ko": {
       "product": "",
       "youtube": "https://www.youtube.com/watch?v=7ZZFFb38RK0"
     },

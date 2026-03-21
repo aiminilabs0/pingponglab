@@ -74,7 +74,7 @@ function deserializeControlRangeParam(params) {
  * Returns e.g. "/us/", "/us/rubbers/tenergy-05", "/kr/rubbers/compare/a-vs-b"
  */
 function buildCurrentPath() {
-    const country = selectedCountry || 'us';
+    const country = selectedCountry || 'en';
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
 

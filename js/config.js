@@ -83,7 +83,7 @@ function findRubberBySlug(slug) {
     return rubberData.find(r => r.abbr === abbr) || null;
 }
 
-const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };
+const COUNTRY_TO_LANG = { en: 'en', cn: 'cn', ko: 'ko' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');

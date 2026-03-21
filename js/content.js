@@ -339,7 +339,7 @@ function handleRubberClick(rubber) {
     if (SLUG_MAP) {
         const slug = SLUG_MAP.abbrToSlug[rubber.abbr];
         if (slug) {
-            navigateToPath('/' + (selectedCountry || 'us') + '/rubbers/' + slug);
+            navigateToPath('/' + (selectedCountry || 'en') + '/rubbers/' + slug);
         }
     }
 
@@ -437,7 +437,7 @@ async function updateComparisonBar() {
 function getShareUrl() {
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
-    const country = selectedCountry || 'us';
+    const country = selectedCountry || 'en';
     const origin = window.location.origin;
 
     if (left && right && SLUG_MAP) {

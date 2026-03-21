@@ -82,7 +82,7 @@ function initCountrySelector() {
     if (!selector) return;
 
     const COUNTRY_STORAGE_KEY = 'pingponglab_selected_country';
-    const allowedCountries = ['us', 'cn', 'kr'];
+    const allowedCountries = ['en', 'cn', 'ko'];
     const readStoredCountry = () => {
         try {
             const storedCountry = localStorage.getItem(COUNTRY_STORAGE_KEY);
@@ -330,7 +330,7 @@ function initHomeLogo() {
     if (!logo) return;
     function handleLogoClick() {
         resetAppToInitialState();
-        navigateToPath('/' + (selectedCountry || 'us') + '/');
+        navigateToPath('/' + (selectedCountry || 'en') + '/');
     }
     logo.addEventListener('click', handleLogoClick);
     logo.addEventListener('keydown', (e) => {
@@ -589,7 +589,7 @@ async function initializeApp() {
     }
 
     // Set country from route
-    if (route.country && ['us', 'cn', 'kr'].includes(route.country)) {
+    if (route.country && ['en', 'cn', 'ko'].includes(route.country)) {
         selectedCountry = route.country;
     }
 

@@ -26,11 +26,11 @@
     "weight": 48
   },
   "urls": {
-    "us": {
+    "en": {
       "product": "https://www.paddlepalace.com/Donic-Bluestorm-Z2/productinfo/RDBS2/",
       "youtube": "https://www.youtube.com/watch?v=pSANqcs0-Zc"
     },
-    "kr": {
+    "ko": {
       "product": "",
       "youtube": ""
     },
