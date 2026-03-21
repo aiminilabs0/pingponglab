@@ -100,7 +100,26 @@
     transform: translateY(0) scale(1);
     pointer-events: auto;
 }
+.chart-hover-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: var(--drac-comment);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 1;
+    transition: color 0.12s ease;
+}
+.chart-hover-close:hover {
+    color: var(--drac-fg);
+}
 .chart-hover-card {
+    position: relative;
     border: 1px solid rgba(155,148,132,0.35);
     border-radius: 12px;
     padding: 12px;

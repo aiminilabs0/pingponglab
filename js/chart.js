@@ -531,6 +531,15 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         } catch {}
     }
 
+    // Close button
+    const closeBtn = popup.querySelector('.chart-hover-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hideChartHoverPopup({ force: true });
+        });
+    }
+
     // Route all YouTube links in the popup through the radar panel embed
     popup.querySelectorAll('.chart-hover-yt-btn, a[data-yt-videoid]').forEach(el => {
         el.addEventListener('click', (e) => {
@@ -637,6 +646,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
 
     return `
         <div class="chart-hover-card">
+            <button class="chart-hover-close" aria-label="Close">&times;</button>
             <div class="chart-hover-head">
                 <div class="chart-hover-top">
                     <span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
