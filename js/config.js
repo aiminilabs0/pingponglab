@@ -83,7 +83,7 @@ function findRubberBySlug(slug) {
     return rubberData.find(r => r.abbr === abbr) || null;
 }
 
-const COUNTRY_TO_LANG = { en: 'en', cn: 'cn', ko: 'ko' };
+const LANG_EMOJI = { en: '🇺🇸', ko: '🇰🇷', cn: '🇨🇳' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
@@ -253,7 +253,7 @@ const UI_TEXT = {
 };
 
 function getCurrentLang() {
-    return COUNTRY_TO_LANG[selectedCountry] || 'en';
+    return selectedLang || 'en';
 }
 
 function tUi(key) {
@@ -470,9 +470,9 @@ function normalizeGaToken(value) {
         .replace(/_+/g, '_');
 }
 
-function getCountryTokenForGa() {
-    const currentCountry = typeof selectedCountry === 'string' ? selectedCountry : '';
-    return normalizeGaToken(currentCountry) || 'unknown';
+function getLangTokenForGa() {
+    const currentLang = typeof selectedLang === 'string' ? selectedLang : '';
+    return normalizeGaToken(currentLang) || 'unknown';
 }
 
 function getLoginNameInputForGa() {
@@ -486,8 +486,8 @@ function getLoginNameInputForGa() {
     }
 }
 
-function buildCountryGaEventName(eventToken, nameToken) {
-    return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getCountryTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
+function buildLangGaEventName(eventToken, nameToken) {
+    return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getLangTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
 }
 
 function isAnalyticsBlockedUser() {
@@ -510,13 +510,13 @@ function trackContentFeedbackVote(vote, context = {}) {
 
     let eventName = '';
     if (contentType === 'description') {
-        eventName = buildCountryGaEventName(vote === 'good' ? 'good_desc' : 'bad_desc', context.rubberName);
+        eventName = buildLangGaEventName(vote === 'good' ? 'good_desc' : 'bad_desc', context.rubberName);
     } else if (contentType === 'comparison') {
         const left = normalizeGaToken(context.leftRubber) || 'unknown';
         const right = normalizeGaToken(context.rightRubber) || 'unknown';
-        eventName = buildCountryGaEventName(vote === 'good' ? 'good_comp' : 'bad_comp', `${left}_${right}`);
+        eventName = buildLangGaEventName(vote === 'good' ? 'good_comp' : 'bad_comp', `${left}_${right}`);
     } else {
-        eventName = buildCountryGaEventName(`feedback_${contentType}`, vote);
+        eventName = buildLangGaEventName(`feedback_${contentType}`, vote);
     }
 
     window.gtag('event', eventName, {
@@ -529,7 +529,7 @@ function trackContentFeedbackVote(vote, context = {}) {
 function trackAppLoadedEvent() {
     if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const deviceType = getDeviceTypeForGa();
-    window.gtag('event', buildCountryGaEventName('device', deviceType), {
+    window.gtag('event', buildLangGaEventName('device', deviceType), {
         device_type: deviceType,
         login_name: getLoginNameInputForGa()
     });

@@ -77,39 +77,39 @@ function initFilters() {
     updateFilterSummary();
 }
 
-function initCountrySelector() {
-    const selector = document.getElementById('countrySelector');
+function initLangSelector() {
+    const selector = document.getElementById('langSelector');
     if (!selector) return;
 
-    const COUNTRY_STORAGE_KEY = 'pingponglab_selected_country';
-    const allowedCountries = ['en', 'cn', 'ko'];
-    const readStoredCountry = () => {
+    const LANG_STORAGE_KEY = 'pingponglab_selected_lang';
+    const allowedLangs = ['en', 'cn', 'ko'];
+    const readStoredLang = () => {
         try {
-            const storedCountry = localStorage.getItem(COUNTRY_STORAGE_KEY);
-            return allowedCountries.includes(storedCountry) ? storedCountry : null;
+            const storedLang = localStorage.getItem(LANG_STORAGE_KEY);
+            return allowedLangs.includes(storedLang) ? storedLang : null;
         } catch {
             return null;
         }
     };
-    const persistCountry = (country) => {
+    const persistLang = (lang) => {
         try {
-            localStorage.setItem(COUNTRY_STORAGE_KEY, country);
+            localStorage.setItem(LANG_STORAGE_KEY, lang);
         } catch {
             // Ignore storage write failures (private mode, quota, etc.)
         }
     };
 
-    persistCountry(selectedCountry);
+    persistLang(selectedLang);
 
     const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
-    const closeCountryMenu = () => selector.classList.remove('is-open');
+    const closeLangMenu = () => selector.classList.remove('is-open');
 
-    function applyCountrySelection(nextCountry) {
-        if (!allowedCountries.includes(nextCountry)) return;
-        if (nextCountry === selectedCountry) return;
+    function applyLangSelection(nextLang) {
+        if (!allowedLangs.includes(nextLang)) return;
+        if (nextLang === selectedLang) return;
 
-        selectedCountry = nextCountry;
-        persistCountry(nextCountry);
+        selectedLang = nextLang;
+        persistLang(nextLang);
         applyLocalizedStaticText();
 
         // Rebuild filter labels with translated brand/rubber names
@@ -122,25 +122,25 @@ function initCountrySelector() {
         // Re-render chart with translated labels
         updateChart({ preserveRanges: true, force: true });
 
-        syncCountrySelectorUI();
+        syncLangSelectorUI();
 
         // Pop animation on newly active flag
-        const activeBtn = selector.querySelector(`.country-btn[data-country="${nextCountry}"]`);
+        const activeBtn = selector.querySelector(`.lang-btn[data-lang="${nextLang}"]`);
         if (activeBtn) {
-            activeBtn.classList.remove('country-btn--pop');
+            activeBtn.classList.remove('lang-btn--pop');
             void activeBtn.offsetWidth;
-            activeBtn.classList.add('country-btn--pop');
-            activeBtn.addEventListener('animationend', () => activeBtn.classList.remove('country-btn--pop'), { once: true });
+            activeBtn.classList.add('lang-btn--pop');
+            activeBtn.addEventListener('animationend', () => activeBtn.classList.remove('lang-btn--pop'), { once: true });
         }
 
         // Crossfade content pane
         const pane = document.getElementById('contentPane');
         if (pane && (selectedRubbers[0] || selectedRubbers[1])) {
-            _countrySwitchFade = true;
-            pane.classList.add('content-pane--country-fade');
+            _langSwitchFade = true;
+            pane.classList.add('content-pane--lang-fade');
         }
 
-        // Navigate to new country path (replaces country prefix)
+        // Navigate to new language path
         const newPath = buildCurrentPath();
         navigateToPath(newPath);
         if (selectedRubbers[0]) updateDetailPanel(1, selectedRubbers[0]);
@@ -150,39 +150,39 @@ function initCountrySelector() {
         updateRadarChart();
     }
 
-    syncCountrySelectorUI();
+    syncLangSelectorUI();
     applyLocalizedStaticText();
 
     selector.addEventListener('click', (e) => {
-        const btn = e.target.closest('.country-btn');
+        const btn = e.target.closest('.lang-btn');
         if (!btn) return;
         const isOpen = selector.classList.contains('is-open');
 
         // Mobile: first tap on active flag opens compact menu.
-        if (isMobileViewport() && !isOpen && btn.dataset.country === selectedCountry) {
+        if (isMobileViewport() && !isOpen && btn.dataset.lang === selectedLang) {
             selector.classList.add('is-open');
             return;
         }
 
         // Mobile: tap current flag again in open state closes menu.
-        if (isMobileViewport() && isOpen && btn.dataset.country === selectedCountry) {
-            closeCountryMenu();
+        if (isMobileViewport() && isOpen && btn.dataset.lang === selectedLang) {
+            closeLangMenu();
             return;
         }
 
-        applyCountrySelection(btn.dataset.country);
-        if (isMobileViewport()) closeCountryMenu();
+        applyLangSelection(btn.dataset.lang);
+        if (isMobileViewport()) closeLangMenu();
     });
 
     document.addEventListener('click', (e) => {
         if (!isMobileViewport()) return;
         if (!selector.classList.contains('is-open')) return;
         if (selector.contains(e.target)) return;
-        closeCountryMenu();
+        closeLangMenu();
     });
 
     window.addEventListener('resize', () => {
-        if (!isMobileViewport()) closeCountryMenu();
+        if (!isMobileViewport()) closeLangMenu();
     });
 }
 
@@ -330,7 +330,7 @@ function initHomeLogo() {
     if (!logo) return;
     function handleLogoClick() {
         resetAppToInitialState();
-        navigateToPath('/' + (selectedCountry || 'en') + '/');
+        navigateToPath('/' + (selectedLang || 'en') + '/');
     }
     logo.addEventListener('click', handleLogoClick);
     logo.addEventListener('keydown', (e) => {
@@ -584,13 +584,13 @@ async function initializeApp() {
 
     // Handle root redirect
     if (route.type === 'redirect') {
-        window.location.replace('/' + route.country + '/');
+        window.location.replace('/' + route.lang + '/');
         return;
     }
 
-    // Set country from route
-    if (route.country && ['en', 'cn', 'ko'].includes(route.country)) {
-        selectedCountry = route.country;
+    // Set language from route
+    if (route.lang && ['en', 'cn', 'ko'].includes(route.lang)) {
+        selectedLang = route.lang;
     }
 
     try {
@@ -617,7 +617,7 @@ async function initializeApp() {
 
     if (chart) chart.innerHTML = '';
     initAuth();
-    initCountrySelector();
+    initLangSelector();
     applyLocalizedStaticText();
     initHomeLogo();
     initHeaderSearch();
@@ -726,14 +726,14 @@ async function initializeApp() {
     window.addEventListener('popstate', () => {
         const newRoute = parseRoute();
         if (newRoute.type === 'redirect') {
-            window.location.replace('/' + newRoute.country + '/');
+            window.location.replace('/' + newRoute.lang + '/');
             return;
         }
-        // Update country if changed
-        if (newRoute.country && newRoute.country !== selectedCountry) {
-            selectedCountry = newRoute.country;
+        // Update language if changed
+        if (newRoute.lang && newRoute.lang !== selectedLang) {
+            selectedLang = newRoute.lang;
             applyLocalizedStaticText();
-            syncCountrySelectorUI();
+            syncLangSelectorUI();
             const brandFilter = document.getElementById('brandFilter');
             const brandChecked = new Set(getCheckedValues('brandFilter'));
             const brands = [...new Set(rubberData.map(r => r.brand))].sort();

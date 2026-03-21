@@ -101,8 +101,8 @@ function getPlayerYouTubeVideoId(rubber) {
 function getRubberYouTubeVideoId(rubber) {
     if (!rubber) return null;
 
-    const countryUrls = rubber.urls?.[selectedCountry] || {};
-    const youtubeMeta = normalizeYouTubeMeta(countryUrls.youtube);
+    const langUrls = rubber.urls?.[selectedLang] || {};
+    const youtubeMeta = normalizeYouTubeMeta(langUrls.youtube);
     const rubberVideoId = youtubeMeta?.url ? extractYouTubeVideoId(youtubeMeta.url) : null;
     if (rubberVideoId) return rubberVideoId;
     return null;
