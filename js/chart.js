@@ -963,6 +963,13 @@ function updateChart(options = {}) {
 
     if (!chartEl._hasTapDismissHandler) {
         chartEl._hasTapDismissHandler = true;
+        document.addEventListener('click', () => {
+            const popup = document.getElementById(HOVER_POPUP_ID);
+            if (!popup || !popup.classList.contains('visible')) return;
+            // Ignore the same click used to open the popup.
+            if (Date.now() < _clickPopupActiveUntil) return;
+            hideChartHoverPopup({ force: true });
+        });
         document.addEventListener('pointerdown', (event) => {
             if (!IS_TOUCH_DEVICE) return;
             if (chartEl.contains(event.target)) return;
