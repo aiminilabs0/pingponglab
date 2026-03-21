@@ -71,10 +71,10 @@ function deserializeControlRangeParam(params) {
 
 /**
  * Build the path portion of the current URL from app state.
- * Returns e.g. "/en/", "/en/rubbers/tenergy-05", "/ko/rubbers/compare/a-vs-b"
+ * Returns e.g. "/us/", "/us/rubbers/tenergy-05", "/kr/rubbers/compare/a-vs-b"
  */
 function buildCurrentPath() {
-    const lang = selectedLang || 'en';
+    const country = selectedCountry || 'us';
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
 
@@ -83,7 +83,7 @@ function buildCurrentPath() {
         const slugB = SLUG_MAP.abbrToSlug[right.abbr];
         if (slugA && slugB) {
             const [a, b] = [slugA, slugB].sort();
-            return '/' + lang + '/rubbers/compare/' + a + '-vs-' + b;
+            return '/' + country + '/rubbers/compare/' + a + '-vs-' + b;
         }
     }
 
@@ -98,11 +98,11 @@ function buildCurrentPath() {
     if (activeRubber && SLUG_MAP) {
         const slug = SLUG_MAP.abbrToSlug[activeRubber.abbr];
         if (slug) {
-            return '/' + lang + '/rubbers/' + slug;
+            return '/' + country + '/rubbers/' + slug;
         }
     }
 
-    return '/' + lang + '/';
+    return '/' + country + '/';
 }
 
 /**
@@ -141,7 +141,7 @@ function pushFiltersToUrl() {
 
 /**
  * Navigate to a new path via pushState (creates history entry for back/forward).
- * Used for rubber clicks, language switches, and tab changes that change the page identity.
+ * Used for rubber clicks, country switches, and tab changes that change the page identity.
  */
 function navigateToPath(path) {
     const qs = buildFilterQueryString();
@@ -149,9 +149,9 @@ function navigateToPath(path) {
     history.pushState(null, '', fullUrl);
 }
 
-function syncLangSelectorUI() {
-    document.querySelectorAll('#langSelector .lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === selectedLang);
+function syncCountrySelectorUI() {
+    document.querySelectorAll('#countrySelector .country-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.country === selectedCountry);
     });
 }
 

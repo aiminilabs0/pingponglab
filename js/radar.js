@@ -101,8 +101,8 @@ function getPlayerYouTubeVideoId(rubber) {
 function getRubberYouTubeVideoId(rubber) {
     if (!rubber) return null;
 
-    const langUrls = rubber.urls?.[selectedLang] || {};
-    const youtubeMeta = normalizeYouTubeMeta(langUrls.youtube);
+    const countryUrls = rubber.urls?.[selectedCountry] || {};
+    const youtubeMeta = normalizeYouTubeMeta(countryUrls.youtube);
     const rubberVideoId = youtubeMeta?.url ? extractYouTubeVideoId(youtubeMeta.url) : null;
     if (rubberVideoId) return rubberVideoId;
     return null;
@@ -186,10 +186,11 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
 
 function buildPlayersColumnHtml(rubber, align, { gifTracker = null } = {}) {
     if (!rubber) return '<span class="radar-cmp-dash">-</span>';
+    const imagePosition = align === 'right' ? 'before' : 'after';
     const toLabel = (entries, fallbackLabel) => {
         if (Array.isArray(entries) && entries.length) {
             return entries
-                .map(entry => renderPlayerEntryHtml(entry, { gifTracker }))
+                .map(entry => renderPlayerEntryHtml(entry, { imagePosition, gifTracker }))
                 .filter(Boolean)
                 .join('');
         }

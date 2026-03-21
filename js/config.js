@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 76;
+const CACHE_VERSION = 74;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = '/stats/rubbers/index.json';
@@ -83,6 +83,7 @@ function findRubberBySlug(slug) {
     return rubberData.find(r => r.abbr === abbr) || null;
 }
 
+const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
@@ -92,6 +93,7 @@ const UI_TEXT = {
         FILTERS: 'Filters',
         POPULARITY: 'Popularity',
         WEIGHT: 'Weight',
+        WEGIHT: 'Weight',
         HARDNESS: 'Hardness',
         TOPSHEET: 'Topsheet',
         TENSION: 'Tension',
@@ -144,6 +146,7 @@ const UI_TEXT = {
         FILTERS: '필터',
         POPULARITY: '인기',
         WEIGHT: '무게',
+        WEGIHT: '무게',
         HARDNESS: '경도',
         TOPSHEET: '탑시트',
         TENSION: '텐션',
@@ -197,6 +200,7 @@ const UI_TEXT = {
         FILTERS: '筛选',
         POPULARITY: '人气',
         WEIGHT: '重量',
+        WEGIHT: '重量',
         HARDNESS: '硬度',
         TOPSHEET: '胶面',
         TENSION: '经典',
@@ -249,7 +253,7 @@ const UI_TEXT = {
 };
 
 function getCurrentLang() {
-    return selectedLang || 'en';
+    return COUNTRY_TO_LANG[selectedCountry] || 'en';
 }
 
 function tUi(key) {
@@ -466,9 +470,9 @@ function normalizeGaToken(value) {
         .replace(/_+/g, '_');
 }
 
-function getLangTokenForGa() {
-    const currentLang = typeof selectedLang === 'string' ? selectedLang : '';
-    return normalizeGaToken(currentLang) || 'unknown';
+function getCountryTokenForGa() {
+    const currentCountry = typeof selectedCountry === 'string' ? selectedCountry : '';
+    return normalizeGaToken(currentCountry) || 'unknown';
 }
 
 function getLoginNameInputForGa() {
@@ -482,8 +486,8 @@ function getLoginNameInputForGa() {
     }
 }
 
-function buildLangGaEventName(eventToken, nameToken) {
-    return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getLangTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
+function buildCountryGaEventName(eventToken, nameToken) {
+    return `c_${normalizeGaToken(eventToken) || 'unknown'}_${getCountryTokenForGa()}_${normalizeGaToken(nameToken) || 'unknown'}`;
 }
 
 function isAnalyticsBlockedUser() {
@@ -506,13 +510,13 @@ function trackContentFeedbackVote(vote, context = {}) {
 
     let eventName = '';
     if (contentType === 'description') {
-        eventName = buildLangGaEventName(vote === 'good' ? 'good_desc' : 'bad_desc', context.rubberName);
+        eventName = buildCountryGaEventName(vote === 'good' ? 'good_desc' : 'bad_desc', context.rubberName);
     } else if (contentType === 'comparison') {
         const left = normalizeGaToken(context.leftRubber) || 'unknown';
         const right = normalizeGaToken(context.rightRubber) || 'unknown';
-        eventName = buildLangGaEventName(vote === 'good' ? 'good_comp' : 'bad_comp', `${left}_${right}`);
+        eventName = buildCountryGaEventName(vote === 'good' ? 'good_comp' : 'bad_comp', `${left}_${right}`);
     } else {
-        eventName = buildLangGaEventName(`feedback_${contentType}`, vote);
+        eventName = buildCountryGaEventName(`feedback_${contentType}`, vote);
     }
 
     window.gtag('event', eventName, {
@@ -525,7 +529,7 @@ function trackContentFeedbackVote(vote, context = {}) {
 function trackAppLoadedEvent() {
     if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
     const deviceType = getDeviceTypeForGa();
-    window.gtag('event', buildLangGaEventName('device', deviceType), {
+    window.gtag('event', buildCountryGaEventName('device', deviceType), {
         device_type: deviceType,
         login_name: getLoginNameInputForGa()
     });

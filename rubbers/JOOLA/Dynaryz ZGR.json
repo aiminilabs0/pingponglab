@@ -25,11 +25,11 @@
     "weight": 56
   },
   "urls": {
-    "en": {
+    "us": {
       "product": "",
       "youtube": ""
     },
-    "ko": {
+    "kr": {
       "product": "",
       "youtube": "https://www.youtube.com/watch?v=gvpReCddPM8"
     },

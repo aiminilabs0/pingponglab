@@ -14,7 +14,7 @@
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [
-      "Yuto MURAMATSU"
+      "Yuto MURAMATSU" 
     ],
     "backhand": []
   },
@@ -31,11 +31,11 @@
     "weight": 46
   },
   "urls": {
-    "en": {
+    "us": {
       "product": "https://www.amazon.com/s?k=Tibhar+Hybrid+MK+table+tennis+rubber",
       "youtube": ""
     },
-    "ko": {
+    "kr": {
       "product": "",
       "youtube": ""
     },

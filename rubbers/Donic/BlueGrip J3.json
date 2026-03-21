@@ -25,11 +25,11 @@
     "weight": 47
   },
   "urls": {
-    "en": {
+    "us": {
       "product": "https://www.megaspin.net/store/default.asp?pid=d-bluegrip-j3",
       "youtube": ""
     },
-    "ko": {
+    "kr": {
       "product": "",
       "youtube": "https://www.youtube.com/watch?v=2nercKJd_rg"
     },

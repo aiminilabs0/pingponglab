@@ -77,10 +77,10 @@ async function enrichYouTubeMeta(youtubeMeta) {
 
 async function buildTitleLinkIconsHtml(rubber) {
     if (!rubber?.urls) return '';
-    const langUrls = rubber.urls[selectedLang] || {};
+    const countryUrls = rubber.urls[selectedCountry] || {};
     const parts = [];
 
-    const youtubeMeta = await enrichYouTubeMeta(normalizeYouTubeMeta(langUrls.youtube));
+    const youtubeMeta = await enrichYouTubeMeta(normalizeYouTubeMeta(countryUrls.youtube));
     if (youtubeMeta) {
         const safeTitle = escapeHtml(youtubeMeta.title);
         const safeIcon = escapeHtml(youtubeMeta.icon);
@@ -105,7 +105,7 @@ async function buildTitleLinkIconsHtml(rubber) {
 
 
 async function fetchRubberDescriptionMarkdown(brand, abbr) {
-    const lang = selectedLang || 'en';
+    const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
     const cacheKey = `${brand}/${lang}/${abbr}`;
     if (cacheKey in rubberDescriptionsCache) return rubberDescriptionsCache[cacheKey];
     try {
@@ -131,7 +131,7 @@ function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
 async function fetchRubberComparisonMarkdown(leftRubber, rightRubber) {
     const [nameA, nameB] = getAlphabeticalComparisonNames(leftRubber, rightRubber);
     if (!nameA || !nameB) return null;
-    const lang = selectedLang || 'en';
+    const lang = COUNTRY_TO_LANG[selectedCountry] || 'en';
 
     const cacheKey = `${lang}/${nameA}_${nameB}`;
     if (cacheKey in rubberComparisonCache) return rubberComparisonCache[cacheKey];
@@ -255,10 +255,10 @@ function setActiveTab(tabId) {
         pane.innerHTML = buildEmptyPanePlaceholder(tabId);
     }
 
-    // Fade in content pane after language switch
-    if (_langSwitchFade) {
-        _langSwitchFade = false;
-        requestAnimationFrame(() => pane.classList.remove('content-pane--lang-fade'));
+    // Fade in content pane after country switch
+    if (_countrySwitchFade) {
+        _countrySwitchFade = false;
+        requestAnimationFrame(() => pane.classList.remove('content-pane--country-fade'));
     }
 
     highlightActiveTab();
@@ -339,7 +339,7 @@ function handleRubberClick(rubber) {
     if (SLUG_MAP) {
         const slug = SLUG_MAP.abbrToSlug[rubber.abbr];
         if (slug) {
-            navigateToPath('/' + (selectedLang || 'en') + '/rubbers/' + slug);
+            navigateToPath('/' + (selectedCountry || 'us') + '/rubbers/' + slug);
         }
     }
 
@@ -437,7 +437,7 @@ async function updateComparisonBar() {
 function getShareUrl() {
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
-    const lang = selectedLang || 'en';
+    const country = selectedCountry || 'us';
     const origin = window.location.origin;
 
     if (left && right && SLUG_MAP) {
@@ -445,7 +445,7 @@ function getShareUrl() {
         const slugB = SLUG_MAP.abbrToSlug[right.abbr];
         if (slugA && slugB) {
             const [a, b] = [slugA, slugB].sort();
-            return origin + '/' + lang + '/rubbers/compare/' + a + '-vs-' + b;
+            return origin + '/' + country + '/rubbers/compare/' + a + '-vs-' + b;
         }
     }
 

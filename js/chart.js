@@ -326,7 +326,6 @@ function computeVisibleRubbers(filteredData) {
 let _clickPopupActiveUntil = 0;
 let _clickPopupPinned = false;
 let _popupPlayerRotateTimer = null;
-const HOVER_DOT_COLOR = '#ffe082';
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -425,11 +424,13 @@ function hideChartHoverPopup({ force = false } = {}) {
     _clickPopupPinned = false;
     clearInterval(_popupPlayerRotateTimer);
     _popupPlayerRotateTimer = null;
-    const chartEl = document.getElementById('chart');
-    if (chartEl) clearHoveredDot(chartEl);
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
 }
+
+// ── Main Chart: Dot hover shake effect ──────────────────────────────
+
+let _chartShakeRing = null;
 
 function getChartDotScreenPosition(point, chartEl) {
     const rect = chartEl.getBoundingClientRect();
@@ -441,37 +442,39 @@ function getChartDotScreenPosition(point, chartEl) {
     };
 }
 
-function clearHoveredDot(chartEl) {
-    const hoverTraceIndex = chartEl?._hoverHighlightTraceIndex;
-    if (!Number.isInteger(hoverTraceIndex)) return;
-    Plotly.restyle(chartEl, {
-        x: [[]],
-        y: [[]],
-        'marker.size': [[]]
-    }, [hoverTraceIndex]);
+function showChartDotShake(data, chartEl) {
+    const point = data?.points?.[0];
+    if (!point) return;
+    const rubber = point.data.customdata?.[point.pointIndex];
+    if (!rubber) return;
+
+    const pos = getChartDotScreenPosition(point, chartEl);
+    if (!pos) return;
+
+    const markerSizes = point.data.marker?.size;
+    const markerSize = Array.isArray(markerSizes)
+        ? markerSizes[point.pointIndex]
+        : (markerSizes || 14);
+    const ringSize = markerSize + 14;
+
+    if (!_chartShakeRing) {
+        _chartShakeRing = document.createElement('div');
+        _chartShakeRing.className = 'chart-dot-shake-ring';
+        document.body.appendChild(_chartShakeRing);
+    }
+
+    const color = getBrandColor(rubber.brand);
+    _chartShakeRing.style.borderColor = color;
+    _chartShakeRing.style.boxShadow = `0 0 8px ${color}`;
+    _chartShakeRing.style.width = ringSize + 'px';
+    _chartShakeRing.style.height = ringSize + 'px';
+    _chartShakeRing.style.left = pos.x + 'px';
+    _chartShakeRing.style.top = pos.y + 'px';
+    _chartShakeRing.style.opacity = '0.7';
 }
 
-function highlightHoveredDot(data, chartEl) {
-    const point = data?.points?.[0];
-    const rubber = point?.data?.customdata?.[point.pointIndex];
-    const hoverTraceIndex = chartEl?._hoverHighlightTraceIndex;
-    if (!point || !rubber || !Number.isInteger(hoverTraceIndex)) return;
-
-    const markerSizeRaw = point.fullData?.marker?.size;
-    const markerSize = Array.isArray(markerSizeRaw)
-        ? markerSizeRaw[point.pointIndex]
-        : markerSizeRaw;
-    const size = Number.isFinite(markerSize) ? markerSize + 2 : 12;
-
-    Plotly.restyle(chartEl, {
-        x: [[point.x]],
-        y: [[point.y]],
-        'marker.size': [[size]],
-        'marker.symbol': [getSheetSymbol(rubber.sheet)],
-        'marker.color': [HOVER_DOT_COLOR],
-        'marker.line.color': ['#2b2926'],
-        'marker.line.width': [2]
-    }, [hoverTraceIndex]);
+function hideChartDotShake() {
+    if (_chartShakeRing) _chartShakeRing.style.opacity = '0';
 }
 
 // ── Main Chart: Click effect ────────────────────────────────────────
@@ -654,8 +657,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         ? `<span class="chart-hover-slot-badge">${slotNum}</span>`
         : '';
 
-    const langUrls = rubber.urls?.[selectedLang] || {};
-    const ytVideoId = extractYouTubeVideoId(langUrls.youtube);
+    const countryUrls = rubber.urls?.[selectedCountry] || {};
+    const ytVideoId = extractYouTubeVideoId(countryUrls.youtube);
     const ytBtn = ytVideoId
         ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.9 31.9 0 0 0 0 12a31.9 31.9 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.9 31.9 0 0 0 24 12a31.9 31.9 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></button>`
         : '';
@@ -792,23 +795,6 @@ function updateChart(options = {}) {
             customdata: group.rubbers
         });
     }
-
-    const hoverHighlightTraceIndex = traces.length;
-    traces.push({
-        x: [],
-        y: [],
-        mode: 'markers',
-        type: 'scattergl',
-        name: 'Hover Highlight',
-        showlegend: false,
-        hoverinfo: 'skip',
-        marker: {
-            size: [],
-            color: HOVER_DOT_COLOR,
-            symbol: 'circle',
-            line: { width: 2, color: '#2b2926' }
-        }
-    });
 
     // Determine axis ranges: autoscale or preserve current view
     let currentRanges = hasPlotted ? getCurrentAxisRanges() : null;
@@ -952,7 +938,6 @@ function updateChart(options = {}) {
         Plotly.newPlot('chart', traces, layout, config);
         hasPlotted = true;
     }
-    chartEl._hoverHighlightTraceIndex = hoverHighlightTraceIndex;
 
     // Re-enable relayout handler for user pan/zoom after Plotly events settle.
     // Must clear-then-set so rapid calls (e.g. range slider drag) keep the guard
@@ -987,13 +972,13 @@ function updateChart(options = {}) {
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
             if (_clickPopupPinned) return;
-            highlightHoveredDot(data, chartEl);
             showChartHoverPopupFromPlotlyData(data, chartEl);
+            showChartDotShake(data, chartEl);
         });
         chartEl.on('plotly_unhover', () => {
-            clearHoveredDot(chartEl);
             if (_clickPopupPinned) return;
             hideChartHoverPopup();
+            hideChartDotShake();
         });
     }
 

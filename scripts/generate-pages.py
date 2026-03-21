@@ -4,9 +4,9 @@ Generate static HTML pages for PingPongLab clean URLs.
 
 Reads rubber data and comparison files, then generates:
 - js/slug-map.json (bidirectional abbr <-> slug mapping)
-- Root index.html (redirect to /en/)
-- Language homepages (/en/, /ko/, /cn/)
-- Rubber detail pages (~86 per language)
+- Root index.html (redirect to /us/)
+- Country homepages (/us/, /kr/, /cn/)
+- Rubber detail pages (~86 per country)
 - Comparison pages (all rubber pair combinations)
 - sitemap.xml
 - 404.html
@@ -20,7 +20,8 @@ from itertools import combinations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LANGS = ['en', 'ko', 'cn']
+COUNTRIES = ['us', 'kr', 'cn']
+COUNTRY_LANGS = {'us': 'en', 'kr': 'ko', 'cn': 'cn'}
 BASE_URL = 'https://pingponglab.com'
 
 # ── Slug utility ──
@@ -183,23 +184,23 @@ def write_file(path, content):
         f.write(content)
 
 
-# ── Language names ──
+# ── Country names ──
 
-LANG_NAMES = {
-    'en': 'English',
-    'ko': 'Korean',
-    'cn': 'Chinese'
+COUNTRY_NAMES = {
+    'us': 'USA',
+    'kr': 'Korea',
+    'cn': 'China'
 }
 
-LANG_TITLES = {
-    'en': 'PingPongLab | Best Ping Pong Rubber',
-    'ko': 'PingPongLab | 탁구 러버 비교',
+COUNTRY_TITLES = {
+    'us': 'PingPongLab | Best Ping Pong Rubber',
+    'kr': 'PingPongLab | 탁구 러버 비교',
     'cn': 'PingPongLab | 乒乓球胶皮对比'
 }
 
-LANG_DESCRIPTIONS = {
-    'en': 'Compare ping pong rubbers by speed, spin, control, hardness, and weight. Find the best rubber for your style.',
-    'ko': '탁구 러버를 스피드, 스핀, 컨트롤, 경도, 무게로 비교하세요. 나에게 맞는 최고의 러버를 찾아보세요.',
+COUNTRY_DESCRIPTIONS = {
+    'us': 'Compare ping pong rubbers by speed, spin, control, hardness, and weight. Find the best rubber for your style.',
+    'kr': '탁구 러버를 스피드, 스핀, 컨트롤, 경도, 무게로 비교하세요. 나에게 맞는 최고의 러버를 찾아보세요.',
     'cn': '按速度、旋转、控制、硬度和重量对比乒乓球胶皮。找到最适合你打法的胶皮。'
 }
 
@@ -238,12 +239,12 @@ def main():
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=/en/">
-    <link rel="canonical" href="https://pingponglab.com/en/">
+    <meta http-equiv="refresh" content="0;url=/us/">
+    <link rel="canonical" href="https://pingponglab.com/us/">
     <title>Redirecting to PingPongLab</title>
 </head>
 <body>
-    <p>Redirecting to <a href="/en/">PingPongLab</a>...</p>
+    <p>Redirecting to <a href="/us/">PingPongLab</a>...</p>
 </body>
 </html>'''
     # Save as root-redirect.html (won't overwrite the template index.html)
@@ -261,30 +262,30 @@ def main():
     write_file(ROOT / '404.html', page_404)
     page_count += 1
 
-    # ── Language homepages ──
-    print('Generating language homepages...')
-    for lang in LANGS:
-        title = LANG_TITLES.get(lang, LANG_TITLES['en'])
-        desc = LANG_DESCRIPTIONS.get(lang, LANG_DESCRIPTIONS['en'])
-        canonical = f'{BASE_URL}/{lang}/'
+    # ── Country homepages ──
+    print('Generating country homepages...')
+    for country in COUNTRIES:
+        title = COUNTRY_TITLES.get(country, COUNTRY_TITLES['us'])
+        desc = COUNTRY_DESCRIPTIONS.get(country, COUNTRY_DESCRIPTIONS['us'])
+        canonical = f'{BASE_URL}/{country}/'
         page = make_page(template, title=title, description=desc, canonical=canonical)
-        write_file(ROOT / lang / 'index.html', page)
-        all_pages.append((f'/{lang}/', '1.0'))
+        write_file(ROOT / country / 'index.html', page)
+        all_pages.append((f'/{country}/', '1.0'))
         page_count += 1
-    print(f'  Generated {len(LANGS)} language homepages')
+    print(f'  Generated {len(COUNTRIES)} country homepages')
 
     # ── Rubber detail pages ──
     print('Generating rubber detail pages...')
     rubber_count = 0
     for r in rubbers:
         slug = slug_map['abbrToSlug'][r['abbr']]
-        for lang in LANGS:
+        for country in COUNTRIES:
             title = f"{r['abbr']} Review | PingPongLab"
             desc = f"Detailed review of {r['abbr']} by {r['brand']}. Compare speed, spin, control, hardness, and weight."
-            canonical = f'{BASE_URL}/{lang}/rubbers/{slug}'
+            canonical = f'{BASE_URL}/{country}/rubbers/{slug}'
             page = make_page(template, title=title, description=desc, canonical=canonical)
-            write_file(ROOT / lang / 'rubbers' / slug / 'index.html', page)
-            all_pages.append((f'/{lang}/rubbers/{slug}', '0.8'))
+            write_file(ROOT / country / 'rubbers' / slug / 'index.html', page)
+            all_pages.append((f'/{country}/rubbers/{slug}', '0.8'))
             rubber_count += 1
     print(f'  Generated {rubber_count} rubber detail pages')
 
@@ -299,13 +300,13 @@ def main():
             continue
         sorted_slugs = sorted([slug_a, slug_b])
         comp_slug = f'{sorted_slugs[0]}-vs-{sorted_slugs[1]}'
-        for lang in LANGS:
+        for country in COUNTRIES:
             title = f"{name_a} vs {name_b} | PingPongLab"
             desc = f"Compare {name_a} and {name_b}: speed, spin, control, hardness, and weight side by side."
-            canonical = f'{BASE_URL}/{lang}/rubbers/compare/{comp_slug}'
+            canonical = f'{BASE_URL}/{country}/rubbers/compare/{comp_slug}'
             page = make_page(template, title=title, description=desc, canonical=canonical)
-            write_file(ROOT / lang / 'rubbers' / 'compare' / comp_slug / 'index.html', page)
-            all_pages.append((f'/{lang}/rubbers/compare/{comp_slug}', '0.6'))
+            write_file(ROOT / country / 'rubbers' / 'compare' / comp_slug / 'index.html', page)
+            all_pages.append((f'/{country}/rubbers/compare/{comp_slug}', '0.6'))
             comp_count += 1
     print(f'  Generated {comp_count} comparison pages')
 

@@ -11,8 +11,8 @@ let isInternalUpdate = false;
 let currentFilteredData = [];
 let relayoutTimer = null;
 let internalUpdateTimer = null;
-let selectedLang = 'en';
-let _langSwitchFade = false;
+let selectedCountry = 'us';
+let _countrySwitchFade = false;
 let filterPanelOpen = false;
 let weightFilterState = {
     dataMin: null,
