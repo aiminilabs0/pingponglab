@@ -80,6 +80,23 @@
     }
     .content-tabs { padding: 0 10px; overflow-x: auto; }
     .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
+    .filter-trigger,
+    .content-tab,
+    .fp-pill,
+    .fp-seg-btn,
+    .lang-btn,
+    .fp-section-actions button {
+        touch-action: manipulation;
+    }
+    .filter-panel {
+        position: relative;
+        z-index: 120;
+    }
+    .content-card,
+    .content-tabs {
+        position: relative;
+        z-index: 10;
+    }
     .share-btn-label { display: none; }
     .content-tab--share { padding: 8px 10px; min-width: 0; }
     #chart { height: 440px; }
@@ -252,6 +269,40 @@
             0 3px 8px rgba(218, 138, 82, 0.24);
     }
 
+}
+
+/* Touch devices with wide CSS width (e.g. tablets in landscape): keep compact language selector */
+@media (hover: none) and (pointer: coarse) {
+    .header-controls {
+        position: relative;
+    }
+    .header-controls .lang-selector {
+        gap: 0;
+        padding: 2px;
+    }
+    .header-controls .lang-selector .lang-btn {
+        display: none;
+        min-width: 40px;
+        padding: 6px 8px;
+    }
+    .header-controls .lang-selector .lang-btn.active {
+        display: inline-flex;
+    }
+    .header-controls .lang-selector.is-open {
+        position: absolute;
+        top: -6px;
+        right: 0;
+        z-index: 80;
+        flex-direction: row;
+        align-items: center;
+        gap: 2px;
+        padding: 4px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .header-controls .lang-selector.is-open .lang-btn {
+        display: inline-flex;
+    }
 }
 
 /* YouTube embed inside radar-section spans full width below chart + info */

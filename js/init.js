@@ -52,11 +52,13 @@ function initFilters() {
         });
     });
 
-    // Filter panel trigger
-    document.getElementById('filterTrigger').addEventListener('click', toggleFilterPanel);
+    // Filter panel trigger (tap-safe on mobile Safari/Chrome)
+    bindTap(document.getElementById('filterTrigger'), () => {
+        toggleFilterPanel();
+    });
 
     // Rubber section toggle (mobile)
-    document.getElementById('rubberSectionToggle').addEventListener('click', () => {
+    bindTap(document.getElementById('rubberSectionToggle'), () => {
         const header = document.getElementById('rubberSectionToggle');
         const content = document.getElementById('rubberContent');
         header.classList.toggle('is-open');
@@ -153,7 +155,7 @@ function initLangSelector() {
     syncLangSelectorUI();
     applyLocalizedStaticText();
 
-    selector.addEventListener('click', (e) => {
+    bindTap(selector, (e) => {
         const btn = e.target.closest('.lang-btn');
         if (!btn) return;
         const isOpen = selector.classList.contains('is-open');
@@ -183,6 +185,21 @@ function initLangSelector() {
 
     window.addEventListener('resize', () => {
         if (!isMobileViewport()) closeLangMenu();
+    });
+}
+
+function bindTap(element, handler) {
+    if (!element || typeof handler !== 'function') return;
+
+    let lastTouchTs = 0;
+    element.addEventListener('touchend', (e) => {
+        lastTouchTs = Date.now();
+        handler(e);
+    }, { passive: true });
+
+    element.addEventListener('click', (e) => {
+        if (Date.now() - lastTouchTs < 450) return;
+        handler(e);
     });
 }
 
@@ -624,8 +641,8 @@ async function initializeApp() {
     initFeedbackModal();
     initFilters();
 
-    // Tab click listener
-    document.getElementById('contentTabs').addEventListener('click', (e) => {
+    // Tab interaction listener (tap-safe)
+    bindTap(document.getElementById('contentTabs'), (e) => {
         // Share button
         if (e.target.closest('.content-tab--share')) {
             handleShareClick();
