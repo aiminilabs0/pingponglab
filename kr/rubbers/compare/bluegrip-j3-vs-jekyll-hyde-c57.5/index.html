@@ -55,7 +55,7 @@
         window.dataLayer = window.dataLayer || [];
         const __gaBlockedUser = (function () {
             try {
-                return (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase() === 'tiny657';
+                const u = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase(); return u === 'tiny657' || u === 'pingponglab';
             } catch {
                 return false;
             }

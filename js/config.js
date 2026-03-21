@@ -493,7 +493,7 @@ function buildCountryGaEventName(eventToken, nameToken) {
 function isAnalyticsBlockedUser() {
     try {
         const user = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase();
-        return user === 'tiny657';
+        return user === 'pingponglab' || user === 'tiny657';
     } catch {
         return false;
     }
