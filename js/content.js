@@ -80,22 +80,29 @@ async function buildTitleLinkIconsHtml(rubber) {
     const countryUrls = rubber.urls[selectedCountry] || {};
     const parts = [];
 
-    const youtubeMeta = await enrichYouTubeMeta(normalizeYouTubeMeta(countryUrls.youtube));
+    let ytMeta = normalizeYouTubeMeta(countryUrls.youtube);
+    let ytIsFallback = false;
+    if (!ytMeta && selectedCountry !== 'us') {
+        ytMeta = normalizeYouTubeMeta((rubber.urls.us || {}).youtube);
+        if (ytMeta) ytIsFallback = true;
+    }
+    const youtubeMeta = await enrichYouTubeMeta(ytMeta);
     if (youtubeMeta) {
         const safeTitle = escapeHtml(youtubeMeta.title);
         const safeIcon = escapeHtml(youtubeMeta.icon);
         const safeUrl = escapeHtml(youtubeMeta.url);
         const videoId = extractYouTubeVideoId(youtubeMeta.url);
+        const enBadge = ytIsFallback ? `<span class="yt-en-badge">EN</span>` : '';
         if (videoId) {
             parts.push(
                 `<a class="rubber-title-icon-link" href="#" data-yt-videoid="${videoId}" title="${safeTitle}" aria-label="${safeTitle}">` +
-                `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
+                `<img src="${safeIcon}" class="rubber-title-icon" alt="">${enBadge}` +
                 `</a>`
             );
         } else {
             parts.push(
                 `<a class="rubber-title-icon-link" href="${safeUrl}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}">` +
-                `<img src="${safeIcon}" class="rubber-title-icon" alt="">` +
+                `<img src="${safeIcon}" class="rubber-title-icon" alt="">${enBadge}` +
                 `</a>`
             );
         }
