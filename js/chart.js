@@ -1000,6 +1000,7 @@ function updateChart(options = {}) {
         }, { passive: true });
         window.addEventListener('scroll', () => {
             hideChartHoverPopup({ force: true });
+            hideChartDotShake();
         }, { passive: true });
     }
 
