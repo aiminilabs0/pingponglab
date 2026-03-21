@@ -153,6 +153,7 @@ function syncCountrySelectorUI() {
     document.querySelectorAll('#countrySelector .country-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.country === selectedCountry);
     });
+    positionCountryPill();
 }
 
 function applyFiltersFromUrl() {

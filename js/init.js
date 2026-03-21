@@ -77,6 +77,15 @@ function initFilters() {
     updateFilterSummary();
 }
 
+function positionCountryPill(selectorEl) {
+    const sel = selectorEl || document.getElementById('countrySelector');
+    if (!sel) return;
+    const activeBtn = sel.querySelector('.country-btn.active');
+    if (!activeBtn) return;
+    sel.style.setProperty('--pill-x', activeBtn.offsetLeft);
+    sel.style.setProperty('--pill-w', activeBtn.offsetWidth);
+}
+
 function initCountrySelector() {
     const selector = document.getElementById('countrySelector');
     if (!selector) return;
@@ -123,6 +132,7 @@ function initCountrySelector() {
         updateChart({ preserveRanges: true, force: true });
 
         syncCountrySelectorUI();
+        requestAnimationFrame(() => positionCountryPill(selector));
 
         // Pop animation on newly active flag
         const activeBtn = selector.querySelector(`.country-btn[data-country="${nextCountry}"]`);
@@ -151,6 +161,7 @@ function initCountrySelector() {
     }
 
     syncCountrySelectorUI();
+    requestAnimationFrame(() => positionCountryPill(selector));
     applyLocalizedStaticText();
 
     selector.addEventListener('click', (e) => {
@@ -161,6 +172,7 @@ function initCountrySelector() {
         // Mobile: first tap on active flag opens compact menu.
         if (isMobileViewport() && !isOpen && btn.dataset.country === selectedCountry) {
             selector.classList.add('is-open');
+            requestAnimationFrame(() => positionCountryPill(selector));
             return;
         }
 
@@ -183,6 +195,7 @@ function initCountrySelector() {
 
     window.addEventListener('resize', () => {
         if (!isMobileViewport()) closeCountryMenu();
+        positionCountryPill(selector);
     });
 }
 

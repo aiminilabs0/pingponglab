@@ -38,11 +38,17 @@
     }
     .header-controls .country-selector .country-btn {
         display: none;
-        min-width: 40px;
+        min-width: 34px;
         padding: 6px 8px;
     }
     .header-controls .country-selector .country-btn.active {
         display: inline-flex;
+    }
+    .header-controls .country-selector::before {
+        display: none;
+    }
+    .header-controls .country-selector.is-open::before {
+        display: block;
     }
     .header-controls .country-selector.is-open {
         position: absolute;
