@@ -67,6 +67,23 @@ function deserializeControlRangeParam(params) {
     syncControlPillUI();
 }
 
+// ── Document title ──
+
+function updateDocumentTitle() {
+    const left = selectedRubbers[0];
+    const right = selectedRubbers[1];
+
+    if (activeTab === 'comparison' && left && right) {
+        document.title = left.abbr + ' vs ' + right.abbr + ' | PingPongLab';
+    } else if (activeTab === 'desc2' && right) {
+        document.title = right.abbr + ' | PingPongLab';
+    } else if (left) {
+        document.title = left.abbr + ' | PingPongLab';
+    } else {
+        document.title = 'PingPongLab | Best Rubber';
+    }
+}
+
 // ── Path construction ──
 
 /**

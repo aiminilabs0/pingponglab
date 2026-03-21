@@ -270,6 +270,7 @@ function setActiveTab(tabId) {
 
     highlightActiveTab();
     pushFiltersToUrl();
+    if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
 }
 
 // ── Detail panel / comparison functions ──

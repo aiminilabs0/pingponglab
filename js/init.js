@@ -571,6 +571,8 @@ function applyRoute(route) {
             setActiveTab('desc1');
         }
     }
+
+    if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
 }
 
 async function initializeApp() {

@@ -46,6 +46,7 @@ function resetAppToInitialState() {
     updateRadarChart();
     updateFilterSummary();
     pushFiltersToUrl();
+    if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
 
     const chartEl = document.getElementById('chart');
     if (chartEl && hasPlotted) {
