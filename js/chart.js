@@ -517,16 +517,35 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
             const names = JSON.parse(rotateEl.dataset.names || '[]');
             if (names.length > 1) {
                 let idx = 0;
-                _popupPlayerRotateTimer = setInterval(() => {
-                    playerEls[idx]?.classList.remove('is-active');
-                    idx = (idx + 1) % names.length;
-                    rotateEl.classList.remove('visible');
-                    setTimeout(() => {
-                        rotateEl.textContent = names[idx];
+                const startRotation = (fromIdx) => {
+                    clearInterval(_popupPlayerRotateTimer);
+                    idx = fromIdx;
+                    _popupPlayerRotateTimer = setInterval(() => {
+                        playerEls[idx]?.classList.remove('is-active');
+                        idx = (idx + 1) % names.length;
+                        rotateEl.classList.remove('visible');
+                        setTimeout(() => {
+                            rotateEl.textContent = names[idx];
+                            rotateEl.classList.add('visible');
+                            playerEls[idx]?.classList.add('is-active');
+                        }, 150);
+                    }, 1000);
+                };
+                startRotation(0);
+
+                playerEls.forEach((el, i) => {
+                    el.addEventListener('mouseenter', () => {
+                        clearInterval(_popupPlayerRotateTimer);
+                        _popupPlayerRotateTimer = null;
+                        playerEls.forEach(p => p.classList.remove('is-active'));
+                        el.classList.add('is-active');
+                        rotateEl.textContent = names[i] || '';
                         rotateEl.classList.add('visible');
-                        playerEls[idx]?.classList.add('is-active');
-                    }, 150);
-                }, 1000);
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        startRotation(i);
+                    });
+                });
             }
         } catch {}
     }
