@@ -125,7 +125,7 @@ function resolvePlayerVideoSelection(parsed) {
     };
 }
 
-function renderPlayerEntryHtml(value, { imagePosition = 'after', gifTracker = null } = {}) {
+function renderPlayerEntryHtml(value, { gifTracker = null } = {}) {
     const parsed = parsePlayerEntry(value);
     if (!parsed) return '';
     const displayName = getLocalizedPlayerName(parsed.name) || parsed.name;

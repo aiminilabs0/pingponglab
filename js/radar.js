@@ -186,11 +186,10 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
 
 function buildPlayersColumnHtml(rubber, align, { gifTracker = null } = {}) {
     if (!rubber) return '<span class="radar-cmp-dash">-</span>';
-    const imagePosition = align === 'right' ? 'before' : 'after';
     const toLabel = (entries, fallbackLabel) => {
         if (Array.isArray(entries) && entries.length) {
             return entries
-                .map(entry => renderPlayerEntryHtml(entry, { imagePosition, gifTracker }))
+                .map(entry => renderPlayerEntryHtml(entry, { gifTracker }))
                 .filter(Boolean)
                 .join('');
         }

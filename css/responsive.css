@@ -32,19 +32,19 @@
         right: 0;
         left: auto;
     }
-    .header-controls .country-selector {
+    .header-controls .lang-selector {
         gap: 0;
         padding: 2px;
     }
-    .header-controls .country-selector .country-btn {
+    .header-controls .lang-selector .lang-btn {
         display: none;
         min-width: 40px;
         padding: 6px 8px;
     }
-    .header-controls .country-selector .country-btn.active {
+    .header-controls .lang-selector .lang-btn.active {
         display: inline-flex;
     }
-    .header-controls .country-selector.is-open {
+    .header-controls .lang-selector.is-open {
         position: absolute;
         top: -6px;
         right: 0;
@@ -56,7 +56,7 @@
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
-    .header-controls .country-selector.is-open .country-btn {
+    .header-controls .lang-selector.is-open .lang-btn {
         display: inline-flex;
     }
     .header-ctrl-btn { width: 34px; height: 34px; border-radius: 8px; }
@@ -252,10 +252,6 @@
             0 3px 8px rgba(218, 138, 82, 0.24);
     }
 
-}
-
-@media (min-width: 769px) {
-    /* rubber-title is pinned via flex layout in .content-pane — no sticky needed */
 }
 
 /* YouTube embed inside radar-section spans full width below chart + info */

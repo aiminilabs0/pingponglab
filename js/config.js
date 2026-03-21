@@ -83,7 +83,6 @@ function findRubberBySlug(slug) {
     return rubberData.find(r => r.abbr === abbr) || null;
 }
 
-const LANG_EMOJI = { en: '🇺🇸', ko: '🇰🇷', cn: '🇨🇳' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
@@ -93,7 +92,6 @@ const UI_TEXT = {
         FILTERS: 'Filters',
         POPULARITY: 'Popularity',
         WEIGHT: 'Weight',
-        WEGIHT: 'Weight',
         HARDNESS: 'Hardness',
         TOPSHEET: 'Topsheet',
         TENSION: 'Tension',
@@ -146,7 +144,6 @@ const UI_TEXT = {
         FILTERS: '필터',
         POPULARITY: '인기',
         WEIGHT: '무게',
-        WEGIHT: '무게',
         HARDNESS: '경도',
         TOPSHEET: '탑시트',
         TENSION: '텐션',
@@ -200,7 +197,6 @@ const UI_TEXT = {
         FILTERS: '筛选',
         POPULARITY: '人气',
         WEIGHT: '重量',
-        WEGIHT: '重量',
         HARDNESS: '硬度',
         TOPSHEET: '胶面',
         TENSION: '经典',
