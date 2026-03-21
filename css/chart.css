@@ -6,6 +6,10 @@
     overscroll-behavior: none;
     transition: opacity 0.15s ease;
 }
+#chart .drag[cursor="move"],
+#chart .nsewdrag {
+    cursor: default !important;
+}
 #chart.chart--filter-fade {
     opacity: 0;
 }
