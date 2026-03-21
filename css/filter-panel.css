@@ -321,11 +321,11 @@
     min-width: 0;
     background: rgba(33, 31, 28, 0.9);
 }
-#controlFilter .fp-pill.control-level-1 { width: 30px; height: 30px; }
-#controlFilter .fp-pill.control-level-2 { width: 26px; height: 26px; }
+#controlFilter .fp-pill.control-level-1 { width: 14px; height: 14px; }
+#controlFilter .fp-pill.control-level-2 { width: 18px; height: 18px; }
 #controlFilter .fp-pill.control-level-3 { width: 22px; height: 22px; }
-#controlFilter .fp-pill.control-level-4 { width: 18px; height: 18px; }
-#controlFilter .fp-pill.control-level-5 { width: 14px; height: 14px; }
+#controlFilter .fp-pill.control-level-4 { width: 26px; height: 26px; }
+#controlFilter .fp-pill.control-level-5 { width: 30px; height: 30px; }
 #controlFilter .fp-pill.control-level-pill:hover {
     transform: translateY(-1px);
 }
@@ -334,24 +334,24 @@
 }
 
 #controlFilter .control-level-1.active {
-    border-color: #6fbf73;
-    background: rgba(111, 191, 115, 0.22);
+    border-color: #cf5555;
+    background: rgba(207, 85, 85, 0.2);
 }
 #controlFilter .control-level-2.active {
-    border-color: #a3d977;
-    background: rgba(163, 217, 119, 0.2);
+    border-color: #e0b55c;
+    background: rgba(224, 181, 92, 0.22);
 }
 #controlFilter .control-level-3.active {
     border-color: #d4c16a;
     background: rgba(212, 193, 106, 0.22);
 }
 #controlFilter .control-level-4.active {
-    border-color: #e0b55c;
-    background: rgba(224, 181, 92, 0.22);
+    border-color: #a3d977;
+    background: rgba(163, 217, 119, 0.2);
 }
 #controlFilter .control-level-5.active {
-    border-color: #cf5555;
-    background: rgba(207, 85, 85, 0.2);
+    border-color: #6fbf73;
+    background: rgba(111, 191, 115, 0.22);
 }
 
 /* Sheet type labels mirror hover popup: shape + first character */

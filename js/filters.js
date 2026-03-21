@@ -322,7 +322,7 @@ function initHardnessRangeFilter(onChange) {
 // ════════════════════════════════════════════════════════════
 
 const CONTROL_LEVEL_COUNT = 5;
-const CONTROL_LEVELS = [5, 4, 3, 2, 1];
+const CONTROL_LEVELS = [1, 2, 3, 4, 5];
 
 function hasControlLevelData() {
     return rubberData.some(r => Number.isFinite(r.controlLevel));
