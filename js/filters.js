@@ -362,6 +362,11 @@ function initControlToggleFilter(onChange) {
     const group = document.createElement('div');
     group.className = 'fp-pill-group';
 
+    const lessLabel = document.createElement('span');
+    lessLabel.className = 'control-guide-label';
+    lessLabel.textContent = 'Less';
+    group.appendChild(lessLabel);
+
     CONTROL_LEVELS.forEach(level => {
         const pill = document.createElement('label');
         pill.className = `fp-pill control-level-pill control-level-${level} active`;
@@ -373,11 +378,6 @@ function initControlToggleFilter(onChange) {
         cb.checked = true;
         cb.value = String(level);
         pill.appendChild(cb);
-
-        const label = document.createElement('span');
-        label.className = 'control-level-number';
-        label.textContent = String(level);
-        pill.appendChild(label);
 
         group.appendChild(pill);
 
@@ -391,6 +391,11 @@ function initControlToggleFilter(onChange) {
             onChange();
         });
     });
+
+    const moreLabel = document.createElement('span');
+    moreLabel.className = 'control-guide-label';
+    moreLabel.textContent = 'More';
+    group.appendChild(moreLabel);
 
     container.appendChild(group);
 }

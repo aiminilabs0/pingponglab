@@ -301,57 +301,57 @@
     color: var(--drac-fg);
 }
 
-/* Control level filter — compact numeric badges */
+/* Control level filter — sized dots */
 #controlFilter .fp-pill-group {
     gap: 8px;
+    align-items: center;
+}
+#controlFilter .control-guide-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(248, 248, 242, 0.45);
+    line-height: 1;
+    white-space: nowrap;
 }
 #controlFilter .fp-pill.control-level-pill {
-    min-width: 34px;
-    height: 34px;
-    padding: 0 10px;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 50%;
     border-width: 1.5px;
-    color: rgba(248, 248, 242, 0.74);
+    padding: 0;
+    min-width: 0;
     background: rgba(33, 31, 28, 0.9);
 }
+#controlFilter .fp-pill.control-level-1 { width: 30px; height: 30px; }
+#controlFilter .fp-pill.control-level-2 { width: 26px; height: 26px; }
+#controlFilter .fp-pill.control-level-3 { width: 22px; height: 22px; }
+#controlFilter .fp-pill.control-level-4 { width: 18px; height: 18px; }
+#controlFilter .fp-pill.control-level-5 { width: 14px; height: 14px; }
 #controlFilter .fp-pill.control-level-pill:hover {
     transform: translateY(-1px);
 }
 #controlFilter .fp-pill.control-level-pill.active {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(248, 248, 242, 0.09);
 }
-#controlFilter .control-level-number {
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-    line-height: 1;
-}
 
-#controlFilter .control-level-5.active {
+#controlFilter .control-level-1.active {
     border-color: #6fbf73;
     background: rgba(111, 191, 115, 0.22);
-    color: #9be3a0;
 }
-#controlFilter .control-level-4.active {
+#controlFilter .control-level-2.active {
     border-color: #a3d977;
     background: rgba(163, 217, 119, 0.2);
-    color: #c6e89e;
 }
 #controlFilter .control-level-3.active {
     border-color: #d4c16a;
     background: rgba(212, 193, 106, 0.22);
-    color: #f2df95;
 }
-#controlFilter .control-level-2.active {
+#controlFilter .control-level-4.active {
     border-color: #e0b55c;
     background: rgba(224, 181, 92, 0.22);
-    color: #f2ce8a;
 }
-#controlFilter .control-level-1.active {
+#controlFilter .control-level-5.active {
     border-color: #cf5555;
     background: rgba(207, 85, 85, 0.2);
-    color: #f0a1a1;
 }
 
 /* Sheet type labels mirror hover popup: shape + first character */
