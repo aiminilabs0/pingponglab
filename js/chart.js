@@ -334,7 +334,7 @@ function getChartHoverPopupEl() {
     popup.id = HOVER_POPUP_ID;
     popup.className = 'chart-hover-popup';
     popup.addEventListener('mouseleave', () => {
-        _clickPopupPinned = false;
+        if (_clickPopupPinned) return;
         hideChartHoverPopup({ force: true });
     });
     document.body.appendChild(popup);
@@ -971,10 +971,12 @@ function updateChart(options = {}) {
         chartEl._hasHoverHandler = true;
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
+            if (_clickPopupPinned) return;
             showChartHoverPopupFromPlotlyData(data, chartEl);
             showChartDotShake(data, chartEl);
         });
         chartEl.on('plotly_unhover', () => {
+            if (_clickPopupPinned) return;
             hideChartHoverPopup();
             hideChartDotShake();
         });
