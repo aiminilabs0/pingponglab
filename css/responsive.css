@@ -1,4 +1,6 @@
 @media (max-width: 768px) {
+    /* Disable double-tap-to-zoom so taps fire immediately (iOS Safari ignores user-scalable=no) */
+    html { touch-action: manipulation; }
     body { padding: 10px; }
     .container { padding: 16px; border-radius: 12px; }
     .chart-bleed { margin: 0 -16px; padding: 0; }
@@ -252,6 +254,11 @@
             0 3px 8px rgba(218, 138, 82, 0.24);
     }
 
+}
+
+/* Touch devices wider than 768px (e.g. tablets): also disable double-tap-to-zoom */
+@media (hover: none) and (pointer: coarse) {
+    html { touch-action: manipulation; }
 }
 
 /* YouTube embed inside radar-section spans full width below chart + info */
