@@ -222,8 +222,85 @@ if (screen.orientation) {
 }
 window.addEventListener('orientationchange', () => setTimeout(handleOrientationFullscreen, 150));
 
+// User Guide embed toggle
+function toggleUserGuideEmbed(btn) {
+    const videoId = btn.dataset.ytGuide;
+    if (!videoId) return;
+
+    const chartBleed = btn.closest('.chart-bleed');
+    if (!chartBleed) return;
+
+    let embed = chartBleed.querySelector('.user-guide-embed');
+    if (embed) {
+        const playerId = embed.dataset.playerId;
+        if (playerId && ytPlayers[playerId]) {
+            try { ytPlayers[playerId].destroy(); } catch {}
+            delete ytPlayers[playerId];
+        }
+        embed.remove();
+        btn.classList.remove('yt-active');
+        return;
+    }
+
+    embed = document.createElement('div');
+    embed.className = 'user-guide-embed';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'landscape-fs-close';
+    closeBtn.textContent = '✕';
+    closeBtn.setAttribute('aria-label', 'Close video');
+    closeBtn.onclick = () => {
+        const pid = embed.dataset.playerId;
+        if (pid && ytPlayers[pid]) {
+            try { ytPlayers[pid].destroy(); } catch {}
+            delete ytPlayers[pid];
+        }
+        embed.remove();
+        btn.classList.remove('yt-active');
+    };
+    embed.appendChild(closeBtn);
+
+    const playerDiv = document.createElement('div');
+    const playerId = 'yt-player-' + (++ytPlayerIdCounter);
+    playerDiv.id = playerId;
+    playerDiv.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+    embed.appendChild(playerDiv);
+    embed.dataset.playerId = playerId;
+
+    const chartEl = chartBleed.querySelector('#chart');
+    chartBleed.insertBefore(embed, chartEl);
+    btn.classList.add('yt-active');
+
+    if (ytApiReady && typeof YT !== 'undefined' && YT.Player) {
+        ytPlayers[playerId] = new YT.Player(playerId, {
+            videoId,
+            playerVars: { autoplay: 1, playsinline: 1, rel: 0, mute: 0 },
+            events: {
+                onReady: e => {
+                    e.target.unMute();
+                    e.target.playVideo();
+                }
+            }
+        });
+    } else {
+        playerDiv.outerHTML =
+            `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0" ` +
+            `style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" ` +
+            `allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+    }
+
+    scrollEmbedToCenter(embed);
+}
+
 // Event delegation: YouTube title icon clicks toggle the embed below the title header.
 document.addEventListener('click', (e) => {
+    const guideBtn = e.target.closest('.user-guide-btn');
+    if (guideBtn) {
+        e.preventDefault();
+        toggleUserGuideEmbed(guideBtn);
+        return;
+    }
+
     const navBtn = e.target.closest('.yt-embed-nav-btn');
     if (navBtn) {
         e.preventDefault();

@@ -23,6 +23,72 @@
     font-weight: 700;
     line-height: 1.2;
 }
+.user-guide-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border: 1.5px solid rgba(155,148,132,0.3);
+    border-radius: 8px;
+    background: rgba(28,26,23,0.5);
+    color: var(--drac-comment);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.user-guide-btn:hover {
+    border-color: var(--drac-red);
+    color: var(--drac-red);
+    background: rgba(62,58,52,0.8);
+}
+.user-guide-btn.yt-active {
+    border-color: var(--drac-red);
+    color: var(--drac-red);
+}
+.user-guide-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+.user-guide-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 0 14px 8px;
+}
+.user-guide-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.user-guide-embed .landscape-fs-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.user-guide-embed .landscape-fs-close:hover {
+    background: rgba(0,0,0,0.85);
+}
 .chart-control-guide {
     display: flex;
     align-items: center;
