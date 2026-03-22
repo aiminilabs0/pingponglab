@@ -209,8 +209,8 @@ function buildPlayersColumnHtml(rubber, align, { gifTracker = null } = {}) {
     const forehand = toLabel(rubber.forehandPlayers, rubber.forehandPlayerLabel);
     const backhand = toLabel(rubber.backhandPlayers, rubber.backhandPlayerLabel);
     const rows = [
-        forehand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">FH 🏓</span><span class="radar-info-player-names">${forehand}</span></div>` : '',
-        backhand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">BH <span class="radar-info-paddle-black">🏓</span></span><span class="radar-info-player-names">${backhand}</span></div>` : ''
+        forehand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--fh">${tUi('FOREHAND')} 🏓</span><span class="radar-info-player-names">${forehand}</span></div>` : '',
+        backhand ? `<div class="radar-info-player-row"><span class="radar-info-side-badge radar-info-side-badge--bh">${tUi('BACKHAND')} <span class="radar-info-paddle-black">🏓</span></span><span class="radar-info-player-names">${backhand}</span></div>` : ''
     ].filter(Boolean);
     if (!rows.length) return '<span class="radar-cmp-dash">-</span>';
     return `<div class="radar-info-players radar-info-players--${align}">${rows.join('')}</div>`;

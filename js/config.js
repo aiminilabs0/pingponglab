@@ -140,6 +140,8 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_BAD_TOAST: 'Thanks! We will use your feedback to improve this.',
         RUBBER_1: 'Rubber 1',
         RUBBER_2: 'Rubber 2',
+        FOREHAND: 'Forehand',
+        BACKHAND: 'Backhand',
         SHARE: 'Share',
         SHARE_COPIED: 'Link copied!'
     },
@@ -195,6 +197,8 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_BAD_TOAST: '감사합니다! 해당 내용을 다시 검토해 볼께요.',
         RUBBER_1: '러버 1',
         RUBBER_2: '러버 2',
+        FOREHAND: '포핸드',
+        BACKHAND: '백핸드',
         SHARE: '공유',
         SHARE_COPIED: '링크가 복사되었습니다!'
     },
@@ -250,6 +254,8 @@ const UI_TEXT = {
         CONTENT_FEEDBACK_BAD_TOAST: '感谢反馈！我们会继续改进。',
         RUBBER_1: '胶皮 1',
         RUBBER_2: '胶皮 2',
+        FOREHAND: '正手',
+        BACKHAND: '反手',
         SHARE: '分享',
         SHARE_COPIED: '链接已复制！'
     }
