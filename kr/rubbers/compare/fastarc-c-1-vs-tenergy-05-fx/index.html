@@ -55,7 +55,7 @@
         window.dataLayer = window.dataLayer || [];
         const __gaBlockedUser = (function () {
             try {
-                const u = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase(); return u === 'tiny657' || u === 'pingponglab';
+                return localStorage.getItem('admin') \!== null;
             } catch {
                 return false;
             }
@@ -205,16 +205,8 @@
 
         <footer class="site-footer">
             <div class="site-footer-content">
-                <span>© 2026 aiMiniLabs</span>
-                <div class="greeting" id="headerAuth">
-                    <div class="greeting-login" id="headerLogin">
-                        <input type="text" id="loginNameInput" class="greeting-input" placeholder="" autocomplete="username" spellcheck="false" maxlength="11">
-                    </div>
-                    <div class="greeting-user" id="userBadge" hidden>
-                        <span class="greeting-name" id="userBadgeName"></span>
-                        <button type="button" class="greeting-logout" id="userLogoutBtn" title="Log out" aria-label="Log out">✕</button>
-                    </div>
-                </div>
+                <span><span id="adminToggle" class="admin-toggle">©</span> 2026 aiMiniLabs</span>
+
                 <button class="footer-feedback-btn" id="feedbackOpenBtn" title="Send feedback">✉ <span data-i18n-key="FEEDBACK_BUTTON">Feedback</span></button>
             </div>
         </footer>

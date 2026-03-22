@@ -1,86 +1,9 @@
-/* ── Greeting login (hidden admin area in footer) ── */
-.greeting {
-    display: inline-flex;
-    align-items: center;
-    gap: 0;
-    white-space: nowrap;
-}
-
-/* Logged-out: invisible inline input */
-.greeting-login {
-    display: flex;
-    align-items: center;
-}
-.greeting-login[hidden] { display: none; }
-.greeting-input {
-    width: 1px;
-    height: 1em;
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: transparent;
-    font-size: 0;
-    outline: none;
-    cursor: default;
-    caret-color: transparent;
-    opacity: 0;
-}
-.greeting-input::placeholder {
-    color: transparent;
-}
-.greeting-input:focus {
-    width: 72px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: inherit;
-    color: var(--drac-fg);
-    caret-color: auto;
-    opacity: 1;
-    padding: 0 6px;
-    border-bottom: 1.5px solid var(--drac-orange);
-}
-.greeting-input:focus::placeholder {
-    color: var(--drac-comment);
-    font-weight: 500;
-    opacity: 0.55;
-}
-
-/* Logged-in: name + logout */
-.greeting-user {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 13px;
-    font-weight: 600;
-}
-.greeting-user[hidden] { display: none; }
-.greeting-name {
-    font-weight: 700;
-    color: var(--drac-orange);
-    max-width: 110px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.greeting-logout {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border: none;
-    border-radius: 4px;
-    background: transparent;
-    color: var(--drac-comment);
+/* ── Admin toggle (© symbol) ── */
+.admin-toggle {
     cursor: pointer;
-    font-size: 11px;
-    line-height: 1;
-    opacity: 0;
-    transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+    user-select: none;
+    transition: color 0.15s ease;
 }
-.greeting:hover .greeting-logout {
-    opacity: 1;
-}
-.greeting-logout:hover {
-    color: var(--drac-red);
-    background: rgba(207,85,85,0.12);
+.admin-toggle.admin-active {
+    color: var(--drac-cyan);
 }

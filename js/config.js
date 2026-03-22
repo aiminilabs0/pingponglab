@@ -485,14 +485,7 @@ function getCountryTokenForGa() {
 }
 
 function getLoginNameInputForGa() {
-    try {
-        const input = document.getElementById('loginNameInput');
-        const inputValue = (input?.value || '').trim();
-        if (inputValue) return inputValue;
-        return (localStorage.getItem('pingponglab_user_id') || '').trim();
-    } catch {
-        return '';
-    }
+    return '';
 }
 
 function buildCountryGaEventName(eventToken, nameToken) {
@@ -501,8 +494,7 @@ function buildCountryGaEventName(eventToken, nameToken) {
 
 function isAnalyticsBlockedUser() {
     try {
-        const user = (localStorage.getItem('pingponglab_user_id') || '').trim().toLowerCase();
-        return user === 'pingponglab' || user === 'tiny657';
+        return localStorage.getItem('admin') !== null;
     } catch {
         return false;
     }
