@@ -16,7 +16,7 @@
     "url": "https://www.youtube.com/watch?v=JIxZGn6x-yg",
     "country": "Germany",
     "release_year": 2023,
-    "hardness": 45,
+    "hardness": 42.5,
     "thickness": [
       "max",
       "2.0"
@@ -27,7 +27,7 @@
   "urls": {
     "us": {
       "product": "https://www.amazon.com/s?k=JOOLA+Tronix+CMD+table+tennis+rubber",
-      "youtube": ""
+      "youtube": "https://www.youtube.com/watch?v=VnEq9NV4iLI&t=107s"
     },
     "kr": {
       "product": "",
