@@ -1,45 +1,48 @@
-/* ── Greeting login (between Speed and Search) ── */
+/* ── Greeting login (hidden admin area in footer) ── */
 .greeting {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--drac-comment);
+    gap: 0;
     white-space: nowrap;
 }
-.greeting-label {
-    opacity: 0.8;
-}
 
-/* Logged-out: inline input */
+/* Logged-out: invisible inline input */
 .greeting-login {
     display: flex;
     align-items: center;
 }
 .greeting-login[hidden] { display: none; }
 .greeting-input {
-    width: 72px;
-    height: 24px;
-    padding: 0 6px;
+    width: 1px;
+    height: 1em;
+    padding: 0;
     border: none;
-    border-bottom: 1.5px solid rgba(155,148,132,0.35);
-    border-radius: 0;
     background: transparent;
-    color: var(--drac-fg);
+    color: transparent;
+    font-size: 0;
+    outline: none;
+    cursor: default;
+    caret-color: transparent;
+    opacity: 0;
+}
+.greeting-input::placeholder {
+    color: transparent;
+}
+.greeting-input:focus {
+    width: 72px;
     font-size: 13px;
     font-weight: 600;
     font-family: inherit;
-    outline: none;
-    transition: border-color 0.15s ease;
+    color: var(--drac-fg);
+    caret-color: auto;
+    opacity: 1;
+    padding: 0 6px;
+    border-bottom: 1.5px solid var(--drac-orange);
 }
-.greeting-input::placeholder {
+.greeting-input:focus::placeholder {
     color: var(--drac-comment);
     font-weight: 500;
     opacity: 0.55;
-}
-.greeting-input:focus {
-    border-bottom-color: var(--drac-orange);
 }
 
 /* Logged-in: name + logout */
@@ -47,6 +50,8 @@
     display: inline-flex;
     align-items: center;
     gap: 3px;
+    font-size: 13px;
+    font-weight: 600;
 }
 .greeting-user[hidden] { display: none; }
 .greeting-name {

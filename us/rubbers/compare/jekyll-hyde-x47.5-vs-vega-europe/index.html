@@ -96,16 +96,6 @@
         <div class="chart-bleed">
             <div class="chart-speed-outside" aria-hidden="true">
                 <span>⚡ <span data-i18n-key="SPEED_RANKING">Speed Ranking</span> ↑</span>
-                <div class="greeting" id="headerAuth">
-                    <span class="greeting-label">Hi </span>
-                    <div class="greeting-login" id="headerLogin">
-                        <input type="text" id="loginNameInput" class="greeting-input" placeholder="there ⏎" autocomplete="username" spellcheck="false" maxlength="11">
-                    </div>
-                    <div class="greeting-user" id="userBadge" hidden>
-                        <span class="greeting-name" id="userBadgeName"></span>
-                        <button type="button" class="greeting-logout" id="userLogoutBtn" title="Log out" aria-label="Log out">✕</button>
-                    </div>
-                </div>
                 <div class="header-search" id="headerSearch" aria-hidden="false">
                     <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <input type="text" id="headerSearchInput" class="header-search-input" placeholder="Search..." autocomplete="off" spellcheck="false">
@@ -213,6 +203,15 @@
         <footer class="site-footer">
             <div class="site-footer-content">
                 <span>© 2026 aiMiniLabs</span>
+                <div class="greeting" id="headerAuth">
+                    <div class="greeting-login" id="headerLogin">
+                        <input type="text" id="loginNameInput" class="greeting-input" placeholder="" autocomplete="username" spellcheck="false" maxlength="11">
+                    </div>
+                    <div class="greeting-user" id="userBadge" hidden>
+                        <span class="greeting-name" id="userBadgeName"></span>
+                        <button type="button" class="greeting-logout" id="userLogoutBtn" title="Log out" aria-label="Log out">✕</button>
+                    </div>
+                </div>
                 <button class="footer-feedback-btn" id="feedbackOpenBtn" title="Send feedback">✉ <span data-i18n-key="FEEDBACK_BUTTON">Feedback</span></button>
             </div>
         </footer>
