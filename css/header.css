@@ -99,7 +99,7 @@
     color: var(--drac-orange);
 }
 .header-search-input {
-    width: 180px;
+    width: 160px;
     height: 36px;
     padding: 0 12px 0 32px;
     border: 1.5px solid rgba(155,148,132,0.3);
@@ -120,7 +120,7 @@
 .header-search-input:focus {
     border-color: var(--drac-orange);
     background: rgba(28,26,23,0.75);
-    width: 210px;
+    width: 185px;
 }
 .header-search-results {
     display: none;
