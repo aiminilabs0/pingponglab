@@ -495,6 +495,10 @@ function buildCountryGaEventName(eventToken, nameToken) {
 }
 
 function isAnalyticsBlockedUser() {
+    const host = String(window.location.hostname || '').toLowerCase();
+    if (host === 'localhost' || host === '127.0.0.1' || host === '::1') {
+        return true;
+    }
     try {
         return localStorage.getItem('admin') !== null;
     } catch {
