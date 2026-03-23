@@ -655,6 +655,7 @@ function applyRoute(route) {
 }
 
 async function initializeApp() {
+    ensureAnalyticsInitialized();
     trackAppLoadedEvent();
 
     const chart = document.getElementById('chart');

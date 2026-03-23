@@ -467,6 +467,7 @@ function extractYouTubeVideoId(url) {
 
 const getBrandColor = brand => BRAND_COLORS[brand] || '#999999';
 const getSheetSymbol = sheet => SHEET_MARKERS[sheet] || 'circle';
+const GA_MEASUREMENT_ID = 'G-F2QMQTQXMK';
 
 function getDeviceTypeForGa() {
     return IS_TOUCH_DEVICE ? 'mobile' : 'desktop';
@@ -498,6 +499,31 @@ function isAnalyticsBlockedUser() {
         return localStorage.getItem('admin') !== null;
     } catch {
         return false;
+    }
+}
+
+function ensureAnalyticsInitialized() {
+    if (isAnalyticsBlockedUser()) return;
+    window.dataLayer = window.dataLayer || [];
+
+    if (typeof window.gtag !== 'function') {
+        window.gtag = function gtag() {
+            window.dataLayer.push(arguments);
+        };
+    }
+
+    if (!window.__gaBootstrapScriptInjected) {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
+        document.head.appendChild(script);
+        window.__gaBootstrapScriptInjected = true;
+    }
+
+    if (!window.__gaConfigured) {
+        window.gtag('js', new Date());
+        window.gtag('config', GA_MEASUREMENT_ID);
+        window.__gaConfigured = true;
     }
 }
 
