@@ -183,6 +183,33 @@
     content: '▸ ';
     opacity: 0.6;
 }
+.header-search-side-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 16px;
+    margin-left: 4px;
+    padding: 0 4px;
+    border: 1px solid;
+    border-radius: 4px;
+    vertical-align: middle;
+    line-height: 1;
+}
+.header-search-side-badge--fh {
+    border-color: #e25555;
+    color: #e25555;
+    background: rgba(226, 85, 85, 0.08);
+}
+.header-search-side-badge--bh {
+    border-color: #555;
+    color: #ccc;
+    background: rgba(60, 60, 60, 0.25);
+}
+.header-search-paddle-black {
+    display: inline-block;
+    filter: grayscale(1) brightness(1) contrast(1.3);
+}
 .header-search-no-results {
     padding: 12px 14px;
     font-size: 13px;

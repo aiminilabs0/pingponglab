@@ -213,19 +213,86 @@ function initHeaderSearch() {
         return Array.isArray(filtered) && filtered.length > 0 ? filtered : rubberData;
     }
 
+    function collectMatchedPlayersBySide(rubber, query) {
+        const matchesByPlayer = new Map();
+        const playerMatchesQuery = (name) => {
+            if (typeof name !== 'string') return false;
+            const trimmed = name.trim();
+            if (!trimmed) return false;
+            if (trimmed.toLowerCase().includes(query)) return true;
+
+            const player = getPlayerDataByName(trimmed);
+            if (!player) return false;
+
+            const candidates = [];
+            if (typeof player.canonical_name === 'string') candidates.push(player.canonical_name);
+            if (typeof player.full_name === 'string') candidates.push(player.full_name);
+            if (player.localized_names && typeof player.localized_names === 'object') {
+                Object.values(player.localized_names).forEach((localizedName) => {
+                    if (typeof localizedName === 'string') candidates.push(localizedName);
+                });
+            }
+            return candidates.some(candidate => candidate.trim().toLowerCase().includes(query));
+        };
+
+        const addMatches = (players, side) => {
+            if (!Array.isArray(players)) return;
+            players.forEach((name) => {
+                if (typeof name !== 'string') return;
+                const trimmed = name.trim();
+                if (!trimmed) return;
+                if (playerMatchesQuery(trimmed)) {
+                    const key = trimmed.toLowerCase();
+                    const existing = matchesByPlayer.get(key) || {
+                        name: trimmed,
+                        forehand: false,
+                        backhand: false
+                    };
+                    if (side === 'forehand') existing.forehand = true;
+                    if (side === 'backhand') existing.backhand = true;
+                    matchesByPlayer.set(key, existing);
+                }
+            });
+        };
+        addMatches(rubber.forehandPlayers, 'forehand');
+        addMatches(rubber.backhandPlayers, 'backhand');
+        return Array.from(matchesByPlayer.values());
+    }
+
     function search(query) {
         const q = query.trim().toLowerCase();
         if (!q) { closeResults(); return; }
 
-        currentMatches = getHeaderSearchPool()
-            .filter(r =>
-                r.abbr.toLowerCase().includes(q) ||
-                r.fullName.toLowerCase().includes(q) ||
-                r.playerSearchNames.some(name => name.toLowerCase().includes(q)) ||
-                Object.values(BRAND_NAMES_I18N).some(m => m[r.brand]?.toLowerCase().includes(q)) ||
-                getRubberLocalizedSearchTerms(r).some(name => name.toLowerCase().includes(q))
-            )
-            .slice(0, 30);
+        const matches = [];
+        getHeaderSearchPool().forEach((r) => {
+            const nameMatch = r.abbr.toLowerCase().includes(q) || r.fullName.toLowerCase().includes(q);
+            const brandMatch = Object.values(BRAND_NAMES_I18N).some(m => m[r.brand]?.toLowerCase().includes(q));
+            const localizedNameMatch = getRubberLocalizedSearchTerms(r).some(name => name.toLowerCase().includes(q));
+            const playerNameMatch = r.playerSearchNames.some(name => name.toLowerCase().includes(q));
+
+            if (nameMatch || brandMatch || localizedNameMatch) {
+                matches.push({ rubber: r, matchedPlayer: '', matchedSide: '' });
+                return;
+            }
+
+            const sidePlayerMatches = collectMatchedPlayersBySide(r, q);
+            sidePlayerMatches.forEach((playerMatch) => {
+                matches.push({
+                    rubber: r,
+                    matchedPlayer: playerMatch.name,
+                    matchedSides: {
+                        forehand: playerMatch.forehand,
+                        backhand: playerMatch.backhand
+                    }
+                });
+            });
+
+            if (playerNameMatch && sidePlayerMatches.length === 0) {
+                matches.push({ rubber: r, matchedPlayer: '', matchedSide: '' });
+            }
+        });
+
+        currentMatches = matches.slice(0, 30);
 
         if (currentMatches.length === 0) {
             results.innerHTML = '<div class="header-search-no-results">No rubbers found</div>';
@@ -234,17 +301,27 @@ function initHeaderSearch() {
             return;
         }
 
-        results.innerHTML = currentMatches.map((r, i) => {
-            const nameMatch = r.abbr.toLowerCase().includes(q) || r.fullName.toLowerCase().includes(q);
-            const matchedPlayer = !nameMatch
-                ? r.playerSearchNames.find(name => name.toLowerCase().includes(q)) || ''
+        results.innerHTML = currentMatches.map((entry, i) => {
+            const r = entry.rubber;
+            const matchedPlayer = entry.matchedPlayer;
+            const matchedSides = entry.matchedSides || {};
+            const sideBadgeHtml = [
+                matchedSides.forehand
+                    ? '<span class="header-search-side-badge header-search-side-badge--fh">🏓</span>'
+                    : '',
+                matchedSides.backhand
+                    ? '<span class="header-search-side-badge header-search-side-badge--bh"><span class="header-search-paddle-black">🏓</span></span>'
+                    : ''
+            ].filter(Boolean).join(' ');
+            const matchedPlayerLabel = matchedPlayer
+                ? (getLocalizedPlayerName(matchedPlayer) || matchedPlayer)
                 : '';
 
             return `<div class="header-search-result" data-index="${i}">` +
                 `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
                 `<span class="header-search-result-brand">${tBrand(r.brand)}</span>` +
-                (matchedPlayer
-                    ? `<span class="header-search-result-player">${highlightMatch(matchedPlayer, q)}</span>`
+                (matchedPlayerLabel
+                    ? `<span class="header-search-result-player">${highlightMatch(matchedPlayerLabel, q)}${sideBadgeHtml ? ` ${sideBadgeHtml}` : ''}</span>`
                     : '') +
                 `</div>`;
         }).join('');
@@ -265,7 +342,9 @@ function initHeaderSearch() {
         return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    function selectResult(rubber) {
+    function selectResult(match) {
+        const rubber = match?.rubber || match;
+        if (!rubber) return;
         handleRubberClick(rubber);
         input.value = '';
         closeResults();
