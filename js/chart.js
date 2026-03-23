@@ -326,6 +326,7 @@ function computeVisibleRubbers(filteredData) {
 let _clickPopupActiveUntil = 0;
 let _clickPopupPinned = false;
 let _popupPlayerRotateTimer = null;
+let _popupPlayerRotateSwapTimeout = null;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -424,6 +425,8 @@ function hideChartHoverPopup({ force = false } = {}) {
     _clickPopupPinned = false;
     clearInterval(_popupPlayerRotateTimer);
     _popupPlayerRotateTimer = null;
+    clearTimeout(_popupPlayerRotateSwapTimeout);
+    _popupPlayerRotateSwapTimeout = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
 }
@@ -508,6 +511,8 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     // Start player name rotation
     clearInterval(_popupPlayerRotateTimer);
     _popupPlayerRotateTimer = null;
+    clearTimeout(_popupPlayerRotateSwapTimeout);
+    _popupPlayerRotateSwapTimeout = null;
     const rotateEl = popup.querySelector('.chart-hover-player-name-rotate');
     const playerEls = popup.querySelectorAll('.chart-hover-player');
     if (rotateEl && playerEls.length) {
@@ -517,19 +522,25 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
             const names = JSON.parse(rotateEl.dataset.names || '[]');
             if (names.length > 1) {
                 let idx = 0;
+                const FADE_DURATION_MS = 180;
+                const ROTATE_INTERVAL_MS = 1200;
                 const startRotation = (fromIdx) => {
                     clearInterval(_popupPlayerRotateTimer);
+                    clearTimeout(_popupPlayerRotateSwapTimeout);
+                    _popupPlayerRotateSwapTimeout = null;
                     idx = fromIdx;
                     _popupPlayerRotateTimer = setInterval(() => {
                         playerEls[idx]?.classList.remove('is-active');
                         idx = (idx + 1) % names.length;
                         rotateEl.classList.remove('visible');
-                        setTimeout(() => {
+                        _popupPlayerRotateSwapTimeout = setTimeout(() => {
                             rotateEl.textContent = names[idx];
-                            rotateEl.classList.add('visible');
+                            // Wait one frame after text swap to avoid ghosting on mobile compositing.
+                            requestAnimationFrame(() => rotateEl.classList.add('visible'));
                             playerEls[idx]?.classList.add('is-active');
-                        }, 150);
-                    }, 1000);
+                            _popupPlayerRotateSwapTimeout = null;
+                        }, FADE_DURATION_MS);
+                    }, ROTATE_INTERVAL_MS);
                 };
                 startRotation(0);
 
@@ -537,6 +548,8 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
                     el.addEventListener('mouseenter', () => {
                         clearInterval(_popupPlayerRotateTimer);
                         _popupPlayerRotateTimer = null;
+                        clearTimeout(_popupPlayerRotateSwapTimeout);
+                        _popupPlayerRotateSwapTimeout = null;
                         playerEls.forEach(p => p.classList.remove('is-active'));
                         el.classList.add('is-active');
                         rotateEl.textContent = names[i] || '';
