@@ -698,7 +698,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                         <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(brandName)}
                     </span>
                 </div>
-                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${ytBtn}${slotBadge}</div>
+                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>

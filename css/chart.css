@@ -209,6 +209,13 @@
     display: inline-flex;
     align-items: center;
 }
+.chart-hover-head .rubber-release-year {
+    font-size: 0.7em;
+    opacity: 0.5;
+    font-weight: 400;
+    margin-left: 2px;
+    align-self: flex-end;
+}
 .chart-hover-yt-btn {
     display: inline-flex;
     align-items: center;
