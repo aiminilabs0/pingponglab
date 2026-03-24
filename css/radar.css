@@ -21,6 +21,7 @@
 .radar-info-combined {
     border-top: 1px solid var(--drac-current);
     padding: 14px 16px;
+    backdrop-filter: blur(6px);
 }
 
 /* Header row: two rubber headers side-by-side */
@@ -51,6 +52,38 @@
 .radar-comparison-header-side--right .brand-pill {
     margin-left: auto;
 }
+/* Hero section: Speed & Spin — 3-column grid matching detail rows */
+.radar-cmp-hero {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 4px 6px;
+    align-items: center;
+    background: rgba(62,58,52,0.15);
+    border: 1px solid rgba(155,148,132,0.15);
+    border-radius: 6px;
+    padding: 8px 6px;
+    margin-bottom: 8px;
+}
+.radar-cmp-hero-cell--left {
+    text-align: right;
+    justify-self: end;
+}
+.radar-cmp-hero-cell--label {
+    text-align: center;
+    color: var(--drac-comment);
+    white-space: nowrap;
+    font-size: 12px;
+}
+.radar-cmp-hero-cell--right {
+    text-align: left;
+    justify-self: start;
+}
+.radar-cmp-hero-cell strong {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--drac-fg);
+}
+
 /* 3-column comparison grid */
 .radar-comparison-grid {
     display: grid;

@@ -232,8 +232,18 @@ function buildRadarComparisonHtml(first, second) {
         const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">${hintIcon}</span>`;
         const speedLabel = tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`;
         const spinLabel = tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`;
-        const emptyLabels = [speedLabel, spinLabel, tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
-        const metricRows = emptyLabels.map(label => `
+        const emptyHeroHtml = `
+            <div class="radar-cmp-hero">
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left"><strong>-</strong></div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${speedLabel}</div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right"><strong>-</strong></div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left"><strong>-</strong></div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${spinLabel}</div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right"><strong>-</strong></div>
+            </div>
+        `;
+        const emptyDetailLabels = [tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
+        const metricRows = emptyDetailLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
             <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
@@ -248,6 +258,7 @@ function buildRadarComparisonHtml(first, second) {
                 ${buildRubberHeaderHtml(null, 0, false)}
                 ${buildRubberHeaderHtml(null, 1, true)}
             </div>
+            ${emptyHeroHtml}
             <div class="radar-comparison-grid">${metricRows}${playersRow}</div>
         `;
     }
@@ -300,8 +311,8 @@ function buildRadarComparisonHtml(first, second) {
         if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
         return l > r ? 'left' : 'right';
     }
-    // Build metric rows
-    const metrics = [
+    // Hero metrics (Speed, Spin)
+    const heroMetrics = [
         {
             label: tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`,
             winner: rankWinner('speedRank'),
@@ -314,6 +325,25 @@ function buildRadarComparisonHtml(first, second) {
             left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
             right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
         },
+    ];
+
+    function heroTrophyLabel(m) {
+        if (m.winner === 'left') return `🏆 ${m.label}\u2002\u2002`;
+        if (m.winner === 'right') return `\u2002\u2002${m.label} 🏆`;
+        return m.label;
+    }
+    const heroHtml = `
+        <div class="radar-cmp-hero">
+            ${heroMetrics.map(m => `
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left">${m.left}</div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${heroTrophyLabel(m)}</div>
+                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right">${m.right}</div>
+            `).join('')}
+        </div>
+    `;
+
+    // Detail metrics (Control through Thickness)
+    const detailMetrics = [
         {
             label: tUi('CONTROL'),
             winner: controlWinner(),
@@ -352,7 +382,7 @@ function buildRadarComparisonHtml(first, second) {
         if (m.winner === 'right') return `\u2002\u2002${m.label} 🏆`;
         return m.label;
     }
-    const metricRowsHtml = metrics.map(m => `
+    const detailRowsHtml = detailMetrics.map(m => `
         <div class="radar-cmp-cell radar-cmp-cell--left">${m.left}</div>
         <div class="radar-cmp-cell radar-cmp-cell--label">${trophyLabel(m)}</div>
         <div class="radar-cmp-cell radar-cmp-cell--right">${m.right}</div>
@@ -368,8 +398,9 @@ function buildRadarComparisonHtml(first, second) {
 
     return `
         ${headerHtml}
+        ${heroHtml}
         <div class="radar-comparison-grid">
-            ${metricRowsHtml}
+            ${detailRowsHtml}
             ${playersRowHtml}
         </div>
     `;
