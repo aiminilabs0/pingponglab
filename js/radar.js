@@ -228,7 +228,7 @@ function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
         const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span>`;
-        const emptyLabels = [tUi('SPEED_RANK'), tUi('SPIN_RANK'), tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
+        const emptyLabels = [tUi('SPEED'), tUi('SPIN_RANK'), tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
@@ -299,7 +299,7 @@ function buildRadarComparisonHtml(first, second) {
     // Build metric rows
     const metrics = [
         {
-            label: tUi('SPEED_RANK'),
+            label: tUi('SPEED'),
             winner: rankWinner('speedRank'),
             left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
             right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),

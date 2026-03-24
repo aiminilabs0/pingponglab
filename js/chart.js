@@ -702,7 +702,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
             </div>
             <div class="chart-hover-metrics">
                 <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('SPEED_RANK')}</span><strong>${speed}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('SPEED')}</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
