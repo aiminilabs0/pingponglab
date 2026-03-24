@@ -817,6 +817,9 @@ async function initializeApp() {
         mobileQuery.addListener(syncZoomHintVisibility);
     }
 
+    // Alternate JP/CN hardness labels with their German equivalents every 2 s
+    setInterval(() => document.body.classList.toggle('show-hardness-de'), 2000);
+
     // Handle browser back/forward
     window.addEventListener('popstate', () => {
         const newRoute = parseRoute();

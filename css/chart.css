@@ -349,6 +349,19 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .chart-hover-shape.dot-square  { border-radius: 2px; }
 .chart-hover-shape.dot-diamond { border-radius: 1px; transform: rotate(45deg); }
 .chart-hover-shape.dot-diamond > span { transform: rotate(-45deg); }
+/* Alternating JP/CN ↔ DE hardness display */
+.hardness-duo {
+    display: inline-grid;
+}
+.hardness-duo .hardness-native,
+.hardness-duo .hardness-de {
+    grid-area: 1 / 1;
+    transition: opacity 0.3s ease;
+}
+.hardness-duo .hardness-de { opacity: 0; }
+.show-hardness-de .hardness-duo .hardness-native { opacity: 0; }
+.show-hardness-de .hardness-duo .hardness-de { opacity: 1; }
+
 .chart-hover-metric strong.hardness-tone-soft,
 .radar-cmp-cell strong.hardness-tone-soft {
     color: var(--drac-green);

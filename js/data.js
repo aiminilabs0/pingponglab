@@ -462,6 +462,7 @@ async function loadRubberData() {
         const weightValue = parseRatingNumber(details.weight);
         const releaseYear = parseRatingNumber(details.release_year);
         const hardnessFlag = COUNTRY_FLAGS[details.country] || '';
+        const normalizedH = toGermanScale(hardness, details.country);
         const urls = raw.urls || {};
 
         const rubber = {
@@ -477,8 +478,11 @@ async function loadRubberData() {
             weight: weightValue,
             hardness: parseRatingNumber(ratings.sponge_hardness),
             manufacturerHardness: hardness,
-            normalizedHardness: toGermanScale(hardness, details.country),
+            normalizedHardness: normalizedH,
             hardnessLabel: Number.isFinite(hardness) ? `${hardness}°${hardnessFlag ? ` ${hardnessFlag}` : ''}` : 'N/A',
+            hardnessLabelDE: (details.country === 'Japan' || details.country === 'China') && Number.isFinite(normalizedH)
+                ? `${Number.isInteger(normalizedH) ? String(normalizedH) : normalizedH.toFixed(1)}° 🇩🇪`
+                : null,
             weightLabel: Number.isFinite(weightValue) ? `${weightValue}g` : 'N/A',
             releaseYearLabel: Number.isFinite(releaseYear) ? String(Math.round(releaseYear)) : 'N/A',
             thicknessLabel: formatThicknessLabel(details.thickness),

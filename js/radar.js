@@ -323,8 +323,8 @@ function buildRadarComparisonHtml(first, second) {
         },
         {
             label: tUi('HARDNESS'),
-            left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
-            right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}">${escapeHtml(formatHardnessPopupLabel(r))}</strong>`),
+            left: val(first, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}${r.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(r)}</strong>`),
+            right: val(second, r => `<strong class="${getHardnessToneClass(r.normalizedHardness) || ''}${r.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(r)}</strong>`),
         },
         {
             label: tUi('TOPSHEET'),

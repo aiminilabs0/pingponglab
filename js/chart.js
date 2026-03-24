@@ -346,6 +346,13 @@ function formatHardnessPopupLabel(rubber) {
     return rubber?.hardnessLabel || 'N/A';
 }
 
+function formatHardnessHtml(rubber) {
+    const label = escapeHtml(rubber?.hardnessLabel || 'N/A');
+    const labelDE = rubber?.hardnessLabelDE;
+    if (!labelDE) return label;
+    return `<span class="hardness-native">${label}</span><span class="hardness-de">${escapeHtml(labelDE)}</span>`;
+}
+
 function formatThicknessRadarHtml(thicknessLabel) {
     const raw = String(thicknessLabel || 'N/A').trim();
     if (!raw || raw === 'N/A') return 'N/A';
@@ -699,7 +706,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
-                <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}">${escapeHtml(hardness)}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
         </div>
