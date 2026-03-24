@@ -571,46 +571,51 @@ a.chart-hover-player:hover .chart-hover-player-img {
     flex-shrink: 0;
 }
 
-/* ── Metric hint tooltip (?) ── */
+/* ── Metric hint tooltip (ⓘ icon + tooltip) ── */
 .metric-hint {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 13px;
-    height: 13px;
-    margin-left: 3px;
-    border-radius: 50%;
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--drac-comment);
-    border: 1px solid var(--drac-comment);
+    margin-left: 4px;
     cursor: help;
     vertical-align: middle;
     flex-shrink: 0;
 }
+.metric-hint-icon {
+    opacity: 0.35;
+    transition: opacity 0.15s ease;
+    flex-shrink: 0;
+}
+.metric-hint:hover .metric-hint-icon {
+    opacity: 0.7;
+}
 .metric-hint::after {
     content: attr(data-hint);
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
-    padding: 4px 8px;
-    border-radius: 6px;
-    background: var(--drac-current);
+    transform: translateX(-50%) translateY(4px);
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(28,26,23,0.95);
+    border: 1px solid rgba(155,148,132,0.20);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
     color: var(--drac-fg);
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.4;
     white-space: normal;
     width: max-content;
-    max-width: 260px;
+    max-width: 240px;
     text-align: center;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.18s ease, transform 0.18s ease;
     z-index: 10;
 }
 .metric-hint:hover::after {
     opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }

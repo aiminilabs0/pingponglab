@@ -225,11 +225,13 @@ function buildRadarComparisonHtml(first, second) {
         return `<strong class="chart-sheet-value radar-cmp-small"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(localizedSheet.charAt(0))}</span></span>${escapeHtml(localizedSheet.slice(1))}</strong>`;
     }
 
+    const hintIcon = '<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>';
+
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
-        const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span>`;
-        const speedLabel = tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">?</span>`;
-        const spinLabel = tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">?</span>`;
+        const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">${hintIcon}</span>`;
+        const speedLabel = tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`;
+        const spinLabel = tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`;
         const emptyLabels = [speedLabel, spinLabel, tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
         const metricRows = emptyLabels.map(label => `
             <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
@@ -301,13 +303,13 @@ function buildRadarComparisonHtml(first, second) {
     // Build metric rows
     const metrics = [
         {
-            label: tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">?</span>`,
+            label: tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`,
             winner: rankWinner('speedRank'),
             left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
             right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
         },
         {
-            label: tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">?</span>`,
+            label: tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`,
             winner: rankWinner('spinRank'),
             left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
             right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
@@ -319,7 +321,7 @@ function buildRadarComparisonHtml(first, second) {
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
         {
-            label: tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span>`,
+            label: tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">${hintIcon}</span>`,
             left: val(first, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
             right: val(second, r => `<strong class="${getWeightToneClass(r.weight) || ''}">${escapeHtml(r.weightLabel || '-')}</strong>`),
         },

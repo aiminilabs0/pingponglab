@@ -715,7 +715,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
             </div>
             <div class="chart-hover-details">
                 <div class="chart-hover-detail"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
-                <div class="chart-hover-detail"><span>${tUi('CUT_WEIGHT')}<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+                <div class="chart-hover-detail"><span>${tUi('CUT_WEIGHT')}<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}"><svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
                 <div class="chart-hover-detail"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
                 <div class="chart-hover-detail"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
