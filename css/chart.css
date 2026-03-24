@@ -109,6 +109,25 @@
     font-size: 13px;
     font-weight: 700;
 }
+/* Axis-label hints: speed tooltip drops below, left-aligned (near page top-left) */
+.chart-speed-outside .metric-hint::after {
+    bottom: auto;
+    top: calc(100% + 8px);
+    left: 0;
+    transform: translateY(-4px);
+}
+.chart-speed-outside .metric-hint:hover::after {
+    transform: translateY(0);
+}
+/* Spin label hint: right-aligned (near page bottom-right) */
+.chart-spin-label .metric-hint::after {
+    left: auto;
+    right: 0;
+    transform: translateY(4px);
+}
+.chart-spin-label .metric-hint:hover::after {
+    transform: translateY(0);
+}
 .chart-control-guide-dots {
     display: inline-flex;
     align-items: center;
@@ -205,7 +224,6 @@
     border: 1px solid rgba(155,148,132,0.30);
     border-radius: 14px;
     padding: 0;
-    overflow: hidden;
     background:
         radial-gradient(circle at 85% 0%, rgba(126,184,168,0.08) 0%, transparent 50%),
         linear-gradient(165deg, rgba(28,26,23,0.97) 0%, rgba(43,41,38,0.98) 100%);
@@ -220,6 +238,7 @@
 .chart-hover-accent {
     height: 3px;
     width: 100%;
+    border-radius: 14px 14px 0 0;
 }
 
 /* ── Header ── */

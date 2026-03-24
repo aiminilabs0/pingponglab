@@ -398,6 +398,23 @@ function applyLocalizedStaticText() {
     setText('feedbackConfirmationMessage', 'FEEDBACK_CONFIRMATION');
     setAttr('feedbackEmail', 'placeholder', 'FEEDBACK_EMAIL_PLACEHOLDER');
     setAttr('feedbackMessage', 'placeholder', 'FEEDBACK_MESSAGE_PLACEHOLDER');
+
+    // Inject metric-hint icons into chart axis labels
+    const hintIconSvg = '<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>';
+    function injectAxisHint(containerSel, hintKey) {
+        const container = document.querySelector(containerSel);
+        if (!container) return;
+        let hint = container.querySelector('.metric-hint');
+        if (!hint) {
+            hint = document.createElement('span');
+            hint.className = 'metric-hint';
+            hint.innerHTML = hintIconSvg;
+            container.appendChild(hint);
+        }
+        hint.dataset.hint = tUi(hintKey);
+    }
+    injectAxisHint('.chart-speed-outside > span', 'SPEED_HINT');
+    injectAxisHint('.chart-spin-label', 'SPIN_HINT');
 }
 
 const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
