@@ -1021,11 +1021,11 @@ function updateChart(options = {}) {
 
     if (!chartEl._hasTapDismissHandler) {
         chartEl._hasTapDismissHandler = true;
-        document.addEventListener('click', () => {
+        document.addEventListener('click', (event) => {
             const popup = document.getElementById(HOVER_POPUP_ID);
             if (!popup || !popup.classList.contains('visible')) return;
-            // Ignore the same click used to open the popup.
             if (Date.now() < _clickPopupActiveUntil) return;
+            if (popup.contains(event.target)) return;
             hideChartHoverPopup({ force: true });
         });
         document.addEventListener('pointerdown', (event) => {
