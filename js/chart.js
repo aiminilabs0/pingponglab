@@ -701,7 +701,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-metrics">
-                <div class="chart-hover-metric"><span>${tUi('SPIN_RANK')}</span><strong>${spin}</strong></div>
+                <div class="chart-hover-metric"><span>${tUi('SPIN')}</span><strong>${spin}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('SPEED')}</span><strong>${speed}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
                 <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}</span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
