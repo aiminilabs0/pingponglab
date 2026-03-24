@@ -691,6 +691,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
 
     return `
         <div class="chart-hover-card">
+            <div class="chart-hover-accent" style="background:${brandColor}"></div>
             <button class="chart-hover-close" aria-label="Close">&times;</button>
             <div class="chart-hover-head">
                 <div class="chart-hover-top">
@@ -700,13 +701,23 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 </div>
                 <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${slotBadge}</div>
             </div>
-            <div class="chart-hover-metrics">
-                <div class="chart-hover-metric"><span>${tUi('SPIN')}<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">?</span></span><strong>${spin}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('SPEED')}<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">?</span></span><strong>${speed}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('CUT_WEIGHT')}<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-metric"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
-                <div class="chart-hover-metric"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
+            <div class="chart-hover-hero">
+                <div class="chart-hover-hero-col" data-hint="${tUi('SPIN_HINT')}">
+                    <span class="chart-hover-hero-label">${tUi('SPIN')}<svg class="chart-hover-hero-info" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span>
+                    <span class="chart-hover-hero-value">${spin}</span>
+                    <span class="chart-hover-hero-hint">${tUi('SPIN_HINT')}</span>
+                </div>
+                <div class="chart-hover-hero-col" data-hint="${tUi('SPEED_HINT')}">
+                    <span class="chart-hover-hero-label">${tUi('SPEED')}<svg class="chart-hover-hero-info" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span>
+                    <span class="chart-hover-hero-value">${speed}</span>
+                    <span class="chart-hover-hero-hint">${tUi('SPEED_HINT')}</span>
+                </div>
+            </div>
+            <div class="chart-hover-details">
+                <div class="chart-hover-detail"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
+                <div class="chart-hover-detail"><span>${tUi('CUT_WEIGHT')}<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">?</span></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+                <div class="chart-hover-detail"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
+                <div class="chart-hover-detail"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
         </div>

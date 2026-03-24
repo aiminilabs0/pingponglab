@@ -155,59 +155,85 @@
 /* Let annotation labels pass pointer events through to the WebGL layer */
 #chart .annotation { pointer-events: none; }
 /* chart-controls and chart-control-btn removed – now in header */
+/* ── Popup container ── */
 .chart-hover-popup {
     position: fixed;
     z-index: 9200;
     min-width: 250px;
     max-width: min(340px, calc(100vw - 16px));
     opacity: 0;
-    transform: translateY(6px) scale(0.98);
+    transform: translateY(6px) scale(0.97);
     pointer-events: none;
-    transition: opacity 0.13s ease, transform 0.13s ease;
+    transition: opacity 0.18s cubic-bezier(0.22,0.68,0,1.1),
+                transform 0.18s cubic-bezier(0.22,0.68,0,1.1);
 }
 .chart-hover-popup.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
 }
+
+/* ── Close button ── */
 .chart-hover-close {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    background: none;
+    top: 9px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(62,58,52,0.5);
     border: none;
     color: var(--drac-comment);
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1;
     cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 0;
+    border-radius: 6px;
     z-index: 1;
-    transition: color 0.12s ease;
+    transition: color 0.12s ease, background 0.12s ease;
 }
 .chart-hover-close:hover {
     color: var(--drac-fg);
+    background: rgba(62,58,52,0.75);
 }
+
+/* ── Card surface ── */
 .chart-hover-card {
     position: relative;
-    border: 1px solid rgba(155,148,132,0.35);
-    border-radius: 12px;
-    padding: 12px;
+    border: 1px solid rgba(155,148,132,0.30);
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 90% 0%, rgba(126,184,168,0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 0%, rgba(126,184,168,0.08) 0%, transparent 50%),
         linear-gradient(165deg, rgba(28,26,23,0.97) 0%, rgba(43,41,38,0.98) 100%);
-    box-shadow: 0 10px 34px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.35);
-    backdrop-filter: blur(2px);
+    box-shadow:
+        0 1px 0 0 rgba(232,224,208,0.04) inset,
+        0 12px 40px rgba(0,0,0,0.55),
+        0 2px 8px rgba(0,0,0,0.35);
+    backdrop-filter: blur(12px) saturate(1.2);
 }
+
+/* ── Accent stripe ── */
+.chart-hover-accent {
+    height: 3px;
+    width: 100%;
+}
+
+/* ── Header ── */
 .chart-hover-head {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-bottom: 10px;
+    padding: 14px 14px 10px;
 }
 .chart-hover-head .rubber-name {
     display: inline-flex;
     align-items: center;
+    color: var(--drac-fg);
+    font-size: 16px;
 }
 .chart-hover-head .rubber-release-year {
     font-size: 0.7em;
@@ -244,7 +270,7 @@
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    padding-top: 8px;
+    padding: 8px 14px 14px;
     border-top: 1px solid rgba(155,148,132,0.18);
 }
 .chart-hover-players-label {
@@ -300,30 +326,102 @@ a.chart-hover-player:hover .chart-hover-player-img {
     align-items: center;
     gap: 8px;
 }
-.chart-hover-metrics {
+/* ── Hero row (Spin & Speed) ── */
+.chart-hover-hero {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid rgba(155,148,132,0.15);
+    border-bottom: 1px solid rgba(155,148,132,0.15);
+}
+.chart-hover-hero-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    gap: 2px;
+}
+.chart-hover-hero-col + .chart-hover-hero-col {
+    border-left: 1px solid rgba(155,148,132,0.15);
+}
+.chart-hover-hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--drac-comment);
+    display: inline-flex;
+    align-items: center;
+}
+.chart-hover-hero-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--drac-fg);
+    line-height: 1.15;
+}
+
+/* Info icon in hero label */
+.chart-hover-hero-info {
+    margin-left: 4px;
+    opacity: 0.35;
+    transition: opacity 0.15s ease;
+    flex-shrink: 0;
+}
+.chart-hover-hero-col:hover .chart-hover-hero-info {
+    opacity: 0.7;
+}
+
+/* Hint text revealed on hero column hover */
+.chart-hover-hero-hint {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--drac-comment);
+    text-align: center;
+    max-width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.22s ease, opacity 0.18s ease, margin 0.22s ease;
+    margin-top: 0;
+}
+.chart-hover-hero-col:hover .chart-hover-hero-hint {
+    max-height: 48px;
+    opacity: 1;
+    margin-top: 4px;
+}
+
+/* ── Details grid (Control, Cut Weight, Topsheet, Hardness) ── */
+.chart-hover-details {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-    margin-bottom: 9px;
+    gap: 5px;
+    padding: 10px 14px;
 }
-.chart-hover-metric {
+.chart-hover-detail {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
-    padding: 6px 8px;
-    border: 1px solid rgba(155,148,132,0.18);
-    border-radius: 8px;
-    background: rgba(62,58,52,0.35);
+    padding: 5px 8px;
+    border: 1px solid rgba(155,148,132,0.12);
+    border-radius: 7px;
+    background: rgba(62,58,52,0.25);
+    transition: background 0.12s ease;
 }
-.chart-hover-metric span {
+.chart-hover-detail:hover {
+    background: rgba(62,58,52,0.45);
+}
+.chart-hover-detail span {
     color: var(--drac-comment);
-    font-size: 12.5px;
+    font-size: 11.5px;
 }
-.chart-hover-metric strong {
+.chart-hover-detail strong {
     color: var(--drac-fg);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     min-width: 0;
     max-width: 118px;
@@ -332,7 +430,7 @@ a.chart-hover-player:hover .chart-hover-player-img {
     white-space: nowrap;
     text-align: right;
 }
-.chart-hover-metric strong.chart-sheet-value {
+.chart-hover-detail strong.chart-sheet-value {
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -369,31 +467,31 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .show-hardness-de .hardness-duo .hardness-native { opacity: 0; }
 .show-hardness-de .hardness-duo .hardness-de { opacity: 1; }
 
-.chart-hover-metric strong.hardness-tone-soft,
+.chart-hover-detail strong.hardness-tone-soft,
 .radar-cmp-cell strong.hardness-tone-soft {
     color: var(--drac-green);
 }
-.chart-hover-metric strong.hardness-tone-medium,
+.chart-hover-detail strong.hardness-tone-medium,
 .radar-cmp-cell strong.hardness-tone-medium {
     color: var(--drac-yellow);
 }
-.chart-hover-metric strong.hardness-tone-hard,
+.chart-hover-detail strong.hardness-tone-hard,
 .radar-cmp-cell strong.hardness-tone-hard {
     color: var(--drac-red);
 }
-.chart-hover-metric strong.weight-tone-green,
+.chart-hover-detail strong.weight-tone-green,
 .radar-cmp-cell strong.weight-tone-green {
     color: var(--drac-green);
 }
-.chart-hover-metric strong.weight-tone-yellow,
+.chart-hover-detail strong.weight-tone-yellow,
 .radar-cmp-cell strong.weight-tone-yellow {
     color: var(--drac-yellow);
 }
-.chart-hover-metric strong.weight-tone-red,
+.chart-hover-detail strong.weight-tone-red,
 .radar-cmp-cell strong.weight-tone-red {
     color: var(--drac-red);
 }
-.chart-hover-metric strong.chart-control-indicator,
+.chart-hover-detail strong.chart-control-indicator,
 .radar-cmp-cell strong.chart-control-indicator {
     display: inline-flex;
     align-items: center;
