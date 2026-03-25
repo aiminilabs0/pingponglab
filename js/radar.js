@@ -186,7 +186,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
             </div>
             <div class="radar-info-name-row">
                 <div class="rubber-name">${escapeHtml(localizedRubber)}</div>
-                <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" title="${isPinned ? 'Unpin rubber' : 'Pin rubber'}">${pinIcon}</button>
+                <button class="radar-pin-btn${isPinned ? ' radar-pin-btn--active' : ''}" data-panel-index="${panelIndex}" data-hint="${isPinned ? tUi('UNPIN_HINT') : tUi('PIN_HINT')}">${pinIcon}</button>
             </div>
             ${rubberImgHtml}
             <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>

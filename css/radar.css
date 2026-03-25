@@ -172,6 +172,7 @@
     margin-bottom: 1px;
 }
 .radar-pin-btn {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,6 +191,35 @@
 .radar-pin-btn:hover {
     opacity: 0.85;
     background: rgba(62, 58, 52, 0.7);
+}
+.radar-pin-btn[data-hint]::after {
+    content: attr(data-hint);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(28,26,23,0.95);
+    border: 1px solid rgba(155,148,132,0.20);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    color: var(--drac-fg);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: normal;
+    width: max-content;
+    max-width: 200px;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+}
+.radar-pin-btn:hover[data-hint]::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 .radar-pin-btn--active {
     opacity: 1;

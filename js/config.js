@@ -141,7 +141,9 @@ const UI_TEXT = {
         FOREHAND: 'Forehand',
         BACKHAND: 'Backhand',
         SHARE: 'Share',
-        SHARE_COPIED: 'Link copied!'
+        SHARE_COPIED: 'Link copied!',
+        PIN_HINT: 'Pin this rubber',
+        UNPIN_HINT: 'Unpin this rubber'
     },
     ko: {
         FILTERS: '필터',
@@ -196,7 +198,9 @@ const UI_TEXT = {
         FOREHAND: '포핸드',
         BACKHAND: '백핸드',
         SHARE: '공유',
-        SHARE_COPIED: '링크가 복사되었습니다!'
+        SHARE_COPIED: '링크가 복사되었습니다!',
+        PIN_HINT: '러버 고정',
+        UNPIN_HINT: '고정 해제'
     },
     cn: {
         FILTERS: '筛选',
@@ -251,7 +255,9 @@ const UI_TEXT = {
         FOREHAND: '正手',
         BACKHAND: '反手',
         SHARE: '分享',
-        SHARE_COPIED: '链接已复制！'
+        SHARE_COPIED: '链接已复制！',
+        PIN_HINT: '固定胶皮',
+        UNPIN_HINT: '取消固定'
     }
 };
 
