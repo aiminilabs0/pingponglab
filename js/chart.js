@@ -259,10 +259,12 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
 }
 
 // Thin overlapping labels by priority (lower priority number = higher importance)
+let _prevVisibleRubbers = [];
+
 function computeVisibleRubbers(filteredData) {
-    if (filteredData.length === 0) return [];
+    if (filteredData.length === 0) { _prevVisibleRubbers = []; return []; }
     // Desktop: keep every rubber point/label visible, even when overlapping.
-    if (window.matchMedia('(min-width: 769px)').matches) return filteredData;
+    if (window.matchMedia('(min-width: 769px)').matches) { _prevVisibleRubbers = []; return filteredData; }
 
     const chartEl = document.getElementById('chart');
     let xRange, yRange, plotWidth, plotHeight;
@@ -316,9 +318,12 @@ function computeVisibleRubbers(filteredData) {
         occupied.push({ px, py });
     }
 
-    for (const rubber of sorted) {
-        if (selectedSet.has(rubber)) continue;
-        if (rubber === spotlightRubber) continue;
+    // Pass 1: Prefer keeping previously visible rubbers so only the
+    // spotlight swap causes a change, not the entire set reshuffling.
+    const alreadyAdded = new Set(visible);
+    for (const rubber of _prevVisibleRubbers) {
+        if (alreadyAdded.has(rubber)) continue;
+        if (!filteredData.includes(rubber)) continue;
         const { px, py } = toPixel(rubber.x, rubber.y);
         const overlaps = occupied.some(
             occ => Math.abs(px - occ.px) < MIN_DIST_X && Math.abs(py - occ.py) < MIN_DIST_Y
@@ -326,9 +331,25 @@ function computeVisibleRubbers(filteredData) {
         if (!overlaps) {
             visible.push(rubber);
             occupied.push({ px, py });
+            alreadyAdded.add(rubber);
         }
     }
 
+    // Pass 2: Fill remaining slots with priority-sorted newcomers.
+    for (const rubber of sorted) {
+        if (alreadyAdded.has(rubber)) continue;
+        const { px, py } = toPixel(rubber.x, rubber.y);
+        const overlaps = occupied.some(
+            occ => Math.abs(px - occ.px) < MIN_DIST_X && Math.abs(py - occ.py) < MIN_DIST_Y
+        );
+        if (!overlaps) {
+            visible.push(rubber);
+            occupied.push({ px, py });
+            alreadyAdded.add(rubber);
+        }
+    }
+
+    _prevVisibleRubbers = visible;
     return visible;
 }
 // ════════════════════════════════════════════════════════════
