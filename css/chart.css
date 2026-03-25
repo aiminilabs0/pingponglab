@@ -125,6 +125,7 @@
     left: auto;
     right: 0;
     transform: translateY(4px);
+    z-index: 101;
 }
 .chart-spin-label .metric-hint:hover::after {
     transform: translateY(0);
