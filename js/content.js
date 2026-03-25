@@ -204,33 +204,31 @@ function renderTabs() {
 
 function highlightActiveTab() {
     const tabBar = document.getElementById('contentTabs');
-    const hasSameBrandSelection = (() => {
-        const [first, second] = selectedRubbers;
-        if (!first?.brand || !second?.brand) return false;
-        return first.brand.trim().toLowerCase() === second.brand.trim().toLowerCase();
-    })();
     tabBar.querySelectorAll('.content-tab').forEach(btn => {
         const tabKey = btn.dataset.tab;
         const isActive = tabKey === activeTab;
         const hasContent = tabContents[tabKey] != null;
         btn.classList.toggle('content-tab--active', isActive);
         btn.classList.toggle('content-tab--empty', !hasContent);
-        if (isActive && !btn.classList.contains('content-tab--vs')) {
+        // Clear previous inline styles
+        btn.style.background = '';
+        btn.style.borderImage = '';
+        btn.style.borderBottomColor = '';
+        btn.style.borderBottomStyle = '';
+        btn.style.borderBottomWidth = '';
+        if (isActive && btn.classList.contains('content-tab--share')) {
+            // Share button keeps its own styling
+        } else if (isActive && !btn.classList.contains('content-tab--vs')) {
             const idx = tabKey === 'desc1' ? 0 : 1;
             const rubber = selectedRubbers[idx];
-            const color = rubber ? getBrandColor(rubber.brand) : 'var(--drac-comment)';
-            btn.style.borderBottomColor = color;
-            btn.style.borderBottomStyle = (tabKey === 'desc2' && hasSameBrandSelection) ? 'dashed' : 'solid';
+            const color = rubber ? getBrandColor(rubber.brand) : null;
+            if (color) {
+                btn.style.background = color + '22';
+            }
         } else if (isActive && btn.classList.contains('content-tab--vs')) {
-            const colorL = selectedRubbers[0] ? getBrandColor(selectedRubbers[0].brand) : '';
-            const colorR = selectedRubbers[1] ? getBrandColor(selectedRubbers[1].brand) : '';
-            btn.style.borderImage = `linear-gradient(to right, ${colorL}, ${colorR}) 1`;
-            btn.style.borderBottomWidth = '2px';
-            btn.style.borderBottomStyle = 'solid';
-        } else {
-            btn.style.borderImage = '';
-            btn.style.borderBottomColor = 'transparent';
-            btn.style.borderBottomStyle = 'solid';
+            const colorL = selectedRubbers[0] ? getBrandColor(selectedRubbers[0].brand) : 'rgba(155,148,132,0.3)';
+            const colorR = selectedRubbers[1] ? getBrandColor(selectedRubbers[1].brand) : 'rgba(155,148,132,0.3)';
+            btn.style.background = `linear-gradient(135deg, ${colorL}22, ${colorR}22)`;
         }
     });
 }

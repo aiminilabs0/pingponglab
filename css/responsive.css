@@ -84,10 +84,10 @@
         min-width: 38px;
         font-size: 10px;
     }
-    .content-tabs { padding: 0 10px; overflow-x: auto; }
-    .content-tab { padding: 8px 12px; font-size: 12px; max-width: 140px; }
+    .content-tabs { padding: 4px 8px; overflow-x: auto; gap: 3px; }
+    .content-tab { padding: 7px 10px; font-size: 12px; max-width: 140px; border-radius: 8px; }
     .share-btn-label { display: none; }
-    .content-tab--share { padding: 8px 10px; min-width: 0; }
+    .content-tab--share { padding: 7px 8px; min-width: 0; }
     #chart { height: 440px; }
     .chart-speed-outside {
         padding: 0 10px 2px;

@@ -11,23 +11,24 @@
 /* Tab bar */
 .content-tabs {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     border-bottom: none;
-    padding: 0 16px;
-    gap: 0;
+    padding: 6px 12px;
+    gap: 4px;
     flex-shrink: 0;
 
     overflow: hidden;
 }
 
-.content-tab--empty { opacity: 0.5; }
+.content-tab--empty { opacity: 0.4; }
 
 .content-tab {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 16px;
+    padding: 8px 14px;
     border: none;
+    border-radius: 10px;
     background: transparent;
     color: var(--drac-comment);
     font-size: 13px;
@@ -37,12 +38,13 @@
     max-width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: color 0.15s ease;
+    transition: color 0.15s ease, background 0.15s ease;
 }
-.content-tab:hover { color: var(--drac-fg); }
-.content-tab--active { color: var(--drac-fg); border-bottom-color: var(--drac-purple); }
+.content-tab:hover { color: var(--drac-fg); background: rgba(62, 58, 52, 0.5); }
+.content-tab--active {
+    color: var(--drac-fg);
+    background: rgba(62, 58, 52, 0.7);
+}
 .content-tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
 /* Share button in tab bar */
@@ -50,11 +52,11 @@
     margin-left: auto;
     gap: 5px;
     color: var(--drac-cyan);
-    border-bottom-color: transparent !important;
+    background: transparent !important;
     opacity: 0.85;
     transition: color 0.15s ease, opacity 0.15s ease;
 }
-.content-tab--share:hover { color: var(--drac-cyan); opacity: 1; }
+.content-tab--share:hover { color: var(--drac-cyan); opacity: 1; background: rgba(126, 184, 168, 0.1) !important; }
 .content-tab--share svg { flex-shrink: 0; }
 .share-btn-label { font-size: 12px; }
 .content-tab--share-copied { color: var(--drac-green); opacity: 1; }
