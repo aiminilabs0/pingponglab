@@ -321,6 +321,7 @@ function resetDetailPanels() {
 }
 
 function handleRubberClick(rubber) {
+    pauseSpotlightRotation();
     let panelNum;
     if (pinnedRubbers[0] && !pinnedRubbers[1]) {
         // Left is pinned — always replace right

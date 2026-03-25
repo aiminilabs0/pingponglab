@@ -237,16 +237,20 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             text: tRubber(rubber.abbr),
             showarrow: true,
             arrowhead: 0,
-            arrowwidth: 1,
-            arrowcolor: 'rgba(155,148,132,0.5)',
+            arrowwidth: 0.75,
+            arrowcolor: 'rgba(155,148,132,0.3)',
             ax: chosen.ax,
             ay: chosen.ay,
-            font: { size: 11, color: '#e8e0d0', family: CHART_FONT },
+            font: {
+                size: spotlightRubber === rubber ? 12 : 10.5,
+                color: spotlightRubber === rubber ? '#d4c16a' : 'rgba(232,224,208,0.75)',
+                family: CHART_FONT
+            },
             bgcolor: 'transparent',
             borderpad: 0,
             xanchor: 'center',
             yanchor: 'bottom',
-            standoff: 4,
+            standoff: 6,
             captureevents: false
         });
     }
@@ -305,8 +309,16 @@ function computeVisibleRubbers(filteredData) {
         occupied.push({ px, py });
     }
 
+    // Force spotlight rubber visible so it's never thinned out
+    if (spotlightRubber && !selectedSet.has(spotlightRubber) && filteredData.includes(spotlightRubber)) {
+        const { px, py } = toPixel(spotlightRubber.x, spotlightRubber.y);
+        visible.push(spotlightRubber);
+        occupied.push({ px, py });
+    }
+
     for (const rubber of sorted) {
         if (selectedSet.has(rubber)) continue;
+        if (rubber === spotlightRubber) continue;
         const { px, py } = toPixel(rubber.x, rubber.y);
         const overlaps = occupied.some(
             occ => Math.abs(px - occ.px) < MIN_DIST_X && Math.abs(py - occ.py) < MIN_DIST_Y
@@ -475,12 +487,12 @@ function showChartDotShake(data, chartEl) {
 
     const color = getBrandColor(rubber.brand);
     _chartShakeRing.style.borderColor = color;
-    _chartShakeRing.style.boxShadow = `0 0 8px ${color}`;
+    _chartShakeRing.style.boxShadow = `0 0 6px ${color}80`;
     _chartShakeRing.style.width = ringSize + 'px';
     _chartShakeRing.style.height = ringSize + 'px';
     _chartShakeRing.style.left = pos.x + 'px';
     _chartShakeRing.style.top = pos.y + 'px';
-    _chartShakeRing.style.opacity = '0.7';
+    _chartShakeRing.style.opacity = '0.6';
 }
 
 function hideChartDotShake() {
@@ -785,10 +797,10 @@ function updateChart(options = {}) {
             showlegend: false,
             hoverinfo: 'skip',
             marker: {
-                size: bestsellers.map(r => getMarkerSize(r) + 12),
-                color: 'rgba(212,193,106,0.18)',
+                size: bestsellers.map(r => getMarkerSize(r) + 10),
+                color: 'rgba(212,193,106,0.10)',
                 symbol: 'circle',
-                line: { width: 2, color: 'rgba(212,193,106,0.5)' }
+                line: { width: 1.5, color: 'rgba(212,193,106,0.35)' }
             }
         });
     }
@@ -807,10 +819,10 @@ function updateChart(options = {}) {
             showlegend: false,
             hoverinfo: 'skip',
             marker: {
-                size: [getMarkerSize(sel) + 16],
+                size: [getMarkerSize(sel) + 14],
                 color: brandColor + '15',
                 symbol: 'circle',
-                line: { width: 2.5, color: brandColor }
+                line: { width: 2, color: brandColor + 'CC' }
             }
         });
     }
@@ -826,8 +838,9 @@ function updateChart(options = {}) {
                 size: group.rubbers.map(getMarkerSize),
                 color: getBrandColor(group.brand),
                 symbol: getSheetSymbol(group.sheet),
-                line: { width: 1, color: '#2b2926' }
+                line: { width: 1.5, color: 'rgba(0,0,0,0.35)' }
             },
+            opacity: 0.88,
             hoverinfo: 'none',
             customdata: group.rubbers
         });
@@ -880,13 +893,13 @@ function updateChart(options = {}) {
             yref: 'y',
             text: `<b>${i + 1}</b>`,
             showarrow: false,
-            font: { size: 11, color: '#fff', family: CHART_FONT },
+            font: { size: 10, color: '#fff', family: CHART_FONT },
             bgcolor: brandColor,
-            bordercolor: '#fff',
-            borderpad: 3,
-            borderwidth: 1.5,
-            xshift: 14,
-            yshift: -14,
+            bordercolor: 'rgba(255,255,255,0.6)',
+            borderpad: 2.5,
+            borderwidth: 1,
+            xshift: 12,
+            yshift: -12,
             xanchor: 'center',
             yanchor: 'middle',
             captureevents: false
@@ -895,11 +908,13 @@ function updateChart(options = {}) {
 
     const axisBase = {
         zeroline: false,
-        gridcolor: '#3e3a34',
+        gridcolor: 'rgba(62,58,52,0.4)',
+        griddash: 'dot',
+        gridwidth: 1,
         tickfont: { color: '#9b9484' },
         showline: true,
-        linecolor: '#6f685b',
-        linewidth: 2,
+        linecolor: 'rgba(111,104,91,0.5)',
+        linewidth: 1.5,
         showticklabels: false,
         tickformat: '.1f'
     };
@@ -908,9 +923,9 @@ function updateChart(options = {}) {
         x: 1, y: 1,
         xref: 'x domain', yref: 'y domain',
         xanchor: 'right', yanchor: 'bottom',
-        text: '<b>⭐ Sweet Spot</b>',
+        text: '<b>Sweet Spot</b>',
         showarrow: false,
-        font: { size: 11, color: 'rgba(126,184,168,0.7)', family: CHART_FONT },
+        font: { size: 10, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
         borderpad: 4,
         captureevents: false
@@ -932,15 +947,15 @@ function updateChart(options = {}) {
             range: currentRanges?.yaxis
         },
         hovermode: 'closest',
-        plot_bgcolor: '#2b2926',
-        paper_bgcolor: '#2b2926',
+        plot_bgcolor: '#252320',
+        paper_bgcolor: '#252320',
         margin: { l: 10, r: 10, t: 30, b: 30 },
         shapes: [{
             type: 'rect',
             xref: 'x domain', yref: 'y domain',
             x0: 0.62, y0: 0.54, x1: 1, y1: 1,
-            fillcolor: 'rgba(126,184,168,0.06)',
-            line: { color: 'rgba(126,184,168,0.2)', width: 1, dash: 'dot' },
+            fillcolor: 'rgba(126,184,168,0.04)',
+            line: { color: 'rgba(126,184,168,0.12)', width: 1, dash: 'dot' },
             layer: 'below'
         }],
         annotations: [
@@ -1052,6 +1067,7 @@ function updateChart(options = {}) {
             ];
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
 
+            pauseSpotlightRotation();
             updateHeaderTagline();
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
@@ -1093,6 +1109,7 @@ function updateChart(options = {}) {
                 // Clear ALL pending timers so a previous pinch's delayed callbacks
                 // cannot fire and trigger an unwanted autoscale reset.
                 pinchActive = true;
+                pauseSpotlightRotation();
                 pinchFinalRanges = null;
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
@@ -1216,6 +1233,57 @@ function updateChart(options = {}) {
                 updateChart({ preserveRanges: true });
             }, 200);
         }, { passive: false });
+    }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Spotlight Rotation (mobile discovery)
+// ════════════════════════════════════════════════════════════
+
+function advanceSpotlight() {
+    if (currentFilteredData.length === 0) {
+        spotlightRubber = null;
+        return;
+    }
+    let idx = Math.floor(Math.random() * currentFilteredData.length);
+    // Avoid spotlighting the same rubber twice in a row
+    if (currentFilteredData.length > 1 && currentFilteredData[idx] === spotlightRubber) {
+        idx = (idx + 1) % currentFilteredData.length;
+    }
+    spotlightRubber = currentFilteredData[idx];
+    updateChart({ preserveRanges: true, force: true });
+}
+
+function startSpotlightRotation() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    clearInterval(spotlightTimerId);
+    spotlightPaused = false;
+    advanceSpotlight();
+    spotlightTimerId = setInterval(() => {
+        if (document.hidden || spotlightPaused) return;
+        advanceSpotlight();
+    }, 3000);
+}
+
+function stopSpotlightRotation() {
+    clearInterval(spotlightTimerId);
+    spotlightTimerId = null;
+    spotlightRubber = null;
+}
+
+function pauseSpotlightRotation() {
+    spotlightPaused = true;
+    spotlightRubber = null;
+    updateChart({ preserveRanges: true, force: true });
+}
+
+function resumeSpotlightRotation() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    if (spotlightTimerId) {
+        spotlightPaused = false;
+        advanceSpotlight();
+    } else {
+        startSpotlightRotation();
     }
 }
 

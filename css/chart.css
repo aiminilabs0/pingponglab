@@ -18,9 +18,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 14px 2px;
-    color: var(--drac-yellow);
-    font-size: 13px;
-    font-weight: 700;
+    color: var(--drac-comment);
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1.2;
 }
 .user-guide-btn {
@@ -106,8 +106,13 @@
 }
 .chart-spin-label {
     margin-left: auto;
-    color: var(--drac-yellow);
-    font-size: 13px;
+    color: var(--drac-comment);
+    font-size: 12px;
+    font-weight: 600;
+}
+.chart-speed-outside [data-i18n-key="SPEED"],
+.chart-spin-label [data-i18n-key="SPIN"] {
+    color: var(--drac-fg);
     font-weight: 700;
 }
 /* Axis-label hints: speed tooltip drops below, left-aligned (near page top-left) */
@@ -130,6 +135,15 @@
 .chart-spin-label .metric-hint:hover::after {
     transform: translateY(0);
 }
+.chart-control-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(62,58,52,0.25);
+    border: 1px solid rgba(155,148,132,0.12);
+}
 .chart-control-guide-dots {
     display: inline-flex;
     align-items: center;
@@ -139,8 +153,8 @@
 .chart-control-guide-dot {
     display: inline-block;
     border-radius: 50%;
-    background: rgba(212,193,106,0.92);
-    border: 1px solid rgba(28,26,23,0.55);
+    background: rgba(212,193,106,0.7);
+    border: 1px solid rgba(28,26,23,0.35);
 }
 .chart-control-guide-dot.dot-1 { width: 8px; height: 8px; }
 .chart-control-guide-dot.dot-2 { width: 9px; height: 9px; }

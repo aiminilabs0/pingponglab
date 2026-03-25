@@ -59,4 +59,6 @@ function resetAppToInitialState() {
     } else {
         updateChart();
     }
+
+    resumeSpotlightRotation();
 }

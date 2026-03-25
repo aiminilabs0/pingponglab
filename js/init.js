@@ -597,6 +597,7 @@ function initFeedbackModal() {
 window.addEventListener('resize', () => {
     Plotly.Plots.resize('chart');
     if (hasPlotted) updateChart({ preserveRanges: true });
+    if (window.matchMedia('(min-width: 769px)').matches) stopSpotlightRotation();
 });
 
 /**
@@ -798,6 +799,8 @@ async function initializeApp() {
     requestAnimationFrame(() => {
         triggerAutoscale();
     });
+
+    startSpotlightRotation();
 
     // Keep zoom hint state in sync when switching mobile/desktop.
     const zoomHint = document.getElementById('zoomHint');

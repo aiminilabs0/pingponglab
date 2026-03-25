@@ -35,6 +35,11 @@ let rubberByAbbr = new Map();
 let playersData = {};
 let playerNameToCanonicalName = {};
 
+// Spotlight rotation state (mobile discovery)
+let spotlightRubber = null;      // currently spotlighted rubber object
+let spotlightTimerId = null;     // setInterval ID
+let spotlightPaused = false;     // paused by user interaction
+
 // YouTube embed state
 let ytApiReady = false;
 let ytPlayers = {};
