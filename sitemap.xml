@@ -217,18 +217,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/tenergy-05-fx</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/tenergy-05-fx</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/tenergy-05-fx</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/tenergy-05-hard</loc>
     <priority>0.8</priority>
   </url>
@@ -1969,18 +1957,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/acuda-s1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/acuda-s1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/acuda-s1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/acuda-s1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -3001,18 +2977,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/acuda-s2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/acuda-s2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/acuda-s2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/acuda-s2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -4021,18 +3985,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/baracuda-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/baracuda-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/baracuda-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/baracuda-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -5029,18 +4981,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-c2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluegrip-c2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-c2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-c2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -6025,18 +5965,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluegrip-j1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-j1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -7009,18 +6937,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluegrip-j2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-j2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -7981,18 +7897,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluegrip-j3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluegrip-j3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluegrip-j3-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -8941,18 +8845,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluefire-m1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluefire-m1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -9889,18 +9781,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluefire-m2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluefire-m2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -10825,18 +10705,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluefire-m3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluefire-m3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluefire-m3-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -11749,18 +11617,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluestar-a1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluestar-a1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluestar-a1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluestar-a1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -12661,18 +12517,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-pro-am-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluestorm-pro-am-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluestorm-pro-am-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-pro-am-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -13561,18 +13405,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluestorm-z1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluestorm-z1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -14449,18 +14281,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluestorm-z2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluestorm-z2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -15325,18 +15145,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/bluestorm-z3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/bluestorm-z3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/bluestorm-z3-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -16189,18 +15997,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/fastarc-c-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/fastarc-c-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/fastarc-c-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/fastarc-c-1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -17041,18 +16837,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-c48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-c48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-c48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-c48-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -17881,18 +17665,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-c53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-c53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-c53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-c53-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -18709,18 +18481,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dignics-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dignics-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dignics-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dignics-05-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -19525,18 +19285,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dignics-09c-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dignics-09c-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dignics-09c-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dignics-09c-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -20329,18 +20077,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dignics-64-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dignics-64-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dignics-64-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dignics-64-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -21121,18 +20857,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dignics-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dignics-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dignics-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dignics-80-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -21901,18 +21625,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-acc-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-acc-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-acc-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-acc-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -22669,18 +22381,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-agr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-agr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-agr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-agr-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -23425,18 +23125,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-cmd-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-cmd-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-cmd-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-cmd-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -24169,18 +23857,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-inferno-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-inferno-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-inferno-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-inferno-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -24901,18 +24577,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-zgr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-zgr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-zgr-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-zgr-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -25621,18 +25285,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-zgx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/dynaryz-zgx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/dynaryz-zgx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/dynaryz-zgx-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -26329,18 +25981,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-el-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-el-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-el-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-el-p-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -27025,18 +26665,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-el-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-el-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-el-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-el-s-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -27709,18 +27337,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/etika-47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/etika-47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/etika-47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/etika-47-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -28381,18 +27997,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/etika-51-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/etika-51-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/etika-51-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/etika-51-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -29041,18 +28645,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-fx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-fx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-fx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-fx-p-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -29689,18 +29281,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-fx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-fx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-fx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-fx-s-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -30325,18 +29905,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/fastarc-g-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/fastarc-g-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/fastarc-g-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/fastarc-g-1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -30949,18 +30517,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/genextion-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/genextion-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -31561,18 +31117,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/gold-arc-8-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/gold-arc-8-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/gold-arc-8-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/gold-arc-8-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -32161,18 +31705,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/hurricane-3-neo-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/hurricane-3-neo-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/hurricane-3-neo-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/hurricane-3-neo-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -32749,18 +32281,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/hurricane-8-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/hurricane-8-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/hurricane-8-80-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/hurricane-8-80-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -33325,18 +32845,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-c52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-c52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c52.5-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -33889,18 +33397,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c55.0-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-c55.0-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-c55.0-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c55.0-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -34441,18 +33937,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c57.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-c57.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-c57.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-c57.5-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -34981,18 +34465,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-v47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-v47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-v47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-v47.5-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -35509,18 +34981,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-x47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-x47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-x47.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-x47.5-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -36025,18 +35485,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-z52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/jekyll-hyde-z52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/jekyll-hyde-z52.5-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/jekyll-hyde-z52.5-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -36529,18 +35977,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/hybrid-k3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/hybrid-k3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/hybrid-k3-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/hybrid-k3-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -37021,18 +36457,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/hybrid-mk-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/hybrid-mk-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/hybrid-mk-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/hybrid-mk-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -37501,18 +36925,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-d-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-mx-d-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-mx-d-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-d-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -37969,18 +37381,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tibhar-mx-k</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tibhar-mx-k</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tibhar-mx-k</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-hard-vs-tibhar-mx-k</loc>
     <priority>0.6</priority>
   </url>
@@ -38425,18 +37825,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-mx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-mx-p-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-p-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -38869,18 +38257,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-p-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-mx-p-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-mx-p-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-p-50-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -39301,18 +38677,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/evolution-mx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/evolution-mx-s-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/evolution-mx-s-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -39721,18 +39085,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/mercury-2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/mercury-2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/mercury-2-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/mercury-2-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -40129,18 +39481,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/nuzn-45-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/nuzn-45-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/nuzn-45-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/nuzn-45-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -40525,18 +39865,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/nuzn-48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/nuzn-48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/nuzn-48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/nuzn-48-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -40909,18 +40237,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/nuzn-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/nuzn-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/nuzn-50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/nuzn-50-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -41281,18 +40597,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/nuzn-55-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/nuzn-55-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/nuzn-55-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/nuzn-55-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -41641,18 +40945,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/omega-7-guang-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/omega-7-guang-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/omega-7-guang-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/omega-7-guang-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -41989,18 +41281,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/omega-7-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/omega-7-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/omega-7-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/omega-7-pro-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -42325,18 +41605,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/omega-8-china-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/omega-8-china-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/omega-8-china-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/omega-8-china-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -42649,18 +41917,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/omega-8-hybrid-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/omega-8-hybrid-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/omega-8-hybrid-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/omega-8-hybrid-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -42961,18 +42217,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/omega8-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/omega8-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/omega8-pro-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/omega8-pro-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -43261,18 +42505,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r42-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-r42-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-r42-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r42-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -43549,18 +42781,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-r47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-r47-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r47-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -43825,18 +43045,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-r48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-r48-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r48-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -44089,18 +43297,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-r50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-r50-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r50-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -44341,18 +43537,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rasanter-r53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rasanter-r53-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rasanter-r53-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -44581,18 +43765,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-7-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-7-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-7-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-7-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -44809,18 +43981,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-7-soft-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-7-soft-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-7-soft-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-7-soft-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45025,18 +44185,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-9-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-9-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-9-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-9-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45229,18 +44377,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-x-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-x-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-x-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-x-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45421,18 +44557,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-xx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-xx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-xx-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-xx-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45601,18 +44725,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rakza-z-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rakza-z-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rakza-z-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rakza-z-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45769,18 +44881,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/rozena-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/rozena-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/rozena-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/rozena-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -45925,18 +45025,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/fastarc-s-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/fastarc-s-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/fastarc-s-1-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/fastarc-s-1-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -46069,18 +45157,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-vs-tenergy-05-fx</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-vs-tenergy-05-hard</loc>
     <priority>0.6</priority>
   </url>
@@ -46210,138 +45286,6 @@
   </url>
   <url>
     <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-vs-zyre-03</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tenergy-05-hard</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tenergy-05-hard</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tenergy-05-hard</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tenergy-19</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tenergy-19</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tenergy-19</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tenergy-64</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tenergy-64</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tenergy-64</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tenergy-80</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tenergy-80</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tenergy-80</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tronix-acc</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tronix-acc</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tronix-acc</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tronix-cmd</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tronix-cmd</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tronix-cmd</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-tronix-zgr</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-tronix-zgr</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-tronix-zgr</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-vega-europe</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-vega-europe</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-vega-europe</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-vega-pro</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-vega-pro</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-vega-pro</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-vega-x</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-vega-x</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-vega-x</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/us/rubbers/compare/tenergy-05-fx-vs-zyre-03</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/kr/rubbers/compare/tenergy-05-fx-vs-zyre-03</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pingponglab.com/cn/rubbers/compare/tenergy-05-fx-vs-zyre-03</loc>
     <priority>0.6</priority>
   </url>
   <url>

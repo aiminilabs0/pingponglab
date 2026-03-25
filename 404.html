@@ -94,7 +94,11 @@
         <div class="announcement" id="announcement" hidden></div>
         <div class="chart-bleed">
             <div class="chart-speed-outside" aria-hidden="true">
-                <span>⚡ <span data-i18n-key="SPEED">Speed</span> ↑</span>
+		<span>⚡ <span data-i18n-key="SPEED">Speed</span> ↑</span>
+                <a href="#" class="user-guide-btn" id="userGuideBtn" data-yt-guide="FgF_f32xfiw">
+                    <img src="/images/youtube.ico" alt="" class="user-guide-icon">
+                    <span data-i18n-key="USER_GUIDE">User Guide</span>
+                </a>
                 <div class="header-search" id="headerSearch" aria-hidden="false">
                     <svg class="header-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <input type="text" id="headerSearchInput" class="header-search-input" placeholder="Search..." autocomplete="off" spellcheck="false">
@@ -104,15 +108,15 @@
             <div id="chart"></div>
             <div class="chart-control-guide" aria-label="Control indicator guide">
                 <span class="zoom-hint" id="zoomHint" aria-live="polite">Zoom in for more rubbers</span>
-                <span class="chart-control-guide-label">Less</span>
-                <span class="chart-control-guide-dots" aria-hidden="true">
-                    <span class="chart-control-guide-dot dot-1"></span>
+		<span class="chart-control-guide-label">Less</span>
+		<span class="chart-control-guide-dots" aria-hidden="true">
+		    <span class="chart-control-guide-dot dot-1"></span>
                     <span class="chart-control-guide-dot dot-2"></span>
                     <span class="chart-control-guide-dot dot-3"></span>
                     <span class="chart-control-guide-dot dot-4"></span>
                     <span class="chart-control-guide-dot dot-5"></span>
                 </span>
-                <span class="chart-control-guide-label">More control</span>
+		<span class="chart-control-guide-label">More control</span>
                 <span class="chart-spin-label" aria-hidden="true">↻ <span data-i18n-key="SPIN">Spin</span> →</span>
             </div>
         </div>
@@ -188,6 +192,12 @@
         <div id="radarSection" class="radar-section">
             <div id="radarChart" class="radar-chart"></div>
             <div id="radarInfoPanel" class="radar-info-combined"></div>
+        </div>
+
+        <div class="section-divider">
+            <div class="section-divider-line"></div>
+            <span class="section-divider-label">Details</span>
+            <div class="section-divider-line"></div>
         </div>
 
         <div class="content-card" id="contentCard">
