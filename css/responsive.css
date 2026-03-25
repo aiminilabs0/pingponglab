@@ -129,8 +129,8 @@
     }
     .fp-section + .fp-section {
         border-left: none;
-        border-top: 1px solid var(--drac-current);
-        padding-top: 12px;
+        border-top: none;
+        padding-top: 8px;
     }
     .filter-panel-body.open {
         max-height: none;
@@ -268,7 +268,7 @@
 .radar-section > .youtube-embed-wrapper {
     width: 100%;
     margin: 0;
-    border-top: 1px solid rgba(155,148,132,0.25);
+    border-top: none;
     background: rgba(0,0,0,0.3);
 }
 .yt-mobile-hint {
