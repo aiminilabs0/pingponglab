@@ -51,6 +51,7 @@
 .user-guide-icon {
     width: 14px;
     height: 14px;
+    object-fit: contain;
     flex-shrink: 0;
 }
 .user-guide-embed {
