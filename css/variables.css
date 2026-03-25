@@ -22,8 +22,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 17px;
-    padding: 24px;
-    background: var(--drac-bg-dark);
+    padding: 0;
+    background: var(--drac-bg);
     color: var(--drac-fg);
 }
 .container {
@@ -31,9 +31,9 @@ body {
     width: 100%;
     margin: 0 auto;
     background: var(--drac-bg);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 32px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    box-shadow: none;
 }
 .announcement {
     text-align: center;

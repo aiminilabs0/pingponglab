@@ -1,6 +1,6 @@
 @media (max-width: 768px) {
-    body { padding: 10px; }
-    .container { padding: 16px; border-radius: 12px; }
+    body { padding: 0; }
+    .container { padding: 16px; border-radius: 0; }
     .chart-bleed { margin: 0 -16px; padding: 0; }
     .site-header { margin: -16px -16px 10px; border-radius: 12px 12px 0 0; }
     .header-row { padding: 16px 16px 14px; gap: 10px; }
