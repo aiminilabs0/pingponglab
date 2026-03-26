@@ -942,7 +942,7 @@ function updateChart(options = {}) {
 
     // Sweet spot in data coordinates — use all rubbers so it stays fixed when filtering
     const sweetBounds = getAutoscaleBounds(rubberData);
-    const sweetX0 = sweetBounds ? sweetBounds.x[0] + 0.62 * (sweetBounds.x[1] - sweetBounds.x[0]) : 0;
+    const sweetX0 = sweetBounds ? sweetBounds.x[0] + 0.61 * (sweetBounds.x[1] - sweetBounds.x[0]) : 0;
     const sweetX1 = sweetBounds ? sweetBounds.x[1] : 1;
     const sweetY0 = sweetBounds ? sweetBounds.y[0] + 0.60 * (sweetBounds.y[1] - sweetBounds.y[0]) : 0;
     const sweetY1 = sweetBounds ? sweetBounds.y[1] + 0.02 * (sweetBounds.y[1] - sweetBounds.y[0]) : 1;
