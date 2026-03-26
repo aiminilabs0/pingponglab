@@ -6,6 +6,9 @@
     overscroll-behavior: none;
     transition: opacity 0.15s ease;
 }
+#chart .subplot.xy {
+    overflow: hidden;
+}
 #chart .drag[cursor="move"],
 #chart .nsewdrag {
     cursor: default !important;
@@ -17,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 14px 2px;
+    padding: 0 14px 0;
     color: var(--drac-comment);
     font-size: 12px;
     font-weight: 600;
@@ -94,7 +97,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px 10px;
+    padding: 2px 14px 10px;
     color: var(--drac-comment);
     font-size: 12px;
     font-weight: 600;

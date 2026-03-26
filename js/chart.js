@@ -977,7 +977,7 @@ function updateChart(options = {}) {
         hovermode: 'closest',
         plot_bgcolor: '#252320',
         paper_bgcolor: '#252320',
-        margin: { l: 10, r: 10, t: 30, b: 30 },
+        margin: { l: 10, r: 10, t: 10, b: 10 },
         shapes: [{
             type: 'rect',
             xref: 'x', yref: 'y',
