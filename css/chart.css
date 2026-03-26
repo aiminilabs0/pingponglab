@@ -13,6 +13,16 @@
 #chart .nsewdrag {
     cursor: default !important;
 }
+#chart .edrag,
+#chart .wdrag,
+#chart .ndrag,
+#chart .sdrag,
+#chart .nedrag,
+#chart .nwdrag,
+#chart .sedrag,
+#chart .swdrag {
+    display: none !important;
+}
 #chart.chart--filter-fade {
     opacity: 0;
 }
