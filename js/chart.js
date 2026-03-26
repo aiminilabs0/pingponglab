@@ -242,7 +242,7 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             ax: chosen.ax,
             ay: chosen.ay,
             font: {
-                size: spotlightRubber === rubber ? 12 : 10.5,
+                size: spotlightRubber === rubber ? 16 : 13.5,
                 color: spotlightRubber === rubber ? '#d4c16a' : 'rgba(232,224,208,0.75)',
                 family: CHART_FONT
             },
@@ -914,7 +914,7 @@ function updateChart(options = {}) {
             yref: 'y',
             text: `<b>${i + 1}</b>`,
             showarrow: false,
-            font: { size: 10, color: '#fff', family: CHART_FONT },
+            font: { size: 12, color: '#fff', family: CHART_FONT },
             bgcolor: brandColor,
             bordercolor: 'rgba(255,255,255,0.6)',
             borderpad: 2.5,
@@ -932,7 +932,7 @@ function updateChart(options = {}) {
         gridcolor: 'rgba(62,58,52,0.4)',
         griddash: 'dot',
         gridwidth: 1,
-        tickfont: { color: '#9b9484' },
+        tickfont: { color: '#9b9484', size: 13 },
         showline: true,
         linecolor: 'rgba(111,104,91,0.5)',
         linewidth: 1.5,
@@ -953,7 +953,7 @@ function updateChart(options = {}) {
         xanchor: 'right', yanchor: 'bottom',
         text: '<b>Sweet Spot</b>',
         showarrow: false,
-        font: { size: 10, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
+        font: { size: 13, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
         borderpad: 4,
         captureevents: false
