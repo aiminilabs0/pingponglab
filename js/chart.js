@@ -711,15 +711,17 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         : '';
 
     const countryUrls = rubber.urls?.[selectedCountry] || {};
-    let ytVideoId = extractYouTubeVideoId(countryUrls.youtube);
+    const ytMeta = normalizeYouTubeMeta(countryUrls.youtube);
+    let ytVideoId = ytMeta?.url ? extractYouTubeVideoId(ytMeta.url) : null;
     let ytIsFallback = false;
     if (!ytVideoId && selectedCountry !== 'us') {
-        ytVideoId = extractYouTubeVideoId((rubber.urls?.us || {}).youtube);
+        const usMeta = normalizeYouTubeMeta((rubber.urls?.us || {}).youtube);
+        ytVideoId = usMeta?.url ? extractYouTubeVideoId(usMeta.url) : null;
         if (ytVideoId) ytIsFallback = true;
     }
     const ytEnBadge = ytIsFallback ? `<span class="yt-en-badge">EN</span>` : '';
     const ytBtn = ytVideoId
-        ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="" width="14" height="14" style="object-fit:contain;display:block">${ytEnBadge}</button>`
+        ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="">${ytEnBadge}</button>`
         : '';
 
     return `

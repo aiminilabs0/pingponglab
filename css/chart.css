@@ -291,27 +291,45 @@
     align-self: flex-end;
 }
 .chart-hover-yt-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     margin-left: 6px;
-    border: none;
-    border-radius: 4px;
-    background: rgba(255,0,0,0.15);
+    border: 1px solid rgba(248, 248, 242, 0.35);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.82);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     color: #ff4444;
     cursor: pointer;
     padding: 0;
     flex-shrink: 0;
     transition: background 0.15s ease, transform 0.12s ease;
 }
+.chart-hover-yt-btn img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+}
 .chart-hover-yt-btn:hover {
-    background: rgba(255,0,0,0.3);
-    transform: scale(1.1);
+    transform: translateY(-1px) scale(1.05);
+    border-color: #ff4f4f;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 .chart-hover-yt-btn.yt-active {
     background: rgba(255,0,0,0.35);
+}
+.chart-hover-yt-btn .yt-en-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -4px;
+    background: rgba(0, 0, 0, 0.82);
+    border: 1px solid rgba(248, 248, 242, 0.3);
+    padding: 1px 2.5px;
+    border-radius: 3px;
 }
 .chart-hover-players {
     display: flex;
