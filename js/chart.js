@@ -953,7 +953,7 @@ function updateChart(options = {}) {
         x: sweetX1, y: sweetY1,
         xref: 'x', yref: 'y',
         xanchor: 'right', yanchor: 'bottom',
-        text: '<b>Sweet Spot</b>',
+        text: '<b>Power Spin Zone</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
