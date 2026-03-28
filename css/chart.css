@@ -31,9 +31,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 14px 0;
-    color: var(--drac-comment);
-    font-size: 12px;
-    font-weight: 600;
+    color: var(--drac-yellow);
+    font-size: 11px;
+    font-weight: 700;
+    font-variant: all-small-caps;
+    letter-spacing: 1.5px;
     line-height: 1.2;
 }
 .user-guide-btn {
@@ -119,14 +121,16 @@
 }
 .chart-spin-label {
     margin-left: auto;
-    color: var(--drac-comment);
-    font-size: 12px;
-    font-weight: 600;
+    color: var(--drac-yellow);
+    font-size: 11px;
+    font-weight: 700;
+    font-variant: all-small-caps;
+    letter-spacing: 1.5px;
 }
 .chart-speed-outside [data-i18n-key="SPEED"],
 .chart-spin-label [data-i18n-key="SPIN"] {
-    color: var(--drac-fg);
-    font-weight: 700;
+    color: var(--drac-yellow);
+    font-weight: 800;
 }
 /* Axis-label hints: speed tooltip drops below, left-aligned (near page top-left) */
 .chart-speed-outside .metric-hint::after {
