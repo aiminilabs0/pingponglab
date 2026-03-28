@@ -179,31 +179,6 @@
 .chart-control-guide-dot.dot-4 { width: 12px; height: 12px; }
 .chart-control-guide-dot.dot-5 { width: 13px; height: 13px; }
 .chart-control-guide { position: relative; }
-.zoom-hint {
-    display: none;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(28, 26, 23, 0.92);
-    color: var(--drac-yellow);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 6px;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 100;
-}
-.zoom-hint.is-visible {
-    display: block;
-    opacity: 1;
-}
-.zoom-hint.is-fading {
-    opacity: 0;
-}
 /* Let annotation labels pass pointer events through to the WebGL layer */
 #chart .annotation { pointer-events: none; }
 /* chart-controls and chart-control-btn removed – now in header */

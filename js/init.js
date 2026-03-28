@@ -802,23 +802,6 @@ async function initializeApp() {
 
     startSpotlightRotation();
 
-    // Keep zoom hint state in sync when switching mobile/desktop.
-    const zoomHint = document.getElementById('zoomHint');
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-    const syncZoomHintVisibility = () => {
-        if (!zoomHint) return;
-        if (mobileQuery.matches) {
-            zoomHint.classList.add('is-visible');
-        } else {
-            zoomHint.classList.remove('is-visible', 'is-fading');
-        }
-    };
-    syncZoomHintVisibility();
-    if (typeof mobileQuery.addEventListener === 'function') {
-        mobileQuery.addEventListener('change', syncZoomHintVisibility);
-    } else if (typeof mobileQuery.addListener === 'function') {
-        mobileQuery.addListener(syncZoomHintVisibility);
-    }
 
     // Alternate JP/CN hardness labels with their German equivalents every 2 s
     setInterval(() => document.body.classList.toggle('show-hardness-de'), 2000);
