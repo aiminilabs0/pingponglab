@@ -949,6 +949,11 @@ function updateChart(options = {}) {
     const sweetY0 = sweetBounds ? sweetBounds.y[0] + 0.60 * (sweetBounds.y[1] - sweetBounds.y[0]) : 0;
     const sweetY1 = sweetBounds ? sweetBounds.y[1] + 0.02 * (sweetBounds.y[1] - sweetBounds.y[0]) : 1;
 
+    const safeX0 = sweetX0;
+    const safeX1 = sweetX1;
+    const safeY0 = sweetBounds ? sweetBounds.y[0] - 0.02 * (sweetBounds.y[1] - sweetBounds.y[0]) : 0;
+    const safeY1 = sweetBounds ? sweetBounds.y[0] + 0.45 * (sweetBounds.y[1] - sweetBounds.y[0]) : 1;
+
     const bestZoneAnnotation = {
         x: sweetX1, y: sweetY1,
         xref: 'x', yref: 'y',
@@ -956,6 +961,18 @@ function updateChart(options = {}) {
         text: '<b>Power Spin Zone</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
+        bgcolor: 'transparent',
+        borderpad: 4,
+        captureevents: false
+    };
+
+    const safeZoneAnnotation = {
+        x: safeX1, y: safeY0,
+        xref: 'x', yref: 'y',
+        xanchor: 'right', yanchor: 'top',
+        text: '<b>Safe Spin Zone</b>',
+        showarrow: false,
+        font: { size: 13, color: 'rgba(126,156,184,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
         borderpad: 4,
         captureevents: false
@@ -987,9 +1004,17 @@ function updateChart(options = {}) {
             fillcolor: 'rgba(126,184,168,0.04)',
             line: { color: 'rgba(126,184,168,0.12)', width: 1, dash: 'dot' },
             layer: 'below'
+        }, {
+            type: 'rect',
+            xref: 'x', yref: 'y',
+            x0: safeX0, y0: safeY0, x1: safeX1, y1: safeY1,
+            fillcolor: 'rgba(126,156,184,0.04)',
+            line: { color: 'rgba(126,156,184,0.12)', width: 1, dash: 'dot' },
+            layer: 'below'
         }],
         annotations: [
             bestZoneAnnotation,
+            safeZoneAnnotation,
             ...labelAnnotations,
             ...selectionBadges
         ],
