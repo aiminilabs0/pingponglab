@@ -5,5 +5,5 @@
     transition: color 0.15s ease;
 }
 .admin-toggle.admin-active {
-    color: var(--drac-cyan);
+    color: var(--drac-orange);
 }
