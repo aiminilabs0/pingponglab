@@ -22,11 +22,13 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-CHANNEL_ID = "UC9ckyA_A3MfXUa0ttxMoIZw"
-# YouTube uploads playlist ID = channel ID with "UC" -> "UU"
-UPLOADS_PLAYLIST_ID = "UU" + CHANNEL_ID[2:]
+CHANNELS = [
+    "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
+    "UC2ySPiV4DZp58qQ4KES2o1g",  # ITTF World
+]
 
-API_BASE = "https://www.googleapis.com/youtube/v3/playlistItems"
+PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems"
+VIDEOS_API = "https://www.googleapis.com/youtube/v3/videos"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PLAYERS_FILE = PROJECT_ROOT / "players" / "players.json"
@@ -48,23 +50,66 @@ def _load_api_key() -> str:
     sys.exit(1)
 
 
-def fetch_videos(api_key: str, count: int) -> list[dict]:
-    """Fetch the last `count` videos from the uploads playlist."""
-    videos = []
+def _parse_duration(iso: str) -> int:
+    """Parse ISO 8601 duration (e.g. 'PT1H2M30S') into total seconds."""
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", iso)
+    if not m:
+        return 0
+    h, mi, s = (int(v) if v else 0 for v in m.groups())
+    return h * 3600 + mi * 60 + s
+
+
+def _filter_shorts(api_key: str, videos: list[dict]) -> list[dict]:
+    """Remove Shorts (<=60s) by checking durations via the videos API."""
+    result = []
+    # videos.list accepts up to 50 IDs per call
+    for i in range(0, len(videos), 50):
+        batch = videos[i : i + 50]
+        ids = ",".join(v["video_id"] for v in batch)
+        params = urllib.parse.urlencode({
+            "part": "contentDetails",
+            "id": ids,
+            "key": api_key,
+        })
+        url = f"{VIDEOS_API}?{params}"
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+
+        durations = {}
+        for item in data.get("items", []):
+            dur = item.get("contentDetails", {}).get("duration", "")
+            durations[item["id"]] = _parse_duration(dur)
+
+        for v in batch:
+            secs = durations.get(v["video_id"], 0)
+            if secs > 60:
+                result.append(v)
+
+    return result
+
+
+def fetch_videos(api_key: str, channel_id: str, count: int) -> list[dict]:
+    """Fetch the last `count` long-form videos from a channel."""
+    playlist_id = "UU" + channel_id[2:]
+    candidates = []
     page_token = None
 
-    while len(videos) < count:
-        max_results = min(50, count - len(videos))
+    # Fetch extra to account for Shorts being filtered out
+    fetch_count = count * 2
+
+    while len(candidates) < fetch_count:
+        max_results = min(50, fetch_count - len(candidates))
         params = {
             "part": "snippet",
-            "playlistId": UPLOADS_PLAYLIST_ID,
+            "playlistId": playlist_id,
             "maxResults": max_results,
             "key": api_key,
         }
         if page_token:
             params["pageToken"] = page_token
 
-        url = f"{API_BASE}?{urllib.parse.urlencode(params)}"
+        url = f"{PLAYLIST_API}?{urllib.parse.urlencode(params)}"
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
@@ -74,7 +119,7 @@ def fetch_videos(api_key: str, count: int) -> list[dict]:
             video_id = snippet.get("resourceId", {}).get("videoId")
             title = snippet.get("title", "")
             if video_id and title:
-                videos.append({
+                candidates.append({
                     "video_id": video_id,
                     "title": title,
                     "url": f"https://www.youtube.com/watch?v={video_id}",
@@ -84,7 +129,8 @@ def fetch_videos(api_key: str, count: int) -> list[dict]:
         if not page_token:
             break
 
-    return videos
+    videos = _filter_shorts(api_key, candidates)
+    return videos[:count]
 
 
 def build_name_variants(player_name: str) -> list[str]:
@@ -137,9 +183,12 @@ def main() -> int:
     with PLAYERS_FILE.open("r", encoding="utf-8") as f:
         players: dict = json.load(f)
 
-    print(f"Fetching last {count} videos from channel...")
-    videos = fetch_videos(api_key, count)
-    print(f"  Got {len(videos)} videos")
+    all_videos = []
+    for channel_id in CHANNELS:
+        print(f"Fetching last {count} videos from {channel_id}...")
+        videos = fetch_videos(api_key, channel_id, count)
+        print(f"  Got {len(videos)} videos")
+        all_videos.extend(videos)
 
     # Pre-build search variants for each player
     player_variants: dict[str, list[str]] = {}
@@ -153,7 +202,7 @@ def main() -> int:
 
     added = 0
 
-    for video in videos:
+    for video in all_videos:
         title_lower = video["title"].lower()
         url = video["url"]
         matched = []
