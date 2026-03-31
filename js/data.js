@@ -496,7 +496,7 @@ async function loadRubberData() {
             urls: {
                 en: { product: urls.en?.product || '', youtube: urls.en?.youtube || '' },
                 eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
-                kr: { product: urls.kr?.product || '', youtube: urls.kr?.youtube || '' },
+                ko: { product: urls.ko?.product || '', youtube: urls.ko?.youtube || '' },
                 cn: { product: urls.cn?.product || '', youtube: urls.cn?.youtube || '' }
             }
         };

@@ -2,7 +2,7 @@
 //  Client-side Router (clean URL path parser)
 // ════════════════════════════════════════════════════════════
 
-const VALID_COUNTRIES = ['en', 'cn', 'kr'];
+const VALID_COUNTRIES = ['en', 'cn', 'ko'];
 
 /**
  * Parse the current window.location.pathname into a route descriptor.
@@ -51,7 +51,7 @@ function parseRoute() {
 
 /**
  * Detect old query-param URLs and redirect to new clean URLs.
- * e.g. ?left=Tenergy-05&page=rubber1&country=kr → /kr/rubbers/tenergy-05
+ * e.g. ?left=Tenergy-05&page=rubber1&country=ko → /ko/rubbers/tenergy-05
  * @param {Object} slugMap - { abbrToSlug: { abbr: slug } }
  * @returns {boolean} true if a redirect was performed
  */

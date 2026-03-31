@@ -88,7 +88,7 @@ function updateDocumentTitle() {
 
 /**
  * Build the path portion of the current URL from app state.
- * Returns e.g. "/en/", "/en/rubbers/tenergy-05", "/kr/rubbers/compare/a-vs-b"
+ * Returns e.g. "/en/", "/en/rubbers/tenergy-05", "/ko/rubbers/compare/a-vs-b"
  */
 function buildCurrentPath() {
     const country = selectedCountry || 'en';

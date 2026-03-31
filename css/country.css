@@ -52,6 +52,7 @@
 }
 /* CJK characters need slightly larger size to visually match Latin */
 .country-btn[data-country="cn"],
+.country-btn[data-country="ko"],
 .country-btn[data-country="kr"] {
     font-size: 16px;
     letter-spacing: 0;

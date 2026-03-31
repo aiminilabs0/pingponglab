@@ -5,7 +5,7 @@ Generate static HTML pages for PingPongLab clean URLs.
 Reads rubber data and comparison files, then generates:
 - js/slug-map.json (bidirectional abbr <-> slug mapping)
 - Root index.html (redirect to /en/)
-- Country homepages (/en/, /kr/, /cn/)
+- Country homepages (/en/, /ko/, /cn/)
 - Rubber detail pages (~86 per country)
 - Comparison pages (all rubber pair combinations)
 - sitemap.xml
@@ -20,8 +20,8 @@ from itertools import combinations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-COUNTRIES = ['en', 'kr', 'cn']
-COUNTRY_LANGS = {'en': 'en', 'kr': 'ko', 'cn': 'cn'}
+COUNTRIES = ['en', 'ko', 'cn']
+COUNTRY_LANGS = {'en': 'en', 'ko': 'ko', 'cn': 'cn'}
 BASE_URL = 'https://pingponglab.com'
 
 # ── Slug utility ──
@@ -188,19 +188,19 @@ def write_file(path, content):
 
 COUNTRY_NAMES = {
     'en': 'USA',
-    'kr': 'Korea',
+    'ko': 'Korea',
     'cn': 'China'
 }
 
 COUNTRY_TITLES = {
     'en': 'PingPongLab | Best Ping Pong Rubber',
-    'kr': 'PingPongLab | 탁구 러버 비교',
+    'ko': 'PingPongLab | 탁구 러버 비교',
     'cn': 'PingPongLab | 乒乓球胶皮对比'
 }
 
 COUNTRY_DESCRIPTIONS = {
     'en': 'Compare ping pong rubbers by speed, spin, control, hardness, and weight. Find the best rubber for your style.',
-    'kr': '탁구 러버를 스피드, 스핀, 컨트롤, 경도, 무게로 비교하세요. 나에게 맞는 최고의 러버를 찾아보세요.',
+    'ko': '탁구 러버를 스피드, 스핀, 컨트롤, 경도, 무게로 비교하세요. 나에게 맞는 최고의 러버를 찾아보세요.',
     'cn': '按速度、旋转、控制、硬度和重量对比乒乓球胶皮。找到最适合你打法的胶皮。'
 }
 

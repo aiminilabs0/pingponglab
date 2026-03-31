@@ -107,10 +107,10 @@ function getRubberYouTubeVideoId(rubber) {
     if (rubberVideoId) return { videoId: rubberVideoId, isFallback: false };
 
     if (selectedCountry !== 'en') {
-        const usUrls = rubber.urls?.en || {};
-        const usMeta = normalizeYouTubeMeta(usUrls.youtube);
-        const usVideoId = usMeta?.url ? extractYouTubeVideoId(usMeta.url) : null;
-        if (usVideoId) return { videoId: usVideoId, isFallback: true };
+        const enUrls = rubber.urls?.en || {};
+        const enMeta = normalizeYouTubeMeta(enUrls.youtube);
+        const enVideoId = enMeta?.url ? extractYouTubeVideoId(enMeta.url) : null;
+        if (enVideoId) return { videoId: enVideoId, isFallback: true };
     }
     return null;
 }

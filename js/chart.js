@@ -715,8 +715,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     let ytVideoId = ytMeta?.url ? extractYouTubeVideoId(ytMeta.url) : null;
     let ytIsFallback = false;
     if (!ytVideoId && selectedCountry !== 'en') {
-        const usMeta = normalizeYouTubeMeta((rubber.urls?.en || {}).youtube);
-        ytVideoId = usMeta?.url ? extractYouTubeVideoId(usMeta.url) : null;
+        const enMeta = normalizeYouTubeMeta((rubber.urls?.en || {}).youtube);
+        ytVideoId = enMeta?.url ? extractYouTubeVideoId(enMeta.url) : null;
         if (ytVideoId) ytIsFallback = true;
     }
     const ytEnBadge = ytIsFallback ? `<span class="yt-en-badge">EN</span>` : '';
