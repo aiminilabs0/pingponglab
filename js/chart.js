@@ -714,8 +714,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const ytMeta = normalizeYouTubeMeta(countryUrls.youtube);
     let ytVideoId = ytMeta?.url ? extractYouTubeVideoId(ytMeta.url) : null;
     let ytIsFallback = false;
-    if (!ytVideoId && selectedCountry !== 'us') {
-        const usMeta = normalizeYouTubeMeta((rubber.urls?.us || {}).youtube);
+    if (!ytVideoId && selectedCountry !== 'en') {
+        const usMeta = normalizeYouTubeMeta((rubber.urls?.en || {}).youtube);
         ytVideoId = usMeta?.url ? extractYouTubeVideoId(usMeta.url) : null;
         if (ytVideoId) ytIsFallback = true;
     }

@@ -2,7 +2,7 @@
 //  Client-side Router (clean URL path parser)
 // ════════════════════════════════════════════════════════════
 
-const VALID_COUNTRIES = ['us', 'cn', 'kr'];
+const VALID_COUNTRIES = ['en', 'cn', 'kr'];
 
 /**
  * Parse the current window.location.pathname into a route descriptor.
@@ -12,14 +12,14 @@ function parseRoute() {
     const path = window.location.pathname.replace(/\/index\.html$/, '/');
     const segments = path.split('/').filter(Boolean);
 
-    // / → redirect to /us/
+    // / → redirect to /en/
     if (segments.length === 0) {
-        return { type: 'redirect', country: 'us' };
+        return { type: 'redirect', country: 'en' };
     }
 
     const country = segments[0];
     if (!VALID_COUNTRIES.includes(country)) {
-        return { type: 'redirect', country: 'us' };
+        return { type: 'redirect', country: 'en' };
     }
 
     // /{country}/ → homepage
@@ -60,7 +60,7 @@ function checkLegacyUrlRedirect(slugMap) {
     const hasLegacyParams = params.has('left') || params.has('right') || params.has('page');
     if (!hasLegacyParams) return false;
 
-    const country = params.get('country') || 'us';
+    const country = params.get('country') || 'en';
     if (!VALID_COUNTRIES.includes(country)) return false;
 
     const leftAbbr = (params.get('left') || '').replace(/-/g, ' ');

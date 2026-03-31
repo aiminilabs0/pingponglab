@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 82;
+const CACHE_VERSION = 83;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = '/stats/rubbers/index.json';
@@ -83,7 +83,7 @@ function findRubberBySlug(slug) {
     return rubberData.find(r => r.abbr === abbr) || null;
 }
 
-const COUNTRY_TO_LANG = { us: 'en', cn: 'cn', kr: 'ko' };
+const COUNTRY_TO_LANG = { en: 'en', cn: 'cn', kr: 'ko' };
 const COUNTRY_FLAGS = { Germany: '🇩🇪', Japan: '🇯🇵', China: '🇨🇳' };
 const FILTER_IDS = ['brand', 'name', 'sheet', 'hardness', 'weight', 'control', 'top30'];
 const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');

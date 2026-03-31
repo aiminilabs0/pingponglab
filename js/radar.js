@@ -106,8 +106,8 @@ function getRubberYouTubeVideoId(rubber) {
     const rubberVideoId = youtubeMeta?.url ? extractYouTubeVideoId(youtubeMeta.url) : null;
     if (rubberVideoId) return { videoId: rubberVideoId, isFallback: false };
 
-    if (selectedCountry !== 'us') {
-        const usUrls = rubber.urls?.us || {};
+    if (selectedCountry !== 'en') {
+        const usUrls = rubber.urls?.en || {};
         const usMeta = normalizeYouTubeMeta(usUrls.youtube);
         const usVideoId = usMeta?.url ? extractYouTubeVideoId(usMeta.url) : null;
         if (usVideoId) return { videoId: usVideoId, isFallback: true };

@@ -494,7 +494,7 @@ async function loadRubberData() {
             priority: 999, // will be overridden by priority ranking
             bestseller: false, // will be overridden by bestseller ranking
             urls: {
-                us: { product: urls.us?.product || '', youtube: urls.us?.youtube || '' },
+                en: { product: urls.en?.product || '', youtube: urls.en?.youtube || '' },
                 eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
                 kr: { product: urls.kr?.product || '', youtube: urls.kr?.youtube || '' },
                 cn: { product: urls.cn?.product || '', youtube: urls.cn?.youtube || '' }
