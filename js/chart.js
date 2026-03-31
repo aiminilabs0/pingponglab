@@ -958,9 +958,9 @@ function updateChart(options = {}) {
         x: sweetX1, y: sweetY1,
         xref: 'x', yref: 'y',
         xanchor: 'right', yanchor: 'bottom',
-        text: '<b>Power Spin Zone</b>',
+        text: '<b>Power Spin</b>',
         showarrow: false,
-        font: { size: 13, color: 'rgba(126,184,168,0.45)', family: CHART_FONT },
+        font: { size: 13, color: 'rgba(200,100,100,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
         borderpad: 4,
         captureevents: false
@@ -970,9 +970,9 @@ function updateChart(options = {}) {
         x: safeX1, y: safeY0,
         xref: 'x', yref: 'y',
         xanchor: 'right', yanchor: 'top',
-        text: '<b>Safe Spin Zone</b>',
+        text: '<b>Safe Spin</b>',
         showarrow: false,
-        font: { size: 13, color: 'rgba(126,156,184,0.45)', family: CHART_FONT },
+        font: { size: 13, color: 'rgba(100,180,120,0.45)', family: CHART_FONT },
         bgcolor: 'transparent',
         borderpad: 4,
         captureevents: false
@@ -1001,15 +1001,15 @@ function updateChart(options = {}) {
             type: 'rect',
             xref: 'x', yref: 'y',
             x0: sweetX0, y0: sweetY0, x1: sweetX1, y1: sweetY1,
-            fillcolor: 'rgba(126,184,168,0.04)',
-            line: { color: 'rgba(126,184,168,0.12)', width: 1, dash: 'dot' },
+            fillcolor: 'rgba(200,100,100,0.04)',
+            line: { color: 'rgba(200,100,100,0.12)', width: 1, dash: 'dot' },
             layer: 'below'
         }, {
             type: 'rect',
             xref: 'x', yref: 'y',
             x0: safeX0, y0: safeY0, x1: safeX1, y1: safeY1,
-            fillcolor: 'rgba(126,156,184,0.04)',
-            line: { color: 'rgba(126,156,184,0.12)', width: 1, dash: 'dot' },
+            fillcolor: 'rgba(100,180,120,0.04)',
+            line: { color: 'rgba(100,180,120,0.12)', width: 1, dash: 'dot' },
             layer: 'below'
         }],
         annotations: [
