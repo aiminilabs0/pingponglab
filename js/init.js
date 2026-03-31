@@ -757,18 +757,97 @@ async function initializeApp() {
         }, 1800);
     }
 
+    function hideVoteButtons(actionsContainer) {
+        actionsContainer.querySelectorAll('.content-feedback-btn').forEach(btn => btn.remove());
+    }
+
+    function showBadFeedbackReasonForm(voteBtn) {
+        const actionsContainer = voteBtn.closest('.content-feedback-actions');
+        if (!actionsContainer || actionsContainer.querySelector('.content-feedback-reason-form')) return;
+
+        hideVoteButtons(actionsContainer);
+
+        const context = {
+            contentType: voteBtn.dataset.feedbackScope || '',
+            tabId: voteBtn.dataset.feedbackTab || '',
+            rubberName: voteBtn.dataset.feedbackRubberName || '',
+            leftRubber: voteBtn.dataset.feedbackLeftRubber || '',
+            rightRubber: voteBtn.dataset.feedbackRightRubber || ''
+        };
+
+        const form = document.createElement('form');
+        form.className = 'content-feedback-reason-form';
+        form.innerHTML =
+            `<label class="content-feedback-reason-label">${tUi('FEEDBACK_EMAIL_LABEL')}</label>` +
+            `<input type="email" class="content-feedback-reason-email" placeholder="${tUi('FEEDBACK_EMAIL_PLACEHOLDER')}" autocomplete="email">` +
+            `<label class="content-feedback-reason-label">Reason</label>` +
+            `<textarea class="content-feedback-reason-input" rows="2" placeholder="${tUi('CONTENT_FEEDBACK_REASON_PLACEHOLDER')}" required></textarea>` +
+            `<button type="submit" class="content-feedback-reason-submit">${tUi('CONTENT_FEEDBACK_REASON_SUBMIT')}</button>`;
+
+        actionsContainer.appendChild(form);
+        const textarea = form.querySelector('textarea');
+        setTimeout(() => textarea.focus(), 30);
+
+        form.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const reason = textarea.value.trim();
+            if (!reason) return;
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = tUi('CONTENT_FEEDBACK_REASON_SENDING');
+
+            let subjectParts = ['Bad feedback'];
+            if (context.contentType) subjectParts.push(context.contentType);
+            if (context.rubberName) subjectParts.push(context.rubberName);
+            if (context.leftRubber && context.rightRubber) subjectParts.push(`${context.leftRubber} vs ${context.rightRubber}`);
+
+            const email = form.querySelector('.content-feedback-reason-email').value.trim();
+
+            const body = new FormData();
+            body.append('access_key', '209c243c-c02d-4523-8587-1fe225a6cad3');
+            body.append('subject', subjectParts.join(' | '));
+            body.append('message', reason);
+            if (email) body.append('email', email);
+            body.append('from_name', 'Content Feedback (bad)');
+
+            try {
+                const resp = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body,
+                    headers: { Accept: 'application/json' }
+                });
+                if (!resp.ok) throw new Error('send failed');
+                form.remove();
+                showContentFeedbackToast('bad');
+            } catch {
+                submitBtn.disabled = false;
+                submitBtn.textContent = tUi('CONTENT_FEEDBACK_REASON_SUBMIT');
+                showContentFeedbackToast('bad');
+            }
+        });
+    }
+
     document.getElementById('contentBody').addEventListener('click', (e) => {
         const voteBtn = e.target.closest('[data-feedback-vote]');
         if (!voteBtn) return;
 
         const vote = voteBtn.dataset.feedbackVote;
-        trackContentFeedbackVote(voteBtn.dataset.feedbackVote, {
+
+        if (vote === 'bad') {
+            showBadFeedbackReasonForm(voteBtn);
+            return;
+        }
+
+        const actionsContainer = voteBtn.closest('.content-feedback-actions');
+        trackContentFeedbackVote(vote, {
             contentType: voteBtn.dataset.feedbackScope,
             tabId: voteBtn.dataset.feedbackTab,
             rubberName: voteBtn.dataset.feedbackRubberName,
             leftRubber: voteBtn.dataset.feedbackLeftRubber,
             rightRubber: voteBtn.dataset.feedbackRightRubber
         });
+        if (actionsContainer) hideVoteButtons(actionsContainer);
         showContentFeedbackToast(vote);
     });
 

@@ -193,6 +193,7 @@
 .content-feedback-actions {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 18px;
     padding-top: 14px;
@@ -237,6 +238,72 @@
 .content-feedback-btn--bad:hover {
     color: #f08d8d;
     background: rgba(207, 85, 85, 0.2);
+}
+
+.content-feedback-reason-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    animation: feedbackReasonSlide 0.18s ease;
+}
+@keyframes feedbackReasonSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.content-feedback-reason-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--drac-comment);
+    letter-spacing: 0.3px;
+}
+.content-feedback-reason-email,
+.content-feedback-reason-input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: rgba(62,58,52,0.45);
+    color: var(--drac-fg);
+    font-size: 14px;
+    padding: 10px 12px;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.content-feedback-reason-input {
+    resize: vertical;
+    min-height: 56px;
+}
+.content-feedback-reason-email::placeholder,
+.content-feedback-reason-input::placeholder {
+    color: var(--drac-comment);
+}
+.content-feedback-reason-email:focus,
+.content-feedback-reason-input:focus {
+    outline: none;
+    background: rgba(62,58,52,0.65);
+    box-shadow: 0 0 0 2px rgba(126,184,168,0.25);
+}
+.content-feedback-reason-submit {
+    align-self: flex-start;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    background: var(--drac-purple);
+    color: var(--drac-bg-dark);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+.content-feedback-reason-submit:hover {
+    background: var(--drac-orange);
+}
+.content-feedback-reason-submit:active {
+    transform: scale(0.97);
+}
+.content-feedback-reason-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* ── Feedback form ── */
