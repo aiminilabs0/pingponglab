@@ -32,11 +32,62 @@
     justify-content: space-between;
     padding: 0 14px 0;
     color: var(--drac-yellow);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    font-variant: all-small-caps;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.3px;
     line-height: 1.2;
+}
+.chart-speed-outside > span,
+.chart-spin-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    cursor: help;
+    white-space: nowrap;
+    padding: 1px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(212,193,106,0.32);
+    background: rgba(212,193,106,0.10);
+    text-shadow: 0 0 8px rgba(212,193,106,0.18);
+}
+.chart-speed-outside > span::after,
+.chart-spin-label::after {
+    content: attr(data-hint);
+    position: absolute;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(28,26,23,0.95);
+    border: 1px solid rgba(155,148,132,0.20);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    color: var(--drac-fg);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: normal;
+    width: max-content;
+    max-width: 240px;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 101;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.chart-speed-outside > span::after {
+    top: calc(100% + 8px);
+    left: 0;
+    transform: translateY(-4px);
+}
+.chart-spin-label::after {
+    bottom: calc(100% + 8px);
+    right: 0;
+    transform: translateY(4px);
+}
+.chart-speed-outside > span:hover::after,
+.chart-spin-label:hover::after {
+    opacity: 1;
+    transform: translateY(0);
 }
 .user-guide-btn {
     display: inline-flex;
@@ -122,10 +173,9 @@
 .chart-spin-label {
     margin-left: auto;
     color: var(--drac-yellow);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    font-variant: all-small-caps;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.3px;
 }
 .chart-speed-outside [data-i18n-key="SPEED"],
 .chart-spin-label [data-i18n-key="SPIN"] {
@@ -134,23 +184,17 @@
 }
 /* Axis-label hints: speed tooltip drops below, left-aligned (near page top-left) */
 .chart-speed-outside .metric-hint::after {
-    bottom: auto;
-    top: calc(100% + 8px);
-    left: 0;
-    transform: translateY(-4px);
+    display: none;
 }
 .chart-speed-outside .metric-hint:hover::after {
-    transform: translateY(0);
+    display: none;
 }
 /* Spin label hint: right-aligned (near page bottom-right) */
 .chart-spin-label .metric-hint::after {
-    left: auto;
-    right: 0;
-    transform: translateY(4px);
-    z-index: 101;
+    display: none;
 }
 .chart-spin-label .metric-hint:hover::after {
-    transform: translateY(0);
+    display: none;
 }
 .chart-control-pill {
     display: inline-flex;

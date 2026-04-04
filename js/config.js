@@ -419,6 +419,8 @@ function applyLocalizedStaticText() {
     function injectAxisHint(containerSel, hintKey) {
         const container = document.querySelector(containerSel);
         if (!container) return;
+        const hintText = tUi(hintKey);
+        container.dataset.hint = hintText;
         let hint = container.querySelector('.metric-hint');
         if (!hint) {
             hint = document.createElement('span');
@@ -426,7 +428,7 @@ function applyLocalizedStaticText() {
             hint.innerHTML = hintIconSvg;
             container.appendChild(hint);
         }
-        hint.dataset.hint = tUi(hintKey);
+        hint.dataset.hint = hintText;
     }
     injectAxisHint('.chart-speed-outside > span', 'SPEED_HINT');
     injectAxisHint('.chart-spin-label', 'SPIN_HINT');
