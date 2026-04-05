@@ -4,6 +4,27 @@
 
 const YOUTUBE_ICON = '/images/youtube.ico';
 const YOUTUBE_DEFAULT_TITLE = 'YouTube Review';
+
+const PRODUCT_STORE_MAP = [
+    { domain: 'amazon.com',   icon: '/images/product/amazon.ico',  label: 'Amazon'  },
+    { domain: 'coupang.com',  icon: '/images/product/coupang.ico', label: 'Coupang' },
+    { domain: 'taobao.com',   icon: '/images/product/taobao.ico',  label: 'Taobao'  },
+];
+const PRODUCT_DEFAULT_STORE = { icon: '/images/product/sale.ico', label: 'Buy' };
+
+function getProductStoreMeta(url) {
+    if (!url) return null;
+    url = url.trim();
+    if (!url) return null;
+    try {
+        const hostname = new URL(url).hostname.replace(/^www\./, '');
+        const match = PRODUCT_STORE_MAP.find(s => hostname === s.domain || hostname.endsWith('.' + s.domain));
+        const { icon, label } = match || PRODUCT_DEFAULT_STORE;
+        return { url, icon, label };
+    } catch {
+        return null;
+    }
+}
 const youtubeMetaCache = new Map();
 
 function normalizeYouTubeMeta(rawYoutubeValue) {
@@ -107,6 +128,22 @@ async function buildTitleLinkIconsHtml(rubber) {
             );
         }
     }
+
+    let productUrl = countryUrls.product || '';
+    if (!productUrl && selectedCountry !== 'en') {
+        productUrl = (rubber.urls.en || {}).product || '';
+    }
+    const productMeta = getProductStoreMeta(productUrl);
+    if (productMeta) {
+        const safeTitle = escapeHtml(`Buy on ${productMeta.label}`);
+        parts.push(
+            `<a class="rubber-title-icon-link rubber-title-icon-link--product" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}">` +
+            `<img src="${escapeHtml(productMeta.icon)}" class="rubber-title-icon" alt="">` +
+            `<span class="rubber-title-link-label">${escapeHtml(productMeta.label)}</span>` +
+            `</a>`
+        );
+    }
+
     return parts.join('');
 }
 
@@ -278,8 +315,10 @@ async function updateDetailPanel(panelNum, rubber) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
     const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
-    const detailMarkdownPromise = fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
-    const detailMarkdown = await detailMarkdownPromise;
+    const [detailMarkdown, iconsHtml] = await Promise.all([
+        fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr),
+        buildTitleLinkIconsHtml(rubber),
+    ]);
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -290,6 +329,7 @@ async function updateDetailPanel(panelNum, rubber) {
             `</div>` +
             `<div class="rubber-title-row">` +
                 `<h1 class="rubber-name">${rubber.bestseller ? '\u2B50 ' : ''}${escapeHtml(localizedRubber)}</h1>` +
+                (iconsHtml ? `<div class="rubber-title-icons">${iconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
 
