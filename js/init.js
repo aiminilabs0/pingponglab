@@ -828,6 +828,12 @@ async function initializeApp() {
     }
 
     document.getElementById('contentBody').addEventListener('click', (e) => {
+        const buyLink = e.target.closest('.rubber-title-icon-link--product');
+        if (buyLink) {
+            trackBuyClickEvent(buyLink.dataset.rubberName || '');
+            return;
+        }
+
         const voteBtn = e.target.closest('[data-feedback-vote]');
         if (!voteBtn) return;
 

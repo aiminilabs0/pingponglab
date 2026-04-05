@@ -598,3 +598,13 @@ function trackComparisonRequestEvent(leftRubberName, rightRubberName) {
         login_name: getLoginNameInputForGa()
     });
 }
+
+function trackBuyClickEvent(rubberName) {
+    if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
+    const eventName = buildCountryGaEventName('buy', rubberName);
+    window.gtag('event', eventName, {
+        rubber_name: rubberName || '',
+        device_type: getDeviceTypeForGa(),
+        login_name: getLoginNameInputForGa()
+    });
+}
