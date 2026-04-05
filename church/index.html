@@ -850,16 +850,76 @@
             });
         }
 
+        function normalizeResultFileNames(values) {
+            if (!Array.isArray(values)) {
+                return [];
+            }
+            return values.map(function (item) {
+                return String(item || "").trim();
+            }).map(function (item) {
+                return item.split("/").pop();
+            }).filter(function (fileName) {
+                return fileName && /\.txt$/i.test(fileName);
+            }).filter(function (item, index, array) {
+                return array.indexOf(item) === index;
+            });
+        }
+
+        async function fetchResultFileListFromManifest() {
+            const manifestCandidates = ["./results/index.json", "./results/index.txt"];
+
+            for (let index = 0; index < manifestCandidates.length; index += 1) {
+                const manifestPath = manifestCandidates[index];
+                try {
+                    const response = await fetch(manifestPath, { cache: "no-store" });
+                    if (!response.ok) {
+                        continue;
+                    }
+
+                    if (manifestPath.endsWith(".json")) {
+                        const parsed = await response.json();
+                        if (Array.isArray(parsed)) {
+                            const names = normalizeResultFileNames(parsed);
+                            if (names.length > 0) {
+                                return names;
+                            }
+                        }
+                        if (parsed && Array.isArray(parsed.files)) {
+                            const names = normalizeResultFileNames(parsed.files);
+                            if (names.length > 0) {
+                                return names;
+                            }
+                        }
+                        continue;
+                    }
+
+                    const text = await response.text();
+                    const names = normalizeResultFileNames(text.split("\n"));
+                    if (names.length > 0) {
+                        return names;
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+
+            return [];
+        }
+
         async function fetchResultFileList() {
             try {
                 const listingResponse = await fetch("./results/", { cache: "no-store" });
                 if (!listingResponse.ok) {
-                    return [];
+                    return fetchResultFileListFromManifest();
                 }
                 const html = await listingResponse.text();
-                return parseResultDirectoryListing(html);
+                const listedFiles = parseResultDirectoryListing(html);
+                if (listedFiles.length > 0) {
+                    return listedFiles;
+                }
+                return fetchResultFileListFromManifest();
             } catch (error) {
-                return [];
+                return fetchResultFileListFromManifest();
             }
         }
 
