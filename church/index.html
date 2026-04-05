@@ -727,9 +727,6 @@
                     if (colIndex <= rowIndex) {
                         return "<td class=\"" + cellClass + "\"></td>";
                     }
-                    if (groupKey === "group_3") {
-                        return "<td class=\"" + cellClass + "\"></td>";
-                    }
                     const placeholder = rowPlayer + " ___ : " + colPlayer + " ___";
                     return "<td class=\"" + cellClass + "\">" + placeholder + "</td>";
                 }).join("");
@@ -971,7 +968,7 @@
             const groupMap = {
                 group_1: groupResults[0],
                 group_2: groupResults[1],
-                group_3: ["", "", "", "", "", ""]
+                group_3: ["p1", "p2", "p3", "p4", "p5", "p6"]
             };
             renderNextMatchTitle(nextMatchDate);
             renderLeagueMatrices(groupMap);
