@@ -441,8 +441,10 @@ async function updateComparisonBar() {
                 `<div class="comparison-title">${compTitleHtml}</div>` +
                 `<div class="content-pane-scroll">` +
                     `<div class="comparison-status-msg-wrap">` +
-                        `<p class="comparison-status-msg">No comparison available.</p>` +
-                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">Request a Comparison</button>` +
+                        `<div class="comparison-status-icon"></div>` +
+                        `<p class="comparison-status-msg">${tUi('NO_COMPARISON')}</p>` +
+                        `<p class="comparison-status-sub">${tUi('NO_COMPARISON_SUB')}</p>` +
+                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">${tUi('REQUEST_COMPARISON')}</button>` +
                     `</div>` +
                 `</div>`;
         }
