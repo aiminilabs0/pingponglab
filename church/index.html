@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PingPongLab Church</title>
+    <meta name="description" content="PingPongLab church page.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://pingponglab.com/church/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PingPongLab">
+    <meta property="og:title" content="PingPongLab Church">
+    <meta property="og:description" content="PingPongLab church page.">
+    <meta property="og:url" content="https://pingponglab.com/church/">
+    <meta property="og:image" content="https://pingponglab.com/images/share-preview.png?v=3">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="PingPongLab logo on dark background">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PingPongLab Church">
+    <meta name="twitter:description" content="PingPongLab church page.">
+    <meta name="twitter:image" content="https://pingponglab.com/images/share-preview.png?v=3">
+    <meta name="twitter:image:alt" content="PingPongLab logo on dark background">
+    <link rel="icon" href="/images/favicon.ico?v=10" type="image/x-icon">
+    <link rel="stylesheet" href="/css/variables.css?v=84">
+    <link rel="stylesheet" href="/css/header.css?v=84">
+    <link rel="stylesheet" href="/css/country.css?v=84">
+    <link rel="stylesheet" href="/css/responsive.css?v=84">
+    <style>
+        .church-game {
+            margin-top: 8px;
+            padding: 20px;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .country-selector .country-btn.active {
+            background: rgba(217, 119, 86, 0.2);
+            color: var(--drac-purple);
+        }
+
+        .league-body-title {
+            margin: 0 0 6px 0;
+            font-size: 1.55rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #0f172a;
+        }
+
+        .league-date-line {
+            margin: 0 0 16px 0;
+            font-size: 0.94rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .league-date-chip-list {
+            display: inline-flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .league-date-chip {
+            display: inline-block;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 3px 11px;
+            line-height: 1.2;
+        }
+
+        .stats-title {
+            margin: 0 0 12px 0;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.01em;
+        }
+
+        .table-shell {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            min-width: 700px;
+        }
+
+        .stats-table th,
+        .stats-table td {
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 11px 10px;
+            vertical-align: top;
+            color: #1e293b;
+        }
+
+        .stats-table thead th {
+            background: #0f172a;
+            color: #f8fafc;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .stats-table thead th:first-child {
+            border-radius: 13px 0 0 0;
+        }
+
+        .stats-table thead th:last-child {
+            border-radius: 0 13px 0 0;
+        }
+
+        .stats-table tbody tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        .stats-table tbody tr:hover td {
+            background: #f1f5f9;
+        }
+
+        .rank-cell {
+            width: 44px;
+            font-weight: 700;
+            color: #64748b;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .player-name-cell {
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .summary-cell {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .summary-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .detail-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            line-height: 1.3;
+            max-width: 300px;
+        }
+
+        .detail-item {
+            display: inline-block;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            padding: 3px 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .detail-item.loss {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .error-note {
+            margin: 10px 0 0 0;
+            color: #dc2626;
+            font-size: 0.88rem;
+        }
+
+        .league-matrix-section {
+            margin-top: 24px;
+        }
+
+        .league-matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .matrix-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            background: #ffffff;
+            padding: 14px;
+        }
+
+        .matrix-title {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .matrix-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .matrix-card-header .matrix-title {
+            margin: 0;
+        }
+
+        .matrix-print-btn {
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+
+        .matrix-print-btn:hover {
+            border-color: #94a3b8;
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+
+        .matrix-shell {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .matrix-table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            font-size: 0.88rem;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            text-align: center;
+            color: #1e293b;
+            height: 42px;
+            box-sizing: border-box;
+        }
+
+        .matrix-table thead th {
+            background: #f8fafc;
+            color: #0f172a;
+            font-weight: 700;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .matrix-table.no-header-bg thead th {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .matrix-table .row-player {
+            background: #f8fafc;
+            text-align: left;
+            font-weight: 700;
+            white-space: nowrap;
+            color: #0f172a;
+        }
+
+        .matrix-table .row-player.no-bg {
+            background: #ffffff;
+        }
+
+        .matrix-table .corner-cell {
+            text-align: left;
+            min-width: 0;
+        }
+
+        .matrix-table .matrix-cell {
+            min-width: 0;
+            height: 42px;
+            background: #ffffff;
+            font-size: 0.78rem;
+            line-height: 1.25;
+            white-space: nowrap;
+            color: #64748b;
+        }
+
+        .matrix-table .matrix-cell.gray-cell {
+            background: #e2e8f0;
+        }
+
+        .matrix-empty {
+            margin: 6px 0 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .church-game {
+                margin-top: 4px;
+                padding: 14px;
+            }
+
+            .league-body-title {
+                font-size: 1.3rem;
+            }
+
+            .stats-table {
+                font-size: 0.85rem;
+                min-width: 600px;
+            }
+
+            .stats-table th,
+            .stats-table td {
+                padding: 9px 8px;
+            }
+
+            .matrix-card {
+                padding: 10px;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 6px;
+                height: 36px;
+                font-size: 0.82rem;
+            }
+
+            .matrix-table .matrix-cell {
+                height: 36px;
+                font-size: 0.74rem;
+            }
+        }
+
+        @media print {
+            .site-header {
+                display: none;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+            }
+
+            .church-game {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .table-shell {
+                overflow: visible;
+            }
+
+            .stats-table {
+                min-width: 0;
+                font-size: 11px;
+            }
+
+            .stats-table th,
+            .stats-table td {
+                padding: 6px 5px;
+            }
+
+            .matrix-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .matrix-table {
+                min-width: 0;
+                font-size: 10px;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 4px;
+                height: 28px;
+            }
+
+            .matrix-table .matrix-cell {
+                height: 28px;
+            }
+
+            .matrix-table .matrix-cell.gray-cell {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div class="header-row">
+                <div class="header-brand">
+                    <img src="/images/ci.png" alt="PingPong Lab" class="header-logo" id="homeLogo" role="button" tabindex="0" aria-label="Reset view">
+                    <div class="header-text">
+                        <h1 class="header-title">Best Ping Pong Rubber</h1>
+                        <p class="header-tagline">Showing <span class="header-tagline-current-count">86</span> of 86 in this range</p>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <div class="country-selector" aria-label="Language selector">
+                        <button type="button" class="country-btn active" aria-pressed="true">EN</button>
+                        <button type="button" class="country-btn" aria-pressed="false">中</button>
+                        <button type="button" class="country-btn" aria-pressed="false">한</button>
+                    </div>
+                </div>
+            </div>
+            <div class="header-accent"></div>
+        </header>
+
+        <section class="church-game" aria-label="Ping pong game tracker">
+            <h2 class="league-body-title">Emmanuel Church League</h2>
+            <p class="league-date-line">
+                <span id="leagueDateChipList" class="league-date-chip-list">
+                    <span class="league-date-chip">-</span>
+                </span>
+            </p>
+            <div class="table-shell">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Total</th>
+                            <th>Won Against</th>
+                            <th>Lost Against</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsBody">
+                        <tr>
+                            <td colspan="5">No data yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p id="errorNote" class="error-note"></p>
+
+            <div class="league-matrix-section">
+                <h3 id="nextMatchTitle" class="stats-title">Next Match</h3>
+                <div class="league-matrix-grid">
+                    <div id="group1Card" class="matrix-card">
+                        <div class="matrix-card-header">
+                            <h4 class="matrix-title">Group 1 - Best of 3 (11-point games)</h4>
+                            <button type="button" class="matrix-print-btn" data-group="group_1">Print</button>
+                        </div>
+                        <div id="group1Matrix"></div>
+                    </div>
+                    <div id="group2Card" class="matrix-card">
+                        <div class="matrix-card-header">
+                            <h4 class="matrix-title">Group 2 - Best of 3 (11-point games)</h4>
+                            <button type="button" class="matrix-print-btn" data-group="group_2">Print</button>
+                        </div>
+                        <div id="group2Matrix"></div>
+                    </div>
+                    <div id="group3Card" class="matrix-card">
+                        <div class="matrix-card-header">
+                            <h4 class="matrix-title">Group 3 - Best of 1 (11-point games)</h4>
+                            <button type="button" class="matrix-print-btn" data-group="group_3">Print</button>
+                        </div>
+                        <div id="group3Matrix"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const dom = {
+            homeLogo: document.getElementById("homeLogo"),
+            leagueDateChipList: document.getElementById("leagueDateChipList"),
+            statsBody: document.getElementById("statsBody"),
+            matrixContainers: {
+                group_1: document.getElementById("group1Matrix"),
+                group_2: document.getElementById("group2Matrix"),
+                group_3: document.getElementById("group3Matrix")
+            },
+            matrixCards: {
+                group_1: document.getElementById("group1Card"),
+                group_2: document.getElementById("group2Card"),
+                group_3: document.getElementById("group3Card")
+            },
+            matrixPrintButtons: Array.from(document.querySelectorAll(".matrix-print-btn")),
+            nextMatchTitle: document.getElementById("nextMatchTitle"),
+            errorNote: document.getElementById("errorNote")
+        };
+
+        function goToMainPage() {
+            window.location.href = "/";
+        }
+
+        function parseLeagueDateFromFileName(fileName) {
+            const match = String(fileName || "").match(/(\d{6}|\d{8})/);
+            if (!match) {
+                return null;
+            }
+
+            const digits = match[1];
+            return formatDateDigits(digits);
+        }
+
+        function formatDateDigits(digits) {
+            const safeDigits = String(digits || "").trim();
+            if (!/^\d{6}$|^\d{8}$/.test(safeDigits)) {
+                return null;
+            }
+
+            let year = "";
+            let month = "";
+            let day = "";
+            if (safeDigits.length === 6) {
+                year = "20" + safeDigits.slice(0, 2);
+                month = safeDigits.slice(2, 4);
+                day = safeDigits.slice(4, 6);
+            } else {
+                year = safeDigits.slice(0, 4);
+                month = safeDigits.slice(4, 6);
+                day = safeDigits.slice(6, 8);
+            }
+
+            return year + "-" + month + "-" + day;
+        }
+
+        function renderLeagueDates(fileNames) {
+            const dateMap = {};
+            fileNames.forEach(function (fileName) {
+                const parsedDate = parseLeagueDateFromFileName(fileName);
+                if (parsedDate) {
+                    dateMap[parsedDate] = true;
+                }
+            });
+
+            const dates = Object.keys(dateMap).sort(function (a, b) {
+                return b.localeCompare(a);
+            });
+
+            if (dates.length === 0) {
+                dom.leagueDateChipList.innerHTML = "<span class=\"league-date-chip\">-</span>";
+                return;
+            }
+
+            dom.leagueDateChipList.innerHTML = dates.map(function (dateText) {
+                return "<span class=\"league-date-chip\">" + dateText + "</span>";
+            }).join("");
+        }
+
+        function parseLine(line) {
+            const parts = line.split(",").map(function (item) {
+                return item.trim();
+            });
+
+            if (parts.length !== 3) {
+                return null;
+            }
+
+            const playerA = parts[0];
+            const playerB = parts[1];
+            const scoreText = parts[2];
+            const scoreMatch = scoreText.match(/^(\d+)\s*:\s*(\d+)$/);
+            if (!playerA || !playerB || !scoreMatch || playerA === playerB) {
+                return null;
+            }
+
+            return {
+                playerA: playerA,
+                playerB: playerB,
+                scoreA: Number(scoreMatch[1]),
+                scoreB: Number(scoreMatch[2]),
+                rawScore: scoreText
+            };
+        }
+
+        function ensurePlayer(statsMap, playerName) {
+            if (!statsMap[playerName]) {
+                statsMap[playerName] = {
+                    win: 0,
+                    loss: 0,
+                    winVs: {},
+                    lossVs: {}
+                };
+            }
+        }
+
+        function setPlayerRecord(statsMap, winnerName, loserName) {
+            ensurePlayer(statsMap, winnerName);
+            ensurePlayer(statsMap, loserName);
+            statsMap[winnerName].win += 1;
+            statsMap[loserName].loss += 1;
+            statsMap[winnerName].winVs[loserName] = (statsMap[winnerName].winVs[loserName] || 0) + 1;
+            statsMap[loserName].lossVs[winnerName] = (statsMap[loserName].lossVs[winnerName] || 0) + 1;
+        }
+
+        function renderOpponentCounts(counterMap, lossStyle) {
+            const names = Object.keys(counterMap).sort(function (nameA, nameB) {
+                const diff = counterMap[nameB] - counterMap[nameA];
+                if (diff !== 0) {
+                    return diff;
+                }
+                return nameA.localeCompare(nameB);
+            });
+
+            if (names.length === 0) {
+                return "-";
+            }
+
+            return "<div class=\"detail-list\">" + names.map(function (name) {
+                const cssClass = lossStyle ? "detail-item loss" : "detail-item";
+                return "<span class=\"" + cssClass + "\">" + name + " x" + counterMap[name] + "</span>";
+            }).join("") + "</div>";
+        }
+
+        function renderPlayerTable(statsMap) {
+            const rows = Object.keys(statsMap).filter(function (name) {
+                return statsMap[name].win > 0;
+            }).sort(function (nameA, nameB) {
+                const winsDiff = statsMap[nameB].win - statsMap[nameA].win;
+                if (winsDiff !== 0) {
+                    return winsDiff;
+                }
+                const lossDiff = statsMap[nameA].loss - statsMap[nameB].loss;
+                if (lossDiff !== 0) {
+                    return lossDiff;
+                }
+                return nameA.localeCompare(nameB);
+            });
+
+            if (rows.length === 0) {
+                dom.statsBody.innerHTML = "<tr><td colspan=\"5\">No data yet.</td></tr>";
+                return 0;
+            }
+
+            let previousRank = 0;
+            let previousWin = -1;
+            let previousLoss = -1;
+
+            dom.statsBody.innerHTML = rows.map(function (name, index) {
+                const row = statsMap[name];
+                let rank = index + 1;
+                if (row.win === previousWin && row.loss === previousLoss) {
+                    rank = previousRank;
+                }
+                previousRank = rank;
+                previousWin = row.win;
+                previousLoss = row.loss;
+
+                return "<tr>" +
+                    "<td class=\"rank-cell\">" + rank + "</td>" +
+                    "<td class=\"player-name-cell\">" + name + "</td>" +
+                    "<td class=\"summary-cell\"><span class=\"summary-chip\">" + row.win + "W - " + row.loss + "L</span></td>" +
+                    "<td>" + renderOpponentCounts(row.winVs, false) + "</td>" +
+                    "<td>" + renderOpponentCounts(row.lossVs, true) + "</td>" +
+                    "</tr>";
+            }).join("");
+
+            return rows.length;
+        }
+
+        function renderNoData() {
+            dom.statsBody.innerHTML = "<tr><td colspan=\"5\">No data yet.</td></tr>";
+        }
+
+        function renderNextMatchTitle(dateText) {
+            if (!dateText) {
+                dom.nextMatchTitle.textContent = "Next Match";
+                return;
+            }
+            dom.nextMatchTitle.innerHTML = "Next Match <span class=\"league-date-chip\">" + dateText + "</span>";
+        }
+
+        function renderLeagueMatrix(groupKey, players) {
+            const container = dom.matrixContainers[groupKey];
+            if (!container) {
+                return;
+            }
+
+            if (!players || players.length === 0) {
+                container.innerHTML = "<p class=\"matrix-empty\">No players yet.</p>";
+                return;
+            }
+
+            const headerCells = players.map(function (name) {
+                return "<th scope=\"col\">" + name + "</th>";
+            }).join("");
+            const columnCount = players.length + 1;
+            const columnWidth = (100 / columnCount).toFixed(4) + "%";
+            const columns = new Array(columnCount).fill("<col style=\"width:" + columnWidth + "\">").join("");
+
+            const isPlainGroup = groupKey === "group_1" || groupKey === "group_2";
+            const cornerText = "";
+            const rowClassName = isPlainGroup ? "row-player no-bg" : "row-player";
+
+            const rows = players.map(function (rowPlayer, rowIndex) {
+                const rowCells = players.map(function (colPlayer, colIndex) {
+                    const cellClass = colIndex <= rowIndex ? "matrix-cell gray-cell" : "matrix-cell";
+                    if (colIndex <= rowIndex) {
+                        return "<td class=\"" + cellClass + "\"></td>";
+                    }
+                    if (groupKey === "group_3") {
+                        return "<td class=\"" + cellClass + "\"></td>";
+                    }
+                    const placeholder = rowPlayer + " ___ : " + colPlayer + " ___";
+                    return "<td class=\"" + cellClass + "\">" + placeholder + "</td>";
+                }).join("");
+                return "<tr><th scope=\"row\" class=\"" + rowClassName + "\">" + rowPlayer + "</th>" + rowCells + "</tr>";
+            }).join("");
+
+            container.innerHTML =
+                "<div class=\"matrix-shell\">" +
+                "<table class=\"matrix-table" + (isPlainGroup ? " no-header-bg" : "") + "\">" +
+                "<colgroup>" + columns + "</colgroup>" +
+                "<thead><tr><th class=\"corner-cell\">" + cornerText + "</th>" + headerCells + "</tr></thead>" +
+                "<tbody>" + rows + "</tbody>" +
+                "</table>" +
+                "</div>";
+        }
+
+        function renderLeagueMatrices(groupMap) {
+            renderLeagueMatrix("group_1", groupMap.group_1);
+            renderLeagueMatrix("group_2", groupMap.group_2);
+            renderLeagueMatrix("group_3", groupMap.group_3);
+        }
+
+        function printGroupMatrix(groupKey) {
+            const card = dom.matrixCards[groupKey];
+            if (!card) {
+                return;
+            }
+
+            const groupTitleNode = card.querySelector(".matrix-title");
+            const matrixContentNode = dom.matrixContainers[groupKey];
+            if (!groupTitleNode || !matrixContentNode) {
+                return;
+            }
+
+            const pageTitle = dom.nextMatchTitle ? dom.nextMatchTitle.textContent.trim() : "Next Match";
+            const groupTitle = groupTitleNode.textContent.trim();
+            const matrixHtml = matrixContentNode.innerHTML;
+
+            const printWindow = window.open("", "_blank", "width=1000,height=800");
+            if (!printWindow) {
+                return;
+            }
+
+            printWindow.document.write(
+                "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>" + groupTitle + "</title>" +
+                "<style>" +
+                "body{font-family:Arial,sans-serif;padding:16px;color:#0f172a;}" +
+                "h1{margin:0 0 10px 0;font-size:20px;}" +
+                "h2{margin:0 0 12px 0;font-size:18px;}" +
+                ".matrix-shell{border:1px solid #dbe2ea;border-radius:8px;overflow:hidden;}" +
+                ".matrix-table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:12px;}" +
+                ".matrix-table th,.matrix-table td{border:1px solid #e2e8f0;padding:6px;text-align:center;height:36px;box-sizing:border-box;}" +
+                ".matrix-table .row-player{text-align:left;font-weight:700;background:#ffffff;}" +
+                ".matrix-table .matrix-cell.gray-cell{background:#e5e7eb;-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
+                "</style></head><body>" +
+                "<h1>" + pageTitle + "</h1>" +
+                "<h2>" + groupTitle + "</h2>" +
+                matrixHtml +
+                "</body></html>"
+            );
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.onload = function () {
+                printWindow.print();
+                printWindow.close();
+            };
+        }
+
+        function renderFromLines(rawLines, existingErrors) {
+            const statsMap = {};
+            const errors = existingErrors.slice();
+
+            rawLines.forEach(function (lineInfo) {
+                const parsed = parseLine(lineInfo.line);
+                if (!parsed) {
+                    errors.push(lineInfo.source + ":" + lineInfo.lineNo + " format error: " + lineInfo.line);
+                    return;
+                }
+
+                if (parsed.scoreA > parsed.scoreB) {
+                    setPlayerRecord(statsMap, parsed.playerA, parsed.playerB);
+                } else if (parsed.scoreB > parsed.scoreA) {
+                    setPlayerRecord(statsMap, parsed.playerB, parsed.playerA);
+                }
+            });
+
+            renderPlayerTable(statsMap);
+            dom.errorNote.textContent = errors.join(" | ");
+        }
+
+        function parseResultDirectoryListing(htmlText) {
+            const matches = [];
+            const hrefPattern = /href="([^"]+)"/g;
+            let match = hrefPattern.exec(htmlText);
+            while (match) {
+                matches.push(match[1]);
+                match = hrefPattern.exec(htmlText);
+            }
+
+            return matches.map(function (item) {
+                return decodeURIComponent(item);
+            }).filter(function (item) {
+                const fileName = item.split("/").pop();
+                if (!fileName) {
+                    return false;
+                }
+                if (item.endsWith("/")) {
+                    return false;
+                }
+                if (fileName === "." || fileName === "..") {
+                    return false;
+                }
+                return /\.txt$/i.test(fileName);
+            }).map(function (item) {
+                return item.split("/").pop();
+            }).filter(function (item, index, array) {
+                return array.indexOf(item) === index;
+            });
+        }
+
+        async function fetchResultFileList() {
+            try {
+                const listingResponse = await fetch("./results/", { cache: "no-store" });
+                if (!listingResponse.ok) {
+                    return [];
+                }
+                const html = await listingResponse.text();
+                return parseResultDirectoryListing(html);
+            } catch (error) {
+                return [];
+            }
+        }
+
+        async function fetchGroupPlayers(fileName) {
+            try {
+                const response = await fetch("./next_match/" + fileName, { cache: "no-store" });
+                if (!response.ok) {
+                    return [];
+                }
+                const text = await response.text();
+                const names = text.split("\n").map(function (line) {
+                    return line.trim();
+                }).filter(function (line) {
+                    return line.length > 0;
+                });
+                return names.filter(function (name, index, array) {
+                    return array.indexOf(name) === index;
+                });
+            } catch (error) {
+                return [];
+            }
+        }
+
+        async function fetchNextMatchDate() {
+            try {
+                const response = await fetch("./next_match/date.txt", { cache: "no-store" });
+                if (!response.ok) {
+                    return null;
+                }
+                const rawDate = (await response.text()).trim();
+                return formatDateDigits(rawDate);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        async function loadAndDisplayResults() {
+            dom.errorNote.textContent = "";
+
+            const listResult = await Promise.all([
+                fetchResultFileList(),
+                fetchGroupPlayers("group_1.txt"),
+                fetchGroupPlayers("group_2.txt"),
+                fetchNextMatchDate()
+            ]);
+            const resultFiles = listResult[0];
+            const groupResults = [listResult[1], listResult[2]];
+            const nextMatchDate = listResult[3];
+            const groupMap = {
+                group_1: groupResults[0],
+                group_2: groupResults[1],
+                group_3: ["", "", "", "", "", ""]
+            };
+            renderNextMatchTitle(nextMatchDate);
+            renderLeagueMatrices(groupMap);
+            const filteredFiles = resultFiles.map(function (name) {
+                return String(name || "").trim();
+            });
+
+            if (filteredFiles.length === 0) {
+                renderLeagueDates([]);
+                renderNoData();
+                return;
+            }
+            renderLeagueDates(filteredFiles);
+
+            const rawLines = [];
+            const loadingErrors = [];
+            for (let index = 0; index < filteredFiles.length; index += 1) {
+                const fileName = filteredFiles[index];
+                try {
+                    const response = await fetch("./results/" + fileName, { cache: "no-store" });
+                    if (!response.ok) {
+                        loadingErrors.push(fileName + " load failed (" + response.status + ")");
+                        continue;
+                    }
+                    const text = await response.text();
+                    const lines = text.split("\n").map(function (line) {
+                        return line.trim();
+                    }).filter(function (line) {
+                        return line.length > 0;
+                    });
+
+                    lines.forEach(function (line, lineIndex) {
+                        rawLines.push({
+                            source: fileName,
+                            lineNo: lineIndex + 1,
+                            line: line
+                        });
+                    });
+                } catch (error) {
+                    loadingErrors.push(fileName + " load failed.");
+                }
+            }
+
+            if (rawLines.length === 0) {
+                dom.errorNote.textContent = loadingErrors.join(" | ");
+                renderNoData();
+                return;
+            }
+
+            renderFromLines(rawLines, loadingErrors);
+        }
+
+        loadAndDisplayResults();
+
+        dom.homeLogo.addEventListener("click", goToMainPage);
+        dom.homeLogo.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                goToMainPage();
+            }
+        });
+
+        dom.matrixPrintButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const groupKey = button.getAttribute("data-group");
+                if (!groupKey) {
+                    return;
+                }
+                printGroupMatrix(groupKey);
+            });
+        });
+    </script>
+</body>
+</html>
