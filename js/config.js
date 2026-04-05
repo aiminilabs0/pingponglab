@@ -586,14 +586,6 @@ function trackContentFeedbackVote(vote, context = {}) {
     });
 }
 
-function trackAppLoadedEvent() {
-    if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;
-    const deviceType = getDeviceTypeForGa();
-    window.gtag('event', buildCountryGaEventName('device', deviceType), {
-        device_type: deviceType,
-        login_name: getLoginNameInputForGa()
-    });
-}
 
 function trackComparisonRequestEvent(leftRubberName, rightRubberName) {
     if (typeof window.gtag !== 'function' || isAnalyticsBlockedUser()) return;

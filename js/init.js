@@ -657,7 +657,6 @@ function applyRoute(route) {
 
 async function initializeApp() {
     ensureAnalyticsInitialized();
-    trackAppLoadedEvent();
 
     const chart = document.getElementById('chart');
     if (chart) chart.innerHTML = '<div style="padding: 20px; color: #9b9484;">Loading rubber data\u2026</div>';
