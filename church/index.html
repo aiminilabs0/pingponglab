@@ -76,6 +76,36 @@
             line-height: 1.2;
         }
 
+        .league-subsection {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .league-subsection:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 0;
+        }
+
+        .ranking-section {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .next-match-section {
+            background: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .current-ranking-title {
+            margin-top: 8px;
+        }
+
         .stats-title {
             margin: 0 0 12px 0;
             font-size: 1.15rem;
@@ -448,27 +478,30 @@
                     <span class="league-date-chip">-</span>
                 </span>
             </p>
-            <div class="table-shell">
-                <table class="stats-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Total</th>
-                            <th>Won Against</th>
-                            <th>Lost Against</th>
-                        </tr>
-                    </thead>
-                    <tbody id="statsBody">
-                        <tr>
-                            <td colspan="5">No data yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="league-subsection ranking-section">
+                <h3 class="stats-title current-ranking-title">Current Ranking</h3>
+                <div class="table-shell">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Player</th>
+                                <th>Total</th>
+                                <th>Won Against</th>
+                                <th>Lost Against</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statsBody">
+                            <tr>
+                                <td colspan="5">No data yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p id="errorNote" class="error-note"></p>
             </div>
-            <p id="errorNote" class="error-note"></p>
 
-            <div class="league-matrix-section">
+            <div class="league-matrix-section league-subsection next-match-section">
                 <h3 id="nextMatchTitle" class="stats-title">Next Match</h3>
                 <div class="league-matrix-grid">
                     <div id="group1Card" class="matrix-card">
