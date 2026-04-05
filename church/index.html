@@ -761,7 +761,7 @@
                         return "<td class=\"" + cellClass + "\"></td>";
                     }
                     const placeholder = rowPlayer + " ___ : " + colPlayer + " ___";
-                    return "<td class=\"" + cellClass + "\">" + placeholder + "</td>";
+                    return "<td class=\"" + cellClass + " matrix-placeholder\">" + placeholder + "</td>";
                 }).join("");
                 return "<tr><th scope=\"row\" class=\"" + rowClassName + "\">" + rowPlayer + "</th>" + rowCells + "</tr>";
             }).join("");
@@ -814,6 +814,7 @@
                 ".matrix-table th,.matrix-table td{border:1px solid #e2e8f0;padding:6px;text-align:center;height:36px;box-sizing:border-box;}" +
                 ".matrix-table .row-player{text-align:left;font-weight:700;background:#ffffff;}" +
                 ".matrix-table .matrix-cell.gray-cell{background:#e5e7eb;-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
+                ".matrix-table .matrix-cell.matrix-placeholder{color:#94a3b8;font-weight:500;}" +
                 "</style></head><body>" +
                 "<h1>" + pageTitle + "</h1>" +
                 "<h2>" + groupTitle + "</h2>" +
