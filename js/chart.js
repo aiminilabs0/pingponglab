@@ -261,6 +261,9 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
 // Thin overlapping labels by priority (lower priority number = higher importance)
 let _prevVisibleRubbers = [];
 
+// Track whether the mobile chart is currently zoomed in (enables pan mode)
+let _mobileZoomed = false;
+
 function computeVisibleRubbers(filteredData) {
     if (filteredData.length === 0) { _prevVisibleRubbers = []; return []; }
     // Desktop: keep every rubber point/label visible, even when overlapping.
@@ -980,7 +983,7 @@ function updateChart(options = {}) {
 
     const layout = {
         title: '',
-        dragmode: IS_TOUCH_DEVICE ? false : 'pan',
+        dragmode: IS_TOUCH_DEVICE ? (_mobileZoomed ? 'pan' : false) : 'pan',
         xaxis: {
             ...axisBase,
             title: { text: '' },
@@ -1232,8 +1235,8 @@ function updateChart(options = {}) {
 
                 // Enable/disable pan on mobile based on whether the view is zoomed in.
                 if (IS_TOUCH_DEVICE && endedRanges) {
-                    const zoomed = !viewCoversDataBounds(currentFilteredData, endedRanges.xRange, endedRanges.yRange);
-                    Plotly.relayout(chartEl, { dragmode: zoomed ? 'pan' : false });
+                    _mobileZoomed = !viewCoversDataBounds(currentFilteredData, endedRanges.xRange, endedRanges.yRange);
+                    Plotly.relayout(chartEl, { dragmode: _mobileZoomed ? 'pan' : false });
                 }
 
                 // Wait for Plotly's internal relayout events to settle, then
@@ -1421,6 +1424,7 @@ function applyZoomLayout(chartEl, ranges) {
 function triggerAutoscale() {
     const chartEl = document.getElementById('chart');
     if (chartEl && hasPlotted) {
+        _mobileZoomed = false;
         Plotly.relayout(chartEl, {
             'xaxis.autorange': true,
             'yaxis.autorange': true,
