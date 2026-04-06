@@ -630,6 +630,12 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         });
     });
 
+    popup.querySelectorAll('.chart-hover-buy-btn').forEach(el => {
+        el.addEventListener('click', () => {
+            trackBuyClickEvent(el.dataset.rubberName || '');
+        });
+    });
+
     return rubber;
 }
 
@@ -727,6 +733,15 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="">${ytEnBadge}</button>`
         : '';
 
+    let productUrl = countryUrls.product || '';
+    if (!productUrl && selectedCountry !== 'en') {
+        productUrl = (rubber.urls?.en || {}).product || '';
+    }
+    const productMeta = getProductStoreMeta(productUrl);
+    const buyBtn = productMeta
+        ? `<a class="chart-hover-buy-btn" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" aria-label="Buy" data-rubber-name="${escapeHtml(rubber.name || rubber.abbr || '')}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Buy</a>`
+        : '';
+
     return `
         <div class="chart-hover-card">
             <div class="chart-hover-accent" style="background:${brandColor}"></div>
@@ -737,7 +752,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                         <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(brandName)}
                     </span>
                 </div>
-                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${slotBadge}</div>
+                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${buyBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-hero">
                 <div class="chart-hover-hero-col" data-hint="${tUi('SPIN_HINT')}">

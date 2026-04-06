@@ -354,6 +354,34 @@
     padding: 1px 2.5px;
     border-radius: 3px;
 }
+.chart-hover-buy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: auto;
+    padding: 3px 9px 3px 7px;
+    border: 1px solid rgba(80, 250, 123, 0.35);
+    border-radius: 7px;
+    background: rgba(80, 250, 123, 0.10);
+    color: var(--drac-green, #50fa7b);
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+}
+.chart-hover-buy-btn svg {
+    flex-shrink: 0;
+    opacity: 0.9;
+}
+.chart-hover-buy-btn:hover {
+    transform: translateY(-1px) scale(1.05);
+    background: rgba(80, 250, 123, 0.20);
+    border-color: rgba(80, 250, 123, 0.6);
+    box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
+}
 .chart-hover-players {
     display: flex;
     flex-direction: column;
