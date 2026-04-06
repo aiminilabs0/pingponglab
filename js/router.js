@@ -4,6 +4,19 @@
 
 const VALID_COUNTRIES = ['en', 'cn', 'ko'];
 
+function detectPreferredCountry() {
+    try {
+        const stored = localStorage.getItem('pingponglab_selected_country');
+        if (VALID_COUNTRIES.includes(stored)) return stored;
+    } catch {}
+
+    const lang = (navigator.language || '').toLowerCase();
+    if (lang.startsWith('ko')) return 'ko';
+    if (lang.startsWith('zh')) return 'cn';
+
+    return 'en';
+}
+
 /**
  * Parse the current window.location.pathname into a route descriptor.
  * @returns {{ type: string, country: string, slug?: string, slugA?: string, slugB?: string }}
@@ -12,14 +25,13 @@ function parseRoute() {
     const path = window.location.pathname.replace(/\/index\.html$/, '/');
     const segments = path.split('/').filter(Boolean);
 
-    // / → redirect to /en/
     if (segments.length === 0) {
-        return { type: 'redirect', country: 'en' };
+        return { type: 'redirect', country: detectPreferredCountry() };
     }
 
     const country = segments[0];
     if (!VALID_COUNTRIES.includes(country)) {
-        return { type: 'redirect', country: 'en' };
+        return { type: 'redirect', country: detectPreferredCountry() };
     }
 
     // /{country}/ → homepage
