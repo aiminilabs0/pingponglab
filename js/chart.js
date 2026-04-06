@@ -980,7 +980,7 @@ function updateChart(options = {}) {
 
     const layout = {
         title: '',
-        dragmode: 'pan',
+        dragmode: IS_TOUCH_DEVICE ? false : 'pan',
         xaxis: {
             ...axisBase,
             title: { text: '' },
@@ -1223,9 +1223,16 @@ function updateChart(options = {}) {
         const onPinchEnd = (e) => {
             if (e.touches.length < 2 && pinchActive) {
                 pinchActive = false;
+                const endedRanges = pinchFinalRanges;
                 pinchStartDist = null;
                 pinchStartXRange = null;
                 pinchStartYRange = null;
+
+                // Enable/disable pan on mobile based on whether the view is zoomed in.
+                if (IS_TOUCH_DEVICE && endedRanges) {
+                    const zoomed = !viewCoversDataBounds(currentFilteredData, endedRanges.xRange, endedRanges.yRange);
+                    Plotly.relayout(chartEl, { dragmode: zoomed ? 'pan' : false });
+                }
 
                 // Wait for Plotly's internal relayout events to settle, then
                 // re-run updateChart so computeVisibleRubbers recalculates the
@@ -1412,6 +1419,10 @@ function applyZoomLayout(chartEl, ranges) {
 function triggerAutoscale() {
     const chartEl = document.getElementById('chart');
     if (chartEl && hasPlotted) {
-        Plotly.relayout(chartEl, { 'xaxis.autorange': true, 'yaxis.autorange': true });
+        Plotly.relayout(chartEl, {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true,
+            ...(IS_TOUCH_DEVICE ? { dragmode: false } : {})
+        });
     }
 }
