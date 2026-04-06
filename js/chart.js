@@ -1158,6 +1158,7 @@ function updateChart(options = {}) {
 
         chartEl.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
+                e.preventDefault();
                 e.stopPropagation();
 
                 // Block relayout-triggered updateChart calls while pinching.
@@ -1185,12 +1186,13 @@ function updateChart(options = {}) {
                 pinchAnchorFx = Math.max(0, Math.min(1, (mid.x - pRect.left) / pRect.width));
                 pinchAnchorFy = Math.max(0, Math.min(1, 1 - (mid.y - pRect.top) / pRect.height));
             }
-        }, { passive: true });
+        }, { passive: false });
 
         chartEl.addEventListener('touchmove', (e) => {
             if (e.touches.length !== 2 || pinchStartDist === null) return;
             if (!pinchStartXRange || !pinchStartYRange) return;
 
+            e.preventDefault();
             e.stopPropagation();
 
             const currentDist = getTouchDist(e.touches[0], e.touches[1]);
@@ -1218,7 +1220,7 @@ function updateChart(options = {}) {
                 applyZoomLayout(chartEl, ranges);
                 updateHeaderTagline();
             }
-        }, { passive: true });
+        }, { passive: false });
 
         const onPinchEnd = (e) => {
             if (e.touches.length < 2 && pinchActive) {
