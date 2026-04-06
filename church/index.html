@@ -162,6 +162,13 @@
             background: #f1f5f9;
         }
 
+        .ellipsis-row td {
+            text-align: center;
+            font-weight: 700;
+            color: #64748b;
+            letter-spacing: 0.2em;
+        }
+
         .rank-cell {
             width: 44px;
             font-weight: 700;
@@ -479,7 +486,7 @@
                 </span>
             </p>
             <div class="league-subsection ranking-section">
-                <h3 class="stats-title current-ranking-title">Current Ranking</h3>
+                <h3 class="stats-title current-ranking-title">Top Players</h3>
                 <div class="table-shell">
                     <table class="stats-table">
                         <thead>
@@ -741,7 +748,7 @@
                     "<td>" + renderOpponentCounts(row.winVs, false) + "</td>" +
                     "<td>" + renderOpponentCounts(row.lossVs, true) + "</td>" +
                     "</tr>";
-            }).join("");
+            }).join("") + "<tr class=\"ellipsis-row\"><td colspan=\"5\">...</td></tr>";
 
             return rows.length;
         }
