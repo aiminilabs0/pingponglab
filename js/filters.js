@@ -567,8 +567,9 @@ function buildCheckboxOptions(container, values, checkedValues) {
         indicator.className = 'custom-check';
         if (swatchColor) {
             indicator.classList.add('color-check');
+            // Set on both the label (for CSS child selectors) and the indicator itself
+            label.style.setProperty('--swatch-color', swatchColor);
             indicator.style.setProperty('--swatch-color', swatchColor);
-            indicator.style.backgroundColor = swatchColor;
         }
         if (shapeSymbol) {
             indicator.classList.add('shape-check', shapeSymbol);
