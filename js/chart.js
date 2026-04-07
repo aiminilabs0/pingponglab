@@ -1105,7 +1105,7 @@ function updateChart(options = {}) {
         },
         hoverlabel: {
             bgcolor: '#3e3a34', bordercolor: '#9b9484',
-            font: { color: '#e8e0d0', family: '-apple-system, BlinkMacSystemFont, sans-serif' }
+            font: { color: '#e8e0d0', family: CHART_FONT }
         }
     };
 

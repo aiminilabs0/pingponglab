@@ -443,7 +443,7 @@ function applyLocalizedStaticText() {
     injectAxisHint('.chart-spin-label', 'SPIN_HINT');
 }
 
-const CHART_FONT = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+const CHART_FONT = 'Comic Neue, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
 const HOVER_POPUP_ID = 'chartHoverPopup';
 const IS_TOUCH_DEVICE =
     window.matchMedia('(hover: none)').matches ||

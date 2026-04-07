@@ -21,7 +21,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 COUNTRIES = ['en', 'ko', 'cn']
-COUNTRY_LANGS = {'en': 'en', 'ko': 'ko', 'cn': 'cn'}
+COUNTRY_LANGS = {'en': 'en', 'ko': 'ko', 'cn': 'zh-CN'}
+
+COUNTRY_FONTS = {
+    'en': (
+        '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400;1,700&display=swap">'
+    ),
+    'cn': (
+        '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">'
+    ),
+    'ko': (
+        '<link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css">'
+    ),
+}
 BASE_URL = 'https://pingponglab.com'
 
 # ── Slug utility ──
@@ -111,9 +127,23 @@ def read_template():
         return f.read()
 
 
-def make_page(template, title, description, canonical, og_title=None, og_description=None):
+def make_page(template, title, description, canonical, og_title=None, og_description=None, country=None):
     """Create a page from template with custom meta tags."""
     html = template
+
+    # Set lang attribute on <html> tag
+    if country and country in COUNTRY_LANGS:
+        lang = COUNTRY_LANGS[country]
+        html = re.sub(r'<html lang="[^"]*">', f'<html lang="{lang}">', html, count=1)
+
+    # Inject locale font link after favicon link
+    if country and country in COUNTRY_FONTS:
+        font_link = COUNTRY_FONTS[country]
+        html = html.replace(
+            '<link rel="stylesheet" href="/css/variables.css',
+            f'{font_link}\n    <link rel="stylesheet" href="/css/variables.css',
+            1
+        )
 
     # Replace title
     html = re.sub(
@@ -257,7 +287,8 @@ def main():
         template,
         title='Page Not Found | PingPongLab',
         description='The page you are looking for could not be found.',
-        canonical=f'{BASE_URL}/'
+        canonical=f'{BASE_URL}/',
+        country='en'
     )
     write_file(ROOT / '404.html', page_404)
     page_count += 1
@@ -268,7 +299,7 @@ def main():
         title = COUNTRY_TITLES.get(country, COUNTRY_TITLES['en'])
         desc = COUNTRY_DESCRIPTIONS.get(country, COUNTRY_DESCRIPTIONS['en'])
         canonical = f'{BASE_URL}/{country}/'
-        page = make_page(template, title=title, description=desc, canonical=canonical)
+        page = make_page(template, title=title, description=desc, canonical=canonical, country=country)
         write_file(ROOT / country / 'index.html', page)
         all_pages.append((f'/{country}/', '1.0'))
         page_count += 1
@@ -283,7 +314,7 @@ def main():
             title = f"{r['abbr']} Review | PingPongLab"
             desc = f"Detailed review of {r['abbr']} by {r['brand']}. Compare speed, spin, control, hardness, and weight."
             canonical = f'{BASE_URL}/{country}/rubbers/{slug}'
-            page = make_page(template, title=title, description=desc, canonical=canonical)
+            page = make_page(template, title=title, description=desc, canonical=canonical, country=country)
             write_file(ROOT / country / 'rubbers' / slug / 'index.html', page)
             all_pages.append((f'/{country}/rubbers/{slug}', '0.8'))
             rubber_count += 1
@@ -304,7 +335,7 @@ def main():
             title = f"{name_a} vs {name_b} | PingPongLab"
             desc = f"Compare {name_a} and {name_b}: speed, spin, control, hardness, and weight side by side."
             canonical = f'{BASE_URL}/{country}/rubbers/compare/{comp_slug}'
-            page = make_page(template, title=title, description=desc, canonical=canonical)
+            page = make_page(template, title=title, description=desc, canonical=canonical, country=country)
             write_file(ROOT / country / 'rubbers' / 'compare' / comp_slug / 'index.html', page)
             all_pages.append((f'/{country}/rubbers/compare/{comp_slug}', '0.6'))
             comp_count += 1
