@@ -374,6 +374,14 @@
     margin-left: 2px;
     align-self: flex-end;
 }
+.chart-hover-star-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
 .chart-hover-yt-btn {
     position: relative;
     display: inline-flex;
@@ -381,34 +389,33 @@
     justify-content: center;
     width: 24px;
     height: 24px;
-    margin-left: 6px;
-    border: 1px solid rgba(248, 248, 242, 0.35);
-    border-radius: 7px;
-    background: rgba(0, 0, 0, 0.82);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    color: #ff4444;
-    cursor: pointer;
     padding: 0;
+    margin-right: 7px;
+    border: 1px solid rgba(248, 248, 242, 0.25);
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.75);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
     flex-shrink: 0;
-    transition: background 0.15s ease, transform 0.12s ease;
+    transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .chart-hover-yt-btn img {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     object-fit: contain;
     display: block;
 }
 .chart-hover-yt-btn:hover {
-    transform: translateY(-1px) scale(1.05);
+    transform: translateY(-1px) scale(1.06);
     border-color: #ff4f4f;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
 }
 .chart-hover-yt-btn.yt-active {
-    background: rgba(255,0,0,0.35);
+    background: rgba(255, 0, 0, 0.30);
 }
 .chart-hover-yt-btn .yt-en-badge {
     position: absolute;
-    bottom: -2px;
+    bottom: -3px;
     right: -4px;
     background: rgba(0, 0, 0, 0.82);
     border: 1px solid rgba(248, 248, 242, 0.3);
@@ -418,8 +425,8 @@
 .chart-hover-buy-btn {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
-    margin-left: auto;
+    gap: 4px;
+    margin-left: 8px;
     padding: 3px 9px 3px 7px;
     border: 1px solid rgba(80, 250, 123, 0.35);
     border-radius: 7px;
@@ -508,20 +515,20 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .chart-hover-hero {
     display: flex;
     align-items: stretch;
-    border-top: 1px solid rgba(155,148,132,0.15);
-    border-bottom: 1px solid rgba(155,148,132,0.15);
+    border-top: 1px solid rgba(155,148,132,0.12);
+    border-bottom: 1px solid rgba(155,148,132,0.12);
 }
 .chart-hover-hero-col {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px 8px;
-    gap: 2px;
+    padding: 9px 10px;
+    gap: 7px;
 }
 .chart-hover-hero-col + .chart-hover-hero-col {
-    border-left: 1px solid rgba(155,148,132,0.15);
+    border-left: 1px solid rgba(155,148,132,0.12);
 }
 .chart-hover-hero-label {
     font-size: 11px;
@@ -533,12 +540,12 @@ a.chart-hover-player:hover .chart-hover-player-img {
     align-items: center;
 }
 .chart-hover-hero-value {
-    font-size: 26px;
-    font-weight: 900;
+    font-size: 17px;
+    font-weight: 700;
     color: var(--drac-fg);
-    line-height: 1.1;
+    line-height: 1;
     letter-spacing: -0.01em;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    opacity: 0.85;
 }
 
 /* Info icon in hero label */

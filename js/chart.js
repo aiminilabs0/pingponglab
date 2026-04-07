@@ -519,26 +519,6 @@ function hideChartDotShake() {
     if (_chartShakeRing) _chartShakeRing.style.opacity = '0';
 }
 
-// ── Main Chart: Click effect ────────────────────────────────────────
-
-let _chartClickCount = 0;
-
-function showChartClickEffect(x, y, rubber) {
-    const messages = ['Ping!', 'Pong!', 'Go!', 'Amy!', 'Sweet!', 'Ooh!', 'Yes!'];
-    const msg = messages[_chartClickCount++ % messages.length];
-
-    const el = document.createElement('div');
-    el.className = 'chart-click-effect';
-    el.textContent = msg;
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-    if (rubber) el.style.color = getBrandColor(rubber.brand);
-    document.body.appendChild(el);
-
-    requestAnimationFrame(() => el.classList.add('chart-click-effect--fly'));
-    setTimeout(() => el.remove(), 900);
-}
-
 function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const point = data?.points?.[0];
     const rubber = point?.data?.customdata?.[point.pointIndex];
@@ -728,6 +708,9 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
     const ytBtn = ytVideoId
         ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="">${ytEnBadge}</button>`
         : '';
+    const starBtn = rubber.bestseller
+        ? `<span class="chart-hover-star-btn" aria-label="Bestseller">&#x2B50;</span>`
+        : '';
 
     let productUrl = countryUrls.product || '';
     if (!productUrl && selectedCountry !== 'en') {
@@ -747,8 +730,9 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                     <span class="brand-pill" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">
                         <span class="brand-dot" style="background:${brandColor}"></span>${escapeHtml(brandName)}
                     </span>
+                    ${starBtn}
                 </div>
-                <div class="rubber-name">${bestsellerStar}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${ytBtn}${buyBtn}${slotBadge}</div>
+                <div class="rubber-name">${ytBtn}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${buyBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-hero">
                 <div class="chart-hover-hero-col" data-hint="${tUi('SPIN_HINT')}">
