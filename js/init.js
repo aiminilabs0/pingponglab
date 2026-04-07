@@ -855,6 +855,11 @@ async function initializeApp() {
         pinnedRubbers[idx] = !pinnedRubbers[idx];
         // Only one side can be pinned at a time
         if (pinnedRubbers[idx]) pinnedRubbers[other] = false;
+        // Update hint text to reflect current state
+        document.querySelectorAll('.radar-pin-btn').forEach(b => {
+            const i = parseInt(b.dataset.panelIndex, 10);
+            b.dataset.hint = pinnedRubbers[i] ? 'Pinned' : 'Unpinned';
+        });
         updateRadarChart();
         pushFiltersToUrl();
     });

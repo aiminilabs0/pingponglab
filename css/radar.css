@@ -247,6 +247,12 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+@media (hover: none) {
+    .radar-pin-btn[data-hint]::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
 .radar-pin-btn--active {
     opacity: 1;
     color: var(--drac-orange, #ffb86c);

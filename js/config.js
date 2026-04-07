@@ -145,8 +145,6 @@ const UI_TEXT = {
         BACKHAND: 'Backhand',
         SHARE: 'Share',
         SHARE_COPIED: 'Link copied!',
-        PIN_HINT: 'Pin this rubber',
-        UNPIN_HINT: 'Unpin this rubber',
         NO_COMPARISON: 'No comparison available.',
         NO_COMPARISON_SUB: 'We haven\'t reviewed this matchup yet. Let us know and we\'ll get to it.',
         REQUEST_COMPARISON: 'Request a Comparison'
@@ -208,8 +206,6 @@ const UI_TEXT = {
         BACKHAND: '백핸드',
         SHARE: '공유',
         SHARE_COPIED: '링크가 복사되었습니다!',
-        PIN_HINT: '러버 고정',
-        UNPIN_HINT: '고정 해제',
         NO_COMPARISON: '비교 정보가 없습니다.',
         NO_COMPARISON_SUB: '아직 이 조합을 검토하지 않았어요. 요청해 주시면 빠르게 추가할게요.',
         REQUEST_COMPARISON: '비교 요청하기'
@@ -271,8 +267,6 @@ const UI_TEXT = {
         BACKHAND: '反手',
         SHARE: '分享',
         SHARE_COPIED: '链接已复制！',
-        PIN_HINT: '固定胶皮',
-        UNPIN_HINT: '取消固定',
         NO_COMPARISON: '暂无对比内容。',
         NO_COMPARISON_SUB: '我们还没有评测这个组合，欢迎提交请求，我们会尽快补充。',
         REQUEST_COMPARISON: '申请对比'
