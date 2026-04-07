@@ -1009,9 +1009,9 @@ function updateChart(options = {}) {
 
     // Left Bottom: All-Round
     const allRoundAnnotation = {
-        x: 0.01, y: 0.01,
+        x: 0.01, y: 0.49,
         xref: 'paper', yref: 'paper',
-        xanchor: 'left', yanchor: 'bottom',
+        xanchor: 'left', yanchor: 'top',
         text: '<b>All-Round</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(180,160,100,0.6)', family: CHART_FONT },
@@ -1022,9 +1022,9 @@ function updateChart(options = {}) {
 
     // Right Bottom: Safe Spin
     const safeSpinAnnotation = {
-        x: 0.99, y: 0.01,
+        x: 0.99, y: 0.49,
         xref: 'paper', yref: 'paper',
-        xanchor: 'right', yanchor: 'bottom',
+        xanchor: 'right', yanchor: 'top',
         text: '<b>Safe Spin</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(100,180,120,0.6)', family: CHART_FONT },
