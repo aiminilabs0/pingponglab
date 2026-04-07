@@ -501,7 +501,6 @@ function showChartDotShake(data, chartEl) {
     const markerSize = Array.isArray(markerSizes)
         ? markerSizes[point.pointIndex]
         : (markerSizes || 14);
-    const ringSize = markerSize + 14;
 
     if (!_chartShakeRing) {
         _chartShakeRing = document.createElement('div');
@@ -509,14 +508,11 @@ function showChartDotShake(data, chartEl) {
         document.body.appendChild(_chartShakeRing);
     }
 
-    const color = getBrandColor(rubber.brand);
-    _chartShakeRing.style.borderColor = color;
-    _chartShakeRing.style.boxShadow = `0 0 6px ${color}80`;
-    _chartShakeRing.style.width = ringSize + 'px';
-    _chartShakeRing.style.height = ringSize + 'px';
+    _chartShakeRing.style.width = markerSize + 'px';
+    _chartShakeRing.style.height = markerSize + 'px';
     _chartShakeRing.style.left = pos.x + 'px';
     _chartShakeRing.style.top = pos.y + 'px';
-    _chartShakeRing.style.opacity = '0.6';
+    _chartShakeRing.style.opacity = '1';
 }
 
 function hideChartDotShake() {
@@ -860,10 +856,10 @@ function updateChart(options = {}) {
             showlegend: false,
             hoverinfo: 'skip',
             marker: {
-                size: [getMarkerSize(sel) + 18],
-                color: brandColor + '15',
+                size: [getMarkerSize(sel)],
+                color: 'rgba(0,0,0,0)',
                 symbol: 'circle',
-                line: { width: 2.5, color: brandColor + 'CC' }
+                line: { width: 4, color: 'rgba(255,255,255,0.9)' }
             }
         });
     }
@@ -1144,11 +1140,6 @@ function updateChart(options = {}) {
             _clickPopupPinned = true;
 
             handleRubberClick(rubber);
-
-            // Click effect at the dot position
-            const clickPos = getChartDotScreenPosition(point, chartEl);
-            if (clickPos) showChartClickEffect(clickPos.x, clickPos.y, rubber);
-
             showChartHoverPopupFromPlotlyData(data, chartEl);
         });
     }
@@ -1157,14 +1148,14 @@ function updateChart(options = {}) {
         chartEl._hasHoverHandler = true;
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
+            showChartDotShake(data, chartEl);
             if (_clickPopupPinned) return;
             showChartHoverPopupFromPlotlyData(data, chartEl);
-            showChartDotShake(data, chartEl);
         });
         chartEl.on('plotly_unhover', () => {
+            hideChartDotShake();
             if (_clickPopupPinned) return;
             hideChartHoverPopup();
-            hideChartDotShake();
         });
     }
 

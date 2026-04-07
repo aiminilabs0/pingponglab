@@ -473,25 +473,17 @@
     transform: translate(-50%, -50%) translateY(-50px) scale(1.6);
 }
 
-/* ── Main Chart: Dot hover shake ring ── */
-@keyframes chart-dot-shake {
-    0%, 100% { transform: translate(-50%, -50%); }
-    20% { transform: translate(calc(-50% + 3px), calc(-50% - 2px)); }
-    40% { transform: translate(calc(-50% - 2px), calc(-50% + 3px)); }
-    60% { transform: translate(calc(-50% + 2px), calc(-50% + 1px)); }
-    80% { transform: translate(calc(-50% - 3px), calc(-50% - 1px)); }
-}
-
+/* ── Main Chart: Dot hover highlight ring ── */
 .chart-dot-shake-ring {
     position: fixed;
     pointer-events: none;
     z-index: 100;
     border-radius: 50%;
-    border: 2.5px solid;
+    border: 3px solid rgba(255,255,255,0.9);
     background: transparent;
     opacity: 0;
     transition: opacity 0.12s ease;
-    animation: chart-dot-shake 0.8s ease-in-out infinite;
+    transform: translate(-50%, -50%);
 }
 
 /* ── Main Chart: Click effect ── */
