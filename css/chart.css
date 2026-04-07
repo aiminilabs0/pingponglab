@@ -214,14 +214,15 @@
 .chart-control-guide-dot {
     display: inline-block;
     border-radius: 50%;
-    background: rgba(212,193,106,0.7);
-    border: 1px solid rgba(28,26,23,0.35);
+    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.55) 0%, rgba(212,193,106,0.9) 55%, rgba(160,140,60,1) 100%);
+    border: 2px solid rgba(28,26,23,0.7);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
-.chart-control-guide-dot.dot-1 { width: 8px; height: 8px; }
-.chart-control-guide-dot.dot-2 { width: 9px; height: 9px; }
-.chart-control-guide-dot.dot-3 { width: 11px; height: 11px; }
-.chart-control-guide-dot.dot-4 { width: 13px; height: 13px; }
-.chart-control-guide-dot.dot-5 { width: 14px; height: 14px; }
+.chart-control-guide-dot.dot-1 { width: 14px; height: 14px; }
+.chart-control-guide-dot.dot-2 { width: 16px; height: 16px; }
+.chart-control-guide-dot.dot-3 { width: 19px; height: 19px; }
+.chart-control-guide-dot.dot-4 { width: 22px; height: 22px; }
+.chart-control-guide-dot.dot-5 { width: 24px; height: 24px; }
 .chart-control-guide { position: relative; }
 /* Let annotation labels pass pointer events through to the WebGL layer */
 #chart .annotation { pointer-events: none; }
@@ -233,10 +234,10 @@
     min-width: 250px;
     max-width: min(340px, calc(100vw - 16px));
     opacity: 0;
-    transform: translateY(6px) scale(0.97);
+    transform: translateY(8px) scale(0.94);
     pointer-events: none;
-    transition: opacity 0.18s cubic-bezier(0.22,0.68,0,1.1),
-                transform 0.18s cubic-bezier(0.22,0.68,0,1.1);
+    transition: opacity 0.22s cubic-bezier(0.22,0.68,0,1.2),
+                transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
 }
 .chart-hover-popup.visible {
     opacity: 1;
@@ -273,24 +274,27 @@
 /* ── Card surface ── */
 .chart-hover-card {
     position: relative;
-    border: 1px solid rgba(155,148,132,0.30);
-    border-radius: 14px;
+    border: 2.5px solid rgba(0,0,0,0.80);
+    border-radius: 20px;
     padding: 0;
     background:
+        radial-gradient(ellipse at 60% 0%, rgba(255,255,255,0.07) 0%, transparent 55%),
         radial-gradient(circle at 85% 0%, rgba(126,184,168,0.08) 0%, transparent 50%),
-        linear-gradient(165deg, rgba(28,26,23,0.97) 0%, rgba(43,41,38,0.98) 100%);
+        linear-gradient(165deg, rgba(38,36,33,0.98) 0%, rgba(50,47,43,0.99) 100%);
     box-shadow:
-        0 1px 0 0 rgba(232,224,208,0.04) inset,
-        0 12px 40px rgba(0,0,0,0.55),
-        0 2px 8px rgba(0,0,0,0.35);
+        0 1px 0 0 rgba(255,255,255,0.06) inset,
+        0 16px 48px rgba(0,0,0,0.65),
+        0 4px 12px rgba(0,0,0,0.45);
     backdrop-filter: blur(12px) saturate(1.2);
+    overflow: hidden;
 }
 
 /* ── Accent stripe ── */
 .chart-hover-accent {
-    height: 3px;
+    height: 5px;
     width: 100%;
-    border-radius: 14px 14px 0 0;
+    border-radius: 0;
+    opacity: 0.9;
 }
 
 /* ── Header ── */
@@ -472,10 +476,12 @@ a.chart-hover-player:hover .chart-hover-player-img {
     align-items: center;
 }
 .chart-hover-hero-value {
-    font-size: 22px;
-    font-weight: 800;
+    font-size: 26px;
+    font-weight: 900;
     color: var(--drac-fg);
-    line-height: 1.15;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 /* Info icon in hero label */
@@ -523,14 +529,16 @@ a.chart-hover-player:hover .chart-hover-player-img {
     justify-content: space-between;
     gap: 6px;
     min-width: 0;
-    padding: 5px 8px;
-    border: 1px solid rgba(155,148,132,0.12);
-    border-radius: 7px;
-    background: rgba(62,58,52,0.25);
-    transition: background 0.12s ease;
+    padding: 6px 10px;
+    border: 2px solid rgba(0,0,0,0.35);
+    border-radius: 12px;
+    background: rgba(62,58,52,0.35);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.04) inset;
+    transition: background 0.12s ease, box-shadow 0.12s ease;
 }
 .chart-hover-detail:hover {
-    background: rgba(62,58,52,0.45);
+    background: rgba(62,58,52,0.55);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05) inset;
 }
 .chart-hover-detail span {
     color: var(--drac-comment);
@@ -557,15 +565,17 @@ a.chart-hover-player:hover .chart-hover-player-img {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(248, 248, 242, 0.85);
-    background: transparent;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(0,0,0,0.65);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.45) 0%, rgba(155,148,132,0.7) 60%, rgba(80,75,65,0.9) 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
     flex-shrink: 0;
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1;
-    color: rgba(248, 248, 242, 0.85);
+    color: rgba(248, 248, 242, 0.95);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 .chart-hover-shape.dot-circle  { border-radius: 50%; }
 .chart-hover-shape.dot-square  { border-radius: 2px; }
@@ -623,35 +633,38 @@ a.chart-hover-player:hover .chart-hover-player-img {
     gap: 3px;
 }
 .chart-control-box {
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    border: 1px solid rgba(155,148,132,0.5);
-    background: rgba(62,58,52,0.2);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.4);
+    background: rgba(62,58,52,0.25);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 .chart-control-box.is-filled {
-    border-color: rgba(126,184,168,0.85);
-    background: rgba(126,184,168,0.95);
+    border-color: rgba(0,0,0,0.45);
+    background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.45) 0%, rgba(126,184,168,0.9) 55%, rgba(60,130,110,1) 100%);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .chart-control-boxes.control-level-1 .chart-control-box.is-filled {
-    border-color: #cf5555;
-    background: #cf5555;
+    border-color: rgba(0,0,0,0.45);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, #cf5555 55%, #8a2222 100%);
 }
 .chart-control-boxes.control-level-2 .chart-control-box.is-filled {
-    border-color: #e0b55c;
-    background: #e0b55c;
+    border-color: rgba(0,0,0,0.45);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, #e0b55c 55%, #9a6c18 100%);
 }
 .chart-control-boxes.control-level-3 .chart-control-box.is-filled {
-    border-color: #d4c16a;
-    background: #d4c16a;
+    border-color: rgba(0,0,0,0.45);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, #d4c16a 55%, #907a18 100%);
 }
 .chart-control-boxes.control-level-4 .chart-control-box.is-filled {
-    border-color: #a3d977;
-    background: #a3d977;
+    border-color: rgba(0,0,0,0.45);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, #a3d977 55%, #528030 100%);
 }
 .chart-control-boxes.control-level-5 .chart-control-box.is-filled {
-    border-color: #6fbf73;
-    background: #6fbf73;
+    border-color: rgba(0,0,0,0.45);
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, #6fbf73 55%, #2e7032 100%);
 }
 .chart-hover-pill {
     display: inline-flex;
@@ -735,4 +748,20 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .metric-hint:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
+
+/* ── M&M style overrides scoped to the hover popup ── */
+.chart-hover-card .brand-pill {
+    border: 2px solid rgba(0,0,0,0.35);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.08) inset;
+    font-size: 11px;
+    padding: 4px 10px 4px 7px;
+}
+.chart-hover-card .brand-dot {
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid rgba(0,0,0,0.5);
+    box-shadow:
+        inset -1px -1px 2px rgba(0,0,0,0.3),
+        inset 1px 1px 2px rgba(255,255,255,0.35);
 }

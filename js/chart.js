@@ -805,9 +805,9 @@ function updateChart(options = {}) {
     currentFilteredData = filteredData;
     const visibleData = computeVisibleRubbers(filteredData);
 
-    // Marker sizes mapped to control levels:
+    // Marker sizes mapped to control levels (M&M style — chunky cartoon sizes):
     // Level 5 (most control) → biggest dot, Level 1 (least control) → smallest dot.
-    const CONTROL_GUIDE_MARKER_SIZES = [8, 9, 11, 13, 14];
+    const CONTROL_GUIDE_MARKER_SIZES = [14, 16, 19, 22, 24];
 
     function getMarkerSize(rubber) {
         const level = rubber.controlLevel;
@@ -838,10 +838,10 @@ function updateChart(options = {}) {
             showlegend: false,
             hoverinfo: 'skip',
             marker: {
-                size: bestsellers.map(r => getMarkerSize(r) + 10),
+                size: bestsellers.map(r => getMarkerSize(r) + 14),
                 color: 'rgba(212,193,106,0.10)',
                 symbol: 'circle',
-                line: { width: 1.5, color: 'rgba(212,193,106,0.35)' }
+                line: { width: 2, color: 'rgba(212,193,106,0.45)' }
             }
         });
     }
@@ -860,10 +860,10 @@ function updateChart(options = {}) {
             showlegend: false,
             hoverinfo: 'skip',
             marker: {
-                size: [getMarkerSize(sel) + 14],
+                size: [getMarkerSize(sel) + 18],
                 color: brandColor + '15',
                 symbol: 'circle',
-                line: { width: 2, color: brandColor + 'CC' }
+                line: { width: 2.5, color: brandColor + 'CC' }
             }
         });
     }
@@ -879,9 +879,9 @@ function updateChart(options = {}) {
                 size: group.rubbers.map(getMarkerSize),
                 color: getBrandColor(group.brand),
                 symbol: getSheetSymbol(group.sheet),
-                line: { width: 1.5, color: 'rgba(0,0,0,0.35)' }
+                line: { width: 2.5, color: 'rgba(0,0,0,0.75)' }
             },
-            opacity: 0.88,
+            opacity: 1,
             hoverinfo: 'none',
             customdata: group.rubbers
         });
@@ -920,6 +920,29 @@ function updateChart(options = {}) {
     const labelAnnotations = computeLabelAnnotations(
         visibleData, labelXRange, labelYRange, labelPlotW, labelPlotH
     );
+
+    // M&M gloss highlight layer — small white dot offset up-left inside each marker
+    // to mimic the specular reflection on a glossy candy shell.
+    // Offset is a fixed 4px converted to data units so it stays inside the dot
+    // at any window width.
+    {
+        const axisSpan = Math.max((labelXRange[1] ?? 300) - (labelXRange[0] ?? 0), 1);
+        const glossOffset = 4 * (axisSpan / Math.max(labelPlotW, 1));
+        traces.push({
+            x: visibleData.map(r => r.x - glossOffset),
+            y: visibleData.map(r => r.y + glossOffset),
+            mode: 'markers',
+            type: 'scattergl',
+            showlegend: false,
+            hoverinfo: 'skip',
+            marker: {
+                size: visibleData.map(r => Math.max(3, Math.round(getMarkerSize(r) * 0.3))),
+                color: 'rgba(255,255,255,0.6)',
+                symbol: 'circle',
+                line: { width: 0 }
+            }
+        });
+    }
 
     // Selection badge annotations ("1" / "2" labels near selected rubber dots)
     const selectionBadges = [];

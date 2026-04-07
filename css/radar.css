@@ -461,7 +461,7 @@
     pointer-events: none;
     z-index: 100;
     border-radius: 50%;
-    border: 1.5px solid;
+    border: 2.5px solid;
     background: transparent;
     opacity: 0;
     transition: opacity 0.12s ease;
