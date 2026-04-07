@@ -470,31 +470,60 @@
 
 /* ── Footer ── */
 .site-footer {
-    margin-top: 8px;
-    padding: 16px 0 4px;
-    font-size: 14px;
-    color: var(--drac-comment);
-    letter-spacing: 0.4px;
-    border-top: none;
+    margin-top: 16px;
+    padding: 14px 0 18px;
+    border-top: 1px solid rgba(155,148,132,0.12);
 }
-.site-footer-content {
+.site-footer-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
 }
-.footer-feedback-btn {
-    border: none;
-    border-radius: 999px;
-    background: rgba(62,58,52,0.4);
-    color: var(--drac-comment);
+.site-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.site-footer-ping {
+    font-size: 16px;
+    line-height: 1;
+}
+.site-footer-name {
     font-size: 14px;
-    font-weight: 600;
-    padding: 8px 14px;
+    font-weight: 800;
+    color: var(--drac-fg);
+    opacity: 0.55;
+    letter-spacing: 0.3px;
+}
+.site-footer-year {
+    font-size: 12px;
+    color: var(--drac-comment);
+    opacity: 0.6;
+}
+.footer-feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1.5px solid rgba(155,148,132,0.2);
+    border-radius: 999px;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        rgba(62,58,52,0.5);
+    color: var(--drac-comment);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 14px;
     cursor: pointer;
     transition: all 0.15s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 .footer-feedback-btn:hover {
     color: var(--drac-fg);
-    background: rgba(126,184,168,0.15);
+    border-color: rgba(126,184,168,0.4);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 60%),
+        rgba(126,184,168,0.12);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
 }
