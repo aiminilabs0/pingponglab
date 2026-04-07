@@ -1122,6 +1122,7 @@ function updateChart(options = {}) {
             // that Plotly.react may fire afterwards.
             _clickPopupActiveUntil = Date.now() + 500;
             _clickPopupPinned = true;
+            pauseDesktopSpotlightRotation();
 
             handleRubberClick(rubber);
             showChartHoverPopupFromPlotlyData(data, chartEl);
@@ -1132,6 +1133,7 @@ function updateChart(options = {}) {
         chartEl._hasHoverHandler = true;
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
+            pauseDesktopSpotlightRotation();
             showChartDotShake(data, chartEl);
             if (_clickPopupPinned) return;
             showChartHoverPopupFromPlotlyData(data, chartEl);
@@ -1140,6 +1142,7 @@ function updateChart(options = {}) {
             hideChartDotShake();
             if (_clickPopupPinned) return;
             hideChartHoverPopup();
+            resumeDesktopSpotlightRotation();
         });
     }
 
@@ -1370,21 +1373,48 @@ function advanceSpotlight() {
     }
     spotlightRubber = currentFilteredData[idx];
     updateChart({ preserveRanges: true, force: true });
+    _pingSpotlightDot(spotlightRubber);
+    if (!_clickPopupPinned) {
+        hideChartHoverPopup({ force: true });
+        _showDesktopSpotlightPopup(spotlightRubber);
+        clearTimeout(spotlightDismissTimer);
+        spotlightDismissTimer = setTimeout(() => {
+            if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
+        }, 5000);
+    }
+}
+
+function _pingSpotlightDot(rubber) {
+    const chartEl = document.getElementById('chart');
+    const fl = chartEl._fullLayout;
+    if (!fl?.xaxis || !fl?.yaxis) return;
+    const { xaxis: xa, yaxis: ya, _size: size } = fl;
+    const xFrac = (rubber.x - xa.range[0]) / (xa.range[1] - xa.range[0]);
+    const yFrac = 1 - (rubber.y - ya.range[0]) / (ya.range[1] - ya.range[0]);
+    const left = fl._size.l + xFrac * size.w;
+    const top  = fl._size.t + yFrac * size.h;
+    const ping = document.createElement('div');
+    ping.className = 'chart-spotlight-ping';
+    ping.style.left = left + 'px';
+    ping.style.top  = top  + 'px';
+    chartEl.style.position = 'relative';
+    chartEl.appendChild(ping);
+    ping.addEventListener('animationend', () => ping.remove(), { once: true });
 }
 
 function startSpotlightRotation() {
     if (!window.matchMedia('(max-width: 768px)').matches) return;
     clearInterval(spotlightTimerId);
     spotlightPaused = false;
-    advanceSpotlight();
     spotlightTimerId = setInterval(() => {
         if (document.hidden || spotlightPaused) return;
         advanceSpotlight();
-    }, 3000);
+    }, 6000);
 }
 
 function stopSpotlightRotation() {
     clearInterval(spotlightTimerId);
+    clearTimeout(spotlightDismissTimer);
     spotlightTimerId = null;
     spotlightRubber = null;
 }
@@ -1392,6 +1422,7 @@ function stopSpotlightRotation() {
 function pauseSpotlightRotation() {
     spotlightPaused = true;
     spotlightRubber = null;
+    clearTimeout(spotlightDismissTimer);
     updateChart({ preserveRanges: true, force: true });
 }
 
@@ -1403,6 +1434,80 @@ function resumeSpotlightRotation() {
     } else {
         startSpotlightRotation();
     }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Desktop Spotlight Rotation
+// ════════════════════════════════════════════════════════════
+
+let _prevDesktopSpotlightRubber = null;
+
+function _showDesktopSpotlightPopup(rubber) {
+    const chartEl = document.getElementById('chart');
+    const fl = chartEl._fullLayout;
+    if (!fl?.xaxis || !fl?.yaxis) return;
+
+    // Build a minimal synthetic Plotly data object so positionHoverPopup
+    // can use point.xaxis.l2p / yaxis.l2p for anchor coords.
+    const syntheticData = {
+        points: [{
+            x: rubber.x,
+            y: rubber.y,
+            xaxis: fl.xaxis,
+            yaxis: fl.yaxis,
+            data: { customdata: [rubber] },
+            pointIndex: 0,
+        }],
+        event: null,
+    };
+    showChartHoverPopupFromPlotlyData(syntheticData, chartEl);
+}
+
+function advanceDesktopSpotlight() {
+    if (currentFilteredData.length === 0) return;
+    let idx = Math.floor(Math.random() * currentFilteredData.length);
+    if (currentFilteredData.length > 1 && currentFilteredData[idx] === _prevDesktopSpotlightRubber) {
+        idx = (idx + 1) % currentFilteredData.length;
+    }
+    const rubber = currentFilteredData[idx];
+    _prevDesktopSpotlightRubber = rubber;
+
+    hideChartHoverPopup({ force: true });
+    _pingSpotlightDot(rubber);
+    _showDesktopSpotlightPopup(rubber);
+
+    clearTimeout(desktopSpotlightDismissTimer);
+    desktopSpotlightDismissTimer = setTimeout(() => {
+        if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
+    }, 5000);
+}
+
+function startDesktopSpotlightRotation() {
+    if (!window.matchMedia('(min-width: 769px)').matches) return;
+    clearInterval(desktopSpotlightTimerId);
+    desktopSpotlightPaused = false;
+    desktopSpotlightTimerId = setInterval(() => {
+        if (document.hidden || desktopSpotlightPaused) return;
+        advanceDesktopSpotlight();
+    }, 6000);
+}
+
+function stopDesktopSpotlightRotation() {
+    clearInterval(desktopSpotlightTimerId);
+    clearTimeout(desktopSpotlightDismissTimer);
+    desktopSpotlightTimerId = null;
+    _prevDesktopSpotlightRubber = null;
+    hideChartHoverPopup({ force: true });
+}
+
+function pauseDesktopSpotlightRotation() {
+    desktopSpotlightPaused = true;
+    clearTimeout(desktopSpotlightDismissTimer);
+}
+
+function resumeDesktopSpotlightRotation() {
+    if (!window.matchMedia('(min-width: 769px)').matches) return;
+    desktopSpotlightPaused = false;
 }
 
 function initChart() {

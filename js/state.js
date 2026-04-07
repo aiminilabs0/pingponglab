@@ -39,6 +39,12 @@ let playerNameToCanonicalName = {};
 let spotlightRubber = null;      // currently spotlighted rubber object
 let spotlightTimerId = null;     // setInterval ID
 let spotlightPaused = false;     // paused by user interaction
+let spotlightDismissTimer = null;
+
+// Desktop spotlight rotation state
+let desktopSpotlightTimerId = null;
+let desktopSpotlightDismissTimer = null;
+let desktopSpotlightPaused = false;
 
 // YouTube embed state
 let ytApiReady = false;
