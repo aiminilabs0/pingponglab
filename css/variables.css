@@ -19,10 +19,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* ── Locale-specific font overrides ── */
-:lang(zh), :lang(zh-CN) { font-family: 'ZCOOL KuaiLe', sans-serif; }
-:lang(ko) { font-family: 'NanumSquareRound', sans-serif; }
-
 body {
     font-family: 'Comic Neue', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 17px;

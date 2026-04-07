@@ -48,6 +48,7 @@
     min-width: 0;
 }
 .header-title {
+    font-family: 'Comic Neue', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 32px;
     font-weight: 800;
     color: var(--drac-fg);
