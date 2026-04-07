@@ -40,6 +40,42 @@ function getRadarData(rubber) {
     };
 }
 
+function buildRadarLabelTraces(rubber, { side }) {
+    // side: 'left' = before axis label (first rubber), 'right' = after (second rubber)
+    const categories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
+    const chipIcon = side === 'left' ? '①' : '②';
+    const rawValues = [
+        Number.isFinite(rubber.speedRank)    ? `#${rubber.speedRank}`   : '–',
+        Number.isFinite(rubber.spinRank)     ? `#${rubber.spinRank}`    : '–',
+        Number.isFinite(rubber.controlLevel) ? `${rubber.controlLevel}` : '–',
+        rubber.weightLabel   || '–',
+        rubber.hardnessLabel || '–',
+    ];
+    const pad = '\u2002';
+    const chipLabels  = categories.map(() => side === 'left' ? `${chipIcon}${pad}` : `${pad}${chipIcon}`);
+    const valueLabels = rawValues.map(v  => side === 'left' ? `${v}${pad}`        : `${pad}${v}`);
+    const brandColor = getBrandColor(rubber.brand);
+    const textposition = side === 'left' ? 'middle left' : 'middle right';
+    const rChip  = [114, 114, 114, 114, 114];
+    const rValue = [104, 104, 104, 104, 104];
+    return [
+        {
+            type: 'scatterpolar', mode: 'text',
+            r: rChip, theta: categories,
+            text: chipLabels, textposition,
+            textfont: { color: brandColor, size: 16, family: CHART_FONT },
+            hoverinfo: 'skip', showlegend: false,
+        },
+        {
+            type: 'scatterpolar', mode: 'text',
+            r: rValue, theta: categories,
+            text: valueLabels, textposition,
+            textfont: { color: brandColor, size: 13, family: CHART_FONT },
+            hoverinfo: 'skip', showlegend: false,
+        },
+    ];
+}
+
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
@@ -412,7 +448,7 @@ function updateRadarChart() {
     const infoPanel = document.getElementById('radarInfoPanel');
     const [first, second] = selectedRubbers;
     const isMobile = window.innerWidth <= 768;
-    const chartHeight = isMobile ? 260 : 320;
+    const chartHeight = isMobile ? 260 : 480;
 
     infoPanel.innerHTML = buildRadarComparisonHtml(first, second);
     const sameBrand = first && second && getBrandColor(first.brand) === getBrandColor(second.brand);
@@ -446,6 +482,11 @@ function updateRadarChart() {
     }
     if (first) traces.push(buildRadarTrace(first, getRadarData(first)));
     if (second) traces.push(buildRadarTrace(second, getRadarData(second), { dashed: sameBrand }));
+    if (!isMobile) {
+        if (first)  traces.push(...buildRadarLabelTraces(first,  { side: 'left' }));
+        if (second) traces.push(...buildRadarLabelTraces(second, { side: 'right' }));
+    }
+
     const layout = {
         autosize: true,
         height: chartHeight,
@@ -453,7 +494,7 @@ function updateRadarChart() {
             bgcolor: 'rgba(0,0,0,0)',
             radialaxis: {
                 visible: true,
-                range: [0, 105],
+                range: [0, isMobile ? 105 : 128],
                 showticklabels: false,
                 gridcolor: 'rgba(158,150,137,0.12)',
                 linecolor: 'rgba(0,0,0,0)',
@@ -471,7 +512,7 @@ function updateRadarChart() {
         annotations: [],
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        margin: isMobile ? { t: 52, b: 52, l: 90, r: 90 } : { t: 42, b: 38, l: 55, r: 55 },
+        margin: isMobile ? { t: 52, b: 52, l: 90, r: 90 } : { t: 60, b: 60, l: 110, r: 110 },
     };
 
     const config = {

@@ -151,7 +151,7 @@
     .radar-chart {
         flex: 1 1 0%;
         min-width: 0;
-        height: 320px;
+        height: 480px;
     }
     .radar-info-combined {
         flex: 0 0 auto;
