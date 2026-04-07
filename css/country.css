@@ -3,13 +3,18 @@
     display: inline-flex;
     align-items: center;
     gap: 2px;
-    background: var(--drac-bg-dark);
-    border: 1.5px solid var(--drac-current);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        var(--drac-bg-dark);
+    border: 2.5px solid rgba(0,0,0,0.6);
     border-radius: 100px;
     padding: 4px;
     position: relative;
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.4),
+        0 1px 0 rgba(255,255,255,0.05) inset;
 }
-/* Sliding pill indicator */
+/* Sliding M&M pill indicator */
 .country-selector::before {
     content: '';
     position: absolute;
@@ -18,8 +23,12 @@
     width: calc(var(--pill-w) * 1px);
     height: calc(100% - 8px);
     border-radius: 100px;
-    background: rgba(217,119,86,0.2);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    border: 1.5px solid rgba(0,0,0,0.45);
+    background:
+        radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.30) 0%, rgba(217,119,86,0.55) 50%, rgba(140,60,10,0.7) 100%);
+    box-shadow:
+        0 3px 10px rgba(217,119,86,0.3),
+        0 1px 0 rgba(255,255,255,0.12) inset;
     transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
                 width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
@@ -38,14 +47,14 @@
     background: transparent;
     font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.04em;
     line-height: 1;
     min-width: 34px;
     justify-content: center;
-    color: var(--drac-comment);
+    color: rgba(155,148,132,0.7);
     cursor: pointer;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition: color 0.15s ease, transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
     white-space: nowrap;
     position: relative;
     z-index: 1;
@@ -59,21 +68,24 @@
 }
 .country-btn:hover {
     color: var(--drac-fg);
-    background: var(--drac-current);
+    transform: scale(1.08);
 }
 .country-btn.active {
-    color: var(--drac-purple);
+    color: var(--drac-fg);
+    font-weight: 800;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 /* ── Country switch animations ── */
 @keyframes country-pop {
     0%   { transform: scale(1); }
-    40%  { transform: scale(1.25); }
-    70%  { transform: scale(0.92); }
+    35%  { transform: scale(1.32); }
+    65%  { transform: scale(0.88); }
+    82%  { transform: scale(1.06); }
     100% { transform: scale(1); }
 }
 .country-btn--pop {
-    animation: country-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: country-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .content-pane {
     transition: opacity 0.2s ease, transform 0.2s ease;
