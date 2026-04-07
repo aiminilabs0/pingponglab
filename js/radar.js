@@ -57,7 +57,7 @@ function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
         fill: 'toself',
         fillcolor: brandColor + '22',
         line: { color: brandColor, width: 2.5, ...(dashed ? { dash: 'dot' } : {}) },
-        marker: { color: brandColor, size: 5 },
+        marker: { color: brandColor, size: 5, line: { width: 2, color: 'rgba(0,0,0,0.75)' } },
         name: `${localizedBrand} ${localizedRubber}`,
         hoverinfo: 'skip',
     };
@@ -463,7 +463,7 @@ function updateRadarChart() {
                 categoryarray: radarCategories,
                 gridcolor: 'rgba(158,150,137,0.12)',
                 linecolor: 'rgba(158,150,137,0.15)',
-                tickfont: { color: 'rgba(232,224,208,0.7)', size: isMobile ? 11 : 13 },
+                tickfont: { color: 'rgba(232,224,208,0.7)', size: isMobile ? 11 : 13, family: CHART_FONT },
                 rotation: radarRotationDeg,
             },
         },

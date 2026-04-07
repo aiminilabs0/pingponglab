@@ -74,16 +74,27 @@
     text-align: center;
     color: var(--drac-comment);
     white-space: nowrap;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
 .radar-cmp-hero-cell--right {
     text-align: left;
     justify-self: start;
 }
 .radar-cmp-hero-cell strong {
-    font-size: 18px;
+    display: inline-block;
+    font-size: 20px;
     font-weight: 800;
     color: var(--drac-fg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 2.5px solid rgba(0,0,0,0.6);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.28) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.25) 0%, transparent 60%),
+        rgba(212,193,106,0.22);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.12) inset;
 }
 
 /* 3-column comparison grid */
@@ -112,6 +123,11 @@
 .radar-cmp-cell strong {
     color: var(--drac-comment);
     font-weight: 600;
+}
+/* Control row — dimmed, less important (mirrors main chart control guide) */
+.radar-cmp-cell strong.chart-control-indicator {
+    opacity: 0.7;
+    font-size: 11px;
 }
 .radar-cmp-cell strong.radar-cmp-small {
     font-size: 12px;
