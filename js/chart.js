@@ -949,6 +949,7 @@ function updateChart(options = {}) {
 
     const axisBase = {
         zeroline: false,
+        showgrid: false,
         gridcolor: 'rgba(62,58,52,0.4)',
         griddash: 'dot',
         gridwidth: 1,
@@ -960,23 +961,26 @@ function updateChart(options = {}) {
         tickformat: '.1f'
     };
 
-    // Sweet spot in data coordinates — use all rubbers so it stays fixed when filtering
-    const sweetBounds = getAutoscaleBounds(rubberData);
-    const sweetX0 = sweetBounds ? sweetBounds.x[0] + 0.61 * (sweetBounds.x[1] - sweetBounds.x[0]) : 0;
-    const sweetX1 = sweetBounds ? sweetBounds.x[1] : 1;
-    const sweetY0 = sweetBounds ? sweetBounds.y[0] + 0.60 * (sweetBounds.y[1] - sweetBounds.y[0]) : 0;
-    const sweetY1 = sweetBounds ? sweetBounds.y[1] + 0.02 * (sweetBounds.y[1] - sweetBounds.y[0]) : 1;
+    // Four quadrant zones in paper coordinates (0–1) so they always fill the full plot area
+    // Left Top: Direct Speed
+    const directSpeedAnnotation = {
+        x: 0.01, y: 0.99,
+        xref: 'paper', yref: 'paper',
+        xanchor: 'left', yanchor: 'top',
+        text: '<b>Direct Speed</b>',
+        showarrow: false,
+        font: { size: 13, color: 'rgba(100,160,220,0.6)', family: CHART_FONT },
+        bgcolor: 'transparent',
+        borderpad: 4,
+        captureevents: false
+    };
 
-    const safeX0 = sweetX0;
-    const safeX1 = sweetX1;
-    const safeY0 = sweetBounds ? sweetBounds.y[0] - 0.02 * (sweetBounds.y[1] - sweetBounds.y[0]) : 0;
-    const safeY1 = sweetBounds ? sweetBounds.y[0] + 0.45 * (sweetBounds.y[1] - sweetBounds.y[0]) : 1;
-
-    const bestZoneAnnotation = {
-        x: sweetX1, y: sweetY1,
-        xref: 'x', yref: 'y',
-        xanchor: 'right', yanchor: 'bottom',
-        text: '<b>Power Spin</b>',
+    // Right Top: Sweet Spot
+    const sweetSpotAnnotation = {
+        x: 0.99, y: 0.99,
+        xref: 'paper', yref: 'paper',
+        xanchor: 'right', yanchor: 'top',
+        text: '<b>Sweet Spot</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(200,100,100,0.6)', family: CHART_FONT },
         bgcolor: 'transparent',
@@ -984,10 +988,24 @@ function updateChart(options = {}) {
         captureevents: false
     };
 
-    const safeZoneAnnotation = {
-        x: safeX1, y: safeY0,
-        xref: 'x', yref: 'y',
-        xanchor: 'right', yanchor: 'top',
+    // Left Bottom: All-Round
+    const allRoundAnnotation = {
+        x: 0.01, y: 0.01,
+        xref: 'paper', yref: 'paper',
+        xanchor: 'left', yanchor: 'bottom',
+        text: '<b>All-Round</b>',
+        showarrow: false,
+        font: { size: 13, color: 'rgba(180,160,100,0.6)', family: CHART_FONT },
+        bgcolor: 'transparent',
+        borderpad: 4,
+        captureevents: false
+    };
+
+    // Right Bottom: Safe Spin
+    const safeSpinAnnotation = {
+        x: 0.99, y: 0.01,
+        xref: 'paper', yref: 'paper',
+        xanchor: 'right', yanchor: 'bottom',
         text: '<b>Safe Spin</b>',
         showarrow: false,
         font: { size: 13, color: 'rgba(100,180,120,0.6)', family: CHART_FONT },
@@ -1016,23 +1034,43 @@ function updateChart(options = {}) {
         paper_bgcolor: '#252320',
         margin: { l: 10, r: 10, t: 10, b: 10 },
         shapes: [{
+            // Left Top: Direct Speed
             type: 'rect',
-            xref: 'x', yref: 'y',
-            x0: sweetX0, y0: sweetY0, x1: sweetX1, y1: sweetY1,
-            fillcolor: 'rgba(200,100,100,0.08)',
-            line: { color: 'rgba(200,100,100,0.18)', width: 1, dash: 'dot' },
+            xref: 'paper', yref: 'paper',
+            x0: 0, y0: 0.5, x1: 0.5, y1: 1,
+            fillcolor: 'rgba(100,160,220,0.06)',
+            line: { color: 'rgba(100,160,220,0.15)', width: 1, dash: 'dot' },
             layer: 'below'
         }, {
+            // Right Top: Sweet Spot
             type: 'rect',
-            xref: 'x', yref: 'y',
-            x0: safeX0, y0: safeY0, x1: safeX1, y1: safeY1,
-            fillcolor: 'rgba(100,180,120,0.08)',
-            line: { color: 'rgba(100,180,120,0.18)', width: 1, dash: 'dot' },
+            xref: 'paper', yref: 'paper',
+            x0: 0.5, y0: 0.5, x1: 1, y1: 1,
+            fillcolor: 'rgba(200,100,100,0.06)',
+            line: { color: 'rgba(200,100,100,0.15)', width: 1, dash: 'dot' },
+            layer: 'below'
+        }, {
+            // Left Bottom: All-Round
+            type: 'rect',
+            xref: 'paper', yref: 'paper',
+            x0: 0, y0: 0, x1: 0.5, y1: 0.5,
+            fillcolor: 'rgba(180,160,100,0.06)',
+            line: { color: 'rgba(180,160,100,0.15)', width: 1, dash: 'dot' },
+            layer: 'below'
+        }, {
+            // Right Bottom: Safe Spin
+            type: 'rect',
+            xref: 'paper', yref: 'paper',
+            x0: 0.5, y0: 0, x1: 1, y1: 0.5,
+            fillcolor: 'rgba(100,180,120,0.06)',
+            line: { color: 'rgba(100,180,120,0.15)', width: 1, dash: 'dot' },
             layer: 'below'
         }],
         annotations: [
-            bestZoneAnnotation,
-            safeZoneAnnotation,
+            directSpeedAnnotation,
+            sweetSpotAnnotation,
+            allRoundAnnotation,
+            safeSpinAnnotation,
             ...labelAnnotations,
             ...selectionBadges
         ],
