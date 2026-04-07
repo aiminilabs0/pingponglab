@@ -258,19 +258,20 @@
 }
 /* Product / Buy button */
 .rubber-title-icon-link--product {
-    background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 65%),
-        rgba(80,250,123,0.12);
-    border-color: rgba(0,0,0,0.45);
-    box-shadow: 0 3px 8px rgba(80,250,123,0.12), 0 1px 0 rgba(255,255,255,0.06) inset;
+    height: auto;
+    padding: 3px 9px 3px 7px;
+    border: 1px solid rgba(80, 250, 123, 0.35);
+    border-radius: 7px;
+    background: rgba(80, 250, 123, 0.10);
+    box-shadow: none;
     color: var(--drac-green);
+    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
 }
 .rubber-title-icon-link--product:hover {
-    background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.14) 0%, transparent 60%),
-        rgba(80,250,123,0.22);
-    border-color: rgba(0,0,0,0.5);
-    box-shadow: 0 5px 14px rgba(80,250,123,0.2), 0 1px 0 rgba(255,255,255,0.08) inset;
+    transform: translateY(-1px) scale(1.05);
+    background: rgba(80, 250, 123, 0.20);
+    border-color: rgba(80, 250, 123, 0.6);
+    box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
     color: var(--drac-green);
 }
 .rubber-title-icon-link--product svg {
