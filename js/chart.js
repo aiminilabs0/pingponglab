@@ -807,7 +807,7 @@ function updateChart(options = {}) {
 
     // Marker sizes mapped to control levels:
     // Level 5 (most control) → biggest dot, Level 1 (least control) → smallest dot.
-    const CONTROL_GUIDE_MARKER_SIZES = [8, 9, 10, 12, 13];
+    const CONTROL_GUIDE_MARKER_SIZES = [8, 9, 11, 13, 14];
 
     function getMarkerSize(rubber) {
         const level = rubber.controlLevel;

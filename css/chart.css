@@ -219,9 +219,9 @@
 }
 .chart-control-guide-dot.dot-1 { width: 8px; height: 8px; }
 .chart-control-guide-dot.dot-2 { width: 9px; height: 9px; }
-.chart-control-guide-dot.dot-3 { width: 10px; height: 10px; }
-.chart-control-guide-dot.dot-4 { width: 12px; height: 12px; }
-.chart-control-guide-dot.dot-5 { width: 13px; height: 13px; }
+.chart-control-guide-dot.dot-3 { width: 11px; height: 11px; }
+.chart-control-guide-dot.dot-4 { width: 13px; height: 13px; }
+.chart-control-guide-dot.dot-5 { width: 14px; height: 14px; }
 .chart-control-guide { position: relative; }
 /* Let annotation labels pass pointer events through to the WebGL layer */
 #chart .annotation { pointer-events: none; }
