@@ -1361,7 +1361,13 @@ function updateChart(options = {}) {
 //  Spotlight Rotation (mobile discovery)
 // ════════════════════════════════════════════════════════════
 
+function isChartInView() {
+    const rect = document.getElementById('chart')?.getBoundingClientRect();
+    return rect && rect.bottom > 0 && rect.top < window.innerHeight;
+}
+
 function advanceSpotlight() {
+    if (!isChartInView()) return;
     if (currentFilteredData.length === 0) {
         spotlightRubber = null;
         return;
@@ -1464,7 +1470,7 @@ function _showDesktopSpotlightPopup(rubber) {
 }
 
 function advanceDesktopSpotlight() {
-    if (currentFilteredData.length === 0) return;
+    if (!isChartInView() || currentFilteredData.length === 0) return;
     let idx = Math.floor(Math.random() * currentFilteredData.length);
     if (currentFilteredData.length > 1 && currentFilteredData[idx] === _prevDesktopSpotlightRubber) {
         idx = (idx + 1) % currentFilteredData.length;
