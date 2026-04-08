@@ -735,15 +735,13 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="rubber-name">${ytBtn}${escapeHtml(rubberName)}${rubber.releaseYearLabel && rubber.releaseYearLabel !== 'N/A' ? ` <span class="rubber-release-year">${escapeHtml(rubber.releaseYearLabel)}</span>` : ''}${buyBtn}${slotBadge}</div>
             </div>
             <div class="chart-hover-hero">
-                <div class="chart-hover-hero-col" data-hint="${tUi('SPIN_HINT')}">
-                    <span class="chart-hover-hero-label">${tUi('SPIN')}<svg class="chart-hover-hero-info" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span>
+                <div class="chart-hover-hero-col">
+                    <span class="chart-hover-hero-label">${tUi('SPIN')}</span>
                     <span class="chart-hover-hero-value">${spin}</span>
-                    <span class="chart-hover-hero-hint">${tUi('SPIN_HINT')}</span>
                 </div>
-                <div class="chart-hover-hero-col" data-hint="${tUi('SPEED_HINT')}">
-                    <span class="chart-hover-hero-label">${tUi('SPEED')}<svg class="chart-hover-hero-info" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span>
+                <div class="chart-hover-hero-col">
+                    <span class="chart-hover-hero-label">${tUi('SPEED')}</span>
                     <span class="chart-hover-hero-value">${speed}</span>
-                    <span class="chart-hover-hero-hint">${tUi('SPEED_HINT')}</span>
                 </div>
             </div>
             <div class="chart-hover-details">
