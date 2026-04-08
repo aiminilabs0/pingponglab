@@ -42,7 +42,7 @@ def parse_price(html):
 
     if list_m and disc_m:
         regular = float(list_m.group(1))
-        discount = disc_m.group(1) + "%"
+        discount = "-" + disc_m.group(1) + "%"
         if regular > current:
             return {"regular": f"${regular:.2f}", "sale": f"${current:.2f}", "discount": discount}
 
