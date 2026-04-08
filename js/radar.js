@@ -486,6 +486,30 @@ function updateRadarChart() {
     if (first) traces.push(buildRadarTrace(first, getRadarData(first)));
     if (second) traces.push(buildRadarTrace(second, getRadarData(second), { dashed: sameBrand }));
 
+    // Custom axis labels: bold for Speed & Spin, normal for others
+    const boldSet = new Set([tUi('SPEED'), tUi('SPIN')]);
+    const boldCats = radarCategories.filter(c => boldSet.has(c));
+    const normalCats = radarCategories.filter(c => !boldSet.has(c));
+    const labelR = isMobile ? 110 : 118;
+    if (boldCats.length) {
+        traces.push({
+            type: 'scatterpolar', mode: 'text',
+            r: boldCats.map(() => labelR), theta: boldCats,
+            text: boldCats, textposition: 'middle center',
+            textfont: { color: 'rgba(232,224,208,0.95)', size: isMobile ? 12 : 15, family: CHART_FONT },
+            hoverinfo: 'skip', showlegend: false,
+        });
+    }
+    if (normalCats.length) {
+        traces.push({
+            type: 'scatterpolar', mode: 'text',
+            r: normalCats.map(() => labelR), theta: normalCats,
+            text: normalCats, textposition: 'middle center',
+            textfont: { color: 'rgba(232,224,208,0.55)', size: isMobile ? 10 : 13, family: CHART_FONT },
+            hoverinfo: 'skip', showlegend: false,
+        });
+    }
+
     const layout = {
         autosize: true,
         height: chartHeight,
@@ -503,7 +527,7 @@ function updateRadarChart() {
                 categoryarray: radarCategories,
                 gridcolor: 'rgba(158,150,137,0.12)',
                 linecolor: 'rgba(158,150,137,0.15)',
-                tickfont: { color: 'rgba(232,224,208,0.7)', size: isMobile ? 11 : 13, family: CHART_FONT },
+                showticklabels: false,
                 rotation: radarRotationDeg,
             },
         },
