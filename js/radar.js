@@ -321,11 +321,6 @@ function buildRadarComparisonHtml(first, second) {
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
             <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
         `).join('');
-        const emptyPriceRow = `
-            <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
-            <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PRICE')}</div>
-            <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
-        `;
         const playersRow = `
             <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PLAYERS')}</div>
@@ -337,7 +332,7 @@ function buildRadarComparisonHtml(first, second) {
                 ${buildRubberHeaderHtml(null, 1, true)}
             </div>
             ${emptyHeroHtml}
-            <div class="radar-comparison-grid">${metricRows}${emptyPriceRow}${playersRow}</div>
+            <div class="radar-comparison-grid">${metricRows}${playersRow}</div>
         `;
     }
 
@@ -466,12 +461,6 @@ function buildRadarComparisonHtml(first, second) {
         <div class="radar-cmp-cell radar-cmp-cell--right">${m.right}</div>
     `).join('');
 
-    // Buy button row
-    const priceRowHtml = `
-        <div class="radar-cmp-cell radar-cmp-cell--left">${buildRadarBuyButtonHtml(first) || '<span class="radar-cmp-dash">-</span>'}</div>
-        <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PRICE')}</div>
-        <div class="radar-cmp-cell radar-cmp-cell--right">${buildRadarBuyButtonHtml(second) || '<span class="radar-cmp-dash">-</span>'}</div>
-    `;
 
     // Players row (special layout)
     const gifTracker = { hasGif: false };
@@ -486,7 +475,6 @@ function buildRadarComparisonHtml(first, second) {
         ${heroHtml}
         <div class="radar-comparison-grid">
             ${detailRowsHtml}
-            ${priceRowHtml}
             ${playersRowHtml}
         </div>
     `;
