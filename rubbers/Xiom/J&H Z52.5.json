@@ -24,7 +24,7 @@
   },
   "urls": {
     "en": {
-      "product": "https://tabletennisstore.us/products/xiom-jekyll-hyde-c52-5?variant=51827547832621&currency=USD&adscale=1&utm_campaign=PMax_US+%5B%5B%2425-%24499%5D%5D+Google+%2425-+%24499&utm_id=20776589451&utm_medium=paid+shopping&device=c&creativeId=&network=x&utm_source=google&site_source_name=adscale_pmax&gad_source=1&gad_campaignid=20786799544&gbraid=0AAAAADuOaYTa3pKbbJCUu-GgnfeSOh1-e&gclid=Cj0KCQjw7cLOBhDmARIsAGsuA0lZwbwfDIJm36a0RM-5n6ZXRCe6NPHqLoZqv7Zej30CRrxsHQUL6x0aAieWEALw_wcB",
+      "product": "https://www.megaspin.net/store/default.asp?pid=xiom-j-h-z525",
       "youtube": ""
     },
     "ko": {
@@ -34,6 +34,23 @@
     "cn": {
       "product": "",
       "youtube": ""
+    }
+  },
+  "price": {
+    "en": {
+      "regular": "$79.99",
+      "sale": "$59.99",
+      "discount": "25%"
+    },
+    "ko": {
+      "regular": "$79.99",
+      "sale": "$59.99",
+      "discount": "25%"
+    },
+    "cn": {
+      "regular": "$79.99",
+      "sale": "$59.99",
+      "discount": "25%"
     }
   }
 }

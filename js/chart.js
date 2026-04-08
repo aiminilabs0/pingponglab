@@ -717,8 +717,20 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
         productUrl = (rubber.urls?.en || {}).product || '';
     }
     const productMeta = getProductStoreMeta(productUrl);
+    const priceData = rubber.price?.[selectedCountry] || rubber.price?.en || null;
+    const priceSale = priceData?.sale || '';
+    const priceRegular = priceData?.regular || '';
+    const priceDiscount = priceData?.discount || '';
+    const priceHtml = priceSale
+        ? `<span class="chart-hover-buy-price-wrap"><span class="chart-hover-buy-price-sale">${escapeHtml(priceSale)}</span></span>`
+        : priceRegular
+            ? `<span class="chart-hover-buy-price-wrap"><span class="chart-hover-buy-price-sale">${escapeHtml(priceRegular)}</span></span>`
+            : '';
+    const discountFloatBadge = (priceSale && priceDiscount)
+        ? `<span class="chart-hover-buy-discount-badge">${escapeHtml(priceDiscount)}</span>`
+        : '';
     const buyBtn = productMeta
-        ? `<a class="chart-hover-buy-btn" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" aria-label="Buy" data-rubber-name="${escapeHtml(rubber.name || rubber.abbr || '')}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Buy</a>`
+        ? `<span class="chart-hover-buy-wrap">${discountFloatBadge}<a class="chart-hover-buy-btn${priceSale && priceDiscount ? ' has-discount' : ''}" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" aria-label="Buy" data-rubber-name="${escapeHtml(rubber.name || rubber.abbr || '')}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Buy${priceHtml}</a></span>`
         : '';
 
     return `

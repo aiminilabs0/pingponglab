@@ -36,5 +36,22 @@
       "product": "",
       "youtube": ""
     }
+  },
+  "price": {
+    "en": {
+      "regular": "$64.95",
+      "sale": "",
+      "discount": ""
+    },
+    "ko": {
+      "regular": "$64.95",
+      "sale": "",
+      "discount": ""
+    },
+    "cn": {
+      "regular": "$64.95",
+      "sale": "",
+      "discount": ""
+    }
   }
 }

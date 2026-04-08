@@ -36,6 +36,23 @@
     "sheet": "Tension",
     "weight": 48
   },
+  "price": {
+    "en": {
+      "regular": "$79.99",
+      "sale": "",
+      "discount": ""
+    },
+    "ko": {
+      "regular": "$79.99",
+      "sale": "",
+      "discount": ""
+    },
+    "cn": {
+      "regular": "$79.99",
+      "sale": "",
+      "discount": ""
+    }
+  },
   "urls": {
     "en": {
       "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=b-tenergy-05",

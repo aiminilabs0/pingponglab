@@ -438,11 +438,33 @@
     padding: 1px 2.5px;
     border-radius: 3px;
 }
+.chart-hover-buy-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+.chart-hover-buy-discount-badge {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    z-index: 1;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: #ff5555;
+    border-radius: 4px;
+    padding: 1px 4px;
+    line-height: 1.4;
+    pointer-events: none;
+    box-shadow: 0 1px 4px rgba(255, 85, 85, 0.5);
+}
 .chart-hover-buy-btn {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    margin-left: 8px;
     padding: 3px 9px 3px 7px;
     border: 1px solid rgba(80, 250, 123, 0.35);
     border-radius: 7px;
@@ -454,17 +476,44 @@
     cursor: pointer;
     flex-shrink: 0;
     line-height: 1;
-    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.chart-hover-buy-btn.has-discount {
+    border-color: rgba(255, 184, 108, 0.5);
+    background: rgba(255, 184, 108, 0.10);
+    color: #ffb86c;
 }
 .chart-hover-buy-btn svg {
     flex-shrink: 0;
     opacity: 0.9;
+}
+.chart-hover-buy-price-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-left: 1px solid currentColor;
+    border-left-color: rgba(80, 250, 123, 0.35);
+    padding-left: 6px;
+    margin-left: 2px;
+}
+.chart-hover-buy-btn.has-discount .chart-hover-buy-price-wrap {
+    border-left-color: rgba(255, 184, 108, 0.35);
+}
+.chart-hover-buy-price-sale {
+    font-weight: 700;
+    font-size: 11px;
+    color: inherit;
 }
 .chart-hover-buy-btn:hover {
     transform: translateY(-1px) scale(1.05);
     background: rgba(80, 250, 123, 0.20);
     border-color: rgba(80, 250, 123, 0.6);
     box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
+}
+.chart-hover-buy-btn.has-discount:hover {
+    background: rgba(255, 184, 108, 0.20);
+    border-color: rgba(255, 184, 108, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 184, 108, 0.2);
 }
 .chart-hover-players {
     display: flex;

@@ -498,7 +498,8 @@ async function loadRubberData() {
                 eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
                 ko: { product: urls.ko?.product || '', youtube: urls.ko?.youtube || '' },
                 cn: { product: urls.cn?.product || '', youtube: urls.cn?.youtube || '' }
-            }
+            },
+            price: raw.price || null
         };
 
         data.push(rubber);
