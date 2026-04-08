@@ -587,6 +587,9 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            spotlightDismissedByUser = true;
+            stopSpotlightRotation();
+            stopDesktopSpotlightRotation();
             hideChartHoverPopup({ force: true });
         });
     }
@@ -1377,6 +1380,7 @@ function isChartInView() {
 }
 
 function advanceSpotlight() {
+    if (spotlightDismissedByUser) return;
     if (!isChartInView()) return;
     if (currentFilteredData.length === 0) {
         spotlightRubber = null;
@@ -1480,6 +1484,7 @@ function _showDesktopSpotlightPopup(rubber) {
 }
 
 function advanceDesktopSpotlight() {
+    if (spotlightDismissedByUser) return;
     if (!isChartInView() || currentFilteredData.length === 0) return;
     let idx = Math.floor(Math.random() * currentFilteredData.length);
     if (currentFilteredData.length > 1 && currentFilteredData[idx] === _prevDesktopSpotlightRubber) {

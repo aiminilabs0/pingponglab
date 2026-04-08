@@ -40,6 +40,7 @@ let spotlightRubber = null;      // currently spotlighted rubber object
 let spotlightTimerId = null;     // setInterval ID
 let spotlightPaused = false;     // paused by user interaction
 let spotlightDismissTimer = null;
+let spotlightDismissedByUser = false; // user explicitly closed a spotlight popup
 
 // Desktop spotlight rotation state
 let desktopSpotlightTimerId = null;
