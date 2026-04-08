@@ -257,6 +257,28 @@
     color: inherit;
 }
 /* Product / Buy button */
+.rubber-title-buy-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.rubber-title-buy-discount-badge {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    z-index: 1;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: #ff5555;
+    border-radius: 4px;
+    padding: 1px 4px;
+    line-height: 1.4;
+    pointer-events: none;
+    box-shadow: 0 1px 4px rgba(255, 85, 85, 0.5);
+}
 .rubber-title-icon-link--product {
     height: auto;
     padding: 3px 9px 3px 7px;
@@ -265,7 +287,12 @@
     background: rgba(80, 250, 123, 0.10);
     box-shadow: none;
     color: var(--drac-green);
-    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+    transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.rubber-title-icon-link--product.has-discount {
+    border-color: rgba(255, 184, 108, 0.5);
+    background: rgba(255, 184, 108, 0.10);
+    color: #ffb86c;
 }
 .rubber-title-icon-link--product:hover {
     transform: translateY(-1px) scale(1.05);
@@ -274,9 +301,27 @@
     box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
     color: var(--drac-green);
 }
+.rubber-title-icon-link--product.has-discount:hover {
+    background: rgba(255, 184, 108, 0.20);
+    border-color: rgba(255, 184, 108, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 184, 108, 0.2);
+    color: #ffb86c;
+}
 .rubber-title-icon-link--product svg {
     flex-shrink: 0;
     opacity: 0.9;
+}
+.rubber-title-buy-price-wrap {
+    display: inline-flex;
+    align-items: center;
+    border-left: 1px solid currentColor;
+    opacity: 0.85;
+    padding-left: 6px;
+    margin-left: 4px;
+}
+.rubber-title-buy-price {
+    font-size: 11px;
+    font-weight: 700;
 }
 /* YouTube embed sits flush between title header and scroll content */
 .content-pane .youtube-embed-wrapper {
