@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 7px 32px;
+    padding: 8px 32px;
     color: var(--drac-yellow);
     font-size: 12px;
     font-weight: 700;
@@ -55,33 +55,20 @@
     margin: 0 -32px;
     min-width: 0;
     background:
-        radial-gradient(ellipse 70% 120% at 50% 100%, rgba(217,119,86,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 80% at 15% 50%, rgba(212,120,94,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 80% at 85% 50%, rgba(126,184,168,0.06) 0%, transparent 60%),
-        linear-gradient(180deg, var(--drac-bg-dark) 0%, #201e1b 100%);
-    border-top: none;
-    border-bottom: none;
+        /* glossy top highlight — candy shelf */
+        radial-gradient(ellipse 100% 70% at 50% -15%, rgba(255,255,255,0.10) 0%, transparent 60%),
+        /* warm orange glow from left */
+        radial-gradient(ellipse 35% 100% at 0% 50%, rgba(218,138,82,0.14) 0%, transparent 70%),
+        /* cool green glow from right */
+        radial-gradient(ellipse 35% 100% at 100% 50%, rgba(139,189,110,0.10) 0%, transparent 70%),
+        /* golden warmth center */
+        radial-gradient(ellipse 50% 120% at 50% 50%, rgba(212,193,106,0.06) 0%, transparent 70%),
+        /* base */
+        linear-gradient(180deg, #252220 0%, #1e1c19 100%);
     box-shadow:
-        0 8px 28px rgba(0,0,0,0.35),
-        0 1px 0 rgba(255,255,255,0.04) inset;
-}
-.chart-speed-outside::before,
-.chart-speed-outside::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 10px;
-    pointer-events: none;
-    z-index: 0;
-}
-.chart-speed-outside::before {
-    top: 0;
-    background: linear-gradient(180deg, var(--drac-bg-dark) 0%, transparent 100%);
-}
-.chart-speed-outside::after {
-    bottom: 0;
-    background: linear-gradient(0deg, var(--drac-bg) 0%, transparent 100%);
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 -1px 0 rgba(255,255,255,0.04),
+        0 6px 20px rgba(0,0,0,0.4);
 }
 .chart-speed-outside > span:first-child {
     margin-left: 12px;
@@ -97,24 +84,30 @@
     position: relative;
     cursor: help;
     white-space: nowrap;
-    padding: 2px 14px;
+    padding: 3px 16px;
     border-radius: 999px;
-    border: 2.5px solid rgba(0,0,0,0.6);
+    border: 2.5px solid rgba(0,0,0,0.45);
     background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.28) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.25) 0%, transparent 60%),
-        rgba(212,193,106,0.28);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.12) inset;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        radial-gradient(ellipse at 50% -15%, rgba(255,255,255,0.38) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.28) 0%, transparent 55%),
+        rgba(212,193,106,0.32);
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.4),
+        0 1px 0 rgba(255,255,255,0.18) inset,
+        0 0 0 1px rgba(212,193,106,0.08);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
     font-size: 14px;
     font-weight: 800;
     color: var(--drac-yellow);
-    transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
 }
 .chart-speed-outside > span:hover,
 .chart-spin-label:hover {
-    transform: translateY(-2px) scale(1.06);
-    box-shadow: 0 7px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,193,106,0.3), 0 1px 0 rgba(255,255,255,0.14) inset;
+    transform: translateY(-3px) scale(1.08);
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.45),
+        0 0 0 2px rgba(212,193,106,0.15),
+        0 1px 0 rgba(255,255,255,0.22) inset;
 }
 .chart-speed-outside > span::after,
 .chart-spin-label::after {
@@ -158,29 +151,34 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 4px 11px;
-    border: 2px solid rgba(0,0,0,0.5);
+    padding: 4px 13px;
+    border: 2.5px solid rgba(0,0,0,0.45);
     border-radius: 999px;
     background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 65%),
-        rgba(28,26,23,0.65);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.05) inset;
+        radial-gradient(ellipse at 50% -15%, rgba(255,255,255,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.12) 0%, transparent 55%),
+        rgba(50,47,42,0.75);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.35),
+        0 1px 0 rgba(255,255,255,0.10) inset;
     color: var(--drac-comment);
     font-size: 12px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.15s cubic-bezier(0.34,1.56,0.64,1);
+    transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
     white-space: nowrap;
 }
 .user-guide-btn:hover {
-    border-color: rgba(0,0,0,0.6);
     color: var(--drac-red);
     background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 60%),
-        rgba(207,85,85,0.18);
-    box-shadow: 0 5px 14px rgba(207,85,85,0.2), 0 1px 0 rgba(255,255,255,0.07) inset;
-    transform: translateY(-1px);
+        radial-gradient(ellipse at 50% -15%, rgba(255,255,255,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 120%, rgba(0,0,0,0.15) 0%, transparent 55%),
+        rgba(207,85,85,0.22);
+    box-shadow:
+        0 6px 18px rgba(207,85,85,0.25),
+        0 1px 0 rgba(255,255,255,0.14) inset;
+    transform: translateY(-2px) scale(1.06);
 }
 .user-guide-btn.yt-active {
     border-color: rgba(0,0,0,0.55);

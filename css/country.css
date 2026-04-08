@@ -4,15 +4,16 @@
     align-items: center;
     gap: 2px;
     background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0.12) 0%, transparent 55%),
         var(--drac-bg-dark);
-    border: 2.5px solid rgba(0,0,0,0.6);
+    border: 2.5px solid rgba(0,0,0,0.45);
     border-radius: 100px;
     padding: 4px;
     position: relative;
     box-shadow:
         0 4px 14px rgba(0,0,0,0.4),
-        0 1px 0 rgba(255,255,255,0.05) inset;
+        0 1px 0 rgba(255,255,255,0.10) inset;
 }
 /* Sliding M&M pill indicator */
 .country-selector::before {
@@ -25,10 +26,10 @@
     border-radius: 100px;
     border: 1.5px solid rgba(0,0,0,0.45);
     background:
-        radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.30) 0%, rgba(217,119,86,0.55) 50%, rgba(140,60,10,0.7) 100%);
+        radial-gradient(ellipse at 50% 15%, rgba(255,255,255,0.40) 0%, rgba(218,138,82,0.65) 45%, rgba(140,60,10,0.8) 100%);
     box-shadow:
-        0 3px 10px rgba(217,119,86,0.3),
-        0 1px 0 rgba(255,255,255,0.12) inset;
+        0 3px 12px rgba(218,138,82,0.35),
+        0 1px 0 rgba(255,255,255,0.18) inset;
     transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
                 width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
