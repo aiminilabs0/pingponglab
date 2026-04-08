@@ -76,41 +76,6 @@ function getRadarData(rubber) {
     };
 }
 
-function buildRadarLabelTraces(rubber, { side }) {
-    // side: 'left' = before axis label (first rubber), 'right' = after (second rubber)
-    const categories = [tUi('SPEED'), tUi('SPIN'), tUi('CONTROL'), tUi('CUT_WEIGHT'), tUi('HARDNESS')];
-    const chipIcon = side === 'left' ? '①' : '②';
-    const rawValues = [
-        Number.isFinite(rubber.speedRank)    ? `#${rubber.speedRank}`   : '–',
-        Number.isFinite(rubber.spinRank)     ? `#${rubber.spinRank}`    : '–',
-        Number.isFinite(rubber.controlLevel) ? `${rubber.controlLevel}` : '–',
-        rubber.weightLabel   || '–',
-        rubber.hardnessLabel || '–',
-    ];
-    const pad = '\u2002';
-    const chipLabels  = categories.map(() => side === 'left' ? `${chipIcon}${pad}` : `${pad}${chipIcon}`);
-    const valueLabels = rawValues.map(v  => side === 'left' ? `${v}${pad}`        : `${pad}${v}`);
-    const brandColor = getBrandColor(rubber.brand);
-    const textposition = side === 'left' ? 'middle left' : 'middle right';
-    const rChip  = [114, 114, 114, 114, 114];
-    const rValue = [104, 104, 104, 104, 104];
-    return [
-        {
-            type: 'scatterpolar', mode: 'text',
-            r: rChip, theta: categories,
-            text: chipLabels, textposition,
-            textfont: { color: brandColor, size: 16, family: CHART_FONT },
-            hoverinfo: 'skip', showlegend: false,
-        },
-        {
-            type: 'scatterpolar', mode: 'text',
-            r: rValue, theta: categories,
-            text: valueLabels, textposition,
-            textfont: { color: brandColor, size: 13, family: CHART_FONT },
-            hoverinfo: 'skip', showlegend: false,
-        },
-    ];
-}
 
 function buildRadarTrace(rubber, radarData, { dashed = false } = {}) {
     const brandColor = getBrandColor(rubber.brand);
@@ -520,10 +485,6 @@ function updateRadarChart() {
     }
     if (first) traces.push(buildRadarTrace(first, getRadarData(first)));
     if (second) traces.push(buildRadarTrace(second, getRadarData(second), { dashed: sameBrand }));
-    if (!isMobile) {
-        if (first)  traces.push(...buildRadarLabelTraces(first,  { side: 'left' }));
-        if (second) traces.push(...buildRadarLabelTraces(second, { side: 'right' }));
-    }
 
     const layout = {
         autosize: true,
