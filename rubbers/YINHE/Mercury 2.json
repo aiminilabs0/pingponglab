@@ -26,7 +26,7 @@
   },
   "urls": {
     "en": {
-      "product": "",
+      "product": "https://tabletennis11.com/en/yinhe-mercury-ii",
       "youtube": "https://www.youtube.com/watch?v=n-Q-mYhPPW8"
     },
     "ko": {
@@ -37,5 +37,20 @@
       "product": "",
       "youtube": ""
     }
+  },
+  "en": {
+    "regular": "$14.16",
+    "sale": "",
+    "discount": ""
+  },
+  "ko": {
+    "regular": "$14.16",
+    "sale": "",
+    "discount": ""
+  },
+  "cn": {
+    "regular": "$14.16",
+    "sale": "",
+    "discount": ""
   }
 }
