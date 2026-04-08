@@ -90,8 +90,23 @@
     .content-tab--share { padding: 7px 8px; min-width: 0; }
     #chart { height: 440px; }
     .chart-speed-outside {
-        padding: 0 10px 2px;
+        margin: 0 -16px;
+        padding: 6px 16px;
         font-size: 12px;
+        gap: 6px;
+        flex-wrap: nowrap;
+        min-width: 0;
+    }
+    .chart-speed-outside .header-search {
+        flex-shrink: 1;
+        min-width: 0;
+    }
+    .chart-speed-outside .header-search-input {
+        width: 90px;
+        min-width: 60px;
+    }
+    .chart-speed-outside .header-search-input:focus {
+        width: 110px;
     }
     .chart-control-guide {
         gap: 6px;

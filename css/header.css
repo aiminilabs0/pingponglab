@@ -5,15 +5,15 @@
     flex-direction: column;
     align-items: stretch;
     padding: 0;
-    margin: -32px -32px 12px;
+    margin: -32px -32px 0;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
     background:
-        /* M&M gloss — bright highlight across the top */
-        linear-gradient(180deg, rgba(255,255,255,0.055) 0%, transparent 40%),
-        radial-gradient(ellipse 80% 60% at 10% 50%, rgba(217,119,86,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 80% at 90% 30%, rgba(126,184,168,0.08) 0%, transparent 70%),
-        linear-gradient(180deg, var(--drac-bg-dark) 0%, var(--drac-bg) 100%);
+        radial-gradient(ellipse 90% 50% at 50% -5%, rgba(255,255,255,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 15% 60%, rgba(217,119,86,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 60% at 88% 25%, rgba(126,184,168,0.09) 0%, transparent 70%),
+        linear-gradient(180deg, #282521 0%, var(--drac-bg-dark) 100%);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
 }
 .header-row {
     display: flex;
@@ -273,17 +273,6 @@
 .header-ctrl-fit:hover {
     border-color: var(--drac-cyan);
     color: var(--drac-cyan);
-}
-.header-accent {
-    height: 5px;
-    background: linear-gradient(90deg,
-        var(--drac-orange) 0%,
-        var(--drac-pink) 30%,
-        var(--drac-cyan) 70%,
-        var(--drac-green) 100%
-    );
-    opacity: 0.85;
-    box-shadow: 0 0 10px rgba(217,119,86,0.3);
 }
 h1 {
     margin-bottom: 20px;

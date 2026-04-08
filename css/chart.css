@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 14px 0;
+    padding: 7px 32px;
     color: var(--drac-yellow);
     font-size: 12px;
     font-weight: 700;
@@ -52,6 +52,42 @@
     line-height: 1.2;
     position: relative;
     z-index: 2;
+    margin: 0 -32px;
+    min-width: 0;
+    background:
+        radial-gradient(ellipse 70% 120% at 50% 100%, rgba(217,119,86,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 15% 50%, rgba(212,120,94,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 85% 50%, rgba(126,184,168,0.06) 0%, transparent 60%),
+        linear-gradient(180deg, var(--drac-bg-dark) 0%, #201e1b 100%);
+    border-top: none;
+    border-bottom: none;
+    box-shadow:
+        0 8px 28px rgba(0,0,0,0.35),
+        0 1px 0 rgba(255,255,255,0.04) inset;
+}
+.chart-speed-outside::before,
+.chart-speed-outside::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10px;
+    pointer-events: none;
+    z-index: 0;
+}
+.chart-speed-outside::before {
+    top: 0;
+    background: linear-gradient(180deg, var(--drac-bg-dark) 0%, transparent 100%);
+}
+.chart-speed-outside::after {
+    bottom: 0;
+    background: linear-gradient(0deg, var(--drac-bg) 0%, transparent 100%);
+}
+.chart-speed-outside > span:first-child {
+    margin-left: 12px;
+}
+.chart-speed-outside .header-search {
+    margin-right: 12px;
 }
 .chart-speed-outside > span,
 .chart-spin-label {
