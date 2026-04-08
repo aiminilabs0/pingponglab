@@ -42,7 +42,7 @@
       "youtube": "https://www.youtube.com/watch?v=H4cYDC2KtoQ"
     },
     "ko": {
-      "product": "",
+      "product": "https://smartstore.naver.com/takdragon/products/11099053627",
       "youtube": "https://www.youtube.com/watch?v=SfS4DLFlsWY"
     },
     "cn": {
@@ -57,9 +57,9 @@
       "discount": ""
     },
     "ko": {
-      "regular": "$93.99",
-      "sale": "",
-      "discount": ""
+      "regular": "105.0",
+      "sale": "84.0",
+      "discount": "20%"
     },
     "cn": {
       "regular": "$93.99",
