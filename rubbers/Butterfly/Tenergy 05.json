@@ -45,7 +45,7 @@
     "ko": {
       "regular": "92.0",
       "sale": "73.6",
-      "discount": "20%"
+      "discount": "-20%"
     },
     "cn": {
       "regular": "$79.99",

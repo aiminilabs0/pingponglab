@@ -447,7 +447,7 @@
 }
 .chart-hover-buy-discount-badge {
     position: absolute;
-    top: -8px;
+    top: -10px;
     right: -6px;
     z-index: 1;
     font-size: 9px;
@@ -479,9 +479,9 @@
     transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .chart-hover-buy-btn.has-discount {
-    border-color: rgba(255, 184, 108, 0.5);
-    background: rgba(255, 184, 108, 0.10);
-    color: #ffb86c;
+    border-color: rgba(80, 250, 123, 0.5);
+    background: rgba(80, 250, 123, 0.10);
+    color: var(--drac-green, #50fa7b);
 }
 .chart-hover-buy-btn svg {
     flex-shrink: 0;
@@ -497,7 +497,7 @@
     margin-left: 2px;
 }
 .chart-hover-buy-btn.has-discount .chart-hover-buy-price-wrap {
-    border-left-color: rgba(255, 184, 108, 0.35);
+    border-left-color: rgba(80, 250, 123, 0.35);
 }
 .chart-hover-buy-price-sale {
     font-weight: 700;
@@ -511,9 +511,9 @@
     box-shadow: 0 4px 12px rgba(80, 250, 123, 0.15);
 }
 .chart-hover-buy-btn.has-discount:hover {
-    background: rgba(255, 184, 108, 0.20);
-    border-color: rgba(255, 184, 108, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 184, 108, 0.2);
+    background: rgba(80, 250, 123, 0.20);
+    border-color: rgba(80, 250, 123, 0.7);
+    box-shadow: 0 4px 12px rgba(80, 250, 123, 0.2);
 }
 .chart-hover-players {
     display: flex;

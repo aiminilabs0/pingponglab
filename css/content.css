@@ -265,7 +265,7 @@
 }
 .rubber-title-buy-discount-badge {
     position: absolute;
-    top: -8px;
+    top: -10px;
     right: -6px;
     z-index: 1;
     font-size: 9px;
@@ -290,9 +290,9 @@
     transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .rubber-title-icon-link--product.has-discount {
-    border-color: rgba(255, 184, 108, 0.5);
-    background: rgba(255, 184, 108, 0.10);
-    color: #ffb86c;
+    border-color: rgba(80, 250, 123, 0.5);
+    background: rgba(80, 250, 123, 0.10);
+    color: var(--drac-green);
 }
 .rubber-title-icon-link--product:hover {
     transform: translateY(-1px) scale(1.05);
@@ -302,10 +302,10 @@
     color: var(--drac-green);
 }
 .rubber-title-icon-link--product.has-discount:hover {
-    background: rgba(255, 184, 108, 0.20);
-    border-color: rgba(255, 184, 108, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 184, 108, 0.2);
-    color: #ffb86c;
+    background: rgba(80, 250, 123, 0.20);
+    border-color: rgba(80, 250, 123, 0.7);
+    box-shadow: 0 4px 12px rgba(80, 250, 123, 0.2);
+    color: var(--drac-green);
 }
 .rubber-title-icon-link--product svg {
     flex-shrink: 0;

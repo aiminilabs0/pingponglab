@@ -40,17 +40,17 @@
     "en": {
       "regular": "$79.99",
       "sale": "$59.99",
-      "discount": "25%"
+      "discount": "-25%"
     },
     "ko": {
       "regular": "$79.99",
       "sale": "$59.99",
-      "discount": "25%"
+      "discount": "-25%"
     },
     "cn": {
       "regular": "$79.99",
       "sale": "$59.99",
-      "discount": "25%"
+      "discount": "-25%"
     }
   }
 }
