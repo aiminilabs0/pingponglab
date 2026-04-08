@@ -852,6 +852,11 @@ async function initializeApp() {
 
     // Pin button click listener (event delegation)
     document.getElementById('radarSection').addEventListener('click', (e) => {
+        const buyLink = e.target.closest('.rubber-title-icon-link--product');
+        if (buyLink) {
+            trackBuyClickEvent(buyLink.dataset.rubberName || '');
+            return;
+        }
         const btn = e.target.closest('.radar-pin-btn');
         if (!btn) return;
         const idx = parseInt(btn.dataset.panelIndex, 10);

@@ -51,6 +51,14 @@
 .radar-comparison-header-side--right .brand-pill {
     margin-left: auto;
 }
+/* Buy button inside radar comparison header */
+.radar-comparison-header-side .rubber-title-buy-wrap {
+    margin-top: 6px;
+    display: inline-flex;
+}
+.radar-comparison-header-side--right .rubber-title-buy-wrap {
+    margin-left: auto;
+}
 /* Hero section: Speed & Spin — 3-column grid matching detail rows */
 .radar-cmp-hero {
     display: grid;
@@ -123,6 +131,34 @@
 .radar-cmp-dash {
     color: var(--drac-comment);
     opacity: 0.5;
+}
+/* Price row */
+.radar-cmp-price {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.radar-cmp-price--right {
+    flex-direction: row-reverse;
+}
+.radar-cmp-price-val {
+    font-size: 12px;
+    color: var(--drac-fg);
+}
+.radar-cmp-price-val.has-discount {
+    color: #ffb86c;
+}
+.radar-cmp-price-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: #ff5555;
+    border-radius: 4px;
+    padding: 1px 4px;
+    line-height: 1.4;
+    box-shadow: 0 1px 4px rgba(255, 85, 85, 0.4);
 }
 
 /* Players column alignment */

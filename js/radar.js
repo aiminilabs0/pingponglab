@@ -8,6 +8,42 @@ let radarAutoRotateFrameId = null;
 let radarAutoRotateLastTs = null;
 let radarRotationSpeedMultiplier = 1;  // increases when panicking
 
+function buildRadarBuyButtonHtml(rubber) {
+    if (!rubber?.urls) return '';
+    const countryUrls = rubber.urls[selectedCountry] || {};
+    let productUrl = countryUrls.product || '';
+    if (!productUrl && selectedCountry !== 'en') {
+        productUrl = (rubber.urls.en || {}).product || '';
+    }
+    const productMeta = getProductStoreMeta(productUrl);
+    if (!productMeta) return '';
+    const safeTitle = escapeHtml(`Buy on ${productMeta.label}`);
+    const iconHtml = productMeta.icon
+        ? `<img src="${escapeHtml(productMeta.icon)}" class="rubber-title-icon" alt="">`
+        : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+    const priceData = rubber.price?.[selectedCountry] || rubber.price?.en || null;
+    const priceSale = priceData?.sale || '';
+    const priceRegular = priceData?.regular || '';
+    const priceDiscount = priceData?.discount || '';
+    const hasDiscount = !!(priceSale && priceDiscount);
+    const priceStr = priceSale || priceRegular;
+    const priceHtml = priceStr
+        ? `<span class="rubber-title-buy-price">${escapeHtml(priceStr)}</span>`
+        : '';
+    const discountBadge = hasDiscount
+        ? `<span class="rubber-title-buy-discount-badge">${escapeHtml(priceDiscount)}</span>`
+        : '';
+    return (
+        `<span class="rubber-title-buy-wrap">` +
+        discountBadge +
+        `<a class="rubber-title-icon-link rubber-title-icon-link--product${hasDiscount ? ' has-discount' : ''}" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}" data-rubber-name="${escapeHtml(rubber.name || rubber.abbr || '')}">` +
+        `${iconHtml}` +
+        priceHtml +
+        `</a>` +
+        `</span>`
+    );
+}
+
 function normalizeRankToScore(rank, total) {
     if (!Number.isFinite(rank) || !Number.isFinite(total) || total <= 0) return 0;
     return ((total - rank + 1) / total) * 100;
@@ -226,6 +262,7 @@ function buildRubberHeaderHtml(rubber, panelIndex, dashed) {
             </div>
             ${rubberImgHtml}
             <div class="radar-info-line-key" style="${lineStyle} ${brandColor}; width: 28px;"></div>
+            ${buildRadarBuyButtonHtml(rubber)}
         </div>
     `;
 }
@@ -284,6 +321,11 @@ function buildRadarComparisonHtml(first, second) {
             <div class="radar-cmp-cell radar-cmp-cell--label">${label}</div>
             <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
         `).join('');
+        const emptyPriceRow = `
+            <div class="radar-cmp-cell radar-cmp-cell--left">${dash}</div>
+            <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PRICE')}</div>
+            <div class="radar-cmp-cell radar-cmp-cell--right">${dash}</div>
+        `;
         const playersRow = `
             <div class="radar-cmp-cell radar-cmp-cell--left radar-cmp-cell--players">${dash}</div>
             <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PLAYERS')}</div>
@@ -295,7 +337,7 @@ function buildRadarComparisonHtml(first, second) {
                 ${buildRubberHeaderHtml(null, 1, true)}
             </div>
             ${emptyHeroHtml}
-            <div class="radar-comparison-grid">${metricRows}${playersRow}</div>
+            <div class="radar-comparison-grid">${metricRows}${emptyPriceRow}${playersRow}</div>
         `;
     }
 
@@ -424,6 +466,13 @@ function buildRadarComparisonHtml(first, second) {
         <div class="radar-cmp-cell radar-cmp-cell--right">${m.right}</div>
     `).join('');
 
+    // Buy button row
+    const priceRowHtml = `
+        <div class="radar-cmp-cell radar-cmp-cell--left">${buildRadarBuyButtonHtml(first) || '<span class="radar-cmp-dash">-</span>'}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--label">${tUi('PRICE')}</div>
+        <div class="radar-cmp-cell radar-cmp-cell--right">${buildRadarBuyButtonHtml(second) || '<span class="radar-cmp-dash">-</span>'}</div>
+    `;
+
     // Players row (special layout)
     const gifTracker = { hasGif: false };
     const playersRowHtml = `
@@ -437,6 +486,7 @@ function buildRadarComparisonHtml(first, second) {
         ${heroHtml}
         <div class="radar-comparison-grid">
             ${detailRowsHtml}
+            ${priceRowHtml}
             ${playersRowHtml}
         </div>
     `;

@@ -116,11 +116,10 @@ async function buildTitleLinkIconsHtml(rubber) {
         const priceRegular = priceData?.regular || '';
         const priceDiscount = priceData?.discount || '';
         const hasDiscount = !!(priceSale && priceDiscount);
-        const priceHtml = priceSale
-            ? `<span class="rubber-title-buy-price-wrap"><span class="rubber-title-buy-price">${escapeHtml(priceSale)}</span></span>`
-            : priceRegular
-                ? `<span class="rubber-title-buy-price-wrap"><span class="rubber-title-buy-price">${escapeHtml(priceRegular)}</span></span>`
-                : '';
+        const priceStr = priceSale || priceRegular;
+        const priceHtml = priceStr
+            ? `<span class="rubber-title-buy-price">${escapeHtml(priceStr)}</span>`
+            : '';
         const discountBadge = hasDiscount
             ? `<span class="rubber-title-buy-discount-badge">${escapeHtml(priceDiscount)}</span>`
             : '';
@@ -128,7 +127,7 @@ async function buildTitleLinkIconsHtml(rubber) {
             `<span class="rubber-title-buy-wrap">` +
             discountBadge +
             `<a class="rubber-title-icon-link rubber-title-icon-link--product${hasDiscount ? ' has-discount' : ''}" href="${escapeHtml(productMeta.url)}" target="_blank" rel="noopener" title="${safeTitle}" aria-label="${safeTitle}" data-rubber-name="${escapeHtml(rubber.name || rubber.abbr || '')}">` +
-            `${iconHtml}<span class="rubber-title-link-label">${escapeHtml(productMeta.label)}</span>` +
+            `${iconHtml}` +
             priceHtml +
             `</a>` +
             `</span>`
@@ -306,10 +305,7 @@ async function updateDetailPanel(panelNum, rubber) {
     const brandColor = getBrandColor(rubber.brand);
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
     const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
-    const [detailMarkdown, iconsHtml] = await Promise.all([
-        fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr),
-        buildTitleLinkIconsHtml(rubber),
-    ]);
+    const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -320,7 +316,6 @@ async function updateDetailPanel(panelNum, rubber) {
             `</div>` +
             `<div class="rubber-title-row">` +
                 `<h1 class="rubber-name">${rubber.bestseller ? '\u2B50 ' : ''}${escapeHtml(localizedRubber)}</h1>` +
-                (iconsHtml ? `<div class="rubber-title-icons">${iconsHtml}</div>` : '') +
             `</div>` +
         `</div>`;
 
