@@ -514,4 +514,11 @@
     transition: opacity 0.12s ease;
     transform: translate(-50%, -50%);
 }
+.chart-dot-shake-ring.shake-ring-square {
+    border-radius: 2px;
+}
+.chart-dot-shake-ring.shake-ring-diamond {
+    border-radius: 2px;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
 

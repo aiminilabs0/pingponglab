@@ -508,6 +508,12 @@ function showChartDotShake(data, chartEl) {
         document.body.appendChild(_chartShakeRing);
     }
 
+    // Match the marker shape for this rubber's sheet type
+    const symbol = getSheetSymbol(rubber.sheet);
+    _chartShakeRing.className = 'chart-dot-shake-ring'
+        + (symbol === 'square' ? ' shake-ring-square' : '')
+        + (symbol === 'diamond' ? ' shake-ring-diamond' : '');
+
     _chartShakeRing.style.width = markerSize + 'px';
     _chartShakeRing.style.height = markerSize + 'px';
     _chartShakeRing.style.left = pos.x + 'px';
