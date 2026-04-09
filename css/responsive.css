@@ -119,11 +119,12 @@
     .chart-control-guide-dots {
         gap: 5px;
     }
-    .chart-control-guide-dot.dot-1 { width: 5px; height: 5px; }
-    .chart-control-guide-dot.dot-2 { width: 7px; height: 7px; }
-    .chart-control-guide-dot.dot-3 { width: 9px; height: 9px; }
-    .chart-control-guide-dot.dot-4 { width: 11px; height: 11px; }
-    .chart-control-guide-dot.dot-5 { width: 13px; height: 13px; }
+    .chart-control-guide-dot { border-width: 2px; }
+    .chart-control-guide-dot.dot-1 { width: 8px; height: 8px; }
+    .chart-control-guide-dot.dot-2 { width: 10px; height: 10px; }
+    .chart-control-guide-dot.dot-3 { width: 12px; height: 12px; }
+    .chart-control-guide-dot.dot-4 { width: 15px; height: 15px; }
+    .chart-control-guide-dot.dot-5 { width: 17px; height: 17px; }
     .site-footer-inner {
         flex-direction: column;
         align-items: center;
