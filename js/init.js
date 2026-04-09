@@ -340,6 +340,26 @@ function initHeaderSearch() {
         closeResults();
         input.blur();
         trackSearchSelectEvent(rubber);
+
+        // Show the hover popup on the selected dot
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        if (fl?.xaxis && fl?.yaxis) {
+            _clickPopupActiveUntil = Date.now() + 500;
+            _clickPopupPinned = true;
+            const syntheticData = {
+                points: [{
+                    x: rubber.x,
+                    y: rubber.y,
+                    xaxis: fl.xaxis,
+                    yaxis: fl.yaxis,
+                    data: { customdata: [rubber] },
+                    pointIndex: 0,
+                }],
+                event: null,
+            };
+            showChartHoverPopupFromPlotlyData(syntheticData, chartEl);
+        }
     }
 
     function closeResults() {
