@@ -305,15 +305,15 @@ const BRAND_NAMES_I18N = {
     cn: {
         Butterfly: '蝴蝶',
         DHS: '红双喜',
-        Andro: '安德罗',
-        JOOLA: '尤拉',
+        Andro: '岸度',
+        JOOLA: '优拉',
         Xiom: '骄猛',
         Tibhar: '挺拔',
         Nittaku: '尼塔库',
         Donic: '多尼克',
         Yasaka: '亚萨卡',
         YINHE: '银河',
-        Nexy: 'Nexy'
+        Nexy: '耐仕'
     }
 };
 
