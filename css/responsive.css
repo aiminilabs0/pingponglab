@@ -131,14 +131,16 @@
         gap: 10px;
     }
     .feedback-modal-card {
-        padding: 16px;
+        padding: 20px 18px 18px;
+        border-radius: 16px;
     }
     .feedback-modal-card h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
     .feedback-form button {
         width: 100%;
         justify-self: stretch;
+        border-radius: 12px;
     }
     .filter-panel-grid {
         grid-template-columns: 1fr;
