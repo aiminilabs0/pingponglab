@@ -806,7 +806,7 @@ function updateChart(options = {}) {
 
     // Marker sizes mapped to control levels (M&M style — chunky cartoon sizes):
     // Level 5 (most control) → biggest dot, Level 1 (least control) → smallest dot.
-    const CONTROL_GUIDE_MARKER_SIZES = [14, 16, 19, 22, 24];
+    const CONTROL_GUIDE_MARKER_SIZES = [11, 13, 16, 19, 21];
 
     function getMarkerSize(rubber) {
         const level = rubber.controlLevel;
@@ -1052,9 +1052,9 @@ function updateChart(options = {}) {
             range: currentRanges?.yaxis
         },
         hovermode: 'closest',
-        plot_bgcolor: '#252320',
-        paper_bgcolor: '#252320',
-        margin: { l: 10, r: 10, t: 10, b: 10 },
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        margin: { l: 10, r: 10, t: 2, b: 2 },
         shapes: [{
             // Left Top: Direct Speed
             type: 'rect',
@@ -1385,10 +1385,15 @@ function isChartInView() {
     return rect && rect.bottom > 0 && rect.top < window.innerHeight;
 }
 
+// Only show auto-popups when the user is near the top of the page
+function isNearTop() {
+    return window.scrollY < 50;
+}
+
 function advanceSpotlight() {
     if (spotlightDismissedByUser) return;
     if (_clickPopupPinned) return;
-    if (!isChartInView()) return;
+    if (!isChartInView() || !isNearTop()) return;
     if (currentFilteredData.length === 0) {
         spotlightRubber = null;
         return;
@@ -1491,7 +1496,7 @@ function _showDesktopSpotlightPopup(rubber) {
 function advanceDesktopSpotlight() {
     if (spotlightDismissedByUser) return;
     if (_clickPopupPinned) return;
-    if (!isChartInView() || currentFilteredData.length === 0) return;
+    if (!isChartInView() || !isNearTop() || currentFilteredData.length === 0) return;
     let idx = Math.floor(Math.random() * currentFilteredData.length);
     if (currentFilteredData.length > 1 && currentFilteredData[idx] === _prevDesktopSpotlightRubber) {
         idx = (idx + 1) % currentFilteredData.length;
