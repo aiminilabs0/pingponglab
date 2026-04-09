@@ -10,7 +10,7 @@ function debounce(fn, ms) {
     };
 }
 
-const CACHE_VERSION = 96;
+const CACHE_VERSION = 97;
 function v(url) { return url + (url.includes('?') ? '&' : '?') + 'v=' + CACHE_VERSION; }
 
 const RUBBER_INDEX_FILE = '/stats/rubbers/index.json';
@@ -191,7 +191,7 @@ const UI_TEXT = {
         FEEDBACK_MESSAGE_PLACEHOLDER: '피드백이나 제안을 남겨주세요.',
         FEEDBACK_SUBMIT: '피드백',
         FEEDBACK_SUBMITTING: '전송 중...',
-        FEEDBACK_STATUS_PROMPT: '응답을 원하시면 이메일 주소를 함께 남겨 주세요.',
+        FEEDBACK_STATUS_PROMPT: '이메일 주소를 함께 남겨주시면 답장을 드리겠습니다',
         FEEDBACK_STATUS_SENDING: '피드백을 전송하는 중...',
         FEEDBACK_STATUS_FAILED: '피드백 전송에 실패했습니다. 다시 시도해주세요.',
         FEEDBACK_CONFIRMATION: '피드백 감사합니다.',
