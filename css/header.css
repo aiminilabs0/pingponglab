@@ -100,9 +100,9 @@
 }
 .header-search-icon {
     position: absolute;
-    left: 10px;
-    width: 15px;
-    height: 15px;
+    left: 9px;
+    width: 14px;
+    height: 14px;
     color: var(--drac-comment);
     pointer-events: none;
     transition: color 0.15s ease;
@@ -113,8 +113,8 @@
 }
 .header-search-input {
     width: 160px;
-    height: 36px;
-    padding: 0 12px 0 32px;
+    height: 30px;
+    padding: 0 10px 0 30px;
     border: 2.5px solid rgba(0,0,0,0.45);
     border-radius: 999px;
     background:

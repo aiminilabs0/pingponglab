@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 32px;
+    padding: 5px 32px;
     color: var(--drac-yellow);
     font-size: 12px;
     font-weight: 700;
@@ -84,7 +84,7 @@
     position: relative;
     cursor: help;
     white-space: nowrap;
-    padding: 3px 16px;
+    padding: 2px 14px;
     border-radius: 999px;
     border: 2.5px solid rgba(0,0,0,0.45);
     background:
