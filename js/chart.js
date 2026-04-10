@@ -1565,6 +1565,7 @@ let _mascotCurrentRubber = null;
 let _mascotCycleTimer = null;
 let _mascotPaused = false;
 let _mascotDismissedByUser = false;
+let _mascotHasEntered = false;
 
 const MASCOT_SPEED = 130;          // pixels per second
 const MASCOT_PAUSE_AT_DOT = 5500;  // ms to show popup before next walk
@@ -1594,13 +1595,13 @@ function initMascotWalker() {
     chartEl.style.position = 'relative';
     chartEl.appendChild(_mascotWalkerEl);
 
-    // Start at bottom-left of plot area
+    // Start hidden at top-left corner — will jump in on first walk
     const fl = chartEl._fullLayout;
-    if (fl?._size) {
-        _mascotWalkerEl.style.left = (fl._size.l + 10) + 'px';
-        _mascotWalkerEl.style.top = (fl._size.t + fl._size.h - 50) + 'px';
-    }
-    _mascotWalkerEl.classList.add('is-idle');
+    const startLeft = fl?._size?.l ?? 0;
+    _mascotWalkerEl.style.left = startLeft + 'px';
+    _mascotWalkerEl.style.top = '0px';
+    _mascotWalkerEl.style.opacity = '0';
+    _mascotHasEntered = false;
 
     _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_INITIAL_DELAY);
 }
@@ -1635,7 +1636,70 @@ function _mascotWalkToNextDot() {
     const targetX = target.x - 20;
     const targetY = target.y - 32;
 
-    _animateMascotWalk(targetX, targetY, rubber);
+    if (!_mascotHasEntered) {
+        _mascotHasEntered = true;
+        _animateMascotJumpIn(targetX, targetY, rubber);
+    } else {
+        _animateMascotWalk(targetX, targetY, rubber);
+    }
+}
+
+function _animateMascotJumpIn(targetX, targetY, rubber) {
+    if (!_mascotWalkerEl) return;
+
+    const el = _mascotWalkerEl;
+    el.style.opacity = '1';
+
+    const startX = parseFloat(el.style.left) || 0;
+    const startY = parseFloat(el.style.top) || 0;
+
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const duration = Math.max(700, Math.min(1100, (distance / MASCOT_SPEED) * 800));
+
+    // Arc height — jump up before coming down
+    const arcHeight = Math.min(140, distance * 0.45);
+    const flipX = dx < 0 ? -1 : 1;
+
+    el.classList.remove('is-idle', 'is-arriving', 'is-walking');
+    _mascotWalking = true;
+
+    const startTime = performance.now();
+
+    function step(now) {
+        if (_mascotPaused || _mascotDismissedByUser) {
+            _mascotWalking = false;
+            el.classList.add('is-idle');
+            return;
+        }
+
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+
+        // Ease-out (fast launch, gentle landing)
+        const ease = 1 - (1 - t) * (1 - t);
+
+        // Parabolic arc: peaks at t=0.5
+        const arcOffset = arcHeight * (-4 * t * (t - 1));
+
+        el.style.left = (startX + dx * ease) + 'px';
+        el.style.top = (startY + dy * ease - arcOffset) + 'px';
+
+        if (t < 1) {
+            // Tilt forward during the arc, straighten on landing
+            const tilt = Math.sin(t * Math.PI) * 18;
+            el.style.transform = `scaleX(${flipX}) rotate(${-tilt}deg)`;
+            _mascotWalkRAF = requestAnimationFrame(step);
+        } else {
+            el.style.transform = `scaleX(${flipX})`;
+            _mascotWalking = false;
+            _onMascotArrived(rubber);
+        }
+    }
+
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
+    _mascotWalkRAF = requestAnimationFrame(step);
 }
 
 function _animateMascotWalk(targetX, targetY, rubber) {
@@ -1759,17 +1823,17 @@ function resetMascotWalker() {
     _mascotPaused = false;
     _mascotCurrentRubber = null;
     spotlightRubber = null;
+    _mascotHasEntered = false;
 
     if (_mascotWalkerEl) {
-        _mascotWalkerEl.classList.remove('is-walking', 'is-arriving');
-        _mascotWalkerEl.classList.add('is-idle');
+        _mascotWalkerEl.classList.remove('is-walking', 'is-arriving', 'is-idle');
+        _mascotWalkerEl.style.opacity = '0';
         const chartEl = document.getElementById('chart');
         const fl = chartEl?._fullLayout;
-        if (fl?._size) {
-            _mascotWalkerEl.style.left = (fl._size.l + 10) + 'px';
-            _mascotWalkerEl.style.top = (fl._size.t + fl._size.h - 50) + 'px';
-            _mascotWalkerEl.style.transform = '';
-        }
+        const startLeft = fl?._size?.l ?? 0;
+        _mascotWalkerEl.style.left = startLeft + 'px';
+        _mascotWalkerEl.style.top = '0px';
+        _mascotWalkerEl.style.transform = '';
     }
 
     _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_INITIAL_DELAY);
