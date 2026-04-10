@@ -68,9 +68,16 @@ dest_cn="$output_root/cn/$parameter_abbr/$current_rubber_abbr"
 
 mkdir -p "$(dirname -- "$dest_en")" "$(dirname -- "$dest_ko")" "$(dirname -- "$dest_cn")"
 
-cp "$src_en" "$dest_en"
-cp "$src_ko" "$dest_ko"
-cp "$src_cn" "$dest_cn"
+sanitize_and_write() {
+  local source_file="$1"
+  local output_file="$2"
+
+  tr -d '\r' < "$source_file" | sed -E 's/[[:space:]]+$//' > "$output_file"
+}
+
+sanitize_and_write "$src_en" "$dest_en"
+sanitize_and_write "$src_ko" "$dest_ko"
+sanitize_and_write "$src_cn" "$dest_cn"
 
 echo "Copied files:"
 echo "  - $src_en -> $dest_en"

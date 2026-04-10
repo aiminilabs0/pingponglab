@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# TODO:: Modify!!!!!!
+base_rubber="Tenergy 05 Hard"
+
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd -- "$script_dir/../../.." && pwd)"
@@ -54,8 +57,6 @@ fi
 
 param_abbr="$(resolve_rubber_abbr "$param")"
 
-# TODO:: Modify!!!!!!
-base_rubber="Rakza 7"
 base_rubber_abbr="$(resolve_rubber_abbr "$base_rubber")"
 
 # Read each language source file and write to the matching directory
@@ -69,6 +70,7 @@ sanitize_and_write() {
   local output_file="$2"
 
   perl -ne 'print unless /^\s*-\s*:contentReference\[oaicite:\d+\]\{index=\d+\}\s*$/' "$source_file" \
+    | tr -d '\r' \
     | perl -pe 's/[[:space:]]*:contentReference\[oaicite:\d+\]\{index=\d+\}//g' \
     | sed -E 's/[[:space:]]+$//' \
     > "$output_file"

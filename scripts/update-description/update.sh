@@ -40,6 +40,7 @@ sanitize_and_write() {
   local output_file="$2"
 
   perl -ne 'print unless /^\s*-\s*:contentReference\[oaicite:\d+\]\{index=\d+\}\s*$/' "$source_file" \
+    | tr -d '\r' \
     | perl -pe 's/[[:space:]]*:contentReference\[oaicite:\d+\]\{index=\d+\}//g' \
     | perl -pe 's/\s*\[Inference\]//g' \
     | sed -E 's/[[:space:]]+$//' \
