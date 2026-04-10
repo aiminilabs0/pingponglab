@@ -595,15 +595,8 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (window.innerWidth < 769) {
-                spotlightPopupSuppressed = true;
-                hideChartHoverPopup({ force: true });
-            } else {
-                spotlightDismissedByUser = true;
-                stopSpotlightRotation();
-                stopDesktopSpotlightRotation();
-                hideChartHoverPopup({ force: true });
-            }
+            stopMascotWalker();
+            hideChartHoverPopup({ force: true });
         });
     }
 
@@ -1148,7 +1141,7 @@ function updateChart(options = {}) {
             // that Plotly.react may fire afterwards.
             _clickPopupActiveUntil = Date.now() + 500;
             _clickPopupPinned = true;
-            pauseDesktopSpotlightRotation();
+            pauseMascotWalker();
 
             handleRubberClick(rubber);
             showChartHoverPopupFromPlotlyData(data, chartEl);
@@ -1164,7 +1157,7 @@ function updateChart(options = {}) {
             clearTimeout(_hoverPopupDelayTimer);
             _hoverPopupDelayTimer = setTimeout(() => {
                 if (_clickPopupPinned) return;
-                pauseDesktopSpotlightRotation();
+                pauseMascotWalker();
                 _hoverPopupShown = true;
                 showChartHoverPopupFromPlotlyData(data, chartEl);
             }, 300);
@@ -1176,7 +1169,7 @@ function updateChart(options = {}) {
             if (_clickPopupPinned) return;
             if (_hoverPopupShown) {
                 hideChartHoverPopup();
-                resumeDesktopSpotlightRotation();
+                resumeMascotWalker();
                 _hoverPopupShown = false;
             }
         });
@@ -1559,6 +1552,224 @@ function pauseDesktopSpotlightRotation() {
 function resumeDesktopSpotlightRotation() {
     if (!window.matchMedia('(min-width: 769px)').matches) return;
     desktopSpotlightPaused = false;
+}
+
+// ════════════════════════════════════════════════════════════
+//  Mascot Walker – character walks to dots to open popups
+// ════════════════════════════════════════════════════════════
+
+let _mascotWalkerEl = null;
+let _mascotWalkRAF = null;
+let _mascotWalking = false;
+let _mascotCurrentRubber = null;
+let _mascotCycleTimer = null;
+let _mascotPaused = false;
+let _mascotDismissedByUser = false;
+
+const MASCOT_SPEED = 130;          // pixels per second
+const MASCOT_PAUSE_AT_DOT = 5500;  // ms to show popup before next walk
+const MASCOT_INITIAL_DELAY = 3000; // ms before first walk
+
+function _getMascotDotPosition(rubber) {
+    const chartEl = document.getElementById('chart');
+    const fl = chartEl?._fullLayout;
+    if (!fl?.xaxis || !fl?.yaxis) return null;
+    const { xaxis: xa, yaxis: ya, _size: size } = fl;
+    const xFrac = (rubber.x - xa.range[0]) / (xa.range[1] - xa.range[0]);
+    const yFrac = 1 - (rubber.y - ya.range[0]) / (ya.range[1] - ya.range[0]);
+    return {
+        x: size.l + xFrac * size.w,
+        y: size.t + yFrac * size.h
+    };
+}
+
+function initMascotWalker() {
+    const chartEl = document.getElementById('chart');
+    const headerMascot = document.querySelector('.header-mascot');
+    if (!chartEl || !headerMascot) return;
+
+    _mascotWalkerEl = headerMascot.cloneNode(true);
+    _mascotWalkerEl.classList.remove('header-mascot');
+    _mascotWalkerEl.classList.add('chart-mascot-walker');
+    chartEl.style.position = 'relative';
+    chartEl.appendChild(_mascotWalkerEl);
+
+    // Start at bottom-left of plot area
+    const fl = chartEl._fullLayout;
+    if (fl?._size) {
+        _mascotWalkerEl.style.left = (fl._size.l + 10) + 'px';
+        _mascotWalkerEl.style.top = (fl._size.t + fl._size.h - 50) + 'px';
+    }
+    _mascotWalkerEl.classList.add('is-idle');
+
+    _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_INITIAL_DELAY);
+}
+
+function _mascotWalkToNextDot() {
+    if (_mascotDismissedByUser) return;
+    if (_mascotPaused || _clickPopupPinned) {
+        _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, 2000);
+        return;
+    }
+    if (!isChartInView() || !isNearTop()) {
+        _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, 2000);
+        return;
+    }
+    if (currentFilteredData.length === 0) return;
+
+    let idx = Math.floor(Math.random() * currentFilteredData.length);
+    if (currentFilteredData.length > 1 && currentFilteredData[idx] === _mascotCurrentRubber) {
+        idx = (idx + 1) % currentFilteredData.length;
+    }
+    const rubber = currentFilteredData[idx];
+    _mascotCurrentRubber = rubber;
+
+    // Highlight the target dot's annotation label
+    spotlightRubber = rubber;
+    updateChart({ preserveRanges: true, force: true });
+
+    const target = _getMascotDotPosition(rubber);
+    if (!target) return;
+
+    // Offset so mascot body is near the dot
+    const targetX = target.x - 20;
+    const targetY = target.y - 32;
+
+    _animateMascotWalk(targetX, targetY, rubber);
+}
+
+function _animateMascotWalk(targetX, targetY, rubber) {
+    if (!_mascotWalkerEl) return;
+
+    const el = _mascotWalkerEl;
+    const startX = parseFloat(el.style.left) || 0;
+    const startY = parseFloat(el.style.top) || 0;
+
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const duration = Math.max(1000, (distance / MASCOT_SPEED) * 1000);
+
+    const flipX = dx < 0 ? -1 : 1;
+
+    el.classList.remove('is-idle', 'is-arriving');
+    _mascotWalking = true;
+
+    const startTime = performance.now();
+
+    function step(now) {
+        if (_mascotPaused || _mascotDismissedByUser) {
+            _mascotWalking = false;
+            el.classList.add('is-idle');
+            return;
+        }
+
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+
+        // Ease-in-out
+        const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+        el.style.left = (startX + dx * ease) + 'px';
+        el.style.top = (startY + dy * ease) + 'px';
+
+        if (t < 1) {
+            // Bob while walking (sine wave)
+            const bob = Math.abs(Math.sin(elapsed / 150 * Math.PI)) * 5;
+            el.style.transform = `scaleX(${flipX}) translateY(${-bob}px)`;
+            _mascotWalkRAF = requestAnimationFrame(step);
+        } else {
+            // Arrived at dot
+            el.style.transform = `scaleX(${flipX}) translateY(0)`;
+            _mascotWalking = false;
+            _onMascotArrived(rubber);
+        }
+    }
+
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
+    _mascotWalkRAF = requestAnimationFrame(step);
+}
+
+function _onMascotArrived(rubber) {
+    const el = _mascotWalkerEl;
+    if (el) {
+        el.classList.add('is-arriving');
+        el.addEventListener('animationend', () => {
+            el.classList.remove('is-arriving');
+            el.classList.add('is-idle');
+        }, { once: true });
+    }
+
+    _pingSpotlightDot(rubber);
+
+    if (!_clickPopupPinned) {
+        hideChartHoverPopup({ force: true });
+        _showDesktopSpotlightPopup(rubber);
+    }
+
+    // Schedule next walk
+    clearTimeout(_mascotCycleTimer);
+    _mascotCycleTimer = setTimeout(() => {
+        if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
+        _mascotWalkToNextDot();
+    }, MASCOT_PAUSE_AT_DOT);
+}
+
+function pauseMascotWalker() {
+    _mascotPaused = true;
+    clearTimeout(_mascotCycleTimer);
+}
+
+function resumeMascotWalker() {
+    if (_mascotDismissedByUser) return;
+    _mascotPaused = false;
+    if (!_mascotWalking) {
+        clearTimeout(_mascotCycleTimer);
+        _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, 2000);
+    }
+}
+
+function stopMascotWalker() {
+    _mascotDismissedByUser = true;
+    _mascotPaused = true;
+    if (_mascotWalkRAF) {
+        cancelAnimationFrame(_mascotWalkRAF);
+        _mascotWalkRAF = null;
+    }
+    clearTimeout(_mascotCycleTimer);
+    _mascotWalking = false;
+    if (_mascotWalkerEl) {
+        _mascotWalkerEl.classList.remove('is-walking', 'is-arriving');
+        _mascotWalkerEl.style.opacity = '0';
+    }
+    spotlightRubber = null;
+}
+
+function resetMascotWalker() {
+    if (_mascotDismissedByUser) return;
+    if (_mascotWalkRAF) {
+        cancelAnimationFrame(_mascotWalkRAF);
+        _mascotWalkRAF = null;
+    }
+    clearTimeout(_mascotCycleTimer);
+    _mascotWalking = false;
+    _mascotPaused = false;
+    _mascotCurrentRubber = null;
+    spotlightRubber = null;
+
+    if (_mascotWalkerEl) {
+        _mascotWalkerEl.classList.remove('is-arriving');
+        _mascotWalkerEl.classList.add('is-idle');
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        if (fl?._size) {
+            _mascotWalkerEl.style.left = (fl._size.l + 10) + 'px';
+            _mascotWalkerEl.style.top = (fl._size.t + fl._size.h - 50) + 'px';
+            _mascotWalkerEl.style.transform = '';
+        }
+    }
+
+    _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_INITIAL_DELAY);
 }
 
 function initChart() {

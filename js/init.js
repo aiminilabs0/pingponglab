@@ -658,11 +658,7 @@ function initFeedbackModal() {
 window.addEventListener('resize', () => {
     Plotly.Plots.resize('chart');
     if (hasPlotted) updateChart({ preserveRanges: true });
-    if (window.matchMedia('(min-width: 769px)').matches) {
-        stopSpotlightRotation();
-    } else {
-        stopDesktopSpotlightRotation();
-    }
+    resetMascotWalker();
 });
 
 /**
@@ -959,8 +955,7 @@ async function initializeApp() {
         triggerAutoscale();
     });
 
-    startSpotlightRotation();
-    startDesktopSpotlightRotation();
+    initMascotWalker();
 
 
     // Alternate JP/CN hardness labels with their German equivalents every 2 s
