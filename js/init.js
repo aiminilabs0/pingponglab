@@ -369,12 +369,33 @@ function initHeaderSearch() {
         currentMatches = [];
     }
 
+    function highlightRubberDot(rubber) {
+        if (!rubber) return;
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        if (!fl?.xaxis || !fl?.yaxis) return;
+        showChartDotShake({
+            points: [{
+                x: rubber.x,
+                y: rubber.y,
+                xaxis: fl.xaxis,
+                yaxis: fl.yaxis,
+                data: { customdata: [rubber], marker: {} },
+                pointIndex: 0,
+            }]
+        }, chartEl);
+    }
+
     function setActive(index) {
         const items = results.querySelectorAll('.header-search-result');
         items.forEach(el => el.classList.remove('is-active'));
         if (index >= 0 && index < items.length) {
             items[index].classList.add('is-active');
             items[index].scrollIntoView({ block: 'nearest' });
+            const match = currentMatches[index];
+            highlightRubberDot(match?.rubber || match);
+        } else {
+            hideChartDotShake();
         }
         activeIndex = index;
     }
@@ -412,6 +433,18 @@ function initHeaderSearch() {
         if (!item) return;
         const idx = parseInt(item.dataset.index, 10);
         if (currentMatches[idx]) selectResult(currentMatches[idx]);
+    });
+
+    results.addEventListener('mouseover', (e) => {
+        const item = e.target.closest('.header-search-result');
+        if (!item) return;
+        const idx = parseInt(item.dataset.index, 10);
+        const match = currentMatches[idx];
+        highlightRubberDot(match?.rubber || match);
+    });
+
+    results.addEventListener('mouseleave', () => {
+        hideChartDotShake();
     });
 
     document.addEventListener('click', (e) => {
