@@ -367,10 +367,19 @@ function initHeaderSearch() {
         results.innerHTML = '';
         activeIndex = -1;
         currentMatches = [];
+        clearSearchSpotlight();
     }
+
+    let _searchSpotlightActive = false;
 
     function highlightRubberDot(rubber) {
         if (!rubber) return;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobile) {
+            spotlightRubber = rubber;
+            _searchSpotlightActive = true;
+            updateChart({ preserveRanges: true, force: true });
+        }
         const chartEl = document.getElementById('chart');
         const fl = chartEl?._fullLayout;
         if (!fl?.xaxis || !fl?.yaxis) return;
@@ -386,6 +395,15 @@ function initHeaderSearch() {
         }, chartEl);
     }
 
+    function clearSearchSpotlight() {
+        if (_searchSpotlightActive) {
+            _searchSpotlightActive = false;
+            spotlightRubber = null;
+            updateChart({ preserveRanges: true, force: true });
+        }
+        hideChartDotShake();
+    }
+
     function setActive(index) {
         const items = results.querySelectorAll('.header-search-result');
         items.forEach(el => el.classList.remove('is-active'));
@@ -395,7 +413,7 @@ function initHeaderSearch() {
             const match = currentMatches[index];
             highlightRubberDot(match?.rubber || match);
         } else {
-            hideChartDotShake();
+            clearSearchSpotlight();
         }
         activeIndex = index;
     }
@@ -444,7 +462,7 @@ function initHeaderSearch() {
     });
 
     results.addEventListener('mouseleave', () => {
-        hideChartDotShake();
+        clearSearchSpotlight();
     });
 
     document.addEventListener('click', (e) => {
