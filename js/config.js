@@ -189,7 +189,7 @@ const UI_TEXT = {
         FEEDBACK_MESSAGE_LABEL: '메시지',
         FEEDBACK_EMAIL_PLACEHOLDER: 'you@example.com',
         FEEDBACK_MESSAGE_PLACEHOLDER: '피드백이나 제안을 남겨주세요.',
-        FEEDBACK_SUBMIT: '피드백',
+        FEEDBACK_SUBMIT: '보내기',
         FEEDBACK_SUBMITTING: '전송 중...',
         FEEDBACK_STATUS_PROMPT: '이메일 주소를 함께 남겨주시면 답장 드리겠습니다',
         FEEDBACK_STATUS_SENDING: '피드백을 전송하는 중...',
