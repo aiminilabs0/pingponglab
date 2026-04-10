@@ -593,10 +593,15 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            spotlightDismissedByUser = true;
-            stopSpotlightRotation();
-            stopDesktopSpotlightRotation();
-            hideChartHoverPopup({ force: true });
+            if (window.innerWidth < 769) {
+                spotlightPopupSuppressed = true;
+                hideChartHoverPopup({ force: true });
+            } else {
+                spotlightDismissedByUser = true;
+                stopSpotlightRotation();
+                stopDesktopSpotlightRotation();
+                hideChartHoverPopup({ force: true });
+            }
         });
     }
 
@@ -1406,12 +1411,14 @@ function advanceSpotlight() {
     spotlightRubber = currentFilteredData[idx];
     updateChart({ preserveRanges: true, force: true });
     _pingSpotlightDot(spotlightRubber);
-    hideChartHoverPopup({ force: true });
-    _showDesktopSpotlightPopup(spotlightRubber);
-    clearTimeout(spotlightDismissTimer);
-    spotlightDismissTimer = setTimeout(() => {
-        if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
-    }, 5000);
+    if (!spotlightPopupSuppressed) {
+        hideChartHoverPopup({ force: true });
+        _showDesktopSpotlightPopup(spotlightRubber);
+        clearTimeout(spotlightDismissTimer);
+        spotlightDismissTimer = setTimeout(() => {
+            if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
+        }, 5000);
+    }
 }
 
 function _pingSpotlightDot(rubber) {

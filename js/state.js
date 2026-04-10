@@ -41,6 +41,7 @@ let spotlightTimerId = null;     // setInterval ID
 let spotlightPaused = false;     // paused by user interaction
 let spotlightDismissTimer = null;
 let spotlightDismissedByUser = false; // user explicitly closed a spotlight popup
+let spotlightPopupSuppressed = false; // keep rotating but don't show popups
 
 // Desktop spotlight rotation state
 let desktopSpotlightTimerId = null;
