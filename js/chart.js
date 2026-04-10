@@ -363,6 +363,8 @@ let _clickPopupActiveUntil = 0;
 let _clickPopupPinned = false;
 let _popupPlayerRotateTimer = null;
 let _popupPlayerRotateSwapTimeout = null;
+let _hoverPopupDelayTimer = null;
+let _hoverPopupShown = false;
 
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
@@ -1157,16 +1159,26 @@ function updateChart(options = {}) {
         chartEl._hasHoverHandler = true;
         chartEl.on('plotly_hover', data => {
             if (IS_TOUCH_DEVICE) return;
-            pauseDesktopSpotlightRotation();
             showChartDotShake(data, chartEl);
             if (_clickPopupPinned) return;
-            showChartHoverPopupFromPlotlyData(data, chartEl);
+            clearTimeout(_hoverPopupDelayTimer);
+            _hoverPopupDelayTimer = setTimeout(() => {
+                if (_clickPopupPinned) return;
+                pauseDesktopSpotlightRotation();
+                _hoverPopupShown = true;
+                showChartHoverPopupFromPlotlyData(data, chartEl);
+            }, 300);
         });
         chartEl.on('plotly_unhover', () => {
             hideChartDotShake();
+            clearTimeout(_hoverPopupDelayTimer);
+            _hoverPopupDelayTimer = null;
             if (_clickPopupPinned) return;
-            hideChartHoverPopup();
-            resumeDesktopSpotlightRotation();
+            if (_hoverPopupShown) {
+                hideChartHoverPopup();
+                resumeDesktopSpotlightRotation();
+                _hoverPopupShown = false;
+            }
         });
     }
 
