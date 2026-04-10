@@ -1,31 +1,72 @@
 #!/usr/bin/env bash
 # update_price.sh
 # Fetches prices from megaspin.net and updates price.en/ko/cn in rubber JSON files.
-# Usage: ./script/update_price.sh [optional/path/to/rubber.json ...]
-#   No args → processes all rubbers/**/*.json with a megaspin en.product URL.
-#   With args → processes only the given files.
+# Usage: ./script/update_price.sh [--with-aid|--strip-aid] <path/to/rubber.json ...>
+#   No args → print this usage message.
+#   With file args → processes only the given files.
+#   --with-aid → call megaspin with the original URL, including `aid`.
+#   --strip-aid → remove the `aid` query param before calling megaspin.
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-RUBBERS_DIR="$SCRIPT_DIR/../rubbers"
+usage() {
+    cat <<'EOF'
+Usage: ./script/update_price.sh [--with-aid|--strip-aid] <path/to/rubber.json ...>
+  No args → print this usage message.
+  With file args → processes only the given files.
+  --with-aid → call megaspin with the original URL, including `aid`.
+  --strip-aid → remove the `aid` query param before calling megaspin.
+EOF
+}
 
-FILES=()
-if [[ $# -gt 0 ]]; then
-    FILES=("$@")
-else
-    while IFS= read -r line; do FILES+=("$line"); done < <(find "$RUBBERS_DIR" -name "*.json" | sort)
+if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
 fi
 
-python3 - "${FILES[@]}" <<'PYEOF'
-import sys, json, re, urllib.request, os, time
+REQUEST_MODE="with-aid"
+FILES=()
+for arg in "$@"; do
+    if [[ "$arg" == "--strip-aid" ]]; then
+        if [[ "$REQUEST_MODE" == "with-aid" ]]; then
+            REQUEST_MODE="strip-aid"
+        elif [[ "$REQUEST_MODE" != "strip-aid" ]]; then
+            usage
+            exit 1
+        fi
+    elif [[ "$arg" == "--with-aid" ]]; then
+        if [[ "$REQUEST_MODE" == "strip-aid" ]]; then
+            usage
+            exit 1
+        fi
+        REQUEST_MODE="with-aid"
+    else
+        FILES+=("$arg")
+    fi
+done
 
-files = sys.argv[1:]
+if [[ ${#FILES[@]} -eq 0 ]]; then
+    usage
+    exit 1
+fi
+
+python3 - "$REQUEST_MODE" "${FILES[@]}" <<'PYEOF'
+import sys, json, re, urllib.request, urllib.parse, os, time
+
+request_mode = sys.argv[1]
+strip_aid_enabled = request_mode == "strip-aid"
+files = sys.argv[2:]
 
 def fetch_page(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=15) as resp:
         return resp.read().decode("utf-8", errors="replace")
+
+def strip_aid(url):
+    parsed = urllib.parse.urlsplit(url)
+    query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    query = [(key, value) for key, value in query if key != "aid"]
+    return urllib.parse.urlunsplit(parsed._replace(query=urllib.parse.urlencode(query)))
 
 def parse_price(html):
     # Current price from schema.org meta — most reliable
@@ -65,7 +106,8 @@ for path in files:
     print(f"  {name} ... ", end="", flush=True)
 
     try:
-        html = fetch_page(url)
+        fetch_url = strip_aid(url) if strip_aid_enabled else url
+        html = fetch_page(fetch_url)
         entry = parse_price(html)
         if entry is None:
             print("price not found, skipping")
