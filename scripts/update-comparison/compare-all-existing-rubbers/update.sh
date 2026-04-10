@@ -3,9 +3,35 @@ set -euo pipefail
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-repo_root="$(cd -- "$script_dir/../.." && pwd)"
+repo_root="$(cd -- "$script_dir/../../.." && pwd)"
+output_root="$repo_root/rubbers_comparison"
 param_file="$script_dir/0_rubber2"
 combined_file="$script_dir/1_llm_output"
+
+resolve_rubber_abbr() {
+  local rubber_name="$1"
+
+  REPO_ROOT="$repo_root" RUBBER_NAME="$rubber_name" python3 - <<'PY'
+import json
+import os
+import sys
+from pathlib import Path
+
+repo_root = Path(os.environ["REPO_ROOT"])
+rubber_name = os.environ["RUBBER_NAME"].strip()
+
+for json_file in sorted((repo_root / "rubbers").glob("*/*.json")):
+    with json_file.open(encoding="utf-8") as fh:
+        data = json.load(fh)
+
+    if data.get("abbr") == rubber_name or data.get("name") == rubber_name:
+        print(data["abbr"])
+        sys.exit(0)
+
+print(f"Error: could not resolve rubber abbreviation for '{rubber_name}'", file=sys.stderr)
+sys.exit(1)
+PY
+}
 
 if [[ ! -f "$param_file" ]]; then
   echo "Error: '$param_file' not found"
@@ -26,14 +52,17 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
   exit 1
 fi
 
+param_abbr="$(resolve_rubber_abbr "$param")"
+
 # TODO:: Modify!!!!!!
-base_rubber="Tenergy 05 FX"
+base_rubber="Rakza 7"
+base_rubber_abbr="$(resolve_rubber_abbr "$base_rubber")"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
-  "$repo_root/rubbers_comparison/en/${base_rubber}" \
-  "$repo_root/rubbers_comparison/ko/${base_rubber}" \
-  "$repo_root/rubbers_comparison/cn/${base_rubber}"
+  "$output_root/en/${base_rubber_abbr}" \
+  "$output_root/ko/${base_rubber_abbr}" \
+  "$output_root/cn/${base_rubber_abbr}"
 
 sanitize_and_write() {
   local source_file="$1"
@@ -83,11 +112,11 @@ if [[ ! -s "$en_tmp" || ! -s "$ko_tmp" || ! -s "$cn_tmp" ]]; then
   exit 1
 fi
 
-sanitize_and_write "$en_tmp" "$repo_root/rubbers_comparison/en/${base_rubber}/${param}"
-sanitize_and_write "$ko_tmp" "$repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
-sanitize_and_write "$cn_tmp" "$repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
+sanitize_and_write "$en_tmp" "$output_root/en/${base_rubber_abbr}/${param_abbr}"
+sanitize_and_write "$ko_tmp" "$output_root/ko/${base_rubber_abbr}/${param_abbr}"
+sanitize_and_write "$cn_tmp" "$output_root/cn/${base_rubber_abbr}/${param_abbr}"
 
 echo "Recently updated files:"
-echo "  - $repo_root/rubbers_comparison/en/${base_rubber}/${param}"
-echo "  - $repo_root/rubbers_comparison/ko/${base_rubber}/${param}"
-echo "  - $repo_root/rubbers_comparison/cn/${base_rubber}/${param}"
+echo "  - $output_root/en/${base_rubber_abbr}/${param_abbr}"
+echo "  - $output_root/ko/${base_rubber_abbr}/${param_abbr}"
+echo "  - $output_root/cn/${base_rubber_abbr}/${param_abbr}"
