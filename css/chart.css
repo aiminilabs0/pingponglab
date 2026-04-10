@@ -66,6 +66,43 @@
     40% { transform: scale(1.2) translateY(-4px); }
     100% { transform: scale(1); }
 }
+
+/* Leg & arm pivot points (SVG viewBox coords) */
+.mascot-leg-l { transform-origin: 38px 92px; }
+.mascot-leg-r { transform-origin: 62px 92px; }
+.mascot-arm-l { transform-origin: 18px 60px; }
+.mascot-arm-r { transform-origin: 82px 58px; }
+
+/* Walk cycle – legs alternate, arms counter-swing */
+.chart-mascot-walker.is-walking .mascot-leg-l {
+    animation: walk-leg-l 0.36s ease-in-out infinite;
+}
+.chart-mascot-walker.is-walking .mascot-leg-r {
+    animation: walk-leg-r 0.36s ease-in-out infinite;
+}
+.chart-mascot-walker.is-walking .mascot-arm-l {
+    animation: walk-arm-l 0.36s ease-in-out infinite;
+}
+.chart-mascot-walker.is-walking .mascot-arm-r {
+    animation: walk-arm-r 0.36s ease-in-out infinite;
+}
+
+@keyframes walk-leg-l {
+    0%, 100% { transform: rotate(20deg); }
+    50%      { transform: rotate(-20deg); }
+}
+@keyframes walk-leg-r {
+    0%, 100% { transform: rotate(-20deg); }
+    50%      { transform: rotate(20deg); }
+}
+@keyframes walk-arm-l {
+    0%, 100% { transform: rotate(-10deg); }
+    50%      { transform: rotate(10deg); }
+}
+@keyframes walk-arm-r {
+    0%, 100% { transform: rotate(10deg); }
+    50%      { transform: rotate(-10deg); }
+}
 .chart-speed-outside {
     display: flex;
     align-items: center;

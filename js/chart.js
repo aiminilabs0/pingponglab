@@ -1653,6 +1653,7 @@ function _animateMascotWalk(targetX, targetY, rubber) {
     const flipX = dx < 0 ? -1 : 1;
 
     el.classList.remove('is-idle', 'is-arriving');
+    el.classList.add('is-walking');
     _mascotWalking = true;
 
     const startTime = performance.now();
@@ -1660,6 +1661,7 @@ function _animateMascotWalk(targetX, targetY, rubber) {
     function step(now) {
         if (_mascotPaused || _mascotDismissedByUser) {
             _mascotWalking = false;
+            el.classList.remove('is-walking');
             el.classList.add('is-idle');
             return;
         }
@@ -1674,13 +1676,14 @@ function _animateMascotWalk(targetX, targetY, rubber) {
         el.style.top = (startY + dy * ease) + 'px';
 
         if (t < 1) {
-            // Bob while walking (sine wave)
-            const bob = Math.abs(Math.sin(elapsed / 150 * Math.PI)) * 5;
-            el.style.transform = `scaleX(${flipX}) translateY(${-bob}px)`;
+            // Subtle body tilt while walking
+            const tilt = Math.sin(elapsed / 180 * Math.PI) * 2;
+            el.style.transform = `scaleX(${flipX}) rotate(${tilt}deg)`;
             _mascotWalkRAF = requestAnimationFrame(step);
         } else {
             // Arrived at dot
-            el.style.transform = `scaleX(${flipX}) translateY(0)`;
+            el.style.transform = `scaleX(${flipX})`;
+            el.classList.remove('is-walking');
             _mascotWalking = false;
             _onMascotArrived(rubber);
         }
@@ -1758,7 +1761,7 @@ function resetMascotWalker() {
     spotlightRubber = null;
 
     if (_mascotWalkerEl) {
-        _mascotWalkerEl.classList.remove('is-arriving');
+        _mascotWalkerEl.classList.remove('is-walking', 'is-arriving');
         _mascotWalkerEl.classList.add('is-idle');
         const chartEl = document.getElementById('chart');
         const fl = chartEl?._fullLayout;
