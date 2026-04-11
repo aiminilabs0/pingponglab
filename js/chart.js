@@ -1618,11 +1618,21 @@ function _mascotWalkToNextDot() {
     }
     if (currentFilteredData.length === 0) return;
 
-    let idx = Math.floor(Math.random() * currentFilteredData.length);
-    if (currentFilteredData.length > 1 && currentFilteredData[idx] === _mascotCurrentRubber) {
-        idx = (idx + 1) % currentFilteredData.length;
+    const chartEl = document.getElementById('chart');
+    const fl = chartEl?._fullLayout;
+    let pool = currentFilteredData;
+    if (fl?.xaxis && fl?.yaxis) {
+        const [xMin, xMax] = fl.xaxis.range;
+        const [yMin, yMax] = fl.yaxis.range;
+        const inView = currentFilteredData.filter(r => r.x >= xMin && r.x <= xMax && r.y >= yMin && r.y <= yMax);
+        if (inView.length > 0) pool = inView;
     }
-    const rubber = currentFilteredData[idx];
+
+    let idx = Math.floor(Math.random() * pool.length);
+    if (pool.length > 1 && pool[idx] === _mascotCurrentRubber) {
+        idx = (idx + 1) % pool.length;
+    }
+    const rubber = pool[idx];
     _mascotCurrentRubber = rubber;
 
     // Highlight the target dot's annotation label
