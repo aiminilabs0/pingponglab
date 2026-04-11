@@ -1643,8 +1643,14 @@ function _mascotWalkToNextDot() {
     if (!target) return;
 
     // Offset so mascot body is near the dot
-    const targetX = target.x - 20;
-    const targetY = target.y - 32;
+    // Clamp to chart bounds to prevent going outside on mobile zoom
+    const chartEl2 = document.getElementById('chart');
+    const chartW = chartEl2 ? chartEl2.offsetWidth : 9999;
+    const chartH = chartEl2 ? chartEl2.offsetHeight : 9999;
+    const mascotW = _mascotWalkerEl ? _mascotWalkerEl.offsetWidth || 40 : 40;
+    const mascotH = _mascotWalkerEl ? _mascotWalkerEl.offsetHeight || 40 : 40;
+    const targetX = Math.max(0, Math.min(target.x - 20, chartW - mascotW));
+    const targetY = Math.max(0, Math.min(target.y - 32, chartH - mascotH));
 
     if (!_mascotHasEntered) {
         _mascotHasEntered = true;
@@ -1807,8 +1813,13 @@ function mascotRunToDot(rubber) {
     const target = _getMascotDotPosition(rubber);
     if (!target) return;
 
-    const targetX = target.x - 20;
-    const targetY = target.y - 32;
+    const chartElR = document.getElementById('chart');
+    const chartWR = chartElR ? chartElR.offsetWidth : 9999;
+    const chartHR = chartElR ? chartElR.offsetHeight : 9999;
+    const mascotWR = _mascotWalkerEl ? _mascotWalkerEl.offsetWidth || 40 : 40;
+    const mascotHR = _mascotWalkerEl ? _mascotWalkerEl.offsetHeight || 40 : 40;
+    const targetX = Math.max(0, Math.min(target.x - 20, chartWR - mascotWR));
+    const targetY = Math.max(0, Math.min(target.y - 32, chartHR - mascotHR));
 
     const el = _mascotWalkerEl;
 
