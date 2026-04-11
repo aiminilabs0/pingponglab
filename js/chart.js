@@ -1788,7 +1788,8 @@ function _onMascotArrived(rubber) {
 }
 
 function mascotRunToDot(rubber) {
-    if (!_mascotWalkerEl || _mascotDismissedByUser) return;
+    if (!_mascotWalkerEl) return;
+    _mascotDismissedByUser = false;
 
     // Cancel any current walk / cycle
     if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
@@ -2001,11 +2002,8 @@ function mascotReturnToOrigin() {
             _mascotWalking = false;
             _mascotHasEntered = false;
             _mascotCurrentRubber = null;
+            _mascotDismissedByUser = true;
             spotlightRubber = null;
-
-            // Resume auto-walk cycle — mascot will jump in again
-            clearTimeout(_mascotCycleTimer);
-            _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_PAUSE_AT_DOT);
         }
     }
 
