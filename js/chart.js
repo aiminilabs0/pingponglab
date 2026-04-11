@@ -595,8 +595,8 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            stopMascotWalker();
             hideChartHoverPopup({ force: true });
+            mascotReturnToOrigin();
         });
     }
 
@@ -1797,17 +1797,35 @@ function mascotRunToDot(rubber) {
     _mascotPaused = false;
     _mascotCurrentRubber = rubber;
 
-    // Make mascot visible if it hasn't entered yet
-    if (!_mascotHasEntered) {
-        _mascotHasEntered = true;
-        _mascotWalkerEl.style.opacity = '1';
-    }
-
     const target = _getMascotDotPosition(rubber);
     if (!target) return;
 
     const targetX = target.x - 20;
     const targetY = target.y - 32;
+
+    const el = _mascotWalkerEl;
+
+    if (_mascotHasEntered) {
+        // Already in the chart — walk to the dot
+        el.classList.remove('is-idle', 'is-arriving');
+        _animateMascotWalkToDot(targetX, targetY, rubber);
+    } else {
+        // Not in the chart — jump in from top-left
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        const startLeft = fl?._size?.l ?? 0;
+        el.style.left = startLeft + 'px';
+        el.style.top = '0px';
+        el.style.transform = '';
+        el.style.opacity = '1';
+        el.classList.remove('is-idle', 'is-arriving', 'is-walking');
+        _mascotHasEntered = true;
+        _animateMascotJumpTo(targetX, targetY, rubber);
+    }
+}
+
+function _animateMascotWalkToDot(targetX, targetY, rubber) {
+    if (!_mascotWalkerEl) return;
 
     const el = _mascotWalkerEl;
     const startX = parseFloat(el.style.left) || 0;
@@ -1816,11 +1834,10 @@ function mascotRunToDot(rubber) {
     const dy = targetY - startY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Run faster than normal walking (1.8x)
+    // Fast walk (1.8x speed)
     const duration = Math.max(400, (distance / (MASCOT_SPEED * 1.8)) * 1000);
     const flipX = dx < 0 ? -1 : 1;
 
-    el.classList.remove('is-idle', 'is-arriving');
     el.classList.add('is-walking');
     _mascotWalking = true;
 
@@ -1849,12 +1866,68 @@ function mascotRunToDot(rubber) {
                 el.classList.add('is-idle');
             }, { once: true });
 
+            clearTimeout(_mascotCycleTimer);
+            _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_PAUSE_AT_DOT);
+        }
+    }
+
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
+    _mascotWalkRAF = requestAnimationFrame(step);
+}
+
+function _animateMascotJumpTo(targetX, targetY, rubber) {
+    if (!_mascotWalkerEl) return;
+
+    const el = _mascotWalkerEl;
+    const startX = parseFloat(el.style.left) || 0;
+    const startY = parseFloat(el.style.top) || 0;
+
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const duration = Math.max(600, Math.min(1000, (distance / MASCOT_SPEED) * 700));
+
+    const arcHeight = Math.min(140, distance * 0.45);
+    const flipX = dx < 0 ? -1 : 1;
+
+    _mascotWalking = true;
+
+    const startTime = performance.now();
+
+    function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+
+        // Ease-out (fast launch, gentle landing)
+        const ease = 1 - (1 - t) * (1 - t);
+
+        // Parabolic arc
+        const arcOffset = arcHeight * (-4 * t * (t - 1));
+
+        el.style.left = (startX + dx * ease) + 'px';
+        el.style.top = (startY + dy * ease - arcOffset) + 'px';
+
+        if (t < 1) {
+            const tilt = Math.sin(t * Math.PI) * 18;
+            el.style.transform = `scaleX(${flipX}) rotate(${-tilt}deg)`;
+            _mascotWalkRAF = requestAnimationFrame(step);
+        } else {
+            el.style.transform = `scaleX(${flipX})`;
+            _mascotWalking = false;
+
+            el.classList.add('is-arriving');
+            el.addEventListener('animationend', () => {
+                el.classList.remove('is-arriving');
+                el.classList.add('is-idle');
+            }, { once: true });
+
             // Resume auto-walk cycle after pause
             clearTimeout(_mascotCycleTimer);
             _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_PAUSE_AT_DOT);
         }
     }
 
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
     _mascotWalkRAF = requestAnimationFrame(step);
 }
 
@@ -1870,6 +1943,73 @@ function resumeMascotWalker() {
         clearTimeout(_mascotCycleTimer);
         _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, 2000);
     }
+}
+
+function mascotReturnToOrigin() {
+    if (!_mascotWalkerEl) return;
+
+    // Cancel any current walk / cycle
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
+    clearTimeout(_mascotCycleTimer);
+    _mascotWalking = false;
+    _mascotPaused = false;
+
+    const el = _mascotWalkerEl;
+    const chartEl = document.getElementById('chart');
+    const fl = chartEl?._fullLayout;
+    const originX = fl?._size?.l ?? 0;
+    const originY = 0;
+
+    const startX = parseFloat(el.style.left) || 0;
+    const startY = parseFloat(el.style.top) || 0;
+    const dx = originX - startX;
+    const dy = originY - startY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const duration = Math.max(500, Math.min(900, (distance / MASCOT_SPEED) * 700));
+
+    const arcHeight = Math.min(120, distance * 0.4);
+    const flipX = dx < 0 ? -1 : 1;
+
+    el.classList.remove('is-idle', 'is-arriving');
+    _mascotWalking = true;
+
+    const startTime = performance.now();
+
+    function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+
+        // Ease-in (gentle start, fast exit)
+        const ease = t * t;
+
+        const arcOffset = arcHeight * (-4 * t * (t - 1));
+
+        el.style.left = (startX + dx * ease) + 'px';
+        el.style.top = (startY + dy * ease - arcOffset) + 'px';
+
+        // Fade out in the last 30%
+        el.style.opacity = t > 0.7 ? String(1 - (t - 0.7) / 0.3) : '1';
+
+        if (t < 1) {
+            const tilt = Math.sin(t * Math.PI) * 15;
+            el.style.transform = `scaleX(${flipX}) rotate(${tilt}deg)`;
+            _mascotWalkRAF = requestAnimationFrame(step);
+        } else {
+            el.style.opacity = '0';
+            el.style.transform = '';
+            el.classList.remove('is-walking');
+            _mascotWalking = false;
+            _mascotHasEntered = false;
+            _mascotCurrentRubber = null;
+            spotlightRubber = null;
+
+            // Resume auto-walk cycle — mascot will jump in again
+            clearTimeout(_mascotCycleTimer);
+            _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_PAUSE_AT_DOT);
+        }
+    }
+
+    _mascotWalkRAF = requestAnimationFrame(step);
 }
 
 function stopMascotWalker() {
