@@ -366,6 +366,44 @@ let _popupPlayerRotateSwapTimeout = null;
 let _hoverPopupDelayTimer = null;
 let _hoverPopupShown = false;
 
+function _getMetricHintTooltipEl() {
+    let el = document.getElementById('metricHintTooltip');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'metricHintTooltip';
+        document.body.appendChild(el);
+    }
+    return el;
+}
+
+let _metricHintHideTimer = null;
+function _bindPopupMetricHints(popup) {
+    const tooltip = _getMetricHintTooltipEl();
+    popup.querySelectorAll('.metric-hint').forEach(hint => {
+        hint.addEventListener('mouseenter', () => {
+            clearTimeout(_metricHintHideTimer);
+            const text = hint.dataset.hint;
+            if (!text) return;
+            tooltip.textContent = text;
+            const rect = hint.getBoundingClientRect();
+            tooltip.style.left = '0px';
+            tooltip.style.top = '0px';
+            tooltip.classList.add('visible');
+            const tipRect = tooltip.getBoundingClientRect();
+            const gap = 8;
+            let left = rect.left + rect.width / 2 - tipRect.width / 2;
+            let top = rect.top - tipRect.height - gap;
+            if (top < 6) top = rect.bottom + gap;
+            left = Math.max(6, Math.min(left, window.innerWidth - tipRect.width - 6));
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+        });
+        hint.addEventListener('mouseleave', () => {
+            _metricHintHideTimer = setTimeout(() => tooltip.classList.remove('visible'), 80);
+        });
+    });
+}
+
 function getChartHoverPopupEl() {
     let popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) return popup;
@@ -474,6 +512,9 @@ function hideChartHoverPopup({ force = false } = {}) {
     _popupPlayerRotateSwapTimeout = null;
     const popup = document.getElementById(HOVER_POPUP_ID);
     if (popup) popup.classList.remove('visible');
+    clearTimeout(_metricHintHideTimer);
+    const tip = document.getElementById('metricHintTooltip');
+    if (tip) tip.classList.remove('visible');
 }
 
 // ── Main Chart: Dot hover shake effect ──────────────────────────────
@@ -536,6 +577,7 @@ async function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const popup = getChartHoverPopupEl();
     popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel, hookText);
     positionHoverPopup(popup, data, chartEl);
+    _bindPopupMetricHints(popup);
 
     // Start player name rotation
     clearInterval(_popupPlayerRotateTimer);
@@ -769,19 +811,19 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
             </div>
             <div class="chart-hover-hero">
                 <div class="chart-hover-hero-col">
-                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label">${tUi('SPIN')}</span><span class="chart-hover-hero-rank">${spinRank != null ? `#${spinRank}` : '-'}</span></div>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPIN_HINT')}">${tUi('SPIN')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${spinRank != null ? `#${spinRank}` : '-'}</span></div>
                     ${spinPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--spin" style="width:${spinPct}%"></div></div>` : ''}
                 </div>
                 <div class="chart-hover-hero-col">
-                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label">${tUi('SPEED')}</span><span class="chart-hover-hero-rank">${speedRank != null ? `#${speedRank}` : '-'}</span></div>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPEED_HINT')}">${tUi('SPEED')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${speedRank != null ? `#${speedRank}` : '-'}</span></div>
                     ${speedPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--speed" style="width:${speedPct}%"></div></div>` : ''}
                 </div>
             </div>
             <div class="chart-hover-details">
-                <div class="chart-hover-detail"><span>${tUi('CONTROL')}</span><strong class="chart-control-indicator">${control}</strong></div>
-                <div class="chart-hover-detail"><span>${tUi('CUT_WEIGHT')}<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}"><svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
-                <div class="chart-hover-detail"><span>${tUi('TOPSHEET')}</span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
-                <div class="chart-hover-detail"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
+                <div class="chart-hover-detail"><span class="metric-hint" data-hint="${tUi('CONTROL_HINT')}">${tUi('CONTROL')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><strong class="chart-control-indicator">${control}</strong></div>
+                <div class="chart-hover-detail"><span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">${tUi('CUT_WEIGHT')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><strong class="${weightToneClass}">${escapeHtml(weight)}</strong></div>
+                <div class="chart-hover-detail"><span class="metric-hint" data-hint="${tUi('TOPSHEET_HINT')}">${tUi('TOPSHEET')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-sheet-value"><span class="chart-hover-shape ${SHEET_DOT_CLASS[sheet] || 'dot-circle'}"><span>${escapeHtml(sheetInitial)}</span></span>${escapeHtml(sheetRemainder)}</span></div>
+                <div class="chart-hover-detail"><span class="metric-hint" data-hint="${tUi('HARDNESS_HINT')}">${tUi('HARDNESS')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
             ${hookText ? `<div class="chart-hover-hook">${escapeHtml(hookText)}</div>` : ''}

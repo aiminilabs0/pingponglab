@@ -784,6 +784,14 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .show-hardness-de .hardness-duo .hardness-native { opacity: 0; }
 .show-hardness-de .hardness-duo .hardness-de { opacity: 1; }
 
+/* Inner spans would otherwise get .chart-hover-detail span (muted label style); inherit tone from strong */
+.chart-hover-detail strong.hardness-duo .hardness-native,
+.chart-hover-detail strong.hardness-duo .hardness-de {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 .chart-hover-detail strong.hardness-tone-soft,
 .radar-cmp-cell strong.hardness-tone-soft {
     color: var(--drac-green);
@@ -910,6 +918,7 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .metric-hint:hover .metric-hint-icon {
     opacity: 0.7;
 }
+/* CSS-only tooltip for contexts without overflow:hidden ancestors */
 .metric-hint::after {
     content: attr(data-hint);
     position: absolute;
@@ -938,6 +947,45 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .metric-hint:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
+/* Inside the popup card the CSS pseudo-element is clipped by overflow:hidden —
+   disable it here and let JS (#metricHintTooltip) handle it instead */
+.chart-hover-card .metric-hint::after {
+    display: none;
+}
+/* Label-level metric-hint: reset icon-span layout to flow naturally with text */
+.chart-hover-card .metric-hint {
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+/* ── Shared floating hint tooltip (JS-driven, escapes overflow:hidden) ── */
+#metricHintTooltip {
+    position: fixed;
+    z-index: 9999;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(28,26,23,0.95);
+    border: 1px solid rgba(155,148,132,0.20);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    color: var(--drac-fg);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: normal;
+    width: max-content;
+    max-width: 240px;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    transform: translateY(4px);
+}
+#metricHintTooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ── M&M style overrides scoped to the hover popup ── */
