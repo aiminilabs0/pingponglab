@@ -23,16 +23,6 @@ ROOT = Path(__file__).resolve().parent.parent
 COUNTRIES = ['en', 'ko', 'cn']
 COUNTRY_LANGS = {'en': 'en', 'ko': 'ko', 'cn': 'zh-CN'}
 
-COMIC_NEUE_LINK = (
-    '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-    '    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-    '    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400;1,700&display=swap">'
-)
-COUNTRY_FONTS = {
-    'en': COMIC_NEUE_LINK,
-    'cn': COMIC_NEUE_LINK,
-    'ko': COMIC_NEUE_LINK,
-}
 BASE_URL = 'https://pingponglab.com'
 
 # ── Slug utility ──
@@ -130,15 +120,6 @@ def make_page(template, title, description, canonical, og_title=None, og_descrip
     if country and country in COUNTRY_LANGS:
         lang = COUNTRY_LANGS[country]
         html = re.sub(r'<html lang="[^"]*">', f'<html lang="{lang}">', html, count=1)
-
-    # Inject locale font link after favicon link
-    if country and country in COUNTRY_FONTS:
-        font_link = COUNTRY_FONTS[country]
-        html = html.replace(
-            '<link rel="stylesheet" href="/css/variables.css',
-            f'{font_link}\n    <link rel="stylesheet" href="/css/variables.css',
-            1
-        )
 
     # Replace title
     html = re.sub(
