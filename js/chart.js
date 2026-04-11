@@ -527,12 +527,14 @@ function hideChartDotShake() {
     if (_chartShakeRing) _chartShakeRing.style.opacity = '0';
 }
 
-function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
+async function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
     const point = data?.points?.[0];
     const rubber = point?.data?.customdata?.[point.pointIndex];
     if (!point || !rubber) return null;
+    const markdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
+    const hookText = extractHookText(markdown);
     const popup = getChartHoverPopupEl();
-    popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel);
+    popup.innerHTML = buildHoverPopupHtml(rubber, point, slotLabel, hookText);
     positionHoverPopup(popup, data, chartEl);
 
     // Start player name rotation
@@ -627,17 +629,6 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         });
     });
 
-    // Async: load and inject The Hook text from description file
-    fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr).then(markdown => {
-        const hookText = extractHookText(markdown);
-        if (!hookText) return;
-        const hookEl = popup.querySelector('[data-hook-placeholder]');
-        if (!hookEl) return;
-        hookEl.textContent = hookText;
-        hookEl.style.display = '';
-        positionHoverPopup(popup, data, chartEl);
-    });
-
     return rubber;
 }
 
@@ -701,7 +692,7 @@ function buildHoverPopupPlayersHtml(rubber) {
     return `<div class="chart-hover-players"><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;
 }
 
-function buildHoverPopupHtml(rubber, point, slotLabel) {
+function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
     const rubberName = tRubberName(rubber) || rubber.name || rubber.abbr || '-';
     const brandName = tBrand(rubber.brand) || '-';
     const sheet = rubber.sheet || '-';
@@ -789,7 +780,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-detail"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
-            <div class="chart-hover-hook" data-hook-placeholder style="display:none"></div>
+            ${hookText ? `<div class="chart-hover-hook">${escapeHtml(hookText)}</div>` : ''}
         </div>
     `;
 }
