@@ -28,16 +28,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400;1,700&display=swap">
-    <link rel="stylesheet" href="/css/variables.css?v=99">
-    <link rel="stylesheet" href="/css/header.css?v=99">
-    <link rel="stylesheet" href="/css/filter-panel.css?v=99">
-    <link rel="stylesheet" href="/css/chart.css?v=99">
-    <link rel="stylesheet" href="/css/content.css?v=99">
-    <link rel="stylesheet" href="/css/radar.css?v=99">
-    <link rel="stylesheet" href="/css/feedback.css?v=99">
-    <link rel="stylesheet" href="/css/country.css?v=99">
-    <link rel="stylesheet" href="/css/auth.css?v=99">
-    <link rel="stylesheet" href="/css/responsive.css?v=99">
+    <link rel="stylesheet" href="/css/variables.css?v=100">
+    <link rel="stylesheet" href="/css/header.css?v=100">
+    <link rel="stylesheet" href="/css/filter-panel.css?v=100">
+    <link rel="stylesheet" href="/css/chart.css?v=100">
+    <link rel="stylesheet" href="/css/content.css?v=100">
+    <link rel="stylesheet" href="/css/radar.css?v=100">
+    <link rel="stylesheet" href="/css/feedback.css?v=100">
+    <link rel="stylesheet" href="/css/country.css?v=100">
+    <link rel="stylesheet" href="/css/auth.css?v=100">
+    <link rel="stylesheet" href="/css/responsive.css?v=100">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -78,7 +78,57 @@
         <header class="site-header">
             <div class="header-row">
                 <div class="header-brand">
-                    <img src="/images/ci.png" alt="PingPong Lab" class="header-logo" id="homeLogo" role="button" tabindex="0" aria-label="Reset view">
+                    <!-- Cute M&M-style ping pong mascot -->
+                    <svg class="header-mascot header-logo" id="homeLogo" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="button" tabindex="0" aria-label="Reset view">
+                      <!-- Body (M&M oval) -->
+                      <ellipse cx="50" cy="58" rx="34" ry="38" fill="#da8a52"/>
+                      <!-- Body glossy highlight -->
+                      <ellipse cx="42" cy="42" rx="20" ry="16" fill="rgba(255,255,255,0.18)" transform="rotate(-12 42 42)"/>
+                      <!-- Body subtle bottom shadow -->
+                      <ellipse cx="50" cy="88" rx="26" ry="6" fill="rgba(0,0,0,0.15)"/>
+                      <!-- Left eye -->
+                      <g class="mascot-eye mascot-eye-l">
+                        <ellipse cx="39" cy="50" rx="8" ry="9" fill="#fff"/>
+                        <circle class="mascot-pupil" cx="41" cy="52" r="4.5" fill="#2e2a25"/>
+                        <circle cx="39" cy="49" r="2" fill="#fff"/>
+                      </g>
+                      <!-- Right eye -->
+                      <g class="mascot-eye mascot-eye-r">
+                        <ellipse cx="61" cy="50" rx="8" ry="9" fill="#fff"/>
+                        <circle class="mascot-pupil" cx="63" cy="52" r="4.5" fill="#2e2a25"/>
+                        <circle cx="61" cy="49" r="2" fill="#fff"/>
+                      </g>
+                      <!-- Happy mouth -->
+                      <path class="mascot-mouth" d="M42 65 Q50 73 58 65" stroke="#2e2a25" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <!-- Left cheek blush -->
+                      <ellipse cx="32" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>
+                      <!-- Right cheek blush -->
+                      <ellipse cx="68" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>
+                      <!-- Left arm -->
+                      <g class="mascot-arm mascot-arm-l">
+                        <path d="M18 60 Q10 54 8 46" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <circle cx="7" cy="43" r="4" fill="#c47a42"/>
+                        <!-- Ping pong ball -->
+                        <circle cx="4" cy="36" r="7" fill="#f0ead6" stroke="#ddd" stroke-width="0.5"/>
+                        <ellipse cx="2.5" cy="33.5" rx="3" ry="2.2" fill="rgba(255,255,255,0.5)" transform="rotate(-20 2.5 33.5)"/>
+                      </g>
+                      <!-- Right arm -->
+                      <g class="mascot-arm mascot-arm-r">
+                        <path d="M82 58 Q90 50 92 40" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <circle cx="93" cy="37" r="4" fill="#c47a42"/>
+                      </g>
+                      <!-- Left leg -->
+                      <g class="mascot-leg mascot-leg-l">
+                        <path d="M38 92 Q36 104 32 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="30" cy="114" rx="6" ry="3" fill="#c47a42"/>
+                      </g>
+                      <!-- Right leg -->
+                      <g class="mascot-leg mascot-leg-r">
+                        <path d="M62 92 Q64 104 68 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="70" cy="114" rx="6" ry="3" fill="#c47a42"/>
+                      </g>
+                    </svg>
+
                     <div class="header-text">
                         <h1 class="header-title">Best Ping Pong Rubber</h1>
                         <p class="header-tagline">Showing</p>
@@ -246,19 +296,19 @@
         </div>
     </div>
 
-    <script src="/js/slug.js?v=99"></script>
-    <script src="/js/router.js?v=99"></script>
-    <script src="/js/auth.js?v=99"></script>
-    <script src="/js/config.js?v=99"></script>
-    <script src="/js/state.js?v=99"></script>
-    <script src="/js/data.js?v=99"></script>
-    <script src="/js/filters.js?v=99"></script>
-    <script src="/js/content.js?v=99"></script>
-    <script src="/js/url-sync.js?v=99"></script>
-    <script src="/js/chart.js?v=99"></script>
-    <script src="/js/radar.js?v=99"></script>
-    <script src="/js/youtube.js?v=99"></script>
-    <script src="/js/reset.js?v=99"></script>
-    <script src="/js/init.js?v=99"></script>
+    <script src="/js/slug.js?v=100"></script>
+    <script src="/js/router.js?v=100"></script>
+    <script src="/js/auth.js?v=100"></script>
+    <script src="/js/config.js?v=100"></script>
+    <script src="/js/state.js?v=100"></script>
+    <script src="/js/data.js?v=100"></script>
+    <script src="/js/filters.js?v=100"></script>
+    <script src="/js/content.js?v=100"></script>
+    <script src="/js/url-sync.js?v=100"></script>
+    <script src="/js/chart.js?v=100"></script>
+    <script src="/js/radar.js?v=100"></script>
+    <script src="/js/youtube.js?v=100"></script>
+    <script src="/js/reset.js?v=100"></script>
+    <script src="/js/init.js?v=100"></script>
 </body>
 </html>
