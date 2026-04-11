@@ -1590,7 +1590,10 @@ function initMascotWalker() {
     if (!chartEl || !headerMascot) return;
 
     _mascotWalkerEl = headerMascot.cloneNode(true);
-    _mascotWalkerEl.classList.remove('header-mascot');
+    _mascotWalkerEl.classList.remove('header-mascot', 'header-logo');
+    _mascotWalkerEl.removeAttribute('id');
+    _mascotWalkerEl.removeAttribute('role');
+    _mascotWalkerEl.removeAttribute('tabindex');
     _mascotWalkerEl.classList.add('chart-mascot-walker');
     chartEl.style.position = 'relative';
     chartEl.appendChild(_mascotWalkerEl);
