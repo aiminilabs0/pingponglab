@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # TODO:: Modify!!!!!!
-base_rubber="Tenergy 05 Hard"
+base_rubber="NUZN 45"
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
