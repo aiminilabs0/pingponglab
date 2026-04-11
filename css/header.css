@@ -53,6 +53,70 @@
 .header-mascot:hover {
     transform: scale(1.18) rotate(6deg);
 }
+
+/* ── Mascot idle emotes ── */
+.mascot-eye-l { transform-origin: 39px 50px; }
+.mascot-eye-r { transform-origin: 61px 50px; }
+
+/* Wink — squash left eye */
+.header-mascot.mascot-emote-wink .mascot-eye-l {
+    animation: mascot-wink 0.5s ease-in-out;
+}
+@keyframes mascot-wink {
+    0%, 100% { transform: scaleY(1); }
+    25%, 75% { transform: scaleY(0.08); }
+}
+
+/* Dance — bounce body, swing limbs */
+.header-mascot.mascot-emote-dance {
+    animation: mascot-dance-body 0.35s ease-in-out 5;
+}
+.header-mascot.mascot-emote-dance .mascot-leg-l {
+    animation: walk-leg-l 0.35s ease-in-out 5;
+}
+.header-mascot.mascot-emote-dance .mascot-leg-r {
+    animation: walk-leg-r 0.35s ease-in-out 5;
+}
+.header-mascot.mascot-emote-dance .mascot-arm-l {
+    animation: walk-arm-l 0.35s ease-in-out 5;
+}
+.header-mascot.mascot-emote-dance .mascot-arm-r {
+    animation: walk-arm-r 0.35s ease-in-out 5;
+}
+@keyframes mascot-dance-body {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-3deg); }
+    75% { transform: translateY(-3px) rotate(3deg); }
+}
+
+/* Wave — swing right arm */
+.header-mascot.mascot-emote-wave .mascot-arm-r {
+    animation: mascot-wave-arm 0.5s ease-in-out 3;
+}
+@keyframes mascot-wave-arm {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-25deg); }
+}
+
+/* Look around — pupils shift left then right */
+.header-mascot.mascot-emote-look .mascot-pupil {
+    animation: mascot-look-pupils 2s ease-in-out;
+}
+@keyframes mascot-look-pupils {
+    0%, 100% { transform: translateX(0); }
+    30% { transform: translateX(-3px); }
+    70% { transform: translateX(3px); }
+}
+
+/* Bounce — quick hop */
+.header-mascot.mascot-emote-bounce {
+    animation: mascot-bounce-hop 0.3s ease-in-out 2;
+}
+@keyframes mascot-bounce-hop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
 .header-text {
     display: flex;
     flex-direction: column;

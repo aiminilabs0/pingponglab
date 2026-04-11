@@ -495,6 +495,41 @@ function initHomeLogo() {
 }
 
 
+function initMascotEmotes() {
+    const mascot = document.getElementById('homeLogo');
+    if (!mascot) return;
+
+    const emotes = [
+        { cls: 'mascot-emote-wink', duration: 500 },
+        { cls: 'mascot-emote-dance', duration: 1800 },
+        { cls: 'mascot-emote-wave', duration: 1500 },
+        { cls: 'mascot-emote-look', duration: 2000 },
+        { cls: 'mascot-emote-bounce', duration: 600 },
+    ];
+
+    let prevIdx = -1;
+
+    function playRandomEmote() {
+        if (document.hidden) {
+            setTimeout(playRandomEmote, 3000);
+            return;
+        }
+        let idx = Math.floor(Math.random() * emotes.length);
+        if (emotes.length > 1 && idx === prevIdx) {
+            idx = (idx + 1) % emotes.length;
+        }
+        prevIdx = idx;
+        const emote = emotes[idx];
+        mascot.classList.add(emote.cls);
+        setTimeout(() => {
+            mascot.classList.remove(emote.cls);
+            setTimeout(playRandomEmote, 5000 + Math.random() * 8000);
+        }, emote.duration);
+    }
+
+    setTimeout(playRandomEmote, 3000 + Math.random() * 4000);
+}
+
 function initFeedbackModal() {
     const openBtn = document.getElementById('feedbackOpenBtn');
     const closeBtn = document.getElementById('feedbackCloseBtn');
@@ -776,6 +811,7 @@ async function initializeApp() {
     initCountrySelector();
     applyLocalizedStaticText();
     initHomeLogo();
+    initMascotEmotes();
     initHeaderSearch();
     initFeedbackModal();
     initFilters();

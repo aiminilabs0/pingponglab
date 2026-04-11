@@ -83,20 +83,20 @@
                       <ellipse cx="42" cy="42" rx="20" ry="16" fill="rgba(255,255,255,0.18)" transform="rotate(-12 42 42)"/>
                       <!-- Body subtle bottom shadow -->
                       <ellipse cx="50" cy="88" rx="26" ry="6" fill="rgba(0,0,0,0.15)"/>
-                      <!-- Left eye white -->
-                      <ellipse cx="39" cy="50" rx="8" ry="9" fill="#fff"/>
-                      <!-- Right eye white -->
-                      <ellipse cx="61" cy="50" rx="8" ry="9" fill="#fff"/>
-                      <!-- Left pupil -->
-                      <circle cx="41" cy="52" r="4.5" fill="#2e2a25"/>
-                      <!-- Right pupil -->
-                      <circle cx="63" cy="52" r="4.5" fill="#2e2a25"/>
-                      <!-- Left eye highlight -->
-                      <circle cx="39" cy="49" r="2" fill="#fff"/>
-                      <!-- Right eye highlight -->
-                      <circle cx="61" cy="49" r="2" fill="#fff"/>
+                      <!-- Left eye -->
+                      <g class="mascot-eye mascot-eye-l">
+                        <ellipse cx="39" cy="50" rx="8" ry="9" fill="#fff"/>
+                        <circle class="mascot-pupil" cx="41" cy="52" r="4.5" fill="#2e2a25"/>
+                        <circle cx="39" cy="49" r="2" fill="#fff"/>
+                      </g>
+                      <!-- Right eye -->
+                      <g class="mascot-eye mascot-eye-r">
+                        <ellipse cx="61" cy="50" rx="8" ry="9" fill="#fff"/>
+                        <circle class="mascot-pupil" cx="63" cy="52" r="4.5" fill="#2e2a25"/>
+                        <circle cx="61" cy="49" r="2" fill="#fff"/>
+                      </g>
                       <!-- Happy mouth -->
-                      <path d="M42 65 Q50 73 58 65" stroke="#2e2a25" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <path class="mascot-mouth" d="M42 65 Q50 73 58 65" stroke="#2e2a25" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                       <!-- Left cheek blush -->
                       <ellipse cx="32" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>
                       <!-- Right cheek blush -->
