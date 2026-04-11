@@ -18,7 +18,6 @@ Usage: ./script/update_price.sh [--with-aid|--strip-aid] <path/to/rubber.json ..
   --strip-aid → remove the `aid` query param before calling megaspin.
 EOF
 }
-
 if [[ $# -eq 0 ]]; then
     usage
     exit 1
@@ -46,8 +45,7 @@ for arg in "$@"; do
 done
 
 if [[ ${#FILES[@]} -eq 0 ]]; then
-    usage
-    exit 1
+    while IFS= read -r -d '' f; do FILES+=("$f"); done < <(find "$(dirname "$0")/../rubbers" -name "*.json" -print0)
 fi
 
 python3 - "$REQUEST_MODE" "${FILES[@]}" <<'PYEOF'
