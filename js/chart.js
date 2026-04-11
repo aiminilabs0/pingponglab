@@ -596,7 +596,13 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         closeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             hideChartHoverPopup({ force: true });
-            mascotReturnToOrigin();
+            if (window.innerWidth < 769) {
+                // Narrow window: keep mascot walking but stop opening popups
+                _mascotPopupSuppressed = true;
+                resumeMascotWalker();
+            } else {
+                mascotReturnToOrigin();
+            }
         });
     }
 
@@ -1568,6 +1574,7 @@ let _mascotCycleTimer = null;
 let _mascotPaused = false;
 let _mascotDismissedByUser = false;
 let _mascotHasEntered = false;
+let _mascotPopupSuppressed = false;
 
 const MASCOT_SPEED = 130;          // pixels per second
 const MASCOT_PAUSE_AT_DOT = 5500;  // ms to show popup before next walk
@@ -1774,17 +1781,18 @@ function _onMascotArrived(rubber) {
 
     _pingSpotlightDot(rubber);
 
-    if (!_clickPopupPinned) {
+    if (!_mascotPopupSuppressed && !_clickPopupPinned) {
         hideChartHoverPopup({ force: true });
         _showDesktopSpotlightPopup(rubber);
     }
 
     // Schedule next walk
     clearTimeout(_mascotCycleTimer);
+    const delay = _mascotPopupSuppressed ? 3000 : MASCOT_PAUSE_AT_DOT;
     _mascotCycleTimer = setTimeout(() => {
         if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
         _mascotWalkToNextDot();
-    }, MASCOT_PAUSE_AT_DOT);
+    }, delay);
 }
 
 function mascotRunToDot(rubber) {
