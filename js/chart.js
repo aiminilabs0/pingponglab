@@ -1712,7 +1712,7 @@ function _animateMascotWalk(targetX, targetY, rubber) {
     const dx = targetX - startX;
     const dy = targetY - startY;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    const duration = Math.max(1000, (distance / MASCOT_SPEED) * 1000);
+    const duration = Math.max(800, Math.min(2000, (distance / MASCOT_SPEED) * 1000));
 
     const flipX = dx < 0 ? -1 : 1;
 
@@ -1831,8 +1831,7 @@ function _animateMascotWalkToDot(targetX, targetY, rubber) {
     const dy = targetY - startY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Fast walk (1.8x speed)
-    const duration = Math.max(400, (distance / (MASCOT_SPEED * 1.8)) * 1000);
+    const duration = Math.max(800, Math.min(2000, (distance / MASCOT_SPEED) * 1000));
     const flipX = dx < 0 ? -1 : 1;
 
     el.classList.add('is-walking');
@@ -1882,7 +1881,7 @@ function _animateMascotJumpTo(targetX, targetY, rubber) {
     const dx = targetX - startX;
     const dy = targetY - startY;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    const duration = Math.max(600, Math.min(1000, (distance / MASCOT_SPEED) * 700));
+    const duration = Math.max(700, Math.min(1100, (distance / MASCOT_SPEED) * 800));
 
     const arcHeight = Math.min(140, distance * 0.45);
     const flipX = dx < 0 ? -1 : 1;
