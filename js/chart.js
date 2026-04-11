@@ -701,8 +701,12 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
     const hardnessToneClass = getHardnessToneClass(rubber?.normalizedHardness);
     const weight = rubber.weightLabel || '-';
     const weightToneClass = getWeightToneClass(rubber?.weight);
-    const spin = typeof rubber.spinRank === 'number' ? `#${rubber.spinRank}` : '-';
-    const speed = typeof rubber.speedRank === 'number' ? `#${rubber.speedRank}` : '-';
+    const spinRank = typeof rubber.spinRank === 'number' ? rubber.spinRank : null;
+    const speedRank = typeof rubber.speedRank === 'number' ? rubber.speedRank : null;
+    const spinPct = spinRank != null && rubber.x != null
+        ? Math.round(rubber.x / (rubber.x + spinRank - 1) * 100) : null;
+    const speedPct = speedRank != null && rubber.y != null
+        ? Math.round(rubber.y / (rubber.y + speedRank - 1) * 100) : null;
     const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
     const brandColor = getBrandColor(rubber.brand);
     const bestsellerStar = rubber.bestseller ? '\u2B50 ' : '';
@@ -765,12 +769,12 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
             </div>
             <div class="chart-hover-hero">
                 <div class="chart-hover-hero-col">
-                    <span class="chart-hover-hero-label">${tUi('SPIN')}</span>
-                    <span class="chart-hover-hero-value">${spin}</span>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label">${tUi('SPIN')}</span><span class="chart-hover-hero-rank">${spinRank != null ? `#${spinRank}` : '-'}</span></div>
+                    ${spinPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--spin" style="width:${spinPct}%"></div></div>` : ''}
                 </div>
                 <div class="chart-hover-hero-col">
-                    <span class="chart-hover-hero-label">${tUi('SPEED')}</span>
-                    <span class="chart-hover-hero-value">${speed}</span>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label">${tUi('SPEED')}</span><span class="chart-hover-hero-rank">${speedRank != null ? `#${speedRank}` : '-'}</span></div>
+                    ${speedPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--speed" style="width:${speedPct}%"></div></div>` : ''}
                 </div>
             </div>
             <div class="chart-hover-details">

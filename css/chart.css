@@ -660,11 +660,11 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .chart-hover-hero-col {
     flex: 1;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 9px 10px;
-    gap: 7px;
+    padding: 9px 12px;
+    gap: 5px;
 }
 .chart-hover-hero-col + .chart-hover-hero-col {
     border-left: 1px solid rgba(155,148,132,0.12);
@@ -678,14 +678,33 @@ a.chart-hover-player:hover .chart-hover-player-img {
     display: inline-flex;
     align-items: center;
 }
-.chart-hover-hero-value {
-    font-size: 17px;
+.chart-hover-hero-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+    gap: 6px;
+}
+.chart-hover-hero-rank {
+    font-size: 13px;
     font-weight: 700;
     color: var(--drac-fg);
     line-height: 1;
-    letter-spacing: -0.01em;
-    opacity: 0.85;
+    opacity: 0.75;
 }
+.chart-hover-stat-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(155,148,132,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.chart-hover-stat-fill {
+    height: 100%;
+    border-radius: 3px;
+}
+.chart-hover-stat-fill--spin { background: var(--drac-purple); }
+.chart-hover-stat-fill--speed { background: var(--drac-orange); }
 
 
 /* ── Details grid (Control, Cut Weight, Topsheet, Hardness) ── */
