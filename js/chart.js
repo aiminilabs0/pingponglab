@@ -1452,16 +1452,6 @@ function _pingSpotlightDot(rubber) {
     ping.addEventListener('animationend', () => ping.remove(), { once: true });
 }
 
-function startSpotlightRotation() {
-    if (!window.matchMedia('(max-width: 768px)').matches) return;
-    clearInterval(spotlightTimerId);
-    spotlightPaused = false;
-    spotlightTimerId = setInterval(() => {
-        if (document.hidden || spotlightPaused) return;
-        advanceSpotlight();
-    }, 6000);
-}
-
 function stopSpotlightRotation() {
     clearInterval(spotlightTimerId);
     clearTimeout(spotlightDismissTimer);
@@ -1481,8 +1471,6 @@ function resumeSpotlightRotation() {
     if (spotlightTimerId) {
         spotlightPaused = false;
         advanceSpotlight();
-    } else {
-        startSpotlightRotation();
     }
 }
 
