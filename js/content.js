@@ -156,6 +156,16 @@ async function fetchRubberDescriptionMarkdown(brand, abbr) {
     }
 }
 
+function extractHookText(markdown) {
+    if (!markdown) return null;
+    const lines = markdown.split('\n');
+    for (let i = 0; i < Math.min(lines.length, 10); i++) {
+        const m = lines[i].match(/[-*]\s*(?:The Hook|핵심 특징|核心定位)\s*[：:—–]\s*(.+)/);
+        if (m) return m[1].trim();
+    }
+    return null;
+}
+
 function getAlphabeticalComparisonNames(leftRubber, rightRubber) {
     const leftName = (leftRubber?.abbr || '').trim();
     const rightName = (rightRubber?.abbr || '').trim();

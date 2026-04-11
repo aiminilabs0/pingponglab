@@ -581,6 +581,14 @@
     border-color: rgba(80, 250, 123, 0.7);
     box-shadow: 0 4px 12px rgba(80, 250, 123, 0.2);
 }
+.chart-hover-hook {
+    padding: 9px 14px 10px;
+    font-size: 12px;
+    color: var(--drac-comment);
+    font-style: italic;
+    line-height: 1.5;
+    border-top: 1px solid rgba(155,148,132,0.12);
+}
 .chart-hover-players {
     display: flex;
     flex-direction: column;

@@ -627,6 +627,17 @@ function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         });
     });
 
+    // Async: load and inject The Hook text from description file
+    fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr).then(markdown => {
+        const hookText = extractHookText(markdown);
+        if (!hookText) return;
+        const hookEl = popup.querySelector('[data-hook-placeholder]');
+        if (!hookEl) return;
+        hookEl.textContent = hookText;
+        hookEl.style.display = '';
+        positionHoverPopup(popup, data, chartEl);
+    });
+
     return rubber;
 }
 
@@ -778,6 +789,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel) {
                 <div class="chart-hover-detail"><span>${tUi('HARDNESS')}</span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
+            <div class="chart-hover-hook" data-hook-placeholder style="display:none"></div>
         </div>
     `;
 }
