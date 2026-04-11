@@ -1141,10 +1141,12 @@ function updateChart(options = {}) {
             // that Plotly.react may fire afterwards.
             _clickPopupActiveUntil = Date.now() + 500;
             _clickPopupPinned = true;
-            pauseMascotWalker();
 
             handleRubberClick(rubber);
             showChartHoverPopupFromPlotlyData(data, chartEl);
+
+            // Mascot runs to the clicked dot
+            mascotRunToDot(rubber);
         });
     }
 
@@ -1783,6 +1785,77 @@ function _onMascotArrived(rubber) {
         if (!_clickPopupPinned) hideChartHoverPopup({ force: true });
         _mascotWalkToNextDot();
     }, MASCOT_PAUSE_AT_DOT);
+}
+
+function mascotRunToDot(rubber) {
+    if (!_mascotWalkerEl || _mascotDismissedByUser) return;
+
+    // Cancel any current walk / cycle
+    if (_mascotWalkRAF) cancelAnimationFrame(_mascotWalkRAF);
+    clearTimeout(_mascotCycleTimer);
+    _mascotWalking = false;
+    _mascotPaused = false;
+    _mascotCurrentRubber = rubber;
+
+    // Make mascot visible if it hasn't entered yet
+    if (!_mascotHasEntered) {
+        _mascotHasEntered = true;
+        _mascotWalkerEl.style.opacity = '1';
+    }
+
+    const target = _getMascotDotPosition(rubber);
+    if (!target) return;
+
+    const targetX = target.x - 20;
+    const targetY = target.y - 32;
+
+    const el = _mascotWalkerEl;
+    const startX = parseFloat(el.style.left) || 0;
+    const startY = parseFloat(el.style.top) || 0;
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // Run faster than normal walking (1.8x)
+    const duration = Math.max(400, (distance / (MASCOT_SPEED * 1.8)) * 1000);
+    const flipX = dx < 0 ? -1 : 1;
+
+    el.classList.remove('is-idle', 'is-arriving');
+    el.classList.add('is-walking');
+    _mascotWalking = true;
+
+    const startTime = performance.now();
+
+    function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+        el.style.left = (startX + dx * ease) + 'px';
+        el.style.top = (startY + dy * ease) + 'px';
+
+        if (t < 1) {
+            const tilt = Math.sin(elapsed / 140 * Math.PI) * 2.5;
+            el.style.transform = `scaleX(${flipX}) rotate(${tilt}deg)`;
+            _mascotWalkRAF = requestAnimationFrame(step);
+        } else {
+            el.style.transform = `scaleX(${flipX})`;
+            el.classList.remove('is-walking');
+            _mascotWalking = false;
+
+            el.classList.add('is-arriving');
+            el.addEventListener('animationend', () => {
+                el.classList.remove('is-arriving');
+                el.classList.add('is-idle');
+            }, { once: true });
+
+            // Resume auto-walk cycle after pause
+            clearTimeout(_mascotCycleTimer);
+            _mascotCycleTimer = setTimeout(_mascotWalkToNextDot, MASCOT_PAUSE_AT_DOT);
+        }
+    }
+
+    _mascotWalkRAF = requestAnimationFrame(step);
 }
 
 function pauseMascotWalker() {
