@@ -751,7 +751,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
         ? Math.round(rubber.y / (rubber.y + speedRank - 1) * 100) : null;
     const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
     const brandColor = getBrandColor(rubber.brand);
-    const bestsellerStar = rubber.bestseller ? '\u2B50 ' : '';
+    const bestsellerStar = rubber.bestseller?.[selectedCountry] ? '\u2B50 ' : '';
 
     const slotNum = slotLabel ? slotLabel.replace(/\D/g, '') : '';
     const slotBadge = slotNum
@@ -771,7 +771,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
     const ytBtn = ytVideoId
         ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="">${ytEnBadge}</button>`
         : '';
-    const starBtn = rubber.bestseller
+    const starBtn = rubber.bestseller?.[selectedCountry]
         ? `<span class="chart-hover-star-btn" aria-label="Bestseller">&#x2B50;</span>`
         : '';
 
@@ -881,7 +881,7 @@ function updateChart(options = {}) {
     const traces = [];
 
     // Bestseller halo layer (rendered first so it sits behind normal markers)
-    const bestsellers = visibleData.filter(r => r.bestseller);
+    const bestsellers = visibleData.filter(r => r.bestseller?.[selectedCountry]);
     if (bestsellers.length > 0) {
         traces.push({
             x: bestsellers.map(r => r.x),

@@ -492,7 +492,7 @@ async function loadRubberData() {
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
             priority: 999, // will be overridden by priority ranking
-            bestseller: false, // will be overridden by bestseller ranking
+            bestseller: { en: false, ko: false, cn: false }, // will be overridden by bestseller ranking
             urls: {
                 en: { product: urls.en?.product || '', youtube: urls.en?.youtube || '' },
                 eu: { product: urls.eu?.product || '', youtube: urls.eu?.youtube || '' },
@@ -527,7 +527,11 @@ async function loadRubberData() {
     const priorityResp = await fetch(v(PRIORITY_FILE));
     const priorityRanking = priorityResp.ok ? await priorityResp.json() : [];
     const bestsellerResp = await fetch(v(BESTSELLER_FILE));
-    const bestsellerRanking = bestsellerResp.ok ? await bestsellerResp.json() : [];
+    const bestsellerData = bestsellerResp.ok ? await bestsellerResp.json() : {};
+    // Support both old flat array format and new per-language object format
+    const bestsellerRanking = Array.isArray(bestsellerData)
+        ? { en: bestsellerData, ko: bestsellerData, cn: bestsellerData }
+        : bestsellerData;
 
     for (const rubber of data) {
         const spinIdx = findRubberRank(rubber, rankings.spin);
@@ -549,13 +553,22 @@ async function loadRubberData() {
 
         // Display order: bestseller first, then priority ranking.
         const popIdx = findRubberRank(rubber, priorityRanking);
-        const bestsellerIdx = findRubberRank(rubber, bestsellerRanking);
-        rubber.bestseller = bestsellerIdx >= 0;
+        const enBestsellerIdx = findRubberRank(rubber, bestsellerRanking.en || []);
+        const koBestsellerIdx = findRubberRank(rubber, bestsellerRanking.ko || []);
+        const cnBestsellerIdx = findRubberRank(rubber, bestsellerRanking.cn || []);
+        rubber.bestseller = {
+            en: enBestsellerIdx >= 0,
+            ko: koBestsellerIdx >= 0,
+            cn: cnBestsellerIdx >= 0
+        };
 
-        if (rubber.bestseller) {
+        // Priority is based on the global (en) bestseller list for sort order
+        const bestsellerIdx = enBestsellerIdx;
+        const enBestsellerCount = (bestsellerRanking.en || []).length;
+        if (bestsellerIdx >= 0) {
             rubber.priority = bestsellerIdx + 1;
         } else if (popIdx >= 0) {
-            rubber.priority = bestsellerRanking.length + popIdx + 1;
+            rubber.priority = enBestsellerCount + popIdx + 1;
         }
     }
 
