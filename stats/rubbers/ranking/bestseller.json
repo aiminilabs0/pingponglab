@@ -24,15 +24,18 @@
     { "brand": "Butterfly", "name": "Dignics 09C" }
   ],
   "cn": [
-    { "brand": "Butterfly", "name": "Dignics 09C" },
-    { "brand": "Butterfly", "name": "Zyre 03" },
-    { "brand": "Butterfly", "name": "Dignics 05" },
+    { "brand": "DHS", "name": "H3 Neo" },
+    { "brand": "DHS", "name": "H8-80" },
     { "brand": "Butterfly", "name": "Tenergy 05" },
-    { "brand": "Yasaka", "name": "Rakza 7" },
-    { "brand": "Nittaku", "name": "G-1" },
-    { "brand": "Xiom", "name": "Vega Pro" },
-    { "brand": "Andro", "name": "NUZN 55" },
-    { "brand": "Yasaka", "name": "Rakza Z" },
+    { "brand": "Butterfly", "name": "Dignics 09C" },
+    { "brand": "Butterfly", "name": "Tenergy 64" },
+    { "brand": "Xiom", "name": "Vega Europe" },
+    { "brand": "Butterfly", "name": "Dignics 64" },
+    { "brand": "Butterfly", "name": "Dignics 05" },
+    { "brand": "Butterfly", "name": "Dignics 80" },
+    { "brand": "Xiom", "name": "Omega 7 Guang" },
+    { "brand": "Tibhar", "name": "EL-P" },
+    { "brand": "Tibhar", "name": "K3" },
     { "brand": "Tibhar", "name": "MX-P" }
   ]
 }

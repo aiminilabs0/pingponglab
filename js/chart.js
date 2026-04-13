@@ -751,7 +751,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
         ? Math.round(rubber.y / (rubber.y + speedRank - 1) * 100) : null;
     const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
     const brandColor = getBrandColor(rubber.brand);
-    const bestsellerStar = rubber.bestseller?.[selectedCountry] ? '\u2B50 ' : '';
+    const bestsellerRank = rubber.bestseller?.[selectedCountry] ?? null;
+    const bestsellerStar = bestsellerRank ? `#${bestsellerRank} ` : '';
 
     const slotNum = slotLabel ? slotLabel.replace(/\D/g, '') : '';
     const slotBadge = slotNum
@@ -771,8 +772,8 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
     const ytBtn = ytVideoId
         ? `<button class="chart-hover-yt-btn" data-videoid="${ytVideoId}" aria-label="Play YouTube video"><img src="/images/youtube.ico" alt="">${ytEnBadge}</button>`
         : '';
-    const starBtn = rubber.bestseller?.[selectedCountry]
-        ? `<span class="chart-hover-star-btn" aria-label="Bestseller">&#x2B50;</span>`
+    const starBtn = bestsellerRank
+        ? `<span class="chart-hover-pill chart-hover-pill-bestseller" aria-label="Bestseller rank"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;margin-right:3px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>#${bestsellerRank} Bestseller</span>`
         : '';
 
     let productUrl = countryUrls.product || '';

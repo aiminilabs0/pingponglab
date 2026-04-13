@@ -557,9 +557,9 @@ async function loadRubberData() {
         const koBestsellerIdx = findRubberRank(rubber, bestsellerRanking.ko || []);
         const cnBestsellerIdx = findRubberRank(rubber, bestsellerRanking.cn || []);
         rubber.bestseller = {
-            en: enBestsellerIdx >= 0,
-            ko: koBestsellerIdx >= 0,
-            cn: cnBestsellerIdx >= 0
+            en: enBestsellerIdx >= 0 ? enBestsellerIdx + 1 : null,
+            ko: koBestsellerIdx >= 0 ? koBestsellerIdx + 1 : null,
+            cn: cnBestsellerIdx >= 0 ? cnBestsellerIdx + 1 : null
         };
 
         // Priority is based on the global (en) bestseller list for sort order
