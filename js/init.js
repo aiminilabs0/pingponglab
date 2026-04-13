@@ -609,6 +609,38 @@ function initMascotEmotes() {
     setTimeout(playRandomEmote, 3000 + Math.random() * 4000);
 }
 
+function initEndMascotEmotes(mascot) {
+    if (!mascot) return;
+
+    const emotes = [
+        { cls: 'mascot-emote-wink', duration: 500 },
+        { cls: 'mascot-emote-dance', duration: 1800 },
+        { cls: 'mascot-emote-wave', duration: 1500 },
+        { cls: 'mascot-emote-look', duration: 2000 },
+        { cls: 'mascot-emote-bounce', duration: 600 },
+    ];
+
+    let prevIdx = -1;
+    let timer = null;
+
+    function playRandomEmote() {
+        if (!mascot.isConnected) return;
+        if (document.hidden) { timer = setTimeout(playRandomEmote, 3000); return; }
+        let idx = Math.floor(Math.random() * emotes.length);
+        if (emotes.length > 1 && idx === prevIdx) idx = (idx + 1) % emotes.length;
+        prevIdx = idx;
+        const emote = emotes[idx];
+        mascot.classList.add(emote.cls);
+        timer = setTimeout(() => {
+            if (!mascot.isConnected) return;
+            mascot.classList.remove(emote.cls);
+            timer = setTimeout(playRandomEmote, 4000 + Math.random() * 6000);
+        }, emote.duration);
+    }
+
+    timer = setTimeout(playRandomEmote, 2000 + Math.random() * 3000);
+}
+
 function initFeedbackModal() {
     const openBtn = document.getElementById('feedbackOpenBtn');
     const closeBtn = document.getElementById('feedbackCloseBtn');

@@ -59,7 +59,8 @@
 .mascot-eye-r { transform-origin: 61px 50px; }
 
 /* Wink — squash left eye */
-.header-mascot.mascot-emote-wink .mascot-eye-l {
+.header-mascot.mascot-emote-wink .mascot-eye-l,
+.end-mascot.mascot-emote-wink .mascot-eye-l {
     animation: mascot-wink 0.5s ease-in-out;
 }
 @keyframes mascot-wink {
@@ -68,19 +69,24 @@
 }
 
 /* Dance — bounce body, swing limbs */
-.header-mascot.mascot-emote-dance {
+.header-mascot.mascot-emote-dance,
+.end-mascot.mascot-emote-dance {
     animation: mascot-dance-body 0.35s ease-in-out 5;
 }
-.header-mascot.mascot-emote-dance .mascot-leg-l {
+.header-mascot.mascot-emote-dance .mascot-leg-l,
+.end-mascot.mascot-emote-dance .mascot-leg-l {
     animation: walk-leg-l 0.35s ease-in-out 5;
 }
-.header-mascot.mascot-emote-dance .mascot-leg-r {
+.header-mascot.mascot-emote-dance .mascot-leg-r,
+.end-mascot.mascot-emote-dance .mascot-leg-r {
     animation: walk-leg-r 0.35s ease-in-out 5;
 }
-.header-mascot.mascot-emote-dance .mascot-arm-l {
+.header-mascot.mascot-emote-dance .mascot-arm-l,
+.end-mascot.mascot-emote-dance .mascot-arm-l {
     animation: walk-arm-l 0.35s ease-in-out 5;
 }
-.header-mascot.mascot-emote-dance .mascot-arm-r {
+.header-mascot.mascot-emote-dance .mascot-arm-r,
+.end-mascot.mascot-emote-dance .mascot-arm-r {
     animation: walk-arm-r 0.35s ease-in-out 5;
 }
 @keyframes mascot-dance-body {
@@ -90,7 +96,8 @@
 }
 
 /* Wave — swing right arm */
-.header-mascot.mascot-emote-wave .mascot-arm-r {
+.header-mascot.mascot-emote-wave .mascot-arm-r,
+.end-mascot.mascot-emote-wave .mascot-arm-r {
     animation: mascot-wave-arm 0.5s ease-in-out 3;
 }
 @keyframes mascot-wave-arm {
@@ -99,7 +106,8 @@
 }
 
 /* Look around — pupils shift left then right */
-.header-mascot.mascot-emote-look .mascot-pupil {
+.header-mascot.mascot-emote-look .mascot-pupil,
+.end-mascot.mascot-emote-look .mascot-pupil {
     animation: mascot-look-pupils 2s ease-in-out;
 }
 @keyframes mascot-look-pupils {
@@ -109,7 +117,8 @@
 }
 
 /* Bounce — quick hop */
-.header-mascot.mascot-emote-bounce {
+.header-mascot.mascot-emote-bounce,
+.end-mascot.mascot-emote-bounce {
     animation: mascot-bounce-hop 0.3s ease-in-out 2;
 }
 @keyframes mascot-bounce-hop {
