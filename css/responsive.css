@@ -98,6 +98,11 @@
         flex-wrap: nowrap;
         min-width: 0;
     }
+    .chart-search-group {
+        flex-shrink: 1;
+        min-width: 0;
+        margin-right: 0;
+    }
     .chart-speed-outside .header-search {
         flex-shrink: 1;
         min-width: 0;

@@ -221,7 +221,7 @@
     top: calc(100% + 8px);
     right: 0;
     min-width: 260px;
-    max-height: 320px;
+    max-height: 370px;
     overflow-y: auto;
     background:
         radial-gradient(ellipse at 50% -5%, rgba(255,255,255,0.06) 0%, transparent 50%),

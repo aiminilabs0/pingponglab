@@ -123,11 +123,16 @@
 .chart-speed-outside > span:first-child {
     margin-left: 12px;
 }
-.chart-speed-outside .header-search {
+.chart-search-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-right: 12px;
 }
+.chart-speed-outside .header-search {
+    margin-right: 0;
+}
 .chart-speed-outside .header-bestseller-btn {
-    margin-right: 4px;
     width: 30px;
     height: 30px;
     flex-shrink: 0;
