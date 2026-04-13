@@ -308,6 +308,30 @@
     display: inline-block;
     filter: grayscale(1) brightness(1) contrast(1.3);
 }
+.header-bestseller-btn {
+    color: var(--drac-comment);
+}
+.header-bestseller-btn.is-active {
+    color: #f1c40f;
+    border-color: rgba(241,196,15,0.5);
+    background:
+        radial-gradient(ellipse at 50% -10%, rgba(241,196,15,0.18) 0%, transparent 55%),
+        rgba(50,47,42,0.9);
+    box-shadow:
+        0 4px 14px rgba(241,196,15,0.2),
+        0 1px 0 rgba(255,255,255,0.10) inset;
+}
+.header-bestseller-btn.is-active:hover {
+    color: #f1c40f;
+    border-color: rgba(241,196,15,0.7);
+}
+.header-search-result-rank {
+    font-size: 11px;
+    color: #f1c40f;
+    font-weight: 700;
+    white-space: nowrap;
+    min-width: 22px;
+}
 .header-search-no-results {
     padding: 12px 14px;
     font-size: 13px;

@@ -368,6 +368,7 @@ function initHeaderSearch() {
         activeIndex = -1;
         currentMatches = [];
         clearSearchSpotlight();
+        document.getElementById('headerBestsellerBtn')?.classList.remove('is-active');
     }
 
     let _searchSpotlightActive = false;
@@ -418,7 +419,10 @@ function initHeaderSearch() {
         activeIndex = index;
     }
 
-    input.addEventListener('input', () => search(input.value));
+    input.addEventListener('input', () => {
+        document.getElementById('headerBestsellerBtn')?.classList.remove('is-active');
+        search(input.value);
+    });
 
     input.addEventListener('keydown', (e) => {
         const items = results.querySelectorAll('.header-search-result');
@@ -474,8 +478,53 @@ function initHeaderSearch() {
     });
 
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('#headerSearch')) closeResults();
+        if (!e.target.closest('#headerSearch') && !e.target.closest('#headerBestsellerBtn')) closeResults();
     });
+
+    // ── Bestseller button ──
+    const bestsellerBtn = document.getElementById('headerBestsellerBtn');
+    if (bestsellerBtn) {
+        bestsellerBtn.addEventListener('click', () => {
+            const isOpen = bestsellerBtn.classList.contains('is-active');
+            if (isOpen) {
+                bestsellerBtn.classList.remove('is-active');
+                closeResults();
+                return;
+            }
+
+            const country = (typeof selectedCountry === 'string' && selectedCountry) || 'en';
+
+            // Use the bestseller rank already stored on each rubber object
+            const top10 = rubberData
+                .filter(r => r.bestseller && r.bestseller[country] != null && r.bestseller[country] <= 10)
+                .sort((a, b) => a.bestseller[country] - b.bestseller[country])
+                .slice(0, 10)
+                .map(r => ({ rubber: r, rank: r.bestseller[country] }));
+
+            if (top10.length === 0) {
+                results.innerHTML = '<div class="header-search-no-results">No bestseller data</div>';
+                results.classList.add('is-open');
+                bestsellerBtn.classList.add('is-active');
+                activeIndex = -1;
+                currentMatches = [];
+                return;
+            }
+
+            currentMatches = top10.map(item => ({ rubber: item.rubber, matchedPlayer: '', matchedSides: {} }));
+            results.innerHTML = top10.map((item, i) => {
+                const r = item.rubber;
+                return `<div class="header-search-result" data-index="${i}">` +
+                    `<span class="header-search-result-rank">#${item.rank}</span>` +
+                    `<span class="header-search-result-abbr">${escapeHtml(r.abbr)}</span>` +
+                    `<span class="header-search-result-brand">${tBrand(r.brand)}</span>` +
+                    `</div>`;
+            }).join('');
+            results.classList.add('is-open');
+            bestsellerBtn.classList.add('is-active');
+            activeIndex = -1;
+            input.value = '';
+        });
+    }
 }
 
 function trackSearchSelectEvent(rubber) {
