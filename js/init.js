@@ -453,7 +453,14 @@ function initHeaderSearch() {
         if (currentMatches[idx]) selectResult(currentMatches[idx]);
     });
 
+    let _lastTouchTime = 0;
+
+    results.addEventListener('touchstart', () => {
+        _lastTouchTime = Date.now();
+    }, { passive: true });
+
     results.addEventListener('mouseover', (e) => {
+        if (Date.now() - _lastTouchTime < 500) return;
         const item = e.target.closest('.header-search-result');
         if (!item) return;
         const idx = parseInt(item.dataset.index, 10);
@@ -462,6 +469,7 @@ function initHeaderSearch() {
     });
 
     results.addEventListener('mouseleave', () => {
+        if (Date.now() - _lastTouchTime < 500) return;
         clearSearchSpotlight();
     });
 
