@@ -484,25 +484,24 @@ function initHeaderSearch() {
     // ── Bestseller button ──
     const bestsellerBtn = document.getElementById('headerBestsellerBtn');
     if (bestsellerBtn) {
-        bestsellerBtn.addEventListener('click', () => {
-            const isOpen = bestsellerBtn.classList.contains('is-active');
-            if (isOpen) {
-                bestsellerBtn.classList.remove('is-active');
-                closeResults();
-                return;
-            }
+        let bestsellerLeaveTimer = null;
+
+        function openBestsellerList() {
+            clearTimeout(bestsellerLeaveTimer);
+            if (bestsellerBtn.classList.contains('is-active')) return;
 
             const country = (typeof selectedCountry === 'string' && selectedCountry) || 'en';
 
-            // Use the bestseller rank already stored on each rubber object
             const top10 = rubberData
                 .filter(r => r.bestseller && r.bestseller[country] != null && r.bestseller[country] <= 10)
                 .sort((a, b) => a.bestseller[country] - b.bestseller[country])
                 .slice(0, 10)
                 .map(r => ({ rubber: r, rank: r.bestseller[country] }));
 
+            const header = '<div class="header-search-list-header">Top 10 Bestsellers</div>';
+
             if (top10.length === 0) {
-                results.innerHTML = '<div class="header-search-no-results">No bestseller data</div>';
+                results.innerHTML = header + '<div class="header-search-no-results">No bestseller data</div>';
                 results.classList.add('is-open');
                 bestsellerBtn.classList.add('is-active');
                 activeIndex = -1;
@@ -511,7 +510,7 @@ function initHeaderSearch() {
             }
 
             currentMatches = top10.map(item => ({ rubber: item.rubber, matchedPlayer: '', matchedSides: {} }));
-            results.innerHTML = top10.map((item, i) => {
+            results.innerHTML = header + top10.map((item, i) => {
                 const r = item.rubber;
                 return `<div class="header-search-result" data-index="${i}">` +
                     `<span class="header-search-result-rank">#${item.rank}</span>` +
@@ -523,6 +522,29 @@ function initHeaderSearch() {
             bestsellerBtn.classList.add('is-active');
             activeIndex = -1;
             input.value = '';
+        }
+
+        function scheduleBestsellerClose() {
+            bestsellerLeaveTimer = setTimeout(() => {
+                if (!bestsellerBtn.matches(':hover') && !results.matches(':hover')) {
+                    bestsellerBtn.classList.remove('is-active');
+                    closeResults();
+                }
+            }, 150);
+        }
+
+        bestsellerBtn.addEventListener('mouseenter', openBestsellerList);
+        bestsellerBtn.addEventListener('mouseleave', scheduleBestsellerClose);
+        results.addEventListener('mouseenter', () => clearTimeout(bestsellerLeaveTimer));
+        results.addEventListener('mouseleave', scheduleBestsellerClose);
+
+        bestsellerBtn.addEventListener('click', () => {
+            if (bestsellerBtn.classList.contains('is-active')) {
+                bestsellerBtn.classList.remove('is-active');
+                closeResults();
+            } else {
+                openBestsellerList();
+            }
         });
     }
 }
