@@ -3,35 +3,25 @@
     display: inline-flex;
     align-items: center;
     gap: 2px;
-    background:
-        radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0.12) 0%, transparent 55%),
-        var(--drac-bg-dark);
-    border: 2.5px solid rgba(0,0,0,0.45);
-    border-radius: 100px;
-    padding: 4px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 3px;
     position: relative;
-    box-shadow:
-        0 4px 14px rgba(0,0,0,0.4),
-        0 1px 0 rgba(255,255,255,0.10) inset;
 }
-/* Sliding M&M pill indicator */
+/* Sliding pill indicator */
 .country-selector::before {
     content: '';
     position: absolute;
-    top: 4px;
+    top: 3px;
     left: calc(var(--pill-x) * 1px);
     width: calc(var(--pill-w) * 1px);
-    height: calc(100% - 8px);
-    border-radius: 100px;
-    border: 1.5px solid rgba(0,0,0,0.45);
-    background:
-        radial-gradient(ellipse at 50% 15%, rgba(255,255,255,0.40) 0%, rgba(218,138,82,0.65) 45%, rgba(140,60,10,0.8) 100%);
-    box-shadow:
-        0 3px 12px rgba(218,138,82,0.35),
-        0 1px 0 rgba(255,255,255,0.18) inset;
-    transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-                width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    height: calc(100% - 6px);
+    border-radius: 7px;
+    background: rgba(224,122,64,0.18);
+    border: 1px solid rgba(224,122,64,0.25);
+    transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
     z-index: 0;
 }
@@ -42,20 +32,20 @@
 .country-btn {
     display: inline-flex;
     align-items: center;
-    padding: 6px 11px;
+    padding: 5px 10px;
     border: none;
-    border-radius: 100px;
+    border-radius: 7px;
     background: transparent;
-    font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.04em;
     line-height: 1;
     min-width: 34px;
     justify-content: center;
-    color: rgba(155,148,132,0.7);
+    color: var(--drac-comment);
     cursor: pointer;
-    transition: color 0.15s ease, transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
+    transition: color 0.15s ease;
     white-space: nowrap;
     position: relative;
     z-index: 1;
@@ -69,12 +59,10 @@
 }
 .country-btn:hover {
     color: var(--drac-fg);
-    transform: scale(1.08);
 }
 .country-btn.active {
     color: var(--drac-fg);
-    font-weight: 800;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    font-weight: 700;
 }
 
 /* ── Country switch animations ── */

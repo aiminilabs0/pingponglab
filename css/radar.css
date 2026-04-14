@@ -1,8 +1,8 @@
 /* ── Radar chart section ── */
 .radar-section {
     margin-top: 24px;
-    background: rgba(28,26,23,0.55);
-    border: 1px solid rgba(155,148,132,0.10);
+    background: rgba(14,15,18,0.7);
+    border: 1px solid rgba(255,255,255,0.07);
     border-bottom: none;
     border-radius: 14px 14px 0 0;
     overflow: visible;
@@ -19,7 +19,7 @@
     z-index: 2;
 }
 .radar-info-combined {
-    border-top: 1px solid rgba(155,148,132,0.08);
+    border-top: 1px solid rgba(255,255,255,0.06);
     padding: 14px 16px;
 }
 
@@ -67,7 +67,7 @@
     align-items: center;
     padding: 8px 8px;
     margin-bottom: 8px;
-    border-bottom: 1px solid rgba(155,148,132,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .radar-cmp-hero-cell--left {
     text-align: right;
@@ -193,7 +193,7 @@
         flex: 0 0 auto;
         width: 400px;
         border-top: none;
-        border-left: 1px solid rgba(155,148,132,0.08);
+        border-left: 1px solid rgba(255,255,255,0.06);
     }
 }
 
@@ -222,9 +222,9 @@
     width: 24px;
     height: 24px;
     padding: 0;
-    border: 1px solid rgba(155,148,132,0.15);
+    border: 1px solid rgba(255,255,255,0.09);
     border-radius: 7px;
-    background: rgba(62, 58, 52, 0.4);
+    background: rgba(255,255,255,0.05);
     box-shadow: none;
     color: var(--drac-comment);
     cursor: pointer;
@@ -234,7 +234,7 @@
 }
 .radar-pin-btn:hover {
     opacity: 1;
-    background: rgba(62, 58, 52, 0.7);
+    background: rgba(255,255,255,0.08);
     border-color: rgba(155,148,132,0.25);
     box-shadow: none;
     transform: translateY(-1px);
@@ -247,7 +247,7 @@
     transform: translateX(-50%) translateY(4px);
     padding: 6px 10px;
     border-radius: 8px;
-    background: rgba(28,26,23,0.95);
+    background: var(--drac-bg-dark);
     border: 1px solid rgba(155,148,132,0.20);
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
     backdrop-filter: blur(8px);
@@ -381,7 +381,7 @@
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    background: rgba(62, 58, 52, 0.35);
+    background: rgba(255,255,255,0.04);
     margin-top: 4px;
     margin-bottom: 4px;
 }

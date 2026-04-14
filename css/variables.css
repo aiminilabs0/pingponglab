@@ -1,17 +1,17 @@
-/* ── Claude / warm-dark palette ── */
+/* ── Modern minimal dark palette ── */
 :root {
-    --drac-bg: #2b2926;
-    --drac-bg-dark: #1c1a17;
-    --drac-current: #3e3a34;
-    --drac-fg: #e8e0d0;
-    --drac-comment: #9b9484;
-    --drac-cyan: #7eb8a8;
-    --drac-green: #8bbd6e;
-    --drac-orange: #da8a52;
-    --drac-pink: #d4785e;
-    --drac-purple: #d97756;
-    --drac-red: #cf5555;
-    --drac-yellow: #d4c16a;
+    --drac-bg: #111214;
+    --drac-bg-dark: #0d0e10;
+    --drac-current: #1e2126;
+    --drac-fg: #dde4f0;
+    --drac-comment: #6b7280;
+    --drac-cyan: #60a5d8;
+    --drac-green: #5cb87a;
+    --drac-orange: #e07a40;
+    --drac-pink: #d4786a;
+    --drac-purple: #9d7ff5;
+    --drac-red: #e05555;
+    --drac-yellow: #d4b84a;
 }
 
 * {
@@ -20,7 +20,7 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Comic Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 17px;
     padding: 0;
     background: var(--drac-bg);
@@ -40,8 +40,8 @@ body {
     padding: 6px 12px;
     margin-bottom: 8px;
     font-size: 0.85rem;
-    color: #ffd866;
-    background: rgba(255, 216, 102, 0.08);
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.07);
     border-radius: 6px;
     transition: opacity 0.5s ease;
 }
@@ -53,8 +53,5 @@ body {
     padding: 0;
     overflow: hidden;
     position: relative;
-    background:
-        radial-gradient(ellipse 70% 40% at 50% 0%, rgba(126,184,168,0.06) 0%, transparent 100%),
-        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(218,138,82,0.04) 0%, transparent 100%),
-        radial-gradient(ellipse 50% 50% at 90% 100%, rgba(212,193,106,0.04) 0%, transparent 100%);
+    background: transparent;
 }
