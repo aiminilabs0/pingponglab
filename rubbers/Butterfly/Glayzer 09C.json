@@ -1,0 +1,63 @@
+{
+  "abbr": "Glayzer 09C",
+  "name": "Glayzer 09C",
+  "abbr_i18n": {
+    "en": "Glayzer 09C",
+    "ko": "글레이저09C",
+    "cn": "Glayzer 09C"
+  },
+  "name_i18n": {
+    "en": "Glayzer 09C",
+    "ko": "글레이저09C",
+    "cn": "Glayzer 09C"
+  },
+  "manufacturer": "Butterfly",
+  "players": {
+    "forehand": [],
+    "backhand": []
+  },
+  "manufacturer_details": {
+    "url": "https://www.tt-spin.com/butterfly-glayzer-09c/",
+    "country": "Japan",
+    "release_year": 2023,
+    "hardness": 42,
+    "thickness": [
+      "2.1",
+      "1.9",
+      "1.7"
+    ],
+    "sheet": "Tension",
+    "weight": 47
+  },
+  "price": {
+    "en": {
+      "regular": "$54.99",
+      "sale": "",
+      "discount": ""
+    },
+    "ko": {
+      "regular": "$54.99",
+      "sale": "",
+      "discount": ""
+    },
+    "cn": {
+      "regular": "$54.99",
+      "sale": "",
+      "discount": ""
+    }
+  },
+  "urls": {
+    "en": {
+      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=b-glayzer-09c",
+      "youtube": "https://www.youtube.com/watch?v=4MFsNEHIzzs"
+    },
+    "ko": {
+      "product": "",
+      "youtube": "https://www.youtube.com/watch?v=P-i9bOI08T4"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  }
+}

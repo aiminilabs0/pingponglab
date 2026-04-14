@@ -88,5 +88,6 @@
   "Etika 47",
   "Etika 51",
   "Etika Pro 47",
-  "Etika Pro H"
+  "Etika Pro H",
+  "Glayzer 09C"
 ]

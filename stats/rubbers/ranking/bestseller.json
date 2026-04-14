@@ -7,21 +7,22 @@
     { "brand": "Yasaka", "name": "Rakza 7" },
     { "brand": "Nittaku", "name": "G-1" },
     { "brand": "Xiom", "name": "Vega Pro" },
+    { "brand": "Butterfly", "name": "Glayzer 09C" },
     { "brand": "Andro", "name": "NUZN 55" },
     { "brand": "Yasaka", "name": "Rakza Z" },
     { "brand": "Tibhar", "name": "MX-P" }
   ],
   "ko": [
     { "brand": "Nittaku", "name": "G-1" },
-    { "brand": "Tibhar", "name": "K3" },
+    { "brand": "Butterfly", "name": "Dignics 09C" },
     { "brand": "Butterfly", "name": "Tenergy 05" },
+    { "brand": "Butterfly", "name": "Glayzer 09C" },
     { "brand": "Tibhar", "name": "MX-K" },
     { "brand": "Butterfly", "name": "Tenergy 64" },
     { "brand": "Tibhar", "name": "MX-P" },
     { "brand": "Xiom", "name": "Omega 7 Pro" },
     { "brand": "JOOLA", "name": "Dynaryz Inferno" },
-    { "brand": "Donic", "name": "Baracuda" },
-    { "brand": "Butterfly", "name": "Dignics 09C" }
+    { "brand": "Donic", "name": "Baracuda" }
   ],
   "cn": [
     { "brand": "DHS", "name": "H3 Neo" },

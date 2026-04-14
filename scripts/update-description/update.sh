@@ -27,7 +27,7 @@ if [[ -z "${param//[[:space:]]/}" ]]; then
 fi
 
 # TODO:: Modify!!!!!!  (Brand)
-brand="Xiom"
+brand="Butterfly"
 
 # Read each language source file and write to the matching directory
 mkdir -p \
