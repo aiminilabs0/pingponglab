@@ -7,6 +7,7 @@
     padding: 0;
     margin: -32px -32px 0;
     border-radius: 0;
+    overflow: hidden;
     background: var(--drac-bg-dark);
     border-bottom: 1px solid rgba(255,255,255,0.06);
     box-shadow: none;
@@ -205,7 +206,7 @@
     border: 1px solid rgba(255,255,255,0.10);
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(0,0,0,0.5);
-    z-index: 100001;
+    z-index: 200;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
     overflow: hidden;
