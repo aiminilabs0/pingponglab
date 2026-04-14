@@ -517,7 +517,7 @@ function updateRadarChart() {
             bgcolor: 'rgba(0,0,0,0)',
             radialaxis: {
                 visible: true,
-                range: [0, isMobile ? 105 : 128],
+                range: [0, isMobile ? 120 : 128],
                 showticklabels: false,
                 gridcolor: 'rgba(158,150,137,0.12)',
                 linecolor: 'rgba(0,0,0,0)',
