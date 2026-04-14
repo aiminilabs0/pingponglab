@@ -7,7 +7,6 @@
     padding: 0;
     margin: -32px -32px 0;
     border-radius: 20px 20px 0 0;
-    overflow: hidden;
     background:
         /* glossy candy highlight — big bright arc across the top */
         radial-gradient(ellipse 110% 50% at 50% -12%, rgba(255,255,255,0.16) 0%, transparent 55%),
@@ -240,7 +239,7 @@
     box-shadow:
         0 14px 40px rgba(0,0,0,0.55),
         0 1px 0 rgba(255,255,255,0.08) inset;
-    z-index: 200;
+    z-index: 100001;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-orange) var(--drac-current);
     overflow: hidden;

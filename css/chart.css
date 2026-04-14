@@ -114,7 +114,8 @@
     letter-spacing: 0.3px;
     line-height: 1.2;
     position: relative;
-    z-index: 2;
+    /* Above .chart-hover-popup (9200): children’s z-index only applies inside this context */
+    z-index: 10050;
     margin: 0 -32px;
     min-width: 0;
     background: transparent;
