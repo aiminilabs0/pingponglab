@@ -28,16 +28,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="/css/variables.css?v=107">
-    <link rel="stylesheet" href="/css/header.css?v=107">
-    <link rel="stylesheet" href="/css/filter-panel.css?v=107">
-    <link rel="stylesheet" href="/css/chart.css?v=107">
-    <link rel="stylesheet" href="/css/content.css?v=107">
-    <link rel="stylesheet" href="/css/radar.css?v=107">
-    <link rel="stylesheet" href="/css/feedback.css?v=107">
-    <link rel="stylesheet" href="/css/country.css?v=107">
-    <link rel="stylesheet" href="/css/auth.css?v=107">
-    <link rel="stylesheet" href="/css/responsive.css?v=107">
+    <link rel="stylesheet" href="/css/variables.css?v=108">
+    <link rel="stylesheet" href="/css/header.css?v=108">
+    <link rel="stylesheet" href="/css/filter-panel.css?v=108">
+    <link rel="stylesheet" href="/css/chart.css?v=108">
+    <link rel="stylesheet" href="/css/content.css?v=108">
+    <link rel="stylesheet" href="/css/radar.css?v=108">
+    <link rel="stylesheet" href="/css/feedback.css?v=108">
+    <link rel="stylesheet" href="/css/country.css?v=108">
+    <link rel="stylesheet" href="/css/auth.css?v=108">
+    <link rel="stylesheet" href="/css/responsive.css?v=108">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -301,19 +301,47 @@
         </div>
     </div>
 
-    <script src="/js/slug.js?v=107"></script>
-    <script src="/js/router.js?v=107"></script>
-    <script src="/js/auth.js?v=107"></script>
-    <script src="/js/config.js?v=107"></script>
-    <script src="/js/state.js?v=107"></script>
-    <script src="/js/data.js?v=107"></script>
-    <script src="/js/filters.js?v=107"></script>
-    <script src="/js/content.js?v=107"></script>
-    <script src="/js/url-sync.js?v=107"></script>
-    <script src="/js/chart.js?v=107"></script>
-    <script src="/js/radar.js?v=107"></script>
-    <script src="/js/youtube.js?v=107"></script>
-    <script src="/js/reset.js?v=107"></script>
-    <script src="/js/init.js?v=107"></script>
+    <div class="comparison-request-modal" id="comparisonRequestModal" aria-hidden="true">
+        <div class="comparison-request-modal-card" role="dialog" aria-modal="true" aria-labelledby="compReqTitle">
+            <button type="button" class="feedback-modal-close" id="compReqCloseBtn" aria-label="Close">×</button>
+            <div class="comparison-request-modal-header">
+                <div class="comparison-request-modal-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <h2 id="compReqTitle">Get notified</h2>
+            </div>
+            <p class="comparison-request-modal-sub" id="compReqSub"></p>
+            <form class="comparison-request-form" id="compReqForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="209c243c-c02d-4523-8587-1fe225a6cad3">
+                <input type="hidden" name="subject" id="compReqSubject" value="Comparison request">
+                <input type="hidden" name="message" id="compReqMessage" value="">
+                <input type="checkbox" name="botcheck" class="feedback-botcheck" tabindex="-1" autocomplete="off">
+
+                <label for="compReqEmail" id="compReqEmailLabel">Email</label>
+                <input id="compReqEmail" type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+
+                <button type="submit" id="compReqSubmitBtn">Notify me</button>
+            </form>
+            <div class="comparison-request-confirmation" id="compReqConfirmation" hidden>
+                <p class="feedback-confirmation-icon" aria-hidden="true">✓</p>
+                <p class="feedback-confirmation-message" id="compReqConfirmationMsg">We'll let you know when it's ready.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/slug.js?v=108"></script>
+    <script src="/js/router.js?v=108"></script>
+    <script src="/js/auth.js?v=108"></script>
+    <script src="/js/config.js?v=108"></script>
+    <script src="/js/state.js?v=108"></script>
+    <script src="/js/data.js?v=108"></script>
+    <script src="/js/filters.js?v=108"></script>
+    <script src="/js/content.js?v=108"></script>
+    <script src="/js/url-sync.js?v=108"></script>
+    <script src="/js/chart.js?v=108"></script>
+    <script src="/js/radar.js?v=108"></script>
+    <script src="/js/youtube.js?v=108"></script>
+    <script src="/js/reset.js?v=108"></script>
+    <script src="/js/init.js?v=108"></script>
 </body>
 </html>
