@@ -29,7 +29,7 @@
       "youtube": "https://www.youtube.com/watch?v=nw00uruEhQ4&t=40s"
     },
     "ko": {
-      "product": "",
+      "product": "https://naver.me/xgXkZCbL",
       "youtube": ""
     },
     "cn": {
@@ -44,9 +44,9 @@
       "discount": "-7%"
     },
     "ko": {
-      "regular": "$69.99",
-      "sale": "$64.99",
-      "discount": "-7%"
+      "regular": "55.0",
+      "sale": "",
+      "discount": ""
     },
     "cn": {
       "regular": "$69.99",

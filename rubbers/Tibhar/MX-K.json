@@ -29,12 +29,29 @@
       "youtube": ""
     },
     "ko": {
-      "product": "",
+      "product": "https://naver.me/GM3e4bes",
       "youtube": "https://www.youtube.com/watch?v=5YHcPv98mOo"
     },
     "cn": {
       "product": "",
       "youtube": ""
+    }
+  },
+  "price": {
+    "en": {
+      "regular": "",
+      "sale": "",
+      "discount": ""
+    },
+    "ko": {
+      "regular": "51.0",
+      "sale": "",
+      "discount": ""
+    },
+    "cn": {
+      "regular": "",
+      "sale": "",
+      "discount": ""
     }
   }
 }

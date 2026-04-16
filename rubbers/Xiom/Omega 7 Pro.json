@@ -37,7 +37,7 @@
       "youtube": "https://www.youtube.com/results?search_query=omega+7+pro"
     },
     "ko": {
-      "product": "",
+      "product": "https://naver.me/G1p8ojsw",
       "youtube": "https://www.youtube.com/watch?v=3NicjgS5DzE"
     },
     "cn": {
@@ -52,9 +52,9 @@
       "discount": "-12%"
     },
     "ko": {
-      "regular": "$64.99",
-      "sale": "$57.19",
-      "discount": "-12%"
+      "regular": "50.0",
+      "sale": "",
+      "discount": "-"
     },
     "cn": {
       "regular": "$64.99",
