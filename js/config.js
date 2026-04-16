@@ -148,9 +148,17 @@ const UI_TEXT = {
         BACKHAND: 'Backhand',
         SHARE: 'Share',
         SHARE_COPIED: 'Link copied!',
-        NO_COMPARISON: 'No comparison available.',
-        NO_COMPARISON_SUB: 'We haven\'t reviewed this matchup yet. Let us know and we\'ll get to it.',
-        REQUEST_COMPARISON: 'Request a Comparison'
+        NO_COMPARISON: 'No comparison available yet',
+        NO_COMPARISON_SUB: 'We haven\'t reviewed this matchup yet. Request it and we\'ll notify you when it\'s ready.',
+        REQUEST_COMPARISON: 'Request a Comparison',
+        COMP_REQ_TITLE: 'Get notified',
+        COMP_REQ_SUB_BEFORE: 'We\'ll email you when ',
+        COMP_REQ_SUB_AFTER: ' is ready.',
+        COMP_REQ_EMAIL_LABEL: 'Email',
+        COMP_REQ_SUBMIT: 'Notify me',
+        COMP_REQ_SUBMITTING: 'Sending...',
+        COMP_REQ_CONFIRMATION: 'We\'ll let you know when it\'s ready.',
+        COMP_REQ_FAILED: 'Could not send request. Please try again.'
     },
     ko: {
         FILTERS: '필터',
@@ -212,9 +220,17 @@ const UI_TEXT = {
         BACKHAND: '백핸드',
         SHARE: '공유',
         SHARE_COPIED: '링크가 복사되었습니다!',
-        NO_COMPARISON: '비교 정보가 없습니다.',
-        NO_COMPARISON_SUB: '아직 이 조합을 검토하지 않았어요. 요청해 주시면 빠르게 추가할게요.',
-        REQUEST_COMPARISON: '비교 요청하기'
+        NO_COMPARISON: '아직 비교 정보가 없습니다',
+        NO_COMPARISON_SUB: '아직 이 조합을 검토하지 않았어요. 요청하시면 준비되면 알려드릴게요.',
+        REQUEST_COMPARISON: '비교 요청하기',
+        COMP_REQ_TITLE: '알림 받기',
+        COMP_REQ_SUB_BEFORE: '',
+        COMP_REQ_SUB_AFTER: ' 비교가 준비되면 이메일로 알려드릴게요.',
+        COMP_REQ_EMAIL_LABEL: '이메일',
+        COMP_REQ_SUBMIT: '알림 받기',
+        COMP_REQ_SUBMITTING: '전송 중...',
+        COMP_REQ_CONFIRMATION: '준비되면 알려드릴게요.',
+        COMP_REQ_FAILED: '요청 전송에 실패했습니다. 다시 시도해주세요.'
     },
     cn: {
         FILTERS: '筛选',
@@ -276,9 +292,17 @@ const UI_TEXT = {
         BACKHAND: '反手',
         SHARE: '分享',
         SHARE_COPIED: '链接已复制！',
-        NO_COMPARISON: '暂无对比内容。',
-        NO_COMPARISON_SUB: '我们还没有评测这个组合，欢迎提交请求，我们会尽快补充。',
-        REQUEST_COMPARISON: '请求添加对比'
+        NO_COMPARISON: '暂无对比内容',
+        NO_COMPARISON_SUB: '我们还没有评测这个组合。提交请求后，准备好时我们会通知您。',
+        REQUEST_COMPARISON: '请求添加对比',
+        COMP_REQ_TITLE: '获取通知',
+        COMP_REQ_SUB_BEFORE: '当 ',
+        COMP_REQ_SUB_AFTER: ' 的对比准备好后，我们会通过邮件通知您。',
+        COMP_REQ_EMAIL_LABEL: '邮箱',
+        COMP_REQ_SUBMIT: '通知我',
+        COMP_REQ_SUBMITTING: '发送中...',
+        COMP_REQ_CONFIRMATION: '准备好后我们会通知您。',
+        COMP_REQ_FAILED: '请求发送失败，请稍后重试。'
     }
 };
 

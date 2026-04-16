@@ -12,6 +12,22 @@ const PRODUCT_STORE_MAP = [
 ];
 const PRODUCT_DEFAULT_STORE = { icon: null, label: 'Buy' };
 
+const MASCOT_SVG =
+    `<svg class="end-mascot" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
+        `<ellipse cx="50" cy="58" rx="34" ry="38" fill="#da8a52"/>` +
+        `<ellipse cx="42" cy="42" rx="20" ry="16" fill="rgba(255,255,255,0.18)" transform="rotate(-12 42 42)"/>` +
+        `<ellipse cx="50" cy="88" rx="26" ry="6" fill="rgba(0,0,0,0.15)"/>` +
+        `<g class="mascot-eye mascot-eye-l"><ellipse cx="39" cy="50" rx="8" ry="9" fill="#fff"/><circle class="mascot-pupil" cx="41" cy="52" r="4.5" fill="#2e2a25"/><circle cx="39" cy="49" r="2" fill="#fff"/></g>` +
+        `<g class="mascot-eye mascot-eye-r"><ellipse cx="61" cy="50" rx="8" ry="9" fill="#fff"/><circle class="mascot-pupil" cx="63" cy="52" r="4.5" fill="#2e2a25"/><circle cx="61" cy="49" r="2" fill="#fff"/></g>` +
+        `<path d="M42 65 Q50 73 58 65" stroke="#2e2a25" stroke-width="2.5" fill="none" stroke-linecap="round"/>` +
+        `<ellipse cx="32" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>` +
+        `<ellipse cx="68" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>` +
+        `<g class="mascot-arm mascot-arm-l"><path d="M18 60 Q10 54 8 46" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="7" cy="43" r="4" fill="#c47a42"/><circle cx="4" cy="36" r="7" fill="#f0ead6" stroke="#ddd" stroke-width="0.5"/><ellipse cx="2.5" cy="33.5" rx="3" ry="2.2" fill="rgba(255,255,255,0.5)" transform="rotate(-20 2.5 33.5)"/></g>` +
+        `<g class="mascot-arm mascot-arm-r"><path d="M82 58 Q90 50 92 40" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="93" cy="37" r="4" fill="#c47a42"/></g>` +
+        `<g class="mascot-leg mascot-leg-l"><path d="M38 92 Q36 104 32 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="30" cy="114" rx="6" ry="3" fill="#c47a42"/></g>` +
+        `<g class="mascot-leg mascot-leg-r"><path d="M62 92 Q64 104 68 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="114" rx="6" ry="3" fill="#c47a42"/></g>` +
+    `</svg>`;
+
 function getProductStoreMeta(url) {
     if (!url) return null;
     url = url.trim();
@@ -430,25 +446,9 @@ function buildContentFeedbackButtonsHtml(context = {}) {
     const rightRubber = escapeHtml(context.rightRubber || '');
     const ariaSubject = context.ariaSubject || 'this content';
 
-    const mascotSvg =
-        `<svg class="end-mascot" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
-            `<ellipse cx="50" cy="58" rx="34" ry="38" fill="#da8a52"/>` +
-            `<ellipse cx="42" cy="42" rx="20" ry="16" fill="rgba(255,255,255,0.18)" transform="rotate(-12 42 42)"/>` +
-            `<ellipse cx="50" cy="88" rx="26" ry="6" fill="rgba(0,0,0,0.15)"/>` +
-            `<g class="mascot-eye mascot-eye-l"><ellipse cx="39" cy="50" rx="8" ry="9" fill="#fff"/><circle class="mascot-pupil" cx="41" cy="52" r="4.5" fill="#2e2a25"/><circle cx="39" cy="49" r="2" fill="#fff"/></g>` +
-            `<g class="mascot-eye mascot-eye-r"><ellipse cx="61" cy="50" rx="8" ry="9" fill="#fff"/><circle class="mascot-pupil" cx="63" cy="52" r="4.5" fill="#2e2a25"/><circle cx="61" cy="49" r="2" fill="#fff"/></g>` +
-            `<path d="M42 65 Q50 73 58 65" stroke="#2e2a25" stroke-width="2.5" fill="none" stroke-linecap="round"/>` +
-            `<ellipse cx="32" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>` +
-            `<ellipse cx="68" cy="62" rx="5" ry="3" fill="rgba(212,120,94,0.4)"/>` +
-            `<g class="mascot-arm mascot-arm-l"><path d="M18 60 Q10 54 8 46" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="7" cy="43" r="4" fill="#c47a42"/><circle cx="4" cy="36" r="7" fill="#f0ead6" stroke="#ddd" stroke-width="0.5"/><ellipse cx="2.5" cy="33.5" rx="3" ry="2.2" fill="rgba(255,255,255,0.5)" transform="rotate(-20 2.5 33.5)"/></g>` +
-            `<g class="mascot-arm mascot-arm-r"><path d="M82 58 Q90 50 92 40" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="93" cy="37" r="4" fill="#c47a42"/></g>` +
-            `<g class="mascot-leg mascot-leg-l"><path d="M38 92 Q36 104 32 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="30" cy="114" rx="6" ry="3" fill="#c47a42"/></g>` +
-            `<g class="mascot-leg mascot-leg-r"><path d="M62 92 Q64 104 68 112" stroke="#da8a52" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="70" cy="114" rx="6" ry="3" fill="#c47a42"/></g>` +
-        `</svg>`;
-
     return (
         `<div class="content-end-mascot-row">` +
-            mascotSvg +
+            MASCOT_SVG +
             `<span class="content-end-mascot-label">You made it to the end</span>` +
         `</div>` +
         `<div class="content-feedback-actions" data-feedback-scope="${voteScope}">` +
@@ -489,11 +489,11 @@ async function updateComparisonBar() {
             tabContents.comparison =
                 `<div class="comparison-title">${compTitleHtml}</div>` +
                 `<div class="content-pane-scroll">` +
-                    `<div class="comparison-status-msg-wrap">` +
-                        `<div class="comparison-status-icon"></div>` +
-                        `<p class="comparison-status-msg">${tUi('NO_COMPARISON')}</p>` +
-                        `<p class="comparison-status-sub">${tUi('NO_COMPARISON_SUB')}</p>` +
-                        `<button type="button" class="comparison-feedback-btn" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">${tUi('REQUEST_COMPARISON')}</button>` +
+                    `<div class="comparison-empty-state">` +
+                        `<div class="comparison-empty-mascot">${MASCOT_SVG}</div>` +
+                        `<h3 class="comparison-empty-title">${tUi('NO_COMPARISON')}</h3>` +
+                        `<p class="comparison-empty-sub">${tUi('NO_COMPARISON_SUB')}</p>` +
+                        `<button type="button" class="comparison-empty-cta" data-feedback-request-comparison="true" data-left-rubber="${leftName}" data-right-rubber="${rightName}">${tUi('REQUEST_COMPARISON')}</button>` +
                     `</div>` +
                 `</div>`;
         }

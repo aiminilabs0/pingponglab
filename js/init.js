@@ -654,7 +654,6 @@ function initFeedbackModal() {
     if (!openBtn || !closeBtn || !modal || !form) return;
 
     let closeTimer = null;
-    let comparisonRequestToastTimer = null;
 
     function clearCloseTimer() {
         if (closeTimer) {
@@ -700,28 +699,6 @@ function initFeedbackModal() {
         document.body.style.overflow = '';
     }
 
-    function ensureComparisonRequestToast() {
-        let toast = document.getElementById('comparisonRequestToast');
-        if (toast) return toast;
-        toast = document.createElement('div');
-        toast.id = 'comparisonRequestToast';
-        toast.className = 'comparison-request-toast';
-        toast.setAttribute('role', 'status');
-        toast.setAttribute('aria-live', 'polite');
-        document.body.appendChild(toast);
-        return toast;
-    }
-
-    function showComparisonRequestToast(message) {
-        const toast = ensureComparisonRequestToast();
-        toast.textContent = message || tUi('FEEDBACK_REQUEST_SENT_TOAST');
-        toast.classList.add('is-visible');
-        if (comparisonRequestToastTimer) clearTimeout(comparisonRequestToastTimer);
-        comparisonRequestToastTimer = setTimeout(() => {
-            toast.classList.remove('is-visible');
-        }, 1800);
-    }
-
     function openFeedbackModal(options = {}) {
         const prefillMessage = typeof options.prefillMessage === 'string' ? options.prefillMessage : '';
         closeFilterPanel();
@@ -752,15 +729,6 @@ function initFeedbackModal() {
     }
 
     openBtn.addEventListener('click', openFeedbackModal);
-    document.addEventListener('click', (e) => {
-        const requestBtn = e.target.closest('[data-feedback-request-comparison="true"]');
-        if (!requestBtn) return;
-        trackComparisonRequestEvent(
-            requestBtn.dataset.leftRubber || '',
-            requestBtn.dataset.rightRubber || ''
-        );
-        showComparisonRequestToast(tUi('FEEDBACK_COMPARISON_TOAST'));
-    });
     closeBtn.addEventListener('click', closeFeedbackModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeFeedbackModal();
@@ -797,6 +765,158 @@ function initFeedbackModal() {
             setFeedbackStatus(tUi('FEEDBACK_STATUS_FAILED'), '#cf5555');
         } finally {
             setSubmittingState(false);
+        }
+    });
+}
+
+function initComparisonRequestModal() {
+    function ensureModal() {
+        let modal = document.getElementById('comparisonRequestModal');
+        if (modal) return modal;
+        modal = document.createElement('div');
+        modal.className = 'comparison-request-modal';
+        modal.id = 'comparisonRequestModal';
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML =
+            '<div class="comparison-request-modal-card" role="dialog" aria-modal="true" aria-labelledby="compReqTitle">' +
+                '<button type="button" class="feedback-modal-close" id="compReqCloseBtn" aria-label="Close">\u00d7</button>' +
+                '<div class="comparison-request-modal-header">' +
+                    '<div class="comparison-request-modal-icon" aria-hidden="true">' +
+                        '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
+                    '</div>' +
+                    '<h2 id="compReqTitle">Get notified</h2>' +
+                '</div>' +
+                '<p class="comparison-request-modal-sub" id="compReqSub"></p>' +
+                '<form class="comparison-request-form" id="compReqForm" action="https://api.web3forms.com/submit" method="POST">' +
+                    '<input type="hidden" name="access_key" value="209c243c-c02d-4523-8587-1fe225a6cad3">' +
+                    '<input type="hidden" name="subject" id="compReqSubject" value="Comparison request">' +
+                    '<input type="hidden" name="message" id="compReqMessage" value="">' +
+                    '<input type="checkbox" name="botcheck" class="feedback-botcheck" tabindex="-1" autocomplete="off">' +
+                    '<label for="compReqEmail" id="compReqEmailLabel">Email</label>' +
+                    '<input id="compReqEmail" type="email" name="email" autocomplete="email" required placeholder="you@example.com">' +
+                    '<button type="submit" id="compReqSubmitBtn">Notify me</button>' +
+                '</form>' +
+                '<div class="comparison-request-confirmation" id="compReqConfirmation" hidden>' +
+                    '<p class="feedback-confirmation-icon" aria-hidden="true">\u2713</p>' +
+                    '<p class="feedback-confirmation-message" id="compReqConfirmationMsg"></p>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(modal);
+        return modal;
+    }
+
+    let modal = null;
+    let closeTimer = null;
+
+    function clearTimer() {
+        if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    }
+
+    function closeModal() {
+        clearTimer();
+        if (modal) {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
+    }
+
+    function openModal(leftRubber, rightRubber) {
+        clearTimer();
+        modal = ensureModal();
+        const matchup = `${leftRubber} vs ${rightRubber}`;
+
+        const titleEl = document.getElementById('compReqTitle');
+        const subEl = document.getElementById('compReqSub');
+        const emailLabel = document.getElementById('compReqEmailLabel');
+        const subjectInput = document.getElementById('compReqSubject');
+        const messageInput = document.getElementById('compReqMessage');
+        const emailInput = document.getElementById('compReqEmail');
+        const submitBtn = document.getElementById('compReqSubmitBtn');
+        const form = document.getElementById('compReqForm');
+        const confirmation = document.getElementById('compReqConfirmation');
+
+        if (titleEl) titleEl.textContent = tUi('COMP_REQ_TITLE');
+        if (subEl) {
+            subEl.innerHTML = tUi('COMP_REQ_SUB_BEFORE') +
+                '<strong>' + escapeHtml(matchup) + '</strong>' +
+                tUi('COMP_REQ_SUB_AFTER');
+        }
+        if (emailLabel) emailLabel.textContent = tUi('COMP_REQ_EMAIL_LABEL');
+        if (subjectInput) subjectInput.value = `Comparison request: ${matchup}`;
+        if (messageInput) messageInput.value = `User requested comparison: ${matchup}`;
+
+        if (form) { form.reset(); form.hidden = false; }
+        if (confirmation) confirmation.hidden = true;
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = tUi('COMP_REQ_SUBMIT');
+        }
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            if (emailInput) {
+                try { emailInput.focus({ preventScroll: true }); }
+                catch { emailInput.focus(); }
+            }
+        }, 50);
+    }
+
+    document.addEventListener('click', (e) => {
+        // Close button
+        if (e.target.closest('#compReqCloseBtn')) { closeModal(); return; }
+        // Backdrop click
+        if (modal && e.target === modal) { closeModal(); return; }
+        // Request comparison button
+        const requestBtn = e.target.closest('[data-feedback-request-comparison="true"]');
+        if (!requestBtn) return;
+        const leftRubber = requestBtn.dataset.leftRubber || '';
+        const rightRubber = requestBtn.dataset.rightRubber || '';
+        trackComparisonRequestEvent(leftRubber, rightRubber);
+        openModal(leftRubber, rightRubber);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal();
+    });
+
+    document.addEventListener('submit', async (e) => {
+        const form = e.target.closest('#compReqForm');
+        if (!form) return;
+        e.preventDefault();
+        const submitBtn = document.getElementById('compReqSubmitBtn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = tUi('COMP_REQ_SUBMITTING');
+        }
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { Accept: 'application/json' }
+            });
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok || result.success === false) {
+                throw new Error(result.message || tUi('COMP_REQ_FAILED'));
+            }
+
+            form.hidden = true;
+            const confirmationMsg = document.getElementById('compReqConfirmationMsg');
+            const confirmation = document.getElementById('compReqConfirmation');
+            if (confirmationMsg) confirmationMsg.textContent = tUi('COMP_REQ_CONFIRMATION');
+            if (confirmation) confirmation.hidden = false;
+            closeTimer = setTimeout(closeModal, 3000);
+        } catch (error) {
+            console.error('Comparison request submission failed:', error);
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = tUi('COMP_REQ_SUBMIT');
+            }
         }
     });
 }
@@ -925,6 +1045,7 @@ async function initializeApp() {
     initMascotEmotes();
     initHeaderSearch();
     initFeedbackModal();
+    initComparisonRequestModal();
     initFilters();
 
     // Tab click listener

@@ -283,6 +283,45 @@
             0 3px 8px rgba(218, 138, 82, 0.24);
     }
 
+    /* VS empty state */
+    .comparison-empty-state {
+        padding: 40px 20px 36px;
+        gap: 14px;
+    }
+    .comparison-empty-vs-badge {
+        width: 64px;
+        height: 64px;
+    }
+    .comparison-empty-vs-text {
+        font-size: 22px;
+    }
+    .comparison-empty-mascot .end-mascot {
+        height: 52px;
+    }
+    .comparison-empty-title {
+        font-size: 16px;
+    }
+    .comparison-empty-sub {
+        font-size: 13px;
+        max-width: 260px;
+    }
+    .comparison-empty-cta {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+
+    /* Comparison request modal */
+    .comparison-request-modal-card {
+        padding: 20px 18px 18px;
+    }
+    .comparison-request-modal-card h2 {
+        font-size: 18px;
+    }
+    .comparison-request-form button[type="submit"] {
+        width: 100%;
+        justify-self: stretch;
+    }
+
 }
 
 @media (min-width: 769px) {
