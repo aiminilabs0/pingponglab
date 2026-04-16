@@ -749,7 +749,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
         ? Math.round(rubber.x / (rubber.x + spinRank - 1) * 100) : null;
     const speedPct = speedRank != null && rubber.y != null
         ? Math.round(rubber.y / (rubber.y + speedRank - 1) * 100) : null;
-    const control = buildControlLevelIndicatorHtml(rubber?.controlLevel);
+    const control = buildControlLevelIndicatorHtml(rubber?.controlLevel, { fillFromLeft: true });
     const brandColor = getBrandColor(rubber.brand);
     const bestsellerRank = rubber.bestseller?.[selectedCountry] ?? null;
     const bestsellerStar = bestsellerRank ? `#${bestsellerRank} ` : '';
