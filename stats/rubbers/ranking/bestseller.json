@@ -14,15 +14,17 @@
     { "brand": "Tibhar", "name": "MX-P" }
   ],
   "ko": [
+    { "brand": "Butterfly", "name": "Dignics 09C" },
     { "brand": "Butterfly", "name": "Tenergy 05" },
+    { "brand": "Nittaku", "name": "G-1" },
     { "brand": "Tibhar", "name": "MX-K" },
     { "brand": "Tibhar", "name": "MX-P" },
-    { "brand": "Nittaku", "name": "G-1" },
     { "brand": "Xiom", "name": "Omega 7 Pro" },
+    { "brand": "DHS", "name": "Gold Arc 8" },
+    { "brand": "Butterfly", "name": "Zyre 03" },
     { "brand": "Tibhar", "name": "K3" },
     { "brand": "Butterfly", "name": "Dignics 05" },
     { "brand": "Butterfly", "name": "Tenergy 64" },
-    { "brand": "Butterfly", "name": "Dignics 09C" },
     { "brand": "JOOLA", "name": "Dynaryz Inferno" },
     { "brand": "Donic", "name": "Baracuda" }
   ],
