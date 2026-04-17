@@ -2,6 +2,7 @@
 
 import json
 import platform
+import secrets
 import subprocess
 import sys
 from pathlib import Path
@@ -92,7 +93,9 @@ def generate_prompt(metric: str, number1: int, number2: int) -> str:
     rubber1 = rubber_label(pick_rubber(rubbers, number1))
     rubber2 = rubber_label(pick_rubber(rubbers, number2))
 
-    return template.replace("[Rubber 1]", rubber1).replace("[Rubber 2]", rubber2)
+    body = template.replace("[Rubber 1]", rubber1).replace("[Rubber 2]", rubber2)
+    cache_buster = secrets.randbelow(10**12)
+    return f"{body.rstrip()}\n\ncache_buster: {cache_buster}\n"
 
 
 def try_copy_to_clipboard(text: str) -> bool:
