@@ -39,11 +39,11 @@
   },
   "urls": {
     "en": {
-      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=dhs-h3-neo-39",
+      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=dhs-h3-n",
       "youtube": "https://www.youtube.com/watch?v=Vwekz8NGOJE"
     },
     "ko": {
-      "product": "https://naver.me/Gy3Xg1ef",
+      "product": "https://naver.me/xjYXc8q4",
       "youtube": "https://www.youtube.com/watch?v=9r80sqCn3UU&t=7s"
     },
     "cn": {
@@ -53,19 +53,19 @@
   },
   "price": {
     "en": {
-      "regular": "$32.95",
-      "sale": "",
-      "discount": ""
+      "regular": "$114.95",
+      "sale": "$79.95",
+      "discount": "-30%"
     },
     "ko": {
-      "regular": "28.0",
+      "regular": "52.5",
       "sale": "",
       "discount": ""
     },
     "cn": {
-      "regular": "$32.95",
-      "sale": "",
-      "discount": ""
+      "regular": "$114.95",
+      "sale": "$79.95",
+      "discount": "-30%"
     }
   }
 }
