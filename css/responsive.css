@@ -331,7 +331,9 @@
 /* YouTube embed inside radar-section spans full width below chart + info */
 .radar-section > .youtube-embed-wrapper {
     width: 100%;
-    margin: 0;
+    max-height: 100dvh;
+    max-width: calc(100dvh * 16 / 9);
+    margin: 0 auto;
     border-top: none;
     background: rgba(0,0,0,0.3);
 }
