@@ -95,7 +95,7 @@ function buildCurrentPath() {
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
 
-    if (activeTab === 'comparison' && left && right && SLUG_MAP) {
+    if (left && right && SLUG_MAP) {
         const slugA = SLUG_MAP.abbrToSlug[left.abbr];
         const slugB = SLUG_MAP.abbrToSlug[right.abbr];
         if (slugA && slugB) {
@@ -104,7 +104,7 @@ function buildCurrentPath() {
         }
     }
 
-    // Determine the "active" rubber based on current tab
+    // Determine the "active" rubber based on current tab (only one rubber selected)
     let activeRubber = null;
     if (activeTab === 'desc2' && right) {
         activeRubber = right;
@@ -153,7 +153,8 @@ function buildFilterQueryString() {
 function pushFiltersToUrl() {
     const path = buildCurrentPath();
     const qs = buildFilterQueryString();
-    history.replaceState(null, '', path + (qs ? '?' + qs : ''));
+    const hash = window.location.hash || '';
+    history.replaceState(null, '', path + (qs ? '?' + qs : '') + hash);
 }
 
 /**
@@ -162,7 +163,8 @@ function pushFiltersToUrl() {
  */
 function navigateToPath(path) {
     const qs = buildFilterQueryString();
-    const fullUrl = path + (qs ? '?' + qs : '');
+    const hash = window.location.hash || '';
+    const fullUrl = path + (qs ? '?' + qs : '') + hash;
     history.pushState(null, '', fullUrl);
 }
 

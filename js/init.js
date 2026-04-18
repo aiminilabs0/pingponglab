@@ -966,17 +966,6 @@ function applyRoute(route) {
             renderTabs();
             setActiveTab('desc1');
         }
-    } else if (route.type === 'homepage') {
-        const defaultRubber = findRubberBySlug('tenergy-05') || rubberData.find(r => r && r.abbr === 'Tenergy 05');
-        if (defaultRubber) {
-            selectedRubbers[0] = defaultRubber;
-            updateDetailPanel(1, defaultRubber);
-            nextDetailPanel = 2;
-            updateRadarChart();
-            updateComparisonBar();
-            renderTabs();
-            setActiveTab('desc1');
-        }
     }
 
     if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
@@ -1057,7 +1046,11 @@ async function initializeApp() {
         }
         const tab = e.target.closest('.content-tab');
         if (!tab || tab.classList.contains('content-tab--active')) return;
-        setActiveTab(tab.dataset.tab);
+        const tabId = tab.dataset.tab;
+        const hashMap = { desc1: '#1', desc2: '#2' };
+        const hash = hashMap[tabId] || '';
+        history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+        setActiveTab(tabId);
     });
 
     let contentFeedbackToastTimer = null;
@@ -1208,6 +1201,9 @@ async function initializeApp() {
         pushFiltersToUrl();
     });
 
+    // Capture the hash fragment before any setActiveTab/pushFiltersToUrl strips it.
+    const initialHash = window.location.hash.slice(1).toLowerCase();
+
     applyFiltersFromUrl();
     applyRoute(route);
     if (!activeTab) {
@@ -1221,6 +1217,16 @@ async function initializeApp() {
     // Apply initial autoscale on first load.
     requestAnimationFrame(() => {
         triggerAutoscale();
+        // Wait for Plotly autoscale + content card to fully lay out before scrolling.
+        if (initialHash) {
+            setTimeout(() => applyHashFragment(initialHash), 250);
+        } else if (selectedRubbers[0] && selectedRubbers[1]) {
+            // No hash but both rubbers selected → scroll to comparison
+            setTimeout(() => {
+                const el = document.getElementById('contentCard');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 250);
+        }
     });
 
     initMascotWalker();
@@ -1259,7 +1265,29 @@ async function initializeApp() {
             setActiveTab('desc1');
         }
         updateChart({ preserveRanges: true, force: true });
+
+        const newHash = window.location.hash.slice(1).toLowerCase();
+        if (newHash) applyHashFragment(newHash);
     });
+}
+
+function applyHashFragment(hash) {
+    if (hash === 'radar') {
+        const el = document.getElementById('radarSection');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+    const tabMap = { '1': 'desc1', '2': 'desc2' };
+    const tabId = tabMap[hash];
+    if (tabId) {
+        setActiveTab(tabId);
+        const el = document.getElementById('contentCard');
+        if (el) {
+            requestAnimationFrame(() => {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+    }
 }
 
 initializeApp();

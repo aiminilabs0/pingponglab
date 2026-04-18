@@ -401,10 +401,11 @@ function handleRubberClick(rubber) {
     renderTabs();
     activeTab = `desc${panelNum}`;
 
-    // Navigate to the rubber's clean URL
+    // Navigate to the rubber's clean URL with the corresponding desc hash
     if (SLUG_MAP) {
         const slug = SLUG_MAP.abbrToSlug[rubber.abbr];
         if (slug) {
+            history.replaceState(null, '', window.location.pathname + window.location.search + '#' + panelNum);
             navigateToPath('/' + (selectedCountry || 'en') + '/rubbers/' + slug);
         }
     }
@@ -507,20 +508,6 @@ async function updateComparisonBar() {
 }
 
 function getShareUrl() {
-    const left = selectedRubbers[0];
-    const right = selectedRubbers[1];
-    const country = selectedCountry || 'en';
-    const origin = window.location.origin;
-
-    if (left && right && SLUG_MAP) {
-        const slugA = SLUG_MAP.abbrToSlug[left.abbr];
-        const slugB = SLUG_MAP.abbrToSlug[right.abbr];
-        if (slugA && slugB) {
-            const [a, b] = [slugA, slugB].sort();
-            return origin + '/' + country + '/rubbers/compare/' + a + '-vs-' + b;
-        }
-    }
-
     return window.location.href;
 }
 
