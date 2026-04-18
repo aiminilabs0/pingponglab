@@ -201,6 +201,7 @@
     right: 0;
     min-width: 260px;
     max-height: 370px;
+    overflow-x: hidden;
     overflow-y: auto;
     background: var(--drac-bg-dark);
     border: 1px solid rgba(255,255,255,0.10);
@@ -209,7 +210,19 @@
     z-index: 200;
     scrollbar-width: thin;
     scrollbar-color: var(--drac-current) transparent;
-    overflow: hidden;
+}
+.header-search-results::-webkit-scrollbar {
+    width: 8px;
+}
+.header-search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+.header-search-results::-webkit-scrollbar-thumb {
+    background: var(--drac-current);
+    border-radius: 4px;
+}
+.header-search-results::-webkit-scrollbar-thumb:hover {
+    background: var(--drac-comment);
 }
 .header-search-results.is-open {
     display: block;
