@@ -347,7 +347,7 @@ async function updateDetailPanel(panelNum, rubber) {
             `<div class="rubber-title-row">` +
                 `<h1 class="rubber-name">${escapeHtml(localizedRubber)}</h1>` +
                 (rubber.bestseller?.[selectedCountry]
-                    ? `<span class="bestseller-badge">#${rubber.bestseller[selectedCountry]} Bestseller</span>`
+                    ? `<span class="bestseller-badge" style="background:${brandColor}18;border-color:${brandColor}55;color:${brandColor}">#${rubber.bestseller[selectedCountry]} Bestseller</span>`
                     : '') +
             `</div>` +
         `</div>`;

@@ -309,7 +309,7 @@ function initHeaderSearch() {
 
             return `<div class="header-search-result" data-index="${i}">` +
                 `<span class="header-search-result-abbr">${highlightMatch(r.abbr, q)}</span>` +
-                `<span class="header-search-result-brand">${tBrand(r.brand)}</span>` +
+                `<span class="header-search-result-brand" style="color:${getBrandColor(r.brand)}">${tBrand(r.brand)}</span>` +
                 (matchedPlayerLabel
                     ? `<span class="header-search-result-player">${highlightMatch(matchedPlayerLabel, q)}${sideBadgeHtml ? ` ${sideBadgeHtml}` : ''}</span>`
                     : '') +
@@ -515,7 +515,7 @@ function initHeaderSearch() {
                 return `<div class="header-search-result" data-index="${i}">` +
                     `<span class="header-search-result-rank">#${item.rank}</span>` +
                     `<span class="header-search-result-abbr">${escapeHtml(r.abbr)}</span>` +
-                    `<span class="header-search-result-brand">${tBrand(r.brand)}</span>` +
+                    `<span class="header-search-result-brand" style="color:${getBrandColor(r.brand)}">${tBrand(r.brand)}</span>` +
                     `</div>`;
             }).join('');
             results.classList.add('is-open');
