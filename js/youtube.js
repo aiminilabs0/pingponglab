@@ -303,7 +303,9 @@ function isLandscape() {
 }
 
 function handleOrientationFullscreen() {
-    const landscape = isLandscape();
+    const isMobile = window.matchMedia('(max-width: 768px)').matches &&
+        ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const landscape = isMobile && isLandscape();
     document.querySelectorAll('.youtube-embed-wrapper, .user-guide-embed').forEach(el => {
         el.classList.toggle('landscape-fs', landscape);
     });
