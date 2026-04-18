@@ -307,9 +307,10 @@ function initHeaderSearch() {
                 ? (getLocalizedPlayerName(matchedPlayer) || matchedPlayer)
                 : '';
 
-            return `<div class="header-search-result" data-index="${i}">` +
+            const brandColor = getBrandColor(r.brand);
+            return `<div class="header-search-result" data-index="${i}" style="border-left-color:${brandColor}">` +
                 `<span class="header-search-result-abbr">${highlightMatch(tRubberAbbr(r), q)}</span>` +
-                `<span class="header-search-result-brand" style="color:${getBrandColor(r.brand)}">${tBrand(r.brand)}</span>` +
+                `<span class="header-search-result-brand" style="color:${brandColor}">${tBrand(r.brand)}</span>` +
                 (matchedPlayerLabel
                     ? `<span class="header-search-result-player">${highlightMatch(matchedPlayerLabel, q)}${sideBadgeHtml ? ` ${sideBadgeHtml}` : ''}</span>`
                     : '') +
@@ -512,10 +513,11 @@ function initHeaderSearch() {
             currentMatches = top10.map(item => ({ rubber: item.rubber, matchedPlayer: '', matchedSides: {} }));
             results.innerHTML = header + top10.map((item, i) => {
                 const r = item.rubber;
-                return `<div class="header-search-result" data-index="${i}">` +
+                const brandColor = getBrandColor(r.brand);
+                return `<div class="header-search-result" data-index="${i}" style="border-left-color:${brandColor}">` +
                     `<span class="header-search-result-rank">#${item.rank}</span>` +
                     `<span class="header-search-result-abbr">${escapeHtml(tRubberAbbr(r))}</span>` +
-                    `<span class="header-search-result-brand" style="color:${getBrandColor(r.brand)}">${tBrand(r.brand)}</span>` +
+                    `<span class="header-search-result-brand" style="color:${brandColor}">${tBrand(r.brand)}</span>` +
                     `</div>`;
             }).join('');
             results.classList.add('is-open');
