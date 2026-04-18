@@ -315,7 +315,7 @@
 }
 .yt-embed-nav {
     position: absolute;
-    right: 10px;
+    left: 10px;
     bottom: 10px;
     z-index: 5;
     display: inline-flex;
@@ -327,6 +327,50 @@
     background: rgba(0, 0, 0, 0.55);
     color: #f8f8f2;
     backdrop-filter: blur(6px);
+}
+.yt-embed-shortcut-guide {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(0, 0, 0, 0.55);
+    color: #f8f8f2;
+    font-size: 11px;
+    line-height: 1;
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+}
+.yt-embed-shortcut-guide kbd {
+    display: inline-block;
+    padding: 2px 5px;
+    margin: 0 1px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--drac-yellow);
+    background: rgba(248, 248, 242, 0.14);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+.youtube-embed-wrapper:fullscreen,
+.user-guide-embed:fullscreen {
+    aspect-ratio: auto;
+    max-width: none;
+    max-height: none;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+}
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .yt-embed-shortcut-guide { display: none; }
 }
 .yt-embed-nav-btn {
     appearance: none;

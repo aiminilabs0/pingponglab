@@ -106,6 +106,36 @@ function createEmbedPager(embedWrapper) {
     updateEmbedPagerUi(embedWrapper);
 }
 
+function createEmbedShortcutGuide(embedWrapper, { includePlaylist } = {}) {
+    const guide = document.createElement('div');
+    guide.className = 'yt-embed-shortcut-guide';
+    const hints = ['<kbd>T</kbd> Fullscreen'];
+    if (includePlaylist) hints.push('<kbd>,</kbd> / <kbd>.</kbd> Prev / Next');
+    guide.innerHTML = hints.join(' · ');
+    embedWrapper.appendChild(guide);
+}
+
+function toggleEmbedFullscreen(embedWrapper) {
+    if (!embedWrapper) return;
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fsEl === embedWrapper) {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        return;
+    }
+    const request = embedWrapper.requestFullscreen || embedWrapper.webkitRequestFullscreen;
+    if (request) request.call(embedWrapper);
+}
+
+function getActiveEmbed() {
+    return document.querySelector('.youtube-embed-wrapper') ||
+        document.querySelector('.user-guide-embed');
+}
+
+function triggerEmbedNav(embedWrapper, direction) {
+    const btn = embedWrapper.querySelector(`.yt-embed-nav-btn[data-direction="${direction}"]`);
+    if (btn && !btn.disabled) btn.click();
+}
+
 function scrollEmbedToCenter(embedWrapper) {
     if (!embedWrapper || typeof embedWrapper.scrollIntoView !== 'function') return;
     requestAnimationFrame(() => {
@@ -162,6 +192,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
     createEmbedPager(embedWrapper);
+    createEmbedShortcutGuide(embedWrapper, { includePlaylist: playlist.length > 1 });
 
     const shouldShowMobileHint = window.matchMedia('(max-width: 768px)').matches &&
         ('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -266,6 +297,7 @@ function toggleUserGuideEmbed(btn) {
     playerDiv.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
     embed.appendChild(playerDiv);
     embed.dataset.playerId = playerId;
+    createEmbedShortcutGuide(embed, { includePlaylist: false });
 
     const chartEl = chartBleed.querySelector('#chart');
     chartBleed.insertBefore(embed, chartEl);
@@ -326,4 +358,26 @@ document.addEventListener('click', (e) => {
     if (!videoId) return;
     const { playlist, currentIndex } = parsePlaylistFromLink(link, videoId);
     toggleYouTubeEmbed(link, videoId, { playlist, currentIndex });
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+    const target = e.target;
+    if (target && target.matches && target.matches('input, textarea, select, [contenteditable="true"]')) return;
+    const embed = getActiveEmbed();
+    if (!embed) return;
+
+    const key = e.key;
+    if (key === 't' || key === 'T') {
+        e.preventDefault();
+        toggleEmbedFullscreen(embed);
+    } else if (key === ',' || key === 'ArrowLeft') {
+        if (!embed.classList.contains('youtube-embed-wrapper')) return;
+        e.preventDefault();
+        triggerEmbedNav(embed, 'prev');
+    } else if (key === '.' || key === 'ArrowRight') {
+        if (!embed.classList.contains('youtube-embed-wrapper')) return;
+        e.preventDefault();
+        triggerEmbedNav(embed, 'next');
+    }
 });
