@@ -372,6 +372,22 @@
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     .yt-embed-shortcut-guide { display: none; }
 }
+.yt-swipe-zone {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 14%;
+    max-width: 80px;
+    z-index: 4;
+    background: transparent;
+    touch-action: pan-y;
+}
+.yt-swipe-zone--left { left: 0; }
+.yt-swipe-zone--right { right: 0; }
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .yt-swipe-zone { display: block; }
+}
 .yt-embed-nav-btn {
     appearance: none;
     border: none;

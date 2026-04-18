@@ -106,6 +106,56 @@ function createEmbedPager(embedWrapper) {
     updateEmbedPagerUi(embedWrapper);
 }
 
+function createEmbedSwipeZones(embedWrapper) {
+    const navigate = (direction) => {
+        const { playlist, currentIndex } = readEmbedPlaylistState(embedWrapper);
+        if (!playlist.length) return;
+        const delta = direction === 'prev' ? -1 : 1;
+        const maxIndex = playlist.length - 1;
+        const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + delta));
+        if (nextIndex === currentIndex) return;
+        writeEmbedPlaylistState(embedWrapper, playlist, nextIndex);
+        updateEmbedPagerUi(embedWrapper);
+        updateEmbedVideo(embedWrapper, playlist[nextIndex]);
+    };
+
+    const SWIPE_THRESHOLD = 40;
+    const MAX_VERTICAL = 60;
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    const onStart = (e) => {
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t) return;
+        startX = t.clientX;
+        startY = t.clientY;
+        tracking = true;
+    };
+    const onEnd = (e) => {
+        if (!tracking) return;
+        tracking = false;
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t) return;
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.abs(dy) > MAX_VERTICAL) return;
+        if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+        e.preventDefault();
+        navigate(dx < 0 ? 'next' : 'prev');
+    };
+
+    ['left', 'right'].forEach(side => {
+        const zone = document.createElement('div');
+        zone.className = `yt-swipe-zone yt-swipe-zone--${side}`;
+        zone.setAttribute('aria-hidden', 'true');
+        zone.addEventListener('touchstart', onStart, { passive: true });
+        zone.addEventListener('touchend', onEnd);
+        zone.addEventListener('touchcancel', () => { tracking = false; });
+        embedWrapper.appendChild(zone);
+    });
+}
+
 function createEmbedShortcutGuide(embedWrapper, { includePlaylist } = {}) {
     const guide = document.createElement('div');
     guide.className = 'yt-embed-shortcut-guide';
@@ -192,6 +242,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
     embedWrapper.appendChild(playerDiv);
     embedWrapper.dataset.playerId = playerId;
     createEmbedPager(embedWrapper);
+    if (playlist.length > 1) createEmbedSwipeZones(embedWrapper);
     createEmbedShortcutGuide(embedWrapper, { includePlaylist: playlist.length > 1 });
 
     const shouldShowMobileHint = window.matchMedia('(max-width: 768px)').matches &&
