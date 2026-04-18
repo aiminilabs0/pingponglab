@@ -269,6 +269,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
         if (hint) panel.appendChild(hint);
     }
     scrollEmbedToCenter(embedWrapper);
+    handleOrientationFullscreen();
 
     embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
     iconLink.classList.add('yt-active');
@@ -293,16 +294,32 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
 }
 
 // Landscape pseudo-fullscreen for embedded videos (CSS-based, no user gesture required)
-function handleOrientationFullscreen() {
-    const wrapper = document.querySelector('.youtube-embed-wrapper');
-    if (!wrapper) return;
-    wrapper.classList.toggle('landscape-fs', window.innerWidth > window.innerHeight);
+function isLandscape() {
+    if (window.matchMedia) {
+        const mm = window.matchMedia('(orientation: landscape)');
+        if (typeof mm.matches === 'boolean') return mm.matches;
+    }
+    return window.innerWidth > window.innerHeight;
 }
 
+function handleOrientationFullscreen() {
+    const landscape = isLandscape();
+    document.querySelectorAll('.youtube-embed-wrapper, .user-guide-embed').forEach(el => {
+        el.classList.toggle('landscape-fs', landscape);
+    });
+}
+
+if (window.matchMedia) {
+    const mm = window.matchMedia('(orientation: landscape)');
+    const onChange = () => setTimeout(handleOrientationFullscreen, 50);
+    if (mm.addEventListener) mm.addEventListener('change', onChange);
+    else if (mm.addListener) mm.addListener(onChange);
+}
 if (screen.orientation) {
     screen.orientation.addEventListener('change', () => setTimeout(handleOrientationFullscreen, 150));
 }
 window.addEventListener('orientationchange', () => setTimeout(handleOrientationFullscreen, 150));
+window.addEventListener('resize', () => setTimeout(handleOrientationFullscreen, 150));
 
 // User Guide embed toggle
 function toggleUserGuideEmbed(btn) {
@@ -373,6 +390,7 @@ function toggleUserGuideEmbed(btn) {
     }
 
     scrollEmbedToCenter(embed);
+    handleOrientationFullscreen();
 }
 
 // Event delegation: YouTube title icon clicks toggle the embed below the title header.
