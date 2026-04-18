@@ -160,7 +160,7 @@ function createEmbedShortcutGuide(embedWrapper, { includePlaylist } = {}) {
     const guide = document.createElement('div');
     guide.className = 'yt-embed-shortcut-guide';
     const hints = ['<kbd>T</kbd> Fullscreen'];
-    if (includePlaylist) hints.push('<kbd>,</kbd> / <kbd>.</kbd> Prev / Next');
+    if (includePlaylist) hints.push('<kbd>←</kbd> / <kbd>→</kbd> Prev / Next');
     guide.innerHTML = hints.join(' · ');
     embedWrapper.appendChild(guide);
 }
@@ -422,11 +422,11 @@ document.addEventListener('keydown', (e) => {
     if (key === 't' || key === 'T') {
         e.preventDefault();
         toggleEmbedFullscreen(embed);
-    } else if (key === ',' || key === 'ArrowLeft') {
+    } else if (key === 'ArrowLeft') {
         if (!embed.classList.contains('youtube-embed-wrapper')) return;
         e.preventDefault();
         triggerEmbedNav(embed, 'prev');
-    } else if (key === '.' || key === 'ArrowRight') {
+    } else if (key === 'ArrowRight') {
         if (!embed.classList.contains('youtube-embed-wrapper')) return;
         e.preventDefault();
         triggerEmbedNav(embed, 'next');
