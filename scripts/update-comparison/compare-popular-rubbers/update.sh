@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Modify!!!!
-current_rubber="Omega 7 Guang"
+# TODO:: Modify!!!!!!
+# Comparison text is written under rubbers_comparison/<lang>/<rubber2>/<this rubber>.
+# compare-all-existing-rubbers uses <rubber1>/<rubber2>; this script reverses that order
+# because the popular flow fills the comparison into the other rubber's directory tree.
+current_rubber="Glayzer 09C"
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd -- "$script_dir/../../.." && pwd)"
 output_root="$repo_root/rubbers_comparison"
+param_file="$script_dir/0_rubber2"
+combined_file="$script_dir/1_llm_output"
 
 resolve_rubber_abbr() {
   local rubber_name="$1"
@@ -34,52 +39,91 @@ sys.exit(1)
 PY
 }
 
-if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <parameter>"
-  echo "Example: $0 \"BlueGrip J1\""
+if [[ ! -f "$param_file" ]]; then
+  echo "Error: '$param_file' not found"
   exit 1
 fi
 
-parameter="$1"
-parameter="${parameter%"${parameter##*[![:space:]]}"}"
-
-if [[ -z "${parameter//[[:space:]]/}" ]]; then
-  echo "Error: parameter is empty"
+if [[ ! -f "$combined_file" ]]; then
+  echo "Error: '$combined_file' not found"
   exit 1
 fi
 
+# Read parameter from 0_rubber2 (trim trailing newlines/whitespace)
+param="$(<"$param_file")"
+param="${param%"${param##*[![:space:]]}"}"
+
+if [[ -z "${param//[[:space:]]/}" ]]; then
+  echo "Error: '$param_file' is empty"
+  exit 1
+fi
+
+param_abbr="$(resolve_rubber_abbr "$param")"
 current_rubber_abbr="$(resolve_rubber_abbr "$current_rubber")"
-parameter_abbr="$(resolve_rubber_abbr "$parameter")"
 
-src_en="$script_dir/0. english_desc"
-src_ko="$script_dir/1. korean_desc"
-src_cn="$script_dir/2. chinese_desc"
-
-for source_file in "$src_en" "$src_ko" "$src_cn"; do
-  if [[ ! -f "$source_file" ]]; then
-    echo "Error: '$source_file' not found"
+# Require existing comparison dirs (rubber2 first); do not create them here.
+for lang in en ko cn; do
+  dest_dir="$output_root/$lang/${param_abbr}"
+  if [[ ! -d "$dest_dir" ]]; then
+    echo "Error: directory does not exist: $dest_dir"
     exit 1
   fi
 done
-
-dest_en="$output_root/en/$parameter_abbr/$current_rubber_abbr"
-dest_ko="$output_root/ko/$parameter_abbr/$current_rubber_abbr"
-dest_cn="$output_root/cn/$parameter_abbr/$current_rubber_abbr"
-
-mkdir -p "$(dirname -- "$dest_en")" "$(dirname -- "$dest_ko")" "$(dirname -- "$dest_cn")"
 
 sanitize_and_write() {
   local source_file="$1"
   local output_file="$2"
 
-  tr -d '\r' < "$source_file" | sed -E 's/[[:space:]]+$//' > "$output_file"
+  perl -ne 'print unless /^\s*-\s*:contentReference\[oaicite:\d+\]\{index=\d+\}\s*$/' "$source_file" \
+    | tr -d '\r' \
+    | perl -pe 's/[[:space:]]*:contentReference\[oaicite:\d+\]\{index=\d+\}//g' \
+    | sed -E 's/[[:space:]]+$//' \
+    > "$output_file"
 }
 
-sanitize_and_write "$src_en" "$dest_en"
-sanitize_and_write "$src_ko" "$dest_ko"
-sanitize_and_write "$src_cn" "$dest_cn"
+extract_markdown_block() {
+  local source_file="$1"
+  local block_index="$2"
+  local output_file="$3"
 
-echo "Copied files:"
-echo "  - $src_en -> $dest_en"
-echo "  - $src_ko -> $dest_ko"
-echo "  - $src_cn -> $dest_cn"
+  awk -v target="$block_index" '
+    /^```/ {
+      if (!in_block) {
+        in_block = 1
+        block_count++
+        next
+      }
+      if (in_block) {
+        if (block_count == target) {
+          exit
+        }
+        in_block = 0
+        next
+      }
+    }
+    in_block && block_count == target { print }
+  ' "$source_file" > "$output_file"
+}
+
+en_tmp="$(mktemp)"
+ko_tmp="$(mktemp)"
+cn_tmp="$(mktemp)"
+trap 'rm -f "$en_tmp" "$ko_tmp" "$cn_tmp"' EXIT
+
+extract_markdown_block "$combined_file" 1 "$en_tmp"
+extract_markdown_block "$combined_file" 2 "$ko_tmp"
+extract_markdown_block "$combined_file" 3 "$cn_tmp"
+
+if [[ ! -s "$en_tmp" || ! -s "$ko_tmp" || ! -s "$cn_tmp" ]]; then
+  echo "Error: '$combined_file' must contain 3 fenced markdown blocks (en, ko, cn)."
+  exit 1
+fi
+
+sanitize_and_write "$en_tmp" "$output_root/en/${param_abbr}/${current_rubber_abbr}"
+sanitize_and_write "$ko_tmp" "$output_root/ko/${param_abbr}/${current_rubber_abbr}"
+sanitize_and_write "$cn_tmp" "$output_root/cn/${param_abbr}/${current_rubber_abbr}"
+
+echo "Recently updated files:"
+echo "  - $output_root/en/${param_abbr}/${current_rubber_abbr}"
+echo "  - $output_root/ko/${param_abbr}/${current_rubber_abbr}"
+echo "  - $output_root/cn/${param_abbr}/${current_rubber_abbr}"
