@@ -178,6 +178,10 @@
             box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
         }
 
+        .stats-table thead th:nth-child(n+5) {
+            font-size: 0.66rem;
+        }
+
         .stats-table thead th:first-child {
             border-radius: 15px 0 0 0;
             padding-left: 16px;
@@ -287,12 +291,37 @@
             box-shadow: none;
         }
 
+        .elo-chip--up {
+            background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
+            color: #065f46;
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+
+        .elo-chip--down {
+            background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: rgba(248, 113, 113, 0.4);
+            color: #991b1b;
+        }
+
+        .elo-chip--neutral {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            font-weight: 600;
+            box-shadow: none;
+        }
+
         .detail-list {
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
             line-height: 1.3;
             max-width: 300px;
+        }
+
+        .detail-list .summary-chip {
+            font-size: 0.72rem;
+            padding: 3px 8px;
         }
 
         .error-note {
@@ -511,9 +540,9 @@
             }
 
             .rank-cell {
-                width: 40px;
-                padding-left: 6px !important;
-                padding-right: 6px !important;
+                width: 24px;
+                padding-left: 4px !important;
+                padding-right: 4px !important;
             }
 
             .player-name-cell {
@@ -522,12 +551,17 @@
             }
 
             .summary-cell {
-                white-space: normal;
+                white-space: nowrap;
             }
 
             .summary-chip {
                 font-size: 0.78rem;
                 padding: 3px 7px;
+            }
+
+            .summary-cell .summary-chip {
+                font-size: 0.68rem;
+                padding: 2px 5px;
             }
 
             .detail-list {
@@ -621,6 +655,10 @@
             .stats-table thead th {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+            }
+
+            .stats-table thead th:nth-child(n+5) {
+                font-size: 0.62rem;
             }
 
             .stats-table tbody tr:nth-child(odd) td,
@@ -751,7 +789,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Player</th>
-                                <th>Total</th>
+                                <th>Rating</th>
+                                <th>Win-Loss</th>
                                 <th>Won Against</th>
                                 <th>Lost Against</th>
                             </tr>
@@ -830,7 +869,9 @@
         }
     </script>
     <script>
-        const TOP_N = 8; // change this number to show more or fewer players in Top Players
+        const TOP_N = 9; // change this number to show more or fewer players in Top Players
+        const ELO_START = 0;
+        const ELO_K = 32;
 
         let selectedDate = null;
 
@@ -1008,21 +1049,71 @@
             }).join("") + "</div>";
         }
 
-        function buildPlayerTableBodyHTML(statsMap, limit) {
+        function computePerDateEloChanges(fileGroups, eloSeed) {
+            const seed = eloSeed || {};
+            const currentRatings = {};
+            const result = {};
+
+            const sortedDates = Object.keys(fileGroups).sort(function (a, b) {
+                return a.localeCompare(b);
+            });
+
+            sortedDates.forEach(function (dateKey) {
+                const lines = fileGroups[dateKey];
+                const beforeSnapshot = Object.assign({}, currentRatings);
+
+                lines.forEach(function (lineInfo) {
+                    const parsed = parseLine(lineInfo.line);
+                    if (!parsed || parsed.scoreA === parsed.scoreB) { return; }
+                    const winner = parsed.scoreA > parsed.scoreB ? parsed.playerA : parsed.playerB;
+                    const loser = parsed.scoreA > parsed.scoreB ? parsed.playerB : parsed.playerA;
+                    if (currentRatings[winner] === undefined) { currentRatings[winner] = seed[winner] !== undefined ? seed[winner] : ELO_START; }
+                    if (currentRatings[loser] === undefined) { currentRatings[loser] = seed[loser] !== undefined ? seed[loser] : ELO_START; }
+                    const rW = currentRatings[winner];
+                    const rL = currentRatings[loser];
+                    const expected = 1 / (1 + Math.pow(10, (rL - rW) / 400));
+                    currentRatings[winner] = Math.max(0, Math.round(rW + ELO_K * (1 - expected)));
+                    currentRatings[loser] = Math.max(0, Math.round(rL + ELO_K * (0 - (1 - expected))));
+                });
+
+                const changes = {};
+                lines.forEach(function (lineInfo) {
+                    const parsed = parseLine(lineInfo.line);
+                    if (!parsed) { return; }
+                    [parsed.playerA, parsed.playerB].forEach(function (name) {
+                        if (changes[name] !== undefined) { return; }
+                        const before = beforeSnapshot[name] !== undefined ? beforeSnapshot[name] : (seed[name] !== undefined ? seed[name] : ELO_START);
+                        const after = currentRatings[name] !== undefined ? currentRatings[name] : before;
+                        changes[name] = after - before;
+                    });
+                });
+                result[dateKey] = { changes: changes, afterRatings: Object.assign({}, currentRatings) };
+            });
+
+            return result;
+        }
+
+        function buildPlayerTableBodyHTML(statsMap, limit, eloData) {
+            const eloMap = eloData ? eloData.map : null;
+            const eloChanges = eloData ? eloData.changes : null;
+            const sortByElo = eloData ? !!eloData.sortByElo : false;
+
             const rows = Object.keys(statsMap).sort(function (nameA, nameB) {
+                if (sortByElo && eloMap) {
+                    const eloDiff = (eloMap[nameB] || 0) - (eloMap[nameA] || 0);
+                    if (eloDiff !== 0) { return eloDiff; }
+                }
                 const winsDiff = statsMap[nameB].win - statsMap[nameA].win;
-                if (winsDiff !== 0) {
-                    return winsDiff;
-                }
+                if (winsDiff !== 0) { return winsDiff; }
                 const lossDiff = statsMap[nameA].loss - statsMap[nameB].loss;
-                if (lossDiff !== 0) {
-                    return lossDiff;
-                }
+                if (lossDiff !== 0) { return lossDiff; }
                 return nameA.localeCompare(nameB);
             });
 
+            const colCount = eloMap ? 6 : 5;
+
             if (rows.length === 0) {
-                return { html: "<tr><td colspan=\"5\">No data yet.</td></tr>", count: 0 };
+                return { html: "<tr><td colspan=\"" + colCount + "\">No data yet.</td></tr>", count: 0 };
             }
 
             const visibleRows = (limit && limit !== "all") ? rows.slice(0, Number(limit)) : rows;
@@ -1035,33 +1126,54 @@
             const html = visibleRows.map(function (name, index) {
                 const row = statsMap[name];
                 let rank = index + 1;
-                if (row.win === previousWin && row.loss === previousLoss) {
+                if (sortByElo && eloMap) {
+                    if ((eloMap[name] || 0) === (eloMap[visibleRows[previousRank - 1]] || 0) && previousRank > 0) {
+                        rank = previousRank;
+                    }
+                } else if (row.win === previousWin && row.loss === previousLoss) {
                     rank = previousRank;
                 }
                 previousRank = rank;
                 previousWin = row.win;
                 previousLoss = row.loss;
 
+                let eloCell = "";
+                if (eloMap) {
+                    const elo = eloMap[name];
+                    if (elo === undefined) {
+                        eloCell = "<td><span class=\"summary-chip elo-chip--neutral\">-</span></td>";
+                    } else if (eloChanges && eloChanges[name] !== undefined) {
+                        const delta = eloChanges[name];
+                        const deltaText = delta > 0 ? "+" + delta : String(delta);
+                        const deltaClass = delta > 0 ? "elo-chip--up" : delta < 0 ? "elo-chip--down" : "elo-chip--neutral";
+                        eloCell = "<td class=\"summary-cell\"><span class=\"summary-chip " + deltaClass + "\">" + elo + " (" + deltaText + ")</span></td>";
+                    } else {
+                        eloCell = "<td class=\"summary-cell\"><span class=\"summary-chip\">" + elo + "</span></td>";
+                    }
+                }
+
                 return "<tr>" +
                     "<td class=\"rank-cell\">" + rank + "</td>" +
                     "<td class=\"player-name-cell\">" + name + "</td>" +
+                    eloCell +
                     "<td class=\"summary-cell\"><span class=\"summary-chip\">" + row.win + "W - " + row.loss + "L</span></td>" +
                     "<td>" + renderOpponentCounts(row.winVs, false) + "</td>" +
                     "<td>" + renderOpponentCounts(row.lossVs, true) + "</td>" +
                     "</tr>";
-            }).join("") + (truncated ? "<tr class=\"ellipsis-row\"><td colspan=\"5\">...</td></tr>" : "");
+            }).join("") + (truncated ? "<tr class=\"ellipsis-row\"><td colspan=\"" + colCount + "\">...</td></tr>" : "");
 
             return { html: html, count: rows.length };
         }
 
-        function renderPlayerTable(statsMap) {
-            const result = buildPlayerTableBodyHTML(statsMap, TOP_N);
+        function renderPlayerTable(statsMap, eloMap, eloChanges) {
+            const eloData = eloMap ? { map: eloMap, changes: eloChanges || null, sortByElo: true } : null;
+            const result = buildPlayerTableBodyHTML(statsMap, TOP_N, eloData);
             dom.statsBody.innerHTML = result.html;
             return result.count;
         }
 
         function renderNoData() {
-            dom.statsBody.innerHTML = "<tr><td colspan=\"5\">No data yet.</td></tr>";
+            dom.statsBody.innerHTML = "<tr><td colspan=\"6\">No data yet.</td></tr>";
         }
 
         function renderNextMatchTitle(dateText) {
@@ -1148,16 +1260,20 @@
                 ".stats-table th,.stats-table td{text-align:left;border-bottom:1px solid rgba(148,163,184,0.35);padding:12px 14px;vertical-align:top;color:#1e293b;}" +
                 ".stats-table tbody tr:last-child td{border-bottom:none;}" +
                 ".stats-table thead th{background:linear-gradient(160deg,#1e293b 0%,#0f172a 55%,#172554 100%);color:#f1f5f9;font-weight:700;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.08em;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-bottom:none;}" +
+                ".stats-table thead th:nth-child(n+5){font-size:0.62rem;}" +
                 ".stats-table tbody tr:nth-child(odd) td{background:rgba(248,250,252,0.65);-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
                 ".stats-table tbody tr:nth-child(even) td{background:#ffffff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
                 ".stats-table tbody tr:only-child td[colspan]{text-align:center;padding:28px 16px;font-style:italic;color:#64748b;background:#f8fafc !important;}" +
-                ".rank-cell{width:48px;text-align:center !important;font-weight:800;background:rgba(241,245,249,0.9) !important;border-right:1px solid rgba(148,163,184,0.35);-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
+                ".rank-cell{width:24px;padding-left:4px !important;padding-right:4px !important;text-align:center !important;font-weight:800;background:rgba(241,245,249,0.9) !important;border-right:1px solid rgba(148,163,184,0.35);-webkit-print-color-adjust:exact;print-color-adjust:exact;}" +
                 ".ellipsis-row td{text-align:center;font-weight:700;color:#94a3b8;letter-spacing:0.35em;background:#f1f5f9 !important;}" +
                 ".summary-chip{display:inline-block;padding:5px 12px;border-radius:8px;font-weight:700;font-size:0.82rem;border:1px solid rgba(99,102,241,0.25);background:linear-gradient(180deg,#eef2ff 0%,#e0e7ff 100%);color:#312e81;}" +
                 ".summary-chip--win{background:linear-gradient(180deg,#ecfdf5 0%,#d1fae5 100%);color:#065f46;border-color:rgba(16,185,129,0.35);}" +
                 ".summary-chip--loss{background:linear-gradient(180deg,#fef2f2 0%,#fee2e2 100%);color:#991b1b;border-color:rgba(248,113,113,0.4);}" +
                 ".summary-chip--empty{background:#f1f5f9;color:#94a3b8;border-color:#e2e8f0;font-weight:600;}" +
+                ".summary-cell{white-space:nowrap;}" +
+                ".summary-cell .summary-chip{font-size:0.68rem;padding:2px 5px;}" +
                 ".detail-list{display:flex;flex-wrap:wrap;gap:4px;}" +
+                ".detail-list .summary-chip{font-size:0.72rem;padding:3px 8px;}" +
                 "</style></head><body>" +
                 "<div class=\"site-header\">" +
                 "<div class=\"header-brand\">" +
@@ -1266,7 +1382,52 @@
             };
         }
 
-        function renderFromLines(rawLines, existingErrors) {
+        function parseEloSeed(text) {
+            const seed = {};
+            text.split("\n").forEach(function (line) {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith("#")) { return; }
+                const parts = trimmed.split(",").map(function (s) { return s.trim(); });
+                if (parts.length !== 2) { return; }
+                const name = parts[0];
+                const rating = Number(parts[1]);
+                if (name && !isNaN(rating)) { seed[name] = rating; }
+            });
+            return seed;
+        }
+
+        async function fetchEloSeed() {
+            try {
+                const response = await fetch("./elo_seed.txt", { cache: "no-store" });
+                if (!response.ok) { return {}; }
+                return parseEloSeed(await response.text());
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function calculateEloRatings(orderedLines, seedMap) {
+            const seed = seedMap || {};
+            const ratings = {};
+            orderedLines.forEach(function (lineInfo) {
+                const parsed = parseLine(lineInfo.line);
+                if (!parsed || parsed.scoreA === parsed.scoreB) {
+                    return;
+                }
+                const winner = parsed.scoreA > parsed.scoreB ? parsed.playerA : parsed.playerB;
+                const loser = parsed.scoreA > parsed.scoreB ? parsed.playerB : parsed.playerA;
+                if (ratings[winner] === undefined) { ratings[winner] = seed[winner] !== undefined ? seed[winner] : ELO_START; }
+                if (ratings[loser] === undefined) { ratings[loser] = seed[loser] !== undefined ? seed[loser] : ELO_START; }
+                const rW = ratings[winner];
+                const rL = ratings[loser];
+                const expected = 1 / (1 + Math.pow(10, (rL - rW) / 400));
+                ratings[winner] = Math.max(0, Math.round(rW + ELO_K * (1 - expected)));
+                ratings[loser] = Math.max(0, Math.round(rL + ELO_K * (0 - (1 - expected))));
+            });
+            return ratings;
+        }
+
+        function renderFromLines(rawLines, existingErrors, eloMap, eloChanges) {
             const statsMap = {};
             const errors = existingErrors.slice();
 
@@ -1284,7 +1445,7 @@
                 }
             });
 
-            renderPlayerTable(statsMap);
+            renderPlayerTable(statsMap, eloMap, eloChanges);
             dom.errorNote.textContent = errors.join(" | ");
         }
 
@@ -1304,7 +1465,7 @@
             return statsMap;
         }
 
-        function renderPerDateResults(fileGroups) {
+        function renderPerDateResults(fileGroups, eloChangesByDate) {
             if (!dom.perDateResults) {
                 return;
             }
@@ -1322,14 +1483,17 @@
                 "<thead><tr>" +
                 "<th>#</th>" +
                 "<th>Player</th>" +
-                "<th>Total</th>" +
+                "<th>Rating</th>" +
+                "<th>Win-Loss</th>" +
                 "<th>Won Against</th>" +
                 "<th>Lost Against</th>" +
                 "</tr></thead>";
 
             dom.perDateResults.innerHTML = sortedDates.map(function (dateKey) {
                 const statsMap = buildStatsMapFromLines(fileGroups[dateKey]);
-                const bodyHTML = buildPlayerTableBodyHTML(statsMap).html;
+                const dateElo = eloChangesByDate ? eloChangesByDate[dateKey] : null;
+                const eloData = dateElo ? { map: dateElo.afterRatings, changes: dateElo.changes } : null;
+                const bodyHTML = buildPlayerTableBodyHTML(statsMap, null, eloData).html;
 
                 return "<div class=\"per-date-section league-subsection ranking-section\" data-date=\"" + dateKey + "\">" +
                     "<div class=\"matrix-card-header\">" +
@@ -1431,11 +1595,13 @@
                 fetchResultFileList(),
                 fetchGroupPlayers("group_1.txt"),
                 fetchGroupPlayers("group_2.txt"),
-                fetchNextMatchDate()
+                fetchNextMatchDate(),
+                fetchEloSeed()
             ]);
             const resultFiles = listResult[0];
             const groupResults = [listResult[1], listResult[2]];
             const nextMatchDate = listResult[3];
+            const eloSeed = listResult[4];
             const groupMap = {
                 group_1: groupResults[0],
                 group_2: groupResults[1],
@@ -1497,8 +1663,17 @@
                 return;
             }
 
-            renderFromLines(rawLines, loadingErrors);
-            renderPerDateResults(fileGroups);
+            const eloLines = rawLines.slice().sort(function (a, b) {
+                return a.source.localeCompare(b.source);
+            });
+            const eloMap = calculateEloRatings(eloLines, eloSeed);
+            const eloChangesByDate = computePerDateEloChanges(fileGroups, eloSeed);
+
+            const lastDateKey = Object.keys(eloChangesByDate).sort().pop();
+            const lastMatchChanges = lastDateKey ? eloChangesByDate[lastDateKey].changes : {};
+
+            renderFromLines(rawLines, loadingErrors, eloMap, lastMatchChanges);
+            renderPerDateResults(fileGroups, eloChangesByDate);
         }
 
         loadAndDisplayResults();

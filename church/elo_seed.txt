@@ -1,0 +1,10 @@
+# Starting ELO per player. Format: PlayerName, ELO
+# Players not listed here start at 0.
+Andrew, 200
+Hyunseo, 200
+Luke, 200
+David Oh, 100
+Hayul, 100
+Jaden, 100
+Leo, 100
+Jiho, 100
