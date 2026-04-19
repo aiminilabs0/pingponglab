@@ -39,7 +39,7 @@
   },
   "urls": {
     "en": {
-      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=dhs-h3-neo-provincial",
+      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=dhs-h3-neo-prov-blue",
       "youtube": "https://www.youtube.com/watch?v=Vwekz8NGOJE"
     },
     "ko": {
@@ -53,9 +53,9 @@
   },
   "price": {
     "en": {
-      "regular": "$52.95",
-      "sale": "$45.95",
-      "discount": "-13%"
+      "regular": "$69.95",
+      "sale": "$59.95",
+      "discount": "-14%"
     },
     "ko": {
       "regular": "52.5",
@@ -63,9 +63,9 @@
       "discount": ""
     },
     "cn": {
-      "regular": "$52.95",
-      "sale": "$45.95",
-      "discount": "-13%"
+      "regular": "$69.95",
+      "sale": "$59.95",
+      "discount": "-14%"
     }
   }
 }
