@@ -864,5 +864,20 @@
       "https://www.youtube.com/watch?v=7fNA9mkZtIc",
       "https://www.youtube.com/watch?v=1DRHmH6AaDg"
     ]
+  },
+  "Adriana DIAZ": {
+    "full_name": "Adriana DIAZ",
+    "localized_names": {
+      "ko": "디아즈",
+      "cn": "迪亚斯"
+    },
+    "forehand": "Butterfly/Zyre 03",
+    "backhand": "Butterfly/Zyre 03",
+    "ranking": 18,
+    "youtubes": [
+      "https://www.youtube.com/watch?v=19Q5oB_DEWo",
+      "https://www.youtube.com/watch?v=JfWHYBvoSDw",
+      "https://www.youtube.com/watch?v=0TETZti-xcw"
+    ]
   }
 }
