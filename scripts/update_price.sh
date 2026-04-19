@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # update_price.sh
-# Fetches prices from megaspin.net and updates price.en/ko/cn in rubber JSON files.
+# Fetches prices from megaspin.net and updates price.en/cn in rubber JSON files (ko unchanged).
 # Usage: ./script/update_price.sh [--with-aid|--strip-aid] <path/to/rubber.json ...>
 #   No args → print this usage message.
 #   With file args → processes only the given files.
@@ -116,7 +116,10 @@ for path in files:
         skipped += 1
         continue
 
-    data["price"] = {"en": entry, "ko": entry, "cn": entry}
+    old_price = dict(data.get("price") or {})
+    old_price["en"] = entry
+    old_price["cn"] = entry
+    data["price"] = old_price
 
     with open(path, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
