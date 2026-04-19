@@ -254,6 +254,35 @@ function buildPlayersColumnHtml(rubber, align, { gifTracker = null } = {}) {
     return `<div class="radar-info-players radar-info-players--${align}">${rows.join('')}</div>`;
 }
 
+function buildHeroMetricHtml({ label, first = null, second = null, leftRank = null, rightRank = null, leftPct = null, rightPct = null, winner = null } = {}) {
+    const PLACEHOLDER_COLOR = 'rgba(158,150,137,0.45)';
+    const leftColor = first ? getBrandColor(first.brand) : PLACEHOLDER_COLOR;
+    const rightColor = second ? getBrandColor(second.brand) : PLACEHOLDER_COLOR;
+    const clampPct = v => Number.isFinite(v) ? Math.max(0, Math.min(100, v)) : 0;
+    const lPct = clampPct(leftPct);
+    const rPct = clampPct(rightPct);
+    const lRank = Number.isFinite(leftRank) ? '#' + leftRank : '-';
+    const rRank = Number.isFinite(rightRank) ? '#' + rightRank : '-';
+    const leftRankCls = winner === 'left' ? ' radar-cmp-hero-rank--win' : (winner ? ' radar-cmp-hero-rank--lose' : '');
+    const rightRankCls = winner === 'right' ? ' radar-cmp-hero-rank--win' : (winner ? ' radar-cmp-hero-rank--lose' : '');
+    const leftBarCls = winner === 'left' ? ' radar-cmp-hero-bar--win' : (winner ? ' radar-cmp-hero-bar--lose' : '');
+    const rightBarCls = winner === 'right' ? ' radar-cmp-hero-bar--win' : (winner ? ' radar-cmp-hero-bar--lose' : '');
+    return `
+        <div class="radar-cmp-hero-metric">
+            <div class="radar-cmp-hero-top">
+                <span class="radar-cmp-hero-rank radar-cmp-hero-rank--left${leftRankCls}">${lRank}</span>
+                <span class="radar-cmp-hero-label">${label}</span>
+                <span class="radar-cmp-hero-rank radar-cmp-hero-rank--right${rightRankCls}">${rRank}</span>
+            </div>
+            <div class="radar-cmp-hero-track">
+                <div class="radar-cmp-hero-bar radar-cmp-hero-bar--left${leftBarCls}" style="--pct:${lPct};--bar-color:${leftColor};"></div>
+                <div class="radar-cmp-hero-bar radar-cmp-hero-bar--right${rightBarCls}" style="--pct:${rPct};--bar-color:${rightColor};"></div>
+                <div class="radar-cmp-hero-center"></div>
+            </div>
+        </div>
+    `;
+}
+
 function buildRadarComparisonHtml(first, second) {
     function formatSheetRadarHtml(sheet) {
         if (!sheet) return '<strong class="radar-cmp-small">-</strong>';
@@ -268,16 +297,12 @@ function buildRadarComparisonHtml(first, second) {
     if (!first && !second) {
         const dash = '<span class="radar-cmp-dash">-</span>';
         const cutWeightLabel = tUi('CUT_WEIGHT') + `<span class="metric-hint" data-hint="${tUi('CUT_WEIGHT_HINT')}">${hintIcon}</span>`;
-        const speedLabel = tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`;
-        const spinLabel = tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`;
+        const speedLabel = `<span class="radar-cmp-hero-emoji" aria-hidden="true">⚡</span>${tUi('SPEED')}<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`;
+        const spinLabel = `<span class="radar-cmp-hero-emoji" aria-hidden="true">↻</span>${tUi('SPIN')}<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`;
         const emptyHeroHtml = `
             <div class="radar-cmp-hero">
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left"><strong>-</strong></div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${speedLabel}</div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right"><strong>-</strong></div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left"><strong>-</strong></div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${spinLabel}</div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right"><strong>-</strong></div>
+                ${buildHeroMetricHtml({ label: speedLabel })}
+                ${buildHeroMetricHtml({ label: spinLabel })}
             </div>
         `;
         const emptyDetailLabels = [tUi('CONTROL'), cutWeightLabel, tUi('HARDNESS'), tUi('TOPSHEET'), tUi('RELEASE'), tUi('THICKNESS')];
@@ -349,34 +374,29 @@ function buildRadarComparisonHtml(first, second) {
         if (!hasFiniteNumber(l) || !hasFiniteNumber(r) || l === r) return null;
         return l > r ? 'left' : 'right';
     }
-    // Hero metrics (Speed, Spin)
-    const heroMetrics = [
-        {
-            label: tUi('SPEED') + `<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`,
-            winner: rankWinner('speedRank'),
-            left: val(first, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
-            right: val(second, r => `<strong>${typeof r.speedRank === 'number' ? '#' + r.speedRank : '-'}</strong>`),
-        },
-        {
-            label: tUi('SPIN') + `<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`,
-            winner: rankWinner('spinRank'),
-            left: val(first, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
-            right: val(second, r => `<strong>${typeof r.spinRank === 'number' ? '#' + r.spinRank : '-'}</strong>`),
-        },
-    ];
-
-    function heroTrophyLabel(m) {
-        if (m.winner === 'left') return `🏆 ${m.label}\u2002\u2002`;
-        if (m.winner === 'right') return `\u2002\u2002${m.label} 🏆`;
-        return m.label;
-    }
+    // Hero metrics (Speed, Spin) — tug-of-war bars
+    const firstRadar = first ? getRadarData(first) : null;
+    const secondRadar = second ? getRadarData(second) : null;
     const heroHtml = `
         <div class="radar-cmp-hero">
-            ${heroMetrics.map(m => `
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--left">${m.left}</div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--label">${heroTrophyLabel(m)}</div>
-                <div class="radar-cmp-hero-cell radar-cmp-hero-cell--right">${m.right}</div>
-            `).join('')}
+            ${buildHeroMetricHtml({
+                label: `<span class="radar-cmp-hero-emoji" aria-hidden="true">⚡</span>${tUi('SPEED')}<span class="metric-hint" data-hint="${tUi('SPEED_HINT')}">${hintIcon}</span>`,
+                first, second,
+                leftRank: first?.speedRank,
+                rightRank: second?.speedRank,
+                leftPct: firstRadar?.speed,
+                rightPct: secondRadar?.speed,
+                winner: rankWinner('speedRank'),
+            })}
+            ${buildHeroMetricHtml({
+                label: `<span class="radar-cmp-hero-emoji" aria-hidden="true">↻</span>${tUi('SPIN')}<span class="metric-hint" data-hint="${tUi('SPIN_HINT')}">${hintIcon}</span>`,
+                first, second,
+                leftRank: first?.spinRank,
+                rightRank: second?.spinRank,
+                leftPct: firstRadar?.spin,
+                rightPct: secondRadar?.spin,
+                winner: rankWinner('spinRank'),
+            })}
         </div>
     `;
 
@@ -384,7 +404,6 @@ function buildRadarComparisonHtml(first, second) {
     const detailMetrics = [
         {
             label: tUi('CONTROL'),
-            winner: controlWinner(),
             left: val(first, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel)}</strong>`),
             right: val(second, r => `<strong class="chart-control-indicator">${buildControlLevelIndicatorHtml(r.controlLevel, { fillFromLeft: true })}</strong>`),
         },
@@ -488,6 +507,10 @@ function updateRadarChart() {
 
     // Custom axis labels: bold for Speed & Spin, normal for others
     const boldSet = new Set([tUi('SPEED'), tUi('SPIN')]);
+    const emojiForCategory = {
+        [tUi('SPEED')]: '⚡',
+        [tUi('SPIN')]: '↻',
+    };
     const boldCats = radarCategories.filter(c => boldSet.has(c));
     const normalCats = radarCategories.filter(c => !boldSet.has(c));
     const labelR = isMobile ? 110 : 118;
@@ -495,7 +518,11 @@ function updateRadarChart() {
         traces.push({
             type: 'scatterpolar', mode: 'text',
             r: boldCats.map(() => labelR), theta: boldCats,
-            text: boldCats, textposition: 'middle center',
+            text: boldCats.map(c => {
+                const emoji = emojiForCategory[c];
+                return emoji ? `<span style="color:#d4b84a">${emoji}</span> ${c}` : c;
+            }),
+            textposition: 'middle center',
             textfont: { color: 'rgba(232,224,208,0.95)', size: isMobile ? 12 : 15, family: CHART_FONT },
             hoverinfo: 'skip', showlegend: false,
         });

@@ -649,6 +649,14 @@ a.chart-hover-player:hover .chart-hover-player-img {
     display: inline-flex;
     align-items: center;
 }
+.chart-hover-hero-emoji {
+    display: inline-block;
+    margin-right: 3px;
+    font-size: 11px;
+    line-height: 1;
+    color: var(--drac-yellow);
+    text-transform: none;
+}
 .chart-hover-hero-header {
     display: flex;
     align-items: baseline;

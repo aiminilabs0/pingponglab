@@ -812,11 +812,11 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
             </div>
             <div class="chart-hover-hero">
                 <div class="chart-hover-hero-col">
-                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPIN_HINT')}">${tUi('SPIN')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${spinRank != null ? `#${spinRank}` : '-'}</span></div>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPIN_HINT')}"><span class="chart-hover-hero-emoji" aria-hidden="true">↻</span>${tUi('SPIN')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${spinRank != null ? `#${spinRank}` : '-'}</span></div>
                     ${spinPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--spin" style="width:${spinPct}%"></div></div>` : ''}
                 </div>
                 <div class="chart-hover-hero-col">
-                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPEED_HINT')}">${tUi('SPEED')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${speedRank != null ? `#${speedRank}` : '-'}</span></div>
+                    <div class="chart-hover-hero-header"><span class="chart-hover-hero-label metric-hint" data-hint="${tUi('SPEED_HINT')}"><span class="chart-hover-hero-emoji" aria-hidden="true">⚡</span>${tUi('SPEED')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><span class="chart-hover-hero-rank">${speedRank != null ? `#${speedRank}` : '-'}</span></div>
                     ${speedPct != null ? `<div class="chart-hover-stat-bar"><div class="chart-hover-stat-fill chart-hover-stat-fill--speed" style="width:${speedPct}%"></div></div>` : ''}
                 </div>
             </div>

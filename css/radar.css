@@ -59,21 +59,52 @@
 .radar-comparison-header-side--right .rubber-title-buy-wrap {
     margin-left: auto;
 }
-/* Hero section: Speed & Spin — 3-column grid matching detail rows */
+/* Hero section: Speed & Spin — tug-of-war bars */
 .radar-cmp-hero {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 4px 6px;
-    align-items: center;
-    padding: 8px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 8px 12px;
     margin-bottom: 8px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.radar-cmp-hero-cell--left {
-    text-align: right;
+.radar-cmp-hero-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.radar-cmp-hero-top {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+}
+.radar-cmp-hero-rank {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--drac-fg);
+    opacity: 0.85;
+    transition: opacity 0.18s ease;
+}
+.radar-cmp-hero-rank--left {
+    justify-content: flex-end;
     justify-self: end;
 }
-.radar-cmp-hero-cell--label {
+.radar-cmp-hero-rank--right {
+    justify-content: flex-start;
+    justify-self: start;
+}
+.radar-cmp-hero-rank--win {
+    opacity: 1;
+    color: var(--drac-fg);
+}
+.radar-cmp-hero-rank--lose {
+    opacity: 0.55;
+}
+.radar-cmp-hero-label {
     text-align: center;
     color: var(--drac-comment);
     white-space: nowrap;
@@ -81,16 +112,59 @@
     font-weight: 800;
     letter-spacing: 0.3px;
 }
-.radar-cmp-hero-cell--right {
-    text-align: left;
-    justify-self: start;
+.radar-cmp-hero-trophy {
+    font-size: 12px;
+    line-height: 1;
 }
-.radar-cmp-hero-cell strong {
+.radar-cmp-hero-emoji {
     display: inline-block;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--drac-fg);
-    opacity: 0.8;
+    margin-right: 4px;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--drac-yellow);
+    transform: translateY(-0.5px);
+}
+.radar-cmp-hero-track {
+    position: relative;
+    height: 10px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.radar-cmp-hero-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--bar-color, rgba(158,150,137,0.45));
+    transition: width 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.18s ease;
+}
+.radar-cmp-hero-bar--left {
+    right: 50%;
+    width: calc(var(--pct, 0) * 0.5%);
+    border-radius: 999px 2px 2px 999px;
+    background: linear-gradient(to left, var(--bar-color, rgba(158,150,137,0.45)), color-mix(in srgb, var(--bar-color, #888) 78%, transparent));
+}
+.radar-cmp-hero-bar--right {
+    left: 50%;
+    width: calc(var(--pct, 0) * 0.5%);
+    border-radius: 2px 999px 999px 2px;
+    background: linear-gradient(to right, var(--bar-color, rgba(158,150,137,0.45)), color-mix(in srgb, var(--bar-color, #888) 78%, transparent));
+}
+.radar-cmp-hero-bar--lose {
+    opacity: 0.55;
+}
+.radar-cmp-hero-bar--win {
+    box-shadow: 0 0 10px color-mix(in srgb, var(--bar-color, #fff) 45%, transparent);
+}
+.radar-cmp-hero-center {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.22);
+    pointer-events: none;
 }
 
 /* 3-column comparison grid */
