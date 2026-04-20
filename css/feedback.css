@@ -742,6 +742,31 @@
     color: var(--drac-comment);
     opacity: 0.6;
 }
+.site-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.footer-x-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: var(--drac-comment);
+    opacity: 0.6;
+    transition: opacity 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    text-decoration: none;
+}
+.footer-x-link:hover {
+    opacity: 1;
+    color: var(--drac-fg);
+    transform: translateY(-1px);
+}
+.footer-x-link:active {
+    transform: translateY(0) scale(0.97);
+}
 .footer-feedback-btn {
     display: inline-flex;
     align-items: center;
