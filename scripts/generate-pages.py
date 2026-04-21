@@ -54,7 +54,16 @@ def load_rubber_index():
         with open(rubber_path) as f:
             rubber_data = json.load(f)
         name = rubber_data.get('name', abbr)
-        rubbers.append({'brand': brand, 'abbr': abbr, 'name': name, 'file': filepath})
+        only_locales = rubber_data.get('onlyLocales')
+        if only_locales is not None and not isinstance(only_locales, list):
+            only_locales = None
+        rubbers.append({
+            'brand': brand,
+            'abbr': abbr,
+            'name': name,
+            'file': filepath,
+            'only_locales': only_locales,
+        })
     return rubbers
 
 
@@ -211,6 +220,25 @@ COUNTRY_DESCRIPTIONS = {
 }
 
 
+def countries_for_rubber(rubber):
+    """Site country codes (en/ko/cn) that should get static pages for this rubber.
+
+    If ``onlyLocales`` is set in the rubber JSON, pages are generated only for those
+    locales (must match entries in COUNTRIES). Otherwise all countries.
+    """
+    locs = rubber.get('only_locales')
+    if not locs:
+        return list(COUNTRIES)
+    return [c for c in COUNTRIES if c in locs]
+
+
+def countries_for_pair(rubber_a, rubber_b):
+    """Countries where both rubbers are available (intersection of locale restrictions)."""
+    allowed_a = set(countries_for_rubber(rubber_a))
+    allowed_b = set(countries_for_rubber(rubber_b))
+    return sorted(allowed_a & allowed_b)
+
+
 # ── Main generation ──
 
 def main():
@@ -284,9 +312,10 @@ def main():
     # ── Rubber detail pages ──
     print('Generating rubber detail pages...')
     rubber_count = 0
+    abbr_to_rubber = {r['abbr']: r for r in rubbers}
     for r in rubbers:
         slug = slug_map['abbrToSlug'][r['abbr']]
-        for country in COUNTRIES:
+        for country in countries_for_rubber(r):
             title = f"{r['abbr']} Review | PingPongLab"
             desc = f"Detailed review of {r['abbr']} by {r['brand']}. Compare speed, spin, control, hardness, and weight."
             canonical = f'{BASE_URL}/{country}/rubbers/{slug}'
@@ -307,7 +336,12 @@ def main():
             continue
         sorted_slugs = sorted([slug_a, slug_b])
         comp_slug = f'{sorted_slugs[0]}-vs-{sorted_slugs[1]}'
-        for country in COUNTRIES:
+        ra = abbr_to_rubber.get(name_a)
+        rb = abbr_to_rubber.get(name_b)
+        if not ra or not rb:
+            print(f'  WARNING: Skipping comparison {name_a} vs {name_b} — rubber data missing')
+            continue
+        for country in countries_for_pair(ra, rb):
             title = f"{name_a} vs {name_b} | PingPongLab"
             desc = f"Compare {name_a} and {name_b}: speed, spin, control, hardness, and weight side by side."
             canonical = f'{BASE_URL}/{country}/rubbers/compare/{comp_slug}'
