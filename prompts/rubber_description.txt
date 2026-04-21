@@ -75,8 +75,6 @@ Use EXACTLY this structure for the English article:
 
 ## 2. Performance Analysis
 
-Include analysis of:
-
 - Speed & Gears
   - Passive Block Speed
   - Active Loop Speed
@@ -198,8 +196,6 @@ Use EXACTLY this structure for the Korean article:
 - 플레이 스타일 — 예: 공격형 루퍼, 안정형 블로커, 변화형 공격수 등.
 
 ## 2. 성능 분석
-
-다음 요소들을 중심으로 분석합니다.
 
 - 스피드 & 반발력
     - 수동적인 블록 스피드
@@ -325,8 +321,6 @@ Use EXACTLY this structure for the Chinese article:
 - 适合打法 — 例如：进攻型弧圈手、稳定型控制型选手、变化型进攻者等。
 
 ## 2. 性能分析
-
-围绕以下关键性能维度进行详细分析：
 
 - 速度与动力层次
     - 被动挡球速度

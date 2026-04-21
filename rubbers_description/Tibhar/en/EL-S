@@ -5,8 +5,6 @@
 
 ## 2. Performance Analysis
 
-Include analysis of:
-
 - Speed & Gears
     - Passive Block Speed: Moderate. The sponge absorbs some energy on soft touches, keeping passive blocks controlled but not inherently fast.
     - Active Loop Speed: High. When you dig into the 47.5-degree sponge, the Red Power Sponge activates, delivering a penetrating, fast shot.
