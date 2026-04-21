@@ -1,5 +1,6 @@
 {
   "abbr": "MX-K",
+  "onlyLocales": ["ko"],
   "name": "Tibhar MX-K",
   "abbr_i18n": {
     "en": "MX-K",

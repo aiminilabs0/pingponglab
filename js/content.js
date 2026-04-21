@@ -379,6 +379,28 @@ function resetDetailPanels() {
     setActiveTab('desc1');
 }
 
+/** Clear detail slots when selected rubbers are hidden by locale (e.g. after country switch). */
+function pruneInvalidRubberSelections() {
+    let changed = false;
+    for (let i = 0; i < 2; i++) {
+        const r = selectedRubbers[i];
+        if (r && !rubberByAbbr.has(r.abbr)) {
+            selectedRubbers[i] = null;
+            tabContents[`desc${i + 1}`] = null;
+            pinnedRubbers[i] = false;
+            changed = true;
+        }
+    }
+    if (!changed) return;
+
+    renderTabs();
+    if (activeTab) setActiveTab(activeTab);
+    if (typeof updateComparisonBar === 'function') void updateComparisonBar();
+    if (typeof updateRadarChart === 'function') updateRadarChart();
+    if (typeof updateChart === 'function') updateChart({ preserveRanges: true, force: true });
+    if (typeof pushFiltersToUrl === 'function') pushFiltersToUrl();
+}
+
 function handleRubberClick(rubber) {
     resumeSpotlightRotation();
     let panelNum;

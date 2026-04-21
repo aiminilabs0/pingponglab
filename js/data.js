@@ -332,6 +332,28 @@ function buildDescriptionMarkdown(raw) {
 //  Ranking Data
 // ════════════════════════════════════════════════════════════
 
+/** Full chart dataset before `onlyLocales` filtering (see `applyRubberLocaleFilter`). */
+let rubberDataUnfiltered = [];
+let top30PriorityRanking = [];
+
+function applyRubberLocaleFilter() {
+    const lang = typeof getCurrentLang === 'function' ? getCurrentLang() : 'en';
+    rubberData = rubberDataUnfiltered.filter((r) => {
+        if (!r.onlyLocales || !Array.isArray(r.onlyLocales) || r.onlyLocales.length === 0) {
+            return true;
+        }
+        return r.onlyLocales.includes(lang);
+    });
+    rubberByAbbr = new Map(rubberData.map(r => [r.abbr, r]));
+
+    top30Set = new Set();
+    for (const rubber of rubberData) {
+        if (findRubberRank(rubber, top30PriorityRanking) >= 0) {
+            top30Set.add(rubber.fullName);
+        }
+    }
+}
+
 async function loadRankings() {
     const results = await Promise.all(
         Object.entries(RANKING_FILES).map(([key, url]) =>
@@ -491,6 +513,9 @@ async function loadRubberData() {
             ...formatPlayersBySide(raw),
             control: parseRatingNumber(ratings.control),
             sheet: normalizeSheet(details.sheet),
+            onlyLocales: Array.isArray(raw.onlyLocales) && raw.onlyLocales.length
+                ? raw.onlyLocales.filter(loc => typeof loc === 'string')
+                : null,
             priority: 999, // will be overridden by priority ranking
             bestseller: { en: false, ko: false, cn: false }, // will be overridden by bestseller ranking
             urls: {
@@ -573,13 +598,8 @@ async function loadRubberData() {
     }
 
     // Only show rubbers that appear in both spin and speed rankings
-    rubberData = data.filter(r => r.x !== null && r.y !== null);
-    rubberByAbbr = new Map(rubberData.map(r => [r.abbr, r]));
-
-    const top30Ranking = priorityRanking.slice(0, 30);
-    top30Set = new Set();
-    for (const rubber of rubberData) {
-        if (findRubberRank(rubber, top30Ranking) >= 0) top30Set.add(rubber.fullName);
-    }
+    rubberDataUnfiltered = data.filter(r => r.x !== null && r.y !== null);
+    top30PriorityRanking = priorityRanking.slice(0, 30);
+    applyRubberLocaleFilter();
 
 }

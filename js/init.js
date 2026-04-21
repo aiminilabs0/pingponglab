@@ -111,6 +111,9 @@ function initCountrySelector() {
         persistCountry(nextCountry);
         applyLocalizedStaticText();
 
+        applyRubberLocaleFilter();
+        pruneInvalidRubberSelections();
+
         // Rebuild filter labels with translated brand/rubber names
         const brandFilter = document.getElementById('brandFilter');
         const brandChecked = new Set(getCheckedValues('brandFilter'));
@@ -1247,6 +1250,8 @@ async function initializeApp() {
         if (newRoute.country && newRoute.country !== selectedCountry) {
             selectedCountry = newRoute.country;
             applyLocalizedStaticText();
+            applyRubberLocaleFilter();
+            pruneInvalidRubberSelections();
             syncCountrySelectorUI();
             const brandFilter = document.getElementById('brandFilter');
             const brandChecked = new Set(getCheckedValues('brandFilter'));
