@@ -444,7 +444,6 @@ Use EXACTLY this structure for the Chinese article:
 * Add one empty line between main categories (## sections).
 * Do NOT fabricate data.
 * If a specific metric is completely unknown, write: **“Information not available”**.
-* If making an educated guess based on similar rubbers, clearly label it as: **“[Inference]”**.
 * Maintain identical analytical depth across all three languages.
 
 ---

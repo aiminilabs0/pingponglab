@@ -68,7 +68,7 @@ Use these exact translated headings/subheadings for each language block.
     * `* **선제 루프 드라이브:**`
     * `* **최대 회전량:**`
     * `* **탑시트 그립력:**`
-* `* **비행 궤적(스로우 각):**`
+* `* **비행 궤적:**`
     * `* **호의 높이:**`
     * `* **안전성:**`
 * `* **타구감 & 피드백:**`
