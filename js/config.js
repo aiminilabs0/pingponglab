@@ -319,8 +319,10 @@ function getCurrentLang() {
 function tUi(key) {
     if (key === 'USER_GUIDE') return UI_TEXT.en.USER_GUIDE;
     const lang = getCurrentLang();
-    const localized = UI_TEXT[lang]?.[key];
-    if (localized) return localized;
+    const bundle = UI_TEXT[lang];
+    if (bundle && Object.prototype.hasOwnProperty.call(bundle, key)) {
+        return bundle[key];
+    }
     return UI_TEXT.en[key] || key;
 }
 
