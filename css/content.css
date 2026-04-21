@@ -76,6 +76,43 @@
     background: rgba(255,255,255,0.08);
     border-color: rgba(255,255,255,0.09);
 }
+/* VS tab: highlight when comparison markdown exists */
+.content-tab.content-tab--vs.content-tab--vs-has-data {
+    color: var(--drac-cyan);
+}
+.content-tab.content-tab--vs.content-tab--vs-has-data:hover {
+    color: #a8f0ff;
+    background: rgba(139, 233, 253, 0.1);
+    border-color: rgba(139, 233, 253, 0.2);
+}
+.content-tab.content-tab--vs.content-tab--vs-has-data.content-tab--active {
+    color: var(--drac-cyan);
+}
+.content-tab.content-tab--vs:not(.content-tab--vs-has-data) {
+    color: rgba(98, 114, 164, 0.95);
+}
+/* Emoji does not follow text color; use filters to dim / align with cyan highlight */
+.content-tab--vs .content-tab-vs-emoji {
+    display: inline-block;
+    vertical-align: -0.12em;
+    line-height: 1;
+    transition: filter 0.15s ease, opacity 0.15s ease;
+}
+.content-tab--vs:not(.content-tab--vs-has-data) .content-tab-vs-emoji {
+    filter: grayscale(0.45) brightness(0.75);
+    opacity: 0.82;
+}
+.content-tab--vs:not(.content-tab--vs-has-data):hover .content-tab-vs-emoji {
+    filter: grayscale(0.2) brightness(0.9);
+    opacity: 0.95;
+}
+.content-tab--vs.content-tab--vs-has-data .content-tab-vs-emoji {
+    filter: drop-shadow(0 0 5px rgba(139, 233, 253, 0.6)) saturate(1.2);
+    opacity: 1;
+}
+.content-tab--vs.content-tab--vs-has-data:hover .content-tab-vs-emoji {
+    filter: drop-shadow(0 0 7px rgba(168, 240, 255, 0.75)) saturate(1.35);
+}
 .content-tab-dot {
     width: 8px;
     height: 8px;

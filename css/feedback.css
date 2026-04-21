@@ -68,12 +68,17 @@
     line-height: 1.2;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--drac-comment);
+    color: rgba(98, 114, 164, 0.95);
     padding: 0 8px;
     border: none;
     border-radius: 8px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(0, 0, 0, 0.2);
     transform: translateY(-0.14em);
+}
+.comparison-title--has-data .comp-title-vs {
+    color: var(--drac-cyan);
+    background: rgba(139, 233, 253, 0.14);
+    text-shadow: 0 0 12px rgba(139, 233, 253, 0.35);
 }
 /* Loading / fallback message inside content pane */
 .comparison-status-msg {

@@ -334,11 +334,13 @@ function renderTabs() {
     const r2 = selectedRubbers[1];
     const tab1Label = r1 ? buildTabButtonContent(r1) : `<span class="content-tab-dot" style="background:var(--drac-comment)"></span>${tUi('RUBBER_1')}`;
     const tab2Label = r2 ? buildTabButtonContent(r2) : `<span class="content-tab-dot" style="background:var(--drac-comment)"></span>${tUi('RUBBER_2')}`;
-    const vsLabel = '🆚 VS';
+    const vsLabel =
+        '<span class="content-tab-vs-emoji">🆚</span><span class="content-tab-vs-suffix"> VS</span>';
+    const vsHasData = !!(r1 && r2 && copyableMarkdownByTab.comparison);
     let html = '';
     html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
     html += `<button class="content-tab" data-tab="desc2">${tab2Label}</button>`;
-    html += `<button class="content-tab content-tab--vs" data-tab="comparison">${vsLabel}</button>`;
+    html += `<button class="content-tab content-tab--vs${vsHasData ? ' content-tab--vs-has-data' : ''}" data-tab="comparison">${vsLabel}</button>`;
     html +=
         `<div class="content-tab-actions">` +
             `<button class="content-tab content-tab--copy" id="copyMarkdownBtn" type="button" hidden aria-label="${escapeHtml(tUi('COPY'))}">` +
@@ -544,7 +546,7 @@ function handleRubberClick(rubber) {
     return panelNum;
 }
 
-function buildComparisonTitleHtml(leftRubber, rightRubber) {
+function buildComparisonTitleHtml(leftRubber, rightRubber, hasComparisonData = false) {
     const leftColor = getBrandColor(leftRubber?.brand);
     const rightColor = getBrandColor(rightRubber?.brand);
     const leftBrand = escapeHtml(tBrand(leftRubber?.brand) || leftRubber?.brand || '');
@@ -552,20 +554,21 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
     const rightBrand = escapeHtml(tBrand(rightRubber?.brand) || rightRubber?.brand || '');
     const rightName  = escapeHtml(tRubberName(rightRubber) || rightRubber?.name || rightRubber?.abbr || '');
 
-    return `
-        <span class="brand-pill comp-title-brand comp-title-brand--left" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
-            <span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}
-        </span>
-        <span class="comp-title-spacer" aria-hidden="true"></span>
-        <span class="brand-pill comp-title-brand comp-title-brand--right" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
-            <span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}
-        </span>
-        <div class="comp-title-names-row">
-            <span class="rubber-name comp-title-name comp-title-name--left">${leftName}</span>
-            <span class="comp-title-vs">vs</span>
-            <span class="rubber-name comp-title-name comp-title-name--right">${rightName}</span>
-        </div>
-    `;
+    const titleClass = 'comparison-title' + (hasComparisonData ? ' comparison-title--has-data' : '');
+    return `<div class="${titleClass}">` +
+        `<span class="brand-pill comp-title-brand comp-title-brand--left" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">` +
+            `<span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}` +
+        `</span>` +
+        `<span class="comp-title-spacer" aria-hidden="true"></span>` +
+        `<span class="brand-pill comp-title-brand comp-title-brand--right" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">` +
+            `<span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}` +
+        `</span>` +
+        `<div class="comp-title-names-row">` +
+            `<span class="rubber-name comp-title-name comp-title-name--left">${leftName}</span>` +
+            `<span class="comp-title-vs">vs</span>` +
+            `<span class="rubber-name comp-title-name comp-title-name--right">${rightName}</span>` +
+        `</div>` +
+        `</div>`;
 }
 
 function buildContentFeedbackButtonsHtml(context = {}) {
@@ -593,9 +596,9 @@ async function updateComparisonBar() {
     if (left && right) {
         const renderToken = ++comparisonRenderToken;
         copyableMarkdownByTab.comparison = null;
-        const compTitleHtml = buildComparisonTitleHtml(left, right);
         // Set initial comparison content (title only)
-        tabContents.comparison = `<div class="comparison-title">${compTitleHtml}</div>` +
+        tabContents.comparison =
+            buildComparisonTitleHtml(left, right, false) +
             `<div class="content-pane-scroll"><p class="comparison-status-msg">Loading comparison…</p></div>`;
         renderTabs();
         if (activeTab === 'comparison') setActiveTab('comparison');
@@ -613,14 +616,14 @@ async function updateComparisonBar() {
                 ariaSubject: 'this comparison'
             });
             tabContents.comparison =
-                `<div class="comparison-title">${compTitleHtml}</div>` +
+                buildComparisonTitleHtml(left, right, true) +
                 `<div class="content-pane-scroll md-comparison">${marked.parse(markdown)}${comparisonFeedbackButtonsHtml}</div>`;
         } else {
             copyableMarkdownByTab.comparison = null;
             const leftName = escapeHtml(left.name || left.abbr || '');
             const rightName = escapeHtml(right.name || right.abbr || '');
             tabContents.comparison =
-                `<div class="comparison-title">${compTitleHtml}</div>` +
+                buildComparisonTitleHtml(left, right, false) +
                 `<div class="content-pane-scroll">` +
                     `<div class="comparison-empty-state">` +
                         `<div class="comparison-empty-mascot">${MASCOT_SVG}</div>` +
