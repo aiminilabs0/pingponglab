@@ -877,7 +877,6 @@ function initComparisonRequestModal() {
         if (!requestBtn) return;
         const leftRubber = requestBtn.dataset.leftRubber || '';
         const rightRubber = requestBtn.dataset.rightRubber || '';
-        trackComparisonRequestEvent(leftRubber, rightRubber);
         openModal(leftRubber, rightRubber);
     });
 
