@@ -88,8 +88,11 @@
     }
     .content-tabs { padding: 4px 8px; overflow-x: auto; gap: 3px; }
     .content-tab { padding: 7px 10px; font-size: 12px; max-width: 140px; border-radius: 8px; border-width: 1px; }
-    .share-btn-label { display: none; }
-    .content-tab--share { padding: 7px 8px; min-width: 0; }
+    .share-btn-label,
+    .copy-btn-label { display: none; }
+    .content-tab--share,
+    .content-tab--copy { padding: 7px 8px; min-width: 0; }
+    .content-tab-actions { gap: 2px; }
     #chart { height: 68vh; }
     .chart-speed-outside {
         margin: 0 -16px;

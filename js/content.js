@@ -12,6 +12,98 @@ const PRODUCT_STORE_MAP = [
 ];
 const PRODUCT_DEFAULT_STORE = { icon: null, label: 'Buy' };
 
+/** Raw markdown for the active desc / comparison tab (used by Copy). Keys: desc1, desc2, comparison. */
+const copyableMarkdownByTab = { desc1: null, desc2: null, comparison: null };
+
+/** SVG for tab-bar Copy (matches Share icon size). */
+const COPY_TAB_ICON_SVG =
+    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
+        `<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>` +
+        `<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>` +
+    `</svg>`;
+
+function syncCopyMarkdownTabButton() {
+    const btn = document.getElementById('copyMarkdownBtn');
+    if (!btn) return;
+    const show = !!(activeTab && copyableMarkdownByTab[activeTab]);
+    btn.hidden = !show;
+}
+
+/** Matches `responsive.css` breakpoint where copy label is icon-only. */
+function isNarrowCopyUi() {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+}
+
+let copyMarkdownToastTimer = null;
+function showCopyMarkdownToast() {
+    let toast = document.getElementById('copyMarkdownToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'copyMarkdownToast';
+        toast.className = 'comparison-request-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+    }
+    toast.textContent = tUi('COPY_TEXT_COPIED');
+    toast.classList.add('is-visible');
+    if (copyMarkdownToastTimer) clearTimeout(copyMarkdownToastTimer);
+    copyMarkdownToastTimer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+        copyMarkdownToastTimer = null;
+    }, 2000);
+}
+
+/** Turn markdown into readable plain text (no #, *, **, etc.) for pasting on sites that are not markdown-aware. */
+function markdownToPlainTextForClipboard(markdown) {
+    if (markdown == null || markdown === '') return '';
+    if (typeof marked === 'undefined' || typeof marked.parse !== 'function') {
+        return markdown;
+    }
+    try {
+        const html = marked.parse(markdown);
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        return div.innerText.replace(/\n{3,}/g, '\n\n').trim();
+    } catch {
+        return markdown;
+    }
+}
+
+async function handleCopyMarkdownClick() {
+    const raw = activeTab ? copyableMarkdownByTab[activeTab] : null;
+    if (raw == null || raw === '') return;
+    const text = markdownToPlainTextForClipboard(raw);
+
+    try {
+        await navigator.clipboard.writeText(text);
+    } catch {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+
+    const btn = document.getElementById('copyMarkdownBtn');
+    if (!btn) return;
+    btn.classList.add('content-tab--copy-copied');
+    const label = btn.querySelector('.copy-btn-label');
+    const origText = label?.textContent;
+    if (label) label.textContent = tUi('COPY_TEXT_COPIED');
+    setTimeout(() => {
+        btn.classList.remove('content-tab--copy-copied');
+        if (label) label.textContent = origText;
+    }, 1500);
+
+    if (isNarrowCopyUi()) {
+        showCopyMarkdownToast();
+    }
+}
+
 const MASCOT_SVG =
     `<svg class="end-mascot" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
         `<ellipse cx="50" cy="58" rx="34" ry="38" fill="#da8a52"/>` +
@@ -247,17 +339,28 @@ function renderTabs() {
     html += `<button class="content-tab" data-tab="desc1">${tab1Label}</button>`;
     html += `<button class="content-tab" data-tab="desc2">${tab2Label}</button>`;
     html += `<button class="content-tab content-tab--vs" data-tab="comparison">${vsLabel}</button>`;
-    html += `<button class="content-tab content-tab--share" id="shareBtn" type="button" aria-label="${escapeHtml(tUi('SHARE'))}">` +
-        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>` +
-        `<span class="share-btn-label">${escapeHtml(tUi('SHARE'))}</span>` +
-        `</button>`;
+    html +=
+        `<div class="content-tab-actions">` +
+            `<button class="content-tab content-tab--copy" id="copyMarkdownBtn" type="button" hidden aria-label="${escapeHtml(tUi('COPY'))}">` +
+                COPY_TAB_ICON_SVG +
+                `<span class="copy-btn-label">${escapeHtml(tUi('COPY'))}</span>` +
+            `</button>` +
+            `<button class="content-tab content-tab--share" id="shareBtn" type="button" aria-label="${escapeHtml(tUi('SHARE'))}">` +
+                `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>` +
+                `<span class="share-btn-label">${escapeHtml(tUi('SHARE'))}</span>` +
+            `</button>` +
+        `</div>`;
     tabBar.innerHTML = html;
     highlightActiveTab();
+    syncCopyMarkdownTabButton();
 }
 
 function highlightActiveTab() {
     const tabBar = document.getElementById('contentTabs');
     tabBar.querySelectorAll('.content-tab').forEach(btn => {
+        if (btn.classList.contains('content-tab--share') || btn.classList.contains('content-tab--copy')) {
+            return;
+        }
         const tabKey = btn.dataset.tab;
         const isActive = tabKey === activeTab;
         const hasContent = tabContents[tabKey] != null;
@@ -320,6 +423,7 @@ function setActiveTab(tabId) {
     }
 
     highlightActiveTab();
+    syncCopyMarkdownTabButton();
     pushFiltersToUrl();
     if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
     if (typeof initEndMascotEmotes === 'function') {
@@ -336,6 +440,7 @@ async function updateDetailPanel(panelNum, rubber) {
     const localizedBrand = tBrand(rubber.brand) || rubber.brand || '';
     const localizedRubber = tRubberName(rubber) || rubber.name || rubber.abbr || '';
     const detailMarkdown = await fetchRubberDescriptionMarkdown(rubber.brand, rubber.abbr);
+    copyableMarkdownByTab[tabKey] = detailMarkdown || null;
     const headerHtml =
         `<div class="rubber-title-header">` +
             `<div class="rubber-title-top">` +
@@ -365,6 +470,8 @@ async function updateDetailPanel(panelNum, rubber) {
         tabContents[tabKey] = headerHtml + '<div class="content-pane-scroll"><p class="comparison-status-msg">No description available.</p></div>';
     }
 
+    renderTabs();
+
     // If this tab is currently active, refresh the pane
     if (activeTab === tabKey) {
         setActiveTab(tabKey);
@@ -372,6 +479,7 @@ async function updateDetailPanel(panelNum, rubber) {
 }
 
 function resetDetailPanels() {
+    copyableMarkdownByTab.desc1 = copyableMarkdownByTab.desc2 = copyableMarkdownByTab.comparison = null;
     tabContents = { desc1: null, desc2: null, comparison: null };
     tabScrollPositions = { desc1: 0, desc2: 0, comparison: 0 };
     activeTab = null;
@@ -485,6 +593,7 @@ async function updateComparisonBar() {
     const [left, right] = selectedRubbers;
     if (left && right) {
         const renderToken = ++comparisonRenderToken;
+        copyableMarkdownByTab.comparison = null;
         const compTitleHtml = buildComparisonTitleHtml(left, right);
         // Set initial comparison content (title only)
         tabContents.comparison = `<div class="comparison-title">${compTitleHtml}</div>` +
@@ -496,6 +605,7 @@ async function updateComparisonBar() {
         if (renderToken !== comparisonRenderToken) return;
 
         if (markdown) {
+            copyableMarkdownByTab.comparison = markdown;
             const comparisonFeedbackButtonsHtml = buildContentFeedbackButtonsHtml({
                 voteScope: 'comparison',
                 tabId: 'comparison',
@@ -507,6 +617,7 @@ async function updateComparisonBar() {
                 `<div class="comparison-title">${compTitleHtml}</div>` +
                 `<div class="content-pane-scroll md-comparison">${marked.parse(markdown)}${comparisonFeedbackButtonsHtml}</div>`;
         } else {
+            copyableMarkdownByTab.comparison = null;
             const leftName = escapeHtml(left.name || left.abbr || '');
             const rightName = escapeHtml(right.name || right.abbr || '');
             tabContents.comparison =
@@ -524,6 +635,7 @@ async function updateComparisonBar() {
         if (activeTab === 'comparison') setActiveTab('comparison');
     } else {
         comparisonRenderToken++;
+        copyableMarkdownByTab.comparison = null;
         tabContents.comparison = null;
         renderTabs();
     }

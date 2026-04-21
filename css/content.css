@@ -85,19 +85,44 @@
     box-shadow: none;
 }
 
-/* Share button in tab bar */
-.content-tab--share {
+/* Share + Copy: right-aligned group in tab bar */
+.content-tab-actions {
+    display: flex;
+    align-items: center;
     margin-left: auto;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Share / Copy: same chrome as tabs but utility styling (not a selectable tab) */
+.content-tab--share,
+.content-tab--copy {
     gap: 5px;
     color: var(--drac-cyan);
     background: transparent !important;
     opacity: 0.85;
     transition: color 0.15s ease, opacity 0.15s ease;
 }
-.content-tab--share:hover { color: var(--drac-cyan); opacity: 1; background: rgba(126, 184, 168, 0.08) !important; }
-.content-tab--share svg { flex-shrink: 0; }
-.share-btn-label { font-size: 12px; }
-.content-tab--share-copied { color: var(--drac-green); opacity: 1; }
+.content-tab--share:hover,
+.content-tab--copy:hover {
+    color: var(--drac-cyan);
+    opacity: 1;
+    background: rgba(126, 184, 168, 0.08) !important;
+}
+.content-tab--share svg,
+.content-tab--copy svg {
+    flex-shrink: 0;
+}
+.share-btn-label,
+.copy-btn-label {
+    font-size: 12px;
+}
+.content-tab--share-copied,
+.content-tab--copy-copied {
+    color: var(--drac-green);
+    opacity: 1;
+}
+
 /* Content body */
 .content-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; max-height: 75vh; min-height: 0; }
 .content-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }

@@ -1043,6 +1043,10 @@ async function initializeApp() {
 
     // Tab click listener
     document.getElementById('contentTabs').addEventListener('click', (e) => {
+        if (e.target.closest('.content-tab--copy')) {
+            void handleCopyMarkdownClick();
+            return;
+        }
         // Share button
         if (e.target.closest('.content-tab--share')) {
             handleShareClick();
