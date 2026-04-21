@@ -396,7 +396,7 @@
     height: 24px;
     background: rgba(255,255,255,0.06);
     border: none;
-    color: var(--drac-comment);
+    color: var(--popup-muted);
     font-size: 16px;
     line-height: 1;
     cursor: pointer;
@@ -416,7 +416,9 @@
     border: 1px solid rgba(255,255,255,0.10);
     border-radius: 14px;
     padding: 0;
-    background: rgba(16,17,20,0.97);
+    /* Slightly lifted surface + readable secondary text (labels, hooks) */
+    --popup-muted: color-mix(in srgb, var(--drac-fg) 62%, var(--drac-comment));
+    background: rgba(22,24,28,0.98);
     box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
     backdrop-filter: blur(16px) saturate(1.1);
     overflow: hidden;
@@ -445,7 +447,7 @@
 }
 .chart-hover-head .rubber-release-year {
     font-size: 0.7em;
-    opacity: 0.5;
+    opacity: 0.68;
     font-weight: 400;
     margin-left: 2px;
     align-self: flex-end;
@@ -555,7 +557,7 @@
 .chart-hover-hook {
     padding: 9px 14px 10px;
     font-size: 12px;
-    color: var(--drac-comment);
+    color: var(--popup-muted);
     font-style: italic;
     line-height: 1.5;
     border-top: 1px solid rgba(255,255,255,0.06);
@@ -570,7 +572,7 @@
 }
 .chart-hover-players-label {
     font-size: 12.5px;
-    color: var(--drac-comment);
+    color: var(--popup-muted);
     flex-shrink: 0;
 }
 .chart-hover-player-list {
@@ -645,7 +647,7 @@ a.chart-hover-player:hover .chart-hover-player-img {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--drac-comment);
+    color: var(--popup-muted);
     display: inline-flex;
     align-items: center;
 }
@@ -669,7 +671,7 @@ a.chart-hover-player:hover .chart-hover-player-img {
     font-weight: 700;
     color: var(--drac-fg);
     line-height: 1;
-    opacity: 0.75;
+    opacity: 0.92;
 }
 .chart-hover-stat-bar {
     width: 100%;
@@ -709,7 +711,7 @@ a.chart-hover-player:hover .chart-hover-player-img {
     background: rgba(255,255,255,0.06);
 }
 .chart-hover-detail span {
-    color: var(--drac-comment);
+    color: var(--popup-muted);
     font-size: 11.5px;
 }
 .chart-hover-detail strong {
@@ -888,6 +890,12 @@ a.chart-hover-player:hover .chart-hover-player-img {
 }
 .metric-hint:hover .metric-hint-icon {
     opacity: 0.7;
+}
+.chart-hover-card .metric-hint-icon {
+    opacity: 0.5;
+}
+.chart-hover-card .metric-hint:hover .metric-hint-icon {
+    opacity: 0.88;
 }
 /* CSS-only tooltip for contexts without overflow:hidden ancestors */
 .metric-hint::after {

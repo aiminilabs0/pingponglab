@@ -523,7 +523,7 @@ function updateRadarChart() {
                 return emoji ? `<span style="color:#d4b84a">${emoji}</span> ${c}` : c;
             }),
             textposition: 'middle center',
-            textfont: { color: 'rgba(232,224,208,0.95)', size: isMobile ? 12 : 15, family: CHART_FONT },
+            textfont: { color: 'rgba(240,234,220,0.98)', size: isMobile ? 13 : 15, family: CHART_FONT },
             hoverinfo: 'skip', showlegend: false,
         });
     }
@@ -532,7 +532,7 @@ function updateRadarChart() {
             type: 'scatterpolar', mode: 'text',
             r: normalCats.map(() => labelR), theta: normalCats,
             text: normalCats, textposition: 'middle center',
-            textfont: { color: 'rgba(232,224,208,0.55)', size: isMobile ? 10 : 13, family: CHART_FONT },
+            textfont: { color: 'rgba(232,224,208,0.88)', size: isMobile ? 11 : 13, family: CHART_FONT },
             hoverinfo: 'skip', showlegend: false,
         });
     }

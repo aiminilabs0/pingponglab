@@ -21,6 +21,7 @@
 .radar-info-combined {
     border-top: 1px solid rgba(255,255,255,0.06);
     padding: 14px 16px;
+    --radar-muted: color-mix(in srgb, var(--drac-fg) 58%, var(--drac-comment));
 }
 
 /* Header row: two rubber headers side-by-side */
@@ -102,11 +103,11 @@
     color: var(--drac-fg);
 }
 .radar-cmp-hero-rank--lose {
-    opacity: 0.55;
+    opacity: 0.72;
 }
 .radar-cmp-hero-label {
     text-align: center;
-    color: var(--drac-comment);
+    color: var(--radar-muted);
     white-space: nowrap;
     font-size: 13px;
     font-weight: 800;
@@ -182,7 +183,7 @@
 }
 .radar-cmp-cell--label {
     text-align: center;
-    color: var(--drac-comment);
+    color: var(--radar-muted);
     white-space: nowrap;
     font-size: 12px;
 }
@@ -191,20 +192,21 @@
     justify-self: start;
 }
 .radar-cmp-cell strong {
-    color: var(--drac-comment);
+    color: var(--drac-fg);
     font-weight: 600;
 }
 /* Control row — dimmed, less important (mirrors main chart control guide) */
 .radar-cmp-cell strong.chart-control-indicator {
-    opacity: 0.7;
+    color: color-mix(in srgb, var(--drac-fg) 42%, var(--drac-comment));
     font-size: 11px;
 }
 .radar-cmp-cell strong.radar-cmp-small {
     font-size: 12px;
+    color: color-mix(in srgb, var(--drac-fg) 84%, var(--drac-comment));
 }
 .radar-cmp-dash {
     color: var(--drac-comment);
-    opacity: 0.5;
+    opacity: 0.72;
 }
 /* Price row */
 .radar-cmp-price {
@@ -300,9 +302,9 @@
     border-radius: 7px;
     background: rgba(255,255,255,0.05);
     box-shadow: none;
-    color: var(--drac-comment);
+    color: var(--radar-muted);
     cursor: pointer;
-    opacity: 0.6;
+    opacity: 0.78;
     transition: opacity 0.15s, color 0.15s, background 0.15s, transform 0.15s ease, border-color 0.15s;
     flex-shrink: 0;
 }
@@ -526,7 +528,7 @@
 }
 .player-name-line {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.25;
     white-space: nowrap;
 }
