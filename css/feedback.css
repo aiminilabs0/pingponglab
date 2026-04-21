@@ -1,44 +1,79 @@
-/* Comparison title header (used inside content pane) */
+/* Comparison title header (used inside content pane) — grid: brands row, then names + vs (aligned) */
 .comparison-title {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 16px;
+    row-gap: 5px;
     padding: 14px 20px 12px;
     margin-bottom: 0;
-    border-bottom: none;
+    border-bottom: 1px solid rgba(155,148,132,0.08);
     flex-shrink: 0;
     background: var(--drac-bg-dark);
     border-radius: 0;
     z-index: 2;
-    flex-wrap: wrap;
+    min-width: 0;
 }
-.comp-title-side {
+.comparison-title > .comp-title-brand--left {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+.comparison-title > .comp-title-spacer {
+    grid-column: 2;
+    grid-row: 1;
+}
+.comparison-title > .comp-title-brand--right {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+}
+.comparison-title > .comp-title-names-row {
+    grid-column: 1 / -1;
+    grid-row: 2;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    min-width: 100px;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+    min-width: 0;
 }
-.comp-title-side-right {
-    align-items: flex-end;
-    text-align: right;
+.comp-title-names-row .comp-title-name--left {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: start;
 }
-.comp-title-side-right .brand-pill {
+.comp-title-names-row .comp-title-name--right {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: end;
+}
+.comp-title-names-row .comp-title-vs {
+    flex: 0 0 auto;
+    margin: 0;
+}
+.comp-title-brand--right.brand-pill {
     flex-direction: row-reverse;
     padding: 3px 8px 3px 10px;
 }
-.comp-title-vs {
-    font-size: 13px;
+/*
+ * Match .rubber-name (15px / 1.2). Uppercase "vs" + pill padding sit low vs mixed-case
+ * rubber titles — no vertical padding; small em-based nudge aligns cap height optically.
+ */
+.comparison-title .comp-title-vs {
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--drac-comment);
-    padding: 6px 8px;
-    flex-shrink: 0;
+    padding: 0 8px;
     border: none;
     border-radius: 8px;
-    line-height: 1;
     background: rgba(255,255,255,0.05);
+    transform: translateY(-0.14em);
 }
 /* Loading / fallback message inside content pane */
 .comparison-status-msg {

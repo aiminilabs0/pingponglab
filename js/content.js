@@ -553,18 +553,17 @@ function buildComparisonTitleHtml(leftRubber, rightRubber) {
     const rightName  = escapeHtml(tRubberName(rightRubber) || rightRubber?.name || rightRubber?.abbr || '');
 
     return `
-        <div class="comp-title-side">
-            <span class="brand-pill" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
-                <span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}
-            </span>
-            <span class="rubber-name">${leftName}</span>
-        </div>
-        <div class="comp-title-vs">vs</div>
-        <div class="comp-title-side comp-title-side-right">
-            <span class="brand-pill" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
-                <span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}
-            </span>
-            <span class="rubber-name">${rightName}</span>
+        <span class="brand-pill comp-title-brand comp-title-brand--left" style="background:${leftColor}18;border-color:${leftColor}55;color:${leftColor}">
+            <span class="brand-dot" style="background:${leftColor}"></span>${leftBrand}
+        </span>
+        <span class="comp-title-spacer" aria-hidden="true"></span>
+        <span class="brand-pill comp-title-brand comp-title-brand--right" style="background:${rightColor}18;border-color:${rightColor}55;color:${rightColor}">
+            <span class="brand-dot" style="background:${rightColor}"></span>${rightBrand}
+        </span>
+        <div class="comp-title-names-row">
+            <span class="rubber-name comp-title-name comp-title-name--left">${leftName}</span>
+            <span class="comp-title-vs">vs</span>
+            <span class="rubber-name comp-title-name comp-title-name--right">${rightName}</span>
         </div>
     `;
 }
