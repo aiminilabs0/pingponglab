@@ -141,9 +141,12 @@ function buildCurrentPath() {
 
     // Preserve the SEO landing page URL while no rubber is selected and the
     // user's filter state still matches the preset (so filter tweaks don't
-    // rewrite the pretty URL to /{country}/?rubbers=…).
-    if (window.__SEO_PAGE__ && window.__SEO_PAGE__.slug && seoPagePresetMatchesCurrentSelection()) {
-        return '/' + country + '/' + window.__SEO_PAGE__.slug;
+    // rewrite the pretty URL to /{country}/?rubbers=…). Only valid while we
+    // stay in the SEO page's original country — country switches navigate
+    // away via a full reload (see initCountrySelector).
+    const seo = window.__SEO_PAGE__;
+    if (seo && seo.slug && (!seo.country || seo.country === country) && seoPagePresetMatchesCurrentSelection()) {
+        return '/' + country + '/' + seo.slug;
     }
 
     return '/' + country + '/';

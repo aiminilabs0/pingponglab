@@ -107,6 +107,21 @@ function initCountrySelector() {
         if (!allowedCountries.includes(nextCountry)) return;
         if (nextCountry === selectedCountry) return;
 
+        // SEO landing pages are static, per-locale HTML files with a preset
+        // rubber filter. Changing language in-page would leak English-only
+        // state (e.g. Korean-only rubbers like MX-K auto-checked) so we hop
+        // via a real navigation: equivalent page in the target locale if we
+        // have one, otherwise that locale's homepage.
+        if (window.__SEO_PAGE__) {
+            persistCountry(nextCountry);
+            const translations = window.__SEO_PAGE__.translations || {};
+            const targetSlug = translations[nextCountry];
+            window.location.href = targetSlug
+                ? '/' + nextCountry + '/' + targetSlug
+                : '/' + nextCountry + '/';
+            return;
+        }
+
         selectedCountry = nextCountry;
         persistCountry(nextCountry);
         applyLocalizedStaticText();

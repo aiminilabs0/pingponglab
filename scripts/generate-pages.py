@@ -396,6 +396,20 @@ def main():
     # lookup matches the convention used by bestseller.json / URL `rubbers=` param.
     name_to_abbr = {r['name']: r['abbr'] for r in rubbers}
     abbr_set = {r['abbr'] for r in rubbers}
+
+    # Build group → { country: slug } map so the client can redirect the
+    # language selector between equivalent pages (e.g. en top-10 → ko top-10).
+    group_translations = {}
+    for page in seo_pages:
+        group = page.get('group')
+        slug = page.get('slug')
+        if not group or not slug:
+            continue
+        for country in (page.get('locales') or list(COUNTRIES)):
+            if country not in COUNTRIES:
+                continue
+            group_translations.setdefault(group, {})[country] = slug
+
     for page in seo_pages:
         slug = page.get('slug')
         if not slug:
@@ -436,10 +450,16 @@ def main():
             heading = re.sub(r'\s*[|\-–—]\s*PingPongLab\s*$', '', title).strip() or title
             seo_data = {
                 'slug': slug,
+                'country': country,
                 'title': title,
                 'rubbers': rubber_abbrs,
                 'heading': heading,
             }
+            group = page.get('group')
+            if group and group in group_translations:
+                # Include every locale in the group (including the current one)
+                # so the JS layer has a single source of truth.
+                seo_data['translations'] = group_translations[group]
             page_html = inject_seo_preset(page_html, seo_data, heading=heading)
             write_file(ROOT / country / slug / 'index.html', page_html)
             all_pages.append((f'/{country}/{slug}', '0.9'))
