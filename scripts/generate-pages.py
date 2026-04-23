@@ -67,6 +67,20 @@ def load_rubber_index():
     return rubbers
 
 
+def load_seo_pages():
+    """Load curated SEO landing pages (e.g. "Top 10 ..." lists).
+
+    Returns a list of dicts with keys: slug, locales, title (dict per locale),
+    description (dict per locale), rubbers (list of rubber names).
+    Missing file returns empty list.
+    """
+    path = ROOT / 'stats' / 'rubbers' / 'seo-pages.json'
+    if not path.exists():
+        return []
+    with open(path) as f:
+        return json.load(f)
+
+
 def load_comparison_pairs():
     """Find all comparison pairs that have content (from en directory)."""
     comp_dir = ROOT / 'rubbers_comparison' / 'en'
@@ -190,6 +204,29 @@ def esc(text):
             .replace('"', '&quot;')
             .replace('<', '&lt;')
             .replace('>', '&gt;'))
+
+
+def inject_seo_preset(html, seo_data, heading=None):
+    """Inject the __SEO_PAGE__ preset script into the HTML head.
+
+    Also optionally rewrites the visible page heading (<h1 class="header-title">)
+    so crawlers see the landing-page-specific title in the body.
+    """
+    payload = json.dumps(seo_data, ensure_ascii=False)
+    script_tag = (
+        '    <script>window.__SEO_PAGE__ = ' + payload + ';</script>\n'
+        '</head>'
+    )
+    html = html.replace('</head>', script_tag, 1)
+
+    if heading:
+        html = re.sub(
+            r'<h1 class="header-title">[^<]*</h1>',
+            f'<h1 class="header-title">{esc(heading)}</h1>',
+            html, count=1
+        )
+
+    return html
 
 
 def write_file(path, content):
@@ -351,6 +388,64 @@ def main():
             comp_count += 1
     print(f'  Generated {comp_count} comparison pages')
 
+    # ── SEO landing pages ──
+    print('Generating SEO landing pages...')
+    seo_pages = load_seo_pages()
+    seo_count = 0
+    # Accept either full name or abbreviation in seo-pages.json. Abbreviation
+    # lookup matches the convention used by bestseller.json / URL `rubbers=` param.
+    name_to_abbr = {r['name']: r['abbr'] for r in rubbers}
+    abbr_set = {r['abbr'] for r in rubbers}
+    for page in seo_pages:
+        slug = page.get('slug')
+        if not slug:
+            print('  WARNING: Skipping SEO page with no slug')
+            continue
+        locales = page.get('locales') or list(COUNTRIES)
+        rubber_refs = page.get('rubbers') or []
+
+        def _resolve(ref):
+            if ref in abbr_set:
+                return ref
+            if ref in name_to_abbr:
+                return name_to_abbr[ref]
+            return None
+
+        rubber_abbrs = []
+        missing = []
+        for ref in rubber_refs:
+            abbr = _resolve(ref)
+            if abbr is None:
+                missing.append(ref)
+            else:
+                rubber_abbrs.append(abbr)
+        if missing:
+            print(f"  WARNING: SEO page '{slug}' references unknown rubbers: {missing}")
+
+        titles = page.get('title') or {}
+        descriptions = page.get('description') or {}
+
+        for country in locales:
+            if country not in COUNTRIES:
+                continue
+            title = titles.get(country) or titles.get('en') or COUNTRY_TITLES[country]
+            desc = descriptions.get(country) or descriptions.get('en') or COUNTRY_DESCRIPTIONS[country]
+            canonical = f'{BASE_URL}/{country}/{slug}'
+            page_html = make_page(template, title=title, description=desc, canonical=canonical, country=country)
+            # Strip " | PingPongLab" (or similar brand suffix) for the visible heading
+            heading = re.sub(r'\s*[|\-–—]\s*PingPongLab\s*$', '', title).strip() or title
+            seo_data = {
+                'slug': slug,
+                'title': title,
+                'rubbers': rubber_abbrs,
+                'heading': heading,
+            }
+            page_html = inject_seo_preset(page_html, seo_data, heading=heading)
+            write_file(ROOT / country / slug / 'index.html', page_html)
+            all_pages.append((f'/{country}/{slug}', '0.9'))
+            seo_count += 1
+    print(f'  Generated {seo_count} SEO landing pages')
+
     # ── Sitemap ──
     print('Generating sitemap.xml...')
     sitemap_entries = []
@@ -370,7 +465,7 @@ def main():
     write_file(ROOT / 'sitemap.xml', sitemap)
     print(f'  {len(all_pages)} URLs in sitemap')
 
-    page_count += rubber_count + comp_count
+    page_count += rubber_count + comp_count + seo_count
     print(f'\nDone! Generated {page_count} total pages.')
 
 

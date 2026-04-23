@@ -79,12 +79,32 @@ function updateDocumentTitle() {
         document.title = right.abbr + ' | PingPongLab';
     } else if (left) {
         document.title = left.abbr + ' | PingPongLab';
+    } else if (typeof window !== 'undefined' && window.__SEO_PAGE__ && window.__SEO_PAGE__.title) {
+        // SEO landing pages (e.g. /en/top-10-…): keep the server-rendered title
+        // while no rubber is selected so crawlers / social shares see it.
+        document.title = window.__SEO_PAGE__.title;
     } else {
         document.title = 'PingPongLab | Best Rubber';
     }
 }
 
 // ── Path construction ──
+
+/**
+ * True when the active SEO landing page's preset rubber selection exactly
+ * matches the current `#nameFilter` checkbox state. Used so we can keep the
+ * pretty SEO URL (no `?rubbers=…`) while the user hasn't diverged from the
+ * preset, and fall back to the standard homepage path + query once they do.
+ */
+function seoPagePresetMatchesCurrentSelection() {
+    if (typeof window === 'undefined' || !window.__SEO_PAGE__) return false;
+    const preset = window.__SEO_PAGE__;
+    if (!Array.isArray(preset.rubbers) || preset.rubbers.length === 0) return false;
+    const checked = getCheckedValues('nameFilter');
+    if (checked.length !== preset.rubbers.length) return false;
+    const presetSet = new Set(preset.rubbers);
+    return checked.every(v => presetSet.has(v));
+}
 
 /**
  * Build the path portion of the current URL from app state.
@@ -119,6 +139,13 @@ function buildCurrentPath() {
         }
     }
 
+    // Preserve the SEO landing page URL while no rubber is selected and the
+    // user's filter state still matches the preset (so filter tweaks don't
+    // rewrite the pretty URL to /{country}/?rubbers=…).
+    if (window.__SEO_PAGE__ && window.__SEO_PAGE__.slug && seoPagePresetMatchesCurrentSelection()) {
+        return '/' + country + '/' + window.__SEO_PAGE__.slug;
+    }
+
     return '/' + country + '/';
 }
 
@@ -132,7 +159,11 @@ function buildFilterQueryString() {
     serializeFilterParam(params, 'brands', 'brandFilter');
     const allRubbers = getAllCheckboxValues('nameFilter');
     const checkedRubbers = getCheckedValues('nameFilter');
-    if (checkedRubbers.length > 0 && checkedRubbers.length < allRubbers.length) {
+    // Skip serializing rubbers when the selection matches the SEO preset —
+    // the preset is restored from window.__SEO_PAGE__ on reload, so the URL
+    // stays clean (e.g. /en/top-10-…) without a redundant ?rubbers=… tail.
+    const onSeoPage = seoPagePresetMatchesCurrentSelection();
+    if (!onSeoPage && checkedRubbers.length > 0 && checkedRubbers.length < allRubbers.length) {
         params.set('rubbers', checkedRubbers.map(n => n.replace(/ /g, '-')).join(','));
     }
     serializeFilterParam(params, 'sheet', 'sheetFilter');
@@ -178,7 +209,19 @@ function syncCountrySelectorUI() {
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const filterKeys = ['brands', 'rubbers', 'sheet', 'hardness', 'weight', 'control', 'top30', 'pin'];
-    if (!filterKeys.some(key => params.has(key))) return;
+    const hasAnyFilter = filterKeys.some(key => params.has(key));
+
+    // SEO landing pages inject a preset rubber list via window.__SEO_PAGE__.
+    // Apply it only when the URL doesn't already specify one so user-shared
+    // filter URLs keep taking precedence.
+    if (!hasAnyFilter && typeof window !== 'undefined' && window.__SEO_PAGE__) {
+        const preset = window.__SEO_PAGE__;
+        if (Array.isArray(preset.rubbers) && preset.rubbers.length > 0) {
+            params.set('rubbers', preset.rubbers.map(n => n.replace(/ /g, '-')).join(','));
+        }
+    }
+
+    if (![...params.keys()].some(k => filterKeys.includes(k))) return;
 
     // Deserialize all filters that affect rubber options first
     if (params.has('brands')) deserializeFilterParam(params, 'brands', 'brandFilter');
