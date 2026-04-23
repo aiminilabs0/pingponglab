@@ -671,7 +671,34 @@ async function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
         });
     });
 
+    const hookBtn = popup.querySelector('.chart-hover-hook');
+    if (hookBtn) {
+        hookBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            jumpToRubberDescription(rubber);
+        });
+    }
+
     return rubber;
+}
+
+function jumpToRubberDescription(rubber) {
+    if (!rubber) return;
+
+    const existingSlot = selectedRubbers.findIndex(r => r && r.abbr === rubber.abbr);
+    if (existingSlot >= 0) {
+        const tabKey = `desc${existingSlot + 1}`;
+        if (typeof setActiveTab === 'function') setActiveTab(tabKey);
+    } else if (typeof handleRubberClick === 'function') {
+        handleRubberClick(rubber);
+    }
+
+    hideChartHoverPopup({ force: true });
+
+    const contentCard = document.getElementById('contentCard');
+    if (contentCard) {
+        contentCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 function buildControlLevelIndicatorHtml(controlLevel, { fillFromLeft = false } = {}) {
@@ -827,7 +854,7 @@ function buildHoverPopupHtml(rubber, point, slotLabel, hookText = null) {
                 <div class="chart-hover-detail"><span class="metric-hint" data-hint="${tUi('HARDNESS_HINT')}">${tUi('HARDNESS')}<svg class="metric-hint-icon" width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.9 12H7.1V7h1.8v5zM8 5.9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><strong class="${hardnessToneClass}${rubber.hardnessLabelDE ? ' hardness-duo' : ''}">${formatHardnessHtml(rubber)}</strong></div>
             </div>
             ${buildHoverPopupPlayersHtml(rubber)}
-            ${hookText ? `<div class="chart-hover-hook">${escapeHtml(hookText)}</div>` : ''}
+            ${hookText ? `<button type="button" class="chart-hover-hook" data-rubber-abbr="${escapeHtml(rubber.abbr || '')}" aria-label="Read full description below"><span class="chart-hover-hook-text">${escapeHtml(hookText)}</span><span class="chart-hover-hook-arrow" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></span></button>` : ''}
         </div>
     `;
 }

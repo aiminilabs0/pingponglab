@@ -555,12 +555,52 @@
     border-color: rgba(92,184,122,0.5);
 }
 .chart-hover-hook {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
     padding: 9px 14px 10px;
     font-size: 12px;
     color: var(--popup-muted);
     font-style: italic;
     line-height: 1.5;
+    text-align: left;
+    background: transparent;
+    border: none;
     border-top: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.chart-hover-hook:hover,
+.chart-hover-hook:focus-visible {
+    background: rgba(255,255,255,0.05);
+    color: var(--popup-fg, #fff);
+    outline: none;
+}
+.chart-hover-hook-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.chart-hover-hook-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: currentColor;
+    opacity: 0.85;
+    transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+}
+.chart-hover-hook:hover .chart-hover-hook-arrow,
+.chart-hover-hook:focus-visible .chart-hover-hook-arrow {
+    opacity: 1;
+    background: rgba(255,255,255,0.14);
+    transform: translateY(1px);
 }
 .chart-hover-players {
     display: flex;
