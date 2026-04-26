@@ -69,22 +69,40 @@ function deserializeControlRangeParam(params) {
 
 // ── Document title ──
 
+let _defaultHeaderTitle = null;
+
 function updateDocumentTitle() {
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
 
-    if (activeTab === 'comparison' && left && right) {
-        document.title = left.abbr + ' vs ' + right.abbr + ' | PingPongLab';
+    let pageTitle;
+    let headerTitle;
+
+    if (left && right) {
+        pageTitle = left.abbr + ' vs ' + right.abbr + ' | PingPongLab';
+        headerTitle = left.abbr + ' vs ' + right.abbr;
     } else if (activeTab === 'desc2' && right) {
-        document.title = right.abbr + ' | PingPongLab';
+        pageTitle = right.abbr + ' | PingPongLab';
+        headerTitle = right.abbr;
     } else if (left) {
-        document.title = left.abbr + ' | PingPongLab';
+        pageTitle = left.abbr + ' | PingPongLab';
+        headerTitle = left.abbr;
     } else if (typeof window !== 'undefined' && window.__SEO_PAGE__ && window.__SEO_PAGE__.title) {
         // SEO landing pages (e.g. /en/top-10-…): keep the server-rendered title
         // while no rubber is selected so crawlers / social shares see it.
-        document.title = window.__SEO_PAGE__.title;
+        pageTitle = window.__SEO_PAGE__.title;
+        headerTitle = window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, '');
     } else {
-        document.title = 'PingPongLab | Best Rubber';
+        pageTitle = 'PingPongLab | Best Rubber';
+        headerTitle = null;
+    }
+
+    document.title = pageTitle;
+
+    const headerEl = document.querySelector('.header-title');
+    if (headerEl) {
+        if (_defaultHeaderTitle === null) _defaultHeaderTitle = headerEl.textContent;
+        headerEl.textContent = headerTitle || _defaultHeaderTitle;
     }
 }
 
