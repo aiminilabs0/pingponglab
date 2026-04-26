@@ -1,9 +1,9 @@
 Andrew, Hayul, 2:1
-Andrew, Hyunseo, 2:0
+Andrew, Hyeonseo, 2:0
 Andrew, Luke, 2:1
-Hayul, Hyunseo, 0:2
+Hayul, Hyeonseo, 0:2
 Hayul, Luke, 0:2
-Hyunseo, Luke, 2:1
+Hyeonseo, Luke, 2:1
 David Oh, Jaden, 1:2
 David Oh, Jiho, 2:0
 David Oh, Leo, 2:0
