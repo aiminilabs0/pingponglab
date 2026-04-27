@@ -80,8 +80,8 @@ Use these exact translated headings/subheadings for each language block.
 * `* **블로킹 & 카운터:**`
     * `* **수동 블록:**`
     * `* **공격적 카운터:**`
-* `* **{{RUBBER_1_NAME}}을(를) 추천하는 경우:**`
-* `* **{{RUBBER_2_NAME}}을(를) 추천하는 경우:**`
+* `* **{{RUBBER_1_NAME}}를 추천하는 경우:**`
+* `* **{{RUBBER_2_NAME}}를 추천하는 경우:**`
 
 ### Chinese (use exactly these labels)
 * `### 1. 一句话总结`
