@@ -751,7 +751,6 @@ def main():
             crumbs = breadcrumb_jsonld([
                 (BREADCRUMB_HOME[country], f'{BASE_URL}/{country}/'),
                 (BREADCRUMB_RUBBERS[country], f'{BASE_URL}/{country}/'),
-                (BREADCRUMB_COMPARE[country], None),
                 (f'{local_a} vs {local_b}', None),
             ])
             page = make_page(
