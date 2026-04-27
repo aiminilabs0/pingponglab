@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # TODO:: Modify!!!!!!
-base_rubber="J&H X47.5"
+base_rubber="Dignics 64"
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
