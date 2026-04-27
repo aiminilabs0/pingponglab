@@ -9,3 +9,7 @@ David Kang, Leo, 0:2
 Jaden, Jiho, 1:2
 Jaden, Leo, 0:2
 Jiho, Leo, 2:1
+David Yang, Joshua Lee, 1:0
+David Yang, Jewoo, 1:0
+David Yang, Branden, 0:1
+Jewoo, Branden, 0:1
