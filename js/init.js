@@ -166,6 +166,7 @@ function initCountrySelector() {
         updateComparisonBar();
         renderTabs();
         updateRadarChart();
+        updateDocumentTitle();
     }
 
     syncCountrySelectorUI();

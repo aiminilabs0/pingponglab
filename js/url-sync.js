@@ -79,14 +79,18 @@ function updateDocumentTitle() {
     let headerTitle;
 
     if (left && right) {
-        pageTitle = left.abbr + ' vs ' + right.abbr + ' | PingPongLab';
-        headerTitle = left.abbr + ' vs ' + right.abbr;
+        const leftLabel = tRubberAbbr(left);
+        const rightLabel = tRubberAbbr(right);
+        pageTitle = leftLabel + ' vs ' + rightLabel + ' | PingPongLab';
+        headerTitle = leftLabel + ' vs ' + rightLabel;
     } else if (activeTab === 'desc2' && right) {
-        pageTitle = right.abbr + ' | PingPongLab';
-        headerTitle = right.abbr;
+        const rightLabel = tRubberAbbr(right);
+        pageTitle = rightLabel + ' | PingPongLab';
+        headerTitle = rightLabel;
     } else if (left) {
-        pageTitle = left.abbr + ' | PingPongLab';
-        headerTitle = left.abbr;
+        const leftLabel = tRubberAbbr(left);
+        pageTitle = leftLabel + ' | PingPongLab';
+        headerTitle = leftLabel;
     } else if (typeof window !== 'undefined' && window.__SEO_PAGE__ && window.__SEO_PAGE__.title) {
         // SEO landing pages (e.g. /en/top-10-…): keep the server-rendered title
         // while no rubber is selected so crawlers / social shares see it.
