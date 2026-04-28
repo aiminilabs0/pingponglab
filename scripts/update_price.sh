@@ -117,6 +117,18 @@ for path in files:
         continue
 
     old_price = dict(data.get("price") or {})
+
+    current_en = old_price.get("en") or {}
+    if current_en and current_en != entry:
+        from datetime import date
+        history = list(data.get("price_history") or [])
+        history.append({
+            "date": date.today().isoformat(),
+            "en": current_en,
+            "cn": old_price.get("cn") or current_en,
+        })
+        data["price_history"] = history
+
     old_price["en"] = entry
     old_price["cn"] = entry
     data["price"] = old_price
