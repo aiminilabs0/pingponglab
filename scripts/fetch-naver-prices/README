@@ -1,0 +1,2 @@
+./fetch_naver_prices.py 'https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=1&size=80' --format json -o takdragon.json
+./update_price_ko.py takdragon.json

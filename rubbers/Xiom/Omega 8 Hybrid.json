@@ -29,7 +29,7 @@
       "youtube": ""
     },
     "ko": {
-      "product": "",
+      "product": "https://naver.me/FAAB36E5",
       "youtube": ""
     },
     "cn": {
@@ -44,14 +44,24 @@
       "discount": "-8%"
     },
     "ko": {
-      "regular": "$64.99",
-      "sale": "$59.99",
-      "discount": "-8%"
+      "regular": "63.5",
+      "sale": "",
+      "discount": ""
     },
     "cn": {
       "regular": "$64.99",
       "sale": "$59.99",
       "discount": "-8%"
     }
-  }
+  },
+  "price_history": [
+    {
+      "date": "2026-04-27",
+      "ko": {
+        "regular": "$64.99",
+        "sale": "$59.99",
+        "discount": "-8%"
+      }
+    }
+  ]
 }
