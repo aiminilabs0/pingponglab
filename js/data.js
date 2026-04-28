@@ -524,7 +524,8 @@ async function loadRubberData() {
                 ko: { product: urls.ko?.product || '', youtube: urls.ko?.youtube || '' },
                 cn: { product: urls.cn?.product || '', youtube: urls.cn?.youtube || '' }
             },
-            price: raw.price || null
+            price: raw.price || null,
+            price_history: raw.price_history || null
         };
 
         data.push(rubber);

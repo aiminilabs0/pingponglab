@@ -201,6 +201,131 @@
     opacity: 1;
     transform: translateY(0);
 }
+/* ── Price drop ticker ── */
+.price-drop-ticker {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 30px;
+}
+.price-drop-ticker[hidden] {
+    display: none;
+}
+.price-drop-item {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.price-drop-item.is-active {
+    display: flex;
+    animation: price-drop-fadein 0.4s ease;
+}
+.price-drop-item:hover,
+.price-drop-item.is-hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+@keyframes price-drop-fadein {
+    from { opacity: 0; transform: translateY(3px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.price-drop-arrow {
+    font-size: 9px;
+    color: var(--drac-green);
+    flex-shrink: 0;
+}
+.price-drop-name {
+    font-weight: 600;
+    color: var(--drac-fg);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.price-drop-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.price-drop-prices {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+.price-drop-prices s {
+    color: var(--drac-comment);
+    font-size: 10px;
+}
+.price-drop-new {
+    color: var(--drac-green);
+    font-weight: 700;
+}
+.price-drop-date {
+    color: var(--drac-comment);
+    font-size: 10px;
+    flex-shrink: 0;
+}
+/* Narrow viewports: show only icon + name, reveal details on hover */
+@media (max-width: 768px) {
+    .price-drop-ticker {
+        overflow: visible;
+        position: relative;
+    }
+    .price-drop-item {
+        position: relative;
+        overflow: visible;
+    }
+    .price-drop-item .price-drop-details {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 12px;
+        background: var(--drac-bg-dark);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+        white-space: nowrap;
+        z-index: 200;
+        gap: 8px;
+        pointer-events: none;
+    }
+    .price-drop-item .price-drop-details::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        transform: translateX(-50%) rotate(45deg);
+        width: 10px;
+        height: 10px;
+        background: var(--drac-bg-dark);
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .price-drop-item:hover .price-drop-details,
+    .price-drop-item:focus .price-drop-details,
+    .price-drop-item:focus-within .price-drop-details,
+    .price-drop-item.is-hover .price-drop-details {
+        display: inline-flex;
+        animation: price-drop-pop 0.18s ease;
+    }
+    @keyframes price-drop-pop {
+        from { opacity: 0; transform: translate(-50%, 4px); }
+        to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+}
+
 .user-guide-btn {
     display: inline-flex;
     align-items: center;

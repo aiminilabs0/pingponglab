@@ -167,6 +167,7 @@ function initCountrySelector() {
         renderTabs();
         updateRadarChart();
         updateDocumentTitle();
+        initPriceDropTicker();
     }
 
     syncCountrySelectorUI();
@@ -1053,6 +1054,7 @@ async function initializeApp() {
     initHomeLogo();
     initMascotEmotes();
     initHeaderSearch();
+    initPriceDropTicker();
     initFeedbackModal();
     initComparisonRequestModal();
     initFilters();
@@ -1314,6 +1316,170 @@ function applyHashFragment(hash) {
             });
         }
     }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Price Drop Ticker
+// ════════════════════════════════════════════════════════════
+
+let _priceDropTimer = null;
+
+function getPriceDrops() {
+    const now = Date.now();
+    const weekMs = 7 * 24 * 60 * 60 * 1000;
+    const drops = [];
+    const parsePrice = s => parseFloat((s || '').replace(/[^0-9.]/g, ''));
+
+    for (const r of rubberData) {
+        if (!r.price_history) continue;
+        for (const h of r.price_history) {
+            if (now - new Date(h.date).getTime() > weekMs) continue;
+            const hist = h[selectedCountry];
+            const cur = r.price?.[selectedCountry];
+            if (!hist || !cur) continue;
+            const oldEff = parsePrice(hist.sale || hist.regular);
+            const newEff = parsePrice(cur.sale || cur.regular);
+            if (!isNaN(oldEff) && !isNaN(newEff) && newEff < oldEff) {
+                drops.push({
+                    rubber: r,
+                    oldPrice: hist.sale || hist.regular,
+                    newPrice: cur.sale || cur.regular,
+                    date: h.date,
+                });
+                break;
+            }
+        }
+    }
+    return drops;
+}
+
+function formatDropDate(dateStr) {
+    try {
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    } catch { return dateStr; }
+}
+
+function initPriceDropTicker() {
+    const ticker = document.getElementById('priceDropTicker');
+    if (!ticker) return;
+
+    clearInterval(_priceDropTimer);
+    _priceDropTimer = null;
+
+    const drops = getPriceDrops();
+    if (!drops.length) {
+        ticker.hidden = true;
+        ticker.innerHTML = '';
+        return;
+    }
+
+    ticker.hidden = false;
+    ticker.innerHTML = drops.map((d, i) => {
+        const name = escapeHtml(tRubber(d.rubber));
+        const oldP = escapeHtml(d.oldPrice);
+        const newP = escapeHtml(d.newPrice);
+        const date = escapeHtml(formatDropDate(d.date));
+        return `<div class="price-drop-item${i === 0 ? ' is-active' : ''}" data-drop-index="${i}" role="button" tabindex="0">`
+             + `<span class="price-drop-arrow">▼</span>`
+             + `<span class="price-drop-name">${name}</span>`
+             + `<span class="price-drop-details">`
+             +   `<span class="price-drop-prices"><s>${oldP}</s><span class="price-drop-new">${newP}</span></span>`
+             +   `<span class="price-drop-date">${date}</span>`
+             + `</span>`
+             + `</div>`;
+    }).join('');
+
+    let idx = 0;
+    const rotate = () => {
+        const items = ticker.querySelectorAll('.price-drop-item');
+        items[idx].classList.remove('is-active');
+        idx = (idx + 1) % drops.length;
+        items[idx].classList.add('is-active');
+    };
+    const start = () => {
+        if (drops.length > 1 && !_priceDropTimer) {
+            _priceDropTimer = setInterval(rotate, 4000);
+        }
+    };
+    const stop = () => {
+        clearInterval(_priceDropTimer);
+        _priceDropTimer = null;
+    };
+    start();
+
+    const highlightDot = (rubber) => {
+        if (!rubber || typeof showChartDotShake !== 'function') return;
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        if (!fl?.xaxis || !fl?.yaxis) return;
+        showChartDotShake({
+            points: [{
+                x: rubber.x,
+                y: rubber.y,
+                xaxis: fl.xaxis,
+                yaxis: fl.yaxis,
+                data: { customdata: [rubber], marker: {} },
+                pointIndex: 0,
+            }]
+        }, chartEl);
+    };
+    const clearDot = () => {
+        if (typeof hideChartDotShake === 'function') hideChartDotShake();
+    };
+    const openPopup = (rubber) => {
+        if (!rubber) return;
+        if (typeof handleRubberClick === 'function') handleRubberClick(rubber);
+        if (typeof showChartHoverPopupFromPlotlyData !== 'function') return;
+        const chartEl = document.getElementById('chart');
+        const fl = chartEl?._fullLayout;
+        if (!fl?.xaxis || !fl?.yaxis) return;
+        if (typeof _clickPopupActiveUntil !== 'undefined') _clickPopupActiveUntil = Date.now() + 500;
+        if (typeof _clickPopupPinned !== 'undefined') _clickPopupPinned = true;
+        showChartHoverPopupFromPlotlyData({
+            points: [{
+                x: rubber.x,
+                y: rubber.y,
+                xaxis: fl.xaxis,
+                yaxis: fl.yaxis,
+                data: { customdata: [rubber] },
+                pointIndex: 0,
+            }],
+            event: null,
+        }, chartEl);
+    };
+
+    const dropFromEvent = (e) => {
+        const item = e.target.closest('.price-drop-item');
+        if (!item || !ticker.contains(item)) return null;
+        const i = parseInt(item.dataset.dropIndex, 10);
+        return Number.isFinite(i) ? drops[i] : null;
+    };
+
+    ticker.addEventListener('mouseenter', () => {
+        stop();
+        const active = ticker.querySelector('.price-drop-item.is-active');
+        const i = active ? parseInt(active.dataset.dropIndex, 10) : -1;
+        const drop = Number.isFinite(i) ? drops[i] : null;
+        if (drop) highlightDot(drop.rubber);
+    });
+    ticker.addEventListener('mouseleave', () => {
+        clearDot();
+        start();
+    });
+    ticker.addEventListener('mouseover', (e) => {
+        const drop = dropFromEvent(e);
+        if (drop) highlightDot(drop.rubber);
+    });
+    ticker.addEventListener('click', (e) => {
+        const drop = dropFromEvent(e);
+        if (drop) openPopup(drop.rubber);
+    });
+    ticker.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const drop = dropFromEvent(e);
+        if (drop) { e.preventDefault(); openPopup(drop.rubber); }
+    });
 }
 
 initializeApp();
