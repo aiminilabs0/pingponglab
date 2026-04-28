@@ -381,6 +381,10 @@ function initHeaderSearch() {
             };
             showChartHoverPopupFromPlotlyData(syntheticData, chartEl);
         }
+
+        if (typeof mascotRunToDot === 'function') {
+            mascotRunToDot(rubber);
+        }
     }
 
     function closeResults() {
@@ -1447,6 +1451,9 @@ function initPriceDropTicker() {
             }],
             event: null,
         }, chartEl);
+        if (typeof mascotRunToDot === 'function') {
+            mascotRunToDot(rubber);
+        }
     };
 
     const dropFromEvent = (e) => {
