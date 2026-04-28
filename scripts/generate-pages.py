@@ -73,6 +73,8 @@ def load_rubber_index():
             'abbr_i18n': rubber_data.get('abbr_i18n') or {},
             'manufacturer': rubber_data.get('manufacturer') or brand,
             'details': rubber_data.get('manufacturer_details') or {},
+            'price': rubber_data.get('price') or {},
+            'urls': rubber_data.get('urls') or {},
             'file': filepath,
             'only_locales': only_locales,
         })
@@ -475,8 +477,10 @@ def inject_seo_preset(html, seo_data, heading=None):
 
 
 def write_file(path, content):
-    """Write content to file, creating directories as needed."""
+    """Write content to file only if it differs from the existing content."""
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.read_text() == content:
+        return
     with open(path, 'w') as f:
         f.write(content)
 
@@ -544,6 +548,21 @@ def breadcrumb_jsonld(items):
     }
 
 
+_PRICE_CURRENCY = {'en': 'USD', 'ko': 'KRW', 'cn': 'USD'}
+
+
+def _parse_price(price_str):
+    """Return a float price from strings like '$59.95' or '95.0', or None."""
+    if not price_str:
+        return None
+    cleaned = price_str.replace('$', '').replace(',', '').strip()
+    try:
+        val = float(cleaned)
+        return val if val > 0 else None
+    except (ValueError, TypeError):
+        return None
+
+
 def product_jsonld(rubber, country, canonical):
     """Return a Product + Review JSON-LD block for the given rubber page."""
     name = localized_name(rubber, country)
@@ -596,6 +615,24 @@ def product_jsonld(rubber, country, canonical):
         product['releaseDate'] = str(details['release_year'])
     if details.get('country'):
         product['countryOfOrigin'] = details['country']
+
+    price_data = (rubber.get('price') or {}).get(country) or {}
+    price_val = _parse_price(price_data.get('sale')) or _parse_price(price_data.get('regular'))
+    if price_val is not None:
+        # KRW prices are stored as thousands (e.g. "84.0" = ₩84,000)
+        if country == 'ko':
+            price_val = round(price_val * 1000)
+        offer = {
+            '@type': 'Offer',
+            'priceCurrency': _PRICE_CURRENCY.get(country, 'USD'),
+            'price': price_val,
+            'availability': 'https://schema.org/InStock',
+        }
+        product_url = (rubber.get('urls') or {}).get(country, {}).get('product', '')
+        if product_url:
+            offer['url'] = product_url
+        product['offers'] = offer
+
     return product
 
 
