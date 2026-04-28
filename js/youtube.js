@@ -269,6 +269,7 @@ function toggleYouTubeEmbed(iconLink, videoId, { playlist = [], currentIndex = 0
         if (hint) panel.appendChild(hint);
     }
     scrollEmbedToCenter(embedWrapper);
+    userExitedLandscapeFullscreen = false;
     handleOrientationFullscreen();
 
     embedContainer.querySelectorAll('a[data-yt-videoid].yt-active').forEach(el => el.classList.remove('yt-active'));
@@ -302,6 +303,47 @@ function isLandscape() {
     return window.innerWidth > window.innerHeight;
 }
 
+// Tracks whether the user manually dismissed native fullscreen so we don't
+// immediately re-request it while still in landscape.
+let userExitedLandscapeFullscreen = false;
+
+function getFullscreenElement() {
+    return document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement ||
+        null;
+}
+
+function requestNativeFullscreen(el) {
+    if (!el) return false;
+    const request = el.requestFullscreen ||
+        el.webkitRequestFullscreen ||
+        el.webkitEnterFullscreen ||
+        el.mozRequestFullScreen ||
+        el.msRequestFullscreen;
+    if (!request) return false;
+    try {
+        const p = request.call(el);
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+function exitNativeFullscreen() {
+    const exit = document.exitFullscreen ||
+        document.webkitExitFullscreen ||
+        document.mozCancelFullScreen ||
+        document.msExitFullscreen;
+    if (!exit) return;
+    try {
+        const p = exit.call(document);
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+    } catch {}
+}
+
 function handleOrientationFullscreen() {
     const isMobile = window.matchMedia('(max-width: 768px)').matches &&
         ('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -309,7 +351,30 @@ function handleOrientationFullscreen() {
     document.querySelectorAll('.youtube-embed-wrapper, .user-guide-embed').forEach(el => {
         el.classList.toggle('landscape-fs', landscape);
     });
+
+    // Real fullscreen hides the browser's URL/address bar. CSS-only
+    // pseudo-fullscreen cannot do that, so upgrade to the Fullscreen API
+    // whenever possible when entering landscape on mobile.
+    if (landscape) {
+        if (userExitedLandscapeFullscreen) return;
+        if (getFullscreenElement()) return;
+        const embed = getActiveEmbed();
+        if (embed) requestNativeFullscreen(embed);
+    } else {
+        userExitedLandscapeFullscreen = false;
+        if (getFullscreenElement()) exitNativeFullscreen();
+    }
 }
+
+// If the user exits fullscreen manually (back gesture / Esc), remember it
+// so we don't fight them while the device is still in landscape.
+function onFullscreenChange() {
+    if (!getFullscreenElement() && isLandscape()) {
+        userExitedLandscapeFullscreen = true;
+    }
+}
+document.addEventListener('fullscreenchange', onFullscreenChange);
+document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
 if (window.matchMedia) {
     const mm = window.matchMedia('(orientation: landscape)');
@@ -392,6 +457,7 @@ function toggleUserGuideEmbed(btn) {
     }
 
     scrollEmbedToCenter(embed);
+    userExitedLandscapeFullscreen = false;
     handleOrientationFullscreen();
 }
 

@@ -381,6 +381,28 @@
 .user-guide-embed.landscape-fs iframe {
     border-radius: 0 !important;
 }
+
+/* Native Fullscreen API state — hides the browser URL bar. */
+.youtube-embed-wrapper:fullscreen,
+.user-guide-embed:fullscreen,
+.youtube-embed-wrapper:-webkit-full-screen,
+.user-guide-embed:-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: #000 !important;
+}
+.youtube-embed-wrapper:fullscreen iframe,
+.user-guide-embed:fullscreen iframe,
+.youtube-embed-wrapper:-webkit-full-screen iframe,
+.user-guide-embed:-webkit-full-screen iframe {
+    border-radius: 0 !important;
+}
 .youtube-embed-wrapper .landscape-fs-close {
     display: block;
     position: absolute;
