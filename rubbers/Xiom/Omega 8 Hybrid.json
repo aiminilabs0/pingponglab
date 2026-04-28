@@ -53,15 +53,5 @@
       "sale": "$59.99",
       "discount": "-8%"
     }
-  },
-  "price_history": [
-    {
-      "date": "2026-04-27",
-      "ko": {
-        "regular": "$64.99",
-        "sale": "$59.99",
-        "discount": "-8%"
-      }
-    }
-  ]
+  }
 }

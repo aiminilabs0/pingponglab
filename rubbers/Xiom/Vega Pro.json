@@ -47,28 +47,13 @@
     },
     "ko": {
       "regular": "$39.95",
-      "sale": "$34.95",
-      "discount": "-13%"
+      "sale": "",
+      "discount": ""
     },
     "cn": {
       "regular": "$39.95",
       "sale": "",
       "discount": ""
     }
-  },
-  "price_history": [
-    {
-      "date": "2026-04-27",
-      "en": {
-        "regular": "$39.95",
-        "sale": "$34.95",
-        "discount": "-13%"
-      },
-      "cn": {
-        "regular": "$39.95",
-        "sale": "$34.95",
-        "discount": "-13%"
-      }
-    }
-  ]
+  }
 }
