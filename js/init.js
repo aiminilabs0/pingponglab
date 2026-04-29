@@ -1343,11 +1343,12 @@ function getPriceDrops() {
             if (!hist || !cur) continue;
             const oldEff = parsePrice(hist.sale || hist.regular);
             const newEff = parsePrice(cur.sale || cur.regular);
-            if (!isNaN(oldEff) && !isNaN(newEff) && newEff < oldEff) {
+            if (!isNaN(oldEff) && !isNaN(newEff) && newEff < oldEff && oldEff > 0) {
                 drops.push({
                     rubber: r,
                     oldPrice: hist.sale || hist.regular,
                     newPrice: cur.sale || cur.regular,
+                    pctChange: ((newEff - oldEff) / oldEff) * 100,
                     date: h.date,
                 });
                 break;
@@ -1381,14 +1382,14 @@ function initPriceDropTicker() {
     ticker.hidden = false;
     ticker.innerHTML = drops.map((d, i) => {
         const name = escapeHtml(tRubber(d.rubber));
-        const oldP = escapeHtml(d.oldPrice);
         const newP = escapeHtml(d.newPrice);
+        const pct = escapeHtml(`${Math.abs(d.pctChange).toFixed(1)}%`);
         const date = escapeHtml(formatDropDate(d.date));
         return `<div class="price-drop-item${i === 0 ? ' is-active' : ''}" data-drop-index="${i}" role="button" tabindex="0">`
-             + `<span class="price-drop-arrow">▼</span>`
              + `<span class="price-drop-name">${name}</span>`
              + `<span class="price-drop-details">`
-             +   `<span class="price-drop-prices"><s>${oldP}</s><span class="price-drop-new">${newP}</span></span>`
+             +   `<span class="price-drop-arrow price-drop-arrow--mobile" aria-hidden="true">▼</span>`
+             +   `<span class="price-drop-prices"><span class="price-drop-new">${newP}</span> <span class="price-drop-pct">(<span class="price-drop-arrow price-drop-arrow--inline">▼</span>${pct})</span></span>`
              +   `<span class="price-drop-date">${date}</span>`
              + `</span>`
              + `</div>`;
