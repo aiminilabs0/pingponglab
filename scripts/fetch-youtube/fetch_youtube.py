@@ -23,9 +23,9 @@ import urllib.request
 from pathlib import Path
 
 CHANNELS = [
-    # "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
+    "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
     "UC2ySPiV4DZp58qQ4KES2o1g",  # ITTF World
-    # "UCOYzMI5f_3mG4yRzIjIIRqQ",  # Major League Table Tennis
+    "UCOYzMI5f_3mG4yRzIjIIRqQ",  # Major League Table Tennis
 ]
 
 PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems"
@@ -33,6 +33,44 @@ VIDEOS_API = "https://www.googleapis.com/youtube/v3/videos"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PLAYERS_FILE = PROJECT_ROOT / "players" / "players.json"
+BLACKLIST_FILE = Path(__file__).resolve().parent / "blacklist.txt"
+
+_VIDEO_ID_RE = re.compile(r"(?:v=|youtu\.be/|/shorts/|/embed/)([A-Za-z0-9_-]{11})")
+
+
+def _extract_video_id(s: str) -> str | None:
+    s = s.strip()
+    if not s:
+        return None
+    m = _VIDEO_ID_RE.search(s)
+    if m:
+        return m.group(1)
+    # Treat a bare 11-char token as a video ID
+    if re.fullmatch(r"[A-Za-z0-9_-]{11}", s):
+        return s
+    return None
+
+
+def _load_blacklist() -> set[str]:
+    """Load blacklisted YouTube video IDs from blacklist.txt.
+
+    Each line may be a full YouTube URL or a bare video ID.
+    Blank lines and lines starting with '#' are ignored.
+    """
+    if not BLACKLIST_FILE.exists():
+        return set()
+
+    ids: set[str] = set()
+    for raw in BLACKLIST_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        vid = _extract_video_id(line)
+        if vid:
+            ids.add(vid)
+        else:
+            print(f"Warning: unrecognized blacklist entry: {raw!r}")
+    return ids
 
 
 def _load_api_key() -> str:
@@ -180,6 +218,9 @@ def main() -> int:
         return 1
 
     api_key = _load_api_key()
+    blacklist = _load_blacklist()
+    if blacklist:
+        print(f"Loaded {len(blacklist)} blacklisted video ID(s).")
 
     with PLAYERS_FILE.open("r", encoding="utf-8") as f:
         players: dict = json.load(f)
@@ -190,6 +231,13 @@ def main() -> int:
         videos = fetch_videos(api_key, channel_id, count)
         print(f"  Got {len(videos)} videos")
         all_videos.extend(videos)
+
+    if blacklist:
+        before = len(all_videos)
+        all_videos = [v for v in all_videos if v["video_id"] not in blacklist]
+        skipped = before - len(all_videos)
+        if skipped:
+            print(f"Skipped {skipped} blacklisted video(s).")
 
     # Pre-build search variants for each player
     player_variants: dict[str, list[str]] = {}
