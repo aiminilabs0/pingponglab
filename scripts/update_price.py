@@ -1,38 +1,29 @@
 #!/usr/bin/env python3
-"""Fetch Naver Smart Store prices and update ``price.ko`` in rubber JSON files.
+"""Fetch prices and update ``price.*`` in rubber JSON files.
 
-This is the combined replacement for the old two-step workflow
-(``fetch_naver_prices.py`` + ``update_price_ko.py``). It fetches a fixed
-list of takdragon Smart Store category pages, walks the embedded
-``window.__PRELOADED_STATE__`` JSON to pull out product ``name`` / ``price``
-/ ``salePrice`` / ``discountRatio``, then updates the matching rubber files
-under ``rubbers/**`` based on the explicit ``NAVER_NAME_TO_ABBR_KO`` mapping
-below.
+Merged replacement for the old ``update_en_price.sh`` +
+``update_ko_price.py`` pair. One script, two subcommands:
 
-How it works
-------------
-1. Fetch each URL in ``DEFAULT_URLS`` (browser-like headers + cookie warmup
-   to get past Naver's anti-bot). The list of products is accumulated and
-   de-duplicated by product id.
-2. For every fetched product whose name appears in
-   ``NAVER_NAME_TO_ABBR_KO``, look up the rubber JSON whose
-   ``abbr_i18n.ko`` matches and rewrite ``price.ko`` to
-   ``{regular, sale, discount}``. Previous values are pushed onto
-   ``price_history`` with today's date.
-
-Matching is name-driven: products whose name is not in the table are
-ignored. Add / edit entries there whenever a storefront listing changes.
-
-Price format: rubber JSON stores Korean prices in thousands of won as
-strings (e.g. ``"92.0"`` = 92,000원). Naver returns raw integer won.
-Discount is formatted as ``"-NN%"``.
+* ``en`` — scrape megaspin.net and update ``price.en`` / ``price.cn``
+  for the given rubber JSON files (or every rubber if none given).
+* ``ko`` — scrape the takdragon Naver Smart Store category pages and
+  update ``price.ko`` for every rubber whose ``abbr_i18n.ko`` matches
+  the ``NAVER_NAME_TO_ABBR_KO`` mapping below.
+* ``all`` — run both, in order.
 
 Usage
 -----
-  python scripts/fetch-naver-prices/update_naver_prices.py
-  python scripts/fetch-naver-prices/update_naver_prices.py --dry-run
-  python scripts/fetch-naver-prices/update_naver_prices.py --debug
-  python scripts/fetch-naver-prices/update_naver_prices.py --url <URL> --url <URL>
+  ./scripts/update_price.py en [--with-aid|--strip-aid] [<rubber.json> ...]
+  ./scripts/update_price.py ko [--dry-run] [--debug] [--url URL ...] ...
+  ./scripts/update_price.py all
+
+Price format notes
+------------------
+* English prices are stored as dollar strings, e.g. ``"$51.95"``.
+* Korean prices are stored in thousands of won as strings, e.g.
+  ``"92.0"`` meaning 92,000원. Discount is ``"-NN%"``.
+* Previous ``price.en`` / ``price.ko`` values are pushed onto
+  ``price_history`` with today's date whenever they change.
 """
 
 from __future__ import annotations
@@ -50,21 +41,154 @@ import urllib.request
 import zlib
 from datetime import date
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+RUBBERS_DIR_DEFAULT = REPO_ROOT / "rubbers"
+
 
 # ---------------------------------------------------------------------------
-# Sources
+# Shared helpers
 # ---------------------------------------------------------------------------
 
-DEFAULT_URLS: list[str] = [
+
+def _write_rubber(path: Path, data: dict) -> None:
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
+def _iter_rubber_files(rubbers_dir: Path) -> Iterable[Path]:
+    return sorted(rubbers_dir.rglob("*.json"))
+
+
+# ===========================================================================
+# en: megaspin.net scraper
+# ===========================================================================
+
+
+def _fetch_megaspin(url: str) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def _strip_aid(url: str) -> str:
+    parsed = urllib.parse.urlsplit(url)
+    query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    query = [(k, v) for k, v in query if k != "aid"]
+    return urllib.parse.urlunsplit(
+        parsed._replace(query=urllib.parse.urlencode(query))
+    )
+
+
+def _parse_megaspin_price(html: str) -> dict | None:
+    price_m = re.search(r'<meta\s+itemprop="price"\s+content="([\d.]+)"', html)
+    if not price_m:
+        return None
+    current = float(price_m.group(1))
+
+    # Regular (list) price block: <div><s><span ...>$51.95</span></s></div>
+    list_m = re.search(
+        r'<div><s><span[^>]*>\s*\$([\d.]+)\s*</span></s></div>', html
+    )
+    # Discount line: <div>Save $12.00 (23%)</div>
+    disc_m = re.search(r'Save\s+\$[\d.,]+\s+\((\d+)%\)', html)
+
+    if list_m and disc_m:
+        regular = float(list_m.group(1))
+        if regular > current:
+            return {
+                "regular": f"${regular:.2f}",
+                "sale": f"${current:.2f}",
+                "discount": "-" + disc_m.group(1) + "%",
+            }
+
+    return {"regular": f"${current:.2f}", "sale": "", "discount": ""}
+
+
+def run_en(
+    files: list[Path],
+    *,
+    request_mode: str = "with-aid",
+    rubbers_dir: Path = RUBBERS_DIR_DEFAULT,
+) -> int:
+    strip_aid_enabled = request_mode == "strip-aid"
+
+    if not files:
+        files = list(_iter_rubber_files(rubbers_dir))
+
+    updated = 0
+    skipped = 0
+
+    for path in files:
+        with path.open(encoding="utf-8") as f:
+            data = json.load(f)
+
+        url = (data.get("urls") or {}).get("en", {}).get("product", "")
+        if "megaspin.net" not in url:
+            skipped += 1
+            continue
+
+        name = data.get("name", path.name)
+        print(f"  {name} ... ", end="", flush=True)
+
+        try:
+            fetch_url = _strip_aid(url) if strip_aid_enabled else url
+            html = _fetch_megaspin(fetch_url)
+            entry = _parse_megaspin_price(html)
+            if entry is None:
+                print("price not found, skipping")
+                skipped += 1
+                continue
+        except Exception as exc:  # noqa: BLE001 — print-and-continue scraper loop
+            print(f"error: {exc}")
+            skipped += 1
+            continue
+
+        old_price = dict(data.get("price") or {})
+        current_en = old_price.get("en") or {}
+        if current_en and current_en != entry:
+            history = list(data.get("price_history") or [])
+            history.append({
+                "date": date.today().isoformat(),
+                "en": current_en,
+                "cn": old_price.get("cn") or current_en,
+            })
+            data["price_history"] = history
+
+        old_price["en"] = entry
+        old_price["cn"] = entry
+        data["price"] = old_price
+
+        _write_rubber(path, data)
+
+        if entry["sale"]:
+            print(
+                f"regular {entry['regular']}  sale {entry['sale']}  "
+                f"({entry['discount']})"
+            )
+        else:
+            print(entry["regular"])
+
+        updated += 1
+        time.sleep(0.3)  # be polite to megaspin
+
+    print(f"\nDone: {updated} updated, {skipped} skipped (no megaspin URL).")
+    return 0
+
+
+# ===========================================================================
+# ko: Naver Smart Store scraper
+# ===========================================================================
+
+DEFAULT_NAVER_URLS: list[str] = [
     "https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=1&size=80",
     "https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=2&size=80",
     "https://smartstore.naver.com/takdragon/category/7b6f6a4ceb1745aca9ce205c121e5bbf?cp=1",
 ]
 
-# ---------------------------------------------------------------------------
 # Mapping: Naver product name -> rubber abbr_i18n.ko
-# ---------------------------------------------------------------------------
 #
 # Add / edit rows here when storefront listings change or new rubbers are
 # introduced. Product names must match Naver output exactly (whitespace,
@@ -123,11 +247,6 @@ NAVER_NAME_TO_ABBR_KO: dict[str, str] = {
     "[DHS] 네오허리케인 3 성광(블루스폰지) 39도 2.1mm 점착러버": "H3 Neo",
 }
 
-
-# ---------------------------------------------------------------------------
-# Naver fetcher
-# ---------------------------------------------------------------------------
-
 DEFAULT_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -183,7 +302,7 @@ def _decode_body(resp) -> str:
     return raw.decode(charset, errors="replace")
 
 
-def fetch_html(
+def _fetch_naver(
     opener: urllib.request.OpenerDirector,
     url: str,
     *,
@@ -215,7 +334,7 @@ def fetch_html(
                 time.sleep(wait)
                 continue
             raise
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 — retried with backoff below
             last_exc = exc
             if attempt < retries - 1:
                 time.sleep(1 + attempt)
@@ -226,7 +345,7 @@ def fetch_html(
     raise RuntimeError("fetch failed")
 
 
-def warmup(opener: urllib.request.OpenerDirector, url: str) -> None:
+def _warmup(opener: urllib.request.OpenerDirector, url: str) -> None:
     """Visit the storefront root to pick up session cookies."""
     parsed = urllib.parse.urlsplit(url)
     parts = [p for p in parsed.path.split("/") if p]
@@ -234,13 +353,12 @@ def warmup(opener: urllib.request.OpenerDirector, url: str) -> None:
     if parts:
         store_root = f"{parsed.scheme}://{parsed.netloc}/{parts[0]}"
     try:
-        fetch_html(opener, store_root, retries=2)
-    except Exception as exc:
+        _fetch_naver(opener, store_root, retries=2)
+    except Exception as exc:  # noqa: BLE001 — warmup is best-effort
         print(f"  warmup failed ({exc}); continuing anyway", file=sys.stderr)
 
 
 def _extract_balanced_json(text: str, start: int) -> str | None:
-    """Return the JSON object starting at ``text[start]`` (must be ``{``)."""
     if start >= len(text) or text[start] != "{":
         return None
     depth = 0
@@ -268,7 +386,6 @@ def _extract_balanced_json(text: str, start: int) -> str | None:
 
 
 def _iter_embedded_json(html: str):
-    """Yield every JSON object we can plausibly pull out of the HTML."""
     assign_patterns = [
         r"window\.__PRELOADED_STATE__\s*=\s*",
         r"window\.__APOLLO_STATE__\s*=\s*",
@@ -344,12 +461,11 @@ def _iter_embedded_json(html: str):
             start = idx + 1
 
 
-def extract_embedded_state(html: str) -> Any | None:
-    """Return the richest JSON blob we can find that contains products."""
+def _extract_embedded_state(html: str) -> Any | None:
     best = None
     best_count = 0
     for source, data in _iter_embedded_json(html):
-        count = len(collect_products(data))
+        count = len(_collect_products(data))
         if count > best_count:
             best = data
             best_count = count
@@ -379,7 +495,6 @@ def _looks_like_product(node: dict) -> bool:
 
 
 def _num(v):
-    """Return v if it's a positive number, else None."""
     if isinstance(v, bool):
         return None
     if isinstance(v, (int, float)) and v > 0:
@@ -388,7 +503,7 @@ def _num(v):
 
 
 def _extract_prices(node: dict) -> tuple[float | None, float | None, int | None]:
-    """Return (regular, sale, discount_ratio) for a product-like dict.
+    """Return (regular, sale, discount_ratio).
 
     Naver's list API puts the discounted price inside ``benefitsView`` (not
     at the top level like the single-product detail API does). We check both.
@@ -426,7 +541,7 @@ def _extract_prices(node: dict) -> tuple[float | None, float | None, int | None]
     return regular, sale, ratio
 
 
-def collect_products(state: Any) -> list[dict]:
+def _collect_products(state: Any) -> list[dict]:
     products: list[dict] = []
     seen_ids: set = set()
 
@@ -448,7 +563,7 @@ def collect_products(state: Any) -> list[dict]:
                     seen_ids.add(key)
                     # price = regular/MSRP; salePrice = discounted price if on
                     # sale, else same as price. Matches the natural English
-                    # reading and the regular / sale split used in rubbers JSON.
+                    # reading and the regular/sale split used in rubbers JSON.
                     products.append(
                         {
                             "id": pid,
@@ -468,7 +583,7 @@ def collect_products(state: Any) -> list[dict]:
     return products
 
 
-def fetch_products(
+def _fetch_naver_products(
     urls: list[str],
     *,
     cookie: str | None = None,
@@ -478,7 +593,7 @@ def fetch_products(
     opener = _build_opener()
 
     if do_warmup and urls:
-        warmup(opener, urls[0])
+        _warmup(opener, urls[0])
 
     all_products: list[dict] = []
     seen: set = set()
@@ -488,12 +603,12 @@ def fetch_products(
             time.sleep(delay)
         print(f"fetching {url}", file=sys.stderr)
         try:
-            html = fetch_html(opener, url, referer=urls[0], cookie=cookie)
-        except Exception as exc:
+            html = _fetch_naver(opener, url, referer=urls[0], cookie=cookie)
+        except Exception as exc:  # noqa: BLE001 — log and skip the page
             print(f"  fetch error: {exc}", file=sys.stderr)
             continue
 
-        state = extract_embedded_state(html)
+        state = _extract_embedded_state(html)
         if state is None:
             print(
                 "  could not find embedded product JSON "
@@ -502,7 +617,7 @@ def fetch_products(
             )
             continue
 
-        products = collect_products(state)
+        products = _collect_products(state)
         new = 0
         for p in products:
             key = p["id"] if p["id"] is not None else (p["name"], p["price"])
@@ -517,12 +632,7 @@ def fetch_products(
     return all_products
 
 
-# ---------------------------------------------------------------------------
-# Rubber JSON updater
-# ---------------------------------------------------------------------------
-
-
-def fmt_price(value) -> str:
+def _fmt_ko_price(value) -> str:
     """Convert won integer to ``"##.#"`` (thousands) string."""
     if value is None or value == "":
         return ""
@@ -533,7 +643,7 @@ def fmt_price(value) -> str:
     return f"{value / 1000:.1f}"
 
 
-def to_price_entry(product: dict) -> dict:
+def _to_ko_price_entry(product: dict) -> dict:
     regular = product.get("price")
     sale = product.get("salePrice")
     ratio = product.get("discountRatio")
@@ -548,35 +658,26 @@ def to_price_entry(product: dict) -> dict:
         if not ratio:
             ratio = round((regular - sale) / regular * 100)
         return {
-            "regular": fmt_price(regular),
-            "sale": fmt_price(sale),
+            "regular": _fmt_ko_price(regular),
+            "sale": _fmt_ko_price(sale),
             "discount": f"-{int(ratio)}%",
         }
 
     primary = next(
-        (
-            v
-            for v in (regular, sale)
-            if isinstance(v, (int, float)) and v > 0
-        ),
+        (v for v in (regular, sale) if isinstance(v, (int, float)) and v > 0),
         None,
     )
-    return {
-        "regular": fmt_price(primary),
-        "sale": "",
-        "discount": "",
-    }
+    return {"regular": _fmt_ko_price(primary), "sale": "", "discount": ""}
 
 
-def load_rubbers_by_abbr_ko(
+def _load_rubbers_by_abbr_ko(
     rubbers_dir: Path,
 ) -> dict[str, tuple[Path, dict]]:
-    """Index every rubber JSON by its ``abbr_i18n.ko`` value."""
     index: dict[str, tuple[Path, dict]] = {}
-    for jf in sorted(rubbers_dir.rglob("*.json")):
+    for jf in _iter_rubber_files(rubbers_dir):
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 — log bad JSON and keep going
             print(f"  warn: could not read {jf}: {exc}", file=sys.stderr)
             continue
 
@@ -595,15 +696,46 @@ def load_rubbers_by_abbr_ko(
     return index
 
 
-def update_rubber_prices(
-    products: list[dict],
-    rubbers_dir: Path,
+def run_ko(
     *,
+    urls: list[str] | None = None,
+    rubbers_dir: Path = RUBBERS_DIR_DEFAULT,
+    cookie: str | None = None,
+    delay: float = 1.5,
+    do_warmup: bool = True,
+    products_json: Path | None = None,
+    save_products: Path | None = None,
     dry_run: bool = False,
     debug: bool = False,
     show_unmatched: bool = False,
 ) -> int:
-    rubbers_by_abbr = load_rubbers_by_abbr_ko(rubbers_dir)
+    if products_json is not None:
+        products = json.loads(products_json.read_text(encoding="utf-8"))
+        if not isinstance(products, list):
+            print("Error: products JSON must be a list", file=sys.stderr)
+            return 1
+    else:
+        products = _fetch_naver_products(
+            urls or DEFAULT_NAVER_URLS,
+            cookie=cookie,
+            delay=delay,
+            do_warmup=do_warmup,
+        )
+        if not products:
+            print("Error: no products fetched", file=sys.stderr)
+            return 1
+
+    if save_products is not None:
+        save_products.write_text(
+            json.dumps(products, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(
+            f"Saved {len(products)} products -> {save_products}",
+            file=sys.stderr,
+        )
+
+    rubbers_by_abbr = _load_rubbers_by_abbr_ko(rubbers_dir)
     print(
         f"Loaded {len(rubbers_by_abbr)} rubber files from {rubbers_dir}",
         file=sys.stderr,
@@ -635,7 +767,7 @@ def update_rubber_prices(
             unchanged_items.append((abbr_ko, name))
             continue
 
-        entry = to_price_entry(p)
+        entry = _to_ko_price_entry(p)
         if not entry["regular"]:
             print(f"  no-price   : {abbr_ko:<25}  [{name}]")
             continue
@@ -672,9 +804,7 @@ def update_rubber_prices(
         taken.add(path)
 
         if not dry_run:
-            with path.open("w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-                f.write("\n")
+            _write_rubber(path, data)
 
     if debug:
         print(f"\nUpdated ({len(updated_items)}):", file=sys.stderr)
@@ -713,17 +843,114 @@ def update_rubber_prices(
     return 0
 
 
-# ---------------------------------------------------------------------------
+# ===========================================================================
 # CLI
-# ---------------------------------------------------------------------------
+# ===========================================================================
 
 
-def main() -> int:
+def _add_common_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--rubbers-dir",
+        default=None,
+        help=f"rubbers directory (default: {RUBBERS_DIR_DEFAULT})",
+    )
+
+
+def _resolve_rubbers_dir(args) -> Path:
+    rubbers_dir = (
+        Path(args.rubbers_dir) if args.rubbers_dir else RUBBERS_DIR_DEFAULT
+    )
+    if not rubbers_dir.is_dir():
+        print(f"Error: {rubbers_dir} not found", file=sys.stderr)
+        raise SystemExit(1)
+    return rubbers_dir
+
+
+def _cmd_en(args) -> int:
+    rubbers_dir = _resolve_rubbers_dir(args)
+    files = [Path(f) for f in args.files]
+    return run_en(files, request_mode=args.request_mode, rubbers_dir=rubbers_dir)
+
+
+def _cmd_ko(args) -> int:
+    rubbers_dir = _resolve_rubbers_dir(args)
+    return run_ko(
+        urls=args.urls,
+        rubbers_dir=rubbers_dir,
+        cookie=args.cookie,
+        delay=args.delay,
+        do_warmup=not args.no_warmup,
+        products_json=Path(args.products_json) if args.products_json else None,
+        save_products=Path(args.save_products) if args.save_products else None,
+        dry_run=args.dry_run,
+        debug=args.debug,
+        show_unmatched=args.show_unmatched,
+    )
+
+
+def _cmd_all(args) -> int:
+    rubbers_dir = _resolve_rubbers_dir(args)
+    rc = run_en([], request_mode="with-aid", rubbers_dir=rubbers_dir)
+    if rc != 0:
+        return rc
+    return run_ko(rubbers_dir=rubbers_dir)
+
+
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument(
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    # en
+    p_en = sub.add_parser(
+        "en",
+        help="update price.en / price.cn from megaspin.net",
+        description=(
+            "Scrape megaspin.net for every rubber JSON that has a "
+            "megaspin URL in urls.en.product and update price.en / price.cn."
+        ),
+    )
+    _add_common_args(p_en)
+    aid_group = p_en.add_mutually_exclusive_group()
+    aid_group.add_argument(
+        "--with-aid",
+        dest="request_mode",
+        action="store_const",
+        const="with-aid",
+        help="call megaspin with the original URL, including `aid` (default)",
+    )
+    aid_group.add_argument(
+        "--strip-aid",
+        dest="request_mode",
+        action="store_const",
+        const="strip-aid",
+        help="remove the `aid` query param before calling megaspin",
+    )
+    p_en.set_defaults(request_mode="with-aid")
+    p_en.add_argument(
+        "files",
+        nargs="*",
+        help=(
+            "rubber JSON files to process. If omitted, walks every JSON under "
+            "the rubbers directory."
+        ),
+    )
+    p_en.set_defaults(func=_cmd_en)
+
+    # ko
+    p_ko = sub.add_parser(
+        "ko",
+        help="update price.ko from the takdragon Naver Smart Store",
+        description=(
+            "Scrape the takdragon Naver Smart Store category pages (or the "
+            "URLs passed via --url) and update price.ko for every rubber "
+            "whose abbr_i18n.ko matches the built-in mapping."
+        ),
+    )
+    _add_common_args(p_ko)
+    p_ko.add_argument(
         "--url",
         action="append",
         dest="urls",
@@ -733,22 +960,17 @@ def main() -> int:
             "script."
         ),
     )
-    parser.add_argument(
-        "--rubbers-dir",
-        default=None,
-        help="rubbers directory (default: <repo>/rubbers)",
-    )
-    parser.add_argument(
+    p_ko.add_argument(
         "--dry-run",
         action="store_true",
         help="print planned changes without writing files",
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--show-unmatched",
         action="store_true",
         help="print Naver products that didn't match any mapping entry",
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--debug",
         action="store_true",
         help=(
@@ -756,7 +978,7 @@ def main() -> int:
             "unmatched, missing-rubber"
         ),
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--cookie",
         default=None,
         help=(
@@ -764,76 +986,40 @@ def main() -> int:
             "if the built-in warmup isn't enough to bypass 429 / anti-bot."
         ),
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--no-warmup",
         action="store_true",
         help="skip the storefront pre-visit that collects session cookies",
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--delay",
         type=float,
         default=1.5,
         help="seconds to sleep between page fetches (default: 1.5)",
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--products-json",
         default=None,
-        help=(
-            "skip fetching and load products from this file instead "
-            "(format: JSON output of the old fetch_naver_prices.py)"
-        ),
+        help="skip fetching and load products from this JSON file instead",
     )
-    parser.add_argument(
+    p_ko.add_argument(
         "--save-products",
         default=None,
         help="also write the fetched products list to this JSON file",
     )
-    args = parser.parse_args()
+    p_ko.set_defaults(func=_cmd_ko)
 
-    repo_root = Path(__file__).resolve().parent.parent.parent
-    rubbers_dir = (
-        Path(args.rubbers_dir) if args.rubbers_dir else repo_root / "rubbers"
+    # all
+    p_all = sub.add_parser(
+        "all",
+        help="run en over every rubber, then ko",
+        description="Shortcut for `en` (all rubbers) followed by `ko`.",
     )
-    if not rubbers_dir.is_dir():
-        print(f"Error: {rubbers_dir} not found", file=sys.stderr)
-        return 1
+    _add_common_args(p_all)
+    p_all.set_defaults(func=_cmd_all)
 
-    if args.products_json:
-        products = json.loads(
-            Path(args.products_json).read_text(encoding="utf-8")
-        )
-        if not isinstance(products, list):
-            print("Error: products JSON must be a list", file=sys.stderr)
-            return 1
-    else:
-        urls = args.urls if args.urls else DEFAULT_URLS
-        products = fetch_products(
-            urls,
-            cookie=args.cookie,
-            delay=args.delay,
-            do_warmup=not args.no_warmup,
-        )
-        if not products:
-            print("Error: no products fetched", file=sys.stderr)
-            return 1
-
-    if args.save_products:
-        Path(args.save_products).write_text(
-            json.dumps(products, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
-        print(
-            f"Saved {len(products)} products -> {args.save_products}",
-            file=sys.stderr,
-        )
-
-    return update_rubber_prices(
-        products,
-        rubbers_dir,
-        dry_run=args.dry_run,
-        debug=args.debug,
-        show_unmatched=args.show_unmatched,
-    )
+    args = parser.parse_args(argv)
+    return args.func(args)
 
 
 if __name__ == "__main__":
