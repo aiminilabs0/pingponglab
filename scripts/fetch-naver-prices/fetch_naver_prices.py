@@ -467,10 +467,21 @@ def main() -> int:
     all_products: list[dict] = []
     seen: set = set()
 
+    # Honor the page= already in the URL as the starting page so that
+    # callers who paste ...&page=2 actually get page 2 (not page 1).
+    initial_query = dict(
+        urllib.parse.parse_qsl(urllib.parse.urlsplit(args.url).query, keep_blank_values=True)
+    )
+    try:
+        start_page = max(1, int(initial_query.get("page", "1")))
+    except ValueError:
+        start_page = 1
+
     for i in range(args.pages):
         if i > 0 and args.delay > 0:
             time.sleep(args.delay)
-        page_url = build_page_url(args.url, i + 1, args.size)
+        page_num = start_page + i
+        page_url = build_page_url(args.url, page_num, args.size)
         try:
             html = fetch_html(
                 opener,
@@ -479,11 +490,11 @@ def main() -> int:
                 cookie=args.cookie,
             )
         except Exception as exc:
-            print(f"page {i + 1}: fetch error: {exc}", file=sys.stderr)
+            print(f"page {page_num}: fetch error: {exc}", file=sys.stderr)
             continue
 
         if args.save_html:
-            path = f"{args.save_html}.{i + 1}.html"
+            path = f"{args.save_html}.{page_num}.html"
             with open(path, "w", encoding="utf-8") as f:
                 f.write(html)
             print(f"  saved raw HTML -> {path} ({len(html)} chars)", file=sys.stderr)
@@ -491,7 +502,7 @@ def main() -> int:
         state = extract_embedded_state(html)
         if state is None:
             print(
-                f"page {i + 1}: could not find embedded product JSON "
+                f"page {page_num}: could not find embedded product JSON "
                 f"(window.__PRELOADED_STATE__ etc.)",
                 file=sys.stderr,
             )
@@ -507,7 +518,7 @@ def main() -> int:
             all_products.append(p)
             new += 1
         print(
-            f"page {i + 1}: {len(products)} products ({new} new)",
+            f"page {page_num}: {len(products)} products ({new} new)",
             file=sys.stderr,
         )
 

@@ -77,6 +77,11 @@ DISAMBIGUATION: dict[str, list[str]] = {
     "제넥션": ["v2c"],
     "genextion": ["v2c"],
     "genection": ["v2c"],
+    # MX-K (H) / MX-K H / MX-K PRO ≠ plain MX-K. These are separate
+    # variants (Hungarian/Hard sponge, Pro tier) with their own SKUs.
+    # Tokens are matched against the normalized name (whitespace removed,
+    # lowercased), so "(h)" catches "MX-K (H)" and "pro" catches "MX-K PRO".
+    "mx-k": ["(h)", "pro"],
 }
 
 
