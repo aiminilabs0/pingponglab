@@ -3,94 +3,95 @@
 
 Takes the JSON output of ``scripts/fetch-naver-prices/fetch_naver_prices.py``
 (a list of ``{name, price, salePrice, discountRatio}`` where ``price`` is the
-regular/MSRP won amount and ``salePrice`` is the discounted price)
-and updates the matching rubber files under ``rubbers/**``.
+regular/MSRP won amount and ``salePrice`` is the discounted price) and updates
+the matching rubber files under ``rubbers/**``.
 
 Matching
 --------
-For each Naver product we search for a rubber whose Korean abbreviation
-(``abbr_i18n.ko``) appears as a substring of the Naver product name, after
-stripping whitespace on both sides. Longer Korean abbreviations are tried
-first so that e.g. ``테너지05FX`` wins over ``테너지05`` when both could
-match. English ``abbr`` is used as a fallback.
-
-Filtering
----------
-Naver products whose name contains ``세트`` (bundle / set) are skipped by
-default — those aren't single-rubber SKUs and would pollute prices.
+Matching is driven by the explicit ``NAVER_NAME_TO_ABBR_KO`` table below, which
+maps an exact Naver product name to the rubber's Korean abbreviation
+(``abbr_i18n.ko``). Products whose name is not present in the table are
+ignored. Add / edit entries here whenever a storefront listing changes.
 
 Price format
 ------------
-Rubber JSON stores Korean prices in thousands of won as strings
-(e.g. ``"92.0"`` = 92,000원). Naver returns raw integer won. The script
-converts and formats discount as ``"-NN%"``.
+Rubber JSON stores Korean prices in thousands of won as strings (e.g.
+``"92.0"`` = 92,000원). Naver returns raw integer won. Discount is formatted
+as ``"-NN%"``.
 
 Usage
 -----
-  python scripts/update-price-ko/update_price_ko.py products.json
-  python scripts/update-price-ko/update_price_ko.py products.json --dry-run
-  python scripts/update-price-ko/update_price_ko.py products.json \
-      --filter 세트 --filter 셋트 --filter 2개
+  python scripts/fetch-naver-prices/update_price_ko.py products.json
+  python scripts/fetch-naver-prices/update_price_ko.py products.json --dry-run
+  python scripts/fetch-naver-prices/update_price_ko.py products.json --debug
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from datetime import date
 from pathlib import Path
 
-_WS = re.compile(r"\s+")
-
-
-def normalize(text: str) -> str:
-    return _WS.sub("", text or "").lower()
-
-
-# Disambiguation: when the Naver product name contains the listed tokens
-# (matched against the normalized name), treat the rubber as a *different*
-# variant and refuse to match. Each key is a normalized rubber abbreviation
-# (Korean or English); the rubber's ``keys`` list is scanned so we match
-# regardless of which language form hit.
+# Explicit mapping: exact Naver product name -> rubber abbr_i18n.ko.
 #
-# Add to this list whenever you discover a storefront listing that the
-# matcher mis-classifies (e.g. "라잔터 R50" → should not match Rasanter R47).
-DISAMBIGUATION: dict[str, list[str]] = {
-    # 바라쿠타/바라쿠다 50 ≠ plain Baracuda. Include both Korean spellings
-    # (DB uses "바라쿠다" but the storefront usually writes "바라쿠타").
-    "바라쿠다": ["50"],
-    "바라쿠타": ["50"],
-    "baracuda": ["50"],
-    # 테너지 FX (05 / 64 / 80) ≠ plain 테너지. The FX rubbers do exist in
-    # the DB, so this mostly guards against matcher bugs.
-    "테너지05": ["fx"],
-    "테너지64": ["fx"],
-    "테너지80": ["fx"],
-    "tenergy05": ["fx"],
-    "tenergy64": ["fx"],
-    "tenergy80": ["fx"],
-    # 라잔터 R47 퍼플 ≠ R47. The R47 rubber's Korean abbr is just "R47".
-    "r47": ["퍼플", "purple"],
-    # 제넥션 V2C ≠ 제넥션.
-    "제넥션": ["v2c"],
-    "genextion": ["v2c"],
-    "genection": ["v2c"],
-    # MX-K (H) / MX-K H / MX-K PRO ≠ plain MX-K. These are separate
-    # variants (Hungarian/Hard sponge, Pro tier) with their own SKUs.
-    # Tokens are matched against the normalized name (whitespace removed,
-    # lowercased), so "(h)" catches "MX-K (H)" and "pro" catches "MX-K PRO".
-    "mx-k": ["(h)", "pro"],
+# Add / edit rows here when storefront listings change or new rubbers are
+# introduced. Product names must match Naver output exactly (whitespace,
+# punctuation, and bracket form included). Names not listed here are
+# ignored by this script.
+NAVER_NAME_TO_ABBR_KO: dict[str, str] = {
+    "[엑시옴] 오메가 7 프로 탁구러버 점착보호필름 서비스": "오메가7 프로",
+    "MXK 한국 전용 러버 47.5도 점착보호필름 서비스": "MX-K",
+    "[버터플라이]디그닉스05 탁구러버 탁구용품": "디그닉스05",
+    "[DHS] 금궁 8 탁구러버 47.5도": "금궁8",
+    "[닛타쿠] 파스탁 G1 탁구러버 47.5도 특후 2.0mm 점착보호필름 서비스": "G-1",
+    "[버터플라이]테너지 05 탁구러버 탁구고무 탁구용품": "테너지05",
+    "[버터플라이]디그닉스 09C 탁구러버 점착성": "디그닉스09C",
+    "[버터플라이] 자이어03 ZYRE-03 최강의 회전력과 파워 보호필름 1장": "자이어03",
+    "[티바] EVOLUTION MXS 스핀형 탁구러버 경도 46.3-48.3": "MX-S",
+    "[닛타쿠] 제넥션 특후 1.9mm~2.1mm 52.5도 파워풀한 드라이브": "제넥션",
+    "[안드로] 뉴존48 NUZN48 뛰어난 볼 그립력": "뉴존 48",
+    "[안드로] 뉴존45 NUZN45 뛰어난 컨트롤": "뉴존 45",
+    "[도닉] 블루그립 J3 50도 장지커 개발 참여 러버": "블루그립J3",
+    "[도닉] 블루그립 J2 52.5도 장지커 개발 참여 러버": "블루그립J2",
+    "[도닉] 블루그립 J1 55도 장지커 개발 참여 러버": "블루그립J1",
+    "[도닉] 블루스타 A1 / 52.5도 약점착 공격적인 플레이": "블루스타A1",
+    "[엑시옴] C55.0 지킬앤하이드 약점착 탁구러버 MAX": "지킬C55.0",
+    "[엑시옴] 오메가 7 차이나 광 특유의 강력한 타구음 55도": "오메가7 광",
+    "[버터플라이] 높은컨트롤과 안정성 테너지05 FX 탁구러버": "테너지05 FX",
+    "[버터플라이] 완벽한 밸런스 테너지80 탁구러버": "테너지80",
+    "[버터플라이] 잡는 감각이 뛰어난 테너지19 탁구러버": "테너지19",
+    "[버터플라이] Grayzer 09c 그레이저09c 탁구러버": "글레이저09C",
+    "[엑시옴] 오메가8 하이브리드 52.5도 정밀하고 효율적인 플레이": "오메가8 하이브리드",
+    "[버터플라이] 테너지 05 하드 단단한 스펀지 53도": "테너지05하드",
+    "[엑시옴] 오메가8 차이나 52.5도 가볍지만 성능은 확실한 점착러버": "오메가8 차이나",
+    "[엑시옴] 오메가8 프로 다재다능한 플레이 가능한 가벼운 탁구러버": "오메가8 프로",
+    "[엑시옴] C52.5 지킬앤하이드 약점착 탁구러버": "지킬C52.5",
+    "[도닉] 바라쿠다 스핀형 탁구 러버 MAX": "바라쿠다",
+    "[버터플라이] 균형이 뛰어난 디그닉스 80 탁구러버": "디그닉스80",
+    "[티바] FXP 과감한 공격형 탁구러버 경도 39.1-41.1도": "FX-P",
+    "[티바] FXS 오직 스핀형 러버 경도 41.0-43.0도": "FX-S",
+    "[티바] 안정감 랠리형 ELS 탁구러버 경도43.8-45.8도": "EL-S",
+    "[티바] EVOLUTION MXD 경도 50.3-52.3": "MX-D",
+    "[티바] EVOLUTION ELP 탁구러버 경도 42.4-44.4": "EL-P",
+    "[안드로] 라잔터 R48 탁구러버 블루 빨강 검정 그린 MAX": "R48",
+    "[안드로] 라잔터 C48 탁구러버 MAX": "C48",
+    "[안드로] 라잔타 R53 탁구러버 빨강 검정 MAX": "R53",
+    "[안드로] 라잔터 R47 탁구 러버 빨강 검정 MAX": "R47",
+    "[안드로] C53 라잔터 탁구 러버": "C53",
+    "[안드로] 탁구러버 뉴존 50도 MAX": "뉴존 50",
+    "[안드로] 탁구러버 뉴존 55도 MAX": "뉴존 55",
+    "MK 하이브리드 티바 탁구러버 경도 48도": "MK",
+    "티바 하이브리드 K3 약점착 러버 경도 53": "K3",
+    "MXP 50도 티바 탁구러버": "MX-P 50",
+    "[버터플라이]로제나 탁구러버 탁구용품": "로제나",
+    "[버터플라이]디그닉스 64 탁구러버 탁구고무 탁구용품": "디그닉스64",
+    "[버터플라이]테너지 64 탁구러버 탁구고무 탁구용품": "테너지64",
+    "티바 EVOLUTION MXP 탁구러버": "MX-P",
+    "[DHS] 허리케인 8-80 점착러버 37도 2.1mm": "H8-80",
+    "[DHS] 네오허리케인 3 성광(블루스폰지) 39도 2.1mm 점착러버": "H3 Neo"
 }
-
-
-def _is_excluded_variant(rubber_keys: list[str], name_norm: str) -> bool:
-    for k in rubber_keys:
-        for tok in DISAMBIGUATION.get(k, ()):
-            if normalize(tok) in name_norm:
-                return True
-    return False
 
 
 def fmt_price(value) -> str:
@@ -139,8 +140,11 @@ def to_price_entry(product: dict) -> dict:
     }
 
 
-def load_rubbers(rubbers_dir: Path) -> list[dict]:
-    rubbers: list[dict] = []
+def load_rubbers_by_abbr_ko(
+    rubbers_dir: Path,
+) -> dict[str, tuple[Path, dict]]:
+    """Index every rubber JSON by its ``abbr_i18n.ko`` value."""
+    index: dict[str, tuple[Path, dict]] = {}
     for jf in sorted(rubbers_dir.rglob("*.json")):
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
@@ -148,48 +152,25 @@ def load_rubbers(rubbers_dir: Path) -> list[dict]:
             print(f"  warn: could not read {jf}: {exc}", file=sys.stderr)
             continue
 
-        ko = (data.get("abbr_i18n") or {}).get("ko") or (
-            data.get("name_i18n") or {}
-        ).get("ko")
-        en = (
-            (data.get("abbr_i18n") or {}).get("en")
-            or data.get("abbr")
-            or data.get("name")
-            or ""
-        )
-        if not ko and not en:
+        ko = (data.get("abbr_i18n") or {}).get("ko")
+        if not ko:
             continue
-
-        rubbers.append(
-            {
-                "path": jf,
-                "data": data,
-                "ko": ko or "",
-                "en": en,
-                "keys": [k for k in (normalize(ko), normalize(en)) if k],
-            }
-        )
-
-    # Longest keys first so specific names win over generic substrings.
-    rubbers.sort(key=lambda r: -max((len(k) for k in r["keys"]), default=0))
-    return rubbers
-
-
-def find_match(name_norm: str, rubbers: list[dict], taken: set[Path]):
-    for r in rubbers:
-        if r["path"] in taken:
+        if ko in index:
+            other = index[ko][0]
+            print(
+                f"  warn: duplicate abbr_i18n.ko={ko!r} in {jf} "
+                f"(also in {other}); keeping first",
+                file=sys.stderr,
+            )
             continue
-        for k in r["keys"]:
-            if k and k in name_norm:
-                if _is_excluded_variant(r["keys"], name_norm):
-                    break  # same rubber's other keys would also be excluded
-                return r
-    return None
+        index[ko] = (jf, data)
+    return index
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "products_json", help="JSON output from fetch_naver_prices.py"
@@ -205,23 +186,19 @@ def main() -> int:
         help="print planned changes without writing files",
     )
     parser.add_argument(
-        "--filter",
-        action="append",
-        default=None,
-        metavar="SUBSTR",
-        help=(
-            "skip Naver products whose name contains this substring "
-            "(repeatable; default: '세트')"
-        ),
-    )
-    parser.add_argument(
         "--show-unmatched",
         action="store_true",
-        help="print Naver products that didn't match any rubber",
+        help="print Naver products that didn't match any mapping entry",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help=(
+            "print every product in each bucket: updated, unchanged, "
+            "unmatched, missing-rubber"
+        ),
     )
     args = parser.parse_args()
-
-    filters = args.filter if args.filter else ["세트"]
 
     repo_root = Path(__file__).resolve().parent.parent.parent
     rubbers_dir = (
@@ -236,48 +213,50 @@ def main() -> int:
         print("Error: products JSON must be a list", file=sys.stderr)
         return 1
 
-    before = len(products)
-    products = [
-        p
-        for p in products
-        if not any(f in (p.get("name") or "") for f in filters)
-    ]
-    skipped = before - len(products)
+    rubbers_by_abbr = load_rubbers_by_abbr_ko(rubbers_dir)
     print(
-        f"Filtered out {skipped} items matching {filters} "
-        f"({len(products)} remain).",
+        f"Loaded {len(rubbers_by_abbr)} rubber files from {rubbers_dir}",
         file=sys.stderr,
     )
 
-    rubbers = load_rubbers(rubbers_dir)
-    print(f"Loaded {len(rubbers)} rubber files from {rubbers_dir}", file=sys.stderr)
-
     taken: set[Path] = set()
-    unmatched: list[str] = []
-    updated = 0
-    unchanged = 0
+    unmatched: list[str] = []  # product name not in NAVER_NAME_TO_ABBR_KO
+    missing_rubber: list[tuple[str, str]] = []  # mapped abbr not in repo
+    updated_items: list[str] = []
+    unchanged_items: list[tuple[str, str]] = []  # (rubber_label, naver_name)
 
     for p in products:
         name = (p.get("name") or "").strip()
         if not name:
             continue
-        m = find_match(normalize(name), rubbers, taken)
-        if not m:
+
+        abbr_ko = NAVER_NAME_TO_ABBR_KO.get(name)
+        if abbr_ko is None:
             unmatched.append(name)
             continue
-        taken.add(m["path"])
+
+        entry_rubber = rubbers_by_abbr.get(abbr_ko)
+        if entry_rubber is None:
+            missing_rubber.append((abbr_ko, name))
+            continue
+
+        path, data = entry_rubber
+        if path in taken:
+            # Two Naver products mapped to the same rubber; keep the first.
+            unchanged_items.append((abbr_ko, name))
+            continue
 
         entry = to_price_entry(p)
         if not entry["regular"]:
-            print(f"  no-price   : {m['ko'] or m['en']:<25}  [{name}]")
+            print(f"  no-price   : {abbr_ko:<25}  [{name}]")
             continue
 
-        data = m["data"]
         old_price = dict(data.get("price") or {})
         current_ko = dict(old_price.get("ko") or {})
 
         if current_ko == entry:
-            unchanged += 1
+            unchanged_items.append((abbr_ko, name))
+            taken.add(path)
             continue
 
         if current_ko:
@@ -298,21 +277,46 @@ def main() -> int:
             if entry["sale"]
             else entry["regular"]
         )
-        print(f"  updated    : {m['ko'] or m['en']:<25} -> {label}  [{name}]")
+        line = f"  updated    : {abbr_ko:<25} -> {label}  [{name}]"
+        print(line)
+        updated_items.append(line)
+        taken.add(path)
 
         if not args.dry_run:
-            with m["path"].open("w", encoding="utf-8") as f:
+            with path.open("w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
                 f.write("\n")
-        updated += 1
 
-    if args.show_unmatched and unmatched:
+    if args.debug:
+        print(f"\nUpdated ({len(updated_items)}):", file=sys.stderr)
+        for line in updated_items:
+            print(line, file=sys.stderr)
+        print(f"\nUnchanged ({len(unchanged_items)}):", file=sys.stderr)
+        for rubber_label, name in unchanged_items:
+            print(f"  {rubber_label:<25}  [{name}]", file=sys.stderr)
+        print(f"\nMissing rubber ({len(missing_rubber)}):", file=sys.stderr)
+        for abbr, name in missing_rubber:
+            print(f"  {abbr:<25}  [{name}]", file=sys.stderr)
         print(f"\nUnmatched ({len(unmatched)}):", file=sys.stderr)
         for n in unmatched:
             print(f"  {n}", file=sys.stderr)
+    else:
+        if missing_rubber:
+            print(
+                f"\nMissing rubber ({len(missing_rubber)}):",
+                file=sys.stderr,
+            )
+            for abbr, name in missing_rubber:
+                print(f"  {abbr:<25}  [{name}]", file=sys.stderr)
+        if args.show_unmatched and unmatched:
+            print(f"\nUnmatched ({len(unmatched)}):", file=sys.stderr)
+            for n in unmatched:
+                print(f"  {n}", file=sys.stderr)
 
     print(
-        f"\nDone: {updated} updated, {unchanged} unchanged, "
+        f"\nDone: {len(updated_items)} updated, "
+        f"{len(unchanged_items)} unchanged, "
+        f"{len(missing_rubber)} missing-rubber, "
         f"{len(unmatched)} unmatched."
         + ("  (dry run — no files written)" if args.dry_run else ""),
         file=sys.stderr,

@@ -51,9 +51,9 @@
       "discount": "-8%"
     },
     "ko": {
-      "regular": "$64.99",
-      "sale": "$59.99",
-      "discount": "-8%"
+      "regular": "62.0",
+      "sale": "",
+      "discount": ""
     },
     "cn": {
       "regular": "$64.99",
