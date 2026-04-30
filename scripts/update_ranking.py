@@ -7,7 +7,7 @@ and writes the ``ranking`` field into ``players/players.json``.
 Players not found in the top 200 will have their ``ranking`` field removed.
 
 Usage:
-  python scripts/fetch-ranking/fetch_ranking.py
+  python scripts/update_ranking.py
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ def _load_api_key() -> str:
     if key:
         return key
 
-    env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+    env_path = Path(__file__).resolve().parent.parent / ".env"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
             line = line.strip()
@@ -87,7 +87,7 @@ def match_ranking(player_name: str, ranking_map: dict[str, int]) -> int | None:
 
 
 def main() -> int:
-    repo_root = Path(__file__).resolve().parent.parent.parent
+    repo_root = Path(__file__).resolve().parent.parent
     players_path = repo_root / "players" / "players.json"
 
     if not players_path.exists():
