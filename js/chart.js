@@ -605,7 +605,7 @@ async function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
                         idx = (idx + 1) % names.length;
                         rotateEl.classList.remove('visible');
                         _popupPlayerRotateSwapTimeout = setTimeout(() => {
-                            rotateEl.textContent = names[idx];
+                            rotateEl.innerHTML = names[idx];
                             // Wait one frame after text swap to avoid ghosting on mobile compositing.
                             requestAnimationFrame(() => rotateEl.classList.add('visible'));
                             playerEls[idx]?.classList.add('is-active');
@@ -623,7 +623,7 @@ async function showChartHoverPopupFromPlotlyData(data, chartEl, slotLabel) {
                         _popupPlayerRotateSwapTimeout = null;
                         playerEls.forEach(p => p.classList.remove('is-active'));
                         el.classList.add('is-active');
-                        rotateEl.textContent = names[i] || '';
+                        rotateEl.innerHTML = names[i] || '';
                         rotateEl.classList.add('visible');
                     });
                     el.addEventListener('mouseleave', () => {
@@ -756,8 +756,8 @@ function buildHoverPopupPlayersHtml(rubber) {
         const playerData = getPlayerDataByName(p.name);
         const wttRank = playerData?.ranking;
         const ttblRank = playerData?.ttbl_ranking;
-        if (wttRank) return `${displayName} - WTT #${wttRank}`;
-        if (ttblRank) return `${displayName} - TTBL #${ttblRank}`;
+        if (wttRank) return `${displayName}<span class="chart-hover-player-rank"> - WTT #${escapeHtml(String(wttRank))}</span>`;
+        if (ttblRank) return `${displayName}<span class="chart-hover-player-rank"> - TTBL #${escapeHtml(String(ttblRank))}</span>`;
         return displayName;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));

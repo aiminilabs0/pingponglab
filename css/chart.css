@@ -761,6 +761,10 @@ a.chart-hover-player:hover .chart-hover-player-img {
 .chart-hover-player-name-rotate:not(.visible) {
     opacity: 0;
 }
+.chart-hover-player-rank {
+    color: var(--drac-comment);
+    font-weight: 500;
+}
 .chart-hover-top {
     display: flex;
     align-items: center;
