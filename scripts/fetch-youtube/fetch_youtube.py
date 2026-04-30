@@ -10,6 +10,7 @@ Requires a YOUTUBE_API_KEY in .env or as an environment variable.
 Usage:
   python scripts/fetch-youtube/fetch_youtube.py          # last 100 videos
   python scripts/fetch-youtube/fetch_youtube.py --count 50
+  python scripts/fetch-youtube/fetch_youtube.py --debug  # also print fetched videos
 """
 
 from __future__ import annotations
@@ -214,6 +215,8 @@ def main() -> int:
         if idx + 1 < len(sys.argv):
             count = int(sys.argv[idx + 1])
 
+    debug = "--debug" in sys.argv
+
     if not PLAYERS_FILE.exists():
         print(f"Error: '{PLAYERS_FILE}' not found.")
         return 1
@@ -239,6 +242,12 @@ def main() -> int:
         skipped = before - len(all_videos)
         if skipped:
             print(f"Skipped {skipped} blacklisted video(s).")
+
+    if debug:
+        print(f"\nFetched {len(all_videos)} video(s):")
+        for v in all_videos:
+            print(f"  {v['url']}  {v['title']}")
+        print()
 
     # Pre-build search variants for each player
     player_variants: dict[str, list[str]] = {}
