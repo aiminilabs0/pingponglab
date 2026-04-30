@@ -756,8 +756,8 @@ function buildHoverPopupPlayersHtml(rubber) {
         const playerData = getPlayerDataByName(p.name);
         const wttRank = playerData?.ranking;
         const ttblRank = playerData?.ttbl_ranking;
-        if (wttRank) return `WTT #${wttRank} ${displayName}`;
-        if (ttblRank) return `TTBL #${ttblRank} ${displayName}`;
+        if (wttRank) return `${displayName} - WTT #${wttRank}`;
+        if (ttblRank) return `${displayName} - TTBL #${ttblRank}`;
         return displayName;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));
