@@ -7,7 +7,7 @@ and writes the ``ranking`` field into ``players/players.json``.
 Players not found in the top 200 will have their ``ranking`` field removed.
 
 Usage:
-  python scripts/update_ranking.py
+  python scripts/update_ranking.py [--debug]
 """
 
 from __future__ import annotations
@@ -97,6 +97,8 @@ def main() -> int:
     with players_path.open("r", encoding="utf-8") as f:
         players: dict = json.load(f)
 
+    debug = "--debug" in sys.argv[1:]
+
     print("Fetching Men's Singles rankings...")
     ms_results = fetch_rankings("MS")
     print(f"  Got {len(ms_results)} entries")
@@ -107,6 +109,15 @@ def main() -> int:
 
     ms_map = build_ranking_map(ms_results)
     ws_map = build_ranking_map(ws_results)
+
+    if debug:
+        print("\n--- Men's Singles rankings ---")
+        for name, rank in sorted(ms_map.items(), key=lambda kv: kv[1]):
+            print(f"  #{rank:<4} {name}")
+        print("\n--- Women's Singles rankings ---")
+        for name, rank in sorted(ws_map.items(), key=lambda kv: kv[1]):
+            print(f"  #{rank:<4} {name}")
+        print()
 
     updated = 0
     removed = 0
