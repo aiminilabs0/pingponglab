@@ -24,10 +24,11 @@ import urllib.request
 from pathlib import Path
 
 CHANNELS = [
-#    "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
-#    "UC2ySPiV4DZp58qQ4KES2o1g",  # ITTF World
-#    "UCOYzMI5f_3mG4yRzIjIIRqQ",  # Major League Table Tennis,
-    "UCRnDl9NtKQDZVLn06Bwskrg",  # TTBL
+    "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
+    "UC2ySPiV4DZp58qQ4KES2o1g",  # ITTF World
+    "UCOYzMI5f_3mG4yRzIjIIRqQ",  # Major League Table Tennis,
+#    "UCRnDl9NtKQDZVLn06Bwskrg",  # TTBL
+    "UCHIe8E2_SQplR_SzH9gLurg",  # ETTU OFFICIAL
 ]
 
 PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems"

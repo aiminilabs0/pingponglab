@@ -12,6 +12,12 @@
     "cn": "黛纳瑞兹ZGR"
   },
   "manufacturer": "JOOLA",
+  "players": {
+    "forehand": [
+      "Emanuel Otalvaro"
+    ],
+    "backhand": []
+  },
   "manufacturer_details": {
     "url": "https://www.tabletennisdaily.com/forum/topics/dynaryz-zgr-vs-rakza-z-extra-hard.27760/",
     "country": "Germany",

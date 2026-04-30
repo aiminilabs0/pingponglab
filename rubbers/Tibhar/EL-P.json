@@ -12,6 +12,12 @@
     "cn": "变革EL-P"
   },
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": [],
+    "backhand": [
+      "Yongyin Li"
+    ]
+  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2013,

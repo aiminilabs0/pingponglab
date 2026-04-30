@@ -12,6 +12,14 @@
     "cn": "蓝色紧握C2"
   },
   "manufacturer": "Donic",
+  "players": {
+    "forehand": [
+      "Martin Allegro"
+    ],
+    "backhand": [
+      "Martin Allegro"
+    ]
+  },
   "manufacturer_details": {
     "url": "",
     "country": "Germany",

@@ -12,6 +12,12 @@
     "cn": "蓝星A1"
   },
   "manufacturer": "Donic",
+  "players": {
+    "forehand": [
+      "Fanbo Meng"
+    ],
+    "backhand": []
+  },
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittaku-genextion-vs-donic-bluestar-a1-the-battle-of-recently-introduced-525-degree-rubbers",
     "country": "Germany",

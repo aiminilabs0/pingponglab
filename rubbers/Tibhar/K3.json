@@ -14,15 +14,16 @@
   "manufacturer": "Tibhar",
   "players": {
     "forehand": [
-      "Felix Lebrun",
       "Alexis Lebrun",
       "Darko JORGIC",
+      "Felix Lebrun",
       "Miyuu KIHARA",
       "Tomislav PUCAR"
     ],
     "backhand": [
-      "Felix Lebrun",
       "Alexis Lebrun",
+      "Felix Lebrun",
+      "Kay Stumper",
       "Manav THAKKAR"
     ]
   },

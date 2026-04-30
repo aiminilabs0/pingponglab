@@ -12,6 +12,12 @@
     "cn": "Rakza Z"
   },
   "manufacturer": "Yasaka",
+  "players": {
+    "forehand": [
+      "Yongyin Li"
+    ],
+    "backhand": []
+  },
   "manufacturer_details": {
     "url": "https://racketinsight.com/table-tennis/yasaka-rakza-z-review/",
     "country": "Germany",

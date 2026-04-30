@@ -14,11 +14,14 @@
   "manufacturer": "Butterfly",
   "players": {
     "forehand": [
-      "Timo Ball",
       "Elizabeta Samara",
+      "Irvin Bertrand",
+      "Ovidiu Ionescu",
+      "Timo Ball",
       "Vladimir SIDORENKO"
     ],
     "backhand": [
+      "Ovidiu Ionescu",
       "Timo Ball",
       "Vladimir SIDORENKO"
     ]
@@ -36,6 +39,20 @@
     "sheet": "Tension",
     "weight": 48
   },
+  "urls": {
+    "en": {
+      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=b-tenergy-05",
+      "youtube": "https://www.youtube.com/watch?v=H4cYDC2KtoQ"
+    },
+    "ko": {
+      "product": "https://naver.me/5Aun3TYw",
+      "youtube": "https://www.youtube.com/watch?v=e9iPyqkroIY"
+    },
+    "cn": {
+      "product": "",
+      "youtube": ""
+    }
+  },
   "price": {
     "en": {
       "regular": "$79.99",
@@ -51,20 +68,6 @@
       "regular": "$79.99",
       "sale": "",
       "discount": ""
-    }
-  },
-  "urls": {
-    "en": {
-      "product": "https://www.megaspin.net/store/default.asp?aid=pingponglab&pid=b-tenergy-05",
-      "youtube": "https://www.youtube.com/watch?v=H4cYDC2KtoQ"
-    },
-    "ko": {
-      "product": "https://naver.me/5Aun3TYw",
-      "youtube": "https://www.youtube.com/watch?v=e9iPyqkroIY"
-    },
-    "cn": {
-      "product": "",
-      "youtube": ""
     }
   }
 }

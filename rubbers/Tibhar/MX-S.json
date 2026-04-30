@@ -12,6 +12,12 @@
     "cn": "变革MX-S"
   },
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": [
+      "Borgar Haug"
+    ],
+    "backhand": []
+  },
   "manufacturer_details": {
     "country": "Germany",
     "release_year": 2013,

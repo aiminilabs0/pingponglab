@@ -754,8 +754,11 @@ function buildHoverPopupPlayersHtml(rubber) {
         if (!p) return '';
         const displayName = escapeHtml(getLocalizedPlayerName(p.name) || p.name);
         const playerData = getPlayerDataByName(p.name);
-        const rank = playerData?.ranking;
-        return rank ? `#${rank} ${displayName}` : displayName;
+        const wttRank = playerData?.ranking;
+        const ttblRank = playerData?.ttbl_ranking;
+        if (wttRank) return `WTT #${wttRank} ${displayName}`;
+        if (ttblRank) return `TTBL #${ttblRank} ${displayName}`;
+        return displayName;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));
     return `<div class="chart-hover-players"><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;

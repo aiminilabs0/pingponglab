@@ -11,19 +11,21 @@
     "ko": "네오 허리케인3",
     "cn": "尼傲NEO 狂飙3"
   },
+  "manufacturer": "DHS",
   "players": {
     "forehand": [
-      "WANG Chuqin",
-      "Ma Long",
+      "AN Jaehyun",
       "BAE Hwan",
-      "BAE Won"
+      "BAE Won",
+      "CHO Daeseong",
+      "Ma Long",
+      "WANG Chuqin"
     ],
     "backhand": [
-      "AN Jaehyun",
-      "CHO Daeseong"
+      "BAE Hwan",
+      "WANG Chuqin"
     ]
   },
-  "manufacturer": "DHS",
   "manufacturer_details": {
     "url": "https://blog.tabletennis11.com/nittakuhurricane-pro-3-turbo-blue",
     "country": "China",
