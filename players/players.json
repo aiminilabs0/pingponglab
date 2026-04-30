@@ -989,10 +989,11 @@
       "https://www.youtube.com/watch?v=afmSBcEAgLE",
       "https://www.youtube.com/watch?v=4GM9BqVC8Bg",
       "https://www.youtube.com/watch?v=cfpLpKF32IE"
-    ]
+    ],
+    "ranking": 16
   },
   "Romain Ruiz": {
-    "full_name": "Anders Lind",
+    "full_name": "Romain Ruiz",
     "localized_names": {
       "ko": "로맹 린드",
       "cn": "罗曼 林德"
@@ -1003,7 +1004,8 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=YPviOyk5dO0",
       "https://www.youtube.com/watch?v=CTEAmlCM6tY"
-    ]
+    ],
+    "ranking": 271
   },
   "Steffen Mengel": {
     "full_name": "Steffen Mengel",
@@ -1017,7 +1019,8 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=q7yVdX8FAyE",
       "https://www.youtube.com/watch?v=4__rqwKmCJs"
-    ]
+    ],
+    "ranking": 126
   },
   "Mattias Falck": {
     "full_name": "Mattias Falck",
@@ -1047,7 +1050,8 @@
       "https://www.youtube.com/watch?v=9TXaqHx_Ywg",
       "https://www.youtube.com/watch?v=_8vFgVY3x-Q",
       "https://www.youtube.com/watch?v=YFI_3Q70Pjc"
-    ]
+    ],
+    "ranking": 264
   },
   "Kay Stumper": {
     "full_name": "Kay Stumper",
@@ -1062,7 +1066,8 @@
       "https://www.youtube.com/watch?v=J9-UxxWjKxo",
       "https://www.youtube.com/watch?v=NRuiaUEQY0w",
       "https://www.youtube.com/watch?v=wVzFtETGy7o"
-    ]
+    ],
+    "ranking": 104
   },
   "Yuto Muramatsu": {
     "full_name": "Yuto Muramatsu",
@@ -1076,7 +1081,8 @@
     "youtubes": [
       "https://www.youtube.com/watch?v=k7to-R-trgk",
       "https://www.youtube.com/watch?v=BLOrD4xgMAs"
-    ]
+    ],
+    "ranking": 305
   },
   "Borgar Haug": {
     "full_name": "Borgar Haug",
@@ -1092,7 +1098,8 @@
       "https://www.youtube.com/watch?v=NWxhTOa_cy4",
       "https://www.youtube.com/watch?v=0-ozmr8Lky4",
       "https://www.youtube.com/watch?v=di3KXJiLNOI"
-    ]
+    ],
+    "ranking": 148
   },
   "Emanuel Otalvaro": {
     "full_name": "Emanuel Otalvaro",
@@ -1107,7 +1114,8 @@
       "https://www.youtube.com/watch?v=rBwPH6gl-oo",
       "https://www.youtube.com/watch?v=MZfZGcTAeHg",
       "https://www.youtube.com/watch?v=zCHHJjLgcPw"
-    ]
+    ],
+    "ranking": 154
   },
   "Csaba Andras": {
     "full_name": "Csaba Andras",
@@ -1122,7 +1130,8 @@
       "https://www.youtube.com/watch?v=0vlN8JMSMrY",
       "https://www.youtube.com/watch?v=dqgupXx-P5I",
       "https://www.youtube.com/watch?v=JSad7iibvdE"
-    ]
+    ],
+    "ranking": 80
   },
   "Ruwen Filus": {
     "full_name": "Ruwen Filus",
@@ -1137,7 +1146,8 @@
       "https://www.youtube.com/watch?v=--d_fiSWVQQ",
       "https://www.youtube.com/watch?v=qqEZh_uQOkw",
       "https://www.youtube.com/watch?v=CiP62KBU980"
-    ]
+    ],
+    "ranking": 461
   },
   "Damian Floro": {
     "full_name": "Damian Floro",
@@ -1181,7 +1191,8 @@
       "https://www.youtube.com/watch?v=OnBrzREzyNs",
       "https://www.youtube.com/watch?v=9O7qJcO7S3s",
       "https://www.youtube.com/watch?v=Oo8PEDtD8RQ"
-    ]
+    ],
+    "ranking": 153
   },
   "Fanbo Meng": {
     "full_name": "Fanbo Meng",
@@ -1196,7 +1207,8 @@
       "https://www.youtube.com/watch?v=o_f0kpFSkxI",
       "https://www.youtube.com/watch?v=1EPfMPN5RuE",
       "https://www.youtube.com/watch?v=T3sRodtjrTc"
-    ]
+    ],
+    "ranking": 180
   },
   "Martin Allegro": {
     "full_name": "Martin Allegro",
@@ -1211,7 +1223,8 @@
       "https://www.youtube.com/watch?v=IBU1O30CGGU",
       "https://www.youtube.com/watch?v=y6XRM3UrPlA",
       "https://www.youtube.com/watch?v=MDKPFNTWY0s"
-    ]
+    ],
+    "ranking": 120
   },
   "Andre Bertelsmeier": {
     "full_name": "Andre Bertelsmeier",
@@ -1226,6 +1239,7 @@
       "https://www.youtube.com/watch?v=SXgZpjQIP2w",
       "https://www.youtube.com/watch?v=eZiNISlbRQk",
       "https://www.youtube.com/watch?v=pEHh69tOreI"
-    ]
+    ],
+    "ranking": 68
   }
 }
