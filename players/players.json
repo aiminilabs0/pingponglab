@@ -982,8 +982,8 @@
       "ko": "안데르스 린드",
       "cn": "安德斯 林德"
     },
-    "forehand": "Bluegrip C2",
-    "backhand": "Bluegrip C2",
+    "forehand": "Donic/Bluegrip C2",
+    "backhand": "Donic/Bluegrip C2",
     "ttbl_ranking": 5,
     "youtubes": [
       "https://www.youtube.com/watch?v=afmSBcEAgLE",
@@ -998,7 +998,7 @@
       "ko": "로맹 린드",
       "cn": "罗曼 林德"
     },
-    "forehand": "Rakza Z",
+    "forehand": "Yasaka/Rakza Z",
     "backhand": "",
     "ttbl_ranking": 9,
     "youtubes": [
@@ -1013,8 +1013,8 @@
       "ko": "슈테펜 멩엘",
       "cn": "施特芬 门格尔"
     },
-    "forehand": "Tenergy 05",
-    "backhand": "Tenergy 05",
+    "forehand": "Butterfly/Tenergy 05",
+    "backhand": "Butterfly/Tenergy 05",
     "ttbl_ranking": 12,
     "youtubes": [
       "https://www.youtube.com/watch?v=q7yVdX8FAyE",
@@ -1029,7 +1029,7 @@
       "cn": "马蒂亚斯 法尔克"
     },
     "forehand": "",
-    "backhand": "Rakza X",
+    "backhand": "Yasaka/Rakza X",
     "ttbl_ranking": 13,
     "youtubes": [
       "https://www.youtube.com/watch?v=Q_Fv2UqqgoA",
@@ -1139,7 +1139,7 @@
       "ko": "루벤 필루스",
       "cn": "鲁文 菲鲁斯"
     },
-    "forehand": "Butterly/Tenergy 05H",
+    "forehand": "Butterfly/Tenergy 05H",
     "backhand": "",
     "ttbl_ranking": 38,
     "youtubes": [
@@ -1155,7 +1155,7 @@
       "ko": "다미안 플로로",
       "cn": "达米安 弗洛罗"
     },
-    "forehand": "R47",
+    "forehand": "Andro/R47",
     "backhand": "",
     "ttbl_ranking": 45,
     "youtubes": [

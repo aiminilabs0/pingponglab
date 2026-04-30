@@ -12,6 +12,12 @@
     "cn": "岸度 R47"
   },
   "manufacturer": "Andro",
+  "players": {
+    "forehand": [
+      "Damian Floro"
+    ],
+    "backhand": []
+  },
   "manufacturer_details": {
     "url": "https://www.tt-spin.com/andro-rasanter-r47/",
     "country": "Germany",
