@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import http.cookiejar
+import io
 import json
 import re
 import sys
@@ -39,12 +40,35 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import zlib
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Iterable
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RUBBERS_DIR_DEFAULT = REPO_ROOT / "rubbers"
+LOG_FILE = Path(__file__).resolve().parent / "update_price.log"
+
+
+class _TeeStream(io.TextIOBase):
+    """Write to both a terminal stream and a log file."""
+
+    def __init__(self, terminal: io.TextIOBase, log_file: io.TextIOBase):
+        self._terminal = terminal
+        self._log = log_file
+
+    def write(self, msg: str) -> int:
+        self._terminal.write(msg)
+        self._log.write(msg)
+        self._log.flush()
+        return len(msg)
+
+    def flush(self) -> None:
+        self._terminal.flush()
+        self._log.flush()
+
+    @property
+    def encoding(self):
+        return getattr(self._terminal, "encoding", "utf-8")
 
 
 # ---------------------------------------------------------------------------
@@ -1019,7 +1043,22 @@ def main(argv: list[str] | None = None) -> int:
     p_all.set_defaults(func=_cmd_all)
 
     args = parser.parse_args(argv)
-    return args.func(args)
+
+    log_fh = LOG_FILE.open("a", encoding="utf-8")
+    log_fh.write(f"\n{'=' * 60}\n")
+    log_fh.write(f"Run started: {datetime.now().isoformat()}  command={args.command}\n")
+    log_fh.write(f"{'=' * 60}\n")
+
+    sys.stdout = _TeeStream(sys.__stdout__, log_fh)
+    sys.stderr = _TeeStream(sys.__stderr__, log_fh)
+
+    try:
+        rc = args.func(args)
+    finally:
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+        log_fh.close()
+    return rc
 
 
 if __name__ == "__main__":
