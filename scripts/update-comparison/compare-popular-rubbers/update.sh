@@ -5,7 +5,7 @@ set -euo pipefail
 # Comparison text is written under rubbers_comparison/<lang>/<rubber2>/<this rubber>.
 # compare-all-existing-rubbers uses <rubber1>/<rubber2>; this script reverses that order
 # because the popular flow fills the comparison into the other rubber's directory tree.
-current_rubber="Glayzer 09C"
+current_rubber="Omega 8 Pro"
 
 # Resolve paths relative to this script so it works from any cwd.
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
