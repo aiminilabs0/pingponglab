@@ -362,6 +362,38 @@ function tBrand(brand) {
     return BRAND_NAMES_I18N[lang]?.[brand] || brand;
 }
 
+// Normalize search text so that hyphens and whitespace are ignored.
+// e.g. "MX-P" / "MX P" / "mxp" all collapse to "mxp",
+// letting users find "MX-P" by typing "MXP". Also helps "G-1" ↔ "G1", etc.
+function normalizeSearchText(value) {
+    if (typeof value !== 'string') return '';
+    return value.toLowerCase().replace(/[\s\-]+/g, '');
+}
+
+// Locate where a normalized query matches within the original (un-normalized)
+// text, so callers can highlight the matched slice. Returns { start, end } of
+// the original text covering the match, or null when there's no match.
+function findNormalizedMatchRange(text, normalizedQuery) {
+    if (typeof text !== 'string' || !normalizedQuery) return null;
+    const lower = text.toLowerCase();
+    const isSkippable = (ch) => ch === '-' || /\s/.test(ch);
+    const n = lower.length;
+    const m = normalizedQuery.length;
+    for (let start = 0; start < n; start++) {
+        if (isSkippable(lower[start])) continue;
+        let i = start;
+        let j = 0;
+        while (i < n && j < m) {
+            if (isSkippable(lower[i])) { i++; continue; }
+            if (lower[i] !== normalizedQuery[j]) break;
+            i++;
+            j++;
+        }
+        if (j === m) return { start, end: i };
+    }
+    return null;
+}
+
 function getRubberLocalizedSearchTerms(rubber) {
     if (!rubber || typeof rubber !== 'object') return [];
     const terms = new Set();

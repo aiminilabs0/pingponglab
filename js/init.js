@@ -272,12 +272,23 @@ function initHeaderSearch() {
     function search(query) {
         const q = query.trim().toLowerCase();
         if (!q) { closeResults(); return; }
+        // Hyphen/whitespace-insensitive query so "MXP" finds "MX-P", etc.
+        const qNorm = normalizeSearchText(query);
 
         const matches = [];
         getHeaderSearchPool().forEach((r) => {
-            const nameMatch = r.abbr.toLowerCase().includes(q) || r.fullName.toLowerCase().includes(q);
+            const nameMatch =
+                r.abbr.toLowerCase().includes(q) ||
+                r.fullName.toLowerCase().includes(q) ||
+                (qNorm && (
+                    normalizeSearchText(r.abbr).includes(qNorm) ||
+                    normalizeSearchText(r.fullName).includes(qNorm)
+                ));
             const brandMatch = Object.values(BRAND_NAMES_I18N).some(m => m[r.brand]?.toLowerCase().includes(q));
-            const localizedNameMatch = getRubberLocalizedSearchTerms(r).some(name => name.toLowerCase().includes(q));
+            const localizedNameMatch = getRubberLocalizedSearchTerms(r).some(name =>
+                name.toLowerCase().includes(q) ||
+                (qNorm && normalizeSearchText(name).includes(qNorm))
+            );
             const playerNameMatch = r.playerSearchNames.some(name => name.toLowerCase().includes(q));
 
             if (nameMatch || brandMatch || localizedNameMatch) {
@@ -341,12 +352,25 @@ function initHeaderSearch() {
     }
 
     function highlightMatch(text, query) {
+        const markOpen = '<mark style="background:rgba(218,138,82,0.3);color:inherit;border-radius:2px;padding:0 1px">';
+        const markClose = '</mark>';
         const idx = text.toLowerCase().indexOf(query);
-        if (idx === -1) return escapeHtml(text);
-        return escapeHtml(text.slice(0, idx)) +
-            '<mark style="background:rgba(218,138,82,0.3);color:inherit;border-radius:2px;padding:0 1px">' +
-            escapeHtml(text.slice(idx, idx + query.length)) + '</mark>' +
-            escapeHtml(text.slice(idx + query.length));
+        if (idx !== -1) {
+            return escapeHtml(text.slice(0, idx)) +
+                markOpen +
+                escapeHtml(text.slice(idx, idx + query.length)) + markClose +
+                escapeHtml(text.slice(idx + query.length));
+        }
+        // Fallback: hyphen/whitespace-insensitive match (e.g. "MXP" → "MX-P").
+        const qNorm = normalizeSearchText(query);
+        const range = qNorm ? findNormalizedMatchRange(text, qNorm) : null;
+        if (range) {
+            return escapeHtml(text.slice(0, range.start)) +
+                markOpen +
+                escapeHtml(text.slice(range.start, range.end)) + markClose +
+                escapeHtml(text.slice(range.end));
+        }
+        return escapeHtml(text);
     }
 
     function escapeHtml(s) {
