@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        // Country alias redirects: /us → /en, /kr → /ko (preserves sub-path, query, hash).
+        // Runs as the first script so we redirect before any CSS/JS downloads.
+        (function () {
+            var m = location.pathname.match(/^\/(us|kr)(\/.*)?$/i);
+            if (!m) return;
+            var canonical = { us: 'en', kr: 'ko' }[m[1].toLowerCase()];
+            var rest = m[2] || '/';
+            location.replace('/' + canonical + rest + location.search + location.hash);
+        })();
+    </script>
     <title>Omega 8 Pro vs Tronix ZGR — Rubber Comparison | PingPongLab</title>
     <meta name="description" content="Compare Omega 8 Pro and Tronix ZGR side by side: speed, spin, control, hardness, weight, and player usage on PingPongLab.">
     <meta name="robots" content="index, follow, max-image-preview:large">

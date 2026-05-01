@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        // Country alias redirects: /us → /en, /kr → /ko (preserves sub-path, query, hash).
+        // Runs as the first script so we redirect before any CSS/JS downloads.
+        (function () {
+            var m = location.pathname.match(/^\/(us|kr)(\/.*)?$/i);
+            if (!m) return;
+            var canonical = { us: 'en', kr: 'ko' }[m[1].toLowerCase()];
+            var rest = m[2] || '/';
+            location.replace('/' + canonical + rest + location.search + location.hash);
+        })();
+    </script>
     <title>NUZN 50 Review — Andro Table Tennis Rubber | PingPongLab</title>
     <meta name="description" content="Review of the NUZN 50 table tennis rubber by Andro. Compare speed, spin, control, hardness and weight against other rubbers on PingPongLab.">
     <meta name="robots" content="index, follow, max-image-preview:large">

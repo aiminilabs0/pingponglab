@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        // Country alias redirects: /us → /en, /kr → /ko (preserves sub-path, query, hash).
+        // Runs as the first script so we redirect before any CSS/JS downloads.
+        (function () {
+            var m = location.pathname.match(/^\/(us|kr)(\/.*)?$/i);
+            if (!m) return;
+            var canonical = { us: 'en', kr: 'ko' }[m[1].toLowerCase()];
+            var rest = m[2] || '/';
+            location.replace('/' + canonical + rest + location.search + location.hash);
+        })();
+    </script>
     <title>Top 10 Best Control Table Tennis Rubbers | PingPongLab</title>
     <meta name="description" content="The best control-oriented table tennis rubbers. Compare DHS H3 Neo, Bluefire M3, Tibhar FX-P, Rakza 7 Soft, H8-80, FX-S, R42, Acuda S2, Bluestorm Z3, Rakza Z, BlueGrip J3, Rakza 9, Vega Europe, C-1, and C48 by speed, spin, control, hardness, and weight.">
     <meta name="robots" content="index, follow, max-image-preview:large">

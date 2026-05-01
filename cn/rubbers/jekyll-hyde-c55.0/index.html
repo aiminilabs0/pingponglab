@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script>
+        // Country alias redirects: /us → /en, /kr → /ko (preserves sub-path, query, hash).
+        // Runs as the first script so we redirect before any CSS/JS downloads.
+        (function () {
+            var m = location.pathname.match(/^\/(us|kr)(\/.*)?$/i);
+            if (!m) return;
+            var canonical = { us: 'en', kr: 'ko' }[m[1].toLowerCase()];
+            var rest = m[2] || '/';
+            location.replace('/' + canonical + rest + location.search + location.hash);
+        })();
+    </script>
     <title>惊骇双驱C55.0 评测 — Xiom 乒乓球胶皮 | PingPongLab</title>
     <meta name="description" content="Xiom 惊骇双驱C55.0 乒乓球胶皮评测。与其他胶皮对比速度、旋转、控制、硬度与重量。">
     <meta name="robots" content="index, follow, max-image-preview:large">
