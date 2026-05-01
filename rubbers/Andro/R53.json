@@ -54,13 +54,23 @@
     },
     "ko": {
       "regular": "95.0",
-      "sale": "65.0",
-      "discount": "-31%"
+      "sale": "70.0",
+      "discount": "-26%"
     },
     "cn": {
       "regular": "$57.95",
       "sale": "$45.95",
       "discount": "-21%"
     }
-  }
+  },
+  "price_history": [
+    {
+      "date": "2026-04-30",
+      "ko": {
+        "regular": "95.0",
+        "sale": "65.0",
+        "discount": "-31%"
+      }
+    }
+  ]
 }
