@@ -101,6 +101,17 @@ function updateDocumentTitle() {
         headerTitle = null;
     }
 
+    // SEO landing pages with a `defaultPair` auto-select two rubbers on load.
+    // While the selection still equals that pair, keep the SEO title/heading
+    // so the visible page matches the URL (and the result that brought the
+    // user here from search). The user can diverge by tweaking the selection.
+    if (left && right && typeof window !== 'undefined'
+        && window.__SEO_PAGE__ && window.__SEO_PAGE__.title
+        && seoPageDefaultPairMatchesSelection()) {
+        pageTitle = window.__SEO_PAGE__.title;
+        headerTitle = window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, '');
+    }
+
     document.title = pageTitle;
 
     const headerEl = document.querySelector('.header-title');
@@ -129,6 +140,23 @@ function seoPagePresetMatchesCurrentSelection() {
 }
 
 /**
+ * True when both currently selected rubbers exactly match the SEO landing
+ * page's `defaultPair` (order-independent). Used to keep the SEO URL/title
+ * intact for the auto-selected pair so it doesn't immediately rewrite to
+ * `/{country}/rubbers/compare/…` on landing.
+ */
+function seoPageDefaultPairMatchesSelection() {
+    if (typeof window === 'undefined' || !window.__SEO_PAGE__) return false;
+    const pair = window.__SEO_PAGE__.defaultPair;
+    if (!Array.isArray(pair) || pair.length !== 2) return false;
+    const left = selectedRubbers[0];
+    const right = selectedRubbers[1];
+    if (!left || !right) return false;
+    const set = new Set(pair);
+    return set.has(left.abbr) && set.has(right.abbr);
+}
+
+/**
  * Build the path portion of the current URL from app state.
  * Returns e.g. "/en/", "/en/rubbers/tenergy-05", "/ko/rubbers/compare/a-vs-b"
  */
@@ -136,6 +164,16 @@ function buildCurrentPath() {
     const country = selectedCountry || 'en';
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
+    const seo = window.__SEO_PAGE__;
+
+    // Keep the SEO landing URL (e.g. /en/top-10-…) when the auto-selected
+    // `defaultPair` is still in effect, so the URL reflects the page the
+    // user actually landed on and doesn't immediately switch to a generic
+    // /rubbers/compare/ URL.
+    if (seo && seo.slug && (!seo.country || seo.country === country)
+        && seoPageDefaultPairMatchesSelection()) {
+        return '/' + country + '/' + seo.slug;
+    }
 
     if (left && right && SLUG_MAP) {
         const slugA = SLUG_MAP.abbrToSlug[left.abbr];
@@ -166,7 +204,6 @@ function buildCurrentPath() {
     // rewrite the pretty URL to /{country}/?rubbers=…). Only valid while we
     // stay in the SEO page's original country — country switches navigate
     // away via a full reload (see initCountrySelector).
-    const seo = window.__SEO_PAGE__;
     if (seo && seo.slug && (!seo.country || seo.country === country) && seoPagePresetMatchesCurrentSelection()) {
         return '/' + country + '/' + seo.slug;
     }

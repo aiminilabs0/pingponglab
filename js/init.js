@@ -1020,6 +1020,34 @@ function applyRoute(route) {
     if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
 }
 
+/**
+ * For SEO landing pages that ship a `defaultPair` (e.g. /en/top-10-…),
+ * pre-select those two rubbers so the comparison view is visible on landing.
+ * Skipped when the user has already arrived with a rubber selection
+ * (URL-driven via applyRoute, or restored via ?rubbers=… filter).
+ */
+function applySeoDefaultPair() {
+    if (typeof window === 'undefined' || !window.__SEO_PAGE__) return;
+    const seo = window.__SEO_PAGE__;
+    const pair = seo.defaultPair;
+    if (!Array.isArray(pair) || pair.length !== 2) return;
+    if (selectedRubbers[0] || selectedRubbers[1]) return;
+
+    const rubberA = rubberData.find(r => r.abbr === pair[0]);
+    const rubberB = rubberData.find(r => r.abbr === pair[1]);
+    if (!rubberA || !rubberB) return;
+
+    selectedRubbers[0] = rubberA;
+    selectedRubbers[1] = rubberB;
+    updateDetailPanel(1, rubberA);
+    updateDetailPanel(2, rubberB);
+    nextDetailPanel = 1;
+    updateRadarChart();
+    updateComparisonBar();
+    renderTabs();
+    setActiveTab('comparison');
+}
+
 async function initializeApp() {
     ensureAnalyticsInitialized();
 
@@ -1260,6 +1288,7 @@ async function initializeApp() {
 
     applyFiltersFromUrl();
     applyRoute(route);
+    applySeoDefaultPair();
     if (!activeTab) {
         renderTabs();
         setActiveTab('desc1');
@@ -1316,6 +1345,7 @@ async function initializeApp() {
         pinnedRubbers = [false, false];
         resetDetailPanels();
         applyRoute(newRoute);
+        applySeoDefaultPair();
         if (!activeTab) {
             renderTabs();
             setActiveTab('desc1');

@@ -853,6 +853,28 @@ def main():
         if missing:
             print(f"  WARNING: SEO page '{slug}' references unknown rubbers: {missing}")
 
+        # Optional: a pair of rubbers to auto-select when the page first loads.
+        # Resolved to abbreviations and validated against the page's rubber list
+        # so the comparison view can render immediately on landing.
+        default_pair_refs = page.get('defaultPair') or []
+        default_pair_abbrs = []
+        if default_pair_refs:
+            if len(default_pair_refs) != 2:
+                print(f"  WARNING: SEO page '{slug}' defaultPair must have exactly 2 entries; got {len(default_pair_refs)}")
+            else:
+                pair_missing = []
+                for ref in default_pair_refs:
+                    abbr = _resolve(ref)
+                    if abbr is None:
+                        pair_missing.append(ref)
+                    elif abbr not in rubber_abbrs:
+                        print(f"  WARNING: SEO page '{slug}' defaultPair entry '{ref}' is not in rubbers list")
+                        pair_missing.append(ref)
+                    else:
+                        default_pair_abbrs.append(abbr)
+                if pair_missing:
+                    default_pair_abbrs = []
+
         titles = page.get('title') or {}
         descriptions = page.get('description') or {}
 
@@ -898,6 +920,8 @@ def main():
                 'rubbers': rubber_abbrs,
                 'heading': heading,
             }
+            if default_pair_abbrs:
+                seo_data['defaultPair'] = default_pair_abbrs
             if group_alternates:
                 # Include every locale in the group (including the current one)
                 # so the JS layer has a single source of truth.

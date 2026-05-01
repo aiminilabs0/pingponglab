@@ -20,7 +20,8 @@
       "Tenergy 05",
       "Vega Pro",
       "Zyre 03"
-    ]
+    ],
+    "defaultPair": ["Dignics 05", "Dignics 09C"]
   },
   {
     "slug": "2026-탁구-러버-추천-top10",
@@ -43,7 +44,8 @@
       "Gold Arc 8",
       "Zyre 03",
       "K3"
-    ]
+    ],
+    "defaultPair": ["Dignics 09C", "Tenergy 05"]
   },
   {
     "slug": "2026年最佳十大乒乓球胶皮",
@@ -66,7 +68,8 @@
       "Dignics 05",
       "Dignics 80",
       "Omega 7 Guang"
-    ]
+    ],
+    "defaultPair": ["H3 Neo", "H8-80"]
   },
   {
     "slug": "top-10-lightweight-table-tennis-rubbers",
@@ -88,7 +91,8 @@
       "NUZN 45",
       "Tronix ACC",
       "Tronix CMD"
-    ]
+    ],
+    "defaultPair": ["Dignics 64", "Rakza 7 Soft"]
   },
   {
     "slug": "가벼운-탁구-러버-추천-top10",
@@ -110,7 +114,8 @@
       "NUZN 45",
       "Tronix ACC",
       "Tronix CMD"
-    ]
+    ],
+    "defaultPair": ["Dignics 64", "Rakza 7 Soft"]
   },
   {
     "slug": "十大轻量级乒乓球胶皮推荐",
@@ -132,7 +137,8 @@
       "NUZN 45",
       "Tronix ACC",
       "Tronix CMD"
-    ]
+    ],
+    "defaultPair": ["Dignics 64", "Rakza 7 Soft"]
   },
   {
     "slug": "top-10-best-control-table-tennis-rubbers",
@@ -160,7 +166,8 @@
       "Vega Europe",
       "C-1",
       "C48"
-    ]
+    ],
+    "defaultPair": ["H3 Neo", "Bluefire M3"]
   },
   {
     "slug": "컨트롤-좋은-탁구-러버-추천-top10",
@@ -188,7 +195,8 @@
       "Vega Europe",
       "C-1",
       "C48"
-    ]
+    ],
+    "defaultPair": ["H3 Neo", "Bluefire M3"]
   },
   {
     "slug": "控制型乒乓球胶皮top10推荐",
@@ -216,6 +224,7 @@
       "Vega Europe",
       "C-1",
       "C48"
-    ]
+    ],
+    "defaultPair": ["H3 Neo", "Bluefire M3"]
   }
 ]
