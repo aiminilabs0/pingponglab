@@ -133,6 +133,49 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* ── Comparison heading: Rubber A · "vs" pill · Rubber B ── */
+.header-title--compare {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+}
+.header-title-rubber {
+    display: inline-block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: linear-gradient(180deg, var(--drac-fg) 0%, #c7cfdd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.header-title-rubber--left {
+    text-align: end;
+}
+.header-title-rubber--right {
+    text-align: start;
+}
+.header-title-vs {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    padding: 3px 9px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--drac-orange);
+    background: rgba(224, 122, 64, 0.12);
+    border: 1px solid rgba(224, 122, 64, 0.35);
+    border-radius: 999px;
+    text-shadow: 0 0 10px rgba(224, 122, 64, 0.45);
+    box-shadow: 0 0 0 3px rgba(224, 122, 64, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+}
 .header-tagline {
     font-size: 12px;
     font-weight: 500;

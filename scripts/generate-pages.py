@@ -192,11 +192,23 @@ COMPARE_DESC = {
     'cn': lambda a, b: (f'{a} 与 {b} 全面对比 — 速度、旋转、控制、硬度、重量与职业选手使用情况。'),
 }
 
-COMPARE_H1 = {
-    'en': '{a} vs {b}',
-    'ko': '{a} vs {b}',
-    'cn': '{a} vs {b}',
+# The header heading for comparison pages is rendered as HTML so we can style
+# the "vs" separator as a pill badge. See ``build_compare_heading_html``.
+COMPARE_H1_VS_LABEL = {
+    'en': 'vs',
+    'ko': 'vs',
+    'cn': 'vs',
 }
+
+
+def build_compare_heading_html(local_a, local_b, country):
+    """Return the HTML for the comparison page ``<h1>`` with a styled 'vs'."""
+    vs = COMPARE_H1_VS_LABEL.get(country, 'vs')
+    return (
+        f'<span class="header-title-rubber header-title-rubber--left">{esc(local_a)}</span>'
+        f'<span class="header-title-vs" aria-hidden="true">{esc(vs)}</span>'
+        f'<span class="header-title-rubber header-title-rubber--right">{esc(local_b)}</span>'
+    )
 
 BREADCRUMB_HOME = {'en': 'Home', 'ko': '홈', 'cn': '首页'}
 BREADCRUMB_RUBBERS = {'en': 'Rubbers', 'ko': '러버', 'cn': '胶皮'}
@@ -273,7 +285,8 @@ def read_template():
 
 def make_page(template, title, description, canonical,
               og_title=None, og_description=None, country=None,
-              alternates=None, heading=None, jsonld_blocks=None):
+              alternates=None, heading=None, heading_html=None,
+              jsonld_blocks=None):
     """Create a page from template with custom meta tags.
 
     ``alternates`` is an optional mapping ``{country_code: full_url}`` used to
@@ -363,8 +376,17 @@ def make_page(template, title, description, canonical,
         html, count=1
     )
 
-    # Rewrite the visible heading for crawlers / no-JS users.
-    if heading:
+    # Rewrite the visible heading for crawlers / no-JS users. When ``heading_html``
+    # is provided it is trusted as already-escaped HTML (used by comparison pages
+    # to wrap the "vs" separator in a styled span); otherwise ``heading`` is a
+    # plain string that gets HTML-escaped.
+    if heading_html is not None:
+        html = re.sub(
+            r'<h1 class="header-title">[^<]*</h1>',
+            f'<h1 class="header-title header-title--compare">{heading_html}</h1>',
+            html, count=1
+        )
+    elif heading:
         html = re.sub(
             r'<h1 class="header-title">[^<]*</h1>',
             f'<h1 class="header-title">{esc(heading)}</h1>',
@@ -783,7 +805,7 @@ def main():
             local_b = localized_name(rb, country)
             title = COMPARE_TITLE[country].format(a=local_a, b=local_b)
             desc = COMPARE_DESC[country](local_a, local_b)
-            heading = COMPARE_H1[country].format(a=local_a, b=local_b)
+            heading_html = build_compare_heading_html(local_a, local_b, country)
             canonical = f'{BASE_URL}/{country}/rubbers/compare/{comp_slug}'
             crumbs = breadcrumb_jsonld([
                 (BREADCRUMB_HOME[country], f'{BASE_URL}/{country}/'),
@@ -797,7 +819,7 @@ def main():
                 canonical=canonical,
                 country=country,
                 alternates=alternates,
-                heading=heading,
+                heading_html=heading_html,
                 jsonld_blocks=[crumbs],
             )
             write_file(ROOT / country / 'rubbers' / 'compare' / comp_slug / 'index.html', page)

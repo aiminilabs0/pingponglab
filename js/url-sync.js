@@ -69,36 +69,53 @@ function deserializeControlRangeParam(params) {
 
 // ── Document title ──
 
-let _defaultHeaderTitle = null;
+let _defaultHeaderTitleHtml = null;
+
+function _escapeHeaderHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+}
+
+// Build the markup for a comparison heading with a styled "vs" pill.
+function _buildCompareHeadingHtml(leftLabel, rightLabel) {
+    return (
+        '<span class="header-title-rubber header-title-rubber--left">' + _escapeHeaderHtml(leftLabel) + '</span>' +
+        '<span class="header-title-vs" aria-hidden="true">vs</span>' +
+        '<span class="header-title-rubber header-title-rubber--right">' + _escapeHeaderHtml(rightLabel) + '</span>'
+    );
+}
 
 function updateDocumentTitle() {
     const left = selectedRubbers[0];
     const right = selectedRubbers[1];
 
     let pageTitle;
-    let headerTitle;
+    let headerTitleHtml;
+    let isCompareHeading = false;
 
     if (left && right) {
         const leftLabel = tRubberAbbr(left);
         const rightLabel = tRubberAbbr(right);
         pageTitle = leftLabel + ' vs ' + rightLabel + ' | PingPongLab';
-        headerTitle = leftLabel + ' vs ' + rightLabel;
+        headerTitleHtml = _buildCompareHeadingHtml(leftLabel, rightLabel);
+        isCompareHeading = true;
     } else if (activeTab === 'desc2' && right) {
         const rightLabel = tRubberAbbr(right);
         pageTitle = rightLabel + ' | PingPongLab';
-        headerTitle = rightLabel;
+        headerTitleHtml = _escapeHeaderHtml(rightLabel);
     } else if (left) {
         const leftLabel = tRubberAbbr(left);
         pageTitle = leftLabel + ' | PingPongLab';
-        headerTitle = leftLabel;
+        headerTitleHtml = _escapeHeaderHtml(leftLabel);
     } else if (typeof window !== 'undefined' && window.__SEO_PAGE__ && window.__SEO_PAGE__.title) {
         // SEO landing pages (e.g. /en/top-10-…): keep the server-rendered title
         // while no rubber is selected so crawlers / social shares see it.
         pageTitle = window.__SEO_PAGE__.title;
-        headerTitle = window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, '');
+        headerTitleHtml = _escapeHeaderHtml(window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, ''));
     } else {
         pageTitle = 'PingPongLab | Best Rubber';
-        headerTitle = null;
+        headerTitleHtml = null;
     }
 
     // SEO landing pages with a `defaultPair` auto-select two rubbers on load.
@@ -109,15 +126,17 @@ function updateDocumentTitle() {
         && window.__SEO_PAGE__ && window.__SEO_PAGE__.title
         && seoPageDefaultPairMatchesSelection()) {
         pageTitle = window.__SEO_PAGE__.title;
-        headerTitle = window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, '');
+        headerTitleHtml = _escapeHeaderHtml(window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, ''));
+        isCompareHeading = false;
     }
 
     document.title = pageTitle;
 
     const headerEl = document.querySelector('.header-title');
     if (headerEl) {
-        if (_defaultHeaderTitle === null) _defaultHeaderTitle = headerEl.textContent;
-        headerEl.textContent = headerTitle || _defaultHeaderTitle;
+        if (_defaultHeaderTitleHtml === null) _defaultHeaderTitleHtml = headerEl.innerHTML;
+        headerEl.innerHTML = headerTitleHtml || _defaultHeaderTitleHtml;
+        headerEl.classList.toggle('header-title--compare', isCompareHeading);
     }
 }
 
