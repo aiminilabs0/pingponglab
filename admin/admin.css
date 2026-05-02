@@ -1,0 +1,894 @@
+/* ── Admin page ── */
+:root {
+    --admin-card-bg: var(--drac-current);
+    --admin-card-border: rgba(221, 228, 240, 0.06);
+    --admin-card-border-hover: rgba(96, 165, 216, 0.45);
+    --admin-thumb-bg: #000;
+    --admin-radius: 10px;
+}
+
+body {
+    background: var(--drac-bg-dark);
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+.admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(13, 14, 16, 0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--admin-card-border);
+}
+
+.admin-header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    flex-wrap: wrap;
+}
+
+.admin-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--drac-fg);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+}
+
+.admin-brand:hover {
+    color: var(--drac-cyan);
+}
+
+.admin-brand-icon {
+    font-size: 1.1rem;
+}
+
+.admin-brand-text em {
+    font-style: normal;
+    color: var(--drac-comment);
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+.admin-tabs {
+    display: inline-flex;
+    background: var(--drac-current);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 8px;
+    padding: 4px;
+    gap: 2px;
+}
+
+.admin-tab {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--drac-fg);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-tab:hover {
+    background: rgba(96, 165, 216, 0.08);
+}
+
+.admin-tab.is-active {
+    background: var(--drac-cyan);
+    color: #0d1015;
+}
+
+.admin-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: inherit;
+}
+
+.admin-tab:not(.is-active) .admin-tab-count {
+    background: rgba(221, 228, 240, 0.08);
+    color: var(--drac-comment);
+}
+
+.admin-search {
+    margin-left: auto;
+    flex: 1 1 240px;
+    max-width: 360px;
+}
+
+.admin-search input {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--drac-current);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 8px;
+    color: var(--drac-fg);
+    font: inherit;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.admin-search input:focus {
+    border-color: var(--drac-cyan);
+}
+
+.admin-search input::placeholder {
+    color: var(--drac-comment);
+}
+
+.admin-status {
+    padding: 6px 24px 12px;
+    color: var(--drac-comment);
+    font-size: 0.8rem;
+}
+
+.admin-status.is-error {
+    color: var(--drac-red);
+}
+
+/* ── Main ── */
+.admin-main {
+    padding: 16px 24px 64px;
+}
+
+.admin-section {
+    display: none;
+}
+
+.admin-section.is-active {
+    display: block;
+}
+
+.admin-empty {
+    color: var(--drac-comment);
+    text-align: center;
+    padding: 48px 0;
+    font-size: 0.9rem;
+}
+
+/* ── Rubber brand groups ── */
+.admin-brand-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.admin-brand {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 12px;
+    padding: 16px 18px 18px;
+}
+
+.admin-brand-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.admin-brand-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--drac-cyan);
+    letter-spacing: 0.01em;
+}
+
+.admin-brand-meta {
+    font-size: 0.78rem;
+    color: var(--drac-comment);
+    margin-left: auto;
+}
+
+.admin-brand-meta-missing {
+    color: var(--drac-orange);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Per-rubber rows inside a brand */
+.admin-rubber-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.admin-rubber-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-rubber-item--empty {
+    opacity: 0.7;
+}
+
+.admin-rubber-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-rubber-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--drac-fg);
+}
+
+.admin-rubber-locales {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.admin-rubber-locale {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    padding: 2px 7px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    color: var(--drac-fg);
+    background: rgba(96, 165, 216, 0.15);
+    border: 1px solid rgba(96, 165, 216, 0.4);
+}
+
+.admin-rubber-locale.is-missing {
+    color: var(--drac-comment);
+    background: transparent;
+    border-color: rgba(221, 228, 240, 0.12);
+    text-decoration: line-through;
+    text-decoration-color: rgba(221, 228, 240, 0.35);
+}
+
+/* Missing-video placeholder card */
+.admin-card--missing {
+    border-style: dashed;
+    border-color: rgba(221, 228, 240, 0.12);
+    background: rgba(255, 255, 255, 0.015);
+    cursor: default;
+    pointer-events: none;
+}
+
+.admin-card--missing .admin-thumb {
+    background: linear-gradient(135deg, #16181d, #0d0e10);
+}
+
+.admin-card--missing .admin-thumb-fallback {
+    color: var(--drac-comment);
+    font-size: 0.85rem;
+    background: transparent;
+}
+
+.admin-card--missing .admin-card-title {
+    color: var(--drac-comment);
+}
+
+.admin-card-meta--missing {
+    color: var(--drac-orange);
+}
+
+/* ── Players-by-rubber view ── */
+.admin-rubber-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.admin-rubber-card {
+    background: rgba(255, 255, 255, 0.018);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 10px;
+    padding: 12px 14px 14px;
+}
+
+.admin-rubber-card--empty {
+    border-style: dashed;
+    background: transparent;
+    opacity: 0.7;
+}
+
+.admin-rubber-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-rubber-card-name {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--drac-fg);
+}
+
+.admin-rubber-card-empty {
+    font-size: 0.85rem;
+    color: var(--drac-comment);
+    padding: 8px 0 4px;
+}
+
+.admin-side-tag {
+    background: rgba(96, 165, 216, 0.15);
+    border-color: rgba(96, 165, 216, 0.4);
+    color: var(--drac-cyan);
+}
+
+.admin-side-fh {
+    background: rgba(92, 184, 122, 0.14);
+    border-color: rgba(92, 184, 122, 0.45);
+    color: var(--drac-green);
+}
+
+.admin-side-bh {
+    background: rgba(157, 127, 245, 0.14);
+    border-color: rgba(157, 127, 245, 0.45);
+    color: var(--drac-purple);
+}
+
+.admin-side-fh-bh {
+    background: rgba(212, 184, 74, 0.14);
+    border-color: rgba(212, 184, 74, 0.45);
+    color: var(--drac-yellow);
+}
+
+.admin-brand--unknown .admin-brand-name {
+    color: var(--drac-orange);
+}
+
+/* ── Pricing tab ── */
+.admin-price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-price-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(221, 228, 240, 0.05);
+}
+
+.admin-price-row:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.admin-price-row-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.admin-price-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.018);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 8px;
+    min-height: 86px;
+}
+
+.admin-price-cell--missing {
+    border-style: dashed;
+    background: transparent;
+    color: var(--drac-comment);
+}
+
+.admin-price-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.admin-price-discount {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--drac-orange);
+    background: rgba(224, 122, 64, 0.12);
+    border: 1px solid rgba(224, 122, 64, 0.4);
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+}
+
+.admin-price-regular {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--drac-fg);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.admin-price-regular--struck {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--drac-comment);
+    text-decoration: line-through;
+}
+
+.admin-price-sale {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--drac-green);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.admin-price-empty {
+    font-size: 0.78rem;
+    color: var(--drac-comment);
+    font-style: italic;
+    padding: 6px 0;
+}
+
+.admin-price-link {
+    margin-top: auto;
+    font-size: 0.74rem;
+    color: var(--drac-cyan);
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.admin-price-link:hover {
+    text-decoration: underline;
+}
+
+.admin-price-link--missing {
+    color: var(--drac-comment);
+    cursor: default;
+}
+
+/* Price history — highlighted, expanded by default */
+.admin-price-cell:has(.admin-price-history) {
+    border-color: rgba(212, 184, 74, 0.32);
+    box-shadow: 0 0 0 1px rgba(212, 184, 74, 0.06) inset;
+}
+
+.admin-price-history {
+    margin-top: 10px;
+    padding: 8px 10px 9px;
+    background: rgba(212, 184, 74, 0.08);
+    border: 1px solid rgba(212, 184, 74, 0.32);
+    border-left-width: 3px;
+    border-radius: 6px;
+}
+
+.admin-price-history-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--drac-yellow);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    padding: 1px 0;
+    transition: color 0.12s ease;
+}
+
+.admin-price-history-summary::-webkit-details-marker {
+    display: none;
+}
+
+.admin-price-history-summary::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 0.12s ease;
+    font-size: 0.62rem;
+    color: var(--drac-yellow);
+}
+
+.admin-price-history[open] .admin-price-history-summary::before {
+    transform: rotate(90deg);
+}
+
+.admin-price-history-summary:hover {
+    color: var(--drac-fg);
+}
+
+.admin-price-history-label {
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.admin-price-history-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    padding: 0 6px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    border-radius: 999px;
+    background: rgba(212, 184, 74, 0.22);
+    color: var(--drac-yellow);
+}
+
+.admin-price-history-list {
+    list-style: none;
+    margin: 7px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-price-history-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    padding: 1px 0;
+}
+
+.admin-price-history-date {
+    color: var(--drac-comment);
+    font-weight: 600;
+    min-width: 80px;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+}
+
+.admin-price-history-transition {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--drac-fg);
+    margin-left: auto;
+}
+
+.admin-price-history-prev {
+    color: var(--drac-comment);
+    text-decoration: line-through;
+    text-decoration-color: rgba(221, 228, 240, 0.35);
+}
+
+.admin-price-history-arrow {
+    font-size: 0.72rem;
+    color: var(--drac-comment);
+    line-height: 1;
+}
+
+.admin-price-history-curr {
+    color: var(--drac-fg);
+}
+
+.admin-price-history-transition.is-up .admin-price-history-arrow,
+.admin-price-history-transition.is-up .admin-price-history-curr {
+    color: var(--drac-red);
+}
+
+.admin-price-history-transition.is-down .admin-price-history-arrow,
+.admin-price-history-transition.is-down .admin-price-history-curr {
+    color: var(--drac-green);
+}
+
+@media (max-width: 720px) {
+    .admin-price-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Horizontal scroll row of rubber explanation videos within a brand. */
+.admin-brand-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-color: rgba(221, 228, 240, 0.18) transparent;
+    scrollbar-width: thin;
+}
+
+.admin-brand-row::-webkit-scrollbar {
+    height: 8px;
+}
+
+.admin-brand-row::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-brand-row::-webkit-scrollbar-thumb {
+    background: rgba(221, 228, 240, 0.15);
+    border-radius: 4px;
+}
+
+.admin-brand-row::-webkit-scrollbar-thumb:hover {
+    background: rgba(221, 228, 240, 0.28);
+}
+
+.admin-brand-row .admin-card {
+    flex: 0 0 220px;
+    width: 220px;
+    scroll-snap-align: start;
+}
+
+/* ── Rubber grid (kept for non-brand uses) ── */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.admin-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-card-border);
+    border-radius: var(--admin-radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.12s ease, border-color 0.12s ease;
+    position: relative;
+}
+
+.admin-card:hover {
+    border-color: var(--admin-card-border-hover);
+    transform: translateY(-2px);
+}
+
+.admin-thumb {
+    aspect-ratio: 16 / 9;
+    background: var(--admin-thumb-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.15s ease;
+}
+
+.admin-thumb img.is-broken {
+    opacity: 0.25;
+}
+
+.admin-thumb-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--drac-comment);
+    font-size: 0.78rem;
+    pointer-events: none;
+    background: linear-gradient(135deg, #1c1f25, #0e1014);
+}
+
+.admin-locale-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(0, 0, 0, 0.65);
+    color: var(--drac-fg);
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 7px;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+}
+
+.admin-shorts-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(224, 85, 85, 0.85);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.admin-card-body {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 56px;
+}
+
+.admin-card-title {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--drac-fg);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.admin-card-meta {
+    font-size: 0.74rem;
+    color: var(--drac-comment);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.admin-card-meta a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-card-meta a:hover {
+    color: var(--drac-cyan);
+    text-decoration: underline;
+}
+
+/* ── Players list ── */
+.admin-player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.admin-player {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-card-border);
+    border-radius: 12px;
+    padding: 16px 18px 18px;
+}
+
+.admin-player-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.admin-player-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--drac-fg);
+}
+
+.admin-player-rank {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--drac-yellow);
+    background: rgba(212, 184, 74, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.admin-player-rubbers {
+    font-size: 0.78rem;
+    color: var(--drac-comment);
+    margin-left: auto;
+}
+
+.admin-player-rubbers strong {
+    color: var(--drac-fg);
+    font-weight: 600;
+}
+
+.admin-player-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.admin-player-grid .admin-card {
+    flex: 0 0 220px;
+    width: 220px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+    .admin-header-row {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .admin-tabs {
+        order: 3;
+        flex: 1 1 100%;
+    }
+
+    .admin-tab {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .admin-search {
+        flex: 1 1 100%;
+        max-width: none;
+        margin-left: 0;
+        order: 2;
+    }
+
+    .admin-status {
+        padding: 4px 14px 10px;
+    }
+
+    .admin-main {
+        padding: 12px 14px 48px;
+    }
+
+    .admin-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+    }
+
+    .admin-brand-row {
+        gap: 10px;
+    }
+
+    .admin-brand-row .admin-card {
+        flex: 0 0 170px;
+        width: 170px;
+    }
+
+    .admin-player-grid {
+        gap: 10px;
+    }
+
+    .admin-player-grid .admin-card {
+        flex: 0 0 170px;
+        width: 170px;
+    }
+
+    .admin-player,
+    .admin-brand {
+        padding: 12px 14px 14px;
+    }
+}

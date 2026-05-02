@@ -985,8 +985,8 @@
       "ko": "안데르스 린드",
       "cn": "安德斯 林德"
     },
-    "forehand": "Donic/Bluegrip C2",
-    "backhand": "Donic/Bluegrip C2",
+    "forehand": "Donic/BlueGrip C2",
+    "backhand": "Donic/BlueGrip C2",
     "ttbl_ranking": 5,
     "youtubes": [
       "https://www.youtube.com/watch?v=afmSBcEAgLE",
@@ -1204,7 +1204,7 @@
       "cn": "孟繁博"
     },
     "forehand": "Donic/Bluestar A1",
-    "backhand": "Donic/Bluestorm PRO",
+    "backhand": "Donic/Bluestorm Pro AM",
     "ttbl_ranking": 56,
     "youtubes": [
       "https://www.youtube.com/watch?v=o_f0kpFSkxI",
@@ -1219,8 +1219,8 @@
       "ko": "마르탱 알레그로",
       "cn": "马丁 阿莱格罗"
     },
-    "forehand": "Donic/Bluegrip C2",
-    "backhand": "Donic/Bluegrip C2",
+    "forehand": "Donic/BlueGrip C2",
+    "backhand": "Donic/BlueGrip C2",
     "ttbl_ranking": 63,
     "youtubes": [
       "https://www.youtube.com/watch?v=8hoZUkTF_0k",
@@ -1236,7 +1236,7 @@
       "ko": "앙드레",
       "cn": "安德烈"
     },
-    "forehand": "Andor/NUZN 55",
+    "forehand": "Andro/NUZN 55",
     "backhand": "Andro/R53",
     "ttbl_ranking": 65,
     "youtubes": [

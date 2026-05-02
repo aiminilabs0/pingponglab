@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin — PingPongLab</title>
+    <link rel="icon" href="/images/favicon.ico?v=10" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="/css/variables.css?v=118">
+    <link rel="stylesheet" href="/admin/admin.css?v=15">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-row">
+            <a href="/" class="admin-brand">
+                <span class="admin-brand-icon">🏓</span>
+                <span class="admin-brand-text">PingPongLab <em>admin</em></span>
+            </a>
+            <nav class="admin-tabs" role="tablist">
+                <button type="button" class="admin-tab is-active" data-tab="rubbers" role="tab" aria-selected="true">
+                    Rubber explanations <span class="admin-tab-count" data-count="rubbers">0</span>
+                </button>
+                <button type="button" class="admin-tab" data-tab="players" role="tab" aria-selected="false">
+                    Players <span class="admin-tab-count" data-count="players">0</span>
+                </button>
+                <button type="button" class="admin-tab" data-tab="pricing" role="tab" aria-selected="false">
+                    Pricing <span class="admin-tab-count" data-count="pricing">0</span>
+                </button>
+            </nav>
+            <div class="admin-search">
+                <input type="search" id="adminSearch" placeholder="Search rubber, player, locale..." autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+        <div class="admin-status" id="adminStatus" aria-live="polite">Loading…</div>
+    </header>
+
+    <main class="admin-main">
+        <section class="admin-section is-active" id="section-rubbers" role="tabpanel" aria-labelledby="tab-rubbers">
+            <div class="admin-brand-list" id="rubbersList"></div>
+            <p class="admin-empty" id="rubbersEmpty" hidden>No matches.</p>
+        </section>
+
+        <section class="admin-section" id="section-players" role="tabpanel" aria-labelledby="tab-players" hidden>
+            <div class="admin-player-list" id="playersList"></div>
+            <p class="admin-empty" id="playersEmpty" hidden>No matches.</p>
+        </section>
+
+        <section class="admin-section" id="section-pricing" role="tabpanel" aria-labelledby="tab-pricing" hidden>
+            <div class="admin-brand-list" id="pricingList"></div>
+            <p class="admin-empty" id="pricingEmpty" hidden>No matches.</p>
+        </section>
+    </main>
+
+    <script src="/admin/admin.js?v=11"></script>
+</body>
+</html>
