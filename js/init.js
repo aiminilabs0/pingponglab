@@ -1318,10 +1318,10 @@ async function initializeApp() {
         // Wait for Plotly autoscale + content card to fully lay out before scrolling.
         if (initialHash) {
             setTimeout(() => applyHashFragment(initialHash), 250);
-        } else if (selectedRubbers[0] && selectedRubbers[1]) {
-            // No hash but both rubbers selected → scroll to comparison
+        } else if (selectedRubbers[0]) {
+            // Rubber or comparison page without hash → scroll to radar
             setTimeout(() => {
-                const el = document.getElementById('contentCard');
+                const el = document.getElementById('radarSection');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 250);
         }
@@ -1382,7 +1382,7 @@ function applyHashFragment(hash) {
     const tabId = tabMap[hash];
     if (tabId) {
         setActiveTab(tabId);
-        const el = document.getElementById('contentCard');
+        const el = document.getElementById('radarSection');
         if (el) {
             requestAnimationFrame(() => {
                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
