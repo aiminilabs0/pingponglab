@@ -3,7 +3,7 @@
     "full_name": "Alexis Lebrun",
     "localized_names": {
       "ko": "알렉시스 르브론",
-      "cn": "亚历克西 勒布伦"
+      "cn": "亚历克西斯 勒布伦"
     },
     "forehand": "Tibhar/K3",
     "backhand": "Tibhar/K3",
@@ -802,7 +802,7 @@
     "full_name": "Timo Boll",
     "localized_names": {
       "ko": "티모볼",
-      "cn": "波尔"
+      "cn": "蒂莫 波尔"
     },
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 05",
@@ -865,7 +865,7 @@
     "full_name": "Mattias KARLSSON",
     "localized_names": {
       "ko": "마티아스 카를슨",
-      "cn": "马蒂亚斯"
+      "cn": "马蒂亚斯 卡尔松"
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
@@ -1011,8 +1011,8 @@
   "Adriana DIAZ": {
     "full_name": "Adriana DIAZ",
     "localized_names": {
-      "ko": "디아즈",
-      "cn": "迪亚斯"
+      "ko": "아드리아나 디아스",
+      "cn": "阿德里亚娜 迪亚斯"
     },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Zyre 03",
@@ -1045,8 +1045,8 @@
   "Romain Ruiz": {
     "full_name": "Romain Ruiz",
     "localized_names": {
-      "ko": "로맹 린드",
-      "cn": "罗曼 林德"
+      "ko": "로맹 루이스",
+      "cn": "罗曼 鲁伊斯"
     },
     "forehand": "Yasaka/Rakza Z",
     "backhand": "",
@@ -1309,7 +1309,7 @@
     "ranking": 68,
     "country_code": "DE"
   },
-  "Kalinikos Kreangar": {
+  "Kalinikos Kreanga": {
     "full_name": "Kalinikos Kreanga",
     "localized_names": {
       "ko": "칼리니코스 크레앙가",
