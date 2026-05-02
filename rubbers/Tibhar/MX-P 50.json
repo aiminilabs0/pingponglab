@@ -12,6 +12,12 @@
     "cn": "变革MX-P 50"
   },
   "manufacturer": "Tibhar",
+  "players": {
+    "forehand": [],
+    "backhand": [
+      "Darko JORGIC"
+    ]
+  },
   "manufacturer_details": {
     "url": "https://www.megaspin.net/store/product-reviews.asp?pid=t-evolution-mx-p-50",
     "country": "Germany",

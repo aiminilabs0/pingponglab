@@ -12,6 +12,12 @@
     "cn": "蓝色风暴Pro AM"
   },
   "manufacturer": "Donic",
+  "players": {
+    "forehand": [],
+    "backhand": [
+      "Fanbo Meng"
+    ]
+  },
   "manufacturer_details": {
     "url": "https://www.tabletennis11.com/other_eng/donic-bluestorm-pro-am",
     "country": "Germany",

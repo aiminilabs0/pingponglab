@@ -151,7 +151,7 @@
       "cn": "达尔科 约尔吉奇"
     },
     "forehand": "Tibhar/K3",
-    "backhand": "Tibhar/MX-P",
+    "backhand": "Tibhar/MX-P 50",
     "ranking": 14,
     "youtubes": [
       "https://www.youtube.com/watch?v=SXWugWs-QxU",
@@ -1243,5 +1243,18 @@
       "https://www.youtube.com/watch?v=pEHh69tOreI"
     ],
     "ranking": 68
+  },
+  "Kalinikos Kreangar": {
+    "full_name": "Kalinikos Kreanga",
+    "localized_names": {
+      "ko": "칼리니코스 크레앙가",
+      "cn": "卡利尼科斯 克雷安加"
+    },
+    "forehand": "Butterfly/Tenergy 64",
+    "backhand": "Butterfly/Tenergy 64",
+    "youtubes": [
+      "https://www.youtube.com/watch?v=_kRMFT8Yz3w",
+      "https://www.youtube.com/watch?v=-DnBrY6Qd9w"
+    ]
   }
 }
