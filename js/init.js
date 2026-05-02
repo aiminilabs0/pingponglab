@@ -1029,6 +1029,20 @@ function applyRoute(route) {
 function applySeoDefaultPair() {
     if (typeof window === 'undefined' || !window.__SEO_PAGE__) return;
     const seo = window.__SEO_PAGE__;
+    const slug = typeof seo.slug === 'string' ? seo.slug.toLowerCase() : '';
+    const title = typeof seo.title === 'string' ? seo.title.toLowerCase() : '';
+    const heading = typeof seo.heading === 'string' ? seo.heading.toLowerCase() : '';
+    const isTop10Landing = (
+        slug.includes('top-10') ||
+        slug.includes('top10') ||
+        slug.includes('十大') ||
+        title.includes('top 10') ||
+        title.includes('十大') ||
+        heading.includes('top 10') ||
+        heading.includes('十大')
+    );
+    // Keep Top-10 landing pages on their list view instead of auto-opening VS.
+    if (isTop10Landing) return;
     const pair = seo.defaultPair;
     if (!Array.isArray(pair) || pair.length !== 2) return;
     if (selectedRubbers[0] || selectedRubbers[1]) return;
