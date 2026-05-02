@@ -32,6 +32,8 @@ OG_LOCALES = {'en': 'en_US', 'ko': 'ko_KR', 'cn': 'zh_CN'}
 
 BASE_URL = 'https://pingponglab.com'
 TODAY = date.today().isoformat()
+COMPARE_PRIORITY_WITH_CONTENT = '0.6'
+COMPARE_PRIORITY_WITHOUT_CONTENT = '0.3'
 
 # ── Slug utility ──
 
@@ -795,6 +797,7 @@ def main():
         if not ra or not rb:
             print(f'  WARNING: Skipping comparison {name_a} vs {name_b} — rubber data missing')
             continue
+        has_content = tuple(sorted([name_a, name_b])) in content_pairs
         pair_countries = countries_for_pair(ra, rb)
         alternates = {
             c: f'{BASE_URL}/{c}/rubbers/compare/{comp_slug}'
@@ -823,7 +826,10 @@ def main():
                 jsonld_blocks=[crumbs],
             )
             write_file(ROOT / country / 'rubbers' / 'compare' / comp_slug / 'index.html', page)
-            all_pages.append((f'/{country}/rubbers/compare/{comp_slug}', '0.6', alternates))
+            priority = (COMPARE_PRIORITY_WITH_CONTENT
+                        if has_content
+                        else COMPARE_PRIORITY_WITHOUT_CONTENT)
+            all_pages.append((f'/{country}/rubbers/compare/{comp_slug}', priority, alternates))
             comp_count += 1
     print(f'  Generated {comp_count} comparison pages')
 
