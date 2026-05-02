@@ -70,11 +70,20 @@ function deserializeControlRangeParam(params) {
 // ── Document title ──
 
 let _defaultHeaderTitleHtml = null;
+const DEFAULT_HEADER_TITLE = 'Best Ping Pong Rubber';
 
 function _escapeHeaderHtml(s) {
     return String(s).replace(/[&<>"']/g, c => (
         { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
     ));
+}
+
+function isCurrentSeoPagePath() {
+    if (typeof window === 'undefined' || !window.__SEO_PAGE__ || !window.__SEO_PAGE__.slug) return false;
+    const country = selectedCountry || window.__SEO_PAGE__.country || 'en';
+    const seoPath = '/' + country + '/' + window.__SEO_PAGE__.slug;
+    const currentPath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
+    return currentPath === seoPath.replace(/\/$/, '');
 }
 
 // Build the markup for a comparison heading with a styled "vs" pill.
@@ -108,22 +117,22 @@ function updateDocumentTitle() {
         const leftLabel = tRubberAbbr(left);
         pageTitle = leftLabel + ' | PingPongLab';
         headerTitleHtml = _escapeHeaderHtml(leftLabel);
-    } else if (typeof window !== 'undefined' && window.__SEO_PAGE__ && window.__SEO_PAGE__.title) {
+    } else if (isCurrentSeoPagePath() && window.__SEO_PAGE__.title) {
         // SEO landing pages (e.g. /en/top-10-…): keep the server-rendered title
         // while no rubber is selected so crawlers / social shares see it.
         pageTitle = window.__SEO_PAGE__.title;
         headerTitleHtml = _escapeHeaderHtml(window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, ''));
     } else {
         pageTitle = 'PingPongLab | Best Rubber';
-        headerTitleHtml = null;
+        headerTitleHtml = _escapeHeaderHtml(DEFAULT_HEADER_TITLE);
     }
 
     // SEO landing pages with a `defaultPair` auto-select two rubbers on load.
     // While the selection still equals that pair, keep the SEO title/heading
     // so the visible page matches the URL (and the result that brought the
     // user here from search). The user can diverge by tweaking the selection.
-    if (left && right && typeof window !== 'undefined'
-        && window.__SEO_PAGE__ && window.__SEO_PAGE__.title
+    if (left && right && isCurrentSeoPagePath()
+        && window.__SEO_PAGE__.title
         && seoPageDefaultPairMatchesSelection()) {
         pageTitle = window.__SEO_PAGE__.title;
         headerTitleHtml = _escapeHeaderHtml(window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, ''));
@@ -189,7 +198,7 @@ function buildCurrentPath() {
     // `defaultPair` is still in effect, so the URL reflects the page the
     // user actually landed on and doesn't immediately switch to a generic
     // /rubbers/compare/ URL.
-    if (seo && seo.slug && (!seo.country || seo.country === country)
+    if (isCurrentSeoPagePath() && seo && seo.slug && (!seo.country || seo.country === country)
         && seoPageDefaultPairMatchesSelection()) {
         return '/' + country + '/' + seo.slug;
     }
@@ -223,7 +232,7 @@ function buildCurrentPath() {
     // rewrite the pretty URL to /{country}/?rubbers=…). Only valid while we
     // stay in the SEO page's original country — country switches navigate
     // away via a full reload (see initCountrySelector).
-    if (seo && seo.slug && (!seo.country || seo.country === country) && seoPagePresetMatchesCurrentSelection()) {
+    if (isCurrentSeoPagePath() && seo && seo.slug && (!seo.country || seo.country === country) && seoPagePresetMatchesCurrentSelection()) {
         return '/' + country + '/' + seo.slug;
     }
 

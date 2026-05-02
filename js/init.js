@@ -613,6 +613,7 @@ function initHomeLogo() {
     function handleLogoClick() {
         resetAppToInitialState();
         navigateToPath('/' + (selectedCountry || 'en') + '/');
+        if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
     }
     logo.addEventListener('click', handleLogoClick);
     logo.addEventListener('keydown', (e) => {
