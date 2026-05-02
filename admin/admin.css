@@ -31,7 +31,7 @@ body {
     flex-wrap: wrap;
 }
 
-.admin-brand {
+.admin-brand-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -42,7 +42,7 @@ body {
     letter-spacing: 0.01em;
 }
 
-.admin-brand:hover {
+.admin-brand-link:hover {
     color: var(--drac-cyan);
 }
 
@@ -174,7 +174,7 @@ body {
     gap: 28px;
 }
 
-.admin-brand {
+.admin-brand-group {
     background: var(--admin-card-bg);
     border: 1px solid var(--admin-card-border);
     border-radius: 12px;
@@ -358,7 +358,7 @@ body {
     color: var(--drac-yellow);
 }
 
-.admin-brand--unknown .admin-brand-name {
+.admin-brand-group--unknown .admin-brand-name {
     color: var(--drac-orange);
 }
 
@@ -842,11 +842,15 @@ body {
     .admin-tabs {
         order: 3;
         flex: 1 1 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
     }
 
     .admin-tab {
-        flex: 1;
+        flex: 0 0 auto;
         justify-content: center;
+        white-space: nowrap;
     }
 
     .admin-search {
@@ -888,7 +892,35 @@ body {
     }
 
     .admin-player,
-    .admin-brand {
+    .admin-brand-group {
         padding: 12px 14px 14px;
+    }
+
+    .admin-brand-meta {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .admin-tab {
+        font-size: 0.8rem;
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .admin-tab-count {
+        min-width: 20px;
+        padding: 1px 5px;
+    }
+
+    .admin-price-history-item {
+        flex-direction: column;
+        gap: 2px;
+        align-items: flex-start;
+    }
+
+    .admin-price-history-transition {
+        margin-left: 0;
     }
 }

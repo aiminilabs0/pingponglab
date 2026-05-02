@@ -319,7 +319,7 @@ function renderRubbers() {
         }
 
         const block = document.createElement('section');
-        block.className = 'admin-brand';
+        block.className = 'admin-brand-group';
 
         const head = document.createElement('div');
         head.className = 'admin-brand-head';
@@ -614,7 +614,7 @@ function renderPlayers() {
         }
 
         const block = document.createElement('section');
-        block.className = 'admin-brand';
+        block.className = 'admin-brand-group';
 
         const head = document.createElement('div');
         head.className = 'admin-brand-head';
@@ -646,7 +646,7 @@ function renderPlayers() {
 
     if (unknown.length) {
         const block = document.createElement('section');
-        block.className = 'admin-brand admin-brand--unknown';
+        block.className = 'admin-brand-group admin-brand-group--unknown';
 
         const head = document.createElement('div');
         head.className = 'admin-brand-head';
@@ -912,7 +912,7 @@ function renderPricing() {
         }
 
         const block = document.createElement('section');
-        block.className = 'admin-brand';
+        block.className = 'admin-brand-group';
 
         const head = document.createElement('div');
         head.className = 'admin-brand-head';
