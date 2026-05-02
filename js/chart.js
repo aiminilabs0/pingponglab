@@ -258,6 +258,117 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
     return annotations;
 }
 
+function getChartZoneBounds(rubbers) {
+    const bounds = getAutoscaleBounds(rubbers);
+    if (!bounds) return null;
+
+    const [xMin, xMax] = bounds.x;
+    const [yMin, yMax] = bounds.y;
+    return {
+        xMin,
+        xMid: (xMin + xMax) / 2,
+        xMax,
+        yMin,
+        yMid: (yMin + yMax) / 2,
+        yMax
+    };
+}
+
+function buildChartZoneShapes(zoneBounds) {
+    if (!zoneBounds) return [];
+
+    const { xMin, xMid, xMax, yMin, yMid, yMax } = zoneBounds;
+    return [{
+        // Left Top: Direct Speed
+        type: 'rect',
+        xref: 'x', yref: 'y',
+        x0: xMin, y0: yMid, x1: xMid, y1: yMax,
+        fillcolor: 'rgba(100,160,220,0.06)',
+        line: { color: 'rgba(100,160,220,0.15)', width: 1, dash: 'dot' },
+        layer: 'below'
+    }, {
+        // Right Top: Sweet Spot
+        type: 'rect',
+        xref: 'x', yref: 'y',
+        x0: xMid, y0: yMid, x1: xMax, y1: yMax,
+        fillcolor: 'rgba(200,100,100,0.06)',
+        line: { color: 'rgba(200,100,100,0.15)', width: 1, dash: 'dot' },
+        layer: 'below'
+    }, {
+        // Left Bottom: All-Round
+        type: 'rect',
+        xref: 'x', yref: 'y',
+        x0: xMin, y0: yMin, x1: xMid, y1: yMid,
+        fillcolor: 'rgba(180,160,100,0.06)',
+        line: { color: 'rgba(180,160,100,0.15)', width: 1, dash: 'dot' },
+        layer: 'below'
+    }, {
+        // Right Bottom: Safe Spin
+        type: 'rect',
+        xref: 'x', yref: 'y',
+        x0: xMid, y0: yMin, x1: xMax, y1: yMid,
+        fillcolor: 'rgba(100,180,120,0.06)',
+        line: { color: 'rgba(100,180,120,0.15)', width: 1, dash: 'dot' },
+        layer: 'below'
+    }];
+}
+
+function buildChartZoneAnnotations(zoneBounds, xRange, yRange) {
+    if (!zoneBounds || !Array.isArray(xRange) || !Array.isArray(yRange)) return [];
+
+    const [viewXMin, viewXMax] = [Math.min(...xRange), Math.max(...xRange)];
+    const [viewYMin, viewYMax] = [Math.min(...yRange), Math.max(...yRange)];
+    const xPad = (viewXMax - viewXMin) * 0.01;
+    const yPad = (viewYMax - viewYMin) * 0.025;
+
+    const zones = [{
+        text: '<b>Direct Speed</b>',
+        color: 'rgba(100,160,220,0.6)',
+        x0: zoneBounds.xMin, x1: zoneBounds.xMid,
+        y0: zoneBounds.yMid, y1: zoneBounds.yMax,
+        xanchor: 'left'
+    }, {
+        text: '<b>Sweet Spot</b>',
+        color: 'rgba(200,100,100,0.6)',
+        x0: zoneBounds.xMid, x1: zoneBounds.xMax,
+        y0: zoneBounds.yMid, y1: zoneBounds.yMax,
+        xanchor: 'right'
+    }, {
+        text: '<b>All-Round</b>',
+        color: 'rgba(180,160,100,0.6)',
+        x0: zoneBounds.xMin, x1: zoneBounds.xMid,
+        y0: zoneBounds.yMin, y1: zoneBounds.yMid,
+        xanchor: 'left'
+    }, {
+        text: '<b>Safe Spin</b>',
+        color: 'rgba(100,180,120,0.6)',
+        x0: zoneBounds.xMid, x1: zoneBounds.xMax,
+        y0: zoneBounds.yMin, y1: zoneBounds.yMid,
+        xanchor: 'right'
+    }];
+
+    return zones.flatMap(zone => {
+        const visibleX0 = Math.max(zone.x0, viewXMin);
+        const visibleX1 = Math.min(zone.x1, viewXMax);
+        const visibleY0 = Math.max(zone.y0, viewYMin);
+        const visibleY1 = Math.min(zone.y1, viewYMax);
+        if (visibleX0 >= visibleX1 || visibleY0 >= visibleY1) return [];
+
+        return [{
+            x: zone.xanchor === 'left' ? visibleX0 + xPad : visibleX1 - xPad,
+            y: visibleY1 - yPad,
+            xref: 'x', yref: 'y',
+            xanchor: zone.xanchor, yanchor: 'top',
+            text: zone.text,
+            showarrow: false,
+            font: { size: 13, color: zone.color, family: CHART_FONT },
+            bgcolor: 'transparent',
+            borderpad: 4,
+            captureevents: false
+        }];
+    });
+}
+
 // Thin overlapping labels by priority (lower priority number = higher importance)
 let _prevVisibleRubbers = [];
 
@@ -1141,58 +1252,9 @@ function updateChart(options = {}) {
         tickformat: '.1f'
     };
 
-    // Four quadrant zones in paper coordinates (0–1) so they always fill the full plot area
-    // Left Top: Direct Speed
-    const directSpeedAnnotation = {
-        x: 0.01, y: 0.99,
-        xref: 'paper', yref: 'paper',
-        xanchor: 'left', yanchor: 'top',
-        text: '<b>Direct Speed</b>',
-        showarrow: false,
-        font: { size: 13, color: 'rgba(100,160,220,0.6)', family: CHART_FONT },
-        bgcolor: 'transparent',
-        borderpad: 4,
-        captureevents: false
-    };
-
-    // Right Top: Sweet Spot
-    const sweetSpotAnnotation = {
-        x: 0.99, y: 0.99,
-        xref: 'paper', yref: 'paper',
-        xanchor: 'right', yanchor: 'top',
-        text: '<b>Sweet Spot</b>',
-        showarrow: false,
-        font: { size: 13, color: 'rgba(200,100,100,0.6)', family: CHART_FONT },
-        bgcolor: 'transparent',
-        borderpad: 4,
-        captureevents: false
-    };
-
-    // Left Bottom: All-Round
-    const allRoundAnnotation = {
-        x: 0.01, y: 0.49,
-        xref: 'paper', yref: 'paper',
-        xanchor: 'left', yanchor: 'top',
-        text: '<b>All-Round</b>',
-        showarrow: false,
-        font: { size: 13, color: 'rgba(180,160,100,0.6)', family: CHART_FONT },
-        bgcolor: 'transparent',
-        borderpad: 4,
-        captureevents: false
-    };
-
-    // Right Bottom: Safe Spin
-    const safeSpinAnnotation = {
-        x: 0.99, y: 0.49,
-        xref: 'paper', yref: 'paper',
-        xanchor: 'right', yanchor: 'top',
-        text: '<b>Safe Spin</b>',
-        showarrow: false,
-        font: { size: 13, color: 'rgba(100,180,120,0.6)', family: CHART_FONT },
-        bgcolor: 'transparent',
-        borderpad: 4,
-        captureevents: false
-    };
+    const zoneBounds = getChartZoneBounds(filteredData);
+    const zoneShapes = buildChartZoneShapes(zoneBounds);
+    const zoneAnnotations = buildChartZoneAnnotations(zoneBounds, labelXRange, labelYRange);
 
     const layout = {
         title: '',
@@ -1213,44 +1275,9 @@ function updateChart(options = {}) {
         plot_bgcolor: 'rgba(0,0,0,0)',
         paper_bgcolor: 'rgba(0,0,0,0)',
         margin: { l: 10, r: 10, t: 2, b: 2 },
-        shapes: [{
-            // Left Top: Direct Speed
-            type: 'rect',
-            xref: 'paper', yref: 'paper',
-            x0: 0, y0: 0.5, x1: 0.5, y1: 1,
-            fillcolor: 'rgba(100,160,220,0.06)',
-            line: { color: 'rgba(100,160,220,0.15)', width: 1, dash: 'dot' },
-            layer: 'below'
-        }, {
-            // Right Top: Sweet Spot
-            type: 'rect',
-            xref: 'paper', yref: 'paper',
-            x0: 0.5, y0: 0.5, x1: 1, y1: 1,
-            fillcolor: 'rgba(200,100,100,0.06)',
-            line: { color: 'rgba(200,100,100,0.15)', width: 1, dash: 'dot' },
-            layer: 'below'
-        }, {
-            // Left Bottom: All-Round
-            type: 'rect',
-            xref: 'paper', yref: 'paper',
-            x0: 0, y0: 0, x1: 0.5, y1: 0.5,
-            fillcolor: 'rgba(180,160,100,0.06)',
-            line: { color: 'rgba(180,160,100,0.15)', width: 1, dash: 'dot' },
-            layer: 'below'
-        }, {
-            // Right Bottom: Safe Spin
-            type: 'rect',
-            xref: 'paper', yref: 'paper',
-            x0: 0.5, y0: 0, x1: 1, y1: 0.5,
-            fillcolor: 'rgba(100,180,120,0.06)',
-            line: { color: 'rgba(100,180,120,0.15)', width: 1, dash: 'dot' },
-            layer: 'below'
-        }],
+        shapes: zoneShapes,
         annotations: [
-            directSpeedAnnotation,
-            sweetSpotAnnotation,
-            allRoundAnnotation,
-            safeSpinAnnotation,
+            ...zoneAnnotations,
             ...labelAnnotations,
             ...selectionBadges
         ],
