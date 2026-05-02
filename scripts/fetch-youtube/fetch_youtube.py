@@ -101,8 +101,11 @@ def _parse_duration(iso: str) -> int:
     return h * 3600 + mi * 60 + s
 
 
-def _filter_shorts(api_key: str, videos: list[dict]) -> list[dict]:
-    """Remove Shorts (<=60s) by checking durations via the videos API."""
+MIN_VIDEO_DURATION_SECONDS = 120
+
+
+def _filter_short_videos(api_key: str, videos: list[dict]) -> list[dict]:
+    """Remove videos shorter than 2 minutes by checking durations via the videos API."""
     result = []
     # videos.list accepts up to 50 IDs per call
     for i in range(0, len(videos), 50):
@@ -125,7 +128,7 @@ def _filter_shorts(api_key: str, videos: list[dict]) -> list[dict]:
 
         for v in batch:
             secs = durations.get(v["video_id"], 0)
-            if secs > 60:
+            if secs >= MIN_VIDEO_DURATION_SECONDS:
                 result.append(v)
 
     return result
@@ -137,7 +140,7 @@ def fetch_videos(api_key: str, channel_id: str, count: int) -> list[dict]:
     candidates = []
     page_token = None
 
-    # Fetch extra to account for Shorts being filtered out
+    # Fetch extra to account for short videos being filtered out
     fetch_count = count * 2
 
     while len(candidates) < fetch_count:
@@ -171,7 +174,7 @@ def fetch_videos(api_key: str, channel_id: str, count: int) -> list[dict]:
         if not page_token:
             break
 
-    videos = _filter_shorts(api_key, candidates)
+    videos = _filter_short_videos(api_key, candidates)
     return videos[:count]
 
 

@@ -674,6 +674,14 @@ body {
     transform: translateY(-2px);
 }
 
+.admin-card--inline {
+    cursor: pointer;
+}
+
+.admin-card--inline.is-playing {
+    border-color: rgba(255, 85, 85, 0.58);
+}
+
 .admin-thumb {
     aspect-ratio: 16 / 9;
     background: var(--admin-thumb-bg);
@@ -732,6 +740,38 @@ body {
     letter-spacing: 0.06em;
     padding: 3px 6px;
     border-radius: 4px;
+}
+
+.admin-play-badge {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.72);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 11px;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+    pointer-events: none;
+}
+
+.admin-card--inline.is-playing .admin-play-badge,
+.admin-card--inline.is-playing .admin-shorts-badge {
+    display: none;
+}
+
+.admin-inline-player {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #000;
 }
 
 .admin-card-body {

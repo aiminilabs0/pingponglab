@@ -1,5 +1,5 @@
 // Admin page: list every YouTube video referenced by rubber explanations
-// (per-locale) and player profiles, with thumbnails that link out to YouTube.
+// (per-locale) and player profiles. Player videos play inline from players.json.
 
 const VIDEO_ID_RE = /(?:v=|youtu\.be\/|\/shorts\/|\/embed\/)([A-Za-z0-9_-]{11})/;
 const LOCALES = ['en', 'ko', 'cn'];
@@ -185,12 +185,46 @@ function attachThumbFallback(img) {
     });
 }
 
-function makeThumbCard({ videoId, url, title, subtitle, locale, isShort, extra }) {
+function stopAdminInlinePlayback(card) {
+    if (!card) return;
+    const thumb = card.querySelector('.admin-thumb');
+    thumb?.querySelector('.admin-inline-player')?.remove();
+    card.classList.remove('is-playing');
+}
+
+function startAdminInlinePlayback(card, videoId) {
+    if (!card || !videoId) return;
+    if (card.classList.contains('is-playing')) return;
+
+    document.querySelectorAll('.admin-card.is-playing').forEach(stopAdminInlinePlayback);
+
+    const thumb = card.querySelector('.admin-thumb');
+    if (!thumb) return;
+    const iframe = document.createElement('iframe');
+    iframe.className = 'admin-inline-player';
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`;
+    iframe.title = card.dataset.videoTitle || 'YouTube video';
+    iframe.allow = 'autoplay; encrypted-media; fullscreen';
+    iframe.allowFullscreen = true;
+    thumb.appendChild(iframe);
+    card.classList.add('is-playing');
+}
+
+function makeThumbCard({ videoId, url, title, subtitle, locale, isShort, extra, inlinePlayback = false }) {
     const a = document.createElement('a');
-    a.className = 'admin-card';
-    a.href = url || youtubeWatchUrl(videoId);
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
+    a.className = inlinePlayback ? 'admin-card admin-card--inline' : 'admin-card';
+    a.href = inlinePlayback ? '#' : (url || youtubeWatchUrl(videoId));
+    a.dataset.videoTitle = title || 'YouTube video';
+    if (!inlinePlayback) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+    } else {
+        a.setAttribute('aria-label', `Play ${title || 'video'} on this page`);
+        a.addEventListener('click', (event) => {
+            event.preventDefault();
+            startAdminInlinePlayback(a, videoId);
+        });
+    }
 
     const thumb = document.createElement('div');
     thumb.className = 'admin-thumb';
@@ -215,6 +249,12 @@ function makeThumbCard({ videoId, url, title, subtitle, locale, isShort, extra }
         sBadge.className = 'admin-shorts-badge';
         sBadge.textContent = 'Shorts';
         thumb.appendChild(sBadge);
+    }
+    if (inlinePlayback) {
+        const playBadge = document.createElement('span');
+        playBadge.className = 'admin-play-badge';
+        playBadge.textContent = 'Play';
+        thumb.appendChild(playBadge);
     }
     a.appendChild(thumb);
 
@@ -453,6 +493,7 @@ function makePlayerVideoRow(player) {
             url: video.url,
             title: player.name,
             isShort: video.isShort,
+            inlinePlayback: true,
         }));
     }
     return row;
