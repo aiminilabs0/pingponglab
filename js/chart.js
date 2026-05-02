@@ -734,6 +734,77 @@ function buildHoverPopupPlayerHtml(entry) {
     return `<span class="chart-hover-player">${imgHtml}</span>`;
 }
 
+const PLAYER_COUNTRY_NAME_TO_ISO2 = {
+    brazil: 'BR',
+    china: 'CN',
+    croatia: 'HR',
+    france: 'FR',
+    germany: 'DE',
+    hongkong: 'HK',
+    'hong kong': 'HK',
+    india: 'IN',
+    japan: 'JP',
+    korea: 'KR',
+    'south korea': 'KR',
+    portugal: 'PT',
+    romania: 'RO',
+    singapore: 'SG',
+    slovenia: 'SI',
+    sweden: 'SE',
+    taiwan: 'TW',
+    'united kingdom': 'GB',
+    uk: 'GB',
+    england: 'GB',
+    'united states': 'US',
+    usa: 'US',
+    us: 'US',
+    hungary: 'HU',
+};
+
+function iso2ToFlagEmoji(iso2) {
+    if (typeof iso2 !== 'string') return '';
+    const normalized = iso2.trim().toUpperCase();
+    if (!/^[A-Z]{2}$/.test(normalized)) return '';
+    const OFFSET = 127397;
+    return String.fromCodePoint(
+        normalized.charCodeAt(0) + OFFSET,
+        normalized.charCodeAt(1) + OFFSET
+    );
+}
+
+function normalizePlayerCountryToIso2(value) {
+    if (typeof value !== 'string') return '';
+    const trimmed = value.trim();
+    if (!trimmed) return '';
+    if (/^[A-Za-z]{2}$/.test(trimmed)) return trimmed.toUpperCase();
+    const normalizedName = trimmed.toLowerCase();
+    return PLAYER_COUNTRY_NAME_TO_ISO2[normalizedName] || '';
+}
+
+function getPlayerCountryFlagHtml(playerData) {
+    if (!playerData || typeof playerData !== 'object') return '';
+
+    const directFlag = typeof playerData.flag === 'string' ? playerData.flag.trim() : '';
+    if (directFlag) {
+        return `<span class="chart-hover-player-country-flag" aria-hidden="true">${escapeHtml(directFlag)}</span>`;
+    }
+
+    const candidates = [
+        playerData.country_code,
+        playerData.countryCode,
+        playerData.country,
+        playerData.nationality,
+    ];
+    for (const candidate of candidates) {
+        const iso2 = normalizePlayerCountryToIso2(candidate);
+        const flag = iso2ToFlagEmoji(iso2);
+        if (flag) {
+            return `<span class="chart-hover-player-country-flag" aria-hidden="true">${flag}</span>`;
+        }
+    }
+    return '';
+}
+
 function buildHoverPopupPlayersHtml(rubber) {
     const allEntries = [
         ...(Array.isArray(rubber.forehandPlayers) ? rubber.forehandPlayers : []),
@@ -754,11 +825,12 @@ function buildHoverPopupPlayersHtml(rubber) {
         if (!p) return '';
         const displayName = escapeHtml(getLocalizedPlayerName(p.name) || p.name);
         const playerData = getPlayerDataByName(p.name);
+        const playerFlagHtml = getPlayerCountryFlagHtml(playerData);
         const wttRank = playerData?.ranking;
         const ttblRank = playerData?.ttbl_ranking;
-        if (wttRank) return `${displayName}<span class="chart-hover-player-rank"> - WTT #${escapeHtml(String(wttRank))}</span>`;
-        if (ttblRank) return `${displayName}<span class="chart-hover-player-rank"> - TTBL #${escapeHtml(String(ttblRank))}</span>`;
-        return displayName;
+        if (wttRank) return `${playerFlagHtml}${displayName}<span class="chart-hover-player-rank"> - WTT #${escapeHtml(String(wttRank))}</span>`;
+        if (ttblRank) return `${playerFlagHtml}${displayName}<span class="chart-hover-player-rank"> - TTBL #${escapeHtml(String(ttblRank))}</span>`;
+        return `${playerFlagHtml}${displayName}`;
     }).filter(Boolean);
     const namesAttr = escapeHtml(JSON.stringify(names));
     return `<div class="chart-hover-players"><div class="chart-hover-player-list">${players}</div><span class="chart-hover-player-name-rotate visible" data-names="${namesAttr}">${names[0] || ''}</span></div>`;

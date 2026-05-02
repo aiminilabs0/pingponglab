@@ -758,6 +758,9 @@ a.chart-hover-player:hover .chart-hover-player-img {
     transition: opacity 0.15s ease;
     margin-top: 4px;
 }
+.chart-hover-player-country-flag {
+    margin-right: 5px;
+}
 .chart-hover-player-name-rotate:not(.visible) {
     opacity: 0;
 }
