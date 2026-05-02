@@ -52,7 +52,7 @@ function resetAppToInitialState() {
     if (chartEl && hasPlotted) {
         // Rebuild with fresh autoscaled bounds (do not preserve panned/zoomed ranges).
         updateChart({ force: true });
-        // Match initial-load behavior: apply Plotly autoscale after first render tick.
+        // Match initial-load behavior: apply tight app autoscale after first render tick.
         requestAnimationFrame(() => {
             triggerAutoscale();
         });

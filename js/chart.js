@@ -46,11 +46,27 @@ function getAutoscaleBounds(rubbers) {
     if (!Array.isArray(rubbers) || rubbers.length === 0) return null;
     const xs = rubbers.map(r => r.x);
     const ys = rubbers.map(r => r.y);
-    const [minX, maxX] = [Math.min(...xs), Math.max(...xs)];
-    const [minY, maxY] = [Math.min(...ys), Math.max(...ys)];
-    const padX = Math.max(0.5, (maxX - minX) * 0.05);
-    const padY = Math.max(0.5, (maxY - minY) * 0.05);
-    return { x: [minX - padX, maxX + padX], y: [minY - padY, maxY + padY] };
+    let [minX, maxX] = [Math.min(...xs), Math.max(...xs)];
+    let [minY, maxY] = [Math.min(...ys), Math.max(...ys)];
+
+    if (minX === maxX) {
+        minX -= 0.5;
+        maxX += 0.5;
+    }
+    if (minY === maxY) {
+        minY -= 0.5;
+        maxY += 0.5;
+    }
+
+    const padX = (maxX - minX) * 0.07;
+    const padY = (maxY - minY) * 0.07;
+
+    minX -= padX;
+    maxX += padX;
+    minY -= padY;
+    maxY += padY;
+
+    return { x: [minX, maxX], y: [minY, maxY] };
 }
 
 function viewCoversDataBounds(rubbers, xRange, yRange) {
@@ -274,80 +290,84 @@ function getChartZoneBounds(rubbers) {
     };
 }
 
-function buildChartZoneShapes(zoneBounds) {
-    if (!zoneBounds) return [];
+function getVisibleChartZones(zoneBounds, xRange, yRange) {
+    if (!zoneBounds || !Array.isArray(xRange) || !Array.isArray(yRange)) return [];
 
-    return [{
+    const [viewXMin, viewXMax] = [Math.min(...xRange), Math.max(...xRange)];
+    const [viewYMin, viewYMax] = [Math.min(...yRange), Math.max(...yRange)];
+
+    const zones = [{
         // Left Top: Direct Speed
-        type: 'rect',
-        xref: 'paper', yref: 'paper',
-        x0: 0, y0: 0.5, x1: 0.5, y1: 1,
+        text: '<b>Direct Speed</b>',
+        color: 'rgba(100,160,220,0.6)',
         fillcolor: 'rgba(100,160,220,0.06)',
-        line: { color: 'rgba(100,160,220,0.15)', width: 1, dash: 'dot' },
-        layer: 'below'
+        linecolor: 'rgba(100,160,220,0.15)',
+        x0: viewXMin, x1: zoneBounds.xMid,
+        y0: zoneBounds.yMid, y1: viewYMax,
+        xanchor: 'left'
     }, {
         // Right Top: Sweet Spot
-        type: 'rect',
-        xref: 'paper', yref: 'paper',
-        x0: 0.5, y0: 0.5, x1: 1, y1: 1,
+        text: '<b>Sweet Spot</b>',
+        color: 'rgba(200,100,100,0.6)',
         fillcolor: 'rgba(200,100,100,0.06)',
-        line: { color: 'rgba(200,100,100,0.15)', width: 1, dash: 'dot' },
-        layer: 'below'
+        linecolor: 'rgba(200,100,100,0.15)',
+        x0: zoneBounds.xMid, x1: viewXMax,
+        y0: zoneBounds.yMid, y1: viewYMax,
+        xanchor: 'right'
     }, {
         // Left Bottom: All-Round
-        type: 'rect',
-        xref: 'paper', yref: 'paper',
-        x0: 0, y0: 0, x1: 0.5, y1: 0.5,
+        text: '<b>All-Round</b>',
+        color: 'rgba(180,160,100,0.6)',
         fillcolor: 'rgba(180,160,100,0.06)',
-        line: { color: 'rgba(180,160,100,0.15)', width: 1, dash: 'dot' },
-        layer: 'below'
+        linecolor: 'rgba(180,160,100,0.15)',
+        x0: viewXMin, x1: zoneBounds.xMid,
+        y0: viewYMin, y1: zoneBounds.yMid,
+        xanchor: 'left'
     }, {
         // Right Bottom: Safe Spin
-        type: 'rect',
-        xref: 'paper', yref: 'paper',
-        x0: 0.5, y0: 0, x1: 1, y1: 0.5,
+        text: '<b>Safe Spin</b>',
+        color: 'rgba(100,180,120,0.6)',
         fillcolor: 'rgba(100,180,120,0.06)',
-        line: { color: 'rgba(100,180,120,0.15)', width: 1, dash: 'dot' },
-        layer: 'below'
+        linecolor: 'rgba(100,180,120,0.15)',
+        x0: zoneBounds.xMid, x1: viewXMax,
+        y0: viewYMin, y1: zoneBounds.yMid,
+        xanchor: 'right'
     }];
+
+    return zones.flatMap(zone => {
+        const visibleX0 = Math.max(Math.min(zone.x0, zone.x1), viewXMin);
+        const visibleX1 = Math.min(Math.max(zone.x0, zone.x1), viewXMax);
+        const visibleY0 = Math.max(Math.min(zone.y0, zone.y1), viewYMin);
+        const visibleY1 = Math.min(Math.max(zone.y0, zone.y1), viewYMax);
+        if (visibleX0 >= visibleX1 || visibleY0 >= visibleY1) return [];
+
+        return [{ ...zone, visibleX0, visibleX1, visibleY0, visibleY1 }];
+    });
+}
+
+function buildChartZoneShapes(zoneBounds, xRange, yRange) {
+    return getVisibleChartZones(zoneBounds, xRange, yRange).map(zone => ({
+        type: 'rect',
+        xref: 'x', yref: 'y',
+        x0: zone.visibleX0, y0: zone.visibleY0,
+        x1: zone.visibleX1, y1: zone.visibleY1,
+        fillcolor: zone.fillcolor,
+        line: { color: zone.linecolor, width: 1, dash: 'dot' },
+        layer: 'below'
+    }));
 }
 
 function buildChartZoneAnnotations(zoneBounds, xRange, yRange) {
-    if (!zoneBounds || !Array.isArray(xRange) || !Array.isArray(yRange)) return [];
+    const [viewXMin, viewXMax] = Array.isArray(xRange) ? [Math.min(...xRange), Math.max(...xRange)] : [0, 0];
+    const [viewYMin, viewYMax] = Array.isArray(yRange) ? [Math.min(...yRange), Math.max(...yRange)] : [0, 0];
+    const xPad = (viewXMax - viewXMin) * 0.01;
+    const yPad = (viewYMax - viewYMin) * 0.025;
 
-    const zones = [{
-        text: '<b>Direct Speed</b>',
-        color: 'rgba(100,160,220,0.6)',
-        x: 0.015,
-        y: 0.975,
-        xanchor: 'left'
-    }, {
-        text: '<b>Sweet Spot</b>',
-        color: 'rgba(200,100,100,0.6)',
-        x: 0.985,
-        y: 0.975,
-        xanchor: 'right'
-    }, {
-        text: '<b>All-Round</b>',
-        color: 'rgba(180,160,100,0.6)',
-        x: 0.015,
-        y: 0.485,
-        xanchor: 'left'
-    }, {
-        text: '<b>Safe Spin</b>',
-        color: 'rgba(100,180,120,0.6)',
-        x: 0.985,
-        y: 0.485,
-        xanchor: 'right'
-    }];
-
-    return zones.map(zone => ({
-        x: zone.x,
-        y: zone.y,
-        xref: 'paper',
-        yref: 'paper',
-        xanchor: zone.xanchor,
-        yanchor: 'top',
+    return getVisibleChartZones(zoneBounds, xRange, yRange).map(zone => ({
+        x: zone.xanchor === 'left' ? zone.visibleX0 + xPad : zone.visibleX1 - xPad,
+        y: zone.visibleY1 - yPad,
+        xref: 'x', yref: 'y',
+        xanchor: zone.xanchor, yanchor: 'top',
         text: zone.text,
         showarrow: false,
         font: { size: 13, color: zone.color, family: CHART_FONT },
@@ -1240,7 +1260,7 @@ function updateChart(options = {}) {
     };
 
     const zoneBounds = getChartZoneBounds(filteredData);
-    const zoneShapes = buildChartZoneShapes(zoneBounds);
+    const zoneShapes = buildChartZoneShapes(zoneBounds, labelXRange, labelYRange);
     const zoneAnnotations = buildChartZoneAnnotations(zoneBounds, labelXRange, labelYRange);
 
     const layout = {
@@ -2304,12 +2324,25 @@ function applyZoomLayout(chartEl, ranges) {
 
 function triggerAutoscale() {
     const chartEl = document.getElementById('chart');
-    if (chartEl && hasPlotted) {
-        _mobileZoomed = false;
-        Plotly.relayout(chartEl, {
-            'xaxis.autorange': true,
-            'yaxis.autorange': true,
-            ...(IS_TOUCH_DEVICE ? { dragmode: false } : {})
-        });
-    }
+    if (!chartEl || !hasPlotted) return;
+
+    const bounds = getAutoscaleBounds(currentFilteredData.length ? currentFilteredData : getFilteredData());
+    if (!bounds) return;
+
+    _mobileZoomed = false;
+    isInternalUpdate = true;
+    clearTimeout(relayoutTimer);
+    clearTimeout(internalUpdateTimer);
+
+    const relayout = Plotly.relayout(chartEl, {
+        'xaxis.range': bounds.x,
+        'yaxis.range': bounds.y,
+        'xaxis.autorange': false,
+        'yaxis.autorange': false,
+        ...(IS_TOUCH_DEVICE ? { dragmode: false } : {})
+    });
+
+    Promise.resolve(relayout).finally(() => {
+        updateChart({ preserveRanges: true, force: true });
+    });
 }
