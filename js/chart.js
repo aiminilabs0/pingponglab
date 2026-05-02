@@ -277,36 +277,35 @@ function getChartZoneBounds(rubbers) {
 function buildChartZoneShapes(zoneBounds) {
     if (!zoneBounds) return [];
 
-    const { xMin, xMid, xMax, yMin, yMid, yMax } = zoneBounds;
     return [{
         // Left Top: Direct Speed
         type: 'rect',
-        xref: 'x', yref: 'y',
-        x0: xMin, y0: yMid, x1: xMid, y1: yMax,
+        xref: 'paper', yref: 'paper',
+        x0: 0, y0: 0.5, x1: 0.5, y1: 1,
         fillcolor: 'rgba(100,160,220,0.06)',
         line: { color: 'rgba(100,160,220,0.15)', width: 1, dash: 'dot' },
         layer: 'below'
     }, {
         // Right Top: Sweet Spot
         type: 'rect',
-        xref: 'x', yref: 'y',
-        x0: xMid, y0: yMid, x1: xMax, y1: yMax,
+        xref: 'paper', yref: 'paper',
+        x0: 0.5, y0: 0.5, x1: 1, y1: 1,
         fillcolor: 'rgba(200,100,100,0.06)',
         line: { color: 'rgba(200,100,100,0.15)', width: 1, dash: 'dot' },
         layer: 'below'
     }, {
         // Left Bottom: All-Round
         type: 'rect',
-        xref: 'x', yref: 'y',
-        x0: xMin, y0: yMin, x1: xMid, y1: yMid,
+        xref: 'paper', yref: 'paper',
+        x0: 0, y0: 0, x1: 0.5, y1: 0.5,
         fillcolor: 'rgba(180,160,100,0.06)',
         line: { color: 'rgba(180,160,100,0.15)', width: 1, dash: 'dot' },
         layer: 'below'
     }, {
         // Right Bottom: Safe Spin
         type: 'rect',
-        xref: 'x', yref: 'y',
-        x0: xMid, y0: yMin, x1: xMax, y1: yMid,
+        xref: 'paper', yref: 'paper',
+        x0: 0.5, y0: 0, x1: 1, y1: 0.5,
         fillcolor: 'rgba(100,180,120,0.06)',
         line: { color: 'rgba(100,180,120,0.15)', width: 1, dash: 'dot' },
         layer: 'below'
@@ -316,57 +315,46 @@ function buildChartZoneShapes(zoneBounds) {
 function buildChartZoneAnnotations(zoneBounds, xRange, yRange) {
     if (!zoneBounds || !Array.isArray(xRange) || !Array.isArray(yRange)) return [];
 
-    const [viewXMin, viewXMax] = [Math.min(...xRange), Math.max(...xRange)];
-    const [viewYMin, viewYMax] = [Math.min(...yRange), Math.max(...yRange)];
-    const xPad = (viewXMax - viewXMin) * 0.01;
-    const yPad = (viewYMax - viewYMin) * 0.025;
-
     const zones = [{
         text: '<b>Direct Speed</b>',
         color: 'rgba(100,160,220,0.6)',
-        x0: zoneBounds.xMin, x1: zoneBounds.xMid,
-        y0: zoneBounds.yMid, y1: zoneBounds.yMax,
+        x: 0.015,
+        y: 0.975,
         xanchor: 'left'
     }, {
         text: '<b>Sweet Spot</b>',
         color: 'rgba(200,100,100,0.6)',
-        x0: zoneBounds.xMid, x1: zoneBounds.xMax,
-        y0: zoneBounds.yMid, y1: zoneBounds.yMax,
+        x: 0.985,
+        y: 0.975,
         xanchor: 'right'
     }, {
         text: '<b>All-Round</b>',
         color: 'rgba(180,160,100,0.6)',
-        x0: zoneBounds.xMin, x1: zoneBounds.xMid,
-        y0: zoneBounds.yMin, y1: zoneBounds.yMid,
+        x: 0.015,
+        y: 0.485,
         xanchor: 'left'
     }, {
         text: '<b>Safe Spin</b>',
         color: 'rgba(100,180,120,0.6)',
-        x0: zoneBounds.xMid, x1: zoneBounds.xMax,
-        y0: zoneBounds.yMin, y1: zoneBounds.yMid,
+        x: 0.985,
+        y: 0.485,
         xanchor: 'right'
     }];
 
-    return zones.flatMap(zone => {
-        const visibleX0 = Math.max(zone.x0, viewXMin);
-        const visibleX1 = Math.min(zone.x1, viewXMax);
-        const visibleY0 = Math.max(zone.y0, viewYMin);
-        const visibleY1 = Math.min(zone.y1, viewYMax);
-        if (visibleX0 >= visibleX1 || visibleY0 >= visibleY1) return [];
-
-        return [{
-            x: zone.xanchor === 'left' ? visibleX0 + xPad : visibleX1 - xPad,
-            y: visibleY1 - yPad,
-            xref: 'x', yref: 'y',
-            xanchor: zone.xanchor, yanchor: 'top',
-            text: zone.text,
-            showarrow: false,
-            font: { size: 13, color: zone.color, family: CHART_FONT },
-            bgcolor: 'transparent',
-            borderpad: 4,
-            captureevents: false
-        }];
-    });
+    return zones.map(zone => ({
+        x: zone.x,
+        y: zone.y,
+        xref: 'paper',
+        yref: 'paper',
+        xanchor: zone.xanchor,
+        yanchor: 'top',
+        text: zone.text,
+        showarrow: false,
+        font: { size: 13, color: zone.color, family: CHART_FONT },
+        bgcolor: 'transparent',
+        borderpad: 4,
+        captureevents: false
+    }));
 }
 
 // Thin overlapping labels by priority (lower priority number = higher importance)
@@ -397,8 +385,8 @@ function computeVisibleRubbers(filteredData) {
         xRange = [Math.min(...xs) - pad, Math.max(...xs) + pad];
         yRange = [Math.min(...ys) - pad, Math.max(...ys) + pad];
         const rect = chartEl.getBoundingClientRect();
-        plotWidth = rect.width * 0.82;
-        plotHeight = rect.height * 0.82;
+        plotWidth = rect.width;
+        plotHeight = rect.height;
     }
 
     const xSpan = xRange[1] - xRange[0];
@@ -1166,14 +1154,13 @@ function updateChart(options = {}) {
     const chartElForLabels = document.getElementById('chart');
     let labelXRange, labelYRange, labelPlotW, labelPlotH;
 
+    const autoBounds = getAutoscaleBounds(visibleData);
     if (currentRanges) {
         labelXRange = currentRanges.xaxis;
         labelYRange = currentRanges.yaxis;
     } else {
-        // Estimate from data bounds (mirrors getAutoscaleBounds)
-        const bounds = getAutoscaleBounds(visibleData);
-        labelXRange = bounds ? bounds.x : [0, 1];
-        labelYRange = bounds ? bounds.y : [0, 1];
+        labelXRange = autoBounds ? autoBounds.x : [0, 1];
+        labelYRange = autoBounds ? autoBounds.y : [0, 1];
     }
 
     if (chartElForLabels._fullLayout?._size) {
@@ -1181,8 +1168,8 @@ function updateChart(options = {}) {
         labelPlotH = chartElForLabels._fullLayout._size.h;
     } else {
         const rect = chartElForLabels.getBoundingClientRect();
-        labelPlotW = rect.width * 0.82;
-        labelPlotH = rect.height * 0.82;
+        labelPlotW = rect.width;
+        labelPlotH = rect.height;
     }
 
     const labelAnnotations = computeLabelAnnotations(
@@ -1262,19 +1249,19 @@ function updateChart(options = {}) {
         xaxis: {
             ...axisBase,
             title: { text: '' },
-            autorange: !currentRanges,
-            range: currentRanges?.xaxis
+            autorange: false,
+            range: currentRanges?.xaxis || autoBounds?.x || [0, 1]
         },
         yaxis: {
             ...axisBase,
             title: { text: '' },
-            autorange: !currentRanges,
-            range: currentRanges?.yaxis
+            autorange: false,
+            range: currentRanges?.yaxis || autoBounds?.y || [0, 1]
         },
         hovermode: 'closest',
         plot_bgcolor: 'rgba(0,0,0,0)',
         paper_bgcolor: 'rgba(0,0,0,0)',
-        margin: { l: 10, r: 10, t: 2, b: 2 },
+        margin: { l: 0, r: 0, t: 0, b: 0, pad: 0 },
         shapes: zoneShapes,
         annotations: [
             ...zoneAnnotations,
