@@ -10,8 +10,7 @@ function getCurrentAxisRanges() {
     return { xaxis: [xa.range[0], xa.range[1]], yaxis: [ya.range[0], ya.range[1]] };
   }
 
-function updateHeaderTagline() {
-    const ranges = getCurrentAxisRanges();
+function updateHeaderTagline(ranges = getCurrentAxisRanges()) {
     const filteredData = currentFilteredData;
     let inViewCount;
     if (ranges) {
@@ -32,6 +31,20 @@ function updateHeaderTagline() {
     if (headerTagline) {
         headerTagline.innerHTML = `Showing <span class="header-tagline-current-count">${inViewCount}</span> of ${filteredData.length} in this range`;
     }
+}
+
+let _headerTaglineRAF = null;
+let _pendingHeaderTaglineRanges = null;
+
+function scheduleHeaderTaglineUpdate(ranges = null) {
+    _pendingHeaderTaglineRanges = ranges;
+    if (_headerTaglineRAF !== null) return;
+    _headerTaglineRAF = requestAnimationFrame(() => {
+        const nextRanges = _pendingHeaderTaglineRanges;
+        _headerTaglineRAF = null;
+        _pendingHeaderTaglineRanges = null;
+        updateHeaderTagline(nextRanges || undefined);
+    });
 }
 
 
@@ -1402,12 +1415,12 @@ function updateChart(options = {}) {
             ];
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
 
-            pauseSpotlightRotation();
-            updateHeaderTagline();
+            pauseSpotlightRotation({ redraw: false });
+            scheduleHeaderTaglineUpdate();
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
               updateChart({ preserveRanges: true });
-            }, 120);
+            }, 180);
           });
     }
 
@@ -1445,7 +1458,7 @@ function updateChart(options = {}) {
                 // Clear ALL pending timers so a previous pinch's delayed callbacks
                 // cannot fire and trigger an unwanted autoscale reset.
                 pinchActive = true;
-                pauseSpotlightRotation();
+                pauseSpotlightRotation({ redraw: false });
                 pinchFinalRanges = null;
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
@@ -1498,7 +1511,7 @@ function updateChart(options = {}) {
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
                 applyZoomLayout(chartEl, ranges);
-                updateHeaderTagline();
+                scheduleHeaderTaglineUpdate({ xaxis: ranges.xRange, yaxis: ranges.yRange });
             }
         }, { passive: false });
 
@@ -1545,8 +1558,9 @@ function updateChart(options = {}) {
 
             const layout = chartEl._fullLayout;
             if (!layout || !layout.xaxis || !layout.yaxis) return;
-            const xRange = [...layout.xaxis.range];
-            const yRange = [...layout.yaxis.range];
+            const pendingRanges = chartEl._pendingZoomRanges || chartEl._lastZoomRanges;
+            const xRange = pendingRanges?.xRange || [...layout.xaxis.range];
+            const yRange = pendingRanges?.yRange || [...layout.yaxis.range];
 
             // deltaY > 0 = pinch in (zoom out), deltaY < 0 = pinch out (zoom in)
             // Map delta to a scale factor: positive delta → scale > 1 (zoom out)
@@ -1568,7 +1582,7 @@ function updateChart(options = {}) {
             clearTimeout(relayoutTimer);
             clearTimeout(internalUpdateTimer);
             applyZoomLayout(chartEl, ranges);
-            updateHeaderTagline();
+            scheduleHeaderTaglineUpdate({ xaxis: ranges.xRange, yaxis: ranges.yRange });
 
             // Release guard shortly after the last wheel event, then re-run
             // updateChart so computeVisibleRubbers refreshes for the new zoom.
@@ -1645,11 +1659,15 @@ function stopSpotlightRotation() {
     spotlightRubber = null;
 }
 
-function pauseSpotlightRotation() {
+function pauseSpotlightRotation(options = {}) {
+    const { redraw = true } = options;
+    const hadSpotlight = spotlightRubber !== null;
     spotlightPaused = true;
     spotlightRubber = null;
     clearTimeout(spotlightDismissTimer);
-    updateChart({ preserveRanges: true, force: true });
+    if (redraw && hadSpotlight) {
+        updateChart({ preserveRanges: true, force: true });
+    }
 }
 
 function resumeSpotlightRotation() {
@@ -2313,12 +2331,30 @@ function computeZoomedRanges({ xRange, yRange, scale, anchorFx, anchorFy }) {
     return { xRange: newXRange, yRange: newYRange };
 }
 
+let _zoomRelayoutRAF = null;
+
 function applyZoomLayout(chartEl, ranges) {
-    Plotly.relayout(chartEl, {
-        'xaxis.range': ranges.xRange,
-        'yaxis.range': ranges.yRange,
-        'xaxis.autorange': false,
-        'yaxis.autorange': false
+    chartEl._pendingZoomRanges = ranges;
+    if (_zoomRelayoutRAF !== null) return;
+
+    _zoomRelayoutRAF = requestAnimationFrame(() => {
+        _zoomRelayoutRAF = null;
+        const nextRanges = chartEl._pendingZoomRanges;
+        chartEl._pendingZoomRanges = null;
+        if (!nextRanges) return;
+        chartEl._lastZoomRanges = nextRanges;
+
+        const relayout = Plotly.relayout(chartEl, {
+            'xaxis.range': nextRanges.xRange,
+            'yaxis.range': nextRanges.yRange,
+            'xaxis.autorange': false,
+            'yaxis.autorange': false
+        });
+        Promise.resolve(relayout).finally(() => {
+            if (chartEl._lastZoomRanges === nextRanges && !chartEl._pendingZoomRanges) {
+                chartEl._lastZoomRanges = null;
+            }
+        });
     });
 }
 
@@ -2333,6 +2369,12 @@ function triggerAutoscale() {
     isInternalUpdate = true;
     clearTimeout(relayoutTimer);
     clearTimeout(internalUpdateTimer);
+    if (_zoomRelayoutRAF !== null) {
+        cancelAnimationFrame(_zoomRelayoutRAF);
+        _zoomRelayoutRAF = null;
+    }
+    chartEl._pendingZoomRanges = null;
+    chartEl._lastZoomRanges = null;
 
     const relayout = Plotly.relayout(chartEl, {
         'xaxis.range': bounds.x,
