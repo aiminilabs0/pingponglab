@@ -121,17 +121,31 @@ def main() -> int:
 
     updated = 0
     removed = 0
+    changed = 0
+    unchanged = 0
 
     for name, info in players.items():
+        prev_rank = info.get("ranking")
         rank = match_ranking(name, ms_map) or match_ranking(name, ws_map)
         if rank is not None:
             info["ranking"] = rank
             updated += 1
-            print(f"  #{rank:<4} {name}")
+            if prev_rank != rank:
+                changed += 1
+                if prev_rank is None:
+                    print(f"  #{rank:<4} {name} (new)")
+                else:
+                    print(f"  #{rank:<4} {name} (was #{prev_rank})")
+            else:
+                unchanged += 1
+                print(f"  #{rank:<4} {name}")
         elif "ranking" in info:
             del info["ranking"]
             removed += 1
+            changed += 1
             print(f"  --   {name} (removed, not in top {TOP_N})")
+        else:
+            unchanged += 1
 
     with players_path.open("w", encoding="utf-8") as f:
         json.dump(players, f, indent=2, ensure_ascii=False)
@@ -139,7 +153,10 @@ def main() -> int:
 
     total = len(players)
     no_rank = total - updated
-    print(f"\nDone: {updated} ranked, {no_rank} unranked ({removed} removed), {total} total")
+    print(
+        f"\nDone: {updated} ranked, {no_rank} unranked ({removed} removed), {total} total"
+    )
+    print(f"      {changed} changed, {unchanged} unchanged")
     return 0
 
 
