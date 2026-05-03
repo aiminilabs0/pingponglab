@@ -92,6 +92,16 @@ def localized_name(rubber, country):
             or rubber.get('abbr'))
 
 
+def localized_abbr(rubber, country):
+    """Return the same short rubber label the client uses for headings."""
+    return (rubber.get('abbr_i18n', {}).get(country)
+            or rubber.get('abbr_i18n', {}).get('en')
+            or rubber.get('abbr')
+            or rubber.get('name_i18n', {}).get(country)
+            or rubber.get('name_i18n', {}).get('en')
+            or rubber.get('name'))
+
+
 # ── Korean josa (particle) selection ──
 #
 # Rubber names mix Hangul, digits, and Latin letters (e.g. 디그닉스05, D05,
@@ -169,9 +179,9 @@ RUBBER_DESC = {
 }
 
 RUBBER_H1 = {
-    'en': '{name} Review',
-    'ko': '{name} 리뷰',
-    'cn': '{name} 评测',
+    'en': '{name}',
+    'ko': '{name}',
+    'cn': '{name}',
 }
 
 COMPARE_TITLE = {
@@ -756,9 +766,10 @@ def main():
         brand = r.get('manufacturer') or r.get('brand')
         for country in allowed:
             name = localized_name(r, country)
+            heading_name = localized_abbr(r, country)
             title = RUBBER_TITLE[country].format(name=name, brand=brand)
             desc = RUBBER_DESC[country].format(name=name, brand=brand)
-            heading = RUBBER_H1[country].format(name=name)
+            heading = RUBBER_H1[country].format(name=heading_name)
             canonical = f'{BASE_URL}/{country}/rubbers/{slug}'
             crumbs = breadcrumb_jsonld([
                 (BREADCRUMB_HOME[country], f'{BASE_URL}/{country}/'),
