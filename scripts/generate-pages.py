@@ -384,15 +384,15 @@ RUBBER_H1 = {
 }
 
 COMPARE_TITLE = {
-    'en': '{a} vs {b} — Rubber Comparison | PingPongLab',
-    'ko': '{a} vs {b} — 러버 비교 | PingPongLab',
-    'cn': '{a} vs {b} — 胶皮对比 | PingPongLab',
+    'en': '{a} vs {b} comparison',
+    'ko': '{a} vs {b} 비교',
+    'cn': '{a} vs {b} 对比',
 }
 
 def _compare_desc_ko(a, b):
     wa = josa(a, '과', '와')
     eul = josa(b, '을', '를')
-    return (f'{a}{wa} {b}{eul} 나란히 비교 — '
+    return (f'{a}{wa} {b}{eul} 비교 — '
             '스피드, 스핀, 컨트롤, 경도, 무게와 선수 사용 현황.')
 
 
@@ -402,6 +402,120 @@ COMPARE_DESC = {
     'ko': _compare_desc_ko,
     'cn': lambda a, b: (f'{a} 与 {b} 全面对比 — 速度、旋转、控制、硬度、重量与职业选手使用情况。'),
 }
+
+COMPARE_SEO_DESC_WITH_SUMMARY = {
+    'en': '{a} vs {b} comparison: {summary}',
+    'ko': '{a} vs {b} 비교: {summary}',
+    'cn': '{a} vs {b} 对比：{summary}',
+}
+
+
+def read_comparison_explanation(rubber_a, rubber_b, country):
+    """Return localized comparison markdown for a rubber pair, if it exists."""
+    abbr_a = rubber_a.get('abbr')
+    abbr_b = rubber_b.get('abbr')
+    if not abbr_a or not abbr_b:
+        return ''
+
+    comp_dir = ROOT / 'rubbers_comparison' / country
+    for first, second in ((abbr_a, abbr_b), (abbr_b, abbr_a)):
+        path = comp_dir / first / second
+        try:
+            return path.read_text(encoding='utf-8')
+        except FileNotFoundError:
+            continue
+    return ''
+
+
+def extract_comparison_summary(explanation):
+    """Extract the one-line comparison summary from a comparison markdown file."""
+    if not explanation:
+        return ''
+
+    in_summary = False
+    fallback = ''
+    for raw_line in explanation.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith('###'):
+            if re.match(r'^###\s*1[.)]?', line):
+                in_summary = True
+            elif in_summary:
+                break
+            continue
+
+        if not fallback and not line.startswith(('*', '-')):
+            fallback = normalize_meta_text(line)
+        if in_summary:
+            return normalize_meta_text(re.sub(r'^\s*[-*]\s*', '', line))
+
+    return fallback
+
+
+def _name_variants_for_comparison(rubber, country):
+    """Return all known labels for removing rubber names from summary fragments."""
+    variants = [
+        localized_name(rubber, country),
+        localized_abbr(rubber, country),
+        rubber.get('name'),
+        rubber.get('abbr'),
+        rubber.get('name_i18n', {}).get('en'),
+        rubber.get('abbr_i18n', {}).get('en'),
+    ]
+    unique = []
+    for value in variants:
+        if value and value not in unique:
+            unique.append(value)
+    return sorted(unique, key=len, reverse=True)
+
+
+def localize_comparison_summary(summary, rubber_a, rubber_b, country):
+    """Replace source rubber labels in a summary with locale-specific names."""
+    summary = normalize_meta_text(summary)
+    for rubber in (rubber_a, rubber_b):
+        local_name = localized_name(rubber, country)
+        for name in _name_variants_for_comparison(rubber, country):
+            if not name or name == local_name:
+                continue
+            flags = re.I if country == 'en' else 0
+            summary = re.sub(re.escape(name), local_name, summary, flags=flags)
+    return normalize_meta_text(summary)
+
+
+def _summary_mentions_pair(summary, rubber_a, rubber_b, country):
+    """Return True when the summary already names both rubbers."""
+    summary = normalize_meta_text(summary)
+
+    def _mentions(rubber):
+        for name in _name_variants_for_comparison(rubber, country):
+            flags = re.I if country == 'en' else 0
+            if re.search(re.escape(name), summary, flags=flags):
+                return True
+        return False
+
+    return _mentions(rubber_a) and _mentions(rubber_b)
+
+
+def build_compare_seo_meta(rubber_a, rubber_b, country, local_a, local_b):
+    """Build a comparison title and description from curated comparison content."""
+    title = COMPARE_TITLE[country].format(a=local_a, b=local_b)
+    explanation = read_comparison_explanation(rubber_a, rubber_b, country)
+    summary = extract_comparison_summary(explanation)
+    if not summary:
+        return title, COMPARE_DESC[country](local_a, local_b)
+
+    localized_summary = localize_comparison_summary(summary, rubber_a, rubber_b, country)
+    if _summary_mentions_pair(localized_summary, rubber_a, rubber_b, country):
+        desc_text = localized_summary
+    else:
+        desc_text = COMPARE_SEO_DESC_WITH_SUMMARY[country].format(
+            a=local_a,
+            b=local_b,
+            summary=localized_summary
+        )
+    desc = fit_meta_description(desc_text)
+    return title, desc
 
 # The header heading for comparison pages is rendered as HTML so we can style
 # the "vs" separator as a pill badge. See ``build_compare_heading_html``.
@@ -1015,8 +1129,7 @@ def main():
         for country in pair_countries:
             local_a = localized_name(ra, country)
             local_b = localized_name(rb, country)
-            title = COMPARE_TITLE[country].format(a=local_a, b=local_b)
-            desc = COMPARE_DESC[country](local_a, local_b)
+            title, desc = build_compare_seo_meta(ra, rb, country, local_a, local_b)
             heading_html = build_compare_heading_html(local_a, local_b, country)
             canonical = f'{BASE_URL}/{country}/rubbers/compare/{comp_slug}'
             crumbs = breadcrumb_jsonld([
