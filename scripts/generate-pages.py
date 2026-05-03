@@ -632,6 +632,13 @@ def make_page(template, title, description, canonical,
     if country and country in COUNTRY_LANGS:
         lang = COUNTRY_LANGS[country]
         html = re.sub(r'<html lang="[^"]*">', f'<html lang="{lang}">', html, count=1)
+        website_description = WEBSITE_JSONLD_DESCRIPTIONS.get(country)
+        if website_description:
+            html = re.sub(
+                r'"description":\s*"[^"]*"',
+                '"description": ' + json.dumps(website_description, ensure_ascii=False),
+                html, count=1
+            )
 
     # Replace title
     html = re.sub(
@@ -850,6 +857,12 @@ COUNTRY_DESCRIPTIONS = {
     'en': 'Compare ping pong rubbers by speed, spin, control, hardness, and weight. Find the best rubber for your style.',
     'ko': '탁구 러버를 스피드, 스핀, 컨트롤, 경도, 무게로 비교하세요. 나에게 맞는 최고의 러버를 찾아보세요.',
     'cn': '按速度、旋转、控制、硬度和重量对比乒乓球胶皮。找到最适合你打法的胶皮。'
+}
+
+WEBSITE_JSONLD_DESCRIPTIONS = {
+    'en': 'Table tennis rubber comparison site with filters for speed, spin, control, hardness, and weight.',
+    'ko': '스피드, 스핀, 컨트롤, 경도, 무게 필터로 탁구 러버를 비교하는 사이트입니다.',
+    'cn': '通过速度、旋转、控制、硬度和重量筛选器对比乒乓球胶皮的网站。'
 }
 
 
