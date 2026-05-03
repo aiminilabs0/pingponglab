@@ -923,7 +923,7 @@ def _parse_price(price_str):
         return None
 
 
-def product_jsonld(rubber, country, canonical):
+def product_jsonld(rubber, country, canonical, description=None):
     """Return a Product + Review JSON-LD block for the given rubber page."""
     name = localized_name(rubber, country)
     details = rubber.get('details') or {}
@@ -969,6 +969,8 @@ def product_jsonld(rubber, country, canonical):
         'url': canonical,
         'image': f'{BASE_URL}/images/share-preview.png',
     }
+    if description:
+        product['description'] = description
     if additional:
         product['additionalProperty'] = additional
     if details.get('release_year'):
@@ -1101,7 +1103,7 @@ def main():
                 (BREADCRUMB_RUBBERS[country], f'{BASE_URL}/{country}/'),
                 (name, None),
             ])
-            product = product_jsonld(r, country, canonical)
+            product = product_jsonld(r, country, canonical, desc)
             page = make_page(
                 template,
                 title=title,
