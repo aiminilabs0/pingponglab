@@ -150,6 +150,17 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
     // Estimated label half-dimensions in pixels
     const LABEL_H_WIDTH  = 30;
     const LABEL_H_HEIGHT = 8;
+    const LABEL_EDGE_PADDING = 6;
+    const labelMinX = Math.min(plotWidth / 2, LABEL_H_WIDTH + LABEL_EDGE_PADDING);
+    const labelMaxX = Math.max(labelMinX, plotWidth - labelMinX);
+    const labelMinY = Math.min(plotHeight / 2, LABEL_H_HEIGHT + LABEL_EDGE_PADDING);
+    const labelMaxY = Math.max(labelMinY, plotHeight - labelMinY);
+    const clampLabelX = (value) => Math.max(labelMinX, Math.min(value, labelMaxX));
+    const clampLabelY = (value) => Math.max(labelMinY, Math.min(value, labelMaxY));
+    const isInsidePlot = (cx, cy) => (
+        cx >= labelMinX && cx <= labelMaxX &&
+        cy >= labelMinY && cy <= labelMaxY
+    );
 
     // Radius (px) within which other data-points count as "neighbours"
     const NEIGHBOR_RADIUS = 80;
@@ -231,10 +242,14 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             return a.dist - b.dist;
         });
 
-        let bestIdx = 0;
+        let chosen = null;
+        let fallbackInside = null;
         for (let ci = 0; ci < candidates.length; ci++) {
             const cx = px + candidates[ci].ax;
             const cy = py + candidates[ci].ay;
+
+            if (!isInsidePlot(cx, cy)) continue;
+            fallbackInside ??= candidates[ci];
 
             // Check overlap with already-placed labels
             const hitsLabel = placed.some(
@@ -251,11 +266,22 @@ function computeLabelAnnotations(visibleData, xRange, yRange, plotWidth, plotHei
             });
             if (hitsPoint) continue;
 
-            bestIdx = ci;
+            chosen = candidates[ci];
             break;
         }
 
-        const chosen = candidates[bestIdx];
+        chosen = chosen || fallbackInside || candidates[0];
+        let labelCx = px + chosen.ax;
+        let labelCy = py + chosen.ay;
+        if (!isInsidePlot(labelCx, labelCy)) {
+            labelCx = clampLabelX(labelCx);
+            labelCy = clampLabelY(labelCy);
+            chosen = {
+                ...chosen,
+                ax: Math.round(labelCx - px),
+                ay: Math.round(labelCy - py)
+            };
+        }
         placed.push({ cx: px + chosen.ax, cy: py + chosen.ay });
 
         annotations.push({
