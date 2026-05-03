@@ -71,8 +71,8 @@ function getAutoscaleBounds(rubbers) {
         maxY += 0.5;
     }
 
-    const padX = (maxX - minX) * 0.07;
-    const padY = (maxY - minY) * 0.09;
+    const padX = (maxX - minX) * 0.09;
+    const padY = (maxY - minY) * 0.14;
 
     minX -= padX;
     maxX += padX;
