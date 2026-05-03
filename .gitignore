@@ -2,3 +2,5 @@ tmp/*
 .DS_Store
 gen-prompts/
 .env
+scripts/fetch-youtube/fetch_youtube.logs
+scripts/update_price.log

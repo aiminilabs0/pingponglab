@@ -27,8 +27,9 @@ CHANNELS = [
     "UC9ckyA_A3MfXUa0ttxMoIZw",  # WTT
     "UC2ySPiV4DZp58qQ4KES2o1g",  # ITTF World
     "UCOYzMI5f_3mG4yRzIjIIRqQ",  # Major League Table Tennis,
-#    "UCRnDl9NtKQDZVLn06Bwskrg",  # TTBL
-    "UCHIe8E2_SQplR_SzH9gLurg",  # ETTU OFFICIAL
+    "UCRnDl9NtKQDZVLn06Bwskrg",  # TTBL
+    "UCoDuMvkWrYK8eOv8kp7fNFQ",  # KTT
+#    "UCHIe8E2_SQplR_SzH9gLurg",  # ETTU OFFICIAL
 ]
 
 PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems"
@@ -37,6 +38,24 @@ VIDEOS_API = "https://www.googleapis.com/youtube/v3/videos"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PLAYERS_FILE = PROJECT_ROOT / "players" / "players.json"
 BLACKLIST_FILE = Path(__file__).resolve().parent / "blacklist.txt"
+LOG_FILE = Path(__file__).resolve().parent / "fetch_youtube.logs"
+
+
+class _Tee:
+    """File-like wrapper that mirrors writes to multiple streams."""
+
+    def __init__(self, *streams):
+        self._streams = streams
+
+    def write(self, data):
+        for s in self._streams:
+            s.write(data)
+            s.flush()
+        return len(data)
+
+    def flush(self):
+        for s in self._streams:
+            s.flush()
 
 _VIDEO_ID_RE = re.compile(r"(?:v=|youtu\.be/|/shorts/|/embed/)([A-Za-z0-9_-]{11})")
 
@@ -294,4 +313,17 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    from datetime import datetime
+
+    with LOG_FILE.open("a", encoding="utf-8") as _log_fp:
+        _orig_stdout = sys.stdout
+        _orig_stderr = sys.stderr
+        sys.stdout = _Tee(_orig_stdout, _log_fp)
+        sys.stderr = _Tee(_orig_stderr, _log_fp)
+        print(f"\n===== fetch_youtube.py run @ {datetime.now().isoformat(timespec='seconds')} =====")
+        try:
+            _exit_code = main()
+        finally:
+            sys.stdout = _orig_stdout
+            sys.stderr = _orig_stderr
+        raise SystemExit(_exit_code)
