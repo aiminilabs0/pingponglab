@@ -11,7 +11,7 @@
     .header-title--compare {
         gap: 6px;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         font-size: 14px;
         line-height: 1.25;
         white-space: normal;
