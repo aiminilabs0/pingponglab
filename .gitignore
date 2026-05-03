@@ -1,6 +1,7 @@
 tmp/*
 .DS_Store
 gen-prompts/
+__pycache__/
 .env
 scripts/fetch-youtube/fetch_youtube.logs
 scripts/update_price.log

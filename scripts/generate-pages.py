@@ -102,6 +102,173 @@ def localized_abbr(rubber, country):
             or rubber.get('name'))
 
 
+def read_rubber_explanation(rubber, country):
+    """Return the localized long-form explanation markdown for a rubber."""
+    brand = rubber.get('manufacturer') or rubber.get('brand')
+    abbr = rubber.get('abbr') or rubber.get('name')
+    lang = RUBBER_DESCRIPTION_LANGS.get(country, country)
+    if not brand or not abbr:
+        return ''
+    path = ROOT / 'rubbers_description' / brand / lang / abbr
+    try:
+        return path.read_text(encoding='utf-8')
+    except FileNotFoundError:
+        return ''
+
+
+def normalize_meta_text(text):
+    """Convert a markdown fragment into compact plain text for meta tags."""
+    if not text:
+        return ''
+    text = re.sub(r'<[^>]+>', ' ', text)
+    text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)
+    text = re.sub(r'`([^`]*)`', r'\1', text)
+    text = re.sub(r'[*_#]+', '', text)
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip(' -–—:：')
+
+
+def extract_rubber_summary(explanation, country):
+    """Extract the hook and playing-style line from the explanation summary."""
+    labels = SUMMARY_LABELS.get(country, SUMMARY_LABELS['en'])
+    summary = {'hook': '', 'archetype': ''}
+    fallback_bullets = []
+    in_first_section = False
+
+    for raw_line in explanation.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith('## '):
+            if re.match(r'##\s*1[.)]?', line):
+                in_first_section = True
+                continue
+            if in_first_section:
+                break
+        if not in_first_section and line.startswith('## '):
+            continue
+
+        bullet = re.sub(r'^\s*[-*]\s*', '', line).strip()
+        if bullet != line:
+            fallback_bullets.append(bullet)
+        for field, field_labels in labels.items():
+            if summary[field]:
+                continue
+            for label in field_labels:
+                match = re.match(
+                    rf'^\*{{0,2}}{re.escape(label)}\*{{0,2}}\s*(?:—|–|-|:|：)\s*(.+)$',
+                    bullet
+                )
+                if match:
+                    summary[field] = normalize_meta_text(match.group(1))
+                    break
+
+    if not summary['hook'] and fallback_bullets:
+        summary['hook'] = normalize_meta_text(fallback_bullets[0])
+    if not summary['archetype'] and len(fallback_bullets) > 1:
+        summary['archetype'] = normalize_meta_text(fallback_bullets[1])
+    return summary
+
+
+def first_role_phrase(archetype):
+    """Keep the most search-friendly role from a slash-separated style list."""
+    role = normalize_meta_text(archetype)
+    if not role:
+        return ''
+    role = re.split(r'\s*/\s*|,\s*|，\s*|;\s*|；\s*', role, maxsplit=1)[0]
+    return role.strip(' .。')
+
+
+def hook_title_phrase(hook):
+    """Shorten a hook so it can sit in a title without becoming a sentence."""
+    hook = normalize_meta_text(hook)
+    if not hook:
+        return ''
+    first = re.split(r',\s*|，\s*|;\s*|；\s*|。\s*|\.\s+', hook, maxsplit=1)[0]
+    return first.strip(' .。')
+
+
+def strip_rubber_product_word(text, country):
+    """Avoid title fragments such as "tension rubber rubber"."""
+    if country == 'en':
+        return re.sub(r'\b(?:table tennis\s+)?rubber$', '', text, flags=re.I).strip()
+    if country == 'ko':
+        return re.sub(r'(?:탁구\s*)?러버$', '', text).strip()
+    if country == 'cn':
+        return re.sub(r'(?:乒乓球)?胶皮$|套胶$', '', text).strip()
+    return text
+
+
+def fit_meta_fragment(fragment, max_chars):
+    """Trim a title fragment at a natural boundary."""
+    fragment = normalize_meta_text(fragment)
+    if len(fragment) <= max_chars:
+        return fragment
+    cut = fragment[:max_chars].rstrip()
+    boundary_candidates = [
+        cut.rfind(sep)
+        for sep in (' ', ',', '，', ';', '；', '(', '（')
+    ]
+    boundary = max(boundary_candidates)
+    if boundary >= max_chars * 0.55:
+        cut = cut[:boundary]
+    cut = re.sub(r'\s*(?:&|and|및|与)$', '', cut).strip()
+    return cut.rstrip(' ,，;；(')
+
+
+def fit_meta_description(text, max_chars=None):
+    """Trim a meta description while preserving a complete phrase when possible."""
+    if max_chars is None:
+        max_chars = META_DESCRIPTION_MAX_CHARS
+    text = normalize_meta_text(text)
+    if len(text) <= max_chars:
+        return text
+    cut = text[:max_chars - 3].rstrip()
+    boundary_candidates = [
+        cut.rfind(sep)
+        for sep in ('. ', '? ', '! ', '。', '？', '！', '; ', '；', ', ', '，', ' ')
+    ]
+    boundary = max(boundary_candidates)
+    if boundary >= max_chars * 0.6:
+        cut = cut[:boundary]
+    return cut.rstrip(' ,，;；:：.') + '...'
+
+
+def build_rubber_seo_meta(rubber, country, name, brand):
+    """Build a unique rubber title and description from its explanation."""
+    explanation = read_rubber_explanation(rubber, country)
+    if not explanation:
+        return (
+            RUBBER_TITLE[country].format(name=name, brand=brand),
+            RUBBER_DESC[country].format(name=name, brand=brand)
+        )
+
+    summary = extract_rubber_summary(explanation, country)
+    role = strip_rubber_product_word(first_role_phrase(summary.get('archetype')), country)
+    hook = summary.get('hook') or ''
+
+    if role:
+        template = RUBBER_SEO_TITLE_WITH_ROLE[country]
+        available = META_TITLE_MAX_CHARS - len(template.format(name=name, role=''))
+        role = fit_meta_fragment(role, max(12, available))
+        title = template.format(name=name, role=role)
+    else:
+        template = RUBBER_SEO_TITLE_WITH_HOOK[country]
+        hook_fragment = hook_title_phrase(hook)
+        available = META_TITLE_MAX_CHARS - len(template.format(name=name, hook=''))
+        hook_fragment = fit_meta_fragment(hook_fragment, max(12, available))
+        title = (template.format(name=name, hook=hook_fragment)
+                 if hook_fragment else RUBBER_TITLE[country].format(name=name, brand=brand))
+
+    if hook:
+        intro = f'{name} by {brand}: ' if country == 'en' else f'{brand} {name}: '
+        desc = fit_meta_description(intro + hook)
+    else:
+        desc = RUBBER_DESC[country].format(name=name, brand=brand)
+
+    return title, desc
+
+
 # ── Korean josa (particle) selection ──
 #
 # Rubber names mix Hangul, digits, and Latin letters (e.g. 디그닉스05, D05,
@@ -177,6 +344,38 @@ RUBBER_DESC = {
     'cn': ('{brand} {name} 乒乓球胶皮评测。'
            '与其他胶皮对比速度、旋转、控制、硬度与重量。'),
 }
+
+RUBBER_DESCRIPTION_LANGS = {'en': 'en', 'ko': 'ko', 'cn': 'cn'}
+
+SUMMARY_LABELS = {
+    'en': {
+        'hook': ('The Hook', 'Hook'),
+        'archetype': ('Archetype',),
+    },
+    'ko': {
+        'hook': ('핵심 특징',),
+        'archetype': ('플레이 스타일',),
+    },
+    'cn': {
+        'hook': ('核心定位', '核心特点'),
+        'archetype': ('适合打法', '打法定位'),
+    },
+}
+
+RUBBER_SEO_TITLE_WITH_ROLE = {
+    'en': '{name} Review: {role} Rubber | PingPongLab',
+    'ko': '{name} 리뷰: {role} 러버 | PingPongLab',
+    'cn': '{name} 评测：{role}胶皮 | PingPongLab',
+}
+
+RUBBER_SEO_TITLE_WITH_HOOK = {
+    'en': '{name} Review: {hook} | PingPongLab',
+    'ko': '{name} 리뷰: {hook} | PingPongLab',
+    'cn': '{name} 评测：{hook} | PingPongLab',
+}
+
+META_DESCRIPTION_MAX_CHARS = 155
+META_TITLE_MAX_CHARS = 70
 
 RUBBER_H1 = {
     'en': '{name}',
@@ -767,8 +966,7 @@ def main():
         for country in allowed:
             name = localized_name(r, country)
             heading_name = localized_abbr(r, country)
-            title = RUBBER_TITLE[country].format(name=name, brand=brand)
-            desc = RUBBER_DESC[country].format(name=name, brand=brand)
+            title, desc = build_rubber_seo_meta(r, country, name, brand)
             heading = RUBBER_H1[country].format(name=heading_name)
             canonical = f'{BASE_URL}/{country}/rubbers/{slug}'
             crumbs = breadcrumb_jsonld([
