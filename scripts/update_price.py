@@ -142,7 +142,8 @@ def run_en(
     if not files:
         files = list(_iter_rubber_files(rubbers_dir))
 
-    updated = 0
+    changed = 0
+    unchanged = 0
     skipped = 0
 
     for path in files:
@@ -172,6 +173,8 @@ def run_en(
 
         old_price = dict(data.get("price") or {})
         current_en = old_price.get("en") or {}
+        current_cn = old_price.get("cn") or {}
+        price_changed = current_en != entry or current_cn != entry
         if current_en and current_en != entry:
             history = list(data.get("price_history") or [])
             history.append({
@@ -185,7 +188,11 @@ def run_en(
         old_price["cn"] = entry
         data["price"] = old_price
 
-        _write_rubber(path, data)
+        if price_changed:
+            _write_rubber(path, data)
+            changed += 1
+        else:
+            unchanged += 1
 
         if entry["sale"]:
             print(
@@ -195,10 +202,12 @@ def run_en(
         else:
             print(entry["regular"])
 
-        updated += 1
         time.sleep(0.3)  # be polite to megaspin
 
-    print(f"\nDone: {updated} updated, {skipped} skipped (no megaspin URL).")
+    print(
+        f"\nDone: {changed} changed, {unchanged} unchanged, "
+        f"{skipped} skipped (no megaspin URL or price fetch failed)."
+    )
     return 0
 
 

@@ -450,3 +450,151 @@ Run started: 2026-05-02T17:10:01.027620  command=en
   Rakza Z ... regular $54.95  sale $49.45  (-10%)
 
 Done: 85 updated, 5 skipped (no megaspin URL).
+
+============================================================
+Run started: 2026-05-03T17:13:46.615702  command=en
+============================================================
+  Rasanter C48 ... regular $59.95  sale $45.95  (-23%)
+  Rasanter C53 ... regular $59.95  sale $45.95  (-23%)
+  NUZN 45 ... $52.95
+  NUZN 48 ... $59.95
+  NUZN 50 ... regular $69.95  sale $52.95  (-24%)
+  NUZN 55 ... regular $69.95  sale $52.95  (-24%)
+  Rasanter R42 ... regular $51.95  sale $39.95  (-23%)
+  Rasanter R47 ... $51.95
+  Rasanter R48 ... regular $57.95  sale $45.95  (-21%)
+  Rasanter R50 ... regular $51.95  sale $39.95  (-23%)
+  Rasanter R53 ... regular $57.95  sale $45.95  (-21%)
+  Dignics 05 ... $93.99
+  Dignics 09C ... $93.99
+  Dignics 64 ... $93.99
+  Dignics 80 ... $93.99
+  Glayzer 09C ... $54.99
+  Rozena ... $39.99
+  Tenergy 05 FX ... $79.99
+  Tenergy 05 ... $79.99
+  Tenergy 05 Hard ... $79.99
+  Tenergy 19 ... $79.99
+  Tenergy 64 ... $79.99
+  Tenergy 80 ... $79.99
+  Zyre 03 ... $119.99
+  Gold Arc 8 ... regular $54.95  sale $49.95  (-9%)
+  Hurricane 3 Neo ... regular $114.95  sale $79.95  (-30%)
+  Hurricane 8-80 ... $46.95
+  Acuda S1 ... $48.95
+  Acuda S2 ... $48.95
+  Baracuda ... $44.95
+  BlueGrip C2 ... $52.95
+  BlueGrip J1 ... $56.95
+  BlueGrip J2 ... $56.95
+  BlueGrip J3 ... $56.95
+  Bluefire M1 ... $49.95
+  Bluefire M2 ... $49.95
+  Bluefire M3 ... $49.95
+  Bluestar A1 ... $69.95
+  Bluestorm Pro AM ... $59.95
+  Bluestorm Z1 ... $52.95
+  Bluestorm Z2 ... $52.95
+  Bluestorm Z3 ... $52.95
+  Dynaryz ACC ... regular $64.95  sale $59.95  (-8%)
+  Dynaryz AGR ... regular $64.95  sale $59.95  (-8%)
+  Dynaryz CMD ... $59.95
+  Dynaryz Inferno ... $69.95
+  Dynaryz ZGR ... $59.95
+  Dynaryz ZGX ... $59.95
+  Tronix ACC ... $49.95
+  Tronix CMD ... $49.95
+  Tronix ZGR ... $49.95
+  Fastarc C-1 ... $49.95
+  Fastarc G-1 ... $49.95
+  Genextion ... $63.95
+  Fastarc S-1 ... $44.95
+  Evolution EL-P ... $59.95
+  Evolution EL-S ... regular $59.95  sale $47.95  (-20%)
+  Evolution FX-P ... $59.95
+  Evolution FX-S ... $59.95
+  Hybrid K3 ... $74.95
+  Hybrid MK ... $66.95
+  Evolution MX-D ... $64.95
+  Evolution MX-P 50 ... $64.95
+  Evolution MX-P ... $59.95
+  Evolution MX-S ... $59.95
+  Jekyll & Hyde C52.5 ... regular $59.99  sale $57.99  (-3%)
+  Jekyll & Hyde C55.0 ... regular $59.99  sale $57.99  (-3%)
+  Jekyll & Hyde C57.5 ... regular $64.99  sale $59.99  (-8%)
+  Jekyll & Hyde V47.5 ... $59.99
+  Jekyll & Hyde X47.5 ... regular $64.99  sale $59.99  (-8%)
+  Jekyll & Hyde Z52.5 ... $59.99
+  Omega 7 Guang ... regular $74.99  sale $57.99  (-23%)
+  Omega 7 Pro ... regular $64.99  sale $57.19  (-12%)
+  Omega 8 China ... regular $64.99  sale $59.99  (-8%)
+  Omega 8 Hybrid ... regular $64.99  sale $59.99  (-8%)
+  Omega 8 Pro ... regular $69.99  sale $64.99  (-7%)
+  Vega Europe ... regular $39.95  sale $34.95  (-13%)
+  Vega Pro ... regular $39.95  sale $34.95  (-13%)
+  Vega X ... $39.99
+  Rakza 7 Soft ... regular $52.95  sale $47.65  (-10%)
+  Rakza 7 ... regular $52.95  sale $47.65  (-10%)
+  Rakza 9 ... regular $52.95  sale $47.65  (-10%)
+  Rakza X ... regular $54.95  sale $49.45  (-10%)
+  Rakza XX ... regular $79.95  sale $71.95  (-10%)
+  Rakza Z ... regular $54.95  sale $49.45  (-10%)
+
+Done: 85 updated, 5 skipped (no megaspin URL).
+
+============================================================
+Run started: 2026-05-03T19:21:46.258010  command=ko
+============================================================
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=1&size=80
+  found embedded state via inline-script (80 products)
+  80 products (80 new)
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=2&size=80
+  found embedded state via inline-script (21 products)
+  21 products (21 new)
+fetching https://smartstore.naver.com/takdragon/category/7b6f6a4ceb1745aca9ce205c121e5bbf?cp=1
+  found embedded state via inline-script (40 products)
+  40 products (38 new)
+
+Fetched 139 unique products.
+
+Loaded 89 rubber files from /Users/ylim/code/oss/pingponglab/rubbers
+
+Done: 0 updated, 50 unchanged, 0 missing-rubber, 89 unmatched.
+
+============================================================
+Run started: 2026-05-03T19:22:36.625848  command=ko
+============================================================
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=1&size=80
+  found embedded state via inline-script (80 products)
+  80 products (80 new)
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=2&size=80
+  found embedded state via inline-script (21 products)
+  21 products (21 new)
+fetching https://smartstore.naver.com/takdragon/category/7b6f6a4ceb1745aca9ce205c121e5bbf?cp=1
+  found embedded state via inline-script (40 products)
+  40 products (38 new)
+
+Fetched 139 unique products.
+
+Loaded 89 rubber files from /Users/ylim/code/oss/pingponglab/rubbers
+
+Done: 0 updated, 50 unchanged, 0 missing-rubber, 89 unmatched.
+
+============================================================
+Run started: 2026-05-03T19:30:01.155547  command=ko
+============================================================
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=1&size=80
+  found embedded state via inline-script (80 products)
+  80 products (80 new)
+fetching https://smartstore.naver.com/takdragon/category/5912fd19b3f1413fa94742e50795a356?st=POPULAR&dt=LIST&page=2&size=80
+  found embedded state via inline-script (21 products)
+  21 products (21 new)
+fetching https://smartstore.naver.com/takdragon/category/7b6f6a4ceb1745aca9ce205c121e5bbf?cp=1
+  found embedded state via inline-script (40 products)
+  40 products (38 new)
+
+Fetched 139 unique products.
+
+Loaded 89 rubber files from /Users/ylim/code/oss/pingponglab/rubbers
+
+Done: 0 updated, 50 unchanged, 0 missing-rubber, 89 unmatched.
