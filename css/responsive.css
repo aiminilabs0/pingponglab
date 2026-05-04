@@ -3,11 +3,38 @@
     .container { padding: 16px; border-radius: 0; }
     .chart-bleed { margin: 0 -16px; padding: 0; }
     .site-header { margin: -16px -16px 0; border-radius: 12px 12px 0 0; }
-    .header-row { padding: 16px 16px 14px; gap: 10px; }
-    .header-brand { gap: 12px; }
+    .header-row {
+        align-items: flex-start;
+        padding: 14px 16px 12px;
+        gap: 10px;
+    }
+    .header-brand {
+        flex: 1 1 auto;
+        align-items: flex-start;
+        gap: 12px;
+        min-width: 0;
+    }
     .header-logo { height: 44px; }
     .chart-mascot-walker { width: 32px; }
-    .header-title { font-size: 20px; }
+    .header-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .header-site-name {
+        font-size: clamp(19px, 5.4vw, 23px);
+    }
+    .header-title {
+        font-size: clamp(13px, 3.8vw, 15px);
+        line-height: 1.16;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        text-wrap: balance;
+    }
+    .header-title:not(.header-title--compare) {
+        width: auto;
+        max-width: 100%;
+    }
     .header-title--compare {
         gap: 6px;
         flex-wrap: wrap;
@@ -21,17 +48,19 @@
     .header-title--compare .header-title-rubber {
         overflow: visible;
         text-overflow: clip;
-        white-space: nowrap;
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
     .header-title-vs {
         min-width: 26px;
         padding: 2px 7px;
         font-size: 10px;
     }
-    .header-tagline { font-size: 12px; }
+
     .header-controls {
         gap: 4px;
         position: relative;
+        padding-top: 4px;
     }
     .header-search-input {
         width: 96px;

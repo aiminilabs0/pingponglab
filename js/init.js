@@ -612,7 +612,7 @@ function initHomeLogo() {
     if (!logo) return;
     function handleLogoClick() {
         resetAppToInitialState();
-        navigateToPath('/' + (selectedCountry || 'en') + '/');
+        navigateToPath('/' + (selectedCountry || 'en') + '/', { clearHash: true });
         if (typeof updateDocumentTitle === 'function') updateDocumentTitle();
     }
     logo.addEventListener('click', handleLogoClick);

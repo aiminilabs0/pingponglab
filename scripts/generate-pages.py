@@ -601,6 +601,8 @@ def generate_slug_map(rubbers):
 
 # ── Template processing ──
 
+HEADER_TITLE_RE = r'<h1 class="header-title(?: header-title--default)?">.*?</h1>'
+
 def read_template():
     """Read the main index.html template."""
     template_path = ROOT / 'index.html'
@@ -714,13 +716,13 @@ def make_page(template, title, description, canonical,
     # plain string that gets HTML-escaped.
     if heading_html is not None:
         html = re.sub(
-            r'<h1 class="header-title">[^<]*</h1>',
+            HEADER_TITLE_RE,
             f'<h1 class="header-title header-title--compare">{heading_html}</h1>',
             html, count=1
         )
     elif heading:
         html = re.sub(
-            r'<h1 class="header-title">[^<]*</h1>',
+            HEADER_TITLE_RE,
             f'<h1 class="header-title">{esc(heading)}</h1>',
             html, count=1
         )
@@ -822,7 +824,7 @@ def inject_seo_preset(html, seo_data, heading=None):
 
     if heading:
         html = re.sub(
-            r'<h1 class="header-title">[^<]*</h1>',
+            HEADER_TITLE_RE,
             f'<h1 class="header-title">{esc(heading)}</h1>',
             html, count=1
         )
@@ -848,7 +850,7 @@ COUNTRY_NAMES = {
 }
 
 COUNTRY_TITLES = {
-    'en': 'PingPongLab | Best Ping Pong Rubber',
+    'en': 'PingPingLab - Best Ping Pong Rubber',
     'ko': 'PingPongLab | 탁구 러버 비교',
     'cn': 'PingPongLab | 乒乓球胶皮对比'
 }

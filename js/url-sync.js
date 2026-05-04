@@ -70,7 +70,7 @@ function deserializeControlRangeParam(params) {
 // ── Document title ──
 
 let _defaultHeaderTitleHtml = null;
-const DEFAULT_HEADER_TITLE = 'Best Ping Pong Rubber';
+const DEFAULT_HEADER_TITLE_HTML = 'Best Ping Pong Rubber';
 
 function _escapeHeaderHtml(s) {
     return String(s).replace(/[&<>"']/g, c => (
@@ -102,6 +102,7 @@ function updateDocumentTitle() {
     let pageTitle;
     let headerTitleHtml;
     let isCompareHeading = false;
+    let isDefaultHeading = false;
 
     if (left && right) {
         const leftLabel = tRubberAbbr(left);
@@ -123,8 +124,9 @@ function updateDocumentTitle() {
         pageTitle = window.__SEO_PAGE__.title;
         headerTitleHtml = _escapeHeaderHtml(window.__SEO_PAGE__.title.replace(/\s*\|\s*PingPongLab\s*$/i, ''));
     } else {
-        pageTitle = 'PingPongLab | Best Rubber';
-        headerTitleHtml = _escapeHeaderHtml(DEFAULT_HEADER_TITLE);
+        pageTitle = 'PingPingLab - Best Ping Pong Rubber';
+        headerTitleHtml = DEFAULT_HEADER_TITLE_HTML;
+        isDefaultHeading = true;
     }
 
     // SEO landing pages with a `defaultPair` auto-select two rubbers on load.
@@ -146,6 +148,7 @@ function updateDocumentTitle() {
         if (_defaultHeaderTitleHtml === null) _defaultHeaderTitleHtml = headerEl.innerHTML;
         headerEl.innerHTML = headerTitleHtml || _defaultHeaderTitleHtml;
         headerEl.classList.toggle('header-title--compare', isCompareHeading);
+        headerEl.classList.toggle('header-title--default', isDefaultHeading);
     }
 }
 
@@ -282,9 +285,9 @@ function pushFiltersToUrl() {
  * Navigate to a new path via pushState (creates history entry for back/forward).
  * Used for rubber clicks, country switches, and tab changes that change the page identity.
  */
-function navigateToPath(path) {
+function navigateToPath(path, { clearHash = false } = {}) {
     const qs = buildFilterQueryString();
-    const hash = window.location.hash || '';
+    const hash = clearHash ? '' : (window.location.hash || '');
     const fullUrl = path + (qs ? '?' + qs : '') + hash;
     history.pushState(null, '', fullUrl);
 }

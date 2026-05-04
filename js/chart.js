@@ -10,42 +10,7 @@ function getCurrentAxisRanges() {
     return { xaxis: [xa.range[0], xa.range[1]], yaxis: [ya.range[0], ya.range[1]] };
   }
 
-function updateHeaderTagline(ranges = getCurrentAxisRanges()) {
-    const filteredData = currentFilteredData;
-    let inViewCount;
-    if (ranges) {
-        const [x0, x1] = ranges.xaxis;
-        const [y0, y1] = ranges.yaxis;
-        const minX = Math.min(x0, x1);
-        const maxX = Math.max(x0, x1);
-        const minY = Math.min(y0, y1);
-        const maxY = Math.max(y0, y1);
-        inViewCount = filteredData.filter(r =>
-            r.x >= minX && r.x <= maxX &&
-            r.y >= minY && r.y <= maxY
-        ).length;
-    } else {
-        inViewCount = filteredData.length;
-    }
-    const headerTagline = document.querySelector('.header-tagline');
-    if (headerTagline) {
-        headerTagline.innerHTML = `Showing <span class="header-tagline-current-count">${inViewCount}</span> of ${filteredData.length} in this range`;
-    }
-}
 
-let _headerTaglineRAF = null;
-let _pendingHeaderTaglineRanges = null;
-
-function scheduleHeaderTaglineUpdate(ranges = null) {
-    _pendingHeaderTaglineRanges = ranges;
-    if (_headerTaglineRAF !== null) return;
-    _headerTaglineRAF = requestAnimationFrame(() => {
-        const nextRanges = _pendingHeaderTaglineRanges;
-        _headerTaglineRAF = null;
-        _pendingHeaderTaglineRanges = null;
-        updateHeaderTagline(nextRanges || undefined);
-    });
-}
 
 
 function shouldAutoscaleForFilteredData(filteredData, currentRanges) {
@@ -1207,7 +1172,6 @@ function updateChart(options = {}) {
     if (!options.preserveRanges && shouldAutoscaleForFilteredData(filteredData, currentRanges)) {
         currentRanges = null;
     }
-    updateHeaderTagline();
 
     // Compute displaced label annotations with leader lines
     const chartElForLabels = document.getElementById('chart');
@@ -1442,7 +1406,6 @@ function updateChart(options = {}) {
             if (!rangeKeys.some(k => eventData[k] !== undefined)) return;
 
             pauseSpotlightRotation({ redraw: false });
-            scheduleHeaderTaglineUpdate();
             clearTimeout(relayoutTimer);
             relayoutTimer = setTimeout(() => {
               updateChart({ preserveRanges: true });
@@ -1537,7 +1500,6 @@ function updateChart(options = {}) {
                 clearTimeout(relayoutTimer);
                 clearTimeout(internalUpdateTimer);
                 applyZoomLayout(chartEl, ranges);
-                scheduleHeaderTaglineUpdate({ xaxis: ranges.xRange, yaxis: ranges.yRange });
             }
         }, { passive: false });
 
@@ -1608,7 +1570,6 @@ function updateChart(options = {}) {
             clearTimeout(relayoutTimer);
             clearTimeout(internalUpdateTimer);
             applyZoomLayout(chartEl, ranges);
-            scheduleHeaderTaglineUpdate({ xaxis: ranges.xRange, yaxis: ranges.yRange });
 
             // Release guard shortly after the last wheel event, then re-run
             // updateChart so computeVisibleRubbers refreshes for the new zoom.
