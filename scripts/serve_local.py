@@ -16,7 +16,7 @@ import socketserver
 import sys
 from pathlib import Path
 
-PORT = int(os.environ.get('PORT', '8000'))
+PORT = int(os.environ.get('PORT', '4000'))
 ROOT = Path(__file__).resolve().parent.parent
 NOT_FOUND_PAGE = ROOT / '404.html'
 

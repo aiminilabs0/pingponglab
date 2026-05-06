@@ -121,13 +121,14 @@
     box-shadow: none;
 }
 .chart-speed-outside > span:first-child {
-    margin-left: 12px;
+    margin-left: 0;
+    padding-left: 12px;
 }
 .chart-search-group {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-right: 12px;
+    margin-right: 0;
 }
 .chart-speed-outside .header-search {
     margin-right: 0;
@@ -380,7 +381,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 14px 12px;
+    padding: 4px 2px 12px 14px;
     color: var(--drac-comment);
     font-size: 11px;
     font-weight: 600;
@@ -405,6 +406,7 @@
 }
 .chart-spin-label {
     margin-left: auto;
+    padding-right: 12px;
     color: var(--drac-yellow);
     font-size: 13px;
     font-weight: 700;

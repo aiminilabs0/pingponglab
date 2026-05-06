@@ -506,8 +506,6 @@ function applyLocalizedStaticText() {
         }
         hint.dataset.hint = hintText;
     }
-    injectAxisHint('.chart-speed-outside > span', 'SPEED_HINT');
-    injectAxisHint('.chart-spin-label', 'SPIN_HINT');
 }
 
 const CHART_FONT = 'Comic Neue, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
