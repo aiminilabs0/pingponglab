@@ -135,6 +135,7 @@ function initCountrySelector() {
         const brands = [...new Set(rubberData.map(r => r.brand))].sort();
         buildCheckboxOptions(brandFilter, brands.map(b => ({ value: b, label: tBrand(b), swatchColor: getBrandColor(b) })), brandChecked);
         buildNameOptionsFromFilters();
+        updateFilterSummary();
 
         // Re-render chart with translated labels
         updateChart({ preserveRanges: true, force: true });
@@ -1352,6 +1353,7 @@ async function initializeApp() {
             const brands = [...new Set(rubberData.map(r => r.brand))].sort();
             buildCheckboxOptions(brandFilter, brands.map(b => ({ value: b, label: tBrand(b), swatchColor: getBrandColor(b) })), brandChecked);
             buildNameOptionsFromFilters();
+            updateFilterSummary();
             updateChart({ preserveRanges: true, force: true });
         }
         // Reset selections and apply route
