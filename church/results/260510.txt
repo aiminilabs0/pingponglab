@@ -1,0 +1,16 @@
+Leo, Hyeonseo, 0:2
+Leo, Jiho, 0:2
+Leo, Luke, 0:2
+Hyeonseo, Jiho, 2:0
+Hyeonseo, Luke, 0:2
+Jiho, Luke, 0:2
+Hyeonseo, Jayden, 2:0
+David Kang, Jayden, 0:1
+David Kang, David Oh, 0:1
+David Kang, Hayul, 0:1
+Jayden, David Oh, 1:0
+Jayden, Hayul, 0:1
+David Oh, Hayul, 0:1
+Jewoo, David Kang, 0:1
+Jewoo, Jayden, 0:1
+Hayul, Leo, 0:1
