@@ -1,8 +1,8 @@
-Andrew, Jaden, 2:0
+Andrew, Jayden, 2:0
 Andrew, Leo, 2:0
 Andrew, Luke, 2:1
-Jaden, Leo, 2:0
-Jaden, Luke, 0:2
+Jayden, Leo, 2:0
+Jayden, Luke, 0:2
 Leo, Luke, 0:2
 Doah, David Kang, 1:2
 David Kang, Hayul, 1:2

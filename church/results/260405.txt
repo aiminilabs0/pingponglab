@@ -1,10 +1,10 @@
 Hayul, Hyeonseo, 0:2
 Hayul, Leo, 1:2
-Hyeonseo, Jaden, 2:0
+Hyeonseo, Jayden, 2:0
 Hyeonseo, Leo, 2:0
-Jaden, Leo, 2:0
-Jaden, Andrew, 0:2
-Jaden, Luke, 2:0
+Jayden, Leo, 2:0
+Jayden, Andrew, 0:2
+Jayden, Luke, 2:0
 Andrew, Luke, 2:0
 Jiho, David Kang, 2:0
 Jiho, David Oh, 0:1

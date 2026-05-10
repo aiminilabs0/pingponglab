@@ -4,10 +4,10 @@ Andrew, David Oh, 2:1
 Hayul, Luke, 0:2
 Hayul, David Oh, 0:2
 Luke, David Oh, 2:0
-David Kang, Jaden, 0:2
+David Kang, Jayden, 0:2
 David Kang, Leo, 0:2
-Jaden, Jiho, 1:2
-Jaden, Leo, 0:2
+Jayden, Jiho, 1:2
+Jayden, Leo, 0:2
 Jiho, Leo, 2:1
 Jiho, David Kang, 2:0
 David Yang, Joshua Lee, 1:0

@@ -4,11 +4,11 @@ Andrew, Luke, 2:1
 Hayul, Hyeonseo, 0:2
 Hayul, Luke, 0:2
 Hyeonseo, Luke, 2:1
-David Oh, Jaden, 1:2
+David Oh, Jayden, 1:2
 David Oh, Jiho, 2:0
 David Oh, Leo, 2:0
-Jaden, Jiho, 0:2
-Jaden, Leo, 1:2
+Jayden, Jiho, 0:2
+Jayden, Leo, 1:2
 Jiho, Leo, 0:2
 Jewoo, David Yang, 0:2
 Jewoo, Jooan, 2:0
