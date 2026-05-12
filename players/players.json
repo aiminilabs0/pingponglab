@@ -74,7 +74,7 @@
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Zyre 03",
     "image_ext": "gif",
-    "ranking": 39,
+    "ranking": 44,
     "youtubes": [
       "https://www.youtube.com/watch?v=6EmiSlcQRKI",
       "https://www.youtube.com/watch?v=SrvC8STrRxM",
@@ -155,7 +155,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "Xiom/Omega 7 Pro",
-    "ranking": 60,
+    "ranking": 67,
     "youtubes": [
       "https://www.youtube.com/watch?v=pBcv2OY_pxI",
       "https://www.youtube.com/watch?v=pMo6YFG1GgU"
@@ -221,7 +221,7 @@
     },
     "forehand": "Butterfly/Tenergy 05",
     "backhand": "Butterfly/Tenergy 19",
-    "ranking": 44,
+    "ranking": 38,
     "youtubes": [
       "https://www.youtube.com/watch?v=5zD93cJ9ke8",
       "https://www.youtube.com/watch?v=noaHCua0vM8",
@@ -295,7 +295,7 @@
     },
     "forehand": "Andro/NUZN 55",
     "backhand": "Andro/NUZN 55",
-    "ranking": 19,
+    "ranking": 21,
     "youtubes": [
       "https://www.youtube.com/watch?v=KP5KyOy9d2I",
       "https://www.youtube.com/watch?v=8jTj1aIrRj4",
@@ -324,7 +324,7 @@
     },
     "forehand": "Xiom/J&H C57.5",
     "backhand": "Xiom/J&H C52.5",
-    "ranking": 5,
+    "ranking": 6,
     "youtubes": [
       "https://www.youtube.com/watch?v=_vgw6d6KEoY",
       "https://www.youtube.com/watch?v=E8eJ82ICIG8",
@@ -355,7 +355,7 @@
     },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
-    "ranking": 29,
+    "ranking": 27,
     "youtubes": [
       "https://www.youtube.com/watch?v=XI1DfD3Y3jE",
       "https://www.youtube.com/watch?v=4CvWokjF8rI",
@@ -378,8 +378,9 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
-    "ranking": 6,
+    "ranking": 5,
     "youtubes": [
+      "https://www.youtube.com/watch?v=2-DrQ1HMUTs",
       "https://www.youtube.com/watch?v=pkYkjC8O7SI",
       "https://www.youtube.com/watch?v=t8VrdgOPI90",
       "https://www.youtube.com/watch?v=lVVap4Y82gM",
@@ -443,8 +444,9 @@
     },
     "forehand": "Yasaka/Rakza X",
     "backhand": "",
-    "ranking": 21,
+    "ranking": 16,
     "youtubes": [
+      "https://www.youtube.com/watch?v=kP-zWED2Xi4",
       "https://www.youtube.com/watch?v=-RtHlX-8qHg",
       "https://www.youtube.com/watch?v=kxenNVUvBLI",
       "https://www.youtube.com/watch?v=vIZuF9FsX0E",
@@ -477,8 +479,10 @@
     },
     "forehand": "Butterfly/Zyre 03",
     "backhand": "Butterfly/Dignics 05",
-    "ranking": 5,
+    "ranking": 3,
     "youtubes": [
+      "https://www.youtube.com/watch?v=-todJIDYBKQ",
+      "https://www.youtube.com/watch?v=AaghFJHOt-E",
       "https://www.youtube.com/watch?v=aVMD3vpE-po",
       "https://www.youtube.com/watch?v=ne50YHhWhH0",
       "https://www.youtube.com/watch?v=6-mPRz6frnY",
@@ -518,7 +522,7 @@
     },
     "forehand": "Tibhar/K3",
     "backhand": "",
-    "ranking": 25,
+    "ranking": 26,
     "youtubes": [
       "https://www.youtube.com/watch?v=C0bCp22tiAs"
     ],
@@ -548,7 +552,7 @@
     },
     "forehand": "Tibhar/MX-P",
     "backhand": "Tibhar/K3",
-    "ranking": 39,
+    "ranking": 37,
     "youtubes": [
       "https://www.youtube.com/watch?v=d49fh-MedSU",
       "https://www.youtube.com/watch?v=aT4MYn7wTK4",
@@ -606,7 +610,7 @@
     },
     "forehand": "",
     "backhand": "Xiom/J&H C55.0",
-    "ranking": 15,
+    "ranking": 18,
     "youtubes": [
       "https://www.youtube.com/watch?v=Nwygmie5xso",
       "https://www.youtube.com/watch?v=fqGNZyUQfsc",
@@ -622,7 +626,7 @@
     },
     "forehand": "Butterfly/Tenergy 19",
     "backhand": "Butterfly/Tenergy 19",
-    "ranking": 65,
+    "ranking": 71,
     "youtubes": [
       "https://www.youtube.com/watch?v=DBa8VURmHLc",
       "https://www.youtube.com/watch?v=cuBsFJb8uX4",
@@ -640,7 +644,7 @@
     },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
-    "ranking": 125,
+    "ranking": 137,
     "youtubes": [
       "https://www.youtube.com/watch?v=N2S47zfx7Vo",
       "https://www.youtube.com/watch?v=TL6fmgxJMgw",
@@ -656,7 +660,7 @@
     },
     "forehand": "",
     "backhand": "DHS/H8-80",
-    "ranking": 47,
+    "ranking": 56,
     "youtubes": [
       "https://www.youtube.com/watch?v=SxyViVoon2I",
       "https://www.youtube.com/watch?v=QgXr5vzTV8M"
@@ -744,6 +748,7 @@
     "backhand": "Butterfly/Zyre 03",
     "ranking": 8,
     "youtubes": [
+      "https://www.youtube.com/watch?v=FeuhGvyFRb4",
       "https://www.youtube.com/watch?v=TZaMJqS93Pw",
       "https://www.youtube.com/watch?v=XXIWA6gIfd4",
       "https://www.youtube.com/watch?v=7Ka7UrsMNE8",
@@ -783,6 +788,7 @@
     "backhand": "Butterfly/Zyre 03",
     "ranking": 3,
     "youtubes": [
+      "https://www.youtube.com/watch?v=kP-zWED2Xi4",
       "https://www.youtube.com/watch?v=rHSFd40jXHY",
       "https://www.youtube.com/watch?v=V4_AwwWGY5M",
       "https://www.youtube.com/watch?v=2OVFo4B1kIM",
@@ -851,7 +857,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 05",
-    "ranking": 3,
+    "ranking": 4,
     "youtubes": [
       "https://www.youtube.com/watch?v=rR0n53Ni5o4",
       "https://www.youtube.com/watch?v=0TETZti-xcw",
@@ -899,7 +905,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "DHS/H3 Neo",
-    "ranking": 79,
+    "ranking": 85,
     "youtubes": [
       "https://www.youtube.com/watch?v=1YzapPOGTfE",
       "https://www.youtube.com/watch?v=pQRpkpEzrNQ"
@@ -964,7 +970,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
-    "ranking": 10,
+    "ranking": 11,
     "youtubes": [
       "https://www.youtube.com/watch?v=-8lewjAmkQM",
       "https://www.youtube.com/watch?v=8oVUs-s0D9M",
@@ -993,7 +999,7 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
-    "ranking": 90,
+    "ranking": 97,
     "youtubes": [
       "https://www.youtube.com/watch?v=r-oTYsXhWHU",
       "https://www.youtube.com/watch?v=jp3ZksvoLTk",
@@ -1012,7 +1018,7 @@
     },
     "forehand": "JOOLA/Dynaryz AGR",
     "backhand": "JOOLA/Dynaryz AGR",
-    "ranking": 42,
+    "ranking": 39,
     "youtubes": [
       "https://www.youtube.com/watch?v=oRfp5_n64es",
       "https://www.youtube.com/watch?v=qLqEKU4-Lcc",
@@ -1054,7 +1060,7 @@
     },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Tenergy 05H",
-    "ranking": 220,
+    "ranking": 239,
     "youtubes": [
       "https://www.youtube.com/watch?v=JV9STdA8dWE",
       "https://www.youtube.com/watch?v=JpRulCM8-ZM",
@@ -1073,7 +1079,7 @@
     },
     "forehand": "JOOLA/Dynaryz ZGX",
     "backhand": "JOOLA/Dynaryz ZGX",
-    "ranking": 121,
+    "ranking": 95,
     "youtubes": [
       "https://www.youtube.com/watch?v=vYO-9n1zy5U",
       "https://www.youtube.com/watch?v=_EYwpBUYap0",
@@ -1094,7 +1100,7 @@
       "https://www.youtube.com/watch?v=vUTVygcMnUE",
       "https://www.youtube.com/watch?v=hfnAnKSLj9U"
     ],
-    "ranking": 185,
+    "ranking": 199,
     "country_code": "JP"
   },
   "Vladimir SIDORENKO": {
@@ -1127,6 +1133,7 @@
     "backhand": "DHS/H3 Neo",
     "ranking": 1,
     "youtubes": [
+      "https://www.youtube.com/watch?v=FeuhGvyFRb4",
       "https://www.youtube.com/watch?v=8jzRvNjDjCo",
       "https://www.youtube.com/watch?v=wOU6eZ5OzsI",
       "https://www.youtube.com/watch?v=xwhHPCaEC2c",
@@ -1197,7 +1204,7 @@
       "https://www.youtube.com/watch?v=4GM9BqVC8Bg",
       "https://www.youtube.com/watch?v=cfpLpKF32IE"
     ],
-    "ranking": 16,
+    "ranking": 17,
     "country_code": "DK"
   },
   "Romain Ruiz": {
@@ -1213,7 +1220,7 @@
       "https://www.youtube.com/watch?v=YPviOyk5dO0",
       "https://www.youtube.com/watch?v=CTEAmlCM6tY"
     ],
-    "ranking": 271,
+    "ranking": 287,
     "country_code": "FR"
   },
   "Steffen Mengel": {
@@ -1229,7 +1236,7 @@
       "https://www.youtube.com/watch?v=q7yVdX8FAyE",
       "https://www.youtube.com/watch?v=4__rqwKmCJs"
     ],
-    "ranking": 126,
+    "ranking": 139,
     "country_code": "DE"
   },
   "Mattias Falck": {
@@ -1262,7 +1269,7 @@
       "https://www.youtube.com/watch?v=_8vFgVY3x-Q",
       "https://www.youtube.com/watch?v=YFI_3Q70Pjc"
     ],
-    "ranking": 264,
+    "ranking": 280,
     "country_code": "FR"
   },
   "Kay Stumper": {
@@ -1279,7 +1286,7 @@
       "https://www.youtube.com/watch?v=NRuiaUEQY0w",
       "https://www.youtube.com/watch?v=wVzFtETGy7o"
     ],
-    "ranking": 104,
+    "ranking": 114,
     "country_code": "DE"
   },
   "Yuto Muramatsu": {
@@ -1295,7 +1302,7 @@
       "https://www.youtube.com/watch?v=k7to-R-trgk",
       "https://www.youtube.com/watch?v=BLOrD4xgMAs"
     ],
-    "ranking": 304,
+    "ranking": 324,
     "country_code": "JP"
   },
   "Borgar Haug": {
@@ -1312,7 +1319,7 @@
       "https://www.youtube.com/watch?v=NWxhTOa_cy4",
       "https://www.youtube.com/watch?v=0-ozmr8Lky4"
     ],
-    "ranking": 148,
+    "ranking": 162,
     "country_code": "NO"
   },
   "Emanuel Otalvaro": {
@@ -1329,7 +1336,7 @@
       "https://www.youtube.com/watch?v=MZfZGcTAeHg",
       "https://www.youtube.com/watch?v=zCHHJjLgcPw"
     ],
-    "ranking": 154,
+    "ranking": 171,
     "country_code": "CO"
   },
   "Csaba Andras": {
@@ -1348,7 +1355,7 @@
       "https://www.youtube.com/watch?v=dqgupXx-P5I",
       "https://www.youtube.com/watch?v=JSad7iibvdE"
     ],
-    "ranking": 80,
+    "ranking": 75,
     "country_code": "HU"
   },
   "Ruwen Filus": {
@@ -1365,7 +1372,7 @@
       "https://www.youtube.com/watch?v=qqEZh_uQOkw",
       "https://www.youtube.com/watch?v=CiP62KBU980"
     ],
-    "ranking": 459,
+    "ranking": 478,
     "country_code": "DE"
   },
   "Damian Floro": {
@@ -1415,7 +1422,7 @@
       "https://www.youtube.com/watch?v=9O7qJcO7S3s",
       "https://www.youtube.com/watch?v=Oo8PEDtD8RQ"
     ],
-    "ranking": 153,
+    "ranking": 123,
     "country_code": "RO"
   },
   "Fanbo Meng": {
@@ -1432,7 +1439,7 @@
       "https://www.youtube.com/watch?v=1EPfMPN5RuE",
       "https://www.youtube.com/watch?v=T3sRodtjrTc"
     ],
-    "ranking": 179,
+    "ranking": 193,
     "country_code": "DE"
   },
   "Martin Allegro": {
@@ -1450,7 +1457,7 @@
       "https://www.youtube.com/watch?v=y6XRM3UrPlA",
       "https://www.youtube.com/watch?v=MDKPFNTWY0s"
     ],
-    "ranking": 120,
+    "ranking": 105,
     "country_code": "BE"
   },
   "Andre Bertelsmeier": {
@@ -1467,7 +1474,7 @@
       "https://www.youtube.com/watch?v=eZiNISlbRQk",
       "https://www.youtube.com/watch?v=pEHh69tOreI"
     ],
-    "ranking": 68,
+    "ranking": 73,
     "country_code": "DE"
   },
   "Kalinikos Kreanga": {
