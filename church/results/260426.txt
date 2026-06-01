@@ -12,5 +12,5 @@ Jiho, Leo, 2:1
 Jiho, David Kang, 2:0
 David Yang, Joshua Lee, 1:0
 David Yang, Jewoo, 1:0
-David Yang, Branden, 0:1
-Jewoo, Branden, 0:1
+David Yang, Brandon, 0:1
+Jewoo, Brandon, 0:1
