@@ -654,7 +654,7 @@
     },
     "forehand": "Nittaku/G-1",
     "backhand": "Nittaku/G-1",
-    "ranking": 136,
+    "ranking": 137,
     "youtubes": [
       "https://www.youtube.com/watch?v=N2S47zfx7Vo",
       "https://www.youtube.com/watch?v=TL6fmgxJMgw",
@@ -922,7 +922,7 @@
     },
     "forehand": "DHS/H3 Neo",
     "backhand": "DHS/H3 Neo",
-    "ranking": 83,
+    "ranking": 84,
     "youtubes": [
       "https://www.youtube.com/watch?v=1YzapPOGTfE",
       "https://www.youtube.com/watch?v=pQRpkpEzrNQ"
@@ -1016,8 +1016,9 @@
     },
     "forehand": "",
     "backhand": "Butterfly/Dignics 09C",
-    "ranking": 105,
+    "ranking": 106,
     "youtubes": [
+      "https://www.youtube.com/watch?v=jJjlwgZWC80",
       "https://www.youtube.com/watch?v=r-oTYsXhWHU",
       "https://www.youtube.com/watch?v=jp3ZksvoLTk",
       "https://www.youtube.com/watch?v=MSqJFgI8qFM",
@@ -1077,8 +1078,9 @@
     },
     "forehand": "Butterfly/Tenergy 05H",
     "backhand": "Butterfly/Tenergy 05H",
-    "ranking": 240,
+    "ranking": 241,
     "youtubes": [
+      "https://www.youtube.com/watch?v=ygQFb87YHfQ",
       "https://www.youtube.com/watch?v=JV9STdA8dWE",
       "https://www.youtube.com/watch?v=JpRulCM8-ZM",
       "https://www.youtube.com/watch?v=UVVy0yMZDd8",
@@ -1096,7 +1098,7 @@
     },
     "forehand": "JOOLA/Dynaryz ZGX",
     "backhand": "JOOLA/Dynaryz ZGX",
-    "ranking": 118,
+    "ranking": 119,
     "youtubes": [
       "https://www.youtube.com/watch?v=vYO-9n1zy5U",
       "https://www.youtube.com/watch?v=_EYwpBUYap0",
@@ -1114,10 +1116,11 @@
     "forehand": "Yasaka/Rakza 7",
     "backhand": "Yasaka/Rakza 7",
     "youtubes": [
+      "https://www.youtube.com/watch?v=SsVMFrUUv1M",
       "https://www.youtube.com/watch?v=vUTVygcMnUE",
       "https://www.youtube.com/watch?v=hfnAnKSLj9U"
     ],
-    "ranking": 203,
+    "ranking": 159,
     "country_code": "JP"
   },
   "Vladimir SIDORENKO": {
@@ -1242,7 +1245,7 @@
       "https://www.youtube.com/watch?v=YPviOyk5dO0",
       "https://www.youtube.com/watch?v=CTEAmlCM6tY"
     ],
-    "ranking": 293,
+    "ranking": 295,
     "country_code": "FR"
   },
   "Steffen Mengel": {
@@ -1258,7 +1261,7 @@
       "https://www.youtube.com/watch?v=q7yVdX8FAyE",
       "https://www.youtube.com/watch?v=4__rqwKmCJs"
     ],
-    "ranking": 140,
+    "ranking": 141,
     "country_code": "DE"
   },
   "Mattias Falck": {
@@ -1291,7 +1294,7 @@
       "https://www.youtube.com/watch?v=_8vFgVY3x-Q",
       "https://www.youtube.com/watch?v=YFI_3Q70Pjc"
     ],
-    "ranking": 286,
+    "ranking": 289,
     "country_code": "FR"
   },
   "Kay Stumper": {
@@ -1308,7 +1311,7 @@
       "https://www.youtube.com/watch?v=NRuiaUEQY0w",
       "https://www.youtube.com/watch?v=wVzFtETGy7o"
     ],
-    "ranking": 115,
+    "ranking": 116,
     "country_code": "DE"
   },
   "Yuto Muramatsu": {
@@ -1324,7 +1327,7 @@
       "https://www.youtube.com/watch?v=k7to-R-trgk",
       "https://www.youtube.com/watch?v=BLOrD4xgMAs"
     ],
-    "ranking": 328,
+    "ranking": 329,
     "country_code": "JP"
   },
   "Borgar Haug": {
@@ -1341,7 +1344,7 @@
       "https://www.youtube.com/watch?v=NWxhTOa_cy4",
       "https://www.youtube.com/watch?v=0-ozmr8Lky4"
     ],
-    "ranking": 177,
+    "ranking": 178,
     "country_code": "NO"
   },
   "Emanuel Otalvaro": {
@@ -1358,7 +1361,7 @@
       "https://www.youtube.com/watch?v=MZfZGcTAeHg",
       "https://www.youtube.com/watch?v=zCHHJjLgcPw"
     ],
-    "ranking": 169,
+    "ranking": 170,
     "country_code": "CO"
   },
   "Csaba Andras": {
@@ -1394,7 +1397,7 @@
       "https://www.youtube.com/watch?v=qqEZh_uQOkw",
       "https://www.youtube.com/watch?v=CiP62KBU980"
     ],
-    "ranking": 482,
+    "ranking": 485,
     "country_code": "DE"
   },
   "Damian Floro": {
@@ -1410,7 +1413,8 @@
       "https://www.youtube.com/watch?v=k0ho0mHt2QQ",
       "https://www.youtube.com/watch?v=lTmyWymDT5s"
     ],
-    "country_code": "RO"
+    "country_code": "RO",
+    "ranking": 419
   },
   "Yongyin Li": {
     "full_name": "Yongyin Li",
@@ -1444,7 +1448,7 @@
       "https://www.youtube.com/watch?v=9O7qJcO7S3s",
       "https://www.youtube.com/watch?v=Oo8PEDtD8RQ"
     ],
-    "ranking": 124,
+    "ranking": 125,
     "country_code": "RO"
   },
   "Fanbo Meng": {
@@ -1461,7 +1465,7 @@
       "https://www.youtube.com/watch?v=1EPfMPN5RuE",
       "https://www.youtube.com/watch?v=T3sRodtjrTc"
     ],
-    "ranking": 197,
+    "ranking": 199,
     "country_code": "DE"
   },
   "Martin Allegro": {
@@ -1479,7 +1483,7 @@
       "https://www.youtube.com/watch?v=y6XRM3UrPlA",
       "https://www.youtube.com/watch?v=MDKPFNTWY0s"
     ],
-    "ranking": 121,
+    "ranking": 122,
     "country_code": "BE"
   },
   "Andre Bertelsmeier": {
