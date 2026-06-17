@@ -52,7 +52,7 @@
       "discount": "-12%"
     },
     "ko": {
-      "regular": "50.0",
+      "regular": "51.0",
       "sale": "",
       "discount": ""
     },
@@ -61,5 +61,15 @@
       "sale": "$57.19",
       "discount": "-12%"
     }
-  }
+  },
+  "price_history": [
+    {
+      "date": "2026-06-10",
+      "ko": {
+        "regular": "50.0",
+        "sale": "",
+        "discount": ""
+      }
+    }
+  ]
 }
