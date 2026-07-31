@@ -40,8 +40,8 @@
   "price": {
     "en": {
       "regular": "$79.95",
-      "sale": "$72.95",
-      "discount": "-9%"
+      "sale": "",
+      "discount": ""
     },
     "ko": {
       "regular": "$79.95",
@@ -50,8 +50,8 @@
     },
     "cn": {
       "regular": "$79.95",
-      "sale": "$72.95",
-      "discount": "-9%"
+      "sale": "",
+      "discount": ""
     }
   },
   "price_history": [
@@ -66,6 +66,19 @@
         "regular": "$79.95",
         "sale": "$71.95",
         "discount": "-10%"
+      }
+    },
+    {
+      "date": "2026-07-16",
+      "en": {
+        "regular": "$79.95",
+        "sale": "$72.95",
+        "discount": "-9%"
+      },
+      "cn": {
+        "regular": "$79.95",
+        "sale": "$72.95",
+        "discount": "-9%"
       }
     }
   ]
