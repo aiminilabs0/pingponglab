@@ -63,5 +63,33 @@
       "sale": "",
       "discount": ""
     }
-  }
+  },
+  "price_history": [
+    {
+      "date": "2026-08-17",
+      "en": {
+        "regular": "$59.95",
+        "sale": "",
+        "discount": ""
+      },
+      "cn": {
+        "regular": "$59.95",
+        "sale": "",
+        "discount": ""
+      }
+    },
+    {
+      "date": "2026-08-24",
+      "en": {
+        "regular": "$59.95",
+        "sale": "$47.95",
+        "discount": "-20%"
+      },
+      "cn": {
+        "regular": "$59.95",
+        "sale": "$47.95",
+        "discount": "-20%"
+      }
+    }
+  ]
 }
