@@ -1436,6 +1436,17 @@ function formatDropDate(dateStr) {
     } catch { return dateStr; }
 }
 
+function getRubberProductUrl(rubber) {
+    if (!rubber?.urls) return '';
+    const countryUrls = rubber.urls[selectedCountry] || {};
+    let productUrl = countryUrls.product || '';
+    if (!productUrl && selectedCountry !== 'en') {
+        productUrl = (rubber.urls.en || {}).product || '';
+    }
+    if (typeof getProductStoreMeta !== 'function') return productUrl;
+    return getProductStoreMeta(productUrl)?.url || '';
+}
+
 function initPriceDropTicker() {
     const ticker = document.getElementById('priceDropTicker');
     if (!ticker) return;
@@ -1456,14 +1467,20 @@ function initPriceDropTicker() {
         const newP = escapeHtml(d.newPrice);
         const pct = escapeHtml(`${Math.abs(d.pctChange).toFixed(1)}%`);
         const date = escapeHtml(formatDropDate(d.date));
-        return `<div class="price-drop-item${i === 0 ? ' is-active' : ''}" data-drop-index="${i}" role="button" tabindex="0">`
+        const buyUrl = getRubberProductUrl(d.rubber);
+        const rubberName = d.rubber.name || d.rubber.abbr || '';
+        const tag = buyUrl ? 'a' : 'div';
+        const buyAttrs = buyUrl
+            ? ` href="${escapeHtml(buyUrl)}" target="_blank" rel="noopener" data-rubber-name="${escapeHtml(rubberName)}" title="${escapeHtml(`Buy ${rubberName}`)}"`
+            : ' role="button" tabindex="0"';
+        return `<${tag} class="price-drop-item${buyUrl ? ' price-drop-buy' : ''}${i === 0 ? ' is-active' : ''}" data-drop-index="${i}"${buyAttrs}>`
              + `<span class="price-drop-name">${name}</span>`
              + `<span class="price-drop-details">`
              +   `<span class="price-drop-arrow price-drop-arrow--mobile" aria-hidden="true">▼</span>`
              +   `<span class="price-drop-prices"><span class="price-drop-new">${newP}</span> <span class="price-drop-pct">(<span class="price-drop-arrow price-drop-arrow--inline">▼</span>${pct})</span></span>`
              +   `<span class="price-drop-date">${date}</span>`
              + `</span>`
-             + `</div>`;
+             + `</${tag}>`;
     }).join('');
 
     let idx = 0;
@@ -1552,10 +1569,23 @@ function initPriceDropTicker() {
     });
     ticker.addEventListener('click', (e) => {
         const drop = dropFromEvent(e);
-        if (drop) openPopup(drop.rubber);
+        if (!drop) return;
+        const buyLink = e.target.closest('.price-drop-buy');
+        if (buyLink && ticker.contains(buyLink) && typeof trackBuyClickEvent === 'function') {
+            trackBuyClickEvent(buyLink.dataset.rubberName || '');
+        }
+        openPopup(drop.rubber);
     });
     ticker.addEventListener('keydown', (e) => {
         if (e.key !== 'Enter' && e.key !== ' ') return;
+        const buyLink = e.target.closest('.price-drop-buy');
+        if (buyLink && ticker.contains(buyLink)) {
+            if (e.key === ' ') {
+                e.preventDefault();
+                buyLink.click();
+            }
+            return;
+        }
         const drop = dropFromEvent(e);
         if (drop) { e.preventDefault(); openPopup(drop.rubber); }
     });

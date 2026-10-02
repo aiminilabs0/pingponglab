@@ -233,6 +233,10 @@
     display: flex;
     animation: price-drop-fadein 0.4s ease;
 }
+a.price-drop-item {
+    text-decoration: none;
+    color: inherit;
+}
 .price-drop-item:hover,
 .price-drop-item.is-hover {
     background: rgba(255, 255, 255, 0.08);
